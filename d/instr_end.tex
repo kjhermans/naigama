@@ -1,0 +1,53 @@
+\subsection{Instruction: end}
+
+\subsubsection{Summary}
+
+\subsubsection{Grammar and Compiling}
+
+\subsubsection{Assembly Syntax}
+
+\begin{myquote}
+\begin{verbatim}
+
+\end{verbatim}
+\end{myquote}
+\subsubsection{Bytecode Encoding}
+
+This instruction is structured in bytecode as follows:
+
+%DEADBEEF
+$_0$\ 
+\fbox{%
+  \parbox{20pt}{%
+00
+  }%
+}
+\fbox{%
+  \parbox{20pt}{%
+04
+  }%
+}
+\fbox{%
+  \parbox{20pt}{%
+03
+  }%
+}
+\fbox{%
+  \parbox{20pt}{%
+0a
+  }%
+}
+
+%DEADBEEF
+\subsubsection{Execution State Change}
+
+.
+
+Original state: \textit{(p, i, e, c)}
+
+Operation: \textbf{any} ; i \ \textless \ $\vert$S$\vert$
+
+Failure state: \textit{(\textbf{Fail}, i, e, c)}
+
+Success state: \textit{(p + 1, i + 1, e, c)}
+

@@ -1,0 +1,44 @@
+\section{Executables}
+
+\subsection{The Compiler}
+
+The Naigama grammar compiler is called 'naic'.
+It takes a grammar file as input, and outputs assembly text.
+It can be invoked as follows:
+
+\begin{myquote}
+\begin{verbatim}
+$ naic -i myfile.niag -o myfile.asm
+
+\end{verbatim}
+\end{myquote}
+\textit{Example of the invocation of the Naigama grammar compiler}
+
+\subsection{The Assembler}
+
+The Naigama grammar assember is called 'naia'.
+It takes an assembly file as input, and outputs bytecode.
+It can be invoked as follows:
+
+\begin{myquote}
+\begin{verbatim}
+$ naia -i myfile.asm -o myfile.byc
+
+\end{verbatim}
+\end{myquote}
+\textit{Example of the invocation of the Naigama assembler}
+
+\subsection{The Engine}
+
+The Naigama bytecode execution engine is called 'naie'.
+It takes a bytecode file as input, as well as an input file.
+It can be invoked as follows:
+
+\begin{myquote}
+\begin{verbatim}
+$ naie -b myfile.byc -d myfile.dat -o myfile.out
+
+\end{verbatim}
+\end{myquote}
+\textit{Example of the invocation of the Naigama engine}
+

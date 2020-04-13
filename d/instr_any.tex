@@ -1,0 +1,63 @@
+\subsection{Instruction: any}
+
+\subsubsection{Summary}
+
+The 'any' instruction checks to see if there is a character of input
+left to consume, and consumes it if there is. Otherwise it causes a failure.
+
+\subsubsection{Grammar and Compiling}
+
+The '.' (dot) matcher used in grammar, like in regular expressions
+\cite{bib:regex}, means 'match any character'. In Perl \cite{bib:perl}
+a modifier has to be added to make it include matching of newlines.
+In Naigama, 'any character' is confined to 8-bit characters (bytes).
+
+\subsubsection{Assembly Syntax}
+
+\begin{myquote}
+\begin{verbatim}
+ANYINSTR <- 'any'
+
+\end{verbatim}
+\end{myquote}
+
+\subsubsection{Bytecode Encoding}
+
+This instruction is structured in bytecode as follows:
+
+%DEADBEEF
+$_0$\ 
+\fbox{%
+  \parbox{20pt}{%
+00
+  }%
+}
+\fbox{%
+  \parbox{20pt}{%
+00
+  }%
+}
+\fbox{%
+  \parbox{20pt}{%
+05
+  }%
+}
+\fbox{%
+  \parbox{20pt}{%
+03
+  }%
+}
+
+%DEADBEEF
+\subsubsection{Execution State Change}
+
+.
+
+Original state: \textit{(p, i, e, c)}
+
+Operation: \textbf{any} ; i \ \textless \ $\vert$S$\vert$
+
+Failure state: \textit{(\textbf{Fail}, i, e, c)}
+
+Success state: \textit{(p + 1, i + 1, e, c)}
+

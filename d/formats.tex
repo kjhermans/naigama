@@ -1,0 +1,113 @@
+\section{Binary Formats}
+
+This section describes the formats used by the Naigama tooling, other than
+the ones described in the sections on grammar, assembly and bytecode.
+
+\subsection{Slotmap Format}
+
+The slotmap file exists to help developers by easing access to
+captures in complex grammars.
+
+The Naigama grammar compiler can be instructed to emit a slotmap file.
+This is a file which maps a unique name to a capture region's index.
+This is provided so that, instead of using the index of capture region
+(which requires hand counting them in your grammar file, which can be
+tedious and error-prone, and something that would not survive
+a grammar reshuffle, or the introduction of a capture region before
+the one you're interested in), you can use a naming scheme for your
+capture regions.
+
+Names in the slotmap file are bound semantically to the capture region:
+they are made up of the name of the rule,
+an underscore, and all alphabetic characters in the capture region,
+cast to uppercase. Should any name occur twice, it will be postfixed with
+a counter until it's unique.
+
+For example, the following rule with capture region definition:
+
+\begin{myquote}
+\begin{verbatim}
+RULE <- { IDENT } OPTARGS LEFTARROW EXPRESSION
+\end{verbatim}
+\end{myquote}
+
+will result in slotmap identifier 'RULE\_IDENT'.
+
+The binary format of a slotmap file is composed as a sequence of records:
+the slot index, denoted as a 32 bit network order unsigned integer, a
+field of 32 bit all ones, and the slot name, denoted as a zero-terminated
+string.
+
+\begin{myquote}
+\begin{verbatim}
+00 00 00 00 ff ff ff ff 52 55 4c 45 5f 49 44 45  ........RULE_IDE
+4e 54 00 00 00 00 01 ff ff ff ff 45 58 50 52 45  NT.........EXPRE
+53 53 49 4f 4e 5f 54 45 52 4d 53 00 00 00 00 02  SSION_TERMS.....
+ff ff ff ff 45 58 50 52 45 53 53 49 4f 4e 5f 54  ....EXPRESSION_T
+45 52 4d 53 5f 31 00 00 00 00 03 ff ff ff ff 45  ERMS_1.........E
+58 50 52 45 53 53 49 4f 4e 5f 54 45 52 4d 53 5f  XPRESSION_TERMS_
+32 00 00 00 00 04 ff ff ff ff 54 45 52 4d 53 5f  2.........TERMS_
+54 45 52 4d 00 00 00 00 05 ff ff ff ff 54 45 52  TERM.........TER
+4d 5f 4e 4f 54 41 4e 44 00 00 00 00 06 ff ff ff  M_NOTAND........
+
+\end{verbatim}
+\end{myquote}
+\textit{Example of the head of a slotmap file, hex dumped}
+
+\subsection{Labelmap Format}
+
+Section still to be written.
+
+\subsection{Engine Output Format}
+
+The Naigama bytecode execution engine, naie, produces, on success, output for
+digital processing, in the form of a binary table, which is structured
+as follows:
+
+\begin{itemize}
+
+\item Each record is four 32 bit integers, in network order.
+
+\item The first record contains the end code of the matching process.
+This is the same code as was given as a parameter to the 'end'
+instruction that resulted in the execution finishing. This is the
+first field, by default it is zero.
+The second field contains the amount of subsequent records.
+
+\item Subsequent records have as fields, either:
+
+\begin{itemize}
+\item Type, slot, start, stop (when of 'capture' type), or:
+\item Type, zero, start, length (when of 'replace' type).
+\end{itemize}
+
+\end{itemize}
+
+Bear in mind the following:
+
+\begin{itemize}
+\item 'Capture' type is denoted as 1, 'Replace' as 3.
+\item Offsets and lengths of captures refer to the input buffer.
+\item Offsets and lengths of replacements refer to the bytecode.
+\end{itemize}
+
+\begin{myquote}
+\begin{verbatim}
+00 00 00 00 00 00 03 64 00 00 00 00 00 00 00 00  .......d........
+00 00 00 01 00 00 00 00 00 00 00 1c 00 00 00 23  ...............#
+00 00 00 01 00 00 00 03 00 00 00 32 00 00 00 59  ...........2...Y
+00 00 00 01 00 00 00 04 00 00 00 32 00 00 00 55  ...........2...U
+00 00 00 01 00 00 00 14 00 00 00 32 00 00 00 55  ...........2...U
+00 00 00 01 00 00 00 02 00 00 00 34 00 00 00 3f  ...........4...?
+00 00 00 01 00 00 00 04 00 00 00 34 00 00 00 3f  ...........4...?
+00 00 00 01 00 00 00 17 00 00 00 34 00 00 00 3e  ...........4...>
+00 00 00 01 00 00 00 06 00 00 00 3e 00 00 00 3f  ...........>...?
+00 00 00 01 00 00 00 03 00 00 00 42 00 00 00 53  ...........B...S
+00 00 00 01 00 00 00 04 00 00 00 42 00 00 00 53  ...........B...S
+00 00 00 01 00 00 00 17 00 00 00 42 00 00 00 53  ...........B...S
+
+\end{verbatim}
+\end{myquote}
+\textit{Example of the head of engine output with a zero end code
+and 868 matches (all captures), hex dumped}
+

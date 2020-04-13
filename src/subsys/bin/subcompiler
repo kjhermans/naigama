@@ -1,0 +1,223 @@
+#!/usr/bin/perl
+
+## Program takes as input Naigama assembly, and outputs Naigama subassembly
+
+my $inputfile = shift @ARGV;
+my $outputfile = shift @ARGV;
+
+my ($in, $out);
+
+if ($inputfile eq '-') {
+  $in = *STDIN;
+} else {
+  open $in, '<', $inputfile || die "Could not open $inputfile";
+}
+
+if (!defined($outputfile)) {
+  $outputfile = '-';
+}
+if ($outputfile eq '-') {
+  $out = *STDOUT;
+} else {
+  open $out, '>', $outputfile || die "Could not open $outputfile";
+}
+
+my $input = do { local $/; <$in> };
+
+print $out "-- Generated at " . localtime() . "
+
+  JUMP <#L3>
+#failtwice:
+#L4:
+  FAIL RAISE, end
+  POP REG1
+  FAIL JUMP, <#L5>
+  CMP REG1, 3
+  JUMP <#L6>
+#L5:
+  FAIL RAISE, fatal
+  CMP REG1, 1
+  POP REG1
+  JUMP <#L4>
+#L6:
+#fail:
+#L1:
+  FAIL RAISE, end
+  POP REG1
+  FAIL JUMP, <#L2>
+  CMP REG1, 3
+  POP REG1
+  POP REG2
+  POP REG3
+  ASSIGN actionlen, REG2
+  ASSIGN inputpos, REG3
+  JUMPREF REG1
+#L2:
+  FAIL RAISE, fatal
+  CMP REG1, 1
+  POP REG1
+  JUMP <#L1>
+#L3:
+";
+
+my $ident='[a-zA-Z0-9_]+';
+my $S='\\s+';
+my $number='[0-9]+';
+my $eos='(\\s+|$)';
+my $hex='[0-9A-Fa-f]{2}';
+my $set='[0-9A-Fa-f]{64}';
+
+while (length($input)) {
+  while ($input =~ s/^(\s+|--[^\n]*\n)//) { }
+  if ($input =~ s/^($ident)://) {
+    print $out "$1:\n";
+
+  } elsif ($input =~ s/^noop$eos//) {
+    print $out "  NOOP\n";
+
+  } elsif ($input =~ s/^call$S($ident)$eos//) {
+    print $out
+"  ADD REG1, codeptr, 44
+  PUSH REG1
+  PUSHLIT 1
+  JUMP <$1>
+";
+
+  } elsif ($input =~ s/^ret(\s+|$)//) {
+    print $out
+"  POP REG1
+  FAIL RAISE, fatal
+  CMP REG1, 1
+  POP REG1
+  JUMPREF REG1
+";
+
+  } elsif ($input =~ s/^jump$S($ident)$eos//) {
+    print "  JUMP <$1>\n";
+
+  } elsif ($input =~ s/^end($S($number))?$eos//) {
+print $out
+"  ASSIGN REG0, " . int($2) . "
+  RAISE end
+";
+
+  } elsif ($input =~ s/^counter$S($number)$S($number)$eos//) {
+
+  } elsif ($input =~ s/^condjump$S($number)$S($ident)$eos//) {
+
+  } elsif ($input =~ s/^any$eos//) {
+    print $out
+"  FAIL JUMP, <#fail>
+  LT inputpos, inputlen
+  INC inputpos, 1
+";
+
+  } elsif ($input =~ s/^testany$S($ident)$eos//) {
+
+  } elsif ($input =~ s/^char$S($hex)$eos//) {
+    print $out
+"  FAIL JUMP, <#fail>
+  LT inputpos, inputlen
+  CMP inputchar, $1
+  INC inputpos, 1
+";
+
+  } elsif ($input =~ s/^maskedchar$S($hex)$S($hex)$eos//) {
+
+  } elsif ($input =~ s/^testchar$S($hex)$S($ident)$eos//) {
+
+  } elsif ($input =~ s/^quad$S($hex$hex$hex$hex)$eos//) {
+
+  } elsif ($input =~ s/^testquad$S($hex$hex$hex$hex)$S($ident)$eos//) {
+
+  } elsif ($input =~ s/^catch$S($ident)$eos//) {
+    print $out
+"  PUSH inputpos
+  PUSH actionlen
+  PUSHLIT <$1>
+  PUSHLIT 3
+";
+
+  } elsif ($input =~ s/^partialcommit$S($ident)$eos//) {
+    print $out
+"  FAIL RAISE, fatal
+  POP REG1
+  CMP REG1, 3
+  POP REG1
+  POP REG2
+  POP REG3
+  ASSIGN REG3, inputpos
+  PUSH REG3
+  PUSH REG2
+  PUSH REG1
+  PUSHLIT 3
+  JUMP <$1>
+";
+
+  } elsif ($input =~ s/^backcommit$S($ident)$eos//) {
+    print $out
+"  POP REG1
+  FAIL RAISE, fatal
+  CMP REG1, 3
+  POP REG1
+  POP REG2
+  POP REG3
+  ASSIGN actionlen, REG2
+  ASSIGN inputpos, REG3
+  JUMP <$1>
+";
+
+  } elsif ($input =~ s/^commit$S($ident)$eos//) {
+    print $out
+"  POP REG1
+  FAIL RAISE, fatal
+  CMP REG1, 3
+  POP REG1
+  POP REG1
+  POP REG1
+  JUMP <$1>
+";
+
+  } elsif ($input =~ s/^ret$eos//) {
+    print $out
+"  POP REG1
+  FAIL RAISE, fatal
+  CMP REG1, 1
+  POP REG1
+  JUMPREF REG1
+";
+
+  } elsif ($input =~ s/^set$S($set)$eos//) {
+    print $out
+"  FAIL JUMP, <#fail>
+  LT inputpos, inputlen
+  ASSIGN REG1, " . substr($1, 0, 8) . "
+  ASSIGN REG2, " . substr($1, 8, 8) . "
+  ASSIGN REG3, " . substr($1, 16, 8) . "
+  ASSIGN REG4, " . substr($1, 24, 8) . "
+  BITSET REG1, inputchar
+  INC inputpos, 1
+";
+
+  } elsif ($input =~ s/^failtwice$eos//) {
+    print $out "  JUMP <#failtwice>\n";
+
+  } elsif ($input =~ s/^fail$eos//) {
+    print $out "  JUMP <#fail>\n";
+
+  } elsif ($input =~ s/^opencapture$S($number)$eos//) {
+    print $out
+"  ACTPUSH $1
+  ACTPUSH 9
+";
+
+  } elsif ($input =~ s/^closecapture$S($number)$S($number)$eos//) {
+    print $out
+"  ACTPUSH $1
+  ACTPUSH 7
+";
+
+  }
+}
+
+1;

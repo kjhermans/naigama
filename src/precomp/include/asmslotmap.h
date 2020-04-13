@@ -1,0 +1,79 @@
+#define ASMSLOTMAP_SWITCH \
+  case 0: return "INSTRUCTION_ANYINSTRBACKCOMMITIN"; break; \
+  case 1: return "ANYINSTR_ANY"; break; \
+  case 2: return "BACKCOMMITINSTR_BACKCOMMIT"; break; \
+  case 3: return "CALLINSTR_CALL"; break; \
+  case 4: return "CATCHINSTR_CATCH"; break; \
+  case 5: return "CHARINSTR_CHAR"; break; \
+  case 6: return "MASKEDCHARINSTR_MASKEDCHAR"; break; \
+  case 7: return "CLOSECAPTUREINSTR_CLOSECAPTURE"; break; \
+  case 8: return "COMMITINSTR_COMMIT"; break; \
+  case 9: return "ENDINSTR_END"; break; \
+  case 10: return "FAILINSTR_FAIL"; break; \
+  case 11: return "FAILTWICEINSTR_FAILTWICE"; break; \
+  case 12: return "JUMPINSTR_JUMP"; break; \
+  case 13: return "NOOPINSTR_NOOP"; break; \
+  case 14: return "OPENCAPTUREINSTR_OPENCAPTURE"; break; \
+  case 15: return "PARTIALCOMMITINSTR_PARTIALCOMMIT"; break; \
+  case 16: return "QUADINSTR_QUAD"; break; \
+  case 17: return "REPLACEINSTR_REPLACE"; break; \
+  case 18: return "REPLACESTRINGINSTR_REPLACESTRING"; break; \
+  case 19: return "RETINSTR_RET"; break; \
+  case 20: return "SETINSTR_SET"; break; \
+  case 21: return "RANGEINSTR_RANGE"; break; \
+  case 22: return "SKIPINSTR_SKIP"; break; \
+  case 23: return "SPANINSTR_SPAN"; break; \
+  case 24: return "TESTANYINSTR_TESTANY"; break; \
+  case 25: return "TESTCHARINSTR_TESTCHAR"; break; \
+  case 26: return "TESTQUADINSTR_TESTQUAD"; break; \
+  case 27: return "TESTSETINSTR_TESTSET"; break; \
+  case 28: return "VARINSTR_VAR"; break; \
+  case 29: return "COUNTERINSTR_COUNTER"; break; \
+  case 30: return "CONDJUMPINSTR_CONDJUMP"; break; \
+  case 31: return "LABELDEF_LABEL"; break; \
+  case 32: return "HEXBYTE_AFAF"; break; \
+  case 33: return "LABEL_AZAZ"; break; \
+  case 34: return "NUMBER"; break; \
+  case 35: return "QUAD_AFAF"; break; \
+  case 36: return "SET_AFAF"; break; \
+  case 37: return "STRING"; break; \
+
+
+#define ASMSLOT_INSTRUCTION_ANYINSTRBACKCOMMITIN 0
+#define ASMSLOT_ANYINSTR_ANY 1
+#define ASMSLOT_BACKCOMMITINSTR_BACKCOMMIT 2
+#define ASMSLOT_CALLINSTR_CALL 3
+#define ASMSLOT_CATCHINSTR_CATCH 4
+#define ASMSLOT_CHARINSTR_CHAR 5
+#define ASMSLOT_MASKEDCHARINSTR_MASKEDCHAR 6
+#define ASMSLOT_CLOSECAPTUREINSTR_CLOSECAPTURE 7
+#define ASMSLOT_COMMITINSTR_COMMIT 8
+#define ASMSLOT_ENDINSTR_END 9
+#define ASMSLOT_FAILINSTR_FAIL 10
+#define ASMSLOT_FAILTWICEINSTR_FAILTWICE 11
+#define ASMSLOT_JUMPINSTR_JUMP 12
+#define ASMSLOT_NOOPINSTR_NOOP 13
+#define ASMSLOT_OPENCAPTUREINSTR_OPENCAPTURE 14
+#define ASMSLOT_PARTIALCOMMITINSTR_PARTIALCOMMIT 15
+#define ASMSLOT_QUADINSTR_QUAD 16
+#define ASMSLOT_REPLACEINSTR_REPLACE 17
+#define ASMSLOT_REPLACESTRINGINSTR_REPLACESTRING 18
+#define ASMSLOT_RETINSTR_RET 19
+#define ASMSLOT_SETINSTR_SET 20
+#define ASMSLOT_RANGEINSTR_RANGE 21
+#define ASMSLOT_SKIPINSTR_SKIP 22
+#define ASMSLOT_SPANINSTR_SPAN 23
+#define ASMSLOT_TESTANYINSTR_TESTANY 24
+#define ASMSLOT_TESTCHARINSTR_TESTCHAR 25
+#define ASMSLOT_TESTQUADINSTR_TESTQUAD 26
+#define ASMSLOT_TESTSETINSTR_TESTSET 27
+#define ASMSLOT_VARINSTR_VAR 28
+#define ASMSLOT_COUNTERINSTR_COUNTER 29
+#define ASMSLOT_CONDJUMPINSTR_CONDJUMP 30
+#define ASMSLOT_LABELDEF_LABEL 31
+#define ASMSLOT_HEXBYTE_AFAF 32
+#define ASMSLOT_LABEL_AZAZ 33
+#define ASMSLOT_NUMBER 34
+#define ASMSLOT_QUAD_AFAF 35
+#define ASMSLOT_SET_AFAF 36
+#define ASMSLOT_STRING 37

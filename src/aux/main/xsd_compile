@@ -1,0 +1,564 @@
+#!/usr/bin/perl
+
+use XML::LibXML;
+use XML::LibXML::Iterator;
+
+use Data::Dumper;
+
+$Data::Dumper::Indent = 1;
+
+my $inputfile = shift @ARGV || '-';
+my $outputfile = shift @ARGV || '-';
+
+my ($in, $out);
+
+if ($inputfile eq '-') {
+  $in = *STDIN;
+} else {
+  open $in, '<', $inputfile || die "Could not open $inputfile";
+}
+
+if ($outputfile eq '-') {
+  $out = *STDOUT;
+} else {
+  open $out, '>', $outputfile || die "Could not open $outputfile";
+}
+
+my $loaded;
+my $types;
+my $curdoc;
+my $output = '';
+
+my ($classes, $scalars, $objects);
+
+my $input = include_location($inputfile);
+my $doc = process($inputfile, $input);
+post_process();
+output();
+
+print $out "-- Created from $inputfile\n" .
+           "-- at " . localtime() . "\n" .
+           "-- by " . $ENV{USER} . " / xsd_compile\n" .
+           "\n" .
+           "ALL           <- SPACED_ALL END\n" .
+           "XMLCOMMENT    <- '<!--' XMLCMTCLOSE\n" .
+           "XMLCMTCLOSE   <- '-->' / . XMLCMTCLOSE\n" .
+           "S             <- \%s*\n" .
+           "__prefix      <- ( XMLCOMMENT / \%s+ )*\n" .
+           "SPACED_ALL    <-XMLHEADER? TOP\n" .
+           "END           <- !.\n" .
+           "XMLHEADER     <- '<?xml version=\"1.0\" encoding=\"UTF-8\"?>'\n" .
+           "STANDARDATTR  <- ATTR_XMLNSC / ATTR_XMLNS / ATTR_XSI\n" .
+           "ATTR_XMLNSC   <- '\"'? 'xmlns:' { [^\"=]+ } '\"'? ATTR_STRING\n" .
+           "ATTR_XMLNS    <- '\"'? 'xmlns' '\"'? ATTR_STRING\n" .
+           "ATTR_XSI      <- '\"'? 'xsi:' { [^\"=]+ } '\"'? ATTR_STRING\n" .
+           "ATTR_STRING   <- '=' S '\"' { [^\"]* } '\"'\n" .
+           "\n";
+
+print $out $output;
+
+exit 0;
+
+##----
+
+sub resolve
+{
+  my $location = shift;
+  print STDERR "Looking for $location\n";
+  my $result;
+  if (-f $location) {
+    $result = `cat $location`;
+##  } else ## something something URL's...
+  } elsif ($inputfile ne '-') {
+    my $path = "$inputfile";
+    $path =~ s/\/[^\/]+$/\/$location/;
+    if (-f $path) {
+      print STDERR "Importing $path\n";
+      $result = `cat $path`;
+    }
+  }
+  return $result;
+}
+
+sub process
+{
+  my ($location, $xml) = @_;
+  if (defined($loaded->{$location})) {
+    return;
+  }
+  my $xsd = XML::LibXML->load_xml( string => $xml )
+            || die "Could not parse XML from $location";
+  my $_doc = {
+    location => $location,
+    xsd => $xsd,
+  };
+  $loaded->{$location} = $_doc;
+  xsd($_doc);
+  return $_doc;
+}
+
+sub xsd
+{
+  my $doc = shift;
+  my $node = $doc->{xsd};
+  $curdoc = $doc;
+  die "Expected #document" if ($node->getName() ne '#document');
+  schema($doc);
+}
+
+sub schema
+{
+  my $doc = shift;
+  my $node = $doc->{xsd};
+  my $child = $node->firstChild();
+  while ($child) {
+    my $type = $child->getName();
+    if ($type =~ /^(xs:)?schema$/) {
+      $doc->{cur_schema} = $child;
+      schema_children($doc);
+    } elsif ($type =~ /^(xs:)?annotation$/) {
+      ##.. ignore
+    } elsif ($type eq '#comment') {
+      ##.. ignore
+    } else {
+      die "Unknown element name $type in schema";
+    }
+    $child = $child->nextSibling();
+  }
+}
+
+sub schema_children
+{
+  my $doc = shift;
+  my $node = $doc->{cur_schema};
+  my $child = $node->firstChild();
+  my @includes;
+  my @imports;
+  while ($child) {
+    my $childname = $child->getName();
+    if ($childname eq 'include') {
+      push @includes, $child->getAttribute('schemaLocation');
+    } elsif ($childname eq 'import') {
+      push @imports, $child->getAttribute('schemaLocation');
+    } elsif ($childname =~ /^(xs:)?complexType$/) {
+      add_class(complex_type($child));
+    } elsif ($childname =~ /^(xs:)?simpleType$/) {
+      add_scalar(simple_type($child));
+    } elsif ($childname =~ /^(xs:)?element$/) {
+      add_object(element($child));
+    } elsif ($childname =~ /^(xs:)?annotation$/) {
+      ##.. ignore
+    } elsif ($childname eq '#comment') {
+      ## ignore
+    } elsif ($childname eq '#text') {
+      ## ignore
+    } else {
+      die "Unknown element name " . $child->getName() . " in schema children";
+    }
+    $child = $child->nextSibling();
+  }
+  foreach my $include (@includes) { include_location($include); }
+  foreach my $import (@imports) { import_location($import); }
+}
+
+sub include_location
+{
+  my $location = shift;
+  my $str = resolve($location) || die "Could not include $location";
+  process($location, $str);
+}
+
+sub import_location
+{
+  my $location = shift;
+  my $str = resolve($location) || die "Could not import $location";
+  process($location, $str);
+}
+
+sub add_class
+{
+  my $class = shift;
+  $classes->{$class->{name}} = $class;
+}
+
+sub add_scalar
+{
+  my $scalar = shift;
+  $scalars->{$scalar->{name}} = $scalar;
+}
+
+sub add_object
+{
+  my $object = shift;
+  $objects->{$object->{name}} = $object;
+}
+
+sub complex_type
+{
+  my $node = shift;
+  my $result = { name => $node->getAttribute('name'), type => 'complex' };
+  if (!defined($result->{name})) {
+    $result->{name} = '__anon';
+  }
+  my $child = $node->firstChild();
+  while ($child) {
+    if ($child->getName() =~ /^(xs:)?sequence$/) {
+      $result->{members} = sequence($child);
+    } elsif ($child->getName() =~ /^(xs:)?attribute$/) {
+      push @{$result->{attributes}}, attribute($child);
+    } elsif ($child->getName() =~ /^(xs:)?simpleContent$/) {
+      $result->{simplecontent} = simple_content($child);
+      if ($result->{simplecontent}{extension}{attributes}) {
+        $result->{attributes} = $result->{simplecontent}{extension}{attributes};
+      }
+    }
+    $child = $child->nextSibling();
+  }
+  return $result;
+}
+
+sub simple_content
+{
+  my $node = shift;
+  my $result = {};
+  my $child = $node->firstChild();
+  while ($child) {
+    if ($child->getName() =~ /^(xs:)?extension$/) {
+      $result->{extension} = extension($child);
+    }
+    $child = $child->nextSibling();
+  }
+  return $result;
+}
+
+sub extension
+{
+  my $node = shift;
+  my $result = {};
+  if ($node->getAttribute('base')) {
+    $result = { base => $node->getAttribute('base') };
+  }
+  my $child = $node->firstChild();
+  while ($child) {
+    if ($child->getName() =~ /^(xs:)?attribute$/) {
+      push @{$result->{attributes}}, attribute($child);
+    }
+    $child = $child->nextSibling();
+  }
+  return $result;
+}
+
+sub simple_type
+{
+  my $node = shift;
+  my $result = { name => $node->getAttribute('name'), type => 'simple' };
+  if (!defined($result->{name})) {
+    $result->{name} = '__anon';
+  }
+  my $child = $node->firstChild();
+  while ($child) {
+    if ($child->getName() =~ /^(xs:)?restriction$/) {
+      $result->{value} = restriction($child);
+    }
+    $child = $child->nextSibling();
+  }
+  return $result;
+}
+
+sub restriction
+{
+  my $node = shift;
+  if ($node->getAttribute('base') eq 'token') {
+    return restriction_token($node);
+  } elsif ($node->getAttribute('base') eq 'string') {
+    return restriction_string($node);
+  }
+}
+
+sub restriction_token
+{
+  my $node = shift;
+  my $result = { type => 'enum' };
+  my $child = $node->firstChild();
+  while ($child) {
+    if ($child->getName() =~ /^(xs:)?enumeration$/) {
+      $result->{enum}{ $child->getAttribute('value') } = 1;
+    }
+    $child = $child->nextSibling();
+  }
+  return $result;
+}
+
+sub restriction_string
+{
+  my $node = shift;
+  my $result = { type => 'string' };
+##..
+  return $result;
+}
+
+sub sequence
+{
+  my $node = shift;
+  my $child = $node->firstChild();
+  my $result = {};
+  while ($child) {
+    if ($child->getName() =~ /^(xs:)?element$/) {
+      my $name = $child->getAttribute('name');
+      $result->{$name} = element($child);
+    }
+    $child = $child->nextSibling();
+  }
+  return $result;
+}
+
+sub element
+{
+  my $node = shift;
+  my $name = $node->getAttribute('name');
+  my $typename = $node->getAttribute('type');
+  if ($typename) {
+    return { name => $name, typename => $typename };
+  } else {
+    my $child = $node->firstChild();
+    while ($child) {
+      if ($child->getName() =~ /^(xs:)?complexType$/) {
+        my $result = complex_type($child);
+        $result->{name} = $name;
+        return $result;
+      } elsif ($child->getName() =~ /^(xs:)?simpleType$/) {
+        my $result = simple_type($child);
+        $result->{name} = $name;
+        return $result;
+      }
+      $child = $child->nextSibling();
+    }
+  }
+  die "Could not determine type of element $name";
+}
+
+sub attribute
+{
+  my $node = shift;
+  if (defined($node->getAttribute('type'))) {
+    return {
+      name => $node->getAttribute('name'),
+      type => $node->getAttribute('type')
+    };
+  } else {
+    return {
+      name => $node->getAttribute('name'),
+      type => 'string' ## Hack
+    };
+  }
+}
+
+##---- post processing; resolving yet unresolved types etc ------------------#
+
+sub post_process
+{
+  print STDERR "Post processing\n";
+  post_process_classes();
+  post_process_objects();
+}
+
+sub post_process_classes
+{
+  foreach my $class (sort values(%{$classes})) {
+    post_process_class($class);
+  }
+}
+
+sub post_process_class
+{
+  my $class = shift;
+  if ($class->{value}{type}{attributes}) {
+    $class->{attributes} = $class->{value}{type}{attributes};
+  }
+  if (defined($class->{simplecontent}{extension}{base})) {
+    post_process_inherit($class, $class->{simplecontent}{extension}{base});
+  }
+  if (!defined($class->{type})) {
+    if (defined($class->{typename})) {
+      print STDERR
+        "Resolving type $class->{typename} for class $class->{name}\n";
+      my $typename = $class->{typename};
+      $typename =~ s/^.*:([^:]+)$/$1/;
+      if ($classes->{$typename}) {
+        print STDERR "Resolved Ok\n";
+        $class->{type} = 'complex';
+        $class->{value}{type} = $classes->{$typename};
+        $class->{members} = $class->{value}{type}{members};
+        next;
+      } elsif ($scalars->{$typename}) {
+        print STDERR "Resolved Ok\n";
+        $class->{type} = 'simple';
+        $class->{value}{type} = $scalars->{$typename}{value}{type};
+        if (defined($scalars->{$typename}{value}{enum})) {
+          $class->{value}{enum} = $scalars->{$typename}{value}{enum};
+        }
+        next;
+      }
+    }
+  }
+  foreach my $member (sort values(%{$class->{members}})) {
+    post_process_object($member);
+  }
+}
+
+sub post_process_inherit
+{
+  my ($class, $supertype) = @_;
+  print STDERR "Class $class->{name} inherits $supertype\n";
+  $supertype =~ s/^.+:([^:]+)/$1/;
+  my $type = $classes->{$supertype}
+             || $objects->{$supertype}
+             || $scalars->{$supertype};
+  if (defined($type)) {
+    if ($type->{simplecontent}{extension}{base}) {
+      post_process_inherit($type, $type->{simplecontent}{extension}{base});
+    }
+if ($type->{name} eq 'EntityOID') { print STDERR "!!!\n" . Dumper $type; }
+if ($type->{name} eq 'JDSDDMMessageIDType') { print STDERR "!!!\n" . Dumper $type; }
+if ($type->{name} eq 'JDSSDMKeyType') { print STDERR "!!!\n" . Dumper $type; }
+    delete $class->{simplecontent}{extension}{base};
+    my $classcopy = eval(Dumper($class));
+    my $baseclass = eval(Dumper($type));
+    foreach my $membername (sort keys(%{$baseclass->{members}})) {
+      $class->{members}{$membername} = $baseclass->{members}{$membername};
+    }
+    foreach my $membername (sort keys(%{$classcopy->{members}})) {
+      $class->{members}{$membername} = $classcopy->{members}{$membername};
+    }
+    if (defined($baseclass->{value}{type}) && !defined($class->{value}{type})) {
+      $class->{value}{type} = $baseclass->{value}{type};
+    }
+    if ($class->{value}{type} eq 'enum') {
+      if (defined($baseclass->{value}{enum}) &&
+          !defined($class->{value}{enum}))
+      {
+        $class->{value}{enum} = $baseclass->{value}{enum};
+      }
+    }
+    if (scalar(@{$baseclass->{attributes}})) {
+      $class->{attributes} = $baseclass->{attributes};
+      push @{$class->{attributes}}, @{$classcopy->{attributes}};
+    }
+  } else {
+    die "Cannot resolve supertype $supertype";
+  }
+}
+
+sub post_process_objects
+{
+  foreach my $object (sort values(%{$objects})) {
+    print STDERR "Post processing Object $object->{name}\n";
+    post_process_object($object);
+  }
+}
+
+sub post_process_object
+{
+  my $object = shift;
+  post_process_class($object);
+}
+
+##---- output --------------------------------------------------------------##
+
+sub output
+{
+  $output .= "TOP <- " . join(' / ', keys(%{$objects})) . "\n";
+  foreach my $object (sort values(%{$objects})) {
+    output_object($object);
+  }
+}
+
+sub output_object
+{
+  my $object = shift;
+  my $sani = sanitize($object->{name});
+  $output .=
+    "$sani <- '<$object->{name}'\n" .
+    "    $sani" . "_attrs '>'\n" .
+    "    $sani" . "_content\n" .
+    "    $sani" . "_close\n" .
+    "$sani" . "_attrs <- ($sani" . "_attr)*\n" .
+    "$sani" . "_close <- '</$object->{name}>'\n";
+if ($object->{name} eq 'Id') { print STDERR "++++\n" . Dumper $object; }
+if ($object->{name} eq 'EntityOID') { print STDERR "++++\n" .Dumper $object; }
+  if ($object->{type} eq 'complex') {
+    output_object_complex($object);
+  } elsif ($object->{value}{enum}) {
+    output_object_enum($object);
+  } elsif ($object->{typename} =~ /^(xs:)?string$/
+           || $object->{value}{type} eq 'string')
+  {
+    $output .= "$sani" . "_content <- { [^<]* }\n";
+  } elsif ($object->{typename} =~ /^(xs:)?decimal$/) {
+    $output .= "$sani" . "_content <- { '-'? [0-9.]+ }\n";
+  } elsif ($object->{typename} =~ /^(xs:)?positiveInteger$/) {
+    $output .= $sani . "_content <- { [0-9]+ }\n";
+  }
+  if (scalar(@{$object->{attributes}})) {
+    $output .=
+      $sani . "_attr <- STANDARDATTR / " . $object->{name} . '_attr_' .
+      join(
+        " / $object->{name}" . "_attr_",
+        map($_->{name}, @{$object->{attributes}})
+      ) . "\n";
+    foreach my $attr (sort @{$object->{attributes}}) {
+      $output .=
+        $sani . "_attr_$attr->{name} <- " .
+        "'\"'? '$attr->{name}' '\"'? ATTR_STRING\n";
+    }
+  } else {
+    $output .=
+      $sani . "_attr <- STANDARDATTR\n";
+  }
+}
+
+sub output_object_enum
+{
+  my $object = shift;
+  my $sani = sanitize($object->{name});
+  $output .= $sani . "_content <- ";
+  foreach my $element (sort keys(%{$object->{value}{enum}})) {
+    $output .= " '$element' /";
+  }
+  $output =~ s/.$//;
+  $output .= "\n";
+}
+
+sub output_object_complex
+{
+  my $object = shift;
+  my $sani = sanitize($object->{name});
+  if (scalar(keys(%{$object->{members}}))) {
+    $output .=
+      $sani . "_content <- ($sani" . "_member)*\n" .
+      $sani . "_member <-\n";
+    foreach my $member (sort values(%{$object->{members}})) {
+      $output .=
+        "    " . sanitize($member->{name}) . " /\n";
+    }
+    $output =~ s/.$//;
+    foreach my $member (sort values(%{$object->{members}})) {
+      output_object($member);
+    }
+  } elsif ($object->{value}{type}{value}{type} eq 'string') {
+    $output .= $sani . "_content <- { [^<]* }\n";
+  } else {
+    $output .=
+      $sani . "_content <- ... -- WARNING: No members\n";
+  }
+}
+
+sub sanitize
+{
+  my $name = shift;
+  my $result = "$name";
+  $result =~ s/[^a-zA-Z0-9_]/_/g;
+  return $result;
+}
+
+1;

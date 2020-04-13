@@ -1,0 +1,121 @@
+#!/usr/bin/perl
+
+use Data::Dumper;
+use strict;
+
+##
+##
+##  Tool that generates assembly from a PEG.
+##
+##  Usage: $0 [options] (inputfile / '-') (outputfile / '-')
+##  Options:
+##  -s  Produce slotmap (requires non-stdout outputfile)
+##  -d  Produce definitions file (perl based token list)
+##  -D  Debug mode on
+##
+##
+
+my ($opts, $optd, $optD);
+my ($inputfile, $outputfile);
+
+while (my $arg = shift @ARGV) {
+  if ($arg =~ s/^-//) {
+    while ($arg =~ s/^(.)//) {
+      my $option = $1;
+      if ($option eq 's') {
+        $opts = 1;
+      } elsif ($option eq 'd') {
+        $optd = 1;
+      } elsif ($option eq 'D') {
+        $optD = 1;
+      } elsif ($option =~ /[?h]/) {
+        print STDERR "Usage: $0 [options] (inputfile / '-' ) (outputfile / '-')
+Options:
+-s  Produce slotmap
+-d  Produce definitions file
+-D  Debug mode
+";
+      } else {
+        die "Unknown command line option '-$option'";
+      }
+    }
+  } else {
+    $inputfile = $arg || '-';
+    $outputfile = shift @ARGV || '-';
+    last;
+  }
+}
+
+my ($in, $out);
+
+if ($inputfile eq '-') {
+  $in = *STDIN;
+} else {
+  open $in, '<', $inputfile || die "Could not open $inputfile";
+}
+
+if ($outputfile eq '-') {
+  if ($opts || $optd) {
+    die "The use of artefacts requires output file (not stdout)";
+  }
+  $out = *STDOUT;
+} else {
+  open $out, '>', $outputfile || die "Could not open $outputfile";
+}
+
+my $input = '';
+{
+  while (my $line = <$in>) {
+    $input .= $line;
+  }
+  close $in;
+}
+
+use IPEG::Compiler;
+
+my $compiler = IPEG::Compiler->new($input);
+if ($optD) {
+  $compiler->{debug} = 1;
+}
+my $output = eval { $compiler->compile() };
+if (!defined($output)) {
+  if ($@ =~ /Fail at offset ([0-9]+)/) {
+    my $offset = $1;
+    print "Error in line " .
+      scalar(split(/\n/, substr($input, 0, $offset))) . "\n";
+    print Dumper($compiler->{engine}{stack_before_fail});
+    print $@;
+    exit 1;
+  } else {
+    print $@;
+    exit 2;
+  }
+}
+print $out $output;
+
+if ($optd) {
+  open DEFS, '>', "$outputfile.definitions";
+  print DEFS Dumper $compiler->get_definitions();
+  close DEFS;
+}
+
+if ($opts) {
+  my $slotmap = $compiler->get_slotmap();
+  my $slotmapfile = "$outputfile";
+  if ($slotmapfile !~ s/\.asm$/.slotmap/) {
+    $slotmapfile .= '.slotmap';
+  }
+  if (open SLOTMAP, '>', $slotmapfile) {
+    foreach my $slot (@{$slotmap}) {
+      my $record =
+        pack('N', $slot->[0]) .
+        pack('N', $slot->[1]) .
+        $slot->[2] .
+        chr(0);
+      syswrite SLOTMAP, $record;
+    }
+    close SLOTMAP;
+  }
+}
+
+1;

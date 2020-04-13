@@ -1,0 +1,280 @@
+#!/usr/bin/perl
+
+##DEADBEEF
+my $INSTR_ANY = 1283;
+my $INSTR_BACKCOMMIT = 264752;
+my $INSTR_CALL = 262915;
+my $INSTR_CATCH = 264707;
+my $INSTR_CHAR = 263433;
+my $INSTR_CLOSECAPTURE = 528133;
+my $INSTR_COMMIT = 264709;
+my $INSTR_CONDJUMP = 525107;
+my $INSTR_COUNTER = 525071;
+my $INSTR_END = 262922;
+my $INSTR_FAIL = 2570;
+my $INSTR_FAILTWICE = 2575;
+my $INSTR_JUMP = 262921;
+my $INSTR_MASKEDCHAR = 263434;
+my $INSTR_NOOP = 0;
+my $INSTR_OPENCAPTURE = 265987;
+my $INSTR_PARTIALCOMMIT = 264713;
+my $INSTR_QUAD = 263475;
+my $INSTR_RANGE = 525651;
+my $INSTR_REPLACE = 265994;
+my $INSTR_REPLACESTRING = 265999;
+my $INSTR_RET = 773;
+my $INSTR_SET = 2098489;
+my $INSTR_SKIP = 263509;
+my $INSTR_SKIPVAR = 264531;
+my $INSTR_SPAN = 2098495;
+my $INSTR_TESTANY = 263429;
+my $INSTR_TESTCHAR = 525583;
+my $INSTR_TESTQUAD = 525621;
+my $INSTR_TESTSET = 2360634;
+my $INSTR_VAR = 265993;
+my $dbghsh = {
+  1283 => 'ANY',
+  264752 => 'BACKCOMMIT',
+  262915 => 'CALL',
+  264707 => 'CATCH',
+  263433 => 'CHAR',
+  528133 => 'CLOSECAPTURE',
+  264709 => 'COMMIT',
+  525107 => 'CONDJUMP',
+  525071 => 'COUNTER',
+  262922 => 'END',
+  2570 => 'FAIL',
+  2575 => 'FAILTWICE',
+  262921 => 'JUMP',
+  263434 => 'MASKEDCHAR',
+  0 => 'NOOP',
+  265987 => 'OPENCAPTURE',
+  264713 => 'PARTIALCOMMIT',
+  263475 => 'QUAD',
+  525651 => 'RANGE',
+  265994 => 'REPLACE',
+  265999 => 'REPLACESTRING',
+  773 => 'RET',
+  2098489 => 'SET',
+  263509 => 'SKIP',
+  264531 => 'SKIPVAR',
+  2098495 => 'SPAN',
+  263429 => 'TESTANY',
+  525583 => 'TESTCHAR',
+  525621 => 'TESTQUAD',
+  2360634 => 'TESTSET',
+  265993 => 'VAR',
+};
+##DEADBEEF
+
+my $inputfile = shift @ARGV;
+my $outputfile = shift @ARGV;
+
+my ($in, $out);
+
+if ($inputfile eq '-') {
+  $in = *STDIN;
+} else {
+  open $in, '<', $inputfile || die "Could not open $inputfile";
+}
+
+if (!defined($outputfile)) {
+  $outputfile = '-';
+}
+if ($outputfile eq '-') {
+  $out = *STDOUT;
+} else {
+  open $out, '>', $outputfile || die "Could not open $outputfile";
+}
+
+my $labelmap;
+if ($inputfile ne '-' && -f "$inputfile.labelmap") {
+  $labelmap = eval( `cat "$inputfile.labelmap"` );
+}
+
+sub absorb_binary
+{
+  my $result = '';
+  my $path = shift; die "Found not found" if (! -f $path);
+  die "Error $@ opening $bytecodefile" if (!open(FILE, '<', $path));
+  binmode FILE;
+  my $buf;
+  while (1) {
+    my $n = sysread(FILE, $buf, 1024);
+    if (!$n) {
+      close FILE;
+      return $result;
+    }
+    $result .= $buf;
+  }
+}
+
+my $bytecode = absorb_binary($inputfile);
+
+my $offset = 0;
+while ($offset < length($bytecode)) {
+  my $label = labelreverse($offset);
+  my $opcode = unpack('N', substr($bytecode, $offset, 4));
+  if ($opcode == $INSTR_NOOP) {
+    print $out "$offset: noop";
+    $offset += 4;
+  } elsif ($opcode == $INSTR_ANY) {
+    print $out "$offset: any";
+    $offset += 4;
+  } elsif ($opcode == $INSTR_BACKCOMMIT) {
+    my $address = unpack('N', substr($bytecode, $offset + 4, 4));
+    print $out "$offset: backcommit $address";
+    $offset += 8;
+  } elsif ($opcode == $INSTR_SKIP) {
+    my $n = unpack('N', substr($bytecode, $offset + 4, 4));
+    print $out "$offset: skip $n";
+    $offset += 8;
+  } elsif ($opcode == $INSTR_CALL) {
+    my $address = unpack('N', substr($bytecode, $offset + 4, 4));
+    my $funclabel = labelreverse($address);
+    if (!defined($funclabel)) {
+      print $out "$offset: call $address";
+    } else {
+      print $out "$offset: call $address -- Calling $funclabel";
+    }
+    $offset += 8;
+  } elsif ($opcode == $INSTR_CHAR) {
+    my $mask = unpack('n', substr($bytecode, $offset + 4, 2));
+    my $char = unpack('n', substr($bytecode, $offset + 6, 2));
+    print $out "$offset: char " . sprintf("%.2x", $char);
+    if ($mask) {
+      print $out sprintf("&%.2x", $mask);
+    }
+    $offset += 8;
+  } elsif ($opcode == $INSTR_QUAD) {
+    my $char = unpack('N', substr($bytecode, $offset + 4, 4));
+    print $out "$offset: quad " . sprintf("%.8x", $char);
+    $offset += 8;
+  } elsif ($opcode == $INSTR_CATCH) {
+    my $address = unpack('N', substr($bytecode, $offset + 4, 4));
+    print $out "$offset: catch $address";
+    $offset += 8;
+  } elsif ($opcode == $INSTR_CLOSECAPTURE) {
+    my $slot = unpack('N', substr($bytecode, $offset + 4, 4));
+    my $type = unpack('N', substr($bytecode, $offset + 8, 4));
+    print $out "$offset: closecapture $slot $type";
+    $offset += 12;
+  } elsif ($opcode == $INSTR_COMMIT) {
+    my $address = unpack('N', substr($bytecode, $offset + 4, 4));
+    print $out "$offset: commit $address";
+    $offset += 8;
+  } elsif ($opcode == $INSTR_END) {
+    my $code = unpack('N', substr($bytecode, $offset + 4, 4));
+    print $out "$offset: end $code";
+    $offset += 8;
+  } elsif ($opcode == $INSTR_FAIL) {
+    print $out "$offset: fail";
+    $offset += 4;
+  } elsif ($opcode == $INSTR_FAILTWICE) {
+    print $out "$offset: failtwice";
+    $offset += 4;
+  } elsif ($opcode == $INSTR_JUMP) {
+    my $address = unpack('N', substr($bytecode, $offset + 4, 4));
+    print $out "$offset: jump $address";
+    $offset += 8;
+  } elsif ($opcode == $INSTR_OPENCAPTURE) {
+    my $slot = unpack('N', substr($bytecode, $offset + 4, 4));
+    print $out "$offset: opencapture $slot";
+    $offset += 8;
+  } elsif ($opcode == $INSTR_PARTIALCOMMIT) {
+    my $address = unpack('N', substr($bytecode, $offset + 4, 4));
+    print $out "$offset: partialcommit $address";
+    $offset += 8;
+  } elsif ($opcode == $INSTR_REPLACE) {
+    my $address = unpack('N', substr($bytecode, $offset + 4, 4));
+    print $out "$offset: replace $address";
+    $offset += 8;
+  } elsif ($opcode == $INSTR_REPLACESTRING) {
+    my $length = unpack('N', substr($bytecode, $offset + 4, 4));
+    print $out "$offset: replacestring '" .
+               substr($bytecode, $offset + 8, $length) .
+               "'\n";
+    $offset += ($length + 8);
+    if ($length % 4) {
+      $offset += (4 - ($length % 4));
+    }
+  } elsif ($opcode == $INSTR_RET) {
+    print $out "$offset: ret";
+    $offset += 4;
+  } elsif ($opcode == $INSTR_SET) {
+    print $out "$offset: set ";
+    for (my $i=0; $i < 32; $i++) {
+      print $out sprintf("%.2x", ord(substr($bytecode, $offset + 4 + $i, 1)));
+    }
+    $offset += 36;
+  } elsif ($opcode == $INSTR_SPAN) {
+    print $out "$offset: span ";
+    for (my $i=0; $i < 32; $i++) {
+      print $out sprintf("%.2x", ord(substr($bytecode, $offset + 4 + $i, 1)));
+    }
+    $offset += 36;
+  } elsif ($opcode == $INSTR_TESTANY) {
+    my $address = unpack('N', substr($bytecode, $offset + 4, 4));
+    print $out "$offset: testany $address";
+    $offset += 8;
+  } elsif ($opcode == $INSTR_TESTCHAR) {
+    my $address = unpack('N', substr($bytecode, $offset + 4, 4));
+    my $mask = unpack('n', substr($bytecode, $offset + 8, 2));
+    my $char = unpack('n', substr($bytecode, $offset + 10, 2));
+    print $out "$offset: testchar " . sprintf("%.2x", $char) . " $address";
+    if ($mask) {
+      print $out sprintf("&%.2x", $mask);
+    }
+    $offset += 12;
+  } elsif ($opcode == $INSTR_TESTQUAD) {
+    my $address = unpack('N', substr($bytecode, $offset + 4, 4));
+    my $quad = unpack('N', substr($bytecode, $offset + 8, 4));
+    print $out "$offset: testquad " . sprintf("%.8x", $char) . " $address";
+    $offset += 12;
+  } elsif ($opcode == $INSTR_TESTSET) {
+    my $address = unpack('N', substr($bytecode, $offset + 4, 4));
+    print $out "$offset: testset ";
+    for (my $i=0; $i < 32; $i++) {
+      print $out sprintf("%.2x", ord(substr($bytecode, $offset + 8 + $i, 1)));
+    }
+    print $out " $address";
+    $offset += 40;
+  } elsif ($opcode == $INSTR_VAR) {
+    my $var = unpack('N', substr($bytecode, $offset + 4, 4));
+    print $out "$offset: var $var";
+    $offset += 8;
+  } elsif ($opcode == $INSTR_COUNTER) {
+    my $register = unpack('N', substr($bytecode, $offset + 4, 4));
+    my $value = unpack('N', substr($bytecode, $offset + 8, 4));
+    print $out "$offset: counter $register $value";
+    $offset += 12;
+  } elsif ($opcode == $INSTR_CONDJUMP) {
+    my $register = unpack('N', substr($bytecode, $offset + 4, 4));
+    my $jump = unpack('N', substr($bytecode, $offset + 8, 4));
+    print $out "$offset: condjump $register $jump";
+    $offset += 12;
+  } else {
+    print $out "-- Unknown opcode $opcode\n";
+    die "Unknown opcode $opcode";
+  }
+  if (defined($label) && $label ne 'unknown') {
+    print $out "        -- = $label";
+  }
+  print $out "\n";
+}
+
+sub labelreverse
+{
+  my $address = shift;
+  my $result;
+  foreach my $key (keys(%{$labelmap})) {
+    if ($labelmap->{$key} eq $address) {
+      if (!defined($result) || length($key) < length($result)) {
+        $result = $key;
+      }
+    }
+  }
+  return $result;
+}
+
+1;

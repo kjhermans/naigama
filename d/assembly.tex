@@ -1,0 +1,64 @@
+\section{Assembly}
+
+A Naigama assembly file or buffer consists of sequences of
+whitespace, comments, labels, and (parametrized) instructions, separated
+by new lines, and denoted in ASCII text.
+
+Naigama assembly is taken by the Naigama assembler program (naia) and turned
+into bytecode.
+
+\begin{myquote}
+\begin{verbatim}
+  call TEST
+  end
+-- Rule
+TEST:
+  opencapture 0
+  char 61
+  closecapture 0 0
+  opencapture 1
+  char 61
+  closecapture 1 0
+  opencapture 2
+  catch __LABEL_30 -- alternative
+  char 61
+  commit __LABEL_31
+__LABEL_30:
+  char 62
+__LABEL_31:
+  closecapture 2 0
+  ret
+
+\end{verbatim}
+\end{myquote}
+\textit{Example of a piece of Naigama assembly}
+
+\subsection{Comments}
+
+Comments in Naigama assembly start with two minus signs, and end at
+a new line. They can be given on separate lines, or they can be
+postfixed to instructions or labels.
+
+\subsection{Labels}
+
+Labels are identifiers (the same identifiers as in their definition
+in the grammar chapter) or numbers, followed by a colon sign. They are used
+as positions for the bytecode to jump to, when used by instructions.
+
+When performing the assembly, the Naigama assembler program resolves
+each label to their offset in the resultant bytecode, and replaces each
+reference to a label with that offset.
+
+Labels don't quite disappear though - you have the option to make the
+assembler program emit a so called 'labelmap' file, which stores the old
+label names, mapped to the bytecode offsets given by the assembler,
+and which can be used later
+for debugging purposes by the bytecode execution engine.
+
+When disassembling (bytecode to assembly), each instruction is always
+prefixed by a label in the form of the instruction's offset in decimal,
+so that jumps are always correct (but non descriptive).
+
+\subsection{Instructions}
+
+\input{table_instr.tex}

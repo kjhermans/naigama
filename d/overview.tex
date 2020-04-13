@@ -1,0 +1,56 @@
+\section{Overview}
+
+This document describes the Naigama parsing system, which is a 
+modular system to process structured data inputs, in order to extract
+meaning from it (matching, capturing), or to manipulate it (replacements).
+The system was designed with a focus on information and system security.
+
+The system comes in three parts: a grammar compiler, an assembler,
+and a bytecode execution engine. Each of the parts has their own
+input file format specification (grammar description, assembly specification,
+and bytecode specification). The process in brief: the compiler takes a
+grammar description that the human end user has made, and turns it into
+an assembly language. The assembler takes the assembly, and turns it
+into a bytecode. The engine takes the bytecode and the input, and
+processes it, resulting either in (various measures of) failure or
+success.
+
+The reason for this modularity is strict separation of tasks, and openness:
+anyone should be able to take out a module, and replace it with one
+of their own.
+It should be expressly possible to take out the compiler, and replace
+it with another tool that produces the Naigama assembly, for example.
+Or have a different engine. Or write an optimizer for the assembly.
+
+\subsection{On Grammar}
+  
+Naigama grammar is the human interface of the system.
+It can be used to define complex syntax definitions in order
+to match, capture from, and replace in, structured inputs.
+
+People familiar with regular expressions \cite{bib:regex},
+Backus-Naur syntax descriptions \cite{bib:backusnaur},
+and / or Lex and Yacc tools \cite{bib:yacc},
+should find this document relatively easy to understand.
+The ideas underlying Naigama grammar, assembly and bytecode
+are heavily borrowed from Lua PEG (LPEG) \cite{bib:peg}.
+
+\subsection{On Assembly}
+
+Section still to be written.
+
+\subsection{On Bytecode}
+
+Naigama bytecode is the machine interface of the system.
+It runs in the Naigama engine against the input provided by the user.
+It is designed to be:
+
+\begin{itemize}
+
+\item Easy to interpret.
+\item Resilient against bit upset events (opcode Hamming distance,
+      predictable instruction offsets).
+\item Resilient against endless loops.
+\item Usable while keeping both bytecode and input as read-only buffers.
+
+\end{itemize}

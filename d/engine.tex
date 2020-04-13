@@ -1,0 +1,224 @@
+\section{Engine}
+
+The Naigama bytecode execution engine or library can be used to
+match or fail an input of data using a bytecode.
+Both bytecode and input are defined as a buffer of memory with
+a certain length. The bytecode buffer may be the result of
+the Naigama assembly process; the input is arbitrary data.
+
+\subsection{Order of Execution}
+
+Execution will start with the engine setting the current bytecode
+offset to zero.
+
+The engine will execute the instruction at the current bytecode
+offset, and then either jump
+to another offset within the bytecode if this is the result of
+the instruction execution, or to the next instruction, which is
+located at the current bytecode offset, plus the size of the
+instruction. Bear in mind that instructions have different sizes;
+the size of the instruction is a function of the opcode.
+This is specified in table [\ref{tab:naig_bytecode}].
+
+Execution ends when an abnormal state is encountered, the FAIL
+condition extinguishes the entire stack, or the 'end' instruction
+is encountered.
+
+\subsection{Execution States}
+
+The engine must at least provision the following state during execution
+of the bytecode buffer.
+
+\subsubsection{Bytecode Offset}
+
+The bytecode offset is an offset in the bytecode. Its value is
+between zero (inclusive) and the length of the bytecode (exclusive)
+minus four, and is always a multiple of four.
+
+\subsubsection{Input Position}
+
+The input position is the position in the input buffer. Its value
+is between zero (inclusive) and the length of the input buffer (exclusive).
+
+\subsubsection{Stack}
+
+The stack is a Last-in-first-out list of items. There are two types
+of items that can be on the stack, and there are two instructions that
+push each of these items:
+
+\begin{itemize}
+
+\item A 'call' instruction makes the engine jump to a certain address,
+but it also pushes a return address on the stack
+(this is the address of the instruction following the 'call' instruction),
+so that when a 'ret' instruction is encountered,
+and this item is popped from the stack, the engine knows where to continue.
+
+Alternatively, a FAIL condition may pop these items from the stack as well.
+
+\item A 'catch' instruction pushes an item on the stack which saves the
+engine's state at that point, and contains an alternative address to jump
+to. The engine's state is represented by the bytecode offset, the input
+position, and the length of the action list.
+
+These items are removed by their corresponding 'commit' instructions however,
+a FAIL condition in this case pops the stack item, but then restores the
+engine's state and jumps to the alternative address.
+
+\end{itemize}
+
+\subsubsection{Action List}
+
+The action list contains actions related to capturing from the input buffer.
+
+\subsubsection{Register}
+
+\subsection{Special Conditions}
+
+\subsubsection{Running out of Stack or Actions}
+
+\subsubsection{Streaming Input}
+
+Given that each FAIL cleans up the stack completely until the first
+'catch' element, input offsets before the input offset mentioned in the
+engine's saved state in the first stack 'catch' item (seen from the top,
+if it's given that stacks grown down), can be discarded by the engine,
+allowing a streaming model of input provisioning.
+
+\subsubsection{Endless Loops}
+
+Endless loop detection, for a Naigama bytecode execution engine, is
+relatively easy: the second time the same combination of bytecode offset
+and input position is encountered, an endless loop is occurring, and the
+engine should halt execution of the bytecode abnormally.
+
+\subsubsection{Faulty Bytecode / Canary Traps}
+
+...
+
+\subsection{Output States}
+
+The engine may exit for the following (negative) reasons:
+
+\begin{itemize}
+
+\item Because a FAIL condition ate up the entire stack, indicating
+the the input did not match the compiled pattern or rules.
+This is desired behavior.
+
+\item Because the bytecode was correct, but behaved unacceptably
+(\textit{ie} room on the stack ran out, or an endless loop was detected).
+This is undesirable behavior; better bytecode must be produced
+or better engine tuning must be done.
+
+\item Because the bytecode had errors in it
+(faulty instruction, faulty offset). This is undesirable behavior;
+the bytecode must be re-generated, or a bit upset event must be assumed.
+
+\end{itemize}
+
+And it may be used, when successful, in the following ways:
+
+\begin{itemize}
+
+\item An 'end' instruction was encountered (there was a match).
+
+\item An 'end' instruction was encountered, including an end code
+(when a pattern yields several success end points).
+
+\item The action list can be used, read-only on the input (captures).
+
+\item The action list can be used, read-write on the input
+(captures / replacements).
+
+\end{itemize}
+
+\subsection{Execution}
+
+When the engine runs bytecode, it will start with the instruction
+at bytecode offset zero. It will read and execute this instruction
+and run each subsequent instruction (either because it was jumped to
+or because it was logically the next instruction).
+This loop will continue either until the stack is made empty by a FAIL
+condition, or an 'end' instruction is encountered
+(or any of the abnormal conditions as noted above were encountered).
+
+The following permutations of the engine's state exist during this loop:
+
+\subsubsection{FAIL}
+
+The FAIL condition is invoked automatically when instructions
+that implement input matching, fail, but it may also be invoked
+expressly by the 'fail' and 'failtwice' instructions.
+
+A FAIL condition starts eating up the stack, until it encounters
+a 'catch' element. When that happens, the 'catch' element is popped,
+the state of the engine captured therein is restored, and the engine
+jumps to the offset encapsulated therein.
+
+When no 'catch' element is encountered on its way to the top of the stack,
+the execution ends with failure.
+
+\subsubsection{Instruction: Any}
+
+The any instruction checks to see if there is a byte left in the input
+and if so, consumes it (by jumping one position forward in the input),
+and goes on to the next instruction.
+
+If there is no byte left in the input, then a FAIL is invoked.
+
+\subsubsection{Instruction: Backcommit}
+
+\subsubsection{Instruction: Call}
+
+\subsubsection{Instruction: Catch}
+
+\subsubsection{Instruction: Char}
+
+\subsubsection{Instruction: Closecapture}
+
+\subsubsection{Instruction: Commit}
+
+\subsubsection{Instruction: Condjump}
+
+\subsubsection{Instruction: Counter}
+
+\subsubsection{Instruction: End}
+
+\subsubsection{Instruction: Fail}
+
+\subsubsection{Instruction: Failtwice}
+
+\subsubsection{Instruction: Jump}
+
+\subsubsection{Instruction: Noop}
+
+\subsubsection{Instruction: Opencapture}
+
+\subsubsection{Instruction: Partialcommit}
+
+\subsubsection{Instruction: Quad}
+
+\subsubsection{Instruction: Replace}
+
+\subsubsection{Instruction: Replacestring}
+
+\subsubsection{Instruction: Ret}
+
+\subsubsection{Instruction: Set}
+
+\subsubsection{Instruction: Skip}
+
+\subsubsection{Instruction: Skipvar}
+
+\subsubsection{Instruction: Span}
+
+\subsubsection{Instruction: Testany}
+
+\subsubsection{Instruction: Testchar}
+
+\subsubsection{Instruction: Testquad}
+
+\subsubsection{Instruction: Testset}
+
+\subsubsection{Instruction: Var}

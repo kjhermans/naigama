@@ -1,0 +1,56 @@
+#!/usr/bin/perl
+
+##
+##
+##  Tool that generates bytecode from IPEG assembly
+##
+##  Usage: $0 (inputfile / '-') (outputfile / '-')
+##
+##
+##
+
+use Data::Dumper;
+
+my $inputfile = shift @ARGV;
+my $outputfile = shift @ARGV;
+
+my ($in, $out);
+
+if ($inputfile eq '-') {
+  $in = *STDIN;
+} else {
+  open $in, '<', $inputfile || die "Could not open $inputfile";
+}
+
+if ($outputfile eq '-') {
+  $out = *STDOUT;
+} else {
+  open $out, '>', $outputfile || die "Could not open $outputfile";
+}
+
+my $input;
+{
+  while (my $line = <$in>) {
+    $input .= $line;
+  }
+  close $in;
+}
+
+use IPEG::Assembler;
+
+my $assembler = IPEG::Assembler->new($input);
+my $bytecode = $assembler->assemble();
+my $labelmap = $assembler->get_labelmap();
+
+syswrite $out, $bytecode;
+close $out;
+
+if ($outputfile ne '-') {
+  open DEBUG, '>', "$outputfile.labelmap";
+  print DEBUG Dumper $labelmap;
+  close DEBUG;
+}
+
+exit 0;
+
+1;

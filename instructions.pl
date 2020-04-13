@@ -25,10 +25,10 @@
     param1 => 'address',
     param2 => '-',
     impl => '
-      ADD REG1, codeptr, 44
+      ADD REG1, codeptr, 40
       PUSH REG1
-      PUSH 1
-      ASSIGN codeptr, param1
+      PUSHLIT 1
+      JUMP param1
     ',
   },
   ret => {
@@ -41,7 +41,7 @@
       FAIL RAISE, fatal
       CMP REG1, 1
       POP REG1
-      ASSIGN codeptr, REG1
+      JUMP REG1
     ',
   },
   jump => {
@@ -50,7 +50,7 @@
     param1 => 'address',
     param2 => '-',
     impl => '
-       ASSIGN codeptr, param1
+      JUMP param1
     ',
   },
   end => {
@@ -84,7 +84,7 @@
     param1 => '-',
     param2 => '-',
     impl => '
-      FAIL JUMP, #fail
+      FAIL JUMP, <#fail>
       LT inputpos, inputlen
       INC inputpos, 1
     ',
@@ -101,7 +101,7 @@
     param1 => 'char',
     param2 => '-',
     impl => '
-      FAIL JUMP, #fail
+      FAIL JUMP, <#fail>
       LT inputpos, inputlen
       CMP inputchar, param1
       INC inputpos, 1
@@ -162,7 +162,7 @@
     param2 => '-',
     impl => '
       SUB REG1, inputlen, inputpos
-      FAIL JUMP, #fail
+      FAIL JUMP, <#fail>
       LT param1, REG1
       INC inputpos, param1
     ',
@@ -202,7 +202,7 @@
       POP
       POP
       POP
-      ASSIGN codeptr, param1
+      JUMP param1
     ',
   },
   partialcommit => {
@@ -222,7 +222,7 @@
       PUSH REG2
       PUSH REG1
       PUSH 3
-      ASSIGN codeptr, param1
+      JUMP param1
     ',
   },
   fail => {
@@ -231,7 +231,7 @@
     param1 => '-',
     param2 => '-',
     impl => '
-      JUMP #fail
+      JUMP <#fail>
     ',
   },
   failtwice => {
@@ -240,7 +240,7 @@
     param1 => '-',
     param2 => '-',
     impl => '
-      JUMP #failtwice
+      JUMP <#failtwice>
     ',
   },
   backcommit => {
@@ -257,7 +257,7 @@
       POP REG3
       ASSIGN actionlen, REG2
       ASSIGN inputpos, REG3
-      ASSIGN codeptr, param1
+      JUMP param1
     ',
   },
 

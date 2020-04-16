@@ -147,23 +147,13 @@ NAIG_ERR_T naie_engine_run
         goto FAIL;
       }
       param1 = bytecode[ bytecode_pos + 7 ];  // match
-      param2 = bytecode[ bytecode_pos + 5 ];  // mask
-      if (param2 == 0) {
-        if (data[ engine->inputpos ] == param1) {
-          ++(engine->inputpos);
-          bytecode_pos += instruction_size;
-          goto NEXT;
-        } else {
-          goto FAIL;
-        }
+      if (data[ engine->inputpos ] == param1) {
+        ++(engine->inputpos);
+        bytecode_pos += instruction_size;
       } else {
-        if ((data[ engine->inputpos ] & param2) == param1) {
-          bytecode_pos += instruction_size;
-          goto NEXT;
-        } else {
-          goto FAIL;
-        }
+        goto FAIL;
       }
+      goto NEXT;
 
     case OPCODE_QUAD:
       set = bytecode + bytecode_pos + 4;

@@ -30,7 +30,7 @@ int main
   unsigned grammar_length = 0;
   FILE* output = stdout;
   FILE* slotmap = NULL;
-  int i, debug = 0;
+  int i, debug = 0, traps = 0;
 
 #ifdef _DEBUG
   fprintf(stderr, "Welcome to %s\n", argv[ 0 ]);
@@ -76,6 +76,9 @@ int main
           }
         }
         break;
+      case 't':
+        traps = 1;
+        break;
       case '?':
       case 'h':
       default:
@@ -88,6 +91,7 @@ int main
           "-o <path>  Output assembly file (- for, or otherwise stdout)\n"
           "-m <path>  Output slotmap file (optional)\n"
           "-D         Debug (prepare for a lot of data on stderr)\n"
+          "-t         Generate traps\n"
           , argv[ 0 ]
         );
         exit(-1);
@@ -102,10 +106,10 @@ int main
   if (slotmap) {
     naic_slotmap_t map;
     map.size = 0;
-    e = naic_compile(grammar, output, &map, debug);
+    e = naic_compile(grammar, output, &map, debug, traps);
     if (e.code == 0) { e = naic_slotmap_write(&map, slotmap); }
   } else {
-    e = naic_compile(grammar, output, NULL, debug);
+    e = naic_compile(grammar, output, NULL, debug, traps);
   }
   return e.code;
 }

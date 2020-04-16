@@ -18,7 +18,13 @@
  * Topmost function
  */
 NAIG_ERR_T naic_process_tokens
-  (char* grammar, naie_result_t* captures, FILE* output, naic_slotmap_t* slots)
+  (
+    char* grammar,
+    naie_result_t* captures,
+    FILE* output,
+    naic_slotmap_t* slots,
+    int traps
+  )
 {
   naic_t naic = {
     .grammar     = grammar,
@@ -36,6 +42,9 @@ NAIG_ERR_T naic_process_tokens
   }
   naic.capindex = 0;
 #endif
+  if (traps) {
+    naic.flags |= NAIC_FLG_TRAPS;
+  }
 
   while (naic.capindex < captures->size) {
 #ifdef _DEBUG

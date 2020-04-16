@@ -47,6 +47,8 @@ NAIG_ERR_T naia_process_instructions
       CHECK(naia_process_jump(naia, i)); break;
     case ASMSLOT_NOOPINSTR_NOOP:
       CHECK(naia_process_noop(naia, i)); break;
+    case ASMSLOT_TRAPINSTR_TRAP:
+      CHECK(naia_process_trap(naia, i)); break;
     case ASMSLOT_OPENCAPTUREINSTR_OPENCAPTURE:
       CHECK(naia_process_opencapture(naia, i)); break;
     case ASMSLOT_PARTIALCOMMITINSTR_PARTIALCOMMIT:

@@ -207,6 +207,12 @@ NAIG_ERR_T naia_process_tokens
   (char* assembly, naie_result_t* captures, FILE* output)
   __attribute__ ((warn_unused_result));
 
+/* declared in ../lib/assembler//naia_process_trap.c */
+extern
+NAIG_ERR_T naia_process_trap
+  (naia_t* naia, unsigned i)
+  __attribute__ ((warn_unused_result));
+
 /* declared in ../lib/assembler//naia_process_var.c */
 extern
 NAIG_ERR_T naia_process_var

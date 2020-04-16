@@ -10,7 +10,7 @@ INSTRUCTION        <- {
                         CATCHINSTR / CHARINSTR / MASKEDCHARINSTR /
                         CLOSECAPTUREINSTR / COMMITINSTR /
                         ENDINSTR / FAILTWICEINSTR / FAILINSTR /
-                        JUMPINSTR / NOOPINSTR /
+                        JUMPINSTR / NOOPINSTR / TRAPINSTR /
                         OPENCAPTUREINSTR / PARTIALCOMMITINSTR /
                         QUADINSTR / REPLACEINSTR / REPLACESTRINGINSTR /
                         RETINSTR / SETINSTR / RANGEINSTR /
@@ -35,7 +35,8 @@ ENDINSTR           <- { 'end' } (S CODE )?
 FAILINSTR          <- { 'fail' }
 FAILTWICEINSTR     <- { 'failtwice' }
 JUMPINSTR          <- { 'jump' } S LABEL
-NOOPINSTR          <- { 'noop' } 
+NOOPINSTR          <- { 'noop' }
+TRAPINSTR          <- { 'trap' }
 OPENCAPTUREINSTR   <- { 'opencapture' } S SLOT
 PARTIALCOMMITINSTR <- { 'partialcommit' } S LABEL
 QUADINSTR          <- { 'quad' } S QUAD

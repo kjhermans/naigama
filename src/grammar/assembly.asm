@@ -106,74 +106,79 @@ __LABEL_150:
   commit __LABEL_159
 __LABEL_158:
   catch __LABEL_166 -- terms or expression
-  call OPENCAPTUREINSTR
+  call TRAPINSTR
   commit __LABEL_167
 __LABEL_166:
   catch __LABEL_174 -- terms or expression
-  call PARTIALCOMMITINSTR
+  call OPENCAPTUREINSTR
   commit __LABEL_175
 __LABEL_174:
   catch __LABEL_182 -- terms or expression
-  call QUADINSTR
+  call PARTIALCOMMITINSTR
   commit __LABEL_183
 __LABEL_182:
   catch __LABEL_190 -- terms or expression
-  call REPLACEINSTR
+  call QUADINSTR
   commit __LABEL_191
 __LABEL_190:
   catch __LABEL_198 -- terms or expression
-  call REPLACESTRINGINSTR
+  call REPLACEINSTR
   commit __LABEL_199
 __LABEL_198:
   catch __LABEL_206 -- terms or expression
-  call RETINSTR
+  call REPLACESTRINGINSTR
   commit __LABEL_207
 __LABEL_206:
   catch __LABEL_214 -- terms or expression
-  call SETINSTR
+  call RETINSTR
   commit __LABEL_215
 __LABEL_214:
   catch __LABEL_222 -- terms or expression
-  call RANGEINSTR
+  call SETINSTR
   commit __LABEL_223
 __LABEL_222:
   catch __LABEL_230 -- terms or expression
-  call SKIPINSTR
+  call RANGEINSTR
   commit __LABEL_231
 __LABEL_230:
   catch __LABEL_238 -- terms or expression
-  call SPANINSTR
+  call SKIPINSTR
   commit __LABEL_239
 __LABEL_238:
   catch __LABEL_246 -- terms or expression
-  call TESTANYINSTR
+  call SPANINSTR
   commit __LABEL_247
 __LABEL_246:
   catch __LABEL_254 -- terms or expression
-  call TESTCHARINSTR
+  call TESTANYINSTR
   commit __LABEL_255
 __LABEL_254:
   catch __LABEL_262 -- terms or expression
-  call TESTQUADINSTR
+  call TESTCHARINSTR
   commit __LABEL_263
 __LABEL_262:
   catch __LABEL_270 -- terms or expression
-  call TESTSETINSTR
+  call TESTQUADINSTR
   commit __LABEL_271
 __LABEL_270:
   catch __LABEL_278 -- terms or expression
-  call VARINSTR
+  call TESTSETINSTR
   commit __LABEL_279
 __LABEL_278:
   catch __LABEL_286 -- terms or expression
-  call COUNTERINSTR
+  call VARINSTR
   commit __LABEL_287
 __LABEL_286:
   catch __LABEL_294 -- terms or expression
-  call CONDJUMPINSTR
+  call COUNTERINSTR
   commit __LABEL_295
 __LABEL_294:
+  catch __LABEL_302 -- terms or expression
+  call CONDJUMPINSTR
+  commit __LABEL_303
+__LABEL_302:
   call LABELDEF
+__LABEL_303:
 __LABEL_295:
 __LABEL_287:
 __LABEL_279:
@@ -209,10 +214,10 @@ __LABEL_63:
 -- Rule
 END:
   call __prefix
-  catch __LABEL_308  -- 1
+  catch __LABEL_316  -- 1
   any
   failtwice
-__LABEL_308:
+__LABEL_316:
   ret
 -- Rule
 ANYINSTR:
@@ -317,13 +322,13 @@ CLOSECAPTUREINSTR:
   closecapture 7 0
   call S
   call SLOT
-  catch __LABEL_485 -- 4
+  catch __LABEL_493 -- 4
   call S
   call TYPE
-  partialcommit __LABEL_486
-__LABEL_486:
-  commit __LABEL_485
-__LABEL_485:
+  partialcommit __LABEL_494
+__LABEL_494:
+  commit __LABEL_493
+__LABEL_493:
   ret
 -- Rule
 COMMITINSTR:
@@ -347,13 +352,13 @@ ENDINSTR:
   char 6e
   char 64
   closecapture 9 0
-  catch __LABEL_539 -- 4
+  catch __LABEL_547 -- 4
   call S
   call CODE
-  partialcommit __LABEL_540
-__LABEL_540:
-  commit __LABEL_539
-__LABEL_539:
+  partialcommit __LABEL_548
+__LABEL_548:
+  commit __LABEL_547
+__LABEL_547:
   ret
 -- Rule
 FAILINSTR:
@@ -403,9 +408,19 @@ NOOPINSTR:
   closecapture 13 0
   ret
 -- Rule
-OPENCAPTUREINSTR:
+TRAPINSTR:
   call __prefix
   opencapture 14
+  char 74
+  char 72
+  char 61
+  char 70
+  closecapture 14 0
+  ret
+-- Rule
+OPENCAPTUREINSTR:
+  call __prefix
+  opencapture 15
   char 6f
   char 70
   char 65
@@ -417,14 +432,14 @@ OPENCAPTUREINSTR:
   char 75
   char 72
   char 65
-  closecapture 14 0
+  closecapture 15 0
   call S
   call SLOT
   ret
 -- Rule
 PARTIALCOMMITINSTR:
   call __prefix
-  opencapture 15
+  opencapture 16
   char 70
   char 61
   char 72
@@ -438,39 +453,24 @@ PARTIALCOMMITINSTR:
   char 6d
   char 69
   char 74
-  closecapture 15 0
+  closecapture 16 0
   call S
   call LABEL
   ret
 -- Rule
 QUADINSTR:
   call __prefix
-  opencapture 16
+  opencapture 17
   char 71
   char 75
   char 61
   char 64
-  closecapture 16 0
+  closecapture 17 0
   call S
   call QUAD
   ret
 -- Rule
 REPLACEINSTR:
-  call __prefix
-  opencapture 17
-  char 72
-  char 65
-  char 70
-  char 6c
-  char 61
-  char 63
-  char 65
-  closecapture 17 0
-  call S
-  call LABEL
-  ret
--- Rule
-REPLACESTRINGINSTR:
   call __prefix
   opencapture 18
   char 72
@@ -480,46 +480,61 @@ REPLACESTRINGINSTR:
   char 61
   char 63
   char 65
+  closecapture 18 0
+  call S
+  call LABEL
+  ret
+-- Rule
+REPLACESTRINGINSTR:
+  call __prefix
+  opencapture 19
+  char 72
+  char 65
+  char 70
+  char 6c
+  char 61
+  char 63
+  char 65
   char 73
   char 74
   char 72
   char 69
   char 6e
   char 67
-  closecapture 18 0
+  closecapture 19 0
   call S
   call STRING
   ret
 -- Rule
 RETINSTR:
   call __prefix
-  opencapture 19
+  opencapture 20
   char 72
   char 65
   char 74
-  closecapture 19 0
+  closecapture 20 0
   ret
 -- Rule
 SETINSTR:
   call __prefix
-  opencapture 20
+  opencapture 21
   char 73
   char 65
   char 74
-  closecapture 20 0
+  closecapture 21 0
   call S
   call SET
   ret
 -- Rule
 RANGEINSTR:
   call __prefix
-  opencapture 21
+  opencapture 22
   char 72
   char 61
   char 6e
   char 67
   char 65
-  closecapture 21 0
+  closecapture 22 0
   call S
   call NUMBER
   call S
@@ -528,31 +543,31 @@ RANGEINSTR:
 -- Rule
 SKIPINSTR:
   call __prefix
-  opencapture 22
+  opencapture 23
   char 73
   char 6b
   char 69
   char 70
-  closecapture 22 0
+  closecapture 23 0
   call S
   call NUMBER
   ret
 -- Rule
 SPANINSTR:
   call __prefix
-  opencapture 23
+  opencapture 24
   char 73
   char 70
   char 61
   char 6e
-  closecapture 23 0
+  closecapture 24 0
   call S
   call SET
   ret
 -- Rule
 TESTANYINSTR:
   call __prefix
-  opencapture 24
+  opencapture 25
   char 74
   char 65
   char 73
@@ -560,14 +575,14 @@ TESTANYINSTR:
   char 61
   char 6e
   char 79
-  closecapture 24 0
+  closecapture 25 0
   call S
   call LABEL
   ret
 -- Rule
 TESTCHARINSTR:
   call __prefix
-  opencapture 25
+  opencapture 26
   char 74
   char 65
   char 73
@@ -576,24 +591,24 @@ TESTCHARINSTR:
   char 68
   char 61
   char 72
-  closecapture 25 0
+  closecapture 26 0
   call S
   call HEXBYTE
   call S
   call LABEL
-  catch __LABEL_917 -- 4
+  catch __LABEL_937 -- 4
   call S
   call AMPERSAND
   call HEXBYTE
-  partialcommit __LABEL_918
-__LABEL_918:
-  commit __LABEL_917
-__LABEL_917:
+  partialcommit __LABEL_938
+__LABEL_938:
+  commit __LABEL_937
+__LABEL_937:
   ret
 -- Rule
 TESTQUADINSTR:
   call __prefix
-  opencapture 26
+  opencapture 27
   char 74
   char 65
   char 73
@@ -602,7 +617,7 @@ TESTQUADINSTR:
   char 75
   char 61
   char 64
-  closecapture 26 0
+  closecapture 27 0
   call S
   call QUAD
   call S
@@ -611,7 +626,7 @@ TESTQUADINSTR:
 -- Rule
 TESTSETINSTR:
   call __prefix
-  opencapture 27
+  opencapture 28
   char 74
   char 65
   char 73
@@ -619,7 +634,7 @@ TESTSETINSTR:
   char 73
   char 65
   char 74
-  closecapture 27 0
+  closecapture 28 0
   call S
   call SET
   call S
@@ -628,18 +643,18 @@ TESTSETINSTR:
 -- Rule
 VARINSTR:
   call __prefix
-  opencapture 28
+  opencapture 29
   char 76
   char 61
   char 72
-  closecapture 28 0
+  closecapture 29 0
   call S
   call SLOT
   ret
 -- Rule
 COUNTERINSTR:
   call __prefix
-  opencapture 29
+  opencapture 30
   char 63
   char 6f
   char 75
@@ -647,7 +662,7 @@ COUNTERINSTR:
   char 74
   char 65
   char 72
-  closecapture 29 0
+  closecapture 30 0
   call S
   call REGISTER
   call S
@@ -656,7 +671,7 @@ COUNTERINSTR:
 -- Rule
 CONDJUMPINSTR:
   call __prefix
-  opencapture 30
+  opencapture 31
   char 63
   char 6f
   char 6e
@@ -665,7 +680,7 @@ CONDJUMPINSTR:
   char 75
   char 6d
   char 70
-  closecapture 30 0
+  closecapture 31 0
   call S
   call REGISTER
   call S
@@ -674,9 +689,9 @@ CONDJUMPINSTR:
 -- Rule
 LABELDEF:
   call __prefix
-  opencapture 31
+  opencapture 32
   call LABEL
-  closecapture 31 0
+  closecapture 32 0
   call COLON
   ret
 -- Rule
@@ -687,60 +702,60 @@ CODE:
 -- Rule
 HEXBYTE:
   call __prefix
-  opencapture 32
+  opencapture 33
   counter 0 2
-__LABEL_1138:
+__LABEL_1158:
   set 000000000000ff037e0000007e00000000000000000000000000000000000000
-  condjump 0 __LABEL_1138
-  closecapture 32 0
+  condjump 0 __LABEL_1158
+  closecapture 33 0
   ret
 -- Rule
 LABEL:
   call __prefix
-  opencapture 33
+  opencapture 34
   set 000000000000ff03feffff87feffff0700000000000000000000000000000000
-  catch __LABEL_1151 -- 3
+  catch __LABEL_1171 -- 3
   counter 0 63
-__LABEL_1152:
+__LABEL_1172:
   set 000000000000ff03feffff87feffff0700000000000000000000000000000000
-  partialcommit __LABEL_1153
-__LABEL_1153:
-  condjump 0 __LABEL_1152
-  commit __LABEL_1151
-__LABEL_1151:
-  closecapture 33 0
+  partialcommit __LABEL_1173
+__LABEL_1173:
+  condjump 0 __LABEL_1172
+  commit __LABEL_1171
+__LABEL_1171:
+  closecapture 34 0
   ret
 -- Rule
 NUMBER:
   call __prefix
-  opencapture 34
+  opencapture 35
   set 000000000000ff03000000000000000000000000000000000000000000000000
-  catch __LABEL_1164 -- 2
-__LABEL_1163:
+  catch __LABEL_1184 -- 2
+__LABEL_1183:
   set 000000000000ff03000000000000000000000000000000000000000000000000
-  partialcommit __LABEL_1163
-__LABEL_1164:
-  closecapture 34 0
+  partialcommit __LABEL_1183
+__LABEL_1184:
+  closecapture 35 0
   ret
 -- Rule
 QUAD:
   call __prefix
-  opencapture 35
+  opencapture 36
   counter 0 8
-__LABEL_1174:
+__LABEL_1194:
   set 000000000000ff037e0000007e00000000000000000000000000000000000000
-  condjump 0 __LABEL_1174
-  closecapture 35 0
+  condjump 0 __LABEL_1194
+  closecapture 36 0
   ret
 -- Rule
 SET:
   call __prefix
-  opencapture 36
+  opencapture 37
   counter 0 64
-__LABEL_1186:
+__LABEL_1206:
   set 000000000000ff037e0000007e00000000000000000000000000000000000000
-  condjump 0 __LABEL_1186
-  closecapture 36 0
+  condjump 0 __LABEL_1206
+  closecapture 37 0
   ret
 -- Rule
 SLOT:
@@ -770,21 +785,21 @@ AMPERSAND:
 -- Rule
 STRING:
   call __prefix
-  opencapture 37
+  opencapture 38
   char 27
-  catch __LABEL_1236 -- 2
-__LABEL_1235:
-  catch __LABEL_1238 -- terms or expression
+  catch __LABEL_1256 -- 2
+__LABEL_1255:
+  catch __LABEL_1258 -- terms or expression
   char 5c
   any
-  commit __LABEL_1239
-__LABEL_1238:
+  commit __LABEL_1259
+__LABEL_1258:
   set ffffffff7fffffffffffffffffffffffffffffffffffffffffffffffffffffff
-__LABEL_1239:
-  partialcommit __LABEL_1235
-__LABEL_1236:
+__LABEL_1259:
+  partialcommit __LABEL_1255
+__LABEL_1256:
   char 27
-  closecapture 37 0
+  closecapture 38 0
   ret
 
   end 0

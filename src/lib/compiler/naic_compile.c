@@ -20,7 +20,7 @@ const unsigned char bytecode[] = GRAMMAR_BYTECODE;
  *
  */
 NAIG_ERR_T naic_compile
-  (char* grammar, FILE* output, naic_slotmap_t* slots, int debug)
+  (char* grammar, FILE* output, naic_slotmap_t* slots, int debug, int traps)
 {
   naie_engine_t engine;
   naie_result_t result;
@@ -45,6 +45,6 @@ NAIG_ERR_T naic_compile
     }
     exit(-1);
   }
-  CHECK(naic_process_tokens(grammar, &result, output, slots));
+  CHECK(naic_process_tokens(grammar, &result, output, slots, traps));
   return NAIG_OK;
 }

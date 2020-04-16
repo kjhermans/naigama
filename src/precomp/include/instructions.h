@@ -24,7 +24,7 @@
 #define INSTR_FAILTWICE "failtwice"
 #define OPCODE_JUMP 0x00040309
 #define INSTR_JUMP "jump"
-#define OPCODE_MASKEDCHAR 0x0004050a
+#define OPCODE_MASKEDCHAR 0x0008050a
 #define INSTR_MASKEDCHAR "maskedchar"
 #define OPCODE_NOOP 0x00000000
 #define INSTR_NOOP "noop"

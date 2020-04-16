@@ -33,6 +33,8 @@ NAIG_ERR_T naia_process_instructions
       CHECK(naia_process_catch(naia, i)); break;
     case ASMSLOT_CHARINSTR_CHAR:
       CHECK(naia_process_char(naia, i)); break;
+    case ASMSLOT_MASKEDCHARINSTR_MASKEDCHAR:
+      CHECK(naia_process_maskedchar(naia, i)); break;
     case ASMSLOT_CLOSECAPTUREINSTR_CLOSECAPTURE:
       CHECK(naia_process_closecapture(naia, i)); break;
     case ASMSLOT_COMMITINSTR_COMMIT:

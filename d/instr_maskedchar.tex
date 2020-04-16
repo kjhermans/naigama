@@ -2,12 +2,44 @@
 
 \subsubsection{Summary}
 
+The 'maskedchar' instruction compares the masked current input byte
+against a character value paramater.
+If they are
+equal, the match is considered a success, and the engine moves to the
+next instruction. If they are not equal, the FAIL condition is raised.
+
 \subsubsection{Grammar and Compiling}
+
+In grammar, the 'maskedchar' instruction is emitted by the compiler
+when the following pattern occurs.
+
+\begin{myquote}
+\begin{verbatim}
+MASKEDCHAR <- |40|80|
+
+\end{verbatim}
+\end{myquote}
+
+This would result in the following evaluation of code, in C:
+
+\begin{myquote}
+\begin{verbatim}
+if ((inputbyte & 0x80) == 0x40) {
+  goto NEXT;
+} else {
+  goto FAIL;
+}
+
+\end{verbatim}
+\end{myquote}
+
+Note that the input pointer is not increased on success.
 
 \subsubsection{Assembly Syntax}
 
 \begin{myquote}
 \begin{verbatim}
+MASKEDCHARINSTR    <- { 'maskedchar' } S HEXBYTE S HEXBYTE
 
 \end{verbatim}
 \end{myquote}
@@ -25,7 +57,7 @@ $_0$\
 }
 \fbox{%
   \parbox{20pt}{%
-04
+08
   }%
 }
 \fbox{%

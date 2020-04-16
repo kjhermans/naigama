@@ -117,6 +117,12 @@ NAIG_ERR_T naia_process_labels
   (naia_t* naia)
   __attribute__ ((warn_unused_result));
 
+/* declared in ../lib/assembler//naia_process_maskedchar.c */
+extern
+NAIG_ERR_T naia_process_maskedchar
+  (naia_t* naia, unsigned i)
+  __attribute__ ((warn_unused_result));
+
 /* declared in ../lib/assembler//naia_process_noop.c */
 extern
 NAIG_ERR_T naia_process_noop

@@ -146,9 +146,22 @@ NAIG_ERR_T naie_engine_run
       if (engine->inputpos >= data_length) {
         goto FAIL;
       }
-      param1 = bytecode[ bytecode_pos + 7 ];  // match
+      param1 = bytecode[ bytecode_pos + 7 ];
       if (data[ engine->inputpos ] == param1) {
         ++(engine->inputpos);
+        bytecode_pos += instruction_size;
+      } else {
+        goto FAIL;
+      }
+      goto NEXT;
+
+    case OPCODE_MASKEDCHAR:
+      if (engine->inputpos >= data_length) {
+        goto FAIL;
+      }
+      param1 = bytecode[ bytecode_pos + 7 ];  // maskedmatch
+      param2 = bytecode[ bytecode_pos + 11 ]; // mask
+      if ((data[ engine->inputpos ] & param2) == param1) {
         bytecode_pos += instruction_size;
       } else {
         goto FAIL;

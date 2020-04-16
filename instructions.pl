@@ -108,8 +108,8 @@
     ',
   },
   maskedchar => {
-    instr => ( 0x0a | ( 0x05 << 8) | ( 0x04 << 16)),
-    size => 8,
+    instr => ( 0x0a | ( 0x05 << 8) | ( 0x08 << 16)),
+    size => 12,
     param1 => 'char',
     param2 => 'mask',
   },

@@ -327,11 +327,9 @@ NAIG_ERR_T naie_engine_run
 
     case OPCODE_TESTCHAR:
       param1 = GET_32BIT_NWO(bytecode, bytecode_pos + 4); // address
-      param2 = bytecode[ bytecode_pos + 9 ];              // mask
-      param3 = bytecode[ bytecode_pos + 11 ];             // match
-      if (param2 == 0) { param2 = 0xff; }
+      param2 = bytecode[ bytecode_pos + 11 ];             // match
       if (engine->inputpos < data_length
-          && (data[ engine->inputpos ] & param2) == param3)
+          && data[ engine->inputpos ] == param2)
       {
         bytecode_pos += instruction_size;
       } else {

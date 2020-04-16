@@ -1,4 +1,5 @@
 \section{Assembly}
+\label{sec:assembly}
 
 A Naigama assembly file or buffer consists of sequences of
 whitespace, comments, labels, and (parametrized) instructions, separated
@@ -9,6 +10,8 @@ into bytecode.
 
 \begin{myquote}
 \begin{verbatim}
+-- Compilation of: TEST <- { 'a' } { 'a' } { 'a' / 'b' }
+
   call TEST
   end
 -- Rule
@@ -35,7 +38,8 @@ __LABEL_31:
 
 \subsection{Comments}
 
-Comments in Naigama assembly start with two minus signs, and end at
+Just like in Naigama grammar,
+comments in Naigama assembly start with two minus signs, and end at
 a new line. They can be given on separate lines, or they can be
 postfixed to instructions or labels.
 
@@ -62,3 +66,28 @@ so that jumps are always correct (but non descriptive).
 \subsection{Instructions}
 
 \input{table_instr.tex}
+
+See table [\ref{tab:naig_assembly}].
+
+\subsection{Parameters}
+
+Parameters follow the instruction in assembly text. They are separated
+from the instruction and any other parameters by spaces. The following
+types of parameters exist:
+
+\subsubsection{Characters}
+
+Character parameters are denoted as two byte hexadecimal values.
+
+\subsubsection{Quads}
+
+Quad parameters are denoted as eight byte hexadecimal values.
+
+\subsubsection{Sets}
+
+Set parameters are denoted as 64 byte hexadecimal values, representing
+a bitmask of 256 possible booleans.
+
+\subsubsection{Registers, Slots, Codes and Numbers}
+
+These parameters are all denoted as decimal numbers.

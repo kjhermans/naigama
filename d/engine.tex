@@ -1,4 +1,5 @@
 \section{Engine}
+\label{sec:engine}
 
 The Naigama bytecode execution engine or library can be used to
 match or fail an input of data using a bytecode.
@@ -70,12 +71,42 @@ engine's state and jumps to the alternative address.
 \subsubsection{Action List}
 
 The action list contains actions related to capturing from the input buffer.
+It may contain the following type items:
+
+\begin{itemize}
+
+\item A 'opencapture' type element, which contains an input position
+      and a slot number.
+\item A 'closecapture' type element, which contains an input position
+      and a slot number.
+\item A 'replace' type element, which contains two offsets.
+
+\end{itemize}
 
 \subsubsection{Register}
 
 \subsection{Special Conditions}
 
 \subsubsection{Running out of Stack or Actions}
+
+Naigama parsing is a left recursing, meaning that the following
+expression:
+
+\begin{myquote}
+\begin{verbatim}
+INPUT <- ( { . } INPUT ) / ( { . } !. )
+
+\end{verbatim}
+\end{myquote}
+
+will be compiled to bytecode that will incur, during its execution,
+a stack that is as long as its input, and after execution, will result
+in an action list that is as long as the input. Given that Naigama
+allows you to process ('arbitrarily') large inputs, this may not
+be something that the memory limits of your engine can handle.
+
+When the engine encounters limits on its room for stack or action
+list elements, it must hald execution of the bytecode abnormally.
 
 \subsubsection{Streaming Input}
 
@@ -94,7 +125,17 @@ engine should halt execution of the bytecode abnormally.
 
 \subsubsection{Faulty Bytecode / Canary Traps}
 
-...
+Bytecode instruction values have been chosen in such a manner, that the
+Hamming distance between them is always two or more, meaning that it
+requires more than two bit upset events in an instruction, to potentially
+be confused with another.
+
+Addresses are always a multiple of four, so the two least relevant bits
+on an address must always be zero.
+
+Compilers may introduce noops or traps in regions that they know should
+not ever be jumped to, for example by surrounding good code with them;
+the assembly languages expressly allows for this (the 'trap' instruction).
 
 \subsection{Output States}
 
@@ -157,7 +198,7 @@ the state of the engine captured therein is restored, and the engine
 jumps to the offset encapsulated therein.
 
 When no 'catch' element is encountered on its way to the top of the stack,
-the execution ends with failure.
+the execution ultimately ends with failure.
 
 \subsubsection{Instruction: Any}
 
@@ -169,41 +210,108 @@ If there is no byte left in the input, then a FAIL is invoked.
 
 \subsubsection{Instruction: Backcommit}
 
+The backcommit instruction eats up the stack like FAIL does,
+reconstituting the state captured in the popped, topmost 'catch' element,
+but instead of jumping to the offset captured therein, it jumps to
+a given parameter offset.
+
 \subsubsection{Instruction: Call}
+
+The call instruction pushes a 'call' element on the stack, which contains
+a bytecode offset to continue from (the next instruction), once the
+corresponding 'ret' instruction pops this element off the stack.
 
 \subsubsection{Instruction: Catch}
 
+The catch instruction pushes a 'catch' element on the stack, capturing
+the current state, and a bytecode offset to jump to, when the FAIL
+condition pops this element.
+
 \subsubsection{Instruction: Char}
+
+The char instruction checks to see if there is a byte left in the input
+and if so and if it compares to the given parameter character value, 
+consumes it (by jumping one position forward in the input),
+and goes on to the next instruction.
+
+If there is no byte left in the input, then a FAIL is invoked.
 
 \subsubsection{Instruction: Closecapture}
 
+The closecapture instruction pushes a 'closecapture' element on the
+action list, for the given parameter slot value (and the current
+input position).
+
 \subsubsection{Instruction: Commit}
+
+The commit instruction pops the topmost element off the stack
+(which must be a 'catch' element), then jumps to the given
+parameter bytecode offset.
 
 \subsubsection{Instruction: Condjump}
 
+The condjump instruction jumps to the bytecode offset value
+of the second parameter, if the number value stored in the register
+of the first parameter is not one. Then it decreases the value of the
+register.
+
 \subsubsection{Instruction: Counter}
+
+The counter instruction stores the number value of the second parameter
+into the register of the first parameter.
 
 \subsubsection{Instruction: End}
 
+The end instruction halts the bytecode execution. The number value
+of the parameter is passed to the initiator of the execution.
+
 \subsubsection{Instruction: Fail}
+
+Invokes the FAIL condition.
 
 \subsubsection{Instruction: Failtwice}
 
+Invokes the FAIL condition, twice. That is to say, breaking through
+the first 'catch' element encountered on the stack, to the second;
+without jumping to the bytecode offset encapsulated in the first one,
+but instead to the second.
+
 \subsubsection{Instruction: Jump}
+
+The jump instruction jumps to the bytecode offset given as its parameter.
 
 \subsubsection{Instruction: Noop}
 
+The noop instruction does nothing, but move to the next instruction.
+
 \subsubsection{Instruction: Opencapture}
+
+The closecapture instruction pushes an 'opencapture' element on the
+action list, for the given parameter slot value (and the current
+input position).
 
 \subsubsection{Instruction: Partialcommit}
 
+The partialcommit instruction takes the topmost element of the stack,
+which must be a 'catch' element, and updates the input position
+encapsulated therein to the current input position, then jumps to
+the bytecode offset given as parameter value.
+
 \subsubsection{Instruction: Quad}
+
+The quad instruction implements the 'char' instruction, but then for
+four consecutive character matches in one go. So, the engine checks
+to see if the input position allows for four matches, then matches them.
+Otherwise it invokes the FAIL condition.
 
 \subsubsection{Instruction: Replace}
 
 \subsubsection{Instruction: Replacestring}
 
 \subsubsection{Instruction: Ret}
+
+The ret instruction pops the topmost element off the stack, which must
+be a 'call' element, and jumps to the bytecode offset encapsulated therein.
 
 \subsubsection{Instruction: Set}
 
@@ -220,5 +328,11 @@ If there is no byte left in the input, then a FAIL is invoked.
 \subsubsection{Instruction: Testquad}
 
 \subsubsection{Instruction: Testset}
+
+\subsubsection{Instruction: Trap}
+
+The trap instruction causes the bytecode execution to fail abnormally,
+and the engine to halt. Compilers may emit this instruction in places
+where the engine must never end up.
 
 \subsubsection{Instruction: Var}

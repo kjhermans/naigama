@@ -1,8 +1,9 @@
 \section{Overview}
 
 This document describes the Naigama parsing system, which is a 
-modular system to process structured data inputs, in order to extract
-meaning from it (matching, capturing), or to manipulate it (replacements).
+modular system to process structured arbitrary length data inputs,
+in order to extract meaning from it (matching, capturing), or to
+manipulate it (replacements).
 The system was designed with a focus on information and system security.
 
 The system comes in three parts: a grammar compiler, an assembler,
@@ -31,13 +32,26 @@ to match, capture from, and replace in, structured inputs.
 People familiar with regular expressions \cite{bib:regex},
 Backus-Naur syntax descriptions \cite{bib:backusnaur},
 and / or Lex and Yacc tools \cite{bib:yacc},
-should find this document relatively easy to understand.
+should find this part of the document relatively easy to understand.
 The ideas underlying Naigama grammar, assembly and bytecode
-are heavily borrowed from Lua PEG (LPEG) \cite{bib:peg}.
+are heavily borrowed from Lua PEG (LPEG) \cite{bib:peg}
+by Roberto Ierusalimschy et al.
 
 \subsection{On Assembly}
 
-Section still to be written.
+The Naigama assembly language is a mixture of two languages:
+For one, it is the outcome instruction set, according to the
+aforementioned LPEG whitepaper,
+of the Naigama grammar compilation process. However, it also contains
+instructions that won't be produced by this compiler, but may
+either be produced by a separate optimizer, or other compilers
+altogether (for example, one that focuses on network packet
+parsing).
+
+The Naigama assembly language, in all cases, is the human readable
+variant of the Naigama bytecode, and its instructions are one-on-one
+translatable from the one to the other, and vice versa
+(although labels will be lost in the reverse process).
 
 \subsection{On Bytecode}
 
@@ -47,9 +61,8 @@ It is designed to be:
 
 \begin{itemize}
 
-\item Easy to interpret.
-\item Resilient against bit upset events (opcode Hamming distance,
-      predictable instruction offsets).
+\item Easy and quick to interpret.
+\item Resilient against bit upset events.
 \item Resilient against endless loops.
 \item Usable while keeping both bytecode and input as read-only buffers.
 

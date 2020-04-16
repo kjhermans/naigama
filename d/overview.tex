@@ -9,7 +9,8 @@ The system was designed with a focus on information and system security.
 The system comes in three parts: a grammar compiler, an assembler,
 and a bytecode execution engine. Each of the parts has their own
 input file format specification (grammar description, assembly specification,
-and bytecode specification). The process in brief: the compiler takes a
+and bytecode specification), and outputs the format of the next stage.
+The process in brief: the compiler takes a
 grammar description that the human end user has made, and turns it into
 an assembly language. The assembler takes the assembly, and turns it
 into a bytecode. The engine takes the bytecode and the input, and

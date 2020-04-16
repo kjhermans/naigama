@@ -39,7 +39,9 @@ Note that the input pointer is not increased on success.
 
 \begin{myquote}
 \begin{verbatim}
-MASKEDCHARINSTR    <- { 'maskedchar' } S HEXBYTE S HEXBYTE
+MASKEDCHARINSTR <- { 'maskedchar' } S HEXBYTE S HEXBYTE
+S               <- %s+
+HEXBYTE         <- [0-9a-fA-F]^2
 
 \end{verbatim}
 \end{myquote}
@@ -72,15 +74,64 @@ $_0$\
 }
 
 %DEADBEEF
+
+$_4$\
+\fbox{%
+  \parbox{20pt}{%
+nn
+  }%
+}
+\fbox{%
+  \parbox{20pt}{%
+nn
+  }%
+}
+\fbox{%
+  \parbox{20pt}{%
+nn
+  }%
+}
+\fbox{%
+  \parbox{20pt}{%
+nn
+  }%
+}
+
+$_8$\
+\fbox{%
+  \parbox{20pt}{%
+mm
+  }%
+}
+\fbox{%
+  \parbox{20pt}{%
+mm
+  }%
+}
+\fbox{%
+  \parbox{20pt}{%
+mm
+  }%
+}
+\fbox{%
+  \parbox{20pt}{%
+mm
+  }%
+}
+
+Where 'nn' is a 32-bit, network encoded, masked character value.
+
+Where 'mm' is a 32-bit, network encoded, character mask.
+
 \subsubsection{Execution State Change}
 
 .
 
 Original state: \textit{(p, i, e, c)}
 
-Operation: \textbf{any} ; i \ \textless \ $\vert$S$\vert$
+Operation: \textbf{maskedchar c m}; ( i \& m ) = c
 
 Failure state: \textit{(\textbf{Fail}, i, e, c)}
 
-Success state: \textit{(p + 1, i + 1, e, c)}
+Success state: \textit{(p + 1, i, e, c)}
 

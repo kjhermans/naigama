@@ -24,6 +24,9 @@ src/aux - you need this when you do a 'make superclean' and you haven't
           beginning; it bootstraps the grammar of the compiler and
           assembler themselves.
 
+          'make superclean' without having previously installed
+          the executables, requires perl btw, be warned.
+
 src/grammar - contains the grammar for the compiler and assembler.
 
 src/include - contains the header files, split up by library.

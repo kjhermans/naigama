@@ -1,0 +1,12 @@
+*.o
+*.a
+
+d/compendium.aux
+d/compendium.log
+d/compendium.lot
+d/compendium.pdf
+d/compendium.toc
+src/main/assembler/naia
+src/main/compiler/naic
+src/main/engine/naie
+

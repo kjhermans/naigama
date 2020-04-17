@@ -20,14 +20,14 @@ NAIG_ERR_T naic_process_varreference
   (naic_t* naic)
 {
   naie_resact_t* a = &(naic->captures->actions[ naic->capindex ]);
-  char* chr = naic->grammar + a->start;
+  char* chr = naic->grammar + a->start + 1;
   unsigned slot;
 
 #ifdef _DEBUG
   fprintf(stderr, "-- %s ", __FILE__); naic_debug(naic);
 #endif
 
-  CHECK(naic_var_get(naic, chr, a->stop - a->start, &slot));
+  CHECK(naic_var_get(naic, chr, a->stop - 1 - a->start, &slot));
   fprintf(naic->output, "  var %u\n"
                          , slot
   );

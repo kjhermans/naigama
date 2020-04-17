@@ -78,6 +78,7 @@ NAIG_ERR_T naic_process_term
     );
   }
   naic->labelcount = copy.labelcount;
+  naic->rulevarmap = copy.rulevarmap;
   if (quantifier[ 1 ] == -1) {
     fprintf(naic->output, "  catch %s -- 2\n"
                           "%s:\n"

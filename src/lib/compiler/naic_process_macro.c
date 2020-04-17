@@ -53,7 +53,6 @@ NAIG_ERR_T naic_process_macro
       for (i = '0'; i <= '9'; i++) { NAIC_SET_BIT_SET(set, i); }
       break;
     default:
-fprintf(stderr, "MACRO CHAR %c\n", *chr);
       RETURNERR(NAIC_ERR_MACRO);
     }
     break;

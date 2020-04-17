@@ -36,6 +36,7 @@ NAIG_ERR_T naie_variable
       if (c->action == NAIG_ACTION_OPENCAPTURE && stopfound) {
         start = c->inputpos;
         startfound = 1;
+        break;
       } else if (c->action == NAIG_ACTION_CLOSECAPTURE) {
         stop = c->inputpos;
         stopfound = 1;

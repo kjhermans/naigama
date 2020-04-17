@@ -28,7 +28,8 @@ NAIG_ERR_T naic_var_put
     if (naic->rulevarmap.table[ i ].keysize == len
         && 0 == memcmp(naic->rulevarmap.table[ i ].key, str, len))
     {
-      RETURNERR(NAIC_ERR_VARDOUBLE);
+//      RETURNERR(NAIC_ERR_VARDOUBLE);
+      return NAIG_OK;
     }
   }
   naic->rulevarmap.table[ i ].key = str;

@@ -38,6 +38,7 @@ if ($test =~ /-- Grammar:(.*)-- Input:(.*)-- Result:(.*)$/s) {
   $a .= " 2>>$tmpfile.$n.log";
   system("cat $tmpfile.asm >> $tmpfile.$n.log");
   my $x = system($a);
+  system("ls -l $tmpfile.byc >> $tmpfile.$n.log");
   system("hexdump -C $tmpfile.byc >> $tmpfile.$n.log");
   system("../bin/disassembler $tmpfile.byc >> $tmpfile.$n.log");
   if ($x) {

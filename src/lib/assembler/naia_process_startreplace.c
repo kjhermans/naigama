@@ -15,11 +15,16 @@
 /**
  *
  */
-NAIG_ERR_T naia_process_replacestring
+NAIG_ERR_T naia_process_startreplace
   (naia_t* naia, unsigned i)
 {
-  (void)naia;
+  uint32_t opcode = htonl(OPCODE_STARTREPLACE);
+  size_t s = fwrite(&opcode, sizeof(opcode), 1, naia->output);
   (void)i;
-  TODO("Implement");
-  RETURNERR(NAIG_ERR_UNIMPL);
+  
+  if (s == 1) {
+    return NAIG_OK;
+  } else {
+    RETURNERR(NAIG_ERR_WRITE);
+  }
 }

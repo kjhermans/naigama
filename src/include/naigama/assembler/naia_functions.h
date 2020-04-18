@@ -87,6 +87,12 @@ NAIG_ERR_T naia_process_end
   (naia_t* naia, unsigned i)
   __attribute__ ((warn_unused_result));
 
+/* declared in ../lib/assembler//naia_process_endreplace.c */
+extern
+NAIG_ERR_T naia_process_endreplace
+  (naia_t* naia, unsigned i)
+  __attribute__ ((warn_unused_result));
+
 /* declared in ../lib/assembler//naia_process_fail.c */
 extern
 NAIG_ERR_T naia_process_fail
@@ -153,12 +159,6 @@ NAIG_ERR_T naia_process_replace
   (naia_t* naia, unsigned i)
   __attribute__ ((warn_unused_result));
 
-/* declared in ../lib/assembler//naia_process_replacestring.c */
-extern
-NAIG_ERR_T naia_process_replacestring
-  (naia_t* naia, unsigned i)
-  __attribute__ ((warn_unused_result));
-
 /* declared in ../lib/assembler//naia_process_ret.c */
 extern
 NAIG_ERR_T naia_process_ret
@@ -180,6 +180,12 @@ NAIG_ERR_T naia_process_skip
 /* declared in ../lib/assembler//naia_process_span.c */
 extern
 NAIG_ERR_T naia_process_span
+  (naia_t* naia, unsigned i)
+  __attribute__ ((warn_unused_result));
+
+/* declared in ../lib/assembler//naia_process_startreplace.c */
+extern
+NAIG_ERR_T naia_process_startreplace
   (naia_t* naia, unsigned i)
   __attribute__ ((warn_unused_result));
 

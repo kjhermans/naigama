@@ -282,16 +282,21 @@
     param2 => '-',
   },
   replace => {
-    instr => ( 0x0a | ( 0x0f << 8) | ( 0x04 << 16)),
-    size => 8,
-    param1 => 'slot',
+    instr => ( 0x0a | ( 0x0f << 8) | ( 0x08 << 16)),
+    size => 12,
+    param1 => 'address',
+    param2 => 'address',
+  },
+  startreplace => {
+    instr => ( 0x0f | ( 0x0f << 8) | ( 0x00 << 16)),
+    size => 4,
+    param1 => '-',
     param2 => '-',
   },
-  replacestring => {
-    instr => ( 0x0f | ( 0x0f << 8) | ( 0x04 << 16)),
-    size => 8,
-    param1 => 'length',
-    param2 => 'string',
-    doc => 'This is a semi instruction.'
+  endreplace => {
+    instr => ( 0x30 | ( 0x0f << 8) | ( 0x00 << 16)),
+    size => 4,
+    param1 => '-',
+    param2 => '-',
   },
 };

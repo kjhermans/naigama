@@ -18,6 +18,8 @@
 #define INSTR_COUNTER "counter"
 #define OPCODE_END 0x0004030a
 #define INSTR_END "end"
+#define OPCODE_ENDREPLACE 0x00000f30
+#define INSTR_ENDREPLACE "endreplace"
 #define OPCODE_FAIL 0x00000a0a
 #define INSTR_FAIL "fail"
 #define OPCODE_FAILTWICE 0x00000a0f
@@ -36,10 +38,8 @@
 #define INSTR_QUAD "quad"
 #define OPCODE_RANGE 0x00080553
 #define INSTR_RANGE "range"
-#define OPCODE_REPLACE 0x00040f0a
+#define OPCODE_REPLACE 0x00080f0a
 #define INSTR_REPLACE "replace"
-#define OPCODE_REPLACESTRING 0x00040f0f
-#define INSTR_REPLACESTRING "replacestring"
 #define OPCODE_RET 0x00000305
 #define INSTR_RET "ret"
 #define OPCODE_SET 0x00200539
@@ -50,6 +50,8 @@
 #define INSTR_SKIPVAR "skipvar"
 #define OPCODE_SPAN 0x0020053f
 #define INSTR_SPAN "span"
+#define OPCODE_STARTREPLACE 0x00000f0f
+#define INSTR_STARTREPLACE "startreplace"
 #define OPCODE_TESTANY 0x00040505
 #define INSTR_TESTANY "testany"
 #define OPCODE_TESTCHAR 0x0008050f

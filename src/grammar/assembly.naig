@@ -9,10 +9,11 @@ INSTRUCTION        <- {
                         ANYINSTR / BACKCOMMITINSTR / CALLINSTR /
                         CATCHINSTR / CHARINSTR / MASKEDCHARINSTR /
                         CLOSECAPTUREINSTR / COMMITINSTR /
+                        STARTREPLACEINSTR / ENDREPLACEINSTR / REPLACEINSTR /
                         ENDINSTR / FAILTWICEINSTR / FAILINSTR /
                         JUMPINSTR / NOOPINSTR / TRAPINSTR /
                         OPENCAPTUREINSTR / PARTIALCOMMITINSTR /
-                        QUADINSTR / REPLACEINSTR / REPLACESTRINGINSTR /
+                        QUADINSTR /
                         RETINSTR / SETINSTR / RANGEINSTR /
                         SKIPINSTR / SPANINSTR / TESTANYINSTR /
                         TESTCHARINSTR / TESTQUADINSTR /
@@ -40,8 +41,9 @@ TRAPINSTR          <- { 'trap' }
 OPENCAPTUREINSTR   <- { 'opencapture' } S SLOT
 PARTIALCOMMITINSTR <- { 'partialcommit' } S LABEL
 QUADINSTR          <- { 'quad' } S QUAD
-REPLACEINSTR       <- { 'replace' } S LABEL
-REPLACESTRINGINSTR <- { 'replacestring' } S STRING
+REPLACEINSTR       <- { 'replace' } S LABEL S LABEL
+STARTREPLACEINSTR  <- { 'startreplace' }
+ENDREPLACEINSTR    <- { 'endreplace' }
 RETINSTR           <- { 'ret' }
 SETINSTR           <- { 'set' } S SET
 RANGEINSTR         <- { 'range' } S NUMBER S NUMBER

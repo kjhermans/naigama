@@ -255,24 +255,13 @@ NAIG_ERR_T naie_engine_run
 
     case OPCODE_REPLACE:
       param1 = GET_32BIT_NWO(bytecode, bytecode_pos + 4);
-      if (param2 > bytecode_length - 8) {
-        RETURNERR(NAIE_ERR_CODEOVERFLOW);
-      }
-      param2 = GET_32BIT_NWO(bytecode, param1);
-      if (param2 != OPCODE_REPLACESTRING) {
-        RETURNERR(NAIE_ERR_BADOPCODE);
-      }
-      param2 = GET_32BIT_NWO(bytecode, param1 + 4);
-      if (param1 + 8 + param2 > bytecode_length) {
-        RETURNERR(NAIE_ERR_CODEOVERFLOW);
-      }
+      param2 = GET_32BIT_NWO(bytecode, bytecode_pos + 8);
       action = (naie_action_t){
         .action = NAIG_ACTION_REPLACE,
-        .slot = param1 + 8,
-        .intvalue = param2
+        .slot = param1
       };
       CHECK(naie_action_push(engine, action));
-      bytecode_pos += instruction_size;
+      bytecode_pos = param2;
       goto NEXT;
 
     case OPCODE_PARTIALCOMMIT:

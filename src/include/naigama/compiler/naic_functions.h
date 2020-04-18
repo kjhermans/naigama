@@ -74,6 +74,12 @@ NAIG_ERR_T naic_process_reference
   (naic_t* naic)
   __attribute__ ((warn_unused_result));
 
+/* declared in ../lib/compiler//naic_process_replaceterms.c */
+extern
+NAIG_ERR_T naic_process_replaceterms
+  (naic_t* naic)
+  __attribute__ ((warn_unused_result));
+
 /* declared in ../lib/compiler//naic_process_rule.c */
 extern
 NAIG_ERR_T naic_process_rule

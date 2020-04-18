@@ -33,14 +33,18 @@
   case 31: return "SET_NRTV_1"; break; \
   case 32: return "SET_NRTV_2"; break; \
   case 33: return "SET_ABCLOSE"; break; \
-  case 34: return "VARREFERENCE_IDENTNUMBER"; break; \
-  case 35: return "REPLACE_TERMS"; break; \
-  case 36: return "RECYCLE_IDENT"; break; \
-  case 37: return "OPTARGS_ARGS"; break; \
-  case 38: return "ARGS_IDENT"; break; \
-  case 39: return "ARGS_IDENT_1"; break; \
-  case 40: return "CALL_IDENT"; break; \
-  case 41: return "CALL_ARGS"; break; \
+  case 34: return "VARREFERENCE_IDENT"; break; \
+  case 35: return "VARREFERENCE_NUMBER"; break; \
+  case 36: return "REPLACE_REPLACETERMS"; break; \
+  case 37: return "REPLACETERM_STRINGLITERAL"; break; \
+  case 38: return "REPLACETERM_HEXLITERAL"; break; \
+  case 39: return "REPLACETERM_VARREFERENCE"; break; \
+  case 40: return "RECYCLE_IDENT"; break; \
+  case 41: return "OPTARGS_ARGS"; break; \
+  case 42: return "ARGS_IDENT"; break; \
+  case 43: return "ARGS_IDENT_1"; break; \
+  case 44: return "CALL_IDENT"; break; \
+  case 45: return "CALL_ARGS"; break; \
 
 
 #define SLOT_RULE_IDENT 0
@@ -77,11 +81,15 @@
 #define SLOT_SET_NRTV_1 31
 #define SLOT_SET_NRTV_2 32
 #define SLOT_SET_ABCLOSE 33
-#define SLOT_VARREFERENCE_IDENTNUMBER 34
-#define SLOT_REPLACE_TERMS 35
-#define SLOT_RECYCLE_IDENT 36
-#define SLOT_OPTARGS_ARGS 37
-#define SLOT_ARGS_IDENT 38
-#define SLOT_ARGS_IDENT_1 39
-#define SLOT_CALL_IDENT 40
-#define SLOT_CALL_ARGS 41
+#define SLOT_VARREFERENCE_IDENT 34
+#define SLOT_VARREFERENCE_NUMBER 35
+#define SLOT_REPLACE_REPLACETERMS 36
+#define SLOT_REPLACETERM_STRINGLITERAL 37
+#define SLOT_REPLACETERM_HEXLITERAL 38
+#define SLOT_REPLACETERM_VARREFERENCE 39
+#define SLOT_RECYCLE_IDENT 40
+#define SLOT_OPTARGS_ARGS 41
+#define SLOT_ARGS_IDENT 42
+#define SLOT_ARGS_IDENT_1 43
+#define SLOT_CALL_IDENT 44
+#define SLOT_CALL_ARGS 45

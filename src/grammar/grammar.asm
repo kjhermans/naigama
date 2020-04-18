@@ -522,63 +522,65 @@ __LABEL_756:
 VARREFERENCE:
   call __prefix
   char 24
-  opencapture 34
   catch __LABEL_1038 -- terms or expression
+  opencapture 34
   call IDENT
+  closecapture 34 0
   commit __LABEL_1039
 __LABEL_1038:
+  opencapture 35
   call NUMBER
+  closecapture 35 0
 __LABEL_1039:
-  closecapture 34 0
   ret
 -- Rule
 REFERENCE:
   call __prefix
   call IDENT
-  catch __LABEL_1058  -- 1
+  catch __LABEL_1070  -- 1
   call OPTARGS
   call LEFTARROW
   failtwice
-__LABEL_1058:
+__LABEL_1070:
   ret
 -- Rule
 TYPE:
   call __prefix
-  catch __LABEL_1076 -- terms or expression
+  catch __LABEL_1088 -- terms or expression
   char 75
   char 69
   char 6e
   char 74
   char 33
   char 32
-  commit __LABEL_1077
-__LABEL_1076:
-  catch __LABEL_1084 -- terms or expression
+  commit __LABEL_1089
+__LABEL_1088:
+  catch __LABEL_1096 -- terms or expression
   char 69
   char 6e
   char 74
   char 33
   char 32
-  commit __LABEL_1085
-__LABEL_1084:
-  catch __LABEL_1092 -- terms or expression
+  commit __LABEL_1097
+__LABEL_1096:
+  catch __LABEL_1104 -- terms or expression
   char 75
   char 6e
   char 65
   char 74
   char 33
   char 32
-  commit __LABEL_1093
-__LABEL_1092:
-  catch __LABEL_1100 -- terms or expression
+  commit __LABEL_1105
+__LABEL_1104:
+  catch __LABEL_1112 -- terms or expression
   char 6e
   char 65
   char 74
   char 33
   char 32
-  commit __LABEL_1101
-__LABEL_1100:
-  catch __LABEL_1108 -- terms or expression
+  commit __LABEL_1113
+__LABEL_1112:
+  catch __LABEL_1120 -- terms or expression
   char 64
   char 65
   char 63
@@ -586,44 +588,75 @@ __LABEL_1100:
   char 6d
   char 61
   char 6c
-  commit __LABEL_1109
-__LABEL_1108:
+  commit __LABEL_1121
+__LABEL_1120:
   call IDENT
-__LABEL_1109:
-__LABEL_1101:
-__LABEL_1093:
-__LABEL_1085:
-__LABEL_1077:
+__LABEL_1121:
+__LABEL_1113:
+__LABEL_1105:
+__LABEL_1097:
+__LABEL_1089:
   ret
 -- Rule
 REPLACE:
   call __prefix
   call RIGHTARROW
-  opencapture 35
-  call TERMS
-  closecapture 35 0
+  opencapture 36
+  call REPLACETERMS
+  closecapture 36 0
+  ret
+-- Rule
+REPLACETERMS:
+  call __prefix
+  call REPLACETERM
+  catch __LABEL_1156 -- 2
+__LABEL_1155:
+  call REPLACETERM
+  partialcommit __LABEL_1155
+__LABEL_1156:
+  ret
+-- Rule
+REPLACETERM:
+  call __prefix
+  catch __LABEL_1158 -- terms or expression
+  opencapture 37
+  call STRINGLITERAL
+  closecapture 37 0
+  commit __LABEL_1159
+__LABEL_1158:
+  catch __LABEL_1172 -- terms or expression
+  opencapture 38
+  call HEXLITERAL
+  closecapture 38 0
+  commit __LABEL_1173
+__LABEL_1172:
+  opencapture 39
+  call VARREFERENCE
+  closecapture 39 0
+__LABEL_1173:
+__LABEL_1159:
   ret
 -- Rule
 RECYCLE:
   call __prefix
   call FATARROW
-  opencapture 36
+  opencapture 40
   call IDENT
-  closecapture 36 0
+  closecapture 40 0
   ret
 -- Rule
 IDENT:
   call __prefix
   set 0000000000000000feffff87feffff0700000000000000000000000000000000
-  catch __LABEL_1167 -- 3
+  catch __LABEL_1225 -- 3
   counter 2 63
-__LABEL_1168:
+__LABEL_1226:
   set 000000000000ff03feffff87feffff0700000000000000000000000000000000
-  partialcommit __LABEL_1169
-__LABEL_1169:
-  condjump 2 __LABEL_1168
-  commit __LABEL_1167
-__LABEL_1167:
+  partialcommit __LABEL_1227
+__LABEL_1227:
+  condjump 2 __LABEL_1226
+  commit __LABEL_1225
+__LABEL_1225:
   ret
 -- Rule
 LEFTARROW:
@@ -658,11 +691,11 @@ MACRO:
   call __prefix
   char 25
   set 0000000000000000feffff07feffff0700000000000000000000000000000000
-  catch __LABEL_1216 -- 2
-__LABEL_1215:
+  catch __LABEL_1274 -- 2
+__LABEL_1273:
   set 000000000000ff03feffff07feffff0700000000000000000000000000000000
-  partialcommit __LABEL_1215
-__LABEL_1216:
+  partialcommit __LABEL_1273
+__LABEL_1274:
   ret
 -- Rule
 HEXLITERAL:
@@ -670,50 +703,55 @@ HEXLITERAL:
   char 30
   char 78
   counter 3 2
-__LABEL_1226:
+__LABEL_1284:
   set 000000000000ff037e0000007e00000000000000000000000000000000000000
-  condjump 3 __LABEL_1226
+  condjump 3 __LABEL_1284
   ret
 -- Rule
 NUMBER:
   call __prefix
   set 000000000000ff03000000000000000000000000000000000000000000000000
-  catch __LABEL_1234 -- 2
-__LABEL_1233:
+  catch __LABEL_1292 -- 2
+__LABEL_1291:
   set 000000000000ff03000000000000000000000000000000000000000000000000
-  partialcommit __LABEL_1233
-__LABEL_1234:
+  partialcommit __LABEL_1291
+__LABEL_1292:
+  ret
+-- Rule
+STRINGLITERAL:
+  call __prefix
+  char 27
+  catch __LABEL_1304 -- 2
+__LABEL_1303:
+  catch __LABEL_1306 -- terms or expression
+  char 5c
+  catch __LABEL_1320 -- terms or expression
+  set 0000000080000000000000100040540000000000000000000000000000000000
+  commit __LABEL_1321
+__LABEL_1320:
+  counter 4 3
+__LABEL_1330:
+  set 000000000000ff03000000000000000000000000000000000000000000000000
+  condjump 4 __LABEL_1330
+__LABEL_1321:
+  commit __LABEL_1307
+__LABEL_1306:
+  set ffffffff7fffffffffffffefffffffffffffffffffffffffffffffffffffffff
+__LABEL_1307:
+  partialcommit __LABEL_1303
+__LABEL_1304:
+  char 27
   ret
 -- Rule
 STRING:
   call __prefix
-  char 27
-  catch __LABEL_1246 -- 2
-__LABEL_1245:
-  catch __LABEL_1248 -- terms or expression
-  char 5c
-  catch __LABEL_1262 -- terms or expression
-  set 0000000080000000000000100040540000000000000000000000000000000000
-  commit __LABEL_1263
-__LABEL_1262:
-  counter 4 3
-__LABEL_1272:
-  set 000000000000ff03000000000000000000000000000000000000000000000000
-  condjump 4 __LABEL_1272
-__LABEL_1263:
-  commit __LABEL_1249
-__LABEL_1248:
-  set ffffffff7fffffffffffffefffffffffffffffffffffffffffffffffffffffff
-__LABEL_1249:
-  partialcommit __LABEL_1245
-__LABEL_1246:
-  char 27
-  catch __LABEL_1291 -- 4
+  call STRINGLITERAL
+  catch __LABEL_1355 -- 4
   char 69
-  partialcommit __LABEL_1292
-__LABEL_1292:
-  commit __LABEL_1291
-__LABEL_1291:
+  partialcommit __LABEL_1356
+__LABEL_1356:
+  commit __LABEL_1355
+__LABEL_1355:
   ret
 -- Rule
 OR:
@@ -795,42 +833,42 @@ GT:
 -- Rule
 OPTARGS:
   call __prefix
-  catch __LABEL_1387 -- 4
-  opencapture 37
+  catch __LABEL_1451 -- 4
+  opencapture 41
   call ARGS
-  closecapture 37 0
-  partialcommit __LABEL_1388
-__LABEL_1388:
-  commit __LABEL_1387
-__LABEL_1387:
+  closecapture 41 0
+  partialcommit __LABEL_1452
+__LABEL_1452:
+  commit __LABEL_1451
+__LABEL_1451:
   ret
 -- Rule
 ARGS:
   call __prefix
   call BOPEN
-  opencapture 38
+  opencapture 42
   call IDENT
-  closecapture 38 0
-  catch __LABEL_1418 -- 2
-__LABEL_1417:
+  closecapture 42 0
+  catch __LABEL_1482 -- 2
+__LABEL_1481:
   call COMMA
-  opencapture 39
+  opencapture 43
   call IDENT
-  closecapture 39 0
-  partialcommit __LABEL_1417
-__LABEL_1418:
+  closecapture 43 0
+  partialcommit __LABEL_1481
+__LABEL_1482:
   call BCLOSE
   ret
 -- Rule
 CALL:
   call __prefix
   call LT
-  opencapture 40
+  opencapture 44
   call IDENT
-  closecapture 40 0
-  opencapture 41
+  closecapture 44 0
+  opencapture 45
   call ARGS
-  closecapture 41 0
+  closecapture 45 0
   call GT
   ret
 

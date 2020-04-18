@@ -41,5 +41,11 @@ NAIG_ERR_T naic_process_capture
   ++(naic->capindex);
   CHECK(naic_process_expression(naic));
   fprintf(naic->output, "  closecapture %u 0\n", slot);
+  if (naic->captures->actions[ naic->capindex + 1 ].slot
+      == SLOT_REPLACE_REPLACETERMS)
+  {
+    ++(naic->capindex);
+    CHECK(naic_process_replaceterms(naic));
+  }
   return NAIG_OK;
 }

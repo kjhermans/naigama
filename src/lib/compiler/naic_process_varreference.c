@@ -20,14 +20,20 @@ NAIG_ERR_T naic_process_varreference
   (naic_t* naic)
 {
   naie_resact_t* a = &(naic->captures->actions[ naic->capindex ]);
-  char* chr = naic->grammar + a->start + 1;
+  char* chr;
   unsigned slot;
 
 #ifdef _DEBUG
   fprintf(stderr, "-- %s ", __FILE__); naic_debug(naic);
 #endif
 
-  CHECK(naic_var_get(naic, chr, a->stop - 1 - a->start, &slot));
+  ++a;
+  chr = naic->grammar + a->start;
+  if (a->slot == SLOT_VARREFERENCE_IDENT) {
+    CHECK(naic_var_get(naic, chr, a->stop - a->start, &slot));
+  } else {
+    slot = atoi_substr(naic->grammar, a->start, a->stop - a->start);
+  }
   fprintf(naic->output, "  var %u\n"
                          , slot
   );

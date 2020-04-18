@@ -599,38 +599,31 @@ __LABEL_1077:
 REPLACE:
   call __prefix
   call RIGHTARROW
-  catch __LABEL_1134 -- terms or expression
   opencapture 35
-  call STRING
+  call TERMS
   closecapture 35 0
-  commit __LABEL_1135
-__LABEL_1134:
-  opencapture 36
-  call VARREFERENCE
-  closecapture 36 0
-__LABEL_1135:
   ret
 -- Rule
 RECYCLE:
   call __prefix
   call FATARROW
-  opencapture 37
+  opencapture 36
   call IDENT
-  closecapture 37 0
+  closecapture 36 0
   ret
 -- Rule
 IDENT:
   call __prefix
   set 0000000000000000feffff87feffff0700000000000000000000000000000000
-  catch __LABEL_1187 -- 3
+  catch __LABEL_1167 -- 3
   counter 2 63
-__LABEL_1188:
+__LABEL_1168:
   set 000000000000ff03feffff87feffff0700000000000000000000000000000000
-  partialcommit __LABEL_1189
-__LABEL_1189:
-  condjump 2 __LABEL_1188
-  commit __LABEL_1187
-__LABEL_1187:
+  partialcommit __LABEL_1169
+__LABEL_1169:
+  condjump 2 __LABEL_1168
+  commit __LABEL_1167
+__LABEL_1167:
   ret
 -- Rule
 LEFTARROW:
@@ -665,11 +658,11 @@ MACRO:
   call __prefix
   char 25
   set 0000000000000000feffff07feffff0700000000000000000000000000000000
-  catch __LABEL_1236 -- 2
-__LABEL_1235:
+  catch __LABEL_1216 -- 2
+__LABEL_1215:
   set 000000000000ff03feffff07feffff0700000000000000000000000000000000
-  partialcommit __LABEL_1235
-__LABEL_1236:
+  partialcommit __LABEL_1215
+__LABEL_1216:
   ret
 -- Rule
 HEXLITERAL:
@@ -677,50 +670,50 @@ HEXLITERAL:
   char 30
   char 78
   counter 3 2
-__LABEL_1246:
+__LABEL_1226:
   set 000000000000ff037e0000007e00000000000000000000000000000000000000
-  condjump 3 __LABEL_1246
+  condjump 3 __LABEL_1226
   ret
 -- Rule
 NUMBER:
   call __prefix
   set 000000000000ff03000000000000000000000000000000000000000000000000
-  catch __LABEL_1254 -- 2
-__LABEL_1253:
+  catch __LABEL_1234 -- 2
+__LABEL_1233:
   set 000000000000ff03000000000000000000000000000000000000000000000000
-  partialcommit __LABEL_1253
-__LABEL_1254:
+  partialcommit __LABEL_1233
+__LABEL_1234:
   ret
 -- Rule
 STRING:
   call __prefix
   char 27
-  catch __LABEL_1266 -- 2
-__LABEL_1265:
-  catch __LABEL_1268 -- terms or expression
+  catch __LABEL_1246 -- 2
+__LABEL_1245:
+  catch __LABEL_1248 -- terms or expression
   char 5c
-  catch __LABEL_1282 -- terms or expression
+  catch __LABEL_1262 -- terms or expression
   set 0000000080000000000000100040540000000000000000000000000000000000
-  commit __LABEL_1283
-__LABEL_1282:
+  commit __LABEL_1263
+__LABEL_1262:
   counter 4 3
-__LABEL_1292:
+__LABEL_1272:
   set 000000000000ff03000000000000000000000000000000000000000000000000
-  condjump 4 __LABEL_1292
-__LABEL_1283:
-  commit __LABEL_1269
-__LABEL_1268:
+  condjump 4 __LABEL_1272
+__LABEL_1263:
+  commit __LABEL_1249
+__LABEL_1248:
   set ffffffff7fffffffffffffefffffffffffffffffffffffffffffffffffffffff
-__LABEL_1269:
-  partialcommit __LABEL_1265
-__LABEL_1266:
+__LABEL_1249:
+  partialcommit __LABEL_1245
+__LABEL_1246:
   char 27
-  catch __LABEL_1311 -- 4
+  catch __LABEL_1291 -- 4
   char 69
-  partialcommit __LABEL_1312
-__LABEL_1312:
-  commit __LABEL_1311
-__LABEL_1311:
+  partialcommit __LABEL_1292
+__LABEL_1292:
+  commit __LABEL_1291
+__LABEL_1291:
   ret
 -- Rule
 OR:
@@ -802,42 +795,42 @@ GT:
 -- Rule
 OPTARGS:
   call __prefix
-  catch __LABEL_1407 -- 4
-  opencapture 38
+  catch __LABEL_1387 -- 4
+  opencapture 37
   call ARGS
-  closecapture 38 0
-  partialcommit __LABEL_1408
-__LABEL_1408:
-  commit __LABEL_1407
-__LABEL_1407:
+  closecapture 37 0
+  partialcommit __LABEL_1388
+__LABEL_1388:
+  commit __LABEL_1387
+__LABEL_1387:
   ret
 -- Rule
 ARGS:
   call __prefix
   call BOPEN
+  opencapture 38
+  call IDENT
+  closecapture 38 0
+  catch __LABEL_1418 -- 2
+__LABEL_1417:
+  call COMMA
   opencapture 39
   call IDENT
   closecapture 39 0
-  catch __LABEL_1438 -- 2
-__LABEL_1437:
-  call COMMA
-  opencapture 40
-  call IDENT
-  closecapture 40 0
-  partialcommit __LABEL_1437
-__LABEL_1438:
+  partialcommit __LABEL_1417
+__LABEL_1418:
   call BCLOSE
   ret
 -- Rule
 CALL:
   call __prefix
   call LT
-  opencapture 41
+  opencapture 40
   call IDENT
-  closecapture 41 0
-  opencapture 42
+  closecapture 40 0
+  opencapture 41
   call ARGS
-  closecapture 42 0
+  closecapture 41 0
   call GT
   ret
 

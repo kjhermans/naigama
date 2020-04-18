@@ -60,7 +60,7 @@ TYPE               <- 'uint32' /
                       'decimal' /
                       IDENT
 
-REPLACE            <- RIGHTARROW ( { STRING } / { VARREFERENCE } )
+REPLACE            <- RIGHTARROW { TERMS }
 RECYCLE            <- FATARROW { IDENT }
 
 IDENT              <- [a-zA-Z_] [a-zA-Z_0-9]^-63

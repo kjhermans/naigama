@@ -62,7 +62,7 @@ int main
   FILE* output = stdout;
   unsigned char* bytecode = 0;
   unsigned bytecode_length = 0;
-  unsigned stacksize = 256;
+  //unsigned stacksize = 256;
   unsigned char* data = 0;
   unsigned data_length = 0;
   naie_engine_t engine;
@@ -114,6 +114,8 @@ int main
         stringpos = 1;
         break;
       case 's':
+        fprintf(stderr, "Stack size not supported.\n"); exit(-1);
+/*
         if (i < argc - 1) {
           int s = atoi(argv[ ++i ]);
           if (s > 0) {
@@ -122,6 +124,7 @@ int main
           }
         }
         __attribute__((fallthrough));
+*/
       case '?':
       case 'h':
       default:

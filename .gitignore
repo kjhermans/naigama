@@ -10,3 +10,5 @@ src/main/assembler/naia
 src/main/compiler/naic
 src/main/engine/naie
 
+src/grammar/assembly.byc.labelmap
+src/grammar/grammar.byc.labelmap

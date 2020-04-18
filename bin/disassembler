@@ -20,8 +20,9 @@ my $INSTR_OPENCAPTURE = 265987;
 my $INSTR_PARTIALCOMMIT = 264713;
 my $INSTR_QUAD = 263475;
 my $INSTR_RANGE = 525651;
-my $INSTR_REPLACE = 265994;
-my $INSTR_REPLACESTRING = 265999;
+my $INSTR_REPLACE = 0x00080f0a;
+my $INSTR_STARTREPLACE = 0x00000f0f;
+my $INSTR_ENDREPLACE = 0x00000f30;
 my $INSTR_RET = 773;
 my $INSTR_SET = 2098489;
 my $INSTR_SKIP = 263509;
@@ -186,18 +187,16 @@ while ($offset < length($bytecode)) {
     print $out "$offset: partialcommit $address";
     $offset += 8;
   } elsif ($opcode == $INSTR_REPLACE) {
-    my $address = unpack('N', substr($bytecode, $offset + 4, 4));
-    print $out "$offset: replace $address";
-    $offset += 8;
-  } elsif ($opcode == $INSTR_REPLACESTRING) {
-    my $length = unpack('N', substr($bytecode, $offset + 4, 4));
-    print $out "$offset: replacestring '" .
-               substr($bytecode, $offset + 8, $length) .
-               "'\n";
-    $offset += ($length + 8);
-    if ($length % 4) {
-      $offset += (4 - ($length % 4));
-    }
+    my $address1 = unpack('N', substr($bytecode, $offset + 4, 4));
+    my $address2 = unpack('N', substr($bytecode, $offset + 8, 4));
+    print $out "$offset: replace $address1 $address2";
+    $offset += 12;
+  } elsif ($opcode == $INSTR_STARTREPLACE) {
+    print $out "$offset: startreplace";
+    $offset += 4;
+  } elsif ($opcode == $INSTR_ENDREPLACE) {
+    print $out "$offset: endreplace";
+    $offset += 4;
   } elsif ($opcode == $INSTR_RET) {
     print $out "$offset: ret";
     $offset += 4;

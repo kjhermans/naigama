@@ -18,8 +18,34 @@
 NAIG_ERR_T naia_process_replace
   (naia_t* naia, unsigned i)
 {
-  (void)naia;
-  (void)i;
-  TODO("Implement");
-  RETURNERR(NAIG_ERR_UNIMPL);
+  uint32_t opcode[ 3 ] = { htonl(OPCODE_REPLACE) };
+  uint32_t offset1;
+  uint32_t offset2;
+  size_t s;
+
+  CHECK(
+    naia_label_get(
+      naia,
+      naia->assembly + naia->captures->actions[ i+1 ].start,
+      naia->captures->actions[ i+1 ].stop
+        - naia->captures->actions[ i+1 ].start,
+      &offset1
+    )
+  );
+  opcode[ 1 ] = htonl(offset1);
+  CHECK(
+    naia_label_get(
+      naia,
+      naia->assembly + naia->captures->actions[ i+2 ].start,
+      naia->captures->actions[ i+2 ].stop
+        - naia->captures->actions[ i+2 ].start,
+      &offset2
+    )
+  );
+  opcode[ 2 ] = htonl(offset2);
+  if ((s = fwrite(&opcode, sizeof(uint32_t), 3, naia->output)) == 3) {
+    return NAIG_OK;
+  } else {
+    RETURNERR(NAIG_ERR_WRITE);
+  }
 }

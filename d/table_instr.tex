@@ -15,6 +15,7 @@
 'condjump' & register & LABEL \\
 'counter' & register & value \\
 'end' & code & - \\
+'endreplace' & - & - \\
 'fail' & - & - \\
 'failtwice' & - & - \\
 'jump' & LABEL & - \\
@@ -24,13 +25,13 @@
 'partialcommit' & LABEL & - \\
 'quad' & quad & - \\
 'range' & number & number \\
-'replace' & slot & - \\
-'replacestring' & length & string \\
+'replace' & LABEL & LABEL \\
 'ret' & - & - \\
 'set' & set & - \\
 'skip' & number & - \\
 'skipvar' & slot & - \\
 'span' & set & - \\
+'startreplace' & - & - \\
 'testany' & LABEL & - \\
 'testchar' & char & LABEL \\
 'testquad' & quad & LABEL \\

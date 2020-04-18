@@ -38,7 +38,6 @@
   case 36: return "NUMBER"; break; \
   case 37: return "QUAD_AFAF"; break; \
   case 38: return "SET_AFAF"; break; \
-  case 39: return "STRING"; break; \
 
 
 #define ASMSLOT_INSTRUCTION_ANYINSTRBACKCOMMITIN 0
@@ -80,4 +79,3 @@
 #define ASMSLOT_NUMBER 36
 #define ASMSLOT_QUAD_AFAF 37
 #define ASMSLOT_SET_AFAF 38
-#define ASMSLOT_STRING 39

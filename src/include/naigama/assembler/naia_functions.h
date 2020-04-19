@@ -12,13 +12,19 @@
 /* declared in ../lib/assembler//naia_assemble.c */
 extern
 NAIG_ERR_T naia_assemble
-  (char* assembly, FILE* output, int debug)
+  (char* assembly, FILE* output, FILE* labelmap, int debug)
   __attribute__ ((warn_unused_result));
 
 /* declared in ../lib/assembler//naia_label_get.c */
 extern
 NAIG_ERR_T naia_label_get
   (naia_t* naia, char* str, unsigned len, unsigned* offset)
+  __attribute__ ((warn_unused_result));
+
+/* declared in ../lib/assembler//naia_label_map_write.c */
+extern
+NAIG_ERR_T naia_label_map_write
+  (naia_t* naia, FILE* map)
   __attribute__ ((warn_unused_result));
 
 /* declared in ../lib/assembler//naia_label_put.c */
@@ -216,7 +222,7 @@ NAIG_ERR_T naia_process_testset
 /* declared in ../lib/assembler//naia_process_tokens.c */
 extern
 NAIG_ERR_T naia_process_tokens
-  (char* assembly, naie_result_t* captures, FILE* output)
+  (char* assembly, naie_result_t* captures, FILE* output, FILE* labelmap)
   __attribute__ ((warn_unused_result));
 
 /* declared in ../lib/assembler//naia_process_trap.c */

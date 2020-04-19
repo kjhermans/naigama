@@ -17,7 +17,7 @@
  * Topmost function
  */
 NAIG_ERR_T naia_process_tokens
-  (char* assembly, naie_result_t* captures, FILE* output)
+  (char* assembly, naie_result_t* captures, FILE* output, FILE* labelmap)
 {
   naia_t naia = {
     .assembly     = assembly,
@@ -42,6 +42,9 @@ NAIG_ERR_T naia_process_tokens
 
   CHECK(naia_process_labels(&naia));
   CHECK(naia_process_instructions(&naia));
-
+  if (labelmap) {
+    CHECK(naia_label_map_write(&naia, labelmap));
+    fclose(labelmap);
+  }
   return NAIG_OK;
 }

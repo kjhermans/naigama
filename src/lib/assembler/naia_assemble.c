@@ -20,7 +20,7 @@ const unsigned char bytecode[] = ASSEMBLY_BYTECODE;
  *
  */
 NAIG_ERR_T naia_assemble
-  (char* assembly, FILE* output, int debug)
+  (char* assembly, FILE* output, FILE* labelmap, int debug)
 {
   naie_engine_t engine;
   naie_result_t result;
@@ -45,6 +45,6 @@ NAIG_ERR_T naia_assemble
     }
     exit(-1);
   }
-  CHECK(naia_process_tokens(assembly, &result, output));
+  CHECK(naia_process_tokens(assembly, &result, output, labelmap));
   return NAIG_OK;
 }

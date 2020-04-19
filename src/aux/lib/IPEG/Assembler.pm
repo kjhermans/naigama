@@ -440,6 +440,7 @@ sub assemble
     die "Assembler parser unhappy ending; $@";
   }
   my $offsets = __get_offsets($result->{captures});
+  $self->{labelmap} = $offsets;
   while (my $capture = shift (@{$result->{captures}})) {
     my $id = $tokens->{$capture->{slot}};
     if ($id eq 'any') {

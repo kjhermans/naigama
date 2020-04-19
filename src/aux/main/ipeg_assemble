@@ -46,9 +46,13 @@ syswrite $out, $bytecode;
 close $out;
 
 if ($outputfile ne '-') {
-  open DEBUG, '>', "$outputfile.labelmap";
-  print DEBUG Dumper $labelmap;
-  close DEBUG;
+  open LABELMAP, '>', "$outputfile.labelmap";
+  foreach my $key (keys(%{$labelmap})) {
+    syswrite(LABELMAP, pack('N', $labelmap->{$key}));
+    syswrite(LABELMAP, $key);
+    syswrite(LABELMAP, chr(0));
+  }
+  close LABELMAP;
 }
 
 exit 0;

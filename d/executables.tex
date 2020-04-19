@@ -14,6 +14,21 @@ $ naic -i myfile.niag -o myfile.asm
 \end{myquote}
 \textit{Example of the invocation of the Naigama grammar compiler}
 
+Bear in mind that both the input (grammar) file, as well as the
+output (assembly) file may be omitted (in which case they will be
+assumed to be stdin and stdout, respectively), or be denoted as
+a minus sign ('-'), which will have the same effect.
+
+You may also use the following options:
+
+\begin{itemize}
+\item \texttt{-m $<$path$>$} Tells the compiler to emit the slotmap
+      file in $<$path$>$.
+\item \texttt{-D} Creates a lot of debugging output.
+\item \texttt{-t} Tells the compiler to surround generated rule
+      code with 'trap' instructions.
+\end{itemize}
+
 \subsection{The Assembler}
 
 The Naigama grammar assember is called 'naia'.
@@ -27,6 +42,19 @@ $ naia -i myfile.asm -o myfile.byc
 \end{verbatim}
 \end{myquote}
 \textit{Example of the invocation of the Naigama assembler}
+
+Bear in mind that both the input (assembly) file, as well as the
+output (bytecode) file may be omitted (in which case they will be
+assumed to be stdin and stdout, respectively), or be denoted as
+a minus sign ('-'), which will have the same effect.
+
+You may also use the following options:
+
+\begin{itemize}
+\item \texttt{-l $<$path$>$} Tells the assembler to emit the labelmap
+      file in $<$path$>$.
+\item \texttt{-D} Creates a lot of debugging output.
+\end{itemize}
 
 \subsection{The Engine}
 

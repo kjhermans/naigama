@@ -17,6 +17,20 @@ into a bytecode. The engine takes the bytecode and the input, and
 processes it, resulting either in (various measures of) failure or
 success.
 
+\begin{myquote}
+\begin{verbatim}
+
+Program:      _ Compiler       _  Assembler       _ Engine
+              /|         \     /|           \     /|  /|\  \
+             /           _\|  /             _\|  /     |   _\|
+Format: Grammar          Assembly           Bytecode   |   Output
+                                                       |
+                                                     Input
+
+\end{verbatim}
+\end{myquote}
+\textit{Schematic overview of Naigama data format transformation and modules}
+
 The reason for this modularity is strict separation of tasks, and openness:
 anyone should be able to take out a module, and replace it with one
 of their own.

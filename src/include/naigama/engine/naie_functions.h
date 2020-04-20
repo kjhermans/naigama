@@ -26,6 +26,16 @@ NAIG_ERR_T naie_engine_add_label
   (naie_engine_t* engine, char* string, uint32_t offset)
   __attribute__ ((warn_unused_result));
 
+/* declared in ../lib/engine//naie_engine_call.c */
+extern
+NAIG_ERR_T naie_engine_call
+  (
+    naie_engine_t* engine,
+    char* label,
+    naie_result_t* result
+  )
+  __attribute__ ((warn_unused_result));
+
 /* declared in ../lib/engine//naie_engine_init.c */
 extern
 NAIG_ERR_T naie_engine_init

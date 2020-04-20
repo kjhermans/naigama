@@ -25,16 +25,9 @@ typedef struct
 }
 naie_register_t;
 
-typedef enum
-{
-  NAIG_STACK_CALL,
-  NAIG_STACK_CATCH
-}
-naie_stackentry_type_t;
-
 typedef struct
 {
-  naie_stackentry_type_t                type;
+  uint32_t                              type;
   uint32_t                              address;
   unsigned                              input_pos;
   unsigned                              actioncount;

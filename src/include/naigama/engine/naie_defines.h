@@ -31,6 +31,7 @@ NAIG_ERR_T;
 #define NAIG_ERR_READ                   ((NAIG_ERR_T){ .code = -1 })
 #define NAIG_ERR_WRITE                  ((NAIG_ERR_T){ .code = -2 })
 #define NAIG_ERR_UNIMPL                 ((NAIG_ERR_T){ .code = -3 })
+#define NAIG_ERR_NOTFOUND               ((NAIG_ERR_T){ .code = -4 })
 
 #define NAIE_ERR_STACKFULL              ((NAIG_ERR_T){ .code = -17 })
 #define NAIE_ERR_STACKEMPTY             ((NAIG_ERR_T){ .code = -18 })
@@ -43,6 +44,8 @@ NAIG_ERR_T;
 #define NAIE_ERR_LABELMAP               ((NAIG_ERR_T){ .code = -25 })
 #define NAIE_ERR_REGFULL                ((NAIG_ERR_T){ .code = -26 })
 #define NAIE_ERR_REGNOTFOUND            ((NAIG_ERR_T){ .code = -27 })
+#define NAIE_ERR_BITFAULT               ((NAIG_ERR_T){ .code = -28 })
+#define NAIE_ERR_TRAP                   ((NAIG_ERR_T){ .code = -29 })
 
 #ifdef TODO
 #undef TODO
@@ -103,4 +106,10 @@ NAIG_ERR_T;
 #undef DATAINSET
 #endif
 #define DATAINSET(set,chr) (set[chr/8]&(1<<(chr%8)))
-#endif
+
+
+#define NAIG_STACK_CALL                 0x000000a5
+#define NAIG_STACK_CATCH                0x00007b00
+#define NAIG_STACK_END                  0x00310048
+
+#endif // ~_NAIG_DEFINES_H_

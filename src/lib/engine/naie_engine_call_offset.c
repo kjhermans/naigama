@@ -18,16 +18,16 @@
  * the labelmap must be loaded, so that the starting bytecode offset
  * can be resolved.
  */
-NAIG_ERR_T naie_engine_call
+NAIG_ERR_T naie_engine_call_offset
   (
     naie_engine_t* engine,
-    char* label,
+    uint32_t offset,
     naie_result_t* result
   )
 {
-  uint32_t offset;
-
-  CHECK(naie_labelmap_get(engine, label, &offset));
-  CHECK(naie_engine_call_offset(engine, offset, result));
+  engine->bytecode_pos = offset;
+  engine->input_pos = 0;
+  CHECK(naie_stack_push(engine, NAIG_STACK_END, 0));
+  CHECK(naie_engine_loop(engine, result));
   return NAIG_OK;
 }

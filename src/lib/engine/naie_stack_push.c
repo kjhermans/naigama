@@ -18,7 +18,7 @@
 NAIG_ERR_T naie_stack_push
   (
     naie_engine_t* engine,
-    naie_stackentry_type_t type,
+    uint32_t type,
     uint32_t address
   )
 {

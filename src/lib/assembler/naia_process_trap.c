@@ -18,7 +18,7 @@
 NAIG_ERR_T naia_process_trap
   (naia_t* naia, unsigned i)
 {
-  uint32_t opcode = htonl(0xffffffff);
+  uint32_t opcode = htonl(OPCODE_TRAP);
   size_t s = fwrite(&opcode, sizeof(opcode), 1, naia->output);
   (void)i;
 

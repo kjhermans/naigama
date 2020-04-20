@@ -36,6 +36,16 @@ NAIG_ERR_T naie_engine_call
   )
   __attribute__ ((warn_unused_result));
 
+/* declared in ../lib/engine//naie_engine_call_offset.c */
+extern
+NAIG_ERR_T naie_engine_call_offset
+  (
+    naie_engine_t* engine,
+    uint32_t offset,
+    naie_result_t* result
+  )
+  __attribute__ ((warn_unused_result));
+
 /* declared in ../lib/engine//naie_engine_init.c */
 extern
 NAIG_ERR_T naie_engine_init
@@ -45,6 +55,15 @@ NAIG_ERR_T naie_engine_init
     unsigned bytecode_length,
     const unsigned char* input,
     unsigned input_length
+  )
+  __attribute__ ((warn_unused_result));
+
+/* declared in ../lib/engine//naie_engine_loop.c */
+extern
+NAIG_ERR_T naie_engine_loop
+  (
+    naie_engine_t* engine,
+    naie_result_t* result
   )
   __attribute__ ((warn_unused_result));
 
@@ -70,6 +89,16 @@ NAIG_ERR_T naie_fill_result
 extern
 char* naie_instr_string
   (uint32_t opcode)
+  __attribute__ ((warn_unused_result));
+
+/* declared in ../lib/engine//naie_labelmap_get.c */
+extern
+NAIG_ERR_T naie_labelmap_get
+  (
+    naie_engine_t* engine,
+    char* label,
+    uint32_t* offset
+  )
   __attribute__ ((warn_unused_result));
 
 /* declared in ../lib/engine//naie_output.c */
@@ -116,7 +145,7 @@ extern
 NAIG_ERR_T naie_stack_push
   (
     naie_engine_t* engine,
-    naie_stackentry_type_t type,
+    uint32_t type,
     uint32_t address
   )
   __attribute__ ((warn_unused_result));

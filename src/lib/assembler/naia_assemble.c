@@ -29,7 +29,7 @@ NAIG_ERR_T naia_assemble
   CHECK(
     naie_engine_init(
       &engine,
-      bytecode,
+      (unsigned char*)bytecode,
       sizeof(bytecode),
       (unsigned char*)assembly,
       strlen(assembly)

@@ -29,7 +29,7 @@ NAIG_ERR_T naic_compile
   CHECK(
     naie_engine_init(
       &engine,
-      bytecode,
+      (unsigned char*)bytecode,
       sizeof(bytecode),
       (unsigned char*)grammar,
       strlen(grammar)

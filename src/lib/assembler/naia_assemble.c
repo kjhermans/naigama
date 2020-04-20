@@ -29,9 +29,9 @@ NAIG_ERR_T naia_assemble
   CHECK(
     naie_engine_init(
       &engine,
-      (unsigned char*)bytecode,
+      bytecode,
       sizeof(bytecode),
-      (unsigned char*)assembly,
+      (const unsigned char*)assembly,
       strlen(assembly)
     )
   );

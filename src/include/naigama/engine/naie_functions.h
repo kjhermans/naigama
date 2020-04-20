@@ -31,9 +31,9 @@ extern
 NAIG_ERR_T naie_engine_init
   (
     naie_engine_t* engine,
-    unsigned char* bytecode,
+    const unsigned char* bytecode,
     unsigned bytecode_length,
-    unsigned char* input,
+    const unsigned char* input,
     unsigned input_length
   )
   __attribute__ ((warn_unused_result));
@@ -45,12 +45,6 @@ NAIG_ERR_T naie_engine_run
     naie_engine_t* engine,
     naie_result_t* result
   )
-  __attribute__ ((warn_unused_result));
-
-/* declared in ../lib/engine//naie_engine_set_labelmap.c */
-extern
-NAIG_ERR_T naie_engine_set_labelmap
-  (naie_engine_t* engine, naig_labelmap_t* labelmap)
   __attribute__ ((warn_unused_result));
 
 /* declared in ../lib/engine//naie_fill_result.c */

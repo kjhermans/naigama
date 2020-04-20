@@ -29,9 +29,9 @@ NAIG_ERR_T naic_compile
   CHECK(
     naie_engine_init(
       &engine,
-      (unsigned char*)bytecode,
+      bytecode,
       sizeof(bytecode),
-      (unsigned char*)grammar,
+      (const unsigned char*)grammar,
       strlen(grammar)
     )
   );

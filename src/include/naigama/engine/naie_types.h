@@ -61,10 +61,10 @@ naie_action_t;
 
 typedef struct
 {
-  unsigned char*                        input;
+  const unsigned char*                  input;
   unsigned                              input_length;
   unsigned                              input_pos;
-  unsigned char*                        bytecode;
+  const unsigned char*                  bytecode;
   unsigned                              bytecode_length;
   unsigned                              bytecode_pos;
   unsigned                              stacksizebeforefail;

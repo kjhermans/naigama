@@ -15,9 +15,9 @@
 NAIG_ERR_T naie_engine_init
   (
     naie_engine_t* engine,
-    unsigned char* bytecode,
+    const unsigned char* bytecode,
     unsigned bytecode_length,
-    unsigned char* input,
+    const unsigned char* input,
     unsigned input_length
   )
 {

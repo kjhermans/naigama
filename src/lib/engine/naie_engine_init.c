@@ -13,8 +13,18 @@
 #include <naigama/engine/naie.h>
 
 NAIG_ERR_T naie_engine_init
-  (naie_engine_t* engine)
+  (
+    naie_engine_t* engine,
+    unsigned char* bytecode,
+    unsigned bytecode_length,
+    unsigned char* input,
+    unsigned input_length
+  )
 {
   memset(engine, 0, sizeof(naie_engine_t));
+  engine->bytecode = bytecode;
+  engine->bytecode_length = bytecode_length;
+  engine->input = input;
+  engine->input_length = input_length;
   return NAIG_OK;
 }

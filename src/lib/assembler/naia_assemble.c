@@ -26,19 +26,23 @@ NAIG_ERR_T naia_assemble
   naie_result_t result;
   NAIG_ERR_T e;
 
-  CHECK(naie_engine_init(&engine));
+  CHECK(
+    naie_engine_init(
+      &engine,
+      bytecode,
+      sizeof(bytecode),
+      (unsigned char*)assembly,
+      strlen(assembly)
+    )
+  );
   engine.debug = debug;
   e = naie_engine_run(
     &engine,
-    bytecode,
-    sizeof(bytecode),
-    (unsigned char*)assembly,
-    strlen(assembly),
     &result
   );
   if (e.code == 1) { //NAIG_FAILURE) {
     unsigned yx[ 2 ];
-    if (strxypos(assembly, engine.inputpos, yx) == 0) {
+    if (strxypos(assembly, engine.input_pos, yx) == 0) {
       fprintf(stderr, "Assembly parsing error line %u, off %u\n", yx[0], yx[1]);
     } else {
       fprintf(stderr, "Assembly parsing error.\n");

@@ -15,7 +15,7 @@
 
 #include <naigama/engine/naie.h>
 
-NAIG_ERR_T naie_engine_set_labelmap
+NAIG_ERR_T naie_set_labelmap
   (
     naie_engine_t* engine,
     const char* filename

@@ -25,7 +25,7 @@ NAIG_ERR_T naie_stack_push
   if (engine->stack.size < NAIG_MAX_STACK) {
     engine->stack.entries[ engine->stack.size ].type = type;
     engine->stack.entries[ engine->stack.size ].address = address;
-    engine->stack.entries[ engine->stack.size ].inputpos = engine->inputpos;
+    engine->stack.entries[ engine->stack.size ].input_pos = engine->input_pos;
     engine->stack.entries[ engine->stack.size ].actioncount = engine->actions.size;
     ++(engine->stack.size);
     return NAIG_OK;

@@ -26,19 +26,20 @@ NAIG_ERR_T naic_compile
   naie_result_t result;
   NAIG_ERR_T e;
 
-  CHECK(naie_engine_init(&engine));
-  engine.debug = debug;
-  e = naie_engine_run(
-    &engine,
-    bytecode,
-    sizeof(bytecode),
-    (unsigned char*)grammar,
-    strlen(grammar),
-    &result
+  CHECK(
+    naie_engine_init(
+      &engine,
+      bytecode,
+      sizeof(bytecode),
+      (unsigned char*)grammar,
+      strlen(grammar)
+    )
   );
+  engine.debug = debug;
+  e = naie_engine_run(&engine, &result);
   if (e.code == 1) { //NAIG_FAILURE) {
     unsigned yx[ 2 ];
-    if (strxypos(grammar, engine.inputpos, yx) == 0) {
+    if (strxypos(grammar, engine.input_pos, yx) == 0) {
       fprintf(stderr, "Grammar parsing error line %u, off %u\n", yx[0], yx[1]);
     } else {
       fprintf(stderr, "Grammar parsing error.\n");

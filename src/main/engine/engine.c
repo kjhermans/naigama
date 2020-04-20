@@ -148,7 +148,13 @@ int main
   }
   if (bytecode && data) {
     NAIG_ERR_T e;
-    e = naie_engine_init(&engine);
+    e = naie_engine_init(
+      &engine,
+      bytecode,
+      bytecode_length,
+      data,
+      data_length
+    );
     if (e.code) {
       return -1;
     }
@@ -156,19 +162,19 @@ int main
     if (diligent) { engine.diligent = 1; }
     e = naie_engine_run(
       &engine,
-      bytecode,
-      bytecode_length,
-      data,
-      data_length,
       &result
     );
     if (e.code) {
       fprintf(stderr, "Error %u\n", e.code);
       if (stringpos) {
         unsigned xy[ 2 ];
-        if (strxypos((char*)data, engine.inputpos, xy) == 0) {
+        if (strxypos((char*)data, engine.input_pos, xy) == 0) {
           fprintf(stderr, "Error at line %u, char %u in input\n", xy[0], xy[1]);
         }
+      }
+      if (debug) {
+        engine.stack.size = engine.stacksizebeforefail;
+        naie_debug_state(&engine);
       }
       return -1;
     }

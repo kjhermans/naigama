@@ -36,7 +36,7 @@ typedef struct
 {
   naie_stackentry_type_t                type;
   uint32_t                              address;
-  unsigned                              inputpos;
+  unsigned                              input_pos;
   unsigned                              actioncount;
 }
 naie_stackentry_t;
@@ -61,7 +61,13 @@ naie_action_t;
 
 typedef struct
 {
-  unsigned                              inputpos;
+  unsigned char*                        input;
+  unsigned                              input_length;
+  unsigned                              input_pos;
+  unsigned char*                        bytecode;
+  unsigned                              bytecode_length;
+  unsigned                              bytecode_pos;
+  unsigned                              stacksizebeforefail;
   struct {
     naie_stackentry_t                     entries[ NAIG_MAX_STACK ];
     unsigned                              size;
@@ -101,5 +107,15 @@ typedef struct
   unsigned                              size;
 }
 naie_result_t;
+
+typedef struct
+{
+  struct {
+    char                                  key[ 64 ];
+    uint32_t                              offset;
+  }                                     table[ 1024 ];
+  unsigned                              size;
+}
+naig_labelmap_t;
 
 #endif

@@ -12,7 +12,14 @@
 /* declared in ../lib/compiler//naic_compile.c */
 extern
 NAIG_ERR_T naic_compile
-  (char* grammar, FILE* output, naic_slotmap_t* slots, int debug, int traps)
+  (
+    char* grammar,
+    naic_slotmap_t* slots,
+    int debug,
+    int traps,
+    NAIG_ERR_T(*fnc)(void*,char*,...),
+    void* arg
+  )
   __attribute__ ((warn_unused_result));
 
 /* declared in ../lib/compiler//naic_debug.c */
@@ -137,13 +144,7 @@ NAIG_ERR_T naic_process_terms_or_nothing
 /* declared in ../lib/compiler//naic_process_tokens.c */
 extern
 NAIG_ERR_T naic_process_tokens
-  (
-    char* grammar,
-    naie_result_t* captures,
-    FILE* output,
-    naic_slotmap_t* slots,
-    int traps
-  )
+  (naic_t* naic)
   __attribute__ ((warn_unused_result));
 
 /* declared in ../lib/compiler//naic_process_varcapture.c */

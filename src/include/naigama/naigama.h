@@ -37,12 +37,12 @@ int naig_init_malloc
   (naig_t* naig);
 
 int naig_init_mem
-  (naig_t* naig, );
+  (naig_t* naig, void* mem, unsigned size);
 
-int naig_compile
+NAIG_ERR_T naig_compile
   (naig_t* naig, char* grammar);
 
-int naig_run
+NAIG_ERR_T naig_run
   (
     naig_t* naig,
     unsigned char* input,

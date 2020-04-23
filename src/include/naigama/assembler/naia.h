@@ -12,7 +12,6 @@ typedef struct
 {
   char*             assembly;
   naie_result_t*    captures;
-  FILE*             output;
   struct {
     unsigned          size;
     struct {
@@ -21,6 +20,8 @@ typedef struct
       unsigned          offset;
     }                 table[ NAIA_LABELS_MAX ];
   }                 labels;
+  NAIG_ERR_T      (*write)(void* ptr, unsigned size, void* arg);
+  void*             write_arg;
 }
 naia_t;
 

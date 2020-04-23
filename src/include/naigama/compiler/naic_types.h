@@ -16,9 +16,8 @@ typedef struct
   char*             grammar;
   naie_result_t*    captures;
   naie_resact_t*    currentrule;
-  unsigned          capindex;
-  FILE*             output;
   naic_slotmap_t*   slotmap;
+  unsigned          capindex;
   unsigned          labelcount;
   unsigned          counter;
   unsigned          slot;
@@ -31,6 +30,8 @@ typedef struct
     }                 table[ NAIC_RULEVARMAP_SIZE ];
     unsigned          size;
   }                 rulevarmap;
+  NAIG_ERR_T      (*write)(void* ptr, char* fmt, ...);
+  void*             write_arg;
 }
 naic_t;
 

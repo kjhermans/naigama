@@ -20,7 +20,6 @@ NAIG_ERR_T naia_process_testset
 {
   uint32_t opcode[ 10 ] = { htonl(OPCODE_TESTSET) };
   unsigned char* set = (unsigned char*)(&(opcode[ 2 ]));
-  size_t s;
   unsigned c;
   uint32_t offset;
 
@@ -40,9 +39,6 @@ NAIG_ERR_T naia_process_testset
       naia->assembly[ naia->captures->actions[ i+1 ].start + (c*2) + 1 ]
     );
   }
-  if ((s = fwrite(&opcode, sizeof(uint32_t), 10, naia->output)) == 10) {
-    return NAIG_OK;
-  } else {
-    RETURNERR(NAIG_ERR_WRITE);
-  }
+  CHECK(naia->write(opcode, sizeof(opcode), naia->write_arg));
+  return NAIG_OK;
 }

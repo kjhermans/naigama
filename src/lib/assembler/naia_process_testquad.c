@@ -22,7 +22,6 @@ NAIG_ERR_T naia_process_testquad
   uint32_t offset;
   uint32_t chr = 0;
   unsigned char* _chr = (unsigned char*)(&chr);
-  size_t s;
 
   CHECK(
     naia_label_get(
@@ -51,9 +50,6 @@ NAIG_ERR_T naia_process_testquad
     naia->assembly[ naia->captures->actions[ i+1 ].start+7 ]
   );
   opcode[ 2 ] = chr;
-  if ((s = fwrite(&opcode, sizeof(uint32_t), 3, naia->output)) == 3) {
-    return NAIG_OK;
-  } else {
-    RETURNERR(NAIG_ERR_WRITE);
-  }
+  CHECK(naia->write(opcode, sizeof(opcode), naia->write_arg));
+  return NAIG_OK;
 }

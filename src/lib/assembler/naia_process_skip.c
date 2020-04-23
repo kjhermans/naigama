@@ -20,7 +20,6 @@ NAIG_ERR_T naia_process_skip
 {
   uint32_t opcode[ 2 ] = { htonl(OPCODE_SKIP) };
   uint32_t num = 0;
-  size_t s;
 
   num = atoi_substr(
     naia->assembly,
@@ -29,9 +28,6 @@ NAIG_ERR_T naia_process_skip
       - naia->captures->actions[ i+1 ].start
   );
   opcode[ 1 ] = htonl(num);
-  if ((s = fwrite(&opcode, sizeof(uint32_t), 2, naia->output)) == 2) {
-    return NAIG_OK;
-  } else {
-    RETURNERR(NAIG_ERR_WRITE);
-  }
+  CHECK(naia->write(opcode, sizeof(opcode), naia->write_arg));
+  return NAIG_OK;
 }

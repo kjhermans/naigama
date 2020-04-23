@@ -20,7 +20,6 @@ NAIG_ERR_T naia_process_end
 {
   uint32_t opcode[ 2 ] = { htonl(OPCODE_END) };
   uint32_t endcode = 0;
-  size_t s;
 
   if (i+1 < naia->captures->size
       && naia->captures->actions[ i+1 ].slot == ASMSLOT_NUMBER)
@@ -33,9 +32,6 @@ NAIG_ERR_T naia_process_end
     );
   }
   opcode[ 1 ] = htonl(endcode);
-  if ((s = fwrite(&opcode, sizeof(uint32_t), 2, naia->output)) == 2) {
-    return NAIG_OK;
-  } else {
-    RETURNERR(NAIG_ERR_WRITE);
-  }
+  CHECK(naia->write(opcode, sizeof(opcode), naia->write_arg));
+  return NAIG_OK;
 }

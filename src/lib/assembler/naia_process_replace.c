@@ -21,7 +21,6 @@ NAIG_ERR_T naia_process_replace
   uint32_t opcode[ 3 ] = { htonl(OPCODE_REPLACE) };
   uint32_t offset1;
   uint32_t offset2;
-  size_t s;
 
   CHECK(
     naia_label_get(
@@ -43,9 +42,6 @@ NAIG_ERR_T naia_process_replace
     )
   );
   opcode[ 2 ] = htonl(offset2);
-  if ((s = fwrite(&opcode, sizeof(uint32_t), 3, naia->output)) == 3) {
-    return NAIG_OK;
-  } else {
-    RETURNERR(NAIG_ERR_WRITE);
-  }
+  CHECK(naia->write(opcode, sizeof(opcode), naia->write_arg));
+  return NAIG_OK;
 }

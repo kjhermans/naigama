@@ -21,7 +21,6 @@ NAIG_ERR_T naia_process_quad
   uint32_t opcode[ 2 ] = { htonl(OPCODE_QUAD) };
   uint32_t chr = 0;
   unsigned char* _chr = (unsigned char*)(&chr);
-  size_t s;
 
   _chr[ 0 ] = hexcodon(
     naia->assembly[ naia->captures->actions[ i+1 ].start ],
@@ -40,9 +39,6 @@ NAIG_ERR_T naia_process_quad
     naia->assembly[ naia->captures->actions[ i+1 ].start+7 ]
   );
   opcode[ 1 ] = chr;
-  if ((s = fwrite(&opcode, sizeof(uint32_t), 2, naia->output)) == 2) {
-    return NAIG_OK;
-  } else {
-    RETURNERR(NAIG_ERR_WRITE);
-  }
+  CHECK(naia->write(opcode, sizeof(opcode), naia->write_arg));
+  return NAIG_OK;
 }

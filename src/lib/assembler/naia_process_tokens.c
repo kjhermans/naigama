@@ -17,34 +17,23 @@
  * Topmost function
  */
 NAIG_ERR_T naia_process_tokens
-  (char* assembly, naie_result_t* captures, FILE* output, FILE* labelmap)
+  (naia_t* naia)
 {
-  naia_t naia = {
-    .assembly     = assembly,
-    .captures     = captures,
-    .output       = output,
-    .labels.size  = 0
-  };
-
 #ifdef _DEBUG
   unsigned i;
-  for (i=0; i < captures->size; i++) {
+  for (i=0; i < naia->captures->size; i++) {
     fprintf(stderr, "Token %u: %u-%u %s '%-.*s'\n"
       , i
-      , captures->actions[ i ].start
-      , captures->actions[ i ].stop
-      , naia_slotmap_string(captures->actions[ i ].slot)
-      , captures->actions[ i ].stop - captures->actions[ i ].start
-      , assembly + captures->actions[ i ].start
+      , naia->captures->actions[ i ].start
+      , naia->captures->actions[ i ].stop
+      , naia_slotmap_string(naia->captures->actions[ i ].slot)
+      , naia->captures->actions[ i ].stop - naia->captures->actions[ i ].start
+      , naia->assembly + naia->captures->actions[ i ].start
     );
   }
 #endif
 
-  CHECK(naia_process_labels(&naia));
-  CHECK(naia_process_instructions(&naia));
-  if (labelmap) {
-    CHECK(naia_label_map_write(&naia, labelmap));
-    fclose(labelmap);
-  }
+  CHECK(naia_process_labels(naia));
+  CHECK(naia_process_instructions(naia));
   return NAIG_OK;
 }

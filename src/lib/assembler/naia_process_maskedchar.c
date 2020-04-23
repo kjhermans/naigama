@@ -19,7 +19,6 @@ NAIG_ERR_T naia_process_maskedchar
   (naia_t* naia, unsigned i)
 {
   uint32_t opcode[ 3 ] = { htonl(OPCODE_MASKEDCHAR) };
-  size_t s;
 
   opcode[ 1 ] = htonl(hexcodon(
     naia->assembly[ naia->captures->actions[ i+1 ].start ],
@@ -29,9 +28,6 @@ NAIG_ERR_T naia_process_maskedchar
     naia->assembly[ naia->captures->actions[ i+1 ].start ],
     naia->assembly[ naia->captures->actions[ i+1 ].start+1 ]
   ));
-  if ((s = fwrite(&opcode, sizeof(uint32_t), 3, naia->output)) == 3) {
-    return NAIG_OK;
-  } else {
-    RETURNERR(NAIG_ERR_WRITE);
-  }
+  CHECK(naia->write(opcode, sizeof(opcode), naia->write_arg));
+  return NAIG_OK;
 }

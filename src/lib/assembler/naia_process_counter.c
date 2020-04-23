@@ -21,7 +21,6 @@ NAIG_ERR_T naia_process_counter
   uint32_t opcode[ 3 ] = { htonl(OPCODE_COUNTER) };
   uint32_t reg;
   uint32_t num;
-  size_t s;
 
   reg = atoi_substr(
     naia->assembly,
@@ -37,9 +36,6 @@ NAIG_ERR_T naia_process_counter
       - naia->captures->actions[ i+2 ].start
   );
   opcode[ 2 ] = htonl(num);
-  if ((s = fwrite(&opcode, sizeof(uint32_t), 3, naia->output)) == 3) {
-    return NAIG_OK;
-  } else {
-    RETURNERR(NAIG_ERR_WRITE);
-  }
+  CHECK(naia->write(opcode, sizeof(opcode), naia->write_arg));
+  return NAIG_OK;
 }

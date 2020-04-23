@@ -20,7 +20,13 @@ const unsigned char bytecode[] = ASSEMBLY_BYTECODE;
  *
  */
 NAIG_ERR_T naia_assemble
-  (char* assembly, FILE* output, FILE* labelmap, int debug)
+  (
+    char* assembly,
+    FILE* labelmap,
+    int debug,
+    NAIG_ERR_T(*write)(void* ptr, unsigned size, void* arg),
+    void* arg
+  )
 {
   naie_engine_t engine;
   naie_result_t result;
@@ -49,6 +55,20 @@ NAIG_ERR_T naia_assemble
     }
     exit(-1);
   }
-  CHECK(naia_process_tokens(assembly, &result, output, labelmap));
+
+  naia_t naia = {
+    .assembly     = assembly,
+    .captures     = &result,
+    .labels.size  = 0,
+    .write        = write,
+    .write_arg    = arg
+  };
+
+  CHECK(naia_process_tokens(&naia));
+
+  if (labelmap) {
+    CHECK(naia_label_map_write(&naia, labelmap));
+    fclose(labelmap);
+  }
   return NAIG_OK;
 }

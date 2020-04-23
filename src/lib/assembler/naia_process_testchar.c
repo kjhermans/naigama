@@ -22,7 +22,6 @@ NAIG_ERR_T naia_process_testchar
   uint32_t chr = 0;
   uint32_t offset;
   unsigned char* _chr = (unsigned char*)(&chr);
-  size_t s;
 
   _chr[ 3 ] = hexcodon(
     naia->assembly[ naia->captures->actions[ i+1 ].start ],
@@ -47,9 +46,6 @@ NAIG_ERR_T naia_process_testchar
     );
   }
   opcode[ 2 ] = chr;
-  if ((s = fwrite(&opcode, sizeof(uint32_t), 3, naia->output)) == 3) {
-    return NAIG_OK;
-  } else {
-    RETURNERR(NAIG_ERR_WRITE);
-  }
+  CHECK(naia->write(opcode, sizeof(opcode), naia->write_arg));
+  return NAIG_OK;
 }

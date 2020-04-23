@@ -21,7 +21,6 @@ NAIG_ERR_T naia_process_condjump
   uint32_t opcode[ 3 ] = { htonl(OPCODE_CONDJUMP) };
   uint32_t reg;
   uint32_t offset;
-  size_t s;
 
   reg = atoi_substr(
     naia->assembly,
@@ -40,9 +39,6 @@ NAIG_ERR_T naia_process_condjump
     )
   );
   opcode[ 2 ] = htonl(offset);
-  if ((s = fwrite(&opcode, sizeof(uint32_t), 3, naia->output)) == 3) {
-    return NAIG_OK;
-  } else {
-    RETURNERR(NAIG_ERR_WRITE);
-  }
+  CHECK(naia->write(opcode, sizeof(opcode), naia->write_arg));
+  return NAIG_OK;
 }

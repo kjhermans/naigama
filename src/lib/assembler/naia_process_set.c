@@ -20,7 +20,6 @@ NAIG_ERR_T naia_process_set
 {
   uint32_t opcode[ 9 ] = { htonl(OPCODE_SET) };
   unsigned char* set = (unsigned char*)(&(opcode[ 1 ]));
-  size_t s;
   unsigned c;
 
   for (c=0; c < 32; c++) {
@@ -29,9 +28,6 @@ NAIG_ERR_T naia_process_set
       naia->assembly[ naia->captures->actions[ i+1 ].start + (c*2) + 1 ]
     );
   }
-  if ((s = fwrite(&opcode, sizeof(uint32_t), 9, naia->output)) == 9) {
-    return NAIG_OK;
-  } else {
-    RETURNERR(NAIG_ERR_WRITE);
-  }
+  CHECK(naia->write(opcode, sizeof(opcode), naia->write_arg));
+  return NAIG_OK;
 }

@@ -19,12 +19,8 @@ NAIG_ERR_T naia_process_any
   (naia_t* naia, unsigned i)
 {
   uint32_t opcode = htonl(OPCODE_ANY);
-  size_t s = fwrite(&opcode, sizeof(opcode), 1, naia->output);
   (void)i;
-  
-  if (s == 1) {
-    return NAIG_OK;
-  } else {
-    RETURNERR(NAIG_ERR_WRITE);
-  }
+
+  CHECK(naia->write(&opcode, sizeof(opcode), naia->write_arg));
+  return NAIG_OK;
 }

@@ -20,7 +20,6 @@ NAIG_ERR_T naia_process_var
 {
   uint32_t opcode[ 2 ] = { htonl(OPCODE_VAR) };
   uint32_t slot;
-  size_t s;
 
   slot = atoi_substr(
     naia->assembly,
@@ -29,9 +28,6 @@ NAIG_ERR_T naia_process_var
       - naia->captures->actions[ i+1 ].start
   );
   opcode[ 1 ] = htonl(slot);
-  if ((s = fwrite(&opcode, sizeof(uint32_t), 2, naia->output)) == 2) {
-    return NAIG_OK;
-  } else {
-    RETURNERR(NAIG_ERR_WRITE);
-  }
+  CHECK(naia->write(opcode, sizeof(opcode), naia->write_arg));
+  return NAIG_OK;
 }

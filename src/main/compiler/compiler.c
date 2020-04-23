@@ -13,12 +13,26 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdarg.h>
 
 #include <unistd.h>
 #include <fcntl.h>
 
 #include <naigama/compiler/naic.h>
 #include <naigama/util/util_functions.h>
+
+static
+NAIG_ERR_T naic_write_file
+  (void* arg, char* fmt, ...)
+{
+  FILE* file = (FILE*)arg;
+  va_list ap;
+
+  va_start(ap, fmt);
+  vfprintf(file, fmt, ap);
+  va_end(ap);
+  return NAIG_OK;
+}
 
 /**
  *
@@ -106,10 +120,10 @@ int main
   if (slotmap) {
     naic_slotmap_t map;
     map.size = 0;
-    e = naic_compile(grammar, output, &map, debug, traps);
+    e = naic_compile(grammar, &map, debug, traps, naic_write_file, output);
     if (e.code == 0) { e = naic_slotmap_write(&map, slotmap); }
   } else {
-    e = naic_compile(grammar, output, NULL, debug, traps);
+    e = naic_compile(grammar, NULL, debug, traps, naic_write_file, output);
   }
   return e.code;
 }

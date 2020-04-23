@@ -19,6 +19,19 @@
 
 #include <naigama/assembler/naia.h>
 
+static
+NAIG_ERR_T naia_write_file
+  (void* ptr, unsigned size, void* arg)
+{
+  FILE* file = (FILE*)arg;
+  size_t s;
+
+  if ((s = fwrite(ptr, 1, size, file)) != size) {
+    RETURNERR(NAIG_ERR_WRITE);
+  }
+  return NAIG_OK;
+}
+
 /**
  *
  */
@@ -103,6 +116,7 @@ int main
     fprintf(stderr, "No assembly given.\n");
     exit(-8);
   }
-  NAIG_ERR_T e = naia_assemble(assembly, output, labelmap, debug);
+  NAIG_ERR_T e =
+    naia_assemble(assembly, labelmap, debug, naia_write_file, output);
   return e.code;
 }

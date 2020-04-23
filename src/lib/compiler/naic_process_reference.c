@@ -23,12 +23,12 @@ NAIG_ERR_T naic_process_reference
   fprintf(stderr, "-- %s ", __FILE__); naic_debug(naic);
 #endif
 
-  fprintf(naic->output, "  call %-.*s\n"
+  CHECK(naic->write(naic->write_arg, "  call %-.*s\n"
     , (int)(naic->captures->actions[ naic->capindex ].stop -
             naic->captures->actions[ naic->capindex ].start)
     , naic->grammar +
         naic->captures->actions[ naic->capindex ].start
-  );
+  ));
   ++(naic->capindex);
   return NAIG_OK;
 }

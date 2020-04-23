@@ -22,7 +22,7 @@ NAIG_ERR_T naic_process_string_callback_i
   } else if (chr >= 'A' && chr <= 'Z') {
     //..
   } else {
-    fprintf(naic->output, "  char %.2x\n", chr);
+    CHECK(naic->write(naic->write_arg, "  char %.2x\n", chr));
   }
   return NAIG_OK;
 }

@@ -26,8 +26,8 @@ NAIG_ERR_T naic_process_bitmask
   fprintf(stderr, "-- %s ", __FILE__); naic_debug(naic);
 #endif
 
-  fprintf(naic->output, "  maskedchar %c%c %c%c\n"
+  CHECK(naic->write(naic->write_arg, "  maskedchar %c%c %c%c\n"
     , chr[1], chr[2], chr[4], chr[5]
-  );
+  ));
   return NAIG_OK;
 }

@@ -32,16 +32,16 @@ NAIG_ERR_T naic_process_terms_or_nothing
 #endif
 
   snprintf(l1, sizeof(l1), "__LABEL_%u", (naic->labelcount)++);
-  fprintf(naic->output,
+  CHECK(naic->write(naic->write_arg,
     "  catch %s -- terms or nothing\n"
     , l1
-  );
+  ));
   CHECK(naic_process_terms(naic));
-  fprintf(naic->output,
+  CHECK(naic->write(naic->write_arg,
     "  commit %s\n"
     "%s:\n"
     , l1
     , l1
-  );
+  ));
   return NAIG_OK;
 }

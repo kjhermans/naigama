@@ -30,19 +30,19 @@ NAIG_ERR_T naic_process_rule
 
   naic->rulevarmap.size = 0;
   naic->currentrule = a;
-  fprintf(naic->output, "-- Rule\n");
+  CHECK(naic->write(naic->write_arg, "-- Rule\n"));
   if (naic->flags & NAIC_FLG_TRAPS) {
-    fprintf(naic->output, "  trap\n");
+    CHECK(naic->write(naic->write_arg, "  trap\n"));
   }
-  fprintf(naic->output, "%-.*s:\n" , (int)(a->stop - a->start), chr);
+  CHECK(naic->write(naic->write_arg, "%-.*s:\n" , (int)(a->stop - a->start), chr));
   if (naic->flags & NAIC_FLG_IMPLICITPREFIX) {
-    fprintf(naic->output, "  call __prefix\n");
+    CHECK(naic->write(naic->write_arg, "  call __prefix\n"));
   }
   ++(naic->capindex);
   CHECK(naic_process_expression(naic));
-  fprintf(naic->output, "  ret\n");
+  CHECK(naic->write(naic->write_arg, "  ret\n"));
   if (naic->flags & NAIC_FLG_TRAPS) {
-    fprintf(naic->output, "  trap\n");
+    CHECK(naic->write(naic->write_arg, "  trap\n"));
   }
 
   for (i = naic->capindex; i < naic->captures->size; i++) {

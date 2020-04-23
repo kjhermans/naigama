@@ -37,10 +37,10 @@ NAIG_ERR_T naic_process_capture
       )
     );
   }
-  fprintf(naic->output, "  opencapture %u\n", slot);
+  CHECK(naic->write(naic->write_arg, "  opencapture %u\n", slot));
   ++(naic->capindex);
   CHECK(naic_process_expression(naic));
-  fprintf(naic->output, "  closecapture %u 0\n", slot);
+  CHECK(naic->write(naic->write_arg, "  closecapture %u 0\n", slot));
   if (naic->captures->actions[ naic->capindex + 1 ].slot
       == SLOT_REPLACE_REPLACETERMS)
   {

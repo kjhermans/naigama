@@ -28,14 +28,14 @@ NAIG_ERR_T naic_process_replaceterms
 
   snprintf(l1, sizeof(l1), "__LABEL_%u", (naic->labelcount)++);
   snprintf(l2, sizeof(l2), "__LABEL_%u", (naic->labelcount)++);
-  fprintf(naic->output,
+  CHECK(naic->write(naic->write_arg,
     "  replace %s %s\n"
     "%s:\n"
     "  startreplace\n"
     , l1
     , l2
     , l1
-  );
+  ));
   ++(naic->capindex);
   ++a;
   while (1) {
@@ -51,10 +51,10 @@ NAIG_ERR_T naic_process_replaceterms
     ++(naic->capindex);
     ++a;
   }
-  fprintf(naic->output,
+  CHECK(naic->write(naic->write_arg,
     "  endreplace\n"
     "%s:\n"
     , l2
-  );
+  ));
   return NAIG_OK;
 }

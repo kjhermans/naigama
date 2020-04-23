@@ -52,59 +52,58 @@ NAIG_ERR_T naic_process_term
   if (naic->captures->actions[ naic->capindex ].slot == SLOT_TERM_NOTAND) {
     notand= naic->grammar[ naic->captures->actions[ naic->capindex ].start ];
     if (notand == '!' || notand == '&') {
-      fprintf(naic->output, "  catch %s  -- 1\n", l1);
+      CHECK(naic->write(naic->write_arg, "  catch %s  -- 1\n", l1));
     }
     ++(naic->capindex);
   }
 
   CHECK(naic_process_term_get_quantifier(naic, end, quantifier));
-//fprintf(naic->output, "-- quantifier %u %u\n", quantifier[0], quantifier[1]);
 
   copy = *naic;
   if (quantifier[ 0 ] == 1) {
     CHECK(naic_process_matcher(&copy));
   } else if (quantifier[ 0 ] > 1) {
     unsigned ctr = (naic->counter)++;
-    fprintf(naic->output, "  counter %u %u\n"
+    CHECK(naic->write(naic->write_arg, "  counter %u %u\n"
                           "%s:\n"
                           , ctr
                           , quantifier[ 0 ]
                           , l3
-    );
+    ));
     CHECK(naic_process_matcher(&copy));
-    fprintf(naic->output, "  condjump %u %s\n"
+    CHECK(naic->write(naic->write_arg, "  condjump %u %s\n"
                           , ctr
                           , l3
-    );
+    ));
   }
   naic->labelcount = copy.labelcount;
   naic->rulevarmap = copy.rulevarmap;
   if (quantifier[ 1 ] == -1) {
-    fprintf(naic->output, "  catch %s -- 2\n"
+    CHECK(naic->write(naic->write_arg, "  catch %s -- 2\n"
                           "%s:\n"
                           , l5
                           , l4
-    );
+    ));
     CHECK(naic_process_matcher(naic));
-    fprintf(naic->output, "  partialcommit %s\n"
+    CHECK(naic->write(naic->write_arg, "  partialcommit %s\n"
                           "%s:\n"
                           , l4
                           , l5
-    );
+    ));
   } else if (quantifier[ 1 ] > quantifier[ 0 ]) {
     unsigned diff = quantifier[ 1 ] - quantifier[ 0 ];
     if (diff > 1) {
       unsigned ctr = (naic->counter)++;
-      fprintf(naic->output, "  catch %s -- 3\n"
+      CHECK(naic->write(naic->write_arg, "  catch %s -- 3\n"
                             "  counter %u %u\n"
                             "%s:\n"
                             , l4
                             , ctr
                             , diff
                             , l5
-      );
+      ));
       CHECK(naic_process_matcher(naic));
-      fprintf(naic->output, "  partialcommit %s\n"
+      CHECK(naic->write(naic->write_arg, "  partialcommit %s\n"
                             "%s:\n"
                             "  condjump %u %s\n"
                             "  commit %s\n"
@@ -115,13 +114,13 @@ NAIG_ERR_T naic_process_term
                             , l5
                             , l4
                             , l4
-      );
+      ));
     } else {
-      fprintf(naic->output, "  catch %s -- 4\n"
+      CHECK(naic->write(naic->write_arg, "  catch %s -- 4\n"
                              , l4
-      );
+      ));
       CHECK(naic_process_matcher(naic));
-      fprintf(naic->output, "  partialcommit %s\n"
+      CHECK(naic->write(naic->write_arg, "  partialcommit %s\n"
                             "%s:\n"
                             "  commit %s\n"
                             "%s:\n"
@@ -129,9 +128,9 @@ NAIG_ERR_T naic_process_term
                             , l5
                             , l4
                             , l4
-      );
+      ));
 /*
-      fprintf(naic->output, "  commit %s\n"
+      CHECK(naic->write(naic->write_arg, "  commit %s\n"
                              "%s:\n"
                              , l4
                              , l4
@@ -142,15 +141,15 @@ NAIG_ERR_T naic_process_term
     RETURNERR(NAIC_ERR_QUANTIFIER);
   }
   if (notand == '!') {
-    fprintf(naic->output, "  failtwice\n"
+    CHECK(naic->write(naic->write_arg, "  failtwice\n"
                           "%s:\n", l1
-    );
+    ));
   } else if (notand == '&') {
-    fprintf(naic->output, "  backcommit %s\n"
+    CHECK(naic->write(naic->write_arg, "  backcommit %s\n"
                           "%s:\n"
                           "  fail\n"
                           "%s:\n", l2, l1, l2
-    );
+    ));
   }
   for (i = naic->capindex; i < naic->captures->size; i++) {
     if (naic->captures->actions[ i ].start >= end) {

@@ -23,7 +23,7 @@ NAIG_ERR_T naic_process_any
   fprintf(stderr, "-- %s ", __FILE__); naic_debug(naic);
 #endif
 
-  fprintf(naic->output, "  any\n");
+  CHECK(naic->write(naic->write_arg, "  any\n"));
   ++(naic->capindex);
   return NAIG_OK;
 }

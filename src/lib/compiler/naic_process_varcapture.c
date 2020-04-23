@@ -45,9 +45,9 @@ NAIG_ERR_T naic_process_varcapture
     );
   }
 
-  fprintf(naic->output, "  opencapture %u\n", slot);
+  CHECK(naic->write(naic->write_arg, "  opencapture %u\n", slot));
   naic->capindex += 2;
   CHECK(naic_process_expression(naic));
-  fprintf(naic->output, "  closecapture %u 0\n", slot);
+  CHECK(naic->write(naic->write_arg, "  closecapture %u 0\n", slot));
   return NAIG_OK;
 }

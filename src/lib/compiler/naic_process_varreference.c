@@ -34,8 +34,8 @@ NAIG_ERR_T naic_process_varreference
   } else {
     slot = atoi_substr(naic->grammar, a->start, a->stop - a->start);
   }
-  fprintf(naic->output, "  var %u\n"
+  CHECK(naic->write(naic->write_arg, "  var %u\n"
                          , slot
-  );
+  ));
   return NAIG_OK;
 }

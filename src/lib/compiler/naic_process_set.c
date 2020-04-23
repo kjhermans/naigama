@@ -89,11 +89,11 @@ NAIG_ERR_T naic_process_set
       set[ chr1 ] = ~set[ chr1 ];
     }
   }
-  fprintf(naic->output, "  set ");
+  CHECK(naic->write(naic->write_arg, "  set "));
   for (chr1=0; chr1 < sizeof(set); chr1++) {
-    fprintf(naic->output, "%.2x", set[ chr1 ]);
+    CHECK(naic->write(naic->write_arg, "%.2x", set[ chr1 ]));
   }
-  fprintf(naic->output, "\n");
+  CHECK(naic->write(naic->write_arg, "\n"));
 
   return NAIG_OK;
 }

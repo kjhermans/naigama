@@ -37,21 +37,21 @@ NAIG_ERR_T naic_process_terms_or_expression
 
   snprintf(l1, sizeof(l1), "__LABEL_%u", (naic->labelcount)++);
   snprintf(l2, sizeof(l2), "__LABEL_%u", (naic->labelcount)++);
-  fprintf(naic->output,
+  CHECK(naic->write(naic->write_arg,
     "  catch %s -- terms or expression\n"
     , l1
-  );
+  ));
   CHECK(naic_process_terms(naic));
-  fprintf(naic->output,
+  CHECK(naic->write(naic->write_arg,
     "  commit %s\n"
     "%s:\n"
     , l2
     , l1
-  );
+  ));
   CHECK(naic_process_expression(naic));
-  fprintf(naic->output,
+  CHECK(naic->write(naic->write_arg,
     "%s:\n"
     , l2
-  );
+  ));
   return NAIG_OK;
 }

@@ -67,11 +67,11 @@ NAIG_ERR_T naic_process_macro
   default:
     RETURNERR(NAIC_ERR_MACRO);
   }
-  fprintf(naic->output, "  set ");
+  CHECK(naic->write(naic->write_arg, "  set "));
   for (i=0; i < sizeof(set); i++) {
-    fprintf(naic->output, "%.2x", set[ i ]);
+    CHECK(naic->write(naic->write_arg, "%.2x", set[ i ]));
   }
-  fprintf(naic->output, "\n");
+  CHECK(naic->write(naic->write_arg, "\n"));
 
   return NAIG_OK;
 }

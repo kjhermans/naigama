@@ -20,8 +20,8 @@ NAIG_ERR_T naic_process_hexliteral
   (naic_t* naic)
 {
   unsigned chr = hexcodon(
-    naic->grammar[ naic->captures->actions[ naic->capindex ].start + 1 ],
-    naic->grammar[ naic->captures->actions[ naic->capindex ].start + 2 ]
+    naic->grammar[ naic->captures->actions[ naic->capindex ].start + 2 ],
+    naic->grammar[ naic->captures->actions[ naic->capindex ].start + 3 ]
   );
 
 #ifdef _DEBUG

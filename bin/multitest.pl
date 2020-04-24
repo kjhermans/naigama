@@ -10,6 +10,7 @@ my @tests = split(/\n/, $table);
 
 my $tmpfile="/tmp/test$$";
 
+print "Multitest $file\n";
 my $n = 0;
 foreach my $test (@tests) {
   $test =~ s/--.*^//;

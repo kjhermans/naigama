@@ -9,8 +9,13 @@ all: $(LIB)
 
 $(LIB): $(OBJECTS)
 	$(AR) -rcs $(LIB) $(OBJECTS)
+	../../../bin/arjoin.pl libnaigama.a \
+		libnaig.a \
+		../engine/libnaie.a \
+		../compiler/libnaic.a \
+		../assembler/libnaia.a \
 
 clean:
-	@rm -f $(OBJECTS) $(LIB)
+	@rm -f $(OBJECTS) $(LIB) libnaigama.a
 
 superclean: clean

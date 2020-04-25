@@ -38,7 +38,8 @@ typedef enum
 {
   NAIG_ACTION_OPENCAPTURE = 1,
   NAIG_ACTION_CLOSECAPTURE,
-  NAIG_ACTION_REPLACE
+  NAIG_ACTION_REPLACE_CHAR,
+  NAIG_ACTION_REPLACE_QUAD
 }
 naie_actiontype_t;
 
@@ -74,6 +75,7 @@ typedef struct
   int                                   debug;
   int                                   diligent;
   int                                   uselabelmap;
+  int                                   doreplace;
   struct {
     struct {
       uint32_t                              offset;

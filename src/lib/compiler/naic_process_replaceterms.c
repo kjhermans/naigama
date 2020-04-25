@@ -31,7 +31,7 @@ NAIG_ERR_T naic_process_replaceterms
   CHECK(naic->write(naic->write_arg,
     "  replace %s %s\n"
     "%s:\n"
-    "  startreplace\n"
+//    "  startreplace\n"
     , l1
     , l2
     , l1

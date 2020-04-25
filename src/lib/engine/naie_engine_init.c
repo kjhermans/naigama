@@ -26,5 +26,6 @@ NAIG_ERR_T naie_engine_init
   engine->bytecode_length = bytecode_length;
   engine->input = input;
   engine->input_length = input_length;
+  engine->doreplace = 1;
   return NAIG_OK;
 }

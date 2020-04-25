@@ -58,7 +58,8 @@ NAIG_ERR_T naie_fill_result
         }
       }
       break;
-    case NAIG_ACTION_REPLACE:
+    case NAIG_ACTION_REPLACE_CHAR:
+    case NAIG_ACTION_REPLACE_QUAD:
       result->actions[ result->size ].action = a->action;
       result->actions[ result->size ].start = a->slot;
       result->actions[ result->size ].stop = a->intvalue;

@@ -18,7 +18,7 @@ NAIG_ERR_T naie_action_push
 /* declared in ../lib/engine//naie_debug_state.c */
 extern
 void naie_debug_state
-  (naie_engine_t* engine);
+  (naie_engine_t* engine, int fullstack);
 
 /* declared in ../lib/engine//naie_engine_add_label.c */
 extern
@@ -61,6 +61,15 @@ NAIG_ERR_T naie_engine_init
 /* declared in ../lib/engine//naie_engine_loop.c */
 extern
 NAIG_ERR_T naie_engine_loop
+  (
+    naie_engine_t* engine,
+    naie_result_t* result
+  )
+  __attribute__ ((warn_unused_result));
+
+/* declared in ../lib/engine//naie_engine_loop_replace.c */
+extern
+NAIG_ERR_T naie_engine_loop_replace
   (
     naie_engine_t* engine,
     naie_result_t* result

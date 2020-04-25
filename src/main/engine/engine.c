@@ -18,7 +18,7 @@
 
 static
 void debug_output
-  (naie_result_t* result, unsigned char* data, unsigned char* bytecode)
+  (naie_result_t* result, unsigned char* data)
 {
   unsigned i;
 
@@ -39,13 +39,16 @@ void debug_output
       break;
     case NAIG_ACTION_CLOSECAPTURE:
       break;
-    case NAIG_ACTION_REPLACE:
-      fprintf(stderr, "Action #%u: replace %u->%u '%-.*s'\n"
+    case NAIG_ACTION_REPLACE_CHAR:
+      fprintf(stderr, "Action #%u: replace %.2x\n"
         , i
-        , result->actions[ i ].start
         , result->actions[ i ].stop
+      );
+      break;
+    case NAIG_ACTION_REPLACE_QUAD:
+      fprintf(stderr, "Action #%u: replace %.8x\n"
+        , i
         , result->actions[ i ].stop
-        , bytecode + result->actions[ i ].start
       );
       break;
     }
@@ -174,12 +177,12 @@ int main
       }
       if (debug) {
         engine.stack.size = engine.stacksizebeforefail;
-        naie_debug_state(&engine);
+        naie_debug_state(&engine, 1);
       }
       return -1;
     }
     if (debug) {
-      debug_output(&result, data, bytecode);
+      debug_output(&result, data);
     }
     if (diligent) {
       fprintf(stderr, "Number of instructions: %u\n", engine.noinstructions);

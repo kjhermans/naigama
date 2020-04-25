@@ -61,7 +61,7 @@ NAIG_ERR_T naie_engine_loop
       }
     }
     if (engine->debug) {
-      naie_debug_state(engine);
+      naie_debug_state(engine, 0);
     }
 
     switch (opcode) {
@@ -215,12 +215,13 @@ NAIG_ERR_T naie_engine_loop
     case OPCODE_REPLACE:
       param1 = GET_32BIT_NWO(engine->bytecode, engine->bytecode_pos + 4);
       param2 = GET_32BIT_NWO(engine->bytecode, engine->bytecode_pos + 8);
-      action = (naie_action_t){
-        .action = NAIG_ACTION_REPLACE,
-        .slot = param1
-      };
       CHECK(naie_action_push(engine, action));
-      engine->bytecode_pos = param2;
+      if (engine->doreplace) {
+        engine->bytecode_pos = param1;
+        CHECK(naie_engine_loop_replace(engine, result));
+      } else {
+        engine->bytecode_pos = param2;
+      }
       goto NEXT;
 
     case OPCODE_PARTIALCOMMIT:

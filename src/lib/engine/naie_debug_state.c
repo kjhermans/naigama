@@ -18,7 +18,7 @@
  *
  */
 void naie_debug_state
-  (naie_engine_t* engine)
+  (naie_engine_t* engine, int fullstack)
 {
   char copy[ 9 ];
   unsigned i;
@@ -56,6 +56,9 @@ void naie_debug_state
   }
   if (s && s > engine->stack.size - 8) {
     s = engine->stack.size - 8;
+  }
+  if (fullstack) {
+    s = 0;
   }
   fprintf(stderr, "(%.3u prec.) ", s);
   for (i=s; i < engine->stack.size; i++) {

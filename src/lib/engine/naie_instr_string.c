@@ -65,6 +65,12 @@ char* naie_instr_string
     return "TESTSET";
   case OPCODE_VAR:
     return "VAR";
+  case OPCODE_REPLACE:
+    return "REPLACE";
+  case OPCODE_STARTREPLACE:
+    return "STARTREPLACE";
+  case OPCODE_ENDREPLACE:
+    return "ENDREPLACE";
   }
   return "";
 }

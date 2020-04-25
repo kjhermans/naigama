@@ -10,4 +10,4 @@ all:
 		{} \
 		'../src/main/compiler/naic -i GRAMMAR -o ASM' \
 		'../src/main/assembler/naia -i ASM -o BYTECODE' \
-		'../src/main/engine/naie -b BYTECODE -d INPUT >/dev/null'
+		'../src/main/engine/naie -D -X -I -b BYTECODE -d INPUT >/dev/null'

@@ -49,5 +49,11 @@ NAIG_ERR_T naic_process_varcapture
   naic->capindex += 2;
   CHECK(naic_process_expression(naic));
   CHECK(naic->write(naic->write_arg, "  closecapture %u 0\n", slot));
+  if (naic->captures->actions[ naic->capindex + 1 ].slot
+      == SLOT_REPLACE_REPLACETERMS)
+  {
+    ++(naic->capindex);
+    CHECK(naic_process_replaceterms(naic, slot));
+  }
   return NAIG_OK;
 }

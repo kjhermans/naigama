@@ -15,7 +15,7 @@
 NAIG_ERR_T naie_engine_loop_replace
   (
     naie_engine_t* engine,
-    naie_result_t* result
+    uint32_t slot
   )
 {
   unsigned instruction_size;
@@ -26,7 +26,6 @@ NAIG_ERR_T naie_engine_loop_replace
   unsigned valuesize;
   naie_action_t action;
   unsigned i;
-  (void)result;
 
   while (1) {
     if (engine->bytecode_pos > engine->bytecode_length - 4) {
@@ -60,6 +59,7 @@ NAIG_ERR_T naie_engine_loop_replace
     case OPCODE_CHAR:
       action = (naie_action_t){
         .action = NAIG_ACTION_REPLACE_CHAR,
+        .slot = slot,
         .intvalue = engine->bytecode[ engine->bytecode_pos + 7 ]
       };
       CHECK(naie_action_push(engine, action));
@@ -70,6 +70,7 @@ NAIG_ERR_T naie_engine_loop_replace
       memcpy(&quad, engine->bytecode + engine->bytecode_pos + 4, 4);
       action = (naie_action_t){
         .action = NAIG_ACTION_REPLACE_QUAD,
+        .slot = slot,
         .intvalue = quad
       };
       CHECK(naie_action_push(engine, action));
@@ -83,6 +84,7 @@ NAIG_ERR_T naie_engine_loop_replace
         memcpy(&quad, value + i, 4);
         action = (naie_action_t){
           .action = NAIG_ACTION_REPLACE_QUAD,
+          .slot = slot,
           .intvalue = quad
         };
         CHECK(naie_action_push(engine, action));
@@ -90,6 +92,7 @@ NAIG_ERR_T naie_engine_loop_replace
       for (; i < valuesize; i++) {
         action = (naie_action_t){
           .action = NAIG_ACTION_REPLACE_CHAR,
+          .slot = slot,
           .intvalue = value[ i ]
         };
         CHECK(naie_action_push(engine, action));

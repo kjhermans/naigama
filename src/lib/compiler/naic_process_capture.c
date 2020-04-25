@@ -45,7 +45,7 @@ NAIG_ERR_T naic_process_capture
       == SLOT_REPLACE_REPLACETERMS)
   {
     ++(naic->capindex);
-    CHECK(naic_process_replaceterms(naic));
+    CHECK(naic_process_replaceterms(naic, slot));
   }
   return NAIG_OK;
 }

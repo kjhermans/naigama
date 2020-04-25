@@ -50,8 +50,6 @@
 #define INSTR_SKIPVAR "skipvar"
 #define OPCODE_SPAN 0x0020053f
 #define INSTR_SPAN "span"
-#define OPCODE_STARTREPLACE 0x00000f0f
-#define INSTR_STARTREPLACE "startreplace"
 #define OPCODE_TESTANY 0x00040505
 #define INSTR_TESTANY "testany"
 #define OPCODE_TESTCHAR 0x0008050f

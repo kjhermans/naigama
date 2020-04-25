@@ -284,14 +284,8 @@
   replace => {
     instr => ( 0x0a | ( 0x0f << 8) | ( 0x08 << 16)),
     size => 12,
-    param1 => 'address',
+    param1 => 'slot',
     param2 => 'address',
-  },
-  startreplace => {
-    instr => ( 0x0f | ( 0x0f << 8) | ( 0x00 << 16)),
-    size => 4,
-    param1 => '-',
-    param2 => '-',
   },
   endreplace => {
     instr => ( 0x30 | ( 0x0f << 8) | ( 0x00 << 16)),

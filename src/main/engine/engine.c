@@ -40,14 +40,16 @@ void debug_output
     case NAIG_ACTION_CLOSECAPTURE:
       break;
     case NAIG_ACTION_REPLACE_CHAR:
-      fprintf(stderr, "Action #%u: replace %.2x\n"
+      fprintf(stderr, "Action #%u: replace slot %u, char %.2x\n"
         , i
+        , result->actions[ i ].slot
         , result->actions[ i ].stop
       );
       break;
     case NAIG_ACTION_REPLACE_QUAD:
-      fprintf(stderr, "Action #%u: replace %.8x\n"
+      fprintf(stderr, "Action #%u: replace slot %u, quad %.8x\n"
         , i
+        , result->actions[ i ].slot
         , result->actions[ i ].stop
       );
       break;

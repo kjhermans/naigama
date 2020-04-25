@@ -16,24 +16,19 @@
  *
  */
 NAIG_ERR_T naic_process_replaceterms
-  (naic_t* naic)
+  (naic_t* naic, unsigned slot)
 {
   naie_resact_t* a = &(naic->captures->actions[ naic->capindex ]);
   char l1[ 64 ];
-  char l2[ 64 ];
 
 #ifdef _DEBUG
   fprintf(stderr, "-- %s ", __FILE__); naic_debug(naic);
 #endif
 
   snprintf(l1, sizeof(l1), "__LABEL_%u", (naic->labelcount)++);
-  snprintf(l2, sizeof(l2), "__LABEL_%u", (naic->labelcount)++);
   CHECK(naic->write(naic->write_arg,
-    "  replace %s %s\n"
-    "%s:\n"
-//    "  startreplace\n"
-    , l1
-    , l2
+    "  replace %u %s\n"
+    , slot
     , l1
   ));
   ++(naic->capindex);
@@ -54,7 +49,7 @@ NAIG_ERR_T naic_process_replaceterms
   CHECK(naic->write(naic->write_arg,
     "  endreplace\n"
     "%s:\n"
-    , l2
+    , l1
   ));
   return NAIG_OK;
 }

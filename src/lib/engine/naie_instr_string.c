@@ -67,8 +67,6 @@ char* naie_instr_string
     return "VAR";
   case OPCODE_REPLACE:
     return "REPLACE";
-  case OPCODE_STARTREPLACE:
-    return "STARTREPLACE";
   case OPCODE_ENDREPLACE:
     return "ENDREPLACE";
   }

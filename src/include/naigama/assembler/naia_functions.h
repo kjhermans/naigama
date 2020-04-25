@@ -195,12 +195,6 @@ NAIG_ERR_T naia_process_span
   (naia_t* naia, unsigned i)
   __attribute__ ((warn_unused_result));
 
-/* declared in ../lib/assembler//naia_process_startreplace.c */
-extern
-NAIG_ERR_T naia_process_startreplace
-  (naia_t* naia, unsigned i)
-  __attribute__ ((warn_unused_result));
-
 /* declared in ../lib/assembler//naia_process_testany.c */
 extern
 NAIG_ERR_T naia_process_testany

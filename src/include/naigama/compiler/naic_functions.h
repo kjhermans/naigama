@@ -84,7 +84,7 @@ NAIG_ERR_T naic_process_reference
 /* declared in ../lib/compiler//naic_process_replaceterms.c */
 extern
 NAIG_ERR_T naic_process_replaceterms
-  (naic_t* naic)
+  (naic_t* naic, unsigned slot)
   __attribute__ ((warn_unused_result));
 
 /* declared in ../lib/compiler//naic_process_rule.c */

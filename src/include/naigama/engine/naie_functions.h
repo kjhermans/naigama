@@ -72,7 +72,7 @@ extern
 NAIG_ERR_T naie_engine_loop_replace
   (
     naie_engine_t* engine,
-    naie_result_t* result
+    uint32_t slot
   )
   __attribute__ ((warn_unused_result));
 

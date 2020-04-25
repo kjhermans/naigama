@@ -217,8 +217,8 @@ NAIG_ERR_T naie_engine_loop
       param2 = GET_32BIT_NWO(engine->bytecode, engine->bytecode_pos + 8);
       CHECK(naie_action_push(engine, action));
       if (engine->doreplace) {
-        engine->bytecode_pos = param1;
-        CHECK(naie_engine_loop_replace(engine, result));
+        engine->bytecode_pos += instruction_size;
+        CHECK(naie_engine_loop_replace(engine, param1));
       } else {
         engine->bytecode_pos = param2;
       }

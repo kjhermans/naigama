@@ -59,8 +59,6 @@ NAIG_ERR_T naia_process_instructions
       CHECK(naia_process_quad(naia, i)); break;
     case ASMSLOT_REPLACEINSTR_REPLACE:
       CHECK(naia_process_replace(naia, i)); break;
-    case ASMSLOT_STARTREPLACEINSTR_STARTREPLACE:
-      CHECK(naia_process_startreplace(naia, i)); break;
     case ASMSLOT_ENDREPLACEINSTR_ENDREPLACE:
       CHECK(naia_process_endreplace(naia, i)); break;
     case ASMSLOT_RETINSTR_RET:

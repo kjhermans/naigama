@@ -16,6 +16,9 @@
 #include <naigama/engine/naie.h>
 #include <naigama/util/util_functions.h>
 
+extern NAIG_ERR_T engine_replace
+  (naie_engine_t* engine, naie_result_t* result);
+
 static
 void debug_output
   (naie_result_t* result, unsigned char* data)
@@ -27,13 +30,12 @@ void debug_output
   for (i=0; i < result->size; i++) {
     switch (result->actions[ i ].action) {
     case NAIG_ACTION_OPENCAPTURE:
-      fprintf(stderr, "Action #%u: capture slot %u, %u-%u '%-.*s'\n"
+      fprintf(stderr, "Action #%u: capture slot %u, %u->%u '%-.*s'\n"
         , i
         , result->actions[ i ].slot
         , result->actions[ i ].start
-        , result->actions[ i ].stop
-        , (result->actions[ i ].stop 
-           - result->actions[ i ].start)
+        , result->actions[ i ].length
+        , result->actions[ i ].length
         , data + result->actions[ i ].start
       );
       break;
@@ -43,14 +45,14 @@ void debug_output
       fprintf(stderr, "Action #%u: replace slot %u, char %.2x\n"
         , i
         , result->actions[ i ].slot
-        , result->actions[ i ].stop
+        , result->actions[ i ].length
       );
       break;
     case NAIG_ACTION_REPLACE_QUAD:
       fprintf(stderr, "Action #%u: replace slot %u, quad %.8x\n"
         , i
         , result->actions[ i ].slot
-        , result->actions[ i ].stop
+        , result->actions[ i ].length
       );
       break;
     }
@@ -63,7 +65,7 @@ void debug_output
 int main
   (int argc, char* argv[])
 {
-  int i, debug = 0, diligent = 0, stringpos = 0;
+  int i, debug = 0, diligent = 0, stringpos = 0, replace = 0, suppress = 0;;
   FILE* output = stdout;
   unsigned char* bytecode = 0;
   unsigned bytecode_length = 0;
@@ -108,15 +110,20 @@ int main
         }
         break;
       case 'X':
-        diligent = 1;
+        diligent = !diligent;
         break;
       case 'D':
         if (bytecode) { logmem(bytecode, bytecode_length); }
         if (data) { logmem(data, data_length); }
         debug = 1;
+        suppress = 1;
         break;
       case 'I':
-        stringpos = 1;
+        stringpos = !stringpos;
+        break;
+      case 'r':
+        replace = !replace;
+        suppress = 1;
         break;
       case 's':
         fprintf(stderr, "Stack size not supported.\n"); exit(-1);
@@ -141,6 +148,8 @@ int main
           "-b <path>  Bytecode file\n"
           "-d <path>  Data file\n"
           "-o <path>  Output file (otherwise stdout)\n"
+          "-r         Perform replacements and output result\n"
+          "-S         Suppress binary output (implicit in -D and -r)\n"
           "-D         Debug (prepare for a lot of data on stderr)\n"
           "-X         Diligent (gather stats while running)\n"
           "-I         Input is a string. Text position is displayed on error\n"
@@ -165,6 +174,7 @@ int main
     }
     if (debug) { engine.debug = 1; }
     if (diligent) { engine.diligent = 1; }
+    if (replace) { engine.doreplace = 1; }
     e = naie_engine_run(
       &engine,
       &result
@@ -190,7 +200,12 @@ int main
       fprintf(stderr, "Number of instructions: %u\n", engine.noinstructions);
       fprintf(stderr, "Max stack depth: %u\n", engine.maxstackdepth);
     }
-    e = naie_output(&result, output);
+    if (suppress) {
+      e = naie_output(&result, output);
+    }
+    if (replace) {
+      e = engine_replace(&engine, &result);
+    }
     if (e.code) {
       fprintf(stderr, "Output writing error.\n");
       return -1;

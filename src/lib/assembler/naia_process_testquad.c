@@ -27,8 +27,7 @@ NAIG_ERR_T naia_process_testquad
     naia_label_get(
       naia,
       naia->assembly + naia->captures->actions[ i+2 ].start,
-      naia->captures->actions[ i+2 ].stop
-        - naia->captures->actions[ i+2 ].start,
+      naia->captures->actions[ i+2 ].length,
       &offset
     )
   );

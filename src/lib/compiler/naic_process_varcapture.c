@@ -29,7 +29,7 @@ NAIG_ERR_T naic_process_varcapture
 
   ++a;
   chr = naic->grammar + a->start;
-  CHECK(naic_var_put(naic, chr, a->stop - a->start, slot));
+  CHECK(naic_var_put(naic, chr, a->length, slot));
   ++a; /** skip the type for now **/
   //..
 

@@ -91,7 +91,7 @@ typedef struct {
   uint32_t                              action;
   uint32_t                              slot;
   uint32_t                              start;
-  uint32_t                              stop;
+  uint32_t                              length; // dubs as char/quad in replace
 }
 naie_resact_t;
 
@@ -112,5 +112,12 @@ typedef struct
   unsigned                              size;
 }
 naig_labelmap_t;
+
+typedef NAIG_ERR_T(*naie_capture_t)
+                  (const unsigned char*,unsigned,unsigned,void*);
+typedef NAIG_ERR_T(*naie_delete_t)
+                  (const unsigned char*,unsigned,unsigned,void*);
+typedef NAIG_ERR_T(*naie_insert_t)
+                  (const unsigned char*,int,unsigned,uint32_t,void*);
 
 #endif

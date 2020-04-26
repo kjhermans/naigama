@@ -16,6 +16,7 @@
 /**
  *
  */
+/*
 NAIG_ERR_T naic_token_next_sibling
   (naic_t* naic, unsigned* index)
 {
@@ -29,3 +30,4 @@ NAIG_ERR_T naic_token_next_sibling
   }
   return NAIC_NOTFOUND;
 }
+*/

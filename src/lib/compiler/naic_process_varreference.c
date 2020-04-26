@@ -30,9 +30,9 @@ NAIG_ERR_T naic_process_varreference
   ++a;
   chr = naic->grammar + a->start;
   if (a->slot == SLOT_VARREFERENCE_IDENT) {
-    CHECK(naic_var_get(naic, chr, a->stop - a->start, &slot));
+    CHECK(naic_var_get(naic, chr, a->length, &slot));
   } else {
-    slot = atoi_substr(naic->grammar, a->start, a->stop - a->start);
+    slot = atoi_substr(naic->grammar, a->start, a->length);
   }
   CHECK(naic->write(naic->write_arg, "  var %u\n"
                          , slot

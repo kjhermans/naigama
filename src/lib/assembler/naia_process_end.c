@@ -27,8 +27,7 @@ NAIG_ERR_T naia_process_end
     endcode = atoi_substr(
       naia->assembly,
       naia->captures->actions[ i+1 ].start,
-      naia->captures->actions[ i+1 ].stop
-        - naia->captures->actions[ i+1 ].start
+      naia->captures->actions[ i+1 ].length
     );
   }
   opcode[ 1 ] = htonl(endcode);

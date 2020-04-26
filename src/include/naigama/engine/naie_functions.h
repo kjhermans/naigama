@@ -94,6 +94,19 @@ NAIG_ERR_T naie_fill_result
   )
   __attribute__ ((warn_unused_result));
 
+/* declared in ../lib/engine//naie_handle_result.c */
+extern
+NAIG_ERR_T naie_handle_result
+  (
+    naie_engine_t* engine,
+    naie_result_t* result,
+    naie_capture_t capturefnc,
+    naie_delete_t deletefnc,
+    naie_insert_t insertfnc,
+    void* arg
+  )
+  __attribute__ ((warn_unused_result));
+
 /* declared in ../lib/engine//naie_instr_string.c */
 extern
 char* naie_instr_string

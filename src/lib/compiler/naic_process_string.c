@@ -28,7 +28,8 @@ NAIG_ERR_T naic_process_string
   (naic_t* naic)
 {
   unsigned start = naic->captures->actions[ naic->capindex ].start
-         , stop = naic->captures->actions[ naic->capindex ].stop;
+         , stop = naic->captures->actions[ naic->capindex ].start +
+                  naic->captures->actions[ naic->capindex ].length;
 
 #ifdef _DEBUG
   fprintf(stderr, "-- %s ", __FILE__); naic_debug(naic);

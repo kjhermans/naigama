@@ -41,12 +41,12 @@ NAIG_ERR_T naic_slotmap_add
       scratch,
       sizeof(scratch),
       "%-.*s_%-.*s",
-      (int)(rule->stop - rule->start),
+      rule->length,
       grammar + rule->start,
-      (int)(capture->stop - capture->start),
+      capture->length,
       grammar + capture->start
     );
-    for (i=1 + rule->stop - rule->start; i < strlen(str); i++) {
+    for (i=1 + rule->length; i < strlen(str); i++) {
       if (str[ i ] >= 'a' && str[ i ] <= 'z') {
         str[ i ] = ((str[ i ] - 'a') + 'A');
       } else {

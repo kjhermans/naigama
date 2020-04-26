@@ -22,7 +22,7 @@ NAIG_ERR_T naic_process_rule
 {
   naie_resact_t* a = &(naic->captures->actions[ naic->capindex ]);
   char* chr = naic->grammar + a->start;
-  unsigned i, end = a->stop;
+  unsigned i, end = a->start + a->length;
 
 #ifdef _DEBUG
   fprintf(stderr, "-- %s ", __FILE__); naic_debug(naic);
@@ -34,7 +34,7 @@ NAIG_ERR_T naic_process_rule
   if (naic->flags & NAIC_FLG_TRAPS) {
     CHECK(naic->write(naic->write_arg, "  trap\n"));
   }
-  CHECK(naic->write(naic->write_arg, "%-.*s:\n" , (int)(a->stop - a->start), chr));
+  CHECK(naic->write(naic->write_arg, "%-.*s:\n" , a->length, chr));
   if (naic->flags & NAIC_FLG_IMPLICITPREFIX) {
     CHECK(naic->write(naic->write_arg, "  call __prefix\n"));
   }

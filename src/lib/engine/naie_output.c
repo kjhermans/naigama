@@ -30,7 +30,7 @@ NAIG_ERR_T naie_output
     record[ 0 ] = htonl(result->actions[ i ].action);
     record[ 1 ] = htonl(result->actions[ i ].slot);
     record[ 2 ] = htonl(result->actions[ i ].start);
-    record[ 3 ] = htonl(result->actions[ i ].stop);
+    record[ 3 ] = htonl(result->actions[ i ].length);
     if (fwrite(record, sizeof(uint32_t), 4, output) != 4) {
       RETURNERR(NAIG_ERR_WRITE);
     }

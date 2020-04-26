@@ -20,8 +20,7 @@ int naic_atoi
   return atoi_substr(
     naic->grammar,
     naic->captures->actions[ token ].start,
-    naic->captures->actions[ token ].stop
-      - naic->captures->actions[ token ].start
+    naic->captures->actions[ token ].length
   );
 }
 
@@ -38,10 +37,10 @@ NAIG_ERR_T naic_process_term_get_quantifier
 #endif
 
   while (i < naic->captures->size
-         && naic->captures->actions[ i ].stop <= end)
+         && naic->captures->actions[ i ].start + naic->captures->actions[ i ].length <= end)
   {
     if (naic->captures->actions[ i ].slot == SLOT_TERM_QUANTIFIER
-        && naic->captures->actions[ i ].stop == end)
+        && naic->captures->actions[ i ].start + naic->captures->actions[ i ].length == end)
     {
       q = i;
     }

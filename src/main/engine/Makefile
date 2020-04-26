@@ -7,11 +7,13 @@ LIBS=\
 
 all: $(TARGET)
 
-$(TARGET): engine.o $(LIBS)
-	$(CC) -o $(TARGET) engine.o $(LIBS)
+OBJECTS=engine.o engine_replace.o
+
+$(TARGET): $(OBJECTS) $(LIBS)
+	$(CC) -o $(TARGET) $(OBJECTS) $(LIBS)
 
 clean:
-	@rm -f $(TARGET) engine.o
+	@rm -f $(TARGET) $(OBJECTS)
 
 superclean: clean
 

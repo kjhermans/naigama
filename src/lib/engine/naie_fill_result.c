@@ -45,9 +45,9 @@ NAIG_ERR_T naie_fill_result
           if (level == 0) {
             if (a->slot == b->slot && a->stacklength == b->stacklength) {
               result->actions[ result->size ].action= a->action;
-              result->actions[ result->size ].start = start;
-              result->actions[ result->size ].stop= b->inputpos;
               result->actions[ result->size ].slot = b->slot;
+              result->actions[ result->size ].start = start;
+              result->actions[ result->size ].length = b->inputpos - start;
               ++(result->size);
               goto EndInnerLoop;
             } else {
@@ -61,8 +61,9 @@ NAIG_ERR_T naie_fill_result
     case NAIG_ACTION_REPLACE_CHAR:
     case NAIG_ACTION_REPLACE_QUAD:
       result->actions[ result->size ].action = a->action;
-      result->actions[ result->size ].start = a->slot;
-      result->actions[ result->size ].stop = a->intvalue;
+      result->actions[ result->size ].start = a->inputpos;
+      result->actions[ result->size ].slot = a->slot;
+      result->actions[ result->size ].length = a->intvalue;
       ++(result->size);
       break;
     default: ;

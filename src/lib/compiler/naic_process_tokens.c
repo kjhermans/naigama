@@ -38,16 +38,14 @@ NAIG_ERR_T naic_process_tokens
         naic->write(naic->write_arg,
           "  call %-.*s\n"
           "  end\n"
-          , (int)(naic->captures->actions[ naic->capindex ].stop
-                  - naic->captures->actions[ naic->capindex ].start)
+          , naic->captures->actions[ naic->capindex ].length
           , naic->grammar + naic->captures->actions[ naic->capindex ].start
         );
         naic->flags |= NAIC_FLG_FIRSTRULE;
       }
       if (0 == cmp_substr(
              naic->grammar + naic->captures->actions[ naic->capindex ].start,
-             naic->captures->actions[ naic->capindex ].stop
-               - naic->captures->actions[ naic->capindex ].start,
+             naic->captures->actions[ naic->capindex ].length,
              "__prefix"))
       {
         CHECK(naic_process_rule(naic));

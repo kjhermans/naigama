@@ -51,7 +51,7 @@ NAIG_ERR_T naic_process_set
   (naic_t* naic)
 {
   naie_resact_t* a = &(naic->captures->actions[ naic->capindex ]);
-  unsigned end = a->stop;
+  unsigned end = a->start + a->length;
   int invert = 0;
   unsigned char set[ 32 ] = { 0 };
   unsigned chr1, chr2;
@@ -62,12 +62,12 @@ NAIG_ERR_T naic_process_set
 
   ++a;
   if (a->slot == SLOT_SET_SETNOT) {
-    invert = (a->start != a->stop);
+    invert = a->length;
     ++a;
   } else {
     abort();
   }
-  while (a->stop <= end) {
+  while (a->start + a->length <= end) {
     switch (a->slot) {
     case SLOT_SET_NRTV:
       chr1 = naic_set_char(naic->grammar + a->start);

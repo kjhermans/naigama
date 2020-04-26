@@ -24,8 +24,7 @@ NAIG_ERR_T naia_process_skip
   num = atoi_substr(
     naia->assembly,
     naia->captures->actions[ i+1 ].start,
-    naia->captures->actions[ i+1 ].stop
-      - naia->captures->actions[ i+1 ].start
+    naia->captures->actions[ i+1 ].length
   );
   opcode[ 1 ] = htonl(num);
   CHECK(naia->write(opcode, sizeof(opcode), naia->write_arg));

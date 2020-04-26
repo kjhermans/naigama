@@ -36,7 +36,8 @@ NAIG_ERR_T naic_process_term
 #endif
 
   if (naic->captures->actions[ naic->capindex ].slot == SLOT_TERMS_TERM) {
-    end = naic->captures->actions[ naic->capindex ].stop;
+    end = naic->captures->actions[ naic->capindex ].start +
+          naic->captures->actions[ naic->capindex ].length;
     ++(naic->capindex);
   } else {
     //.. return error

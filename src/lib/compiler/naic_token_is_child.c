@@ -17,6 +17,7 @@
  * Finds the first child token (ie position-wise completely encompassed
  * by the parent) of a token given its index.
  */
+/*
 int naic_token_is_child
   (naic_t* naic, unsigned index)
 {
@@ -30,3 +31,4 @@ int naic_token_is_child
   }
   return 0;
 }
+*/

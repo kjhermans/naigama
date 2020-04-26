@@ -24,10 +24,8 @@ NAIG_ERR_T naic_process_reference
 #endif
 
   CHECK(naic->write(naic->write_arg, "  call %-.*s\n"
-    , (int)(naic->captures->actions[ naic->capindex ].stop -
-            naic->captures->actions[ naic->capindex ].start)
-    , naic->grammar +
-        naic->captures->actions[ naic->capindex ].start
+    , naic->captures->actions[ naic->capindex ].length
+    , naic->grammar + naic->captures->actions[ naic->capindex ].start
   ));
   ++(naic->capindex);
   return NAIG_OK;

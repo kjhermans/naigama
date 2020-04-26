@@ -25,16 +25,14 @@ NAIG_ERR_T naia_process_condjump
   reg = atoi_substr(
     naia->assembly,
     naia->captures->actions[ i+1 ].start,
-    naia->captures->actions[ i+1 ].stop
-      - naia->captures->actions[ i+1 ].start
+    naia->captures->actions[ i+1 ].length
   );
   opcode[ 1 ] = htonl(reg);
   CHECK(
     naia_label_get(
       naia,
       naia->assembly + naia->captures->actions[ i+2 ].start,
-      naia->captures->actions[ i+2 ].stop
-        - naia->captures->actions[ i+2 ].start,
+      naia->captures->actions[ i+2 ].length,
       &offset
     )
   );

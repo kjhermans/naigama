@@ -17,6 +17,7 @@
  * Finds the first child token (ie position-wise completely encompassed
  * by the parent) of a token given its index.
  */
+/*
 NAIG_ERR_T naic_token_first_child
   (naic_t* naic, unsigned* index)
 {
@@ -34,3 +35,4 @@ NAIG_ERR_T naic_token_first_child
   }
   return NAIC_NOTFOUND;
 }
+*/

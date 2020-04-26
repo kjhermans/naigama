@@ -22,12 +22,12 @@ NAIG_ERR_T naia_process_tokens
 #ifdef _DEBUG
   unsigned i;
   for (i=0; i < naia->captures->size; i++) {
-    fprintf(stderr, "Token %u: %u-%u %s '%-.*s'\n"
+    fprintf(stderr, "Token %u: %u->%u %s '%-.*s'\n"
       , i
       , naia->captures->actions[ i ].start
-      , naia->captures->actions[ i ].stop
+      , naia->captures->actions[ i ].length
       , naia_slotmap_string(naia->captures->actions[ i ].slot)
-      , naia->captures->actions[ i ].stop - naia->captures->actions[ i ].start
+      , naia->captures->actions[ i ].length
       , naia->assembly + naia->captures->actions[ i ].start
     );
   }

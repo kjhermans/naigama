@@ -20,7 +20,8 @@
 NAIG_ERR_T naic_process_terms
   (naic_t* naic)
 {
-  unsigned end = naic->captures->actions[ naic->capindex ].stop;
+  unsigned end = naic->captures->actions[ naic->capindex ].start +
+                 naic->captures->actions[ naic->capindex ].length;
 
 #ifdef _DEBUG
   fprintf(stderr, "-- %s ", __FILE__); naic_debug(naic);

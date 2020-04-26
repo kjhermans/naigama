@@ -25,8 +25,7 @@ NAIG_ERR_T naia_process_closecapture
   slot = atoi_substr(
     naia->assembly,
     naia->captures->actions[ i+1 ].start,
-    naia->captures->actions[ i+1 ].stop
-      - naia->captures->actions[ i+1 ].start
+    naia->captures->actions[ i+1 ].length
   );
   opcode[ 1 ] = htonl(slot);
   opcode[ 2 ] = htonl(type);

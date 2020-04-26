@@ -112,8 +112,7 @@ NAIG_ERR_T naia_process_labels
         naia_label_put(
           naia,
           naia->assembly + naia->captures->actions[ i ].start,
-          naia->captures->actions[ i ].stop
-            - naia->captures->actions[ i ].start,
+          naia->captures->actions[ i ].length,
           offset
         )
       );

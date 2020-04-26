@@ -23,14 +23,14 @@ NAIG_ERR_T naic_process_macro
 {
   naie_resact_t* a = &(naic->captures->actions[ naic->capindex ]);
   char* chr = naic->grammar + a->start + 1;
-  unsigned length = a->stop - a->start, i;
+  unsigned i;
   unsigned char set[ 32 ] = { 0 };
 
 #ifdef _DEBUG
   fprintf(stderr, "-- %s ", __FILE__); naic_debug(naic);
 #endif
 
-  switch (length) {
+  switch (a->length) {
   case 2:
     switch (*chr) {
     case 's':

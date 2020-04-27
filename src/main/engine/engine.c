@@ -125,6 +125,9 @@ int main
         replace = !replace;
         suppress = 1;
         break;
+      case 'S':
+        suppress = !suppress;
+        break;
       case 's':
         fprintf(stderr, "Stack size not supported.\n"); exit(-1);
 /*
@@ -200,7 +203,7 @@ int main
       fprintf(stderr, "Number of instructions: %u\n", engine.noinstructions);
       fprintf(stderr, "Max stack depth: %u\n", engine.maxstackdepth);
     }
-    if (suppress) {
+    if (!suppress) {
       e = naie_output(&result, output);
     }
     if (replace) {

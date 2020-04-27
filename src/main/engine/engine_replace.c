@@ -87,5 +87,7 @@ NAIG_ERR_T engine_replace
       &e
     )
   );
+  fprintf(stdout, "%-.*s", e.size, e.copy);
+  free(e.copy);
   return NAIG_OK;
 }

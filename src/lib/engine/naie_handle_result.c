@@ -62,7 +62,7 @@ NAIG_ERR_T naie_handle_result
                 arg
               )
             );
-            for (j=i+1; j < r.size; j++) {
+            for (j=i; j < r.size; j++) {
               r.actions[ j ].start -= delta;
             }
           }

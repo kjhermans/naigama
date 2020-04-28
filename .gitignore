@@ -9,6 +9,7 @@ d/compendium.toc
 src/main/assembler/naia
 src/main/compiler/naic
 src/main/engine/naie
+src/main/naigama/naig
 
 src/grammar/assembly.byc.labelmap
 src/grammar/grammar.byc.labelmap

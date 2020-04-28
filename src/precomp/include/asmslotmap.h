@@ -18,26 +18,25 @@
   case 16: return "PARTIALCOMMITINSTR_PARTIALCOMMIT"; break; \
   case 17: return "QUADINSTR_QUAD"; break; \
   case 18: return "REPLACEINSTR_REPLACE"; break; \
-  case 19: return "STARTREPLACEINSTR_STARTREPLACE"; break; \
-  case 20: return "ENDREPLACEINSTR_ENDREPLACE"; break; \
-  case 21: return "RETINSTR_RET"; break; \
-  case 22: return "SETINSTR_SET"; break; \
-  case 23: return "RANGEINSTR_RANGE"; break; \
-  case 24: return "SKIPINSTR_SKIP"; break; \
-  case 25: return "SPANINSTR_SPAN"; break; \
-  case 26: return "TESTANYINSTR_TESTANY"; break; \
-  case 27: return "TESTCHARINSTR_TESTCHAR"; break; \
-  case 28: return "TESTQUADINSTR_TESTQUAD"; break; \
-  case 29: return "TESTSETINSTR_TESTSET"; break; \
-  case 30: return "VARINSTR_VAR"; break; \
-  case 31: return "COUNTERINSTR_COUNTER"; break; \
-  case 32: return "CONDJUMPINSTR_CONDJUMP"; break; \
-  case 33: return "LABELDEF_LABEL"; break; \
-  case 34: return "HEXBYTE_AFAF"; break; \
-  case 35: return "LABEL_AZAZ"; break; \
-  case 36: return "NUMBER"; break; \
-  case 37: return "QUAD_AFAF"; break; \
-  case 38: return "SET_AFAF"; break; \
+  case 19: return "ENDREPLACEINSTR_ENDREPLACE"; break; \
+  case 20: return "RETINSTR_RET"; break; \
+  case 21: return "SETINSTR_SET"; break; \
+  case 22: return "RANGEINSTR_RANGE"; break; \
+  case 23: return "SKIPINSTR_SKIP"; break; \
+  case 24: return "SPANINSTR_SPAN"; break; \
+  case 25: return "TESTANYINSTR_TESTANY"; break; \
+  case 26: return "TESTCHARINSTR_TESTCHAR"; break; \
+  case 27: return "TESTQUADINSTR_TESTQUAD"; break; \
+  case 28: return "TESTSETINSTR_TESTSET"; break; \
+  case 29: return "VARINSTR_VAR"; break; \
+  case 30: return "COUNTERINSTR_COUNTER"; break; \
+  case 31: return "CONDJUMPINSTR_CONDJUMP"; break; \
+  case 32: return "LABELDEF_LABEL"; break; \
+  case 33: return "HEXBYTE_AFAF"; break; \
+  case 34: return "LABEL_AZAZ"; break; \
+  case 35: return "NUMBER"; break; \
+  case 36: return "QUAD_AFAF"; break; \
+  case 37: return "SET_AFAF"; break; \
 
 
 #define ASMSLOT_INSTRUCTION_ANYINSTRBACKCOMMITIN 0
@@ -59,23 +58,22 @@
 #define ASMSLOT_PARTIALCOMMITINSTR_PARTIALCOMMIT 16
 #define ASMSLOT_QUADINSTR_QUAD 17
 #define ASMSLOT_REPLACEINSTR_REPLACE 18
-#define ASMSLOT_STARTREPLACEINSTR_STARTREPLACE 19
-#define ASMSLOT_ENDREPLACEINSTR_ENDREPLACE 20
-#define ASMSLOT_RETINSTR_RET 21
-#define ASMSLOT_SETINSTR_SET 22
-#define ASMSLOT_RANGEINSTR_RANGE 23
-#define ASMSLOT_SKIPINSTR_SKIP 24
-#define ASMSLOT_SPANINSTR_SPAN 25
-#define ASMSLOT_TESTANYINSTR_TESTANY 26
-#define ASMSLOT_TESTCHARINSTR_TESTCHAR 27
-#define ASMSLOT_TESTQUADINSTR_TESTQUAD 28
-#define ASMSLOT_TESTSETINSTR_TESTSET 29
-#define ASMSLOT_VARINSTR_VAR 30
-#define ASMSLOT_COUNTERINSTR_COUNTER 31
-#define ASMSLOT_CONDJUMPINSTR_CONDJUMP 32
-#define ASMSLOT_LABELDEF_LABEL 33
-#define ASMSLOT_HEXBYTE_AFAF 34
-#define ASMSLOT_LABEL_AZAZ 35
-#define ASMSLOT_NUMBER 36
-#define ASMSLOT_QUAD_AFAF 37
-#define ASMSLOT_SET_AFAF 38
+#define ASMSLOT_ENDREPLACEINSTR_ENDREPLACE 19
+#define ASMSLOT_RETINSTR_RET 20
+#define ASMSLOT_SETINSTR_SET 21
+#define ASMSLOT_RANGEINSTR_RANGE 22
+#define ASMSLOT_SKIPINSTR_SKIP 23
+#define ASMSLOT_SPANINSTR_SPAN 24
+#define ASMSLOT_TESTANYINSTR_TESTANY 25
+#define ASMSLOT_TESTCHARINSTR_TESTCHAR 26
+#define ASMSLOT_TESTQUADINSTR_TESTQUAD 27
+#define ASMSLOT_TESTSETINSTR_TESTSET 28
+#define ASMSLOT_VARINSTR_VAR 29
+#define ASMSLOT_COUNTERINSTR_COUNTER 30
+#define ASMSLOT_CONDJUMPINSTR_CONDJUMP 31
+#define ASMSLOT_LABELDEF_LABEL 32
+#define ASMSLOT_HEXBYTE_AFAF 33
+#define ASMSLOT_LABEL_AZAZ 34
+#define ASMSLOT_NUMBER 35
+#define ASMSLOT_QUAD_AFAF 36
+#define ASMSLOT_SET_AFAF 37

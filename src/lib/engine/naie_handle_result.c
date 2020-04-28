@@ -36,7 +36,7 @@ NAIG_ERR_T naie_handle_result
       if (capturefnc) {
         CHECK(
           capturefnc(
-            engine->input,
+            (engine ? engine->input : 0),
             r.actions[ i ].start,
             r.actions[ i ].length,
             arg
@@ -56,7 +56,7 @@ NAIG_ERR_T naie_handle_result
           if (deletefnc) {
             CHECK(
               deletefnc(
-                engine->input,
+                (engine ? engine->input : 0),
                 r.actions[ j-1 ].start, 
                 delta,
                 arg
@@ -77,7 +77,7 @@ NAIG_ERR_T naie_handle_result
           if (insertfnc) {
             CHECK(
               insertfnc(
-                engine->input,
+                (engine ? engine->input : 0),
                 r.actions[ i ].action,
                 r.actions[ i ].start,
                 r.actions[ i ].length,

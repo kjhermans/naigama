@@ -69,7 +69,7 @@ NAIG_ERR_T engine_repl_insert
  *
  */
 NAIG_ERR_T engine_replace
-  (naie_engine_t* engine, naie_result_t* result)
+  (naie_engine_t* engine, naie_result_t* result, FILE* output)
 {
   struct engine_repl e = {
     malloc(engine->input_length),
@@ -87,7 +87,7 @@ NAIG_ERR_T engine_replace
       &e
     )
   );
-  fprintf(stdout, "%-.*s", e.size, e.copy);
+  fprintf(output, "%-.*s", e.size, e.copy);
   free(e.copy);
   return NAIG_OK;
 }

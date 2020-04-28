@@ -17,7 +17,7 @@
 #include <naigama/util/util_functions.h>
 
 extern NAIG_ERR_T engine_replace
-  (naie_engine_t* engine, naie_result_t* result);
+  (naie_engine_t* engine, naie_result_t* result, FILE* output);
 
 static
 void debug_output
@@ -207,7 +207,7 @@ int main
       e = naie_output(&result, output);
     }
     if (replace) {
-      e = engine_replace(&engine, &result);
+      e = engine_replace(&engine, &result, output);
     }
     if (e.code) {
       fprintf(stderr, "Output writing error.\n");

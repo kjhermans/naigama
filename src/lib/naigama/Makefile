@@ -14,6 +14,7 @@ $(LIB): $(OBJECTS)
 		../engine/libnaie.a \
 		../compiler/libnaic.a \
 		../assembler/libnaia.a \
+		../util/libutil.a \
 
 clean:
 	@rm -f $(OBJECTS) $(LIB) libnaigama.a

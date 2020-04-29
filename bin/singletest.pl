@@ -4,14 +4,16 @@ my $file = shift @ARGV;
 my $compiler = shift @ARGV;
 my $assembler = shift @ARGV;
 my $engine = shift @ARGV;
+my $replace = shift @ARGV;
 
 my $test = `cat $file`;
 
 my $tmpfile="/tmp/test$$";
 
-if ($test =~ /-- Grammar:(.*)-- Input:(.*)-- Result:(.*)$/s) {
+if ($test =~ /-- (Replace|Grammar):(.*)-- Input:(.*)-- Result:(.*)$/s) {
   print "Test $file - ";
-  my (@fields) = ($1, $2, $3);
+  my $action = $1;
+  my (@fields) = ($2, $3, $4);
   $fields[2] =~ s/^\s+//; $fields[2] =~ s/\s+$//;
   open FILE, "> $tmpfile.naig"; print FILE $fields[0]; close FILE;
   open FILE, "> $tmpfile.txt"; print FILE $fields[1]; close FILE;
@@ -54,6 +56,9 @@ if ($test =~ /-- Grammar:(.*)-- Input:(.*)-- Result:(.*)$/s) {
     print "Assembly Ok  - ";
   }
   my $e = "$engine";
+  if ($action eq 'Replace') {
+    $e = "$replace";
+  }
   $e =~ s/BYTECODE/$tmpfile.byc/g;
   $e =~ s/INPUT/$tmpfile.txt/g;
   $e .= " >>$tmpfile.$n.log " . '2>&1';

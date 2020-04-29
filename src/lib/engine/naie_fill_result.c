@@ -51,6 +51,9 @@ NAIG_ERR_T naie_fill_result
               ++(result->size);
               goto EndInnerLoop;
             } else {
+#ifdef _DEBUG
+              fprintf(stderr, "Close capture of %u found at %u wrong.\n", i, j);
+#endif
               RETURNERR(NAIE_ERR_ACTIONLIST);
             }
           }

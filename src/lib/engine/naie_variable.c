@@ -43,7 +43,7 @@ NAIG_ERR_T naie_variable
       }
     }
   }
-  if (startfound && stopfound && stop > start) {
+  if (startfound && stopfound && stop >= start) {
     *value = (unsigned char*)data + start;
     *valuesize = stop - start;
     return NAIG_OK;

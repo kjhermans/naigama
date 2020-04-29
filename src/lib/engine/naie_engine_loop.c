@@ -310,6 +310,9 @@ NAIG_ERR_T naie_engine_loop
     case OPCODE_VAR:
       param1 = GET_32BIT_NWO(engine->bytecode, engine->bytecode_pos + 4);
       CHECK(naie_variable(engine, engine->input, param1, &value, &valuesize));
+      if (valuesize == 0) {
+        goto FAIL;
+      }
       if (engine->input_pos + valuesize <= engine->input_length
           && 0 == memcmp(engine->input + engine->input_pos, value, valuesize))
       {

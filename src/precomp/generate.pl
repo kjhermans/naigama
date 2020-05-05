@@ -20,12 +20,15 @@ my $asmbytecode = absorb_binary($asmbytecodefile);
 $asmbytecodefile =~ s/\.byc$/.slotmap/;
 my $asmslotmap = absorb_binary($asmbytecodefile);
 
+my $optbytecode;
+my $optslotmap;
+my $optlabelmap;
+
 if (-s $optbytecodefile) {
-  my $optbytecode = absorb_binary($optbytecodefile);
+  $optbytecode = absorb_binary($optbytecodefile);
   $optbytecodefile =~ s/\.byc$/.slotmap/;
-  my $optslotmap = absorb_binary($optbytecodefile);
-  
-  my $optlabelmap = absorb_binary($optlabelmapfile);
+  $optslotmap = absorb_binary($optbytecodefile);
+  $optlabelmap = absorb_binary($optlabelmapfile);
 }
 
 write_instructions_file();
@@ -34,9 +37,12 @@ write_asmbytecode_file();
 write_slotmap_file();
 write_asmslotmap_file();
 if (-s $optbytecodefile) {
+  print STDERR "Generating optimizer C assets\n";
   write_optbytecode_file();
   write_optslotmap_file();
   write_optlabelmap_file();
+} else {
+  print STDERR "Not generating optimizer C assets\n";
 }
 
 exit 0;

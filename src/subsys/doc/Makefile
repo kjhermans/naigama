@@ -4,3 +4,6 @@ all:
 
 clean:
 	rm -f *.log *.pdf *.lot *.toc *.aux
+
+superclean:
+	true

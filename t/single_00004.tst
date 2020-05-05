@@ -1,4 +1,4 @@
--- Grammar:
+-- Replace:
 
 OPT     <- ((!QUAD .)* QUAD)*
 QUAD    <- {

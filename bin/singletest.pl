@@ -7,6 +7,10 @@ my $engine = shift @ARGV;
 my $replace = shift @ARGV;
 
 my $test = `cat $file`;
+my $n = 'single';
+if ($file =~ /([0-9]+)\.tst$/) {
+  $n = int($1);
+}
 
 my $tmpfile="/tmp/test$$";
 

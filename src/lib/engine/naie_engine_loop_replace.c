@@ -49,6 +49,7 @@ NAIG_ERR_T naie_engine_loop_replace
     }
     if (engine->debug) {
       naie_debug_state(engine, 0);
+//      naie_debug_actions(engine);
     }
     switch (opcode) {
 

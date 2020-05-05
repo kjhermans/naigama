@@ -48,5 +48,12 @@ NAIG_ERR_T naie_variable
     *valuesize = stop - start;
     return NAIG_OK;
   }
+#ifdef _DEBUG
+  fprintf(stderr,
+    "Attempt to retrieve variable for slot %u at stack size %u failed.\n"
+    , slot
+    , naie_stack_call_size(engine)
+  );
+#endif
   RETURNERR(NAIE_ERR_VARIABLE);
 }

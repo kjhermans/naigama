@@ -11,7 +11,6 @@
  */
 
 #include <ctype.h>
-#include <inttypes.h>
 
 #include <naigama/engine/naie.h>
 
@@ -71,16 +70,6 @@ void naie_debug_state
   }
   fprintf(stderr, "\n");
   if (fullstack) {
-    for (i=0; i < engine->actions.size; i++) {
-      fprintf(stderr,
-        "Action #%u; act=%u, slot=%u, pos=%u, sl=%u, int=%"PRIu64"\n"
-        , i
-        , engine->actions.entries[ i ].action
-        , engine->actions.entries[ i ].slot
-        , engine->actions.entries[ i ].inputpos
-        , engine->actions.entries[ i ].stacklength
-        , engine->actions.entries[ i ].intvalue
-      );
-    }
+    naie_debug_actions(engine);
   }
 }

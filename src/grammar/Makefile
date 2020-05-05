@@ -13,10 +13,10 @@ assembly.asm: assembly.naig
 	@./compile.sh assembly.naig assembly.asm assembly.slotmap
 
 optimizer.byc: optimizer.asm
-	@./assemble.sh optimizer.asm optimizer.byc
+	@./assemble.sh optimizer.asm optimizer.byc || true
 
 optimizer.asm: optimizer.naig
-	@./compile.sh optimizer.naig optimizer.asm optimizer.slotmap
+	@./compile.sh optimizer.naig optimizer.asm optimizer.slotmap || true
 
 clean:
 

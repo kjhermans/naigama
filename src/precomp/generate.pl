@@ -20,20 +20,24 @@ my $asmbytecode = absorb_binary($asmbytecodefile);
 $asmbytecodefile =~ s/\.byc$/.slotmap/;
 my $asmslotmap = absorb_binary($asmbytecodefile);
 
-my $optbytecode = absorb_binary($optbytecodefile);
-$optbytecodefile =~ s/\.byc$/.slotmap/;
-my $optslotmap = absorb_binary($optbytecodefile);
-
-my $optlabelmap = absorb_binary($optlabelmapfile);
+if (-s $optbytecodefile) {
+  my $optbytecode = absorb_binary($optbytecodefile);
+  $optbytecodefile =~ s/\.byc$/.slotmap/;
+  my $optslotmap = absorb_binary($optbytecodefile);
+  
+  my $optlabelmap = absorb_binary($optlabelmapfile);
+}
 
 write_instructions_file();
 write_bytecode_file();
 write_asmbytecode_file();
 write_slotmap_file();
 write_asmslotmap_file();
-write_optbytecode_file();
-write_optslotmap_file();
-write_optlabelmap_file();
+if (-s $optbytecodefile) {
+  write_optbytecode_file();
+  write_optslotmap_file();
+  write_optlabelmap_file();
+}
 
 exit 0;
 

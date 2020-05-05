@@ -216,7 +216,6 @@ NAIG_ERR_T naie_engine_loop
     case OPCODE_REPLACE:
       param1 = GET_32BIT_NWO(engine->bytecode, engine->bytecode_pos + 4);
       param2 = GET_32BIT_NWO(engine->bytecode, engine->bytecode_pos + 8);
-      CHECK(naie_action_push(engine, action));
       if (engine->doreplace) {
         engine->bytecode_pos += instruction_size;
         CHECK(naie_engine_loop_replace(engine, param1));

@@ -32,7 +32,7 @@ NAIG_ERR_T naie_variable
   while (i > 0) {
     --i;
     c = &(engine->actions.entries[ i ]);
-    if (c->slot == slot && engine->stack.size == c->stacklength) {
+    if (c->slot == slot && naie_stack_call_size(engine) == c->stacklength) {
       if (c->action == NAIG_ACTION_OPENCAPTURE && stopfound) {
         start = c->inputpos;
         startfound = 1;

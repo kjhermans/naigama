@@ -22,7 +22,7 @@ NAIG_ERR_T naie_action_push
     RETURNERR(NAIE_ERR_ACTIONFULL);
   }
   action.inputpos = engine->input_pos;
-  action.stacklength = engine->stack.size;
+  action.stacklength = naie_stack_call_size(engine);
   engine->actions.entries[ engine->actions.size ] = action;
   (engine->actions.size)++;
   return NAIG_OK;

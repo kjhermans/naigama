@@ -15,6 +15,11 @@ NAIG_ERR_T naie_action_push
   (naie_engine_t* engine, naie_action_t action)
   __attribute__ ((warn_unused_result));
 
+/* declared in ../lib/engine//naie_debug_actions.c */
+extern
+void naie_debug_actions
+  (naie_engine_t* engine);
+
 /* declared in ../lib/engine//naie_debug_state.c */
 extern
 void naie_debug_state
@@ -148,6 +153,12 @@ NAIG_ERR_T naie_set_labelmap
     naie_engine_t* engine,
     const char* filename
   )
+  __attribute__ ((warn_unused_result));
+
+/* declared in ../lib/engine//naie_stack_call_size.c */
+extern
+unsigned naie_stack_call_size
+  (naie_engine_t* engine)
   __attribute__ ((warn_unused_result));
 
 /* declared in ../lib/engine//naie_stack_peek.c */

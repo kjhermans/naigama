@@ -36,7 +36,7 @@ NAIG_ERR_T engine_repl_delete
 
 static
 NAIG_ERR_T engine_repl_insert
-  (const unsigned char* orig, int typ, unsigned start, uint32_t chr, void* arg)
+  (const unsigned char* orig, unsigned typ, unsigned start, uint32_t chr, void* arg)
 {
   struct engine_repl* e = (struct engine_repl*)arg;
   (void)orig;

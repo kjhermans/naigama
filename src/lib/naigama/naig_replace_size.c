@@ -26,7 +26,7 @@ NAIG_ERR_T nrsdel
 
 static
 NAIG_ERR_T nrsins
-  (const unsigned char* input, int typ, unsigned start, uint32_t c, void* arg)
+  (const unsigned char* input, unsigned typ, unsigned start, uint32_t c, void* arg)
 {
   int* delta = (int*)arg;
   (void)input;

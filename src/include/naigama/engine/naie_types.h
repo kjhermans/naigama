@@ -109,6 +109,6 @@ typedef NAIG_ERR_T(*naie_capture_t)
 typedef NAIG_ERR_T(*naie_delete_t)
                   (const unsigned char*,unsigned,unsigned,void*);
 typedef NAIG_ERR_T(*naie_insert_t)
-                  (const unsigned char*,int,unsigned,uint32_t,void*);
+                  (const unsigned char*,unsigned,unsigned,uint32_t,void*);
 
 #endif

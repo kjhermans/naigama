@@ -15,9 +15,43 @@
 
 static
 NAIG_ERR_T naic_process_string_callback
-  (naic_t* naic, unsigned chr)
+  (naic_t* naic, unsigned chr, int last)
 {
+
+#ifdef _NAIC_DONT_OPTIMIZE
+  (void)last;
   CHECK(naic->write(naic->write_arg, "  char %.2x\n", chr));
+#else
+
+  unsigned i;
+
+  if (naic->quad.nbytes == 3) {
+    naic->quad.tmpvalue |= (unsigned char)chr;
+    CHECK(
+      naic->write(
+        naic->write_arg,
+        "  quad %.8x\n",
+        naic->quad.tmpvalue
+      )
+    );
+    naic->quad.tmpvalue = 0;
+    naic->quad.nbytes = 0;
+  } else if (last) {
+    for (i=0; i < naic->quad.nbytes; i++) {
+      CHECK(
+        naic->write(
+          naic->write_arg, "  char %.2x\n",
+          ((unsigned char)(naic->quad.tmpvalue >> ((3 - i) * 8)))
+        )
+      );
+    }
+    CHECK(naic->write(naic->write_arg, "  char %.2x\n", chr));
+  } else {
+    naic->quad.tmpvalue |=
+      (((unsigned char)chr) << ((3 - naic->quad.nbytes) * 8));
+    ++(naic->quad.nbytes);
+  }
+#endif
   return NAIG_OK;
 }
   

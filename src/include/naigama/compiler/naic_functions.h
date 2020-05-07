@@ -190,7 +190,7 @@ NAIG_ERR_T naic_string_unescape
     naic_t* naic,
     unsigned start,
     unsigned stop,
-    NAIG_ERR_T(*fnc)(naic_t*,unsigned)
+    NAIG_ERR_T(*fnc)(naic_t*,unsigned,int)
   )
   __attribute__ ((warn_unused_result));
 

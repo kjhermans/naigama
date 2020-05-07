@@ -23,6 +23,10 @@ typedef struct
   unsigned          slot;
   unsigned          flags;
   struct {
+    uint32_t          tmpvalue;
+    unsigned          nbytes;
+  }                 quad;
+  struct {
     struct {
       char*             key;
       unsigned          keysize;

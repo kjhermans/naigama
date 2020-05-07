@@ -15,8 +15,10 @@
 
 static
 NAIG_ERR_T naic_process_string_callback_i
-  (naic_t* naic, unsigned chr)
+  (naic_t* naic, unsigned chr, int last)
 {
+  (void)last;
+
   if (chr >= 'a' && chr <= 'z') {
     //..
   } else if (chr >= 'A' && chr <= 'Z') {

@@ -14,7 +14,7 @@ if ($file =~ /([0-9]+)\.tst$/) {
 
 my $tmpfile="/tmp/test$$";
 
-if ($test =~ /-- (Replace|Grammar):(.*)-- Input:(.*)-- Result:(.*)$/s) {
+if ($test =~ /-- (Replace|Capture|Grammar):\s*\n(.*)\n-- Input:\s*\n(.*)\n-- Result:(.*)$/s) {
   print "Test $file - ";
   my $action = $1;
   my (@fields) = ($2, $3, $4);

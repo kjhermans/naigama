@@ -14,6 +14,26 @@
 
 #include <naigama/engine/naie.h>
 
+static
+char* naie_debug_action_string
+  (unsigned action)
+{
+  switch (action) {
+  case NAIG_ACTION_OPENCAPTURE:
+    return "Co";
+  case NAIG_ACTION_CLOSECAPTURE:
+    return "Cc";
+  case NAIG_ACTION_DELETE:
+    return "Rx";
+  case NAIG_ACTION_REPLACE_CHAR:
+    return "Rc";
+  case NAIG_ACTION_REPLACE_QUAD:
+    return "Rq";
+  default:
+    return "!!";
+  }
+}
+
 /**
  *
  */
@@ -24,9 +44,9 @@ void naie_debug_actions
 
   for (i=0; i < engine->actions.size; i++) {
     fprintf(stderr,
-      "Action #%u; act=%u, slot=%u, pos=%u, sl=%u, int=%"PRIu64"\n"
+      "Action #%u; act=%s, slot=%u, pos=%u, sl=%u, int=%"PRIu64"\n"
       , i
-      , engine->actions.entries[ i ].action
+      , naie_debug_action_string(engine->actions.entries[ i ].action)
       , engine->actions.entries[ i ].slot
       , engine->actions.entries[ i ].inputpos
       , engine->actions.entries[ i ].stacklength

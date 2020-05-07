@@ -21,7 +21,7 @@ NAIG_ERR_T naie_action_push
   if (engine->actions.size >= NAIG_MAX_ACTIONS) {
     RETURNERR(NAIE_ERR_ACTIONFULL);
   }
-  action.inputpos = engine->input_pos;
+//  action.inputpos = engine->input_pos;
   action.stacklength = naie_stack_call_size(engine);
   engine->actions.entries[ engine->actions.size ] = action;
   (engine->actions.size)++;

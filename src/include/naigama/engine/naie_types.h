@@ -34,18 +34,9 @@ typedef struct
 }
 naie_stackentry_t;
 
-typedef enum
-{
-  NAIG_ACTION_OPENCAPTURE = 1,
-  NAIG_ACTION_CLOSECAPTURE,
-  NAIG_ACTION_REPLACE_CHAR,
-  NAIG_ACTION_REPLACE_QUAD
-}
-naie_actiontype_t;
-
 typedef struct
 {
-  naie_actiontype_t                     action;
+  unsigned                              action;
   uint32_t                              slot;
   unsigned                              inputpos;
   uint64_t                              intvalue;

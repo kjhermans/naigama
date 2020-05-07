@@ -112,4 +112,12 @@ NAIG_ERR_T;
 #define NAIG_STACK_CATCH                0x00007b00
 #define NAIG_STACK_END                  0x00310048
 
+
+#define NAIG_ACTION_OPENCAPTURE         0xe3000001
+#define NAIG_ACTION_CLOSECAPTURE        0x6f00d400
+#define NAIG_ACTION_DELETE              0x00580025
+#define NAIG_ACTION_REPLACE_CHAR        0x01002702
+#define NAIG_ACTION_REPLACE_QUAD        0x920f00e7
+
+
 #endif // ~_NAIG_DEFINES_H_

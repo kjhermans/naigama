@@ -197,7 +197,8 @@ NAIG_ERR_T naie_engine_loop
       param1 = GET_32BIT_NWO(engine->bytecode, engine->bytecode_pos + 4);
       action = (naie_action_t){
         .action = NAIG_ACTION_OPENCAPTURE,
-        .slot = param1
+        .slot = param1,
+        .inputpos = engine->input_pos
       };
       CHECK(naie_action_push(engine, action));
       engine->bytecode_pos += instruction_size;
@@ -207,7 +208,8 @@ NAIG_ERR_T naie_engine_loop
       param1 = GET_32BIT_NWO(engine->bytecode, engine->bytecode_pos + 4);
       action = (naie_action_t){
         .action = NAIG_ACTION_CLOSECAPTURE,
-        .slot = param1
+        .slot = param1,
+        .inputpos = engine->input_pos
       };
       CHECK(naie_action_push(engine, action));
       engine->bytecode_pos += instruction_size;

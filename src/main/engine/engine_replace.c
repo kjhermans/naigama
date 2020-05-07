@@ -31,6 +31,7 @@ NAIG_ERR_T engine_repl_delete
     e->size - (start + length)
   );
   e->size -= length;
+fprintf(stderr, "AFTER DELETE '%-.*s'\n", e->size, e->copy);
   return NAIG_OK;
 }
 
@@ -40,6 +41,7 @@ NAIG_ERR_T engine_repl_insert
 {
   struct engine_repl* e = (struct engine_repl*)arg;
   (void)orig;
+fprintf(stderr, "INSERT %.2x '%c'\n", chr, chr);
 
   e->copy = (unsigned char*)realloc(e->copy, e->size + 4);
   switch (typ) {
@@ -62,6 +64,7 @@ NAIG_ERR_T engine_repl_insert
     e->size += 4;
     break;
   }
+fprintf(stderr, "AFTER INSERT '%-.*s'\n", e->size, e->copy);
   return NAIG_OK;
 }
 

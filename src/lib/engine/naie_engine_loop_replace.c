@@ -25,7 +25,39 @@ NAIG_ERR_T naie_engine_loop_replace
   unsigned char* value;
   unsigned valuesize;
   naie_action_t action;
-  unsigned i;
+  unsigned i, region_start, region_stop;
+
+  if ((i = engine->actions.size) < 2) {
+    RETURNERR(NAIE_ERR_ACTIONLIST);
+  }
+  --i;
+  if (engine->actions.entries[ i ].action != NAIG_ACTION_CLOSECAPTURE
+      || engine->actions.entries[ i ].slot != slot)
+  {
+    RETURNERR(NAIE_ERR_ACTIONLIST);
+  } else {
+    region_stop = engine->actions.entries[ i ].inputpos;
+  }
+  --i;
+  while (1) {
+    if (engine->actions.entries[ i ].action == NAIG_ACTION_OPENCAPTURE
+        && engine->actions.entries[ i ].slot == slot)
+    {
+      region_start = engine->actions.entries[ i ].inputpos;
+      break;
+    }
+    if (i == 0) {
+      RETURNERR(NAIE_ERR_ACTIONLIST);
+    }
+    --i;
+  }
+  action = (naie_action_t){
+    .action = NAIG_ACTION_DELETE,
+    .slot = slot,
+    .inputpos = region_start,
+    .intvalue = region_stop - region_start
+  };
+  CHECK(naie_action_push(engine, action));
 
   while (1) {
     if (engine->bytecode_pos > engine->bytecode_length - 4) {
@@ -61,7 +93,8 @@ NAIG_ERR_T naie_engine_loop_replace
       action = (naie_action_t){
         .action = NAIG_ACTION_REPLACE_CHAR,
         .slot = slot,
-        .intvalue = engine->bytecode[ engine->bytecode_pos + 7 ]
+        .intvalue = engine->bytecode[ engine->bytecode_pos + 7 ],
+        .inputpos = engine->input_pos
       };
       CHECK(naie_action_push(engine, action));
       engine->bytecode_pos += instruction_size;
@@ -72,7 +105,8 @@ NAIG_ERR_T naie_engine_loop_replace
       action = (naie_action_t){
         .action = NAIG_ACTION_REPLACE_QUAD,
         .slot = slot,
-        .intvalue = quad
+        .intvalue = quad,
+        .inputpos = engine->input_pos
       };
       CHECK(naie_action_push(engine, action));
       engine->bytecode_pos += instruction_size;
@@ -86,7 +120,8 @@ NAIG_ERR_T naie_engine_loop_replace
         action = (naie_action_t){
           .action = NAIG_ACTION_REPLACE_QUAD,
           .slot = slot,
-          .intvalue = quad
+          .intvalue = quad,
+          .inputpos = engine->input_pos
         };
         CHECK(naie_action_push(engine, action));
       }
@@ -94,7 +129,8 @@ NAIG_ERR_T naie_engine_loop_replace
         action = (naie_action_t){
           .action = NAIG_ACTION_REPLACE_CHAR,
           .slot = slot,
-          .intvalue = value[ i ]
+          .intvalue = value[ i ],
+          .inputpos = engine->input_pos
         };
         CHECK(naie_action_push(engine, action));
       }

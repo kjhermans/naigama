@@ -44,37 +44,32 @@ NAIG_ERR_T naie_handle_result
         );
       }
       break;
+    case NAIG_ACTION_DELETE:
+      if (deletefnc) {
+        delta = r.actions[ i ].length;
+        CHECK(
+          deletefnc(
+            (engine ? engine->input : 0),
+            r.actions[ i ].start,
+            r.actions[ i ].length,
+            arg
+          )
+        );
+        for (j=i+1; j < r.size; j++) {
+          r.actions[ j ].start -= delta;
+        }
+      }
+      break;
     case NAIG_ACTION_REPLACE_CHAR:
     case NAIG_ACTION_REPLACE_QUAD:
       slot = r.actions[ i ].slot;
-      for (j=i; j > 0; j--) {
-        if (r.actions[ j-1 ].action == NAIG_ACTION_OPENCAPTURE
-            && r.actions[ j-1 ].slot == slot)
-        {
-          delta = r.actions[ j-1 ].length;
-          r.actions[ j-1 ].action = 0;
-          if (deletefnc) {
-            CHECK(
-              deletefnc(
-                (engine ? engine->input : 0),
-                r.actions[ j-1 ].start, 
-                delta,
-                arg
-              )
-            );
-            for (j=i; j < r.size; j++) {
-              r.actions[ j ].start -= delta;
-            }
-          }
-          break;
-        }
-      }
       for(; i < r.size; i++) {
         if ((r.actions[ i ].action == NAIG_ACTION_REPLACE_CHAR
              || r.actions[ i ].action == NAIG_ACTION_REPLACE_QUAD)
             && r.actions[ i ].slot == slot)
         {
           if (insertfnc) {
+fprintf(stderr, "INSERT %u: %u %u\n", i, r.actions[ i ].start, r.actions[ i ].length);
             CHECK(
               insertfnc(
                 (engine ? engine->input : 0),
@@ -90,6 +85,7 @@ NAIG_ERR_T naie_handle_result
             }
           }
         } else {
+          --i;
           break;
         }
       }

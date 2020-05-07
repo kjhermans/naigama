@@ -61,6 +61,7 @@ NAIG_ERR_T naie_fill_result
         }
       }
       break;
+    case NAIG_ACTION_DELETE:
     case NAIG_ACTION_REPLACE_CHAR:
     case NAIG_ACTION_REPLACE_QUAD:
       result->actions[ result->size ].action = a->action;

@@ -14,29 +14,39 @@ if ($file =~ /([0-9]+)\.tst$/) {
 
 my $tmpfile="/tmp/test$$";
 
-if ($test =~ /-- (Replace|Capture|Grammar):\s*\n(.*)\n-- Input:\s*\n(.*)\n-- Result:(.*)$/s) {
+if ($test =~ /-- (Replace|Capture|Grammar|Assembly):\s*\n(.*)\n-- (Input|Hexinput):\s*\n(.*)\n-- Result:(.*)$/s) {
   print "Test $file - ";
   my $action = $1;
-  my (@fields) = ($2, $3, $4);
+  my $inputtype = $3;
+  my (@fields) = ($2, $4, $5);
   $fields[2] =~ s/^\s+//; $fields[2] =~ s/\s+$//;
-  open FILE, "> $tmpfile.naig"; print FILE $fields[0]; close FILE;
-  open FILE, "> $tmpfile.txt"; print FILE $fields[1]; close FILE;
-  my $c = "$compiler";
-  $c =~ s/GRAMMAR/$tmpfile.naig/g;
-  $c =~ s/ASM/$tmpfile.asm/g;
-  $c .= " 2>$tmpfile.$n.log";
-  my $x = system($c);
-  if ($x) {
-    print "Compile NOK - ";
-    if ($fields[2] eq 'ERR_COMP') {
-      print "Test Ok\n";
-    } else {
-      print "Test NOK\n";
-      system("mv $tmpfile.$n.log /tmp/failure.$n.log");
-    }
-    exit -1;
+  if ($inputtype eq 'Hexinput') {
+    my $bin = hexdecode($fields[1]);
+    open FILE, "> $tmpfile.txt"; syswrite FILE, $bin; close FILE;
   } else {
-    print "Compile Ok  - ";
+    open FILE, "> $tmpfile.txt"; print FILE $fields[1]; close FILE;
+  }
+  if ($action eq 'Assembly') {
+    open FILE, "> $tmpfile.asm"; print FILE $fields[0]; close FILE;
+  } else {
+    open FILE, "> $tmpfile.naig"; print FILE $fields[0]; close FILE;
+    my $c = "$compiler";
+    $c =~ s/GRAMMAR/$tmpfile.naig/g;
+    $c =~ s/ASM/$tmpfile.asm/g;
+    $c .= " 2>$tmpfile.$n.log";
+    my $x = system($c);
+    if ($x) {
+      print "Compile NOK - ";
+      if ($fields[2] eq 'ERR_COMP') {
+        print "Test Ok\n";
+      } else {
+        print "Test NOK\n";
+        system("mv $tmpfile.$n.log /tmp/failure.$n.log");
+      }
+      exit 0;
+    } else {
+      print "Compile Ok  - ";
+    }
   }
   my $a = "$assembler";
   $a =~ s/ASM/$tmpfile.asm/g;
@@ -55,7 +65,7 @@ if ($test =~ /-- (Replace|Capture|Grammar):\s*\n(.*)\n-- Input:\s*\n(.*)\n-- Res
       print "Test NOK\n";
       system("mv $tmpfile.$n.log /tmp/failure.$n.log");
     }
-    exit -1;
+    exit 0;
   } else {
     print "Assembly Ok  - ";
   }
@@ -76,7 +86,7 @@ if ($test =~ /-- (Replace|Capture|Grammar):\s*\n(.*)\n-- Input:\s*\n(.*)\n-- Res
       print "Test NOK\n";
       system("mv $tmpfile.$n.log /tmp/failure.$n.log");
     }
-    exit -1;
+    exit 0;
   } else {
     print "Engine Ok  - ";
     if ($fields[2] eq 'OK') {
@@ -90,5 +100,21 @@ if ($test =~ /-- (Replace|Capture|Grammar):\s*\n(.*)\n-- Input:\s*\n(.*)\n-- Res
 }
 
 system("rm $tmpfile.*");
+
+sub hexdecode
+{
+  my $hex = shift;
+  my $res = '';
+  while (length($hex)) {
+    $hex =~ s/^(.)//s;
+    my $char = $1;
+    if ($char =~ /^[a-fA-F0-9]$/) {
+      $hex =~ s/^([a-fA-F0-9])// || return undef;
+      my $char2 = $1;
+      $res .= chr(hex("$char$char2"));
+    }
+  }
+  return $res;
+}
 
 1;

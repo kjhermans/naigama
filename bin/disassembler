@@ -14,7 +14,7 @@ my $INSTR_END = 262922;
 my $INSTR_FAIL = 2570;
 my $INSTR_FAILTWICE = 2575;
 my $INSTR_JUMP = 262921;
-my $INSTR_MASKEDCHAR = 263434;
+my $INSTR_MASKEDCHAR = 525578;
 my $INSTR_NOOP = 0;
 my $INSTR_OPENCAPTURE = 265987;
 my $INSTR_PARTIALCOMMIT = 264713;
@@ -47,7 +47,7 @@ my $dbghsh = {
   2570 => 'FAIL',
   2575 => 'FAILTWICE',
   262921 => 'JUMP',
-  263434 => 'MASKEDCHAR',
+  525578 => 'MASKEDCHAR',
   0 => 'NOOP',
   265987 => 'OPENCAPTURE',
   264713 => 'PARTIALCOMMIT',
@@ -140,13 +140,15 @@ while ($offset < length($bytecode)) {
     }
     $offset += 8;
   } elsif ($opcode == $INSTR_CHAR) {
-    my $mask = unpack('n', substr($bytecode, $offset + 4, 2));
-    my $char = unpack('n', substr($bytecode, $offset + 6, 2));
+    my $char = unpack('n', substr($bytecode, $offset + 7, 1));
     print $out "$offset: char " . sprintf("%.2x", $char);
-    if ($mask) {
-      print $out sprintf("&%.2x", $mask);
-    }
     $offset += 8;
+  } elsif ($opcode == $INSTR_MASKEDCHAR) {
+    my $char = unpack('n', substr($bytecode, $offset + 7, 1));
+    my $mask = unpack('n', substr($bytecode, $offset + 11, 1));
+    print $out "$offset: maskedchar " . sprintf("%.2x", $char) .
+               " " . sprintf("%.2x", $mask);
+    $offset += 12;
   } elsif ($opcode == $INSTR_QUAD) {
     my $char = unpack('N', substr($bytecode, $offset + 4, 4));
     print $out "$offset: quad " . sprintf("%.8x", $char);

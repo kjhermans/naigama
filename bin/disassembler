@@ -140,12 +140,12 @@ while ($offset < length($bytecode)) {
     }
     $offset += 8;
   } elsif ($opcode == $INSTR_CHAR) {
-    my $char = unpack('n', substr($bytecode, $offset + 7, 1));
+    my $char = unpack('N', substr($bytecode, $offset + 4, 4));
     print $out "$offset: char " . sprintf("%.2x", $char);
     $offset += 8;
   } elsif ($opcode == $INSTR_MASKEDCHAR) {
-    my $char = unpack('n', substr($bytecode, $offset + 7, 1));
-    my $mask = unpack('n', substr($bytecode, $offset + 11, 1));
+    my $char = unpack('N', substr($bytecode, $offset + 4, 4));
+    my $mask = unpack('N', substr($bytecode, $offset + 8, 4));
     print $out "$offset: maskedchar " . sprintf("%.2x", $char) .
                " " . sprintf("%.2x", $mask);
     $offset += 12;

@@ -25,8 +25,8 @@ NAIG_ERR_T naia_process_maskedchar
     naia->assembly[ naia->captures->actions[ i+1 ].start+1 ]
   ));
   opcode[ 2 ] = htonl(hexcodon(
-    naia->assembly[ naia->captures->actions[ i+1 ].start ],
-    naia->assembly[ naia->captures->actions[ i+1 ].start+1 ]
+    naia->assembly[ naia->captures->actions[ i+2 ].start ],
+    naia->assembly[ naia->captures->actions[ i+2 ].start+1 ]
   ));
   CHECK(naia->write(opcode, sizeof(opcode), naia->write_arg));
   return NAIG_OK;

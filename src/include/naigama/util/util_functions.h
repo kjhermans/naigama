@@ -38,6 +38,12 @@ extern
 void logmem
   (void* _mem, unsigned int size);
 
+/* declared in ../lib/util//octal.c */
+extern
+unsigned octal
+  (unsigned c1, unsigned c2, unsigned c3)
+  __attribute__ ((warn_unused_result));
+
 /* declared in ../lib/util//strxypos.c */
 extern
 int strxypos

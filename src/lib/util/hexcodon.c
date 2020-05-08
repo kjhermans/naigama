@@ -11,8 +11,6 @@
  * \brief
  */
 
-#include <stdio.h> // remove
-
 /**
  *
  */

@@ -39,6 +39,7 @@ if ($test =~ /-- (Replace|Capture|Grammar|Assembly):\s*\n(.*)\n-- (Input|Hexinpu
       print "Compile NOK - ";
       if ($fields[2] eq 'ERR_COMP') {
         print "Test Ok\n";
+        system("mv $tmpfile.$n.log /tmp/success.$n.log");
       } else {
         print "Test NOK\n";
         system("mv $tmpfile.$n.log /tmp/failure.$n.log");
@@ -61,6 +62,7 @@ if ($test =~ /-- (Replace|Capture|Grammar|Assembly):\s*\n(.*)\n-- (Input|Hexinpu
     print "Assembly NOK - ";
     if ($fields[2] eq 'ERR_ASM') {
       print "Test Ok\n";
+      system("mv $tmpfile.$n.log /tmp/success.$n.log");
     } else {
       print "Test NOK\n";
       system("mv $tmpfile.$n.log /tmp/failure.$n.log");
@@ -82,6 +84,7 @@ if ($test =~ /-- (Replace|Capture|Grammar|Assembly):\s*\n(.*)\n-- (Input|Hexinpu
     print "Engine NOK - ";
     if ($fields[2] eq 'NOK') {
       print "Test Ok\n";
+      system("mv $tmpfile.$n.log /tmp/success.$n.log");
     } else {
       print "Test NOK\n";
       system("mv $tmpfile.$n.log /tmp/failure.$n.log");

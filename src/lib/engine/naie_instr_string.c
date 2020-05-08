@@ -41,6 +41,8 @@ char* naie_instr_string
     return "JUMP";
   case OPCODE_NOOP:
     return "NOOP";
+  case OPCODE_MASKEDCHAR:
+    return "MASKEDCHAR";
   case OPCODE_OPENCAPTURE:
     return "OPENCAPTURE";
   case OPCODE_PARTIALCOMMIT:

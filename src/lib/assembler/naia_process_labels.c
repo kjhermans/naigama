@@ -35,6 +35,9 @@ NAIG_ERR_T naia_process_labels
     case ASMSLOT_CATCHINSTR_CATCH:
       offset += NAIG_INSTR_LENGTH(OPCODE_CATCH);
       break;
+    case ASMSLOT_MASKEDCHARINSTR_MASKEDCHAR:
+      offset += NAIG_INSTR_LENGTH(OPCODE_MASKEDCHAR);
+      break;
     case ASMSLOT_CHARINSTR_CHAR:
       offset += NAIG_INSTR_LENGTH(OPCODE_CHAR);
       break;

@@ -40,7 +40,8 @@ NAIG_ERR_T naic_string_unescape
       case '7': case '8': case '9': case 'a': case 'b': case 'c': case 'd':
       case 'e': case 'f': case 'A': case 'B': case 'C': case 'D': case 'E':
       case 'F':
-        CHECK(fnc(naic, hexcodon(c, naic->grammar[ ++i ]), (i==stop-1)));
+        CHECK(fnc(naic, hexcodon(c, naic->grammar[ i+1 ]), (i==stop-2)));
+        ++i;
       }
       break;
     default:

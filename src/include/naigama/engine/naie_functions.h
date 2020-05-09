@@ -51,6 +51,12 @@ NAIG_ERR_T naie_engine_call_offset
   )
   __attribute__ ((warn_unused_result));
 
+/* declared in ../lib/engine//naie_engine_endless_loop.c */
+extern
+NAIG_ERR_T naie_engine_endless_loop
+  (naie_engine_t* engine)
+  __attribute__ ((warn_unused_result));
+
 /* declared in ../lib/engine//naie_engine_init.c */
 extern
 NAIG_ERR_T naie_engine_init

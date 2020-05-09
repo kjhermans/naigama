@@ -46,6 +46,7 @@ NAIG_ERR_T;
 #define NAIE_ERR_REGNOTFOUND            ((NAIG_ERR_T){ .code = -27 })
 #define NAIE_ERR_BITFAULT               ((NAIG_ERR_T){ .code = -28 })
 #define NAIE_ERR_TRAP                   ((NAIG_ERR_T){ .code = -29 })
+#define NAIE_ERR_ENDLESSLOOP            ((NAIG_ERR_T){ .code = -30 })
 
 #ifdef TODO
 #undef TODO
@@ -84,6 +85,7 @@ NAIG_ERR_T;
 #define NAIG_MAX_LABEL                  128
 #define NAIG_MAX_LABELMAP               1024
 #define NAIG_MAX_REGISTER               128
+#define NAIE_MAX_LOOPDETECT             256
 
 /** Macroes **/
 

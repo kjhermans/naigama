@@ -185,9 +185,9 @@ int main
     if (e.code) {
       return -1;
     }
-    if (debug) { engine.debug = 1; }
-    if (diligent) { engine.diligent = 1; }
-    if (replace) { engine.doreplace = 1; }
+    if (debug) { engine.flags |= NAIE_FLAG_DEBUG; }
+    if (diligent) { engine.flags |= NAIE_FLAG_DILIGENT; }
+    if (replace) { engine.flags |= NAIE_FLAG_DOREPLACE; }
     e = naie_engine_run(
       &engine,
       &result

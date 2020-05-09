@@ -44,23 +44,24 @@ NAIG_ERR_T naie_engine_loop
     if (engine->bytecode_pos > engine->bytecode_length - 4) {
       RETURNERR(NAIE_ERR_CODEOVERFLOW);
     }
+    CHECK(naie_engine_endless_loop(engine));
     opcode = GET_32BIT_NWO(engine->bytecode, engine->bytecode_pos);
     instruction_size = ((opcode >> 16) & 0xff) + 4;
     if (engine->bytecode_pos + instruction_size > engine->bytecode_length) {
-      if (engine->debug) {
+      if (engine->flags & NAIE_FLAG_DEBUG) {
         fprintf(stderr, "ERROR: Bytecode offset %u, instruction size %u; > %u\n"
           , engine->bytecode_pos, instruction_size, engine->bytecode_length
         );
       }
       RETURNERR(NAIE_ERR_CODEOVERFLOW);
     }
-    if (engine->diligent) {
+    if (engine->flags & NAIE_FLAG_DILIGENT) {
       ++(engine->noinstructions);
       if (engine->stack.size > engine->maxstackdepth) {
         engine->maxstackdepth = engine->stack.size;
       }
     }
-    if (engine->debug) {
+    if (engine->flags & NAIE_FLAG_DEBUG) {
       naie_debug_state(engine, 0);
 //      naie_debug_actions(engine);
     }
@@ -218,7 +219,7 @@ NAIG_ERR_T naie_engine_loop
     case OPCODE_REPLACE:
       param1 = GET_32BIT_NWO(engine->bytecode, engine->bytecode_pos + 4);
       param2 = GET_32BIT_NWO(engine->bytecode, engine->bytecode_pos + 8);
-      if (engine->doreplace) {
+      if (engine->flags & NAIE_FLAG_DOREPLACE) {
         engine->bytecode_pos += instruction_size;
         CHECK(naie_engine_loop_replace(engine, param1));
       } else {
@@ -347,7 +348,7 @@ NAIG_ERR_T naie_engine_loop
       RETURNERR(NAIE_ERR_TRAP);
 
     default:
-      if (engine->debug) {
+      if (engine->flags & NAIE_FLAG_DEBUG) {
         fprintf(stderr,
           "Unknown instruction opcode %.8x at %u\n"
           , opcode, engine->bytecode_pos
@@ -358,7 +359,7 @@ NAIG_ERR_T naie_engine_loop
     }
 
 FAIL:
-    if (engine->debug) {
+    if (engine->flags & NAIE_FLAG_DEBUG) {
       fprintf(stderr, "======== FAIL\n");
     }
     engine->stacksizebeforefail = engine->stack.size;

@@ -41,7 +41,7 @@ NAIG_ERR_T naia_assemble
       strlen(assembly)
     )
   );
-  engine.debug = debug;
+  if (debug) { engine.flags |= NAIE_FLAG_DEBUG; }
   e = naie_engine_run(
     &engine,
     &result

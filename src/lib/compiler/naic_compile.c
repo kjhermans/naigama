@@ -42,7 +42,7 @@ NAIG_ERR_T naic_compile
       strlen(grammar)
     )
   );
-  engine.debug = debug;
+  if (debug) { engine.flags |= NAIE_FLAG_DEBUG; }
   e = naie_engine_run(&engine, &result);
   if (e.code == 1) { //NAIG_FAILURE) {
     unsigned yx[ 2 ];

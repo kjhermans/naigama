@@ -63,10 +63,13 @@ typedef struct
   }                                     actions;
   unsigned                              noinstructions;
   unsigned                              maxstackdepth;
-  int                                   debug;
-  int                                   diligent;
-  int                                   uselabelmap;
-  int                                   doreplace;
+  unsigned                              flags;
+#define NAIE_FLAG_DEBUG                 (1<<0)
+#define NAIE_FLAG_DILIGENT              (1<<1)
+#define NAIE_FLAG_USELABELMAP           (1<<2)
+#define NAIE_FLAG_DOREPLACE             (1<<3)
+#define NAIE_FLAG_ENDLESS               (1<<4)
+#define NAIE_FLAG_UTF8                  (1<<5)
   struct {
     struct {
       uint32_t                              offset;
@@ -75,6 +78,13 @@ typedef struct
     unsigned                              size;
   }                                     labelmap;
   naie_register_t                       reg[ NAIG_MAX_REGISTER ];
+  struct {
+    struct {
+      unsigned                              input_pos;
+      unsigned                              bytecode_pos;
+    }                                     entries[ NAIE_MAX_LOOPDETECT ];
+    unsigned                              size;
+  }                                     loopdetect;
 }
 naie_engine_t;
 

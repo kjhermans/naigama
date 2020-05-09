@@ -66,20 +66,20 @@ NAIG_ERR_T naie_engine_loop_replace
     opcode = GET_32BIT_NWO(engine->bytecode, engine->bytecode_pos);
     instruction_size = ((opcode >> 16) & 0xff) + 4;
     if (engine->bytecode_pos + instruction_size > engine->bytecode_length) {
-      if (engine->debug) {
+      if (engine->flags & NAIE_FLAG_DEBUG) {
         fprintf(stderr, "ERROR: Bytecode offset %u, instruction size %u; > %u\n"
           , engine->bytecode_pos, instruction_size, engine->bytecode_length
         );
       }
       RETURNERR(NAIE_ERR_CODEOVERFLOW);
     }
-    if (engine->diligent) {
+    if (engine->flags & NAIE_FLAG_DILIGENT) {
       ++(engine->noinstructions);
       if (engine->stack.size > engine->maxstackdepth) {
         engine->maxstackdepth = engine->stack.size;
       }
     }
-    if (engine->debug) {
+    if (engine->flags & NAIE_FLAG_DEBUG) {
       naie_debug_state(engine, 0);
 //      naie_debug_actions(engine);
     }

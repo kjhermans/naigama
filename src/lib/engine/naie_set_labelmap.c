@@ -29,9 +29,9 @@ NAIG_ERR_T naie_set_labelmap
     RETURNERR(NAIE_ERR_LABELMAP);
   }
   while (1) {
-    int r;
+    int r = 0;
     unsigned l = sizeof(block) - blocksize;
-    if ((r = read(fd, &(block[ blocksize ]), l)) < 0) {
+    if (l && (r = read(fd, &(block[ blocksize ]), l)) < 0) {
       RETURNERR(NAIE_ERR_LABELMAP);
     }
     if (r == 0 && blocksize == 0) {
@@ -41,22 +41,23 @@ NAIG_ERR_T naie_set_labelmap
     while (blocksize) {
       unsigned i;
 OneMoreLabel:
-      for (i=0; i < blocksize; i++) {
-        if (block[ i ] == 0) {
-          if (i < blocksize - 4) {
-            char* string = (char*)(&(block[ 0 ]));
-            uint32_t offset;
-            memcpy(&offset, &(block[ i ]), 4);
-            offset = htonl(offset);
+      if (blocksize > 5) {
+        uint32_t offset;
+        char* string = (char*)(&(block[ 4 ]));
+        memcpy(&offset, block, 4);
+        offset = htonl(offset);
+        for (i=4; i < blocksize; i++) {
+          if (block[ i ] == 0) {
             CHECK(naie_engine_add_label(engine, string, offset));
-            memmove(&(block[ 0 ]), &(block[ i + 4 ]), blocksize - (i + 4));
-            blocksize -= (i + 4);
+            memmove(&(block[ 0 ]), &(block[ i + 1 ]), blocksize - (i + 1));
+            blocksize -= (i+1);
             goto OneMoreLabel;
           }
-          goto OneMoreRead;
         }
+        goto OneMoreRead;
+      } else {
+        goto OneMoreRead;
       }
-      goto OneMoreRead;
     }
 OneMoreRead: ;
   }

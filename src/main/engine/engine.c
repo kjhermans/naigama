@@ -82,6 +82,7 @@ int main
   //unsigned stacksize = 256;
   unsigned char* data = 0;
   unsigned data_length = 0;
+  char* labelmap = 0;
   naie_engine_t engine;
   naie_result_t result;
 
@@ -106,6 +107,14 @@ int main
             fprintf(stderr, "Could not absorb %s\n", path);
             exit(-4);
           }
+        }
+        break;
+      case 'l':
+        if (i < argc - 1) {
+          labelmap = argv[ i+1 ];
+        } else {
+          fprintf(stderr, "Labelmap file isn't given.\n");
+          exit(-5);
         }
         break;
       case 'o':
@@ -161,6 +170,7 @@ int main
           "-b <path>  Bytecode file\n"
           "-d <path>  Data file\n"
           "-o <path>  Output file (otherwise stdout)\n"
+          "-l <path>  Labelmap file\n"
           "-r         Perform replacements and output result\n"
           "-S         Suppress binary output (implicit in -D and -r)\n"
           "-D         Debug (prepare for a lot of data on stderr)\n"
@@ -188,6 +198,13 @@ int main
     if (debug) { engine.flags |= NAIE_FLAG_DEBUG; }
     if (diligent) { engine.flags |= NAIE_FLAG_DILIGENT; }
     if (replace) { engine.flags |= NAIE_FLAG_DOREPLACE; }
+    if (labelmap) {
+      e = naie_set_labelmap(&engine, labelmap);
+      if (e.code) {
+        fprintf(stderr, "Labelmap set error %d\n", e.code);
+        return -1;
+      }
+    }
     e = naie_engine_run(
       &engine,
       &result

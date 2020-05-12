@@ -34,7 +34,7 @@ void naie_debug_state
   );
   for (i=0; i < engine->labelmap.size; i++) {
     if (engine->labelmap.entries[ i ].offset == engine->bytecode_pos) {
-      fprintf(stderr, "Label: %s\n", engine->labelmap.entries[ i ].label);
+      fprintf(stderr, "                %s\n", engine->labelmap.entries[ i ].label);
     }
   }
   for (i=0; i < sizeof(copy); i++) {

@@ -24,6 +24,9 @@ NAIG_ERR_T naie_engine_add_label
     );
     engine->labelmap.entries[ engine->labelmap.size ].offset = offset;
     ++(engine->labelmap.size);
+#ifdef _DEBUG
+    fprintf(stderr, "Adding label '%s' -> %u\n", string, offset);
+#endif
     return NAIG_OK;
   }
   return NAIE_ERR_LABELMAP;

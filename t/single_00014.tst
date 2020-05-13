@@ -20,7 +20,7 @@ simpleitem  <- '<' { %w+ } optattrs %s* '/>'
 complexitem <- '<' {:tag: %w+ :} optattrs %s* '>'
                internals %s*
                '</' $tag '>'
-internals   <- (item / { (!(%s* '<') .)+ })*
+internals   <- ( item / { (!(%s* '<') .)+ } )*
 optattrs    <- ( attrname EQUALS attrvalue )*
 attrname    <- {:brace: ['"] :} { %w+ } $brace
 attrvalue   <- {:brace: ['"] :} { ( ! $brace . )* } $brace

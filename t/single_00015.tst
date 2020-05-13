@@ -11,14 +11,15 @@ complexitem <- '<' {:tag: %w+ :} optattrs %s* '>'
                internals %s*
                '</' $tag '>'
 internals   <- (item / { (!(%s* '<') .)+ })*
-optattrs    <- ( %s+ attrname EQUALS attrvalue )*
-attrname    <- {:brace: ['"] :} { %w+ } $brace
+optattrs    <- ( ( attrname1 / attrname2 ) EQUALS attrvalue )*
+attrname1   <- {:brace: ['"] :} { %w+ } $brace
+attrname2   <- { %w+ }
 attrvalue   <- {:brace: ['"] :} { ( ! $brace . )* } $brace
 EQUALS      <- '='
 
 -- Input:
 
-<person>
+<person "id"="foo">
     <name>
     James
     </name>

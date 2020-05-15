@@ -28,12 +28,15 @@ if ($test =~ /-- (Replace|Capture|Grammar|Assembly):\s*\n(.*)\n-- (Input|Hexinpu
   }
   if ($action eq 'Assembly') {
     open FILE, "> $tmpfile.asm"; print FILE $fields[0]; close FILE;
+    system("rm -f $tmpfile.$n.log; touch $tmpfile.$n.log");
   } else {
     open FILE, "> $tmpfile.naig"; print FILE $fields[0]; close FILE;
+    system("echo \"---- Grammar:\" > $tmpfile.$n.log");
+    system("cat $tmpfile.naig >> $tmpfile.$n.log");
     my $c = "$compiler";
     $c =~ s/GRAMMAR/$tmpfile.naig/g;
     $c =~ s/ASM/$tmpfile.asm/g;
-    $c .= " 2>$tmpfile.$n.log";
+    $c .= " 2>>$tmpfile.$n.log";
     my $x = system($c);
     if ($x) {
       print "Compile NOK - ";
@@ -53,10 +56,13 @@ if ($test =~ /-- (Replace|Capture|Grammar|Assembly):\s*\n(.*)\n-- (Input|Hexinpu
   $a =~ s/ASM/$tmpfile.asm/g;
   $a =~ s/BYTECODE/$tmpfile.byc/g;
   $a .= " 2>>$tmpfile.$n.log";
+  system("echo \"---- Assembly:\" >> $tmpfile.$n.log");
   system("cat $tmpfile.asm >> $tmpfile.$n.log");
   my $x = system($a);
   system("ls -l $tmpfile.byc >> $tmpfile.$n.log");
+  system("echo \"---- Bytecode:\" >> $tmpfile.$n.log");
   system("hexdump -C $tmpfile.byc >> $tmpfile.$n.log");
+  system("echo \"---- Disassembly:\" >> $tmpfile.$n.log");
   system("../bin/disassembler $tmpfile.byc >> $tmpfile.$n.log");
   if ($x) {
     print "Assembly NOK - ";
@@ -78,7 +84,9 @@ if ($test =~ /-- (Replace|Capture|Grammar|Assembly):\s*\n(.*)\n-- (Input|Hexinpu
   $e =~ s/BYTECODE/$tmpfile.byc/g;
   $e =~ s/INPUT/$tmpfile.txt/g;
   $e .= " >>$tmpfile.$n.log " . '2>&1';
+  system("echo \"---- Input:\" >> $tmpfile.$n.log");
   system("cat $tmpfile.txt >> $tmpfile.$n.log");
+  system("echo \"---- Log:\" >> $tmpfile.$n.log");
   my $x = system($e);
   if ($x) {
     print "Engine NOK - ";

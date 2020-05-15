@@ -31,9 +31,9 @@ NAIG_ERR_T naic_process_terms_or_nothing
   fprintf(stderr, "-- %s ", __FILE__); naic_debug(naic);
 #endif
 
-  snprintf(l1, sizeof(l1), "__LABEL_%u", (naic->labelcount)++);
+  snprintf(l1, sizeof(l1), "__NOTHING_%u", (naic->labelcount)++);
   CHECK(naic->write(naic->write_arg,
-    "  catch %s -- terms or nothing\n"
+    "  catch %s\n"
     , l1
   ));
   CHECK(naic_process_terms(naic));

@@ -25,7 +25,7 @@ NAIG_ERR_T naic_process_replaceterms
   fprintf(stderr, "-- %s ", __FILE__); naic_debug(naic);
 #endif
 
-  snprintf(l1, sizeof(l1), "__LABEL_%u", (naic->labelcount)++);
+  snprintf(l1, sizeof(l1), "__REPL_JMP_OVER_%u", (naic->labelcount)++);
   CHECK(naic->write(naic->write_arg,
     "  replace %u %s\n"
     , slot

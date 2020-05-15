@@ -43,12 +43,12 @@ NAIG_ERR_T naic_process_term
     //.. return error
   }
 
-  snprintf(l1, sizeof(l1), "__LABEL_%u", (naic->labelcount)++);
-  snprintf(l2, sizeof(l2), "__LABEL_%u", (naic->labelcount)++);
-  snprintf(l3, sizeof(l3), "__LABEL_%u", (naic->labelcount)++);
-  snprintf(l4, sizeof(l4), "__LABEL_%u", (naic->labelcount)++);
-  snprintf(l5, sizeof(l5), "__LABEL_%u", (naic->labelcount)++);
-  snprintf(l6, sizeof(l6), "__LABEL_%u", (naic->labelcount)++);
+  snprintf(l1, sizeof(l1), "__TERM_%u", (naic->labelcount)++);
+  snprintf(l2, sizeof(l2), "__TERM_%u", (naic->labelcount)++);
+  snprintf(l3, sizeof(l3), "__TERM_%u", (naic->labelcount)++);
+  snprintf(l4, sizeof(l4), "__TERM_%u", (naic->labelcount)++);
+  snprintf(l5, sizeof(l5), "__TERM_%u", (naic->labelcount)++);
+  snprintf(l6, sizeof(l6), "__TERM_%u", (naic->labelcount)++);
 
   if (naic->captures->actions[ naic->capindex ].slot == SLOT_TERM_NOTAND) {
     notand= naic->grammar[ naic->captures->actions[ naic->capindex ].start ];

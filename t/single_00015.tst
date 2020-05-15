@@ -8,9 +8,9 @@ END       <- !.
 item        <-  complexitem / simpleitem
 simpleitem  <- '<' { %w+ } optattrs %s* '/>'
 complexitem <- '<' {:tag: %w+ :} optattrs %s* '>'
-               internals %s*
+               complexbody %s*
                '</' $tag '>'
-internals   <- (item / { (!(%s* '<') .)+ })*
+complexbody <- (item / { (!(%s* '<') .)+ })*
 optattrs    <- ( ( attrname1 / attrname2 ) EQUALS attrvalue )*
 attrname1   <- {:brace: ['"] :} { %w+ } $brace
 attrname2   <- { %w+ }
@@ -19,11 +19,13 @@ EQUALS      <- '='
 
 -- Input:
 
-<person "id"="foo">
-    <name>
+<person "id"="foo" id='bar'>
+    <name attr="oi">
     James
     </name>
     <address>Earth</address>
+    <single/>
+    <singlewithattr id='foo'/>
 </person>
 
 -- Result:

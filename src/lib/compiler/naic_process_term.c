@@ -53,7 +53,7 @@ NAIG_ERR_T naic_process_term
   if (naic->captures->actions[ naic->capindex ].slot == SLOT_TERM_NOTAND) {
     notand= naic->grammar[ naic->captures->actions[ naic->capindex ].start ];
     if (notand == '!' || notand == '&') {
-      CHECK(naic->write(naic->write_arg, "  catch %s  -- 1\n", l1));
+      CHECK(naic->write(naic->write_arg, "  catch %s\n", l1));
     }
     ++(naic->capindex);
   }
@@ -65,14 +65,16 @@ NAIG_ERR_T naic_process_term
     CHECK(naic_process_matcher(&copy));
   } else if (quantifier[ 0 ] > 1) {
     unsigned ctr = (naic->counter)++;
-    CHECK(naic->write(naic->write_arg, "  counter %u %u\n"
+    CHECK(naic->write(naic->write_arg,
+                          "  counter %u %u\n"
                           "%s:\n"
                           , ctr
                           , quantifier[ 0 ]
                           , l3
     ));
     CHECK(naic_process_matcher(&copy));
-    CHECK(naic->write(naic->write_arg, "  condjump %u %s\n"
+    CHECK(naic->write(naic->write_arg,
+                          "  condjump %u %s\n"
                           , ctr
                           , l3
     ));
@@ -80,13 +82,15 @@ NAIG_ERR_T naic_process_term
   naic->labelcount = copy.labelcount;
   naic->rulevarmap = copy.rulevarmap;
   if (quantifier[ 1 ] == -1) {
-    CHECK(naic->write(naic->write_arg, "  catch %s -- 2\n"
+    CHECK(naic->write(naic->write_arg,
+                          "  catch %s\n"
                           "%s:\n"
                           , l5
                           , l4
     ));
     CHECK(naic_process_matcher(naic));
-    CHECK(naic->write(naic->write_arg, "  partialcommit %s\n"
+    CHECK(naic->write(naic->write_arg,
+                          "  partialcommit %s\n"
                           "%s:\n"
                           , l4
                           , l5
@@ -95,7 +99,8 @@ NAIG_ERR_T naic_process_term
     unsigned diff = quantifier[ 1 ] - quantifier[ 0 ];
     if (diff > 1) {
       unsigned ctr = (naic->counter)++;
-      CHECK(naic->write(naic->write_arg, "  catch %s -- 3\n"
+      CHECK(naic->write(naic->write_arg,
+                            "  catch %s\n"
                             "  counter %u %u\n"
                             "%s:\n"
                             , l4
@@ -104,7 +109,8 @@ NAIG_ERR_T naic_process_term
                             , l5
       ));
       CHECK(naic_process_matcher(naic));
-      CHECK(naic->write(naic->write_arg, "  partialcommit %s\n"
+      CHECK(naic->write(naic->write_arg,
+                            "  partialcommit %s\n"
                             "%s:\n"
                             "  condjump %u %s\n"
                             "  commit %s\n"
@@ -117,39 +123,40 @@ NAIG_ERR_T naic_process_term
                             , l4
       ));
     } else {
-      CHECK(naic->write(naic->write_arg, "  catch %s -- 4\n"
-                             , l4
+      CHECK(naic->write(naic->write_arg,
+                            "  catch %s\n"
+                            , l4
       ));
       CHECK(naic_process_matcher(naic));
-      CHECK(naic->write(naic->write_arg, "  partialcommit %s\n"
-                            "%s:\n"
+      CHECK(naic->write(naic->write_arg,
+//                            "  partialcommit %s\n"
+//                            "%s:\n"
                             "  commit %s\n"
                             "%s:\n"
-                            , l5
-                            , l5
+//                            , l5
+//                            , l5
                             , l4
                             , l4
       ));
-/*
-      CHECK(naic->write(naic->write_arg, "  commit %s\n"
-                             "%s:\n"
-                             , l4
-                             , l4
-      );
-*/
     }
   } else if (quantifier[ 1 ] != quantifier[ 0 ]) {
     RETURNERR(NAIC_ERR_QUANTIFIER);
   }
   if (notand == '!') {
-    CHECK(naic->write(naic->write_arg, "  failtwice\n"
-                          "%s:\n", l1
+    CHECK(naic->write(naic->write_arg,
+                          "  failtwice\n"
+                          "%s:\n"
+                          , l1
     ));
   } else if (notand == '&') {
-    CHECK(naic->write(naic->write_arg, "  backcommit %s\n"
+    CHECK(naic->write(naic->write_arg,
+                          "  backcommit %s\n"
                           "%s:\n"
                           "  fail\n"
-                          "%s:\n", l2, l1, l2
+                          "%s:\n"
+                          , l2
+                          , l1
+                          , l2
     ));
   }
   for (i = naic->capindex; i < naic->captures->size; i++) {

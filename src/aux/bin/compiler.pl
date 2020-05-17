@@ -75,7 +75,7 @@ sub compile
   foreach my $rule (@tokens) { shuffle_brackets($rule->{chunk}); }
   foreach my $rule (@tokens) { shuffle_prefixes($rule->{chunk}); }
   foreach my $rule (@tokens) { shuffle_choices($rule->{chunk}); }
-  print STDERR Dumper \@tokens;
+  #print STDERR Dumper \@tokens;
   output_assembly(\@tokens);
 }
 
@@ -529,7 +529,7 @@ sub slotmap_put
 
 sub slotmap_write
 {
-  foreach my $key (keys(%slotmap)) {
+  foreach my $key (sort(keys(%slotmap))) {
     my $slot = $slotmap{$key};
     syswrite $slotmapfile, pack('N', $slot);
     syswrite $slotmapfile, pack('N', 0xffffffff);
@@ -603,7 +603,6 @@ sub compile_set
 {
   my $str = shift;
   my $set = { };
-print STDERR "COMPILE SET '$str'\n";
   if ($str =~ s/^\^//) {
     $set->{negative} = 1;
   }
@@ -640,7 +639,6 @@ print STDERR "COMPILE SET '$str'\n";
 sub set_string
 {
   my $set = shift;
-print STDERR "Generating set " . Dumper($set);
   my @mask = (
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
@@ -670,7 +668,6 @@ print STDERR "Generating set " . Dumper($set);
       }
     }
   }
-print STDERR "Generated set " . join('', map(sprintf("%.2x", $_), @mask)) . "\n";
   return join('', map(sprintf("%.2x", $_), @mask));
 }
 

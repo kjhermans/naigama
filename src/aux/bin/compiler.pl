@@ -23,7 +23,7 @@ while (my $arg = shift @ARGV) {
       } elsif ($option eq 's') {
         my $path = shift @ARGV;
         open $slotmapfile, '>', $path
-          || die "Could not open slotmapfile $slotmapfile";
+          || die "Could not open slotmapfile $path";
       } else {
         die "Unknown command line option '-$option'";
       }

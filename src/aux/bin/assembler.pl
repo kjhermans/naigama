@@ -17,6 +17,11 @@ while (my $arg = shift @ARGV) {
       } elsif ($option eq 'I') {
         my $file = shift @ARGV;
         $instructions = eval(`cat $file`);
+        if (!scalar(keys(%{$instructions}))) {
+          die "No instructions";
+        } else {
+          print STDERR scalar(keys(%{$instructions}))." instructions loaded.\n";
+        }
       } else {
         die "Unknown command line option '-$option'";
       }
@@ -54,7 +59,9 @@ my $input = '';
   close $in;
 }
 
-syswrite $out, assemble($input);
+my $bytecode = assemble($input);
+print STDERR length($bytecode) . " bytes of bytecode generated.\n";
+syswrite $out, $bytecode;
 close $out;
 
 exit 0;
@@ -65,7 +72,7 @@ sub assemble
 {
   my $assembly = shift;
   my @input = split(/\n/, $assembly);
-  my %labelmap;
+  print STDERR scalar(@input) . " lines of input assembly.\n";
   
   zeroth_pass(\@input);
   first_pass(\@input);
@@ -113,7 +120,6 @@ sub second_pass
   my $label = "[a-zA-Z0-9_]+";
   my $output = '';
   foreach my $line (@{$lines}) {
-    next if ($line =~ /^--/);
     if ($line =~ /^($label):$/) {
       my $pos = length($output);
       if ($labelmap{$1} ne $pos) {
@@ -263,7 +269,7 @@ sub second_pass
       $output .= pack('N', $1);
       $output .= pack('N', $address);
 
-    } else {
+    } elsif (length($line)) {
       die "Unknown instruction at $line";
     }
   }

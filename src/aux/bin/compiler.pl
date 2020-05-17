@@ -622,7 +622,7 @@ print STDERR "COMPILE SET '$str'\n";
         my $oct = "$esc$1";
 ##..
       } else {
-        set_push($set, $esc);
+        set_push($set, ord($esc));
       }
     } else {
       $str =~ s/^(.)//s;

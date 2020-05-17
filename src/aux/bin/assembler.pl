@@ -14,14 +14,13 @@ while (my $arg = shift @ARGV) {
         $inputfile = shift @ARGV;
       } elsif ($option eq 'o') {
         $outputfile = shift @ARGV;
+      } elsif ($option eq 'l') {
+        $path = shift @ARGV;
+        open $labelmapfile, '>', $path
+          || die "Could not open labelmap file $path";
       } elsif ($option eq 'I') {
         my $file = shift @ARGV;
         $instructions = eval(`cat $file`);
-        if (!scalar(keys(%{$instructions}))) {
-          die "No instructions";
-        } else {
-          print STDERR scalar(keys(%{$instructions}))." instructions loaded.\n";
-        }
       } else {
         die "Unknown command line option '-$option'";
       }
@@ -35,6 +34,11 @@ while (my $arg = shift @ARGV) {
 
 if (!defined($instructions)) {
   die "Need instructions file";
+}
+if (!scalar(keys(%{$instructions}))) {
+  die "No instructions";
+} else {
+  print STDERR scalar(keys(%{$instructions}))." instructions loaded.\n";
 }
 
 my ($in, $out);
@@ -63,6 +67,10 @@ my $bytecode = assemble($input);
 print STDERR length($bytecode) . " bytes of bytecode generated.\n";
 syswrite $out, $bytecode;
 close $out;
+
+if ($labelmapfile) {
+  labelmap_write();
+}
 
 exit 0;
 
@@ -274,6 +282,16 @@ sub second_pass
     }
   }
   return $output;
+}
+
+sub labelmap_write
+{
+  foreach my $key (sort(keys(%labelmap))) {
+    my $offset = $labelmap{$key};
+    syswrite $labelmapfile, pack('N', $offset);
+    syswrite $labelmapfile, $key;
+    syswrite $labelmapfile, chr(0);
+  }
 }
 
 1;

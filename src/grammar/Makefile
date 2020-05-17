@@ -1,4 +1,5 @@
-all: grammar.byc assembly.byc optimizer.byc
+all: grammar.byc assembly.byc 
+#all: grammar.byc assembly.byc optimizer.byc
 
 grammar.byc: grammar.asm
 	@./assemble.sh grammar.asm grammar.byc

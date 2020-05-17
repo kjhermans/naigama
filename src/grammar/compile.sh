@@ -11,7 +11,7 @@ echo -n "Compiling $NAIG to $ASM .. "
 if [ "x" != "x$NAIC" ]; then
   naic -i $NAIG -o $ASM -m $SLOTMAP 2>/tmp/$NAIG.compile.log
 else
-  perl -I ../aux/lib ../aux/main/ipeg_compile -s $NAIG $ASM
+  perl ../aux/bin/compiler.pl -i $NAIG -o $ASM -s $SLOTMAP
 fi
 
 echo "done"

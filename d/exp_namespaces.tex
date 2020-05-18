@@ -1,0 +1,33 @@
+\section{Namespaces}
+
+Consider a (perl / json / python / etc) hashtable or object literal
+notation. Usually, they go something like this:
+
+\begin{myquote}
+\begin{verbatim}
+my $hash = {
+  foo => 'bar',
+  fubar => 'fu'
+};
+
+\end{verbatim}
+\end{myquote}
+
+The logic is similar also to XML-child entities: key-value pairs.
+A value may be any object, even complex ones, where keys are
+usually strings (or integers), and 'must' be unique. The penalty
+for using the same key multiple times depends on the platform in
+question: some throw an error, some stick to the first key given,
+some to the last.
+
+\begin{myquote}
+\begin{verbatim}
+CHILDREN <- [[ CHILD+ ]] -- namespace delimiter
+CHILD    <- NAME ':' VALUE
+NAME     <- { 'foo' }#1-3 / { 'bar' }#0- / { 'foobar' }#-1000
+VALUE    <- int / string / boolean
+
+\end{verbatim}
+\end{myquote}
+
+

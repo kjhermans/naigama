@@ -168,7 +168,7 @@ sub consume_string
       if ($esc eq 'n') { $str .= "\n"; }
       elsif ($esc eq 'r') { $str .= "\r"; }
       elsif ($esc eq 't') { $str .= "\t"; }
-      elsif ($esc eq 'v') { $str .= "\v"; }
+      elsif ($esc eq 'v') { $str .= chr(11); }
       else { $str .= $esc; }
     } elsif ($chr eq '\'') {
       return $str;
@@ -472,6 +472,7 @@ sub _output_asm_macro
         [ ord("\n") ],
         [ ord("\r") ],
         [ ord("\t") ],
+        [ 11 ], # \v
         [ ord(" ") ]
       ] }
     );

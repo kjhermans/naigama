@@ -51,3 +51,6 @@ install:
 		src/main/compiler/naic \
 		src/main/assembler/naia \
 		/usr/local/bin/
+
+java:
+	@cd src/java && make

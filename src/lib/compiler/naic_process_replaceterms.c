@@ -36,6 +36,12 @@ NAIG_ERR_T naic_process_replaceterms
   while (1) {
     if (a->slot == SLOT_REPLACETERM_STRINGLITERAL) {
       CHECK(naic_process_string(naic));
+    } else if (a->slot == SLOT_REPLACETERM_HEXLITERAL) {
+      CHECK(naic->write(naic->write_arg,
+        "  char %-.*s\n"
+        , 2
+        , naic->grammar + naic->captures->actions[ naic->capindex ].start + 2
+      ));
     } else if (a->slot == SLOT_REPLACETERM_VARREFERENCE) {
       CHECK(naic_process_varreference(naic));
       ++(naic->capindex);

@@ -82,11 +82,12 @@ sub compile
 sub tokenize {
   my $grammar = shift;
   my @tokens;
+  my $ident = '[a-zA-Z_][a-zA-Z_0-9]{0,63}';
   while (length($grammar)) {
     if ($grammar =~ s/^(\s+|--[^\n]*\n)//) {
-    } elsif ($grammar =~ s/^([a-zA-Z_][a-zA-Z_0-9]{0,63})\s*<-*//) {
+    } elsif ($grammar =~ s/^($ident)\s*<-*//) {
       push @tokens, { type => 'rule', str => $1 };
-    } elsif ($grammar =~ s/^([a-zA-Z_][a-zA-Z_0-9]{0,63})//) {
+    } elsif ($grammar =~ s/^($ident)//) {
       push @tokens, { type => 'ref', str => $1 };
     } elsif ($grammar =~ s/^\(//) {
       push @tokens, { type => 'bopen' };
@@ -95,7 +96,11 @@ sub tokenize {
     } elsif ($grammar =~ s/^\{//) {
       push @tokens, { type => 'cbopen' };
     } elsif ($grammar =~ s/^\}//) {
-      push @tokens, { type => 'cbclose' };
+      my $recycler;
+      if ($grammar =~ s/^\s*=>\s*($ident)//) {
+        $recycler = $1;
+      }
+      push @tokens, { type => 'cbclose', recycler => $recycler };
     } elsif ($grammar =~ s/^\///) {
       push @tokens, { type => 'or' };
     } elsif ($grammar =~ s/^\.//) {
@@ -138,6 +143,11 @@ sub tokenize {
       my $prev = pop @tokens || die "Quantifier before token";
       die "Token already has quantifier" if (defined($prev->{quantifier}));
       $prev->{quantifier} = { from => $1, until => $1 };
+      push @tokens, $prev;
+    } elsif ($grammar =~ s/^\^\$($ident)//) {
+      my $prev = pop @tokens || die "Quantifier before token";
+      die "Token already has quantifier" if (defined($prev->{quantifier}));
+      $prev->{quantifier} = { dynamic => 1, amount => $1 };
       push @tokens, $prev;
     } elsif ($grammar =~ s/^'//) {
       my $string = consume_string(\$grammar);
@@ -373,7 +383,10 @@ sub output_asm_tokens
     } elsif ($token->{type} eq 'bclose') {
       ##.. ignore
     } elsif ($token->{type} eq 'cbclose') {
-      ##.. ignore
+      if (defined($token->{recycler})) {
+        print $out
+          "  isolate __RULE_$token->{recycler}\n";
+      }
     } else {
       die "Unknown token type $token->{type}";
     }
@@ -396,6 +409,9 @@ sub output_asm_term
   if (!defined($token->{quantifier})) {
     $token->{quantifier}{from} = 1;
     $token->{quantifier}{until} = 1;
+  }
+  if (defined($token->{quantifier}{dynamic})) {
+     
   }
   if ($token->{quantifier}{from} eq '1') {
     output_asm_term_once($token, $func);

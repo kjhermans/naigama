@@ -123,6 +123,7 @@ NAIG_ERR_T naie_engine_loop
       param1 = engine->bytecode[ engine->bytecode_pos + 7 ];  // maskedmatch
       param2 = engine->bytecode[ engine->bytecode_pos + 11 ]; // mask
       if ((engine->input[ engine->input_pos ] & param2) == param1) {
+        ++(engine->input_pos);
         engine->bytecode_pos += instruction_size;
       } else {
         goto FAIL;

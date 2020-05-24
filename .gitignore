@@ -1,5 +1,7 @@
 *.o
 *.a
+*.class
+*.jar
 
 d/compendium.aux
 d/compendium.log

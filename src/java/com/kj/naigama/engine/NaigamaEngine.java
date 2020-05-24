@@ -42,7 +42,7 @@ public class NaigamaEngine
       boolean fail = false;
       if (bytecodepos > bytecode.length - 4) {
         throw new NaigamaEngineException(
-          "Inpos position overflow (" + bytecodepos + " & " +
+          "Bytcode position overflow (" + bytecodepos + " & " +
           bytecode.length + ")"
         );
       }

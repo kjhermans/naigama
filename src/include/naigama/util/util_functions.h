@@ -24,7 +24,7 @@ unsigned atoi_substr
 /* declared in ../lib/util//cmp_substr.c */
 extern
 int cmp_substr
-  (char* str, unsigned len, char* cmp)
+  (char* mem, unsigned len, char* cmp)
   __attribute__ ((warn_unused_result));
 
 /* declared in ../lib/util//hexcodon.c */

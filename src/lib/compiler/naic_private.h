@@ -20,4 +20,6 @@
 #include <naigama/util/util_functions.h>
 #include "generated.h"
 
+#include "../naigama/naig_private.h"
+
 #endif

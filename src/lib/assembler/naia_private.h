@@ -10,4 +10,6 @@
 #include <naigama/assembler/naia.h>
 #include "generated.h"
 
+#include "../naigama/naig_private.h"
+
 #endif

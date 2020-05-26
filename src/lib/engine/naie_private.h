@@ -20,6 +20,8 @@
 #include <naigama/engine/naie.h>
 #include "generated.h"
 
+#include "../naigama/naig_private.h"
+
 extern unsigned* instruction_sizes;
 extern char** instruction_idents;
 

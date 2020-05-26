@@ -13,6 +13,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "../lib/naigama/naig_private.h"
+
 #include <naigama/engine/naie.h>
 
 struct engine_repl

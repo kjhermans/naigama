@@ -17,6 +17,8 @@
 #include <unistd.h>
 #include <fcntl.h>
 
+#include "../lib/naigama/naig_private.h"
+
 #include <naigama/assembler/naia.h>
 #include <naigama/util/util_functions.h>
 

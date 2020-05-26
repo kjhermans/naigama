@@ -28,7 +28,7 @@ NAIG_ERR_T naig_write_assembly
   }
   realc = (char*)realloc(*assembly, len + 1024);
   va_start(ap, fmt);
-  vsnprintf(realc, len + 1024, fmt, ap);
+  vsnprintf(realc + len, 1024, fmt, ap);
   va_end(ap);
   *assembly = realc;
   return NAIG_OK;

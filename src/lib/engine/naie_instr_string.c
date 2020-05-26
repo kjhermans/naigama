@@ -29,6 +29,10 @@ char* naie_instr_string
     return "CHAR";
   case OPCODE_CLOSECAPTURE:
     return "CLOSECAPTURE";
+  case OPCODE_COUNTER:
+    return "COUNTER";
+  case OPCODE_CONDJUMP:
+    return "CONDJUMP";
   case OPCODE_COMMIT:
     return "COMMIT";
   case OPCODE_END:
@@ -45,6 +49,8 @@ char* naie_instr_string
     return "MASKEDCHAR";
   case OPCODE_OPENCAPTURE:
     return "OPENCAPTURE";
+  case OPCODE_BACKCOMMIT:
+    return "BACKCOMMIT";
   case OPCODE_PARTIALCOMMIT:
     return "PARTIALCOMMIT";
   case OPCODE_QUAD:

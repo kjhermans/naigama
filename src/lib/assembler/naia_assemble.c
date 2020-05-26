@@ -11,7 +11,7 @@
  * \brief
  */
 
-#include <naigama/assembler/naia.h>
+#include "naia_private.h"
 
 static
 const unsigned char bytecode[] = ASSEMBLY_BYTECODE;

@@ -10,7 +10,7 @@
  * \brief
  */
 
-#include <naigama/assembler/naia.h>
+#include "naia_private.h"
 
 /**
  * CONDJUMPINSTR      <- { 'condjump' } S REGISTER S LABEL

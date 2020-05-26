@@ -10,7 +10,7 @@
  * \brief
  */
 
-#include <naigama/assembler/naia.h>
+#include "naia_private.h"
 
 /**
  * TESTCHARINSTR <- { 'testchar' } S HEXBYTE S LABEL ( S AMPERSAND HEXBYTE )?

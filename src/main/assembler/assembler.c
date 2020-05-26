@@ -18,6 +18,7 @@
 #include <fcntl.h>
 
 #include <naigama/assembler/naia.h>
+#include <naigama/util/util_functions.h>
 
 static
 NAIG_ERR_T naia_write_file

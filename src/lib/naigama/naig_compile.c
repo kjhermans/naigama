@@ -19,8 +19,13 @@ NAIG_ERR_T naig_write_assembly
   char** assembly = (char**)ptr;
   va_list ap;
   char* realc;
-  unsigned len = strlen(*assembly);
+  unsigned len;
 
+  if (*assembly) {
+    len = strlen(*assembly);
+  } else {
+    len = 0;
+  }
   realc = (char*)realloc(*assembly, len + 1024);
   va_start(ap, fmt);
   vsnprintf(realc, len + 1024, fmt, ap);

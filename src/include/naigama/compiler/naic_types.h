@@ -1,6 +1,8 @@
 #ifndef _NAIC_TYPES_H_
 #define _NAIC_TYPES_H_
 
+#include <naigama/engine/naie.h>
+
 typedef struct
 {
   unsigned          size;

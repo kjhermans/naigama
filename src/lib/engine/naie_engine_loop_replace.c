@@ -10,7 +10,7 @@
  * \brief
  */
 
-#include <naigama/engine/naie.h>
+#include "naie_private.h"
 
 NAIG_ERR_T naie_engine_loop_replace
   (

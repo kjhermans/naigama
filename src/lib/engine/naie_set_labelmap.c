@@ -13,7 +13,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-#include <naigama/engine/naie.h>
+#include "naie_private.h"
 
 NAIG_ERR_T naie_set_labelmap
   (

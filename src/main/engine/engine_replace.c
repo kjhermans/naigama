@@ -10,6 +10,9 @@
  * \brief
  */
 
+#include <stdlib.h>
+#include <string.h>
+
 #include <naigama/engine/naie.h>
 
 struct engine_repl

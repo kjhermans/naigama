@@ -10,7 +10,7 @@
  * \brief
  */
 
-#include <naigama/engine/naie.h>
+#include "naie_private.h"
 
 /**
  * Runs the bytecode, from the beginning, against the input,

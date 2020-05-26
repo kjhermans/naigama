@@ -11,7 +11,7 @@
  * \brief
  */
 
-#include <naigama/compiler/naic.h>
+#include "naic_private.h"
 
 static
 unsigned naic_set_char

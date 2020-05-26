@@ -10,12 +10,10 @@
  * \brief
  */
 
-#ifndef _NAIG_TYPES_H_
-#define _NAIG_TYPES_H_
+#ifndef _NAIE_TYPES_H_
+#define _NAIE_TYPES_H_
 
 #include <stdint.h>
-
-#include "naie_defines.h"
 
 typedef struct
 {

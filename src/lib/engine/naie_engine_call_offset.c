@@ -10,7 +10,7 @@
  * \brief
  */
 
-#include <naigama/engine/naie.h>
+#include "naie_private.h"
 
 /**
  * Runs the engine, instead of from the beginning, from a certain

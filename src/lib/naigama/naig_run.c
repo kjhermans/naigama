@@ -10,7 +10,7 @@
  * \brief
  */
 
-#include <naigama/naigama.h>
+#include "naig_private.h"
 
 /**
  *

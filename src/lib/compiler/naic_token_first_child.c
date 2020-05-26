@@ -11,7 +11,7 @@
  * \brief
  */
 
-#include <naigama/compiler/naic.h>
+#include "naic_private.h"
 
 /**
  * Finds the first child token (ie position-wise completely encompassed

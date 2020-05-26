@@ -10,9 +10,7 @@
  * \brief
  */
 
-#include <stdarg.h>
-
-#include <naigama/naigama.h>
+#include "naig_private.h"
 
 static
 NAIG_ERR_T naig_write_assembly

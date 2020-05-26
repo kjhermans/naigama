@@ -12,7 +12,7 @@
 
 #include <stdio.h>
 
-#include <naigama/engine/naie.h>
+#include "naie_private.h"
 
 /**
  *

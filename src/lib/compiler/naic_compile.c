@@ -11,7 +11,7 @@
  * \brief
  */
 
-#include <naigama/compiler/naic.h>
+#include "naic_private.h"
 
 static
 const unsigned char bytecode[] = GRAMMAR_BYTECODE;

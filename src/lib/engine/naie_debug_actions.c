@@ -12,7 +12,7 @@
 
 #include <inttypes.h>
 
-#include <naigama/engine/naie.h>
+#include "naie_private.h"
 
 static
 char* naie_debug_action_string

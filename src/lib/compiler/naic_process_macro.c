@@ -11,7 +11,7 @@
  * \brief
  */
 
-#include <naigama/compiler/naic.h>
+#include "naic_private.h"
   
 /**
  * Processes the hardcorded macroes %s %w %a %n %nl, which stand for

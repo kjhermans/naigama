@@ -1,4 +1,4 @@
-#include <naigama/compiler/naic.h>
+#include "naic_private.h"
   
 NAIG_ERR_T naic_process_group
   (naic_t* naic)

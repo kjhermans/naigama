@@ -10,12 +10,12 @@
  * \brief
  */
 
-#ifndef _NAIE_DEFINES_H_
-#define _NAIE_DEFINES_H_
+#ifndef _NAIG_DEFINES_H_
+#define _NAIG_DEFINES_H_
 
-//#include 
+#define OPCODE_TRAP                     0xffffffff
 
-#define NAIG_INSTR_LENGTH(instr) ((((instr)>>16)&0xff)+4)
+/** Error handling **/
 
 #define NAIG_FAILURE                    ((NAIG_ERR_T){ .code = 1 })
 #define NAIG_OK                         ((NAIG_ERR_T){ .code = 0 })

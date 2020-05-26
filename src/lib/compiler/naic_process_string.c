@@ -11,7 +11,7 @@
  * \brief
  */
 
-#include <naigama/compiler/naic.h>
+#include "naic_private.h"
 
 static
 NAIG_ERR_T naic_process_string_callback

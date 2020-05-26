@@ -11,8 +11,7 @@
  * \brief
  */
 
-#include <naigama/compiler/naic.h>
-#include <naigama/compiler/naic.h>
+#include "naic_private.h"
 
 /**
  * Topmost function

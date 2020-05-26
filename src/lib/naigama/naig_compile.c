@@ -66,6 +66,9 @@ NAIG_ERR_T naig_compile
       &assembly
     )
   );
+  if (naig->debug) {
+    fprintf(stderr, "%s\n", assembly);
+  }
   CHECK(
     naia_assemble(
       assembly,

@@ -34,6 +34,10 @@ NAIG_ERR_T naig_run
       input_length
     )
   );
+  if (naig->debug) {
+    engine.flags |= NAIE_FLAG_DEBUG;
+  }
+  engine.flags |= NAIE_FLAG_DOREPLACE;
   CHECK(naie_engine_run(&engine, (naie_result_t*)result));
   return NAIG_OK;
 }

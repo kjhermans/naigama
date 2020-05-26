@@ -24,6 +24,7 @@ typedef struct
   char*                         grammar;
   unsigned char*                bytecode;
   unsigned                      bytecode_length;
+  int                           debug;
 }
 naig_t;
 

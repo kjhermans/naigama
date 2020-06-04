@@ -1,12 +1,32 @@
 ## Instructions are binarily encoded as four-byters, where:
+#
 ## Byte 0: zero
 ## Byte 1: instruction size
 ## Byte 2: instruction group
 ## Byte 3: instruction
 
-## Instructions must be numbered 0x03, 0x05, 0x09, 0x0a, 0x0f, 0x33
+## Instructions must be numbered according to the table below
 ## to ensure a Hamming distance of at least 2 between instructions,
 ## allowing dual upset events between instructions.
+
+## Hamming distance values used:
+#
+##  00  03  05  06  09  0a  0c  0f  
+##  11  12  14  17  18  1b  1d  1e  
+##  21  22  24  27  28  2b  2d  2e  
+##  30  33  35  36  39  3a  3c  3f  
+##  41  42  44  47  48  4b  4d  4e  
+##  50  53  55  56  59  5a  5c  5f  
+##  60  63  65  66  69  6a  6c  6f  
+##  71  72  74  77  78  7b  7d  7e  
+##  81  82  84  87  88  8b  8d  8e  
+##  90  93  95  96  99  9a  9c  9f  
+##  a0  a3  a5  a6  a9  aa  ac  af  
+##  b1  b2  b4  b7  b8  bb  bd  be  
+##  c0  c3  c5  c6  c9  ca  cc  cf  
+##  d1  d2  d4  d7  d8  db  dd  de  
+##  e1  e2  e4  e7  e8  eb  ed  ee  
+##  f0  f3  f5  f6  f9  fa  fc  ff
 
 {
   noop => {

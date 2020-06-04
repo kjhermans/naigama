@@ -4,7 +4,7 @@
   char 08
   char 00
   maskedchar 40 f0
-  skip 12
+  skip 11
   skip 4
   catch NET2
   char c0

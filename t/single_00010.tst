@@ -3,43 +3,33 @@
 START:
   catch UTF8_FOURBYTES
   maskedchar 00 80
-  any
   commit NEXTCHAR
 
 UTF8_FOURBYTES:
   catch UTF8_THREEBYTES
   maskedchar f0 f8 -- four bytes UTF-8
-  any
   commit UTF8_FOURBYTES_REMAINDER
 UTF8_FOURBYTES_REMAINDER:
   catch FAILME
   maskedchar 80 c0
-  any
   maskedchar 80 c0
-  any
   maskedchar 80 c0
-  any
   commit NEXTCHAR
 
 UTF8_THREEBYTES:
   catch UTF8_TWOBYTES
   maskedchar e0 f0 -- three bytes UTF-8
-  any
   commit UTF8_THREEBYTES_REMAINDER
 UTF8_THREEBYTES_REMAINDER:
   catch FAILME
   maskedchar 80 c0
-  any
   maskedchar 80 c0
-  any
   commit NEXTCHAR
 
 UTF8_TWOBYTES:
   catch FAILME
   maskedchar c0 e0 -- two bytes UTF-8
-  any
   maskedchar 80 c0
-  any
   commit NEXTCHAR
 
 NEXTCHAR:

@@ -288,6 +288,11 @@ sub shuffle_prefixes
         $token->{prefix} = $prefix;
       }
       $prefix = [];
+      if ($token->{type} eq 'cbopen') {
+        shuffle_prefixes($token->{chunk});
+      } elsif ($token->{type} eq 'bopen') {
+        shuffle_prefixes($token->{chunk});
+      }
     }
   }
 }

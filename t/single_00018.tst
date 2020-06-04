@@ -32,7 +32,7 @@ ASSIGNMENT     <- { IDENT } ASSIGNS EXPRESSION SEMICOLON
 
 EXPRESSION     <- EXPR2 ({ AND / OR } EXPR2 )*
 EXPR2          <- EXPR3 ({ BITAND / BITOR / BITXOR } EXPR3 )*
-EXPR3          <- EXPR4 ({ EQUALS / LTEQ / LT / GTEQ / GT } EXPR4 )*
+EXPR3          <- EXPR4 ({ EQUALS / NEQUALS / LTEQ / LT / GTEQ / GT } EXPR4 )*
 EXPR4          <- EXPR5 ({ POW / MUL / DIV } EXPR5 )*
 EXPR5          <- EXPR6 ({ ADD / SUB } EXPR6 )*
 EXPR6          <- ( UNARY )* TERM
@@ -84,25 +84,26 @@ MINIS          <- '-='
 MULIS          <- '*='
 DIVIS          <- '/='
 EQUALS         <- '=='
-LT             <- '<'
-GT             <- '>'
+NEQUALS        <- '!='
+LT             <- '<' !'='
+GT             <- '>' !'='
 LTEQ           <- '<='
 GTEQ           <- '>='
 SEMICOLON      <- ';'
 COLON          <- ':'
 POW            <- '**'
 MUL            <- '*' !'*'
-DIV            <- '/'
-ADD            <- '+' !'+'
-SUB            <- '-' !'-'
+DIV            <- '/' !'='
+ADD            <- '+' ![+=]
+SUB            <- '-' ![-=]
 INC            <- '++'
 DEC            <- '--'
 AND            <- '&&'
 OR             <- '||'
-BITAND         <- '&' !'&'
-BITOR          <- '|' !'|'
-BITXOR         <- '^'
-NOT            <- '!'
+BITAND         <- '&' ![&=]
+BITOR          <- '|' ![|=]
+BITXOR         <- '^' !'='
+NOT            <- '!' !'='
 COMMA          <- ','
 
 -- Input:

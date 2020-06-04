@@ -31,7 +31,16 @@ NAIG_ERR_T naic_process_terms
          && naic->captures->actions[ naic->capindex ].start < end)
   {
     if (naic->captures->actions[ naic->capindex ].slot == SLOT_TERMS_TERM) {
-      CHECK(naic_process_term(naic));
+      ++(naic->capindex);
+      if (naic->captures->actions[ naic->capindex ].slot
+          == SLOT_TERM_ENDOWEDMATCHER)
+      {
+        CHECK(naic_process_endowedmatcher(naic));
+      } else if (naic->captures->actions[ naic->capindex ].slot
+                 == SLOT_TERM_NAMESPACE)
+      {
+        //..
+      }
     } else {
       RETURNERR(NAIC_ERR_TOKEN);
     }

@@ -45,6 +45,12 @@ NAIG_ERR_T naic_process_capture
   (naic_t* naic)
   __attribute__ ((warn_unused_result));
 
+/* declared in ../lib/compiler//naic_process_endowedmatcher.c */
+extern
+NAIG_ERR_T naic_process_endowedmatcher
+  (naic_t* naic)
+  __attribute__ ((warn_unused_result));
+
 /* declared in ../lib/compiler//naic_process_expression.c */
 extern
 NAIG_ERR_T naic_process_expression
@@ -108,12 +114,6 @@ NAIG_ERR_T naic_process_string
 /* declared in ../lib/compiler//naic_process_string_caseinsensitive.c */
 extern
 NAIG_ERR_T naic_process_string_caseinsensitive
-  (naic_t* naic)
-  __attribute__ ((warn_unused_result));
-
-/* declared in ../lib/compiler//naic_process_term.c */
-extern
-NAIG_ERR_T naic_process_term
   (naic_t* naic)
   __attribute__ ((warn_unused_result));
 

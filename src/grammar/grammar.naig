@@ -15,7 +15,9 @@ EXPRESSION         <- { TERMS } OR NOTHING /
                       CALL
 
 TERMS              <- { TERM }+
-TERM               <- { NOT / AND }? MATCHER { QUANTIFIER }?
+TERM               <- { NAMESPACE } / { ENDOWEDMATCHER }
+NAMESPACE          <- NSOPEN EXPRESSION NSCLOSE
+ENDOWEDMATCHER     <- { NOT / AND }? MATCHER { QUANTIFIER }?
 QUANTIFIER         <- '?' /
                       '+' /
                       '*' /
@@ -39,9 +41,14 @@ MATCHER            <- { ANY } /
 BITMASK            <- '|' [0-9a-fA-F]^2 '|' [0-9a-fA-F]^2 '|'
 
 VARCAPTURE         <- CBOPEN COLON { IDENT } ( SEMICOLON { TYPE } )? COLON
-                      EXPRESSION COLON? { CBCLOSE } ( REPLACE / RECYCLE )?
-CAPTURE            <- CBOPEN EXPRESSION { CBCLOSE } ( REPLACE / RECYCLE )?
+                      EXPRESSION { CBCLOSE } CAPTUREEND
+CAPTURE            <- CBOPEN EXPRESSION { CBCLOSE } CAPTUREEND
 GROUP              <- BOPEN EXPRESSION { BCLOSE }
+CAPTUREEND         <- ( REPLACE / RECYCLE / NSRANGE )?
+
+NSRANGE            <- '#' { [0-9]+ } '-' { [0-9]+ } /
+                      '#' '-' { [0-9]+ }
+                      '#' { [0-9]+ }
 
 SET                <- ABOPEN { SETNOT? } (
                         { '\\' ([nrtv\\\]] / [0-9]^3) / [^\\\]] } '-' 
@@ -92,6 +99,8 @@ SEMICOLON          <- ';'
 COMMA              <- ','
 LT                 <- '<'
 GT                 <- '>'
+NSOPEN             <- '[['
+NSCLOSE            <- ']]'
 
 --
 

@@ -17,13 +17,13 @@ END         <- !.
 
 item        <-  complexitem / simpleitem
 simpleitem  <- '<' { %w+ } optattrs %s* '/>'
-complexitem <- '<' {:tag: %w+ :} optattrs %s* '>'
+complexitem <- '<' {:tag: %w+ } optattrs %s* '>'
                internals %s*
                '</' $tag '>'
 internals   <- ( item / { (!(%s* '<') .)+ } )*
 optattrs    <- ( attrname EQUALS attrvalue )*
-attrname    <- {:brace: ['"] :} { %w+ } $brace
-attrvalue   <- {:brace: ['"] :} { ( ! $brace . )* } $brace
+attrname    <- {:brace: ['"] } { %w+ } $brace
+attrvalue   <- {:brace: ['"] } { ( ! $brace . )* } $brace
 EQUALS      <- '='
 
 -- Hexinput:

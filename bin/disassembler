@@ -207,11 +207,17 @@ while ($offset < length($bytecode)) {
     for (my $i=0; $i < 32; $i++) {
       print $out sprintf("%.2x", ord(substr($bytecode, $offset + 4 + $i, 1)));
     }
+    if ($ENV{SHOWSET}) {
+      debugset($bytecode, $offset + 4);
+    }
     $offset += 36;
   } elsif ($opcode == $INSTR_SPAN) {
     print $out "$offset: span ";
     for (my $i=0; $i < 32; $i++) {
       print $out sprintf("%.2x", ord(substr($bytecode, $offset + 4 + $i, 1)));
+    }
+    if ($ENV{SHOWSET}) {
+      debugset($bytecode, $offset + 4);
     }
     $offset += 36;
   } elsif ($opcode == $INSTR_TESTANY) {
@@ -239,6 +245,9 @@ while ($offset < length($bytecode)) {
       print $out sprintf("%.2x", ord(substr($bytecode, $offset + 8 + $i, 1)));
     }
     print $out " $address";
+    if ($ENV{SHOWSET}) {
+      debugset($bytecode, $offset + 8);
+    }
     $offset += 40;
   } elsif ($opcode == $INSTR_VAR) {
     my $var = unpack('N', substr($bytecode, $offset + 4, 4));
@@ -276,6 +285,23 @@ sub labelreverse
     }
   }
   return $result;
+}
+
+sub debugset
+{
+  my ($bytecode, $offset) = @_;
+  for (my $i=0; $i < 32; $i++) {
+    my $byte = substr($bytecode, $offset + $i, 1);
+    for (my $j=0; $j < 8; $j++) {
+      if (ord($byte) & (1 << $j)) {
+        my $value = (($i * 8) + $j);
+        print $out "\n-- SET: " . sprintf("%.2x", $value);
+        if ($value > 32 && $value < 127) {
+          print $out " '" . chr($value) . "'";
+        }
+      }
+    }
+  }
 }
 
 1;

@@ -9,7 +9,7 @@ all: $(LIB)
 
 $(LIB): $(OBJECTS)
 	$(AR) -rcs $(LIB) $(OBJECTS)
-	../../../bin/arjoin.pl libnaigama.a \
+	../../../../bin/arjoin.pl libnaigama.a \
 		libnaig.a \
 		../engine/libnaie.a \
 		../compiler/libnaic.a \

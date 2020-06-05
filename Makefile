@@ -7,19 +7,39 @@ arm_bare_metal:
 	@export ARCH=arm-none-eabi- && make
 
 stage_0:
-	@cd src/grammar && make
+	@MFS=`find src/ doc/ -name Makefile | xargs grep -l stage_0`; \
+		for MF in $$MFS; do \
+			DIR=`dirname $$MF`; \
+			make -C $$DIR stage_0; \
+		done
 
 stage_1:
-	@cd src/precomp && make
+	@MFS=`find src/ doc/ -name Makefile | xargs grep -l stage_1`; \
+		for MF in $$MFS; do \
+			DIR=`dirname $$MF`; \
+			make -C $$DIR stage_1; \
+		done
 
 stage_2:
-	@cd src/include && make functions
+	@MFS=`find src/ doc/ -name Makefile | xargs grep -l stage_2`; \
+		for MF in $$MFS; do \
+			DIR=`dirname $$MF`; \
+			make -C $$DIR stage_2; \
+		done
 
 stage_3:
-	@cd src/lib && make
+	@MFS=`find src/ doc/ -name Makefile | xargs grep -l stage_3`; \
+		for MF in $$MFS; do \
+			DIR=`dirname $$MF`; \
+			make -C $$DIR stage_3; \
+		done
 
 stage_4:
-	@cd src/main && make
+	@MFS=`find src/ doc/ -name Makefile | xargs grep -l stage_4`; \
+		for MF in $$MFS; do \
+			DIR=`dirname $$MF`; \
+			make -C $$DIR stage_4; \
+		done
 
 archive: clean
 	RELEASE=$$(cat release); \

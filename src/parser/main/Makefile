@@ -1,4 +1,4 @@
-all:
+stage_4:
 	@cd engine && make
 	@cd compiler && make
 	@cd assembler && make

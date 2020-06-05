@@ -1,5 +1,4 @@
-#all: grammar.byc assembly.byc 
-all: grammar.byc assembly.byc optimizer.byc script.byc
+stage_0: grammar.byc assembly.byc optimizer.byc
 
 grammar.byc: grammar.asm
 	@./assemble.sh grammar.asm grammar.byc
@@ -18,12 +17,6 @@ optimizer.byc: optimizer.asm
 
 optimizer.asm: optimizer.naig
 	@./compile.sh optimizer.naig optimizer.asm optimizer.slotmap || true
-
-script.byc: script.asm
-	@./assemble.sh script.asm script.byc || true
-
-script.asm: script.naig
-	@./compile.sh script.naig script.asm script.slotmap || true
 
 clean:
 

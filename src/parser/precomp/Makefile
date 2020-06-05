@@ -1,6 +1,6 @@
-all: 
+stage_1: 
 	@perl ./generate.pl \
-		../../instructions.pl \
+		../instructions.pl \
 		../grammar/grammar.byc \
 		../grammar/assembly.byc \
 		../grammar/optimizer.byc \

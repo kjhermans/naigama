@@ -1,9 +1,9 @@
 CFILES:=$(shell find . -type f | grep '\.c$$')
 OBJECTS:=$(shell find . -type f | grep '\.c$$' | sort | sed -e 's/\.c$$/.o/')
-LIB=libnaic.a
+LIB=libnaie.a
 CC=$(ARCH)gcc
 AR=$(ARCH)ar
-CFLAGS=-g -Wall -Wextra $(DEBUG) -I../../include
+CFLAGS=-g -Wall -Wextra $(DEBUG) -I$(BUILDROOT)/src/parser/include
 
 all: $(LIB)
 

@@ -1,0 +1,19 @@
+TARGET=naig
+CC=$(ARCH)gcc
+CFLAGS=-g -O2 -Wall -Wextra $(DEBUG) -I$(BUILDROOT)/src/parser/include
+LIBS=$(BUILDROOT)/src/parser/gen1/lib/naigama/libnaigama.a
+
+all: $(TARGET)
+
+OBJECTS=naigama.o
+
+$(TARGET): $(OBJECTS) $(LIBS)
+	$(CC) -o $(TARGET) $(OBJECTS) $(LIBS)
+
+clean:
+	@rm -f $(TARGET) $(OBJECTS)
+
+superclean: clean
+
+$(BUILDROOT)/src/parser/gen1/lib/naigama/libnaigama.a:
+	@cd $(BUILDROOT)/src/parser/gen1/lib/naigama && make

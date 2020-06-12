@@ -8,10 +8,10 @@ d/compendium.log
 d/compendium.lot
 d/compendium.pdf
 d/compendium.toc
-src/main/assembler/naia
-src/main/compiler/naic
-src/main/engine/naie
-src/main/naigama/naig
 
-src/grammar/assembly.byc.labelmap
-src/grammar/grammar.byc.labelmap
+src/parser/gen1/main/assembler/naia
+src/parser/gen1/main/compiler/naic
+src/parser/gen1/main/engine/naie
+src/parser/gen1/main/naigama/naig
+src/parser/grammar/assembly.byc.labelmap
+src/parser/grammar/grammar.byc.labelmap

@@ -17,9 +17,9 @@ The 'd' directory contains documentation. Yes, it's in LaTex. I like LaTex.
 The 'bin' directory contains (build and test) supportive executables.
 Although you can argue whether the disassembler is that.
 
-In 'src':
+In 'src/parser':
 
-src/aux - you need this when you do a 'make superclean' and you haven't
+gen0    - you need this when you do a 'make superclean' and you haven't
           done 'make install'. It's to get things going from the very
           beginning; it bootstraps the grammar of the compiler and
           assembler themselves.
@@ -27,17 +27,17 @@ src/aux - you need this when you do a 'make superclean' and you haven't
           'make superclean' without having previously installed
           the executables, requires perl btw, be warned.
 
-src/grammar - contains the grammar for the compiler and assembler.
+grammar     - contains the grammar for the compiler and assembler.
 
-src/include - contains the header files, split up by library.
+include     - contains the header files, split up by library.
 
-src/lib - contains the C code, split up by library.
+gen1/lib - contains the C code, split up by library.
 
-src/main - contains the C code main functions, split up by library.
+gen1/main - contains the C code main functions, split up by library.
 
-src/precomp - contains the precompiled stuff needed to make library
+gen1/precomp - contains the precompiled stuff needed to make library
               building work. Predominantly, a C translation of the
               'instructions.pl' file, mentioned above.
 
-src/subsys - EXPERIMENTAL. I'm trying to create a sub-assembly code
-             that PEG's are compiled to.
+subsys - EXPERIMENTAL. I'm trying to create a sub-assembly code
+         that PEG's are compiled to.

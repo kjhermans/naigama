@@ -96,28 +96,6 @@ NAIG_ERR_T naie_engine_run
   )
   __attribute__ ((warn_unused_result));
 
-/* declared in ../gen1/lib/engine//naie_fill_result.c */
-extern
-NAIG_ERR_T naie_fill_result
-  (
-    naie_engine_t* engine,
-    naie_result_t* result
-  )
-  __attribute__ ((warn_unused_result));
-
-/* declared in ../gen1/lib/engine//naie_handle_result.c */
-extern
-NAIG_ERR_T naie_handle_result
-  (
-    naie_engine_t* engine,
-    naie_result_t* result,
-    naie_capture_t capturefnc,
-    naie_delete_t deletefnc,
-    naie_insert_t insertfnc,
-    void* arg
-  )
-  __attribute__ ((warn_unused_result));
-
 /* declared in ../gen1/lib/engine//naie_instr_string.c */
 extern
 char* naie_instr_string
@@ -150,6 +128,28 @@ NAIG_ERR_T naie_register_retrieve
 extern
 NAIG_ERR_T naie_register_store
   (naie_engine_t* engine, uint32_t reg, uint32_t value)
+  __attribute__ ((warn_unused_result));
+
+/* declared in ../gen1/lib/engine//naie_result_fill.c */
+extern
+NAIG_ERR_T naie_result_fill
+  (
+    naie_engine_t* engine,
+    naie_result_t* result
+  )
+  __attribute__ ((warn_unused_result));
+
+/* declared in ../gen1/lib/engine//naie_result_handle.c */
+extern
+NAIG_ERR_T naie_result_handle
+  (
+    naie_engine_t* engine,
+    naie_result_t* result,
+    naie_capture_t capturefnc,
+    naie_delete_t deletefnc,
+    naie_insert_t insertfnc,
+    void* arg
+  )
   __attribute__ ((warn_unused_result));
 
 /* declared in ../gen1/lib/engine//naie_set_labelmap.c */

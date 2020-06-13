@@ -86,7 +86,7 @@ NAIG_ERR_T engine_replace
 
   memcpy(e.copy, engine->input, engine->input_length);
   CHECK(
-    naie_handle_result(
+    naie_result_handle(
       engine,
       result,
       NULL,

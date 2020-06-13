@@ -161,7 +161,7 @@ NAIG_ERR_T naie_engine_loop
     case OPCODE_END:
       param1 = GET_32BIT_NWO(engine->bytecode, engine->bytecode_pos + 4);
       result->code = param1;
-      CHECK(naie_fill_result(engine, result));
+      CHECK(naie_result_fill(engine, result));
       return NAIG_OK;
 
     case OPCODE_FAIL:
@@ -246,7 +246,7 @@ NAIG_ERR_T naie_engine_loop
         break;
       case NAIG_STACK_END:
         result->code = 0;
-        CHECK(naie_fill_result(engine, result));
+        CHECK(naie_result_fill(engine, result));
         return NAIG_OK;
       case NAIG_STACK_CATCH:
         RETURNERR(NAIE_ERR_STACKCORRUPT);

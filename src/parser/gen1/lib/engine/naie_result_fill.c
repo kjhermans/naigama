@@ -16,7 +16,7 @@
  * Takes the action list, and translates it to more a usable actions
  * list in the result structure.
  */
-NAIG_ERR_T naie_fill_result
+NAIG_ERR_T naie_result_fill
   (
     naie_engine_t* engine,
     naie_result_t* result

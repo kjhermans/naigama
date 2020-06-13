@@ -50,7 +50,7 @@ int naig_replace_size
   int delta = 0;
   NAIG_ERR_T e;
 
-  e = naie_handle_result(0, &(result->result), 0, nrsdel, nrsins, &delta);
+  e = naie_result_handle(0, &(result->result), 0, nrsdel, nrsins, &delta);
   if (e.code) {
     return 0;
   } else {

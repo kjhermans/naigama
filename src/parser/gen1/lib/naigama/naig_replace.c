@@ -87,7 +87,7 @@ NAIG_ERR_T naig_replace
 
   memcpy(e.copy, input, input_length);
   CHECK(
-    naie_handle_result(
+    naie_result_handle(
       0,
       &(result->result),
       NULL,

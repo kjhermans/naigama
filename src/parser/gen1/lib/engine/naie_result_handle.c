@@ -15,7 +15,7 @@
 /**
  *
  */
-NAIG_ERR_T naie_handle_result
+NAIG_ERR_T naie_result_handle
   (
     naie_engine_t* engine,
     naie_result_t* result,

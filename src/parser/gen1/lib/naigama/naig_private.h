@@ -37,9 +37,6 @@
 #endif
 #define RETURNERR(__e) { DEBUG(__e) return __e; }
 
-#ifdef CHECK
-#undef CHECK
-#endif
 #define NAIG_CHECK(fnc) { \
   NAIG_ERR_T __e = (fnc); \
   if (__e.code) { \
@@ -47,6 +44,48 @@
     return __e; \
   } \
 }
+#ifdef CHECK
+#undef CHECK
+#endif
 #define CHECK NAIG_CHECK
+
+#define NAIG_CHECK_NODEBUG(fnc) { \
+  NAIG_ERR_T __e = (fnc); \
+  if (__e.code) { \
+    return __e; \
+  } \
+}
+#ifdef CHECK_NODEBUG
+#undef CHECK_NODEBUG
+#endif
+#define CHECK_NODEBUG NAIG_CHECK_NODEBUG
+
+#define NAIG_CATCH(fnc,err) { \
+  NAIG_ERR_T __e = (fnc); \
+  if (__e.code && __e.code != err.code) { \
+    DEBUG(__e); \
+    return __e; \
+  } \
+}
+#ifdef CATCH
+#undef CATCH
+#endif
+#define CATCH NAIG_CATCH
+
+#define NAIG_CATCHOUT(fnc,err) { \
+  NAIG_ERR_T __e = (fnc); \
+  if (__e.code) { \
+    if (__e.code == err.code) { \
+      return NAIG_OK; \
+    } else { \
+      DEBUG(__e); \
+      return __e; \
+    } \
+  } \
+}
+#ifdef CATCHOUT
+#undef CATCHOUT
+#endif
+#define CATCHOUT NAIG_CATCHOUT
 
 #endif

@@ -1,0 +1,20 @@
+CFILES:=$(shell find . -type f | grep '\.c$$')
+OBJECTS:=$(shell find . -type f | grep '\.c$$' | sort | sed -e 's/\.c$$/.o/')
+LIB=libnasc.a
+CC=$(ARCH)gcc
+AR=$(ARCH)ar
+CFLAGS=-g -Wall -Wextra $(DEBUG) \
+  -I$(BUILDROOT)/src/parser/include \
+  -I$(BUILDROOT)/src/script/include
+
+stage_7: all
+
+all: $(LIB)
+
+$(LIB): $(OBJECTS)
+	$(AR) -rcs $(LIB) $(OBJECTS)
+
+clean:
+	@rm -f $(OBJECTS) $(LIB)
+
+superclean: clean

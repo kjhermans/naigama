@@ -76,7 +76,7 @@ stage_8:
 	@MFS=`find src/ -name Makefile | xargs grep -l stage_8`; \
 		for MF in $$MFS; do \
 			DIR=`dirname $$MF`; \
-			BUILDROOT=`pwd`make -C $$DIR stage_8; \
+			BUILDROOT=`pwd` make -C $$DIR stage_8; \
 		done
 
 archive: clean

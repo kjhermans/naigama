@@ -130,6 +130,46 @@ NAIG_ERR_T naie_register_store
   (naie_engine_t* engine, uint32_t reg, uint32_t value)
   __attribute__ ((warn_unused_result));
 
+/* declared in ../gen1/lib/engine//naie_result_cursor.c */
+extern
+NAIG_ERR_T naie_result_cursor
+  (
+    naie_result_t* result,
+    naie_rescrs_t* cursor
+  )
+  __attribute__ ((warn_unused_result));
+
+/* declared in ../gen1/lib/engine//naie_result_cursor_child.c */
+extern
+NAIG_ERR_T naie_result_cursor_child
+  (
+    naie_rescrs_t* cursor,
+    int slot,
+    naie_resact_t* action
+  )
+  __attribute__ ((warn_unused_result));
+
+/* declared in ../gen1/lib/engine//naie_result_cursor_next.c */
+extern
+NAIG_ERR_T naie_result_cursor_next
+  (
+    naie_rescrs_t* cursor,
+    int slot,
+    naie_resact_t* action
+  )
+  __attribute__ ((warn_unused_result));
+
+/* declared in ../gen1/lib/engine//naie_result_cursor_scope.c */
+extern
+NAIG_ERR_T naie_result_cursor_scope
+  (naie_result_t* result, unsigned start, unsigned scope, unsigned* end)
+  __attribute__ ((warn_unused_result));
+
+/* declared in ../gen1/lib/engine//naie_result_debug.c */
+extern
+void naie_result_debug
+  (naie_result_t* result, unsigned char* data);
+
 /* declared in ../gen1/lib/engine//naie_result_fill.c */
 extern
 NAIG_ERR_T naie_result_fill
@@ -149,6 +189,31 @@ NAIG_ERR_T naie_result_handle
     naie_delete_t deletefnc,
     naie_insert_t insertfnc,
     void* arg
+  )
+  __attribute__ ((warn_unused_result));
+
+/* declared in ../gen1/lib/engine//naie_result_query.c */
+extern
+NAIG_ERR_T naie_result_query
+  (
+    naie_result_t* result,
+    unsigned* path,
+    unsigned path_length,
+    naie_resact_t* action
+  )
+  __attribute__ ((warn_unused_result));
+
+/* declared in ../gen1/lib/engine//naie_result_query_scope.c */
+extern
+NAIG_ERR_T naie_result_query_scope
+  (
+    naie_result_t* result,
+    unsigned result_index,
+    unsigned result_scope,
+    unsigned* path,
+    unsigned path_length,
+    unsigned path_index,
+    naie_resact_t* action
   )
   __attribute__ ((warn_unused_result));
 

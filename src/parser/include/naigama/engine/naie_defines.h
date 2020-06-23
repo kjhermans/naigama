@@ -20,10 +20,14 @@
 #define NAIG_FAILURE                    ((NAIG_ERR_T){ .code = 1 })
 #define NAIG_OK                         ((NAIG_ERR_T){ .code = 0 })
 
-#define NAIG_ERR_READ                   ((NAIG_ERR_T){ .code = -1 })
-#define NAIG_ERR_WRITE                  ((NAIG_ERR_T){ .code = -2 })
-#define NAIG_ERR_UNIMPL                 ((NAIG_ERR_T){ .code = -3 })
-#define NAIG_ERR_NOTFOUND               ((NAIG_ERR_T){ .code = -4 })
+#define NAIG_ERRCODE_NOTFOUND   -4
+
+/*
+#define NAIG_ERR_READ           ((NAIG_ERR_T){ .code = -1 })
+#define NAIG_ERR_WRITE          ((NAIG_ERR_T){ .code = -2 })
+#define NAIG_ERR_UNIMPL         ((NAIG_ERR_T){ .code = -3 })
+#define NAIG_ERR_NOTFOUND       ((NAIG_ERR_T){ .code = NAIG_ERRCODE_NOTFOUND })
+*/
 
 #define NAIE_ERR_STACKFULL              ((NAIG_ERR_T){ .code = -17 })
 #define NAIE_ERR_STACKEMPTY             ((NAIG_ERR_T){ .code = -18 })

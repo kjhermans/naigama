@@ -102,6 +102,19 @@ typedef struct
 }
 naie_result_t;
 
+/**
+ * Cursor to search the results list as a tree
+ */
+typedef struct
+{
+  naie_result_t*                        result;
+  unsigned                              parent_scope_begin;
+  unsigned                              parent_scope_end;
+  unsigned                              scope_begin;
+  unsigned                              scope_end;
+}
+naie_rescrs_t;
+
 typedef struct
 {
   struct {

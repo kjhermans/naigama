@@ -1,0 +1,1 @@
+../../../gen1/lib/naigama/naig_compile.c

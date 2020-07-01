@@ -1,0 +1,1 @@
+../../../gen1/lib/engine/naie_result_query_scope.c

@@ -1,0 +1,1 @@
+../../../gen1/lib/assembler/naia_label_get.c

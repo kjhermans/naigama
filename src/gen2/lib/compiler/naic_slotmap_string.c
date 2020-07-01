@@ -1,0 +1,1 @@
+../../../gen1/lib/compiler/naic_slotmap_string.c

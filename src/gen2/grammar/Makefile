@@ -1,4 +1,4 @@
-stage_1: grammar.byc assembly.byc 
+stage_5: grammar.byc assembly.byc optimizer.byc
 
 grammar.byc: grammar.asm
 	@./assemble.sh grammar.asm grammar.byc
@@ -11,6 +11,12 @@ assembly.byc: assembly.asm
 
 assembly.asm: assembly.naig
 	@./compile.sh assembly.naig assembly.asm assembly.slotmap
+
+optimizer.byc: optimizer.asm
+	@./assemble.sh optimizer.asm optimizer.byc || true
+
+optimizer.asm: optimizer.naig
+	@./compile.sh optimizer.naig optimizer.asm optimizer.slotmap || true
 
 clean:
 

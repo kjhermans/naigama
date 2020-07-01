@@ -23,6 +23,15 @@ NAIG_ERR_T naic_process_reference
   fprintf(stderr, "-- %s ", __FILE__); naic_debug(naic);
 #endif
 
+  if (0 == strncmp(
+      "__end",
+      naic->grammar + naic->captures->actions[ naic->capindex ].start,
+      naic->captures->actions[ naic->capindex ].length))
+  {
+    ++(naic->capindex);
+    FOOO
+  }
+
   CHECK(naic->write(naic->write_arg, "  call %-.*s\n"
     , naic->captures->actions[ naic->capindex ].length
     , naic->grammar + naic->captures->actions[ naic->capindex ].start

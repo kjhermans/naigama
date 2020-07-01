@@ -29,14 +29,13 @@ NAIG_ERR_T nasc_process_function_body
   while (1) {
     switch (action.slot) {
     case SLOT_LOWSTMT_STIF:
-fprintf(stderr, "IF\n");
       CHECK(nasc_process_if(nasc, cursor, writer, arg));
       break;
     case SLOT_LOWSTMT_STWHILE:
 fprintf(stderr, "WHILE\n");
       break;
     case SLOT_LOWSTMT_STRETURN:
-fprintf(stderr, "RETURN\n");
+      CHECK(nasc_process_return(nasc, cursor, writer, arg));
       break;
     case SLOT_LOWSTMT_STOTHER:
 fprintf(stderr, "OTHER\n");
@@ -46,6 +45,9 @@ fprintf(stderr, "VARDECL\n");
       break;
     case SLOT_LOWSTMT_ASSIGNMENT:
 fprintf(stderr, "ASSIGNMENT\n");
+      break;
+    case SLOT_EXPRESSION_EXPR:
+fprintf(stderr, "EXPRESSION\n");
       break;
     default:
 fprintf(stderr, "OTHER %u\n", action.slot);

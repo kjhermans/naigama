@@ -24,9 +24,25 @@ NAIG_ERR_T nasc_process_if
   )
 {
   naie_resact_t action;
+  char label[ 512 ];
 
+  snprintf(label, sizeof(label), "__if_%u", nasc->counter);
   CHECK(naie_result_cursor_child(&cursor, SLOT_ST_IF_EXPRESSION, &action));
-fprintf(stderr, "EXPRESSION %u %u\n", cursor.scope_begin, cursor.scope_end);
+  CHECK(writer(arg, "%s\n", label));
+  ++(nasc->counter);
+  CHECK(nasc_process_expression(nasc, cursor, writer, arg));
+  CHECK(writer(arg, ""));
+  while (1) {
+    CATCHOUT(naie_result_cursor_next(&cursor, -1, &action), NAIG_ERR_NOTFOUND);
+    switch (action.slot) {
+    case SLOT_ST_IF_IFELSEIF:
+      break;
+    case SLOT_ST_IF_IFELSE:
+      break;
+    default:
+      ;
+    }
+  }
 
   return NAIG_OK;
 }

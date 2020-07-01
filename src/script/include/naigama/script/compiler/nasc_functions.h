@@ -15,6 +15,28 @@ NAIG_ERR_T nasc_compile
   (char* code, NAIG_ERR_T(*writer)(void*,char*,...), void* arg)
   __attribute__ ((warn_unused_result));
 
+/* declared in ./lib/compiler/nasc_process_expr_level1.c */
+extern
+NAIG_ERR_T nasc_process_expr_level1
+  (
+    nasc_t* nasc,
+    naie_rescrs_t cursor,
+    NAIG_ERR_T(*writer)(void*,char*,...),
+    void* arg
+  )
+  __attribute__ ((warn_unused_result));
+
+/* declared in ./lib/compiler/nasc_process_expression.c */
+extern
+NAIG_ERR_T nasc_process_expression
+  (
+    nasc_t* nasc,
+    naie_rescrs_t cursor,
+    NAIG_ERR_T(*writer)(void*,char*,...),
+    void* arg
+  )
+  __attribute__ ((warn_unused_result));
+
 /* declared in ./lib/compiler/nasc_process_function.c */
 extern
 NAIG_ERR_T nasc_process_function
@@ -80,6 +102,17 @@ NAIG_ERR_T nasc_process_import
 extern
 NAIG_ERR_T nasc_process_imports
   (nasc_t* nasc, NAIG_ERR_T(*writer)(void*,char*,...), void* arg)
+  __attribute__ ((warn_unused_result));
+
+/* declared in ./lib/compiler/nasc_process_return.c */
+extern
+NAIG_ERR_T nasc_process_return
+  (
+    nasc_t* nasc,
+    naie_rescrs_t cursor,
+    NAIG_ERR_T(*writer)(void*,char*,...),
+    void* arg
+  )
   __attribute__ ((warn_unused_result));
 
 /* declared in ./lib/compiler/nasc_process_tokens.c */

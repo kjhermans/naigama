@@ -17,6 +17,7 @@ typedef struct
 {
   char* code;
   naie_result_t* captures;
+  unsigned counter;
 }
 nasc_t;
 

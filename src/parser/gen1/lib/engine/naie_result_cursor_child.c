@@ -22,6 +22,9 @@ NAIG_ERR_T naie_result_cursor_child
     naie_resact_t* action
   )
 {
+  if (cursor->scope_begin == cursor->scope_end) {
+    return NAIG_ERR_NOTFOUND;
+  }
   if (cursor->scope_begin + 1 >= cursor->parent_scope_end) {
     return NAIG_ERR_NOTFOUND;
   }

@@ -9,7 +9,7 @@ __prefix       <- ( S+ / COMMENT )*
 END            <- !.
 SCRIPT         <- ( TOPSTMT )*
 TOPSTMT        <- { FUNCDECL } / { IMPORTSTMT }
-IMPORTSTMT     <- KW_IMPORT { STRINGLITERAL } SEMICOLON
+IMPORTSTMT     <- KW_IMPORT STRINGLITERAL SEMICOLON
 LOWSTMT        <- { ST_IF } /
                   { ST_WHILE } /
                   { ST_RETURN } /
@@ -22,7 +22,8 @@ FUNCDECL       <- KW_FUNCTION S+ IDENT FUNCPARAMDECL FUNCBODY
 FUNCPARAMDECL  <- BOPEN { ( IDENT ( COMMA IDENT )* )? } BCLOSE
 FUNCBODY       <- CBOPEN { LOWSTMT* } CBCLOSE
 
-ST_IF          <- KW_IF BOPEN { EXPRESSION } BCLOSE CBOPEN { LOWSTMT* } CBCLOSE
+ST_IF          <- KW_IF BOPEN { EXPRESSION } BCLOSE
+                    CBOPEN { LOWSTMT* } CBCLOSE
                     { IF_ELSEIF* }
                     { IF_ELSE? }
 IF_ELSEIF      <- KW_ELSEIF BOPEN { EXPRESSION } BCLOSE
@@ -31,24 +32,77 @@ IF_ELSE        <- KW_ELSE CBOPEN { LOWSTMT* } CBCLOSE
 
 ST_WHILE       <- KW_WHILE BOPEN { EXPRESSION } BCLOSE
                     CBOPEN { LOWSTMT* } CBCLOSE
+
 ST_RETURN      <- KW_RETURN { EXPRESSION? } SEMICOLON
 ST_OTHER       <- ( KW_BREAK / KW_CONTINUE ) SEMICOLON
 
-VARDECL        <- KW_VAR S+ IDENT ( ASSIGN EXPRESSION )? SEMICOLON
+VARDECL        <- KW_VAR S+ IDENT ( ASSIGN { EXPRESSION } )? SEMICOLON
 
 ASSIGNMENT     <- IDENT ASSIGNS EXPRESSION SEMICOLON
 
-EXPRESSION     <- EXPR2 ({ AND / OR } EXPR2 )*
-EXPR2          <- EXPR3 ({ BITAND / BITOR / BITXOR } EXPR3 )*
-EXPR3          <- EXPR4 ({ EQUALS / NEQUALS / LTEQ / LT / GTEQ / GT } EXPR4 )*
-EXPR4          <- EXPR5 ({ POW / MUL / DIV } EXPR5 )*
-EXPR5          <- EXPR6 ({ ADD / SUB } EXPR6 )*
-EXPR6          <- { UNARY }* { TERM }
-UNARY          <- NOT / INC / DEC
+-- Copied from https://en.cppreference.com/w/c/language/operator_precedence
+--
+-- Precedence 	Operator 	Description 	Associativity
+-- 1 	++ -- 		Suffix/postfix increment and decrement 	Left-to-right
+-- 	() 		Function call
+-- 	[] 		Array subscripting
+-- 	. 		Structure and union member access
+-- 	-> 		Structure and union member access through pointer
+-- 	(type){list} 	Compound literal(C99)
+-- 2 	++ -- 		Prefix increment and decrement[note 1] 	Right-to-left
+-- 	+ - 		Unary plus and minus
+-- 	! ~ 		Logical NOT and bitwise NOT
+-- 	(type) 		Cast
+-- 	* 		Indirection (dereference)
+-- 	& 		Address-of
+-- 	sizeof 		Size-of[note 2]
+-- 	_Alignof 	Alignment requirement(C11)
+
+-- 3 	* / % 		Multiplication, division, and remainder Left-to-right
+-- 4 	+ - 		Addition and subtraction
+-- 5 	<< >> 		Bitwise left shift and right shift
+-- 6 	< <= 		For relational operators < and ≤ respectively
+-- 	> >= 		For relational operators > and ≥ respectively
+-- 7 	== != 		For relational = and ≠ respectively
+-- 8 	& 		Bitwise AND
+-- 9 	^ 		Bitwise XOR (exclusive or)
+-- 10 	| 		Bitwise OR (inclusive or)
+-- 11 	&& 		Logical AND
+-- 12 	|| 		Logical OR
+
+-- 13 	?: 		Ternary conditional[note 3] 	Right-to-Left
+-- 14 	= 		Simple assignment
+-- 	+= -= 		Assignment by sum and difference
+-- 	*= /= %= 	Assignment by product, quotient, and remainder
+-- 	<<= >>= 	Assignment by bitwise left shift and right shift
+-- 	&= ^= |= 	Assignment by bitwise AND, XOR, and OR
+-- 15 	, 		Comma 	Left-to-right 
+
+EXPRESSION     <- BINOP_P12
+
+BINOP_P12      <- { BINOP_P11 } ( OR BINOP_P11 )*
+BINOP_P11      <- { BINOP_P10 } ( AND BINOP_P10 )*
+BINOP_P10      <- { BINOP_P09 } ( BITOR BINOP_P09 )*
+BINOP_P09      <- { BINOP_P08 } ( BITXOR BINOP_P08 )*
+BINOP_P08      <- { BINOP_P07 } ( BITAND BINOP_P07 )*
+BINOP_P07      <- { BINOP_P06 } ( ( EQUALS / NEQUALS ) BINOP_P06 )*
+BINOP_P06      <- { BINOP_P05 } ( ( LTEQ / LT / GTEQ / GT ) BINOP_P05 )*
+BINOP_P05      <- { BINOP_P04 } ( ( LSHIFT / RSHIFT ) BINOP_P04 )*
+BINOP_P04      <- { BINOP_P03 } ( ( ADD / SUB ) BINOP_P03 )*
+BINOP_P03      <- { UNARIES }   ( ( MUL / DIV / POW ) UNARIES )*
+
+UNARIES        <- { UNARY }* { TERM }
+UNARY          <- { NOT / INC / DEC }
 TERM           <- { LITERAL } /
-                  { IDENT } BOPEN ( EXPRESSION ( COMMA EXPRESSION )* )? BCLOSE /
-                  { IDENT } /
-                  BOPEN { EXPRESSION } BCLOSE
+                  { FUNCTIONCALL } /
+                  { REFERENCE } /
+                  { BOPEN { EXPRESSION } BCLOSE }
+
+FUNCTIONCALL   <- { REFERENCE }
+                  BOPEN ( EXPRESSION ( COMMA EXPRESSION )* )? BCLOSE
+
+REFERENCE      <- IDENT ( DOT IDENT )* INDEX*
+INDEX          <- ABOPEN { EXPRESSION } ABCLOSE
 
 LITERAL        <- STRINGLITERAL /
                   HASHLITERAL /
@@ -86,31 +140,41 @@ CBOPEN         <- '{'
 CBCLOSE        <- '}'
 ABOPEN         <- '['
 ABCLOSE        <- ']'
-ASSIGNS        <- { ASSIGN / PLUSIS / MINIS / MULIS / DIVIS }
-ASSIGN         <- '='
-PLUSIS         <- '+='
-MINIS          <- '-='
-MULIS          <- '*='
-DIVIS          <- '/='
-EQUALS         <- '=='
-NEQUALS        <- '!='
-LT             <- '<' !'='
-GT             <- '>' !'='
-LTEQ           <- '<='
-GTEQ           <- '>='
+ASSIGNS        <- { ASSIGN / PLUSIS / MINIS / MULIS / DIVIS /
+                    BITANDIS / BITORIS / BITXORIS /
+                    LSHIFTIS / RSHIFTIS }
+ASSIGN         <- { '=' }
+PLUSIS         <- { '+=' }
+MINIS          <- { '-=' }
+MULIS          <- { '*=' }
+DIVIS          <- { '/=' }
+EQUALS         <- { '==' }
+NEQUALS        <- { '!=' }
+LT             <- { '<' !'=' }
+GT             <- { '>' !'=' }
+LTEQ           <- { '<=' }
+GTEQ           <- { '>=' }
 SEMICOLON      <- ';'
-COLON          <- ':'
-POW            <- '**'
-MUL            <- '*' !'*'
-DIV            <- '/' !'='
-ADD            <- '+' ![+=]
-SUB            <- '-' ![\-=]
-INC            <- '++'
-DEC            <- '--'
-AND            <- '&&'
-OR             <- '||'
-BITAND         <- '&' ![&=]
-BITOR          <- '|' ![|=]
-BITXOR         <- '^' !'='
-NOT            <- '!' !'='
-COMMA          <- ','
+COLON          <- { ':' }
+POW            <- { '**' }
+MUL            <- { '*' !'*' }
+DIV            <- { '/' !'=' }
+ADD            <- { '+' ![+=] }
+SUB            <- { '-' ![\-=] }
+INC            <- { '++' }
+DEC            <- { '--' }
+AND            <- { '&&' }
+OR             <- { '||' }
+BITAND         <- { '&' ![&=] }
+BITOR          <- { '|' ![|=] }
+BITXOR         <- { '^' !'=' }
+BITANDIS       <- { '&=' }
+BITORIS        <- { '|=' }
+BITXORIS       <- { '^=' }
+NOT            <- { '!' !'=' }
+COMMA          <- { ',' }
+DOT            <- { '.' }
+LSHIFT         <- { '<<' ! '=' }
+RSHIFT         <- { '>>' ! '=' }
+LSHIFT         <- { '<<=' }
+RSHIFT         <- { '>>=' }

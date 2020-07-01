@@ -29,9 +29,6 @@ NAIG_ERR_T nasc_process_imports
     case NAIG_ERRCODE_NOTFOUND:
       return NAIG_OK;
     case 0:
-#ifdef _DEBUG
-      fprintf(stderr, "Import '%-.*s'\n", action.length, nasc->code + action.start);
-#endif
       CHECK(nasc_process_import(nasc, &cursor, writer, arg));
       break;
     default:

@@ -22,6 +22,9 @@ NAIG_ERR_T naie_result_cursor_next
     naie_resact_t* action
   )
 {
+  if (cursor->scope_begin && cursor->scope_begin == cursor->scope_end) {
+    ++(cursor->scope_end);
+  }
   while (cursor->scope_begin < cursor->parent_scope_end) {
     cursor->scope_begin = cursor->scope_end;
     CHECK_NODEBUG(

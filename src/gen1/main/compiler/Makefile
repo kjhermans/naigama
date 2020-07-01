@@ -1,10 +1,10 @@
 TARGET=naic
 CC=$(ARCH)gcc
-CFLAGS=-g -O2 -Wall -Wextra $(DEBUG) -I$(BUILDROOT)/src/parser/include
+CFLAGS=-g -O2 -Wall -Wextra $(DEBUG) -I$(BUILDROOT)/src/gen1/include
 LIBS=\
-	$(BUILDROOT)/src/parser/gen1/lib/compiler/libnaic.a \
-	$(BUILDROOT)/src/parser/gen1/lib/engine/libnaie.a \
-	$(BUILDROOT)/src/parser/gen1/lib/util/libutil.a
+	$(BUILDROOT)/src/gen1/lib/compiler/libnaic.a \
+	$(BUILDROOT)/src/gen1/lib/engine/libnaie.a \
+	$(BUILDROOT)/src/gen1/lib/util/libutil.a
 
 all: $(TARGET)
 
@@ -16,11 +16,11 @@ clean:
 
 superclean: clean
 
-$(BUILDROOT)/src/parser/gen1/lib/compiler/libnaic.a:
-	@cd $(BUILDROOT)/src/parser/gen1/lib/compiler && make
+$(BUILDROOT)/src/gen1/lib/compiler/libnaic.a:
+	@cd $(BUILDROOT)/src/gen1/lib/compiler && make
 
-$(BUILDROOT)/src/parser/gen1/lib/engine/libnaie.a:
-	@cd $(BUILDROOT)/src/parser/gen1/lib/engine && make
+$(BUILDROOT)/src/gen1/lib/engine/libnaie.a:
+	@cd $(BUILDROOT)/src/gen1/lib/engine && make
 
-$(BUILDROOT)/src/parser/gen1/lib/util/libutil.a:
-	@cd $(BUILDROOT)/src/parser/gen1/lib/util && make
+$(BUILDROOT)/src/gen1/lib/util/libutil.a:
+	@cd $(BUILDROOT)/src/gen1/lib/util && make

@@ -3,7 +3,7 @@ OBJECTS:=$(shell find . -type f | grep '\.c$$' | sort | sed -e 's/\.c$$/.o/')
 LIB=libnaic.a
 CC=$(ARCH)gcc
 AR=$(ARCH)ar
-CFLAGS=-g -Wall -Wextra $(DEBUG) -I$(BUILDROOT)/src/parser/include
+CFLAGS=-g -Wall -Wextra $(DEBUG) -I$(BUILDROOT)/src/gen1/include
 
 all: $(LIB)
 

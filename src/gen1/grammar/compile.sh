@@ -12,7 +12,7 @@ if [ "x" != "x$NAIC" ]; then
   naic -i $NAIG -o $ASM -m $SLOTMAP 2>/tmp/$NAIG.compile.log
 else
   if [ "$NAIG" != "optimizer.naig" ]; then
-    perl ../gen0/compiler.pl -i $NAIG -o $ASM -s $SLOTMAP
+    perl $BUILDROOT/src/gen0/compiler.pl -i $NAIG -o $ASM -s $SLOTMAP
   fi
 fi
 

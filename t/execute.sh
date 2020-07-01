@@ -5,20 +5,20 @@ EXEC_SINGLE_TEST ()
   FILE=$1
   ../bin/singletest.pl \
     $FILE \
-    '../src/parser/gen1/main/compiler/naic -i GRAMMAR -o ASM' \
-    '../src/parser/gen1/main/assembler/naia -i ASM -o BYTECODE -l BYTECODE.labelmap' \
-    '../src/parser/gen1/main/engine/naie -D -X -I -b BYTECODE -d INPUT -l BYTECODE.labelmap >/dev/null' \
-    '../src/parser/gen1/main/engine/naie -D -X -I -r -b BYTECODE -d INPUT -l BYTECODE.labelmap >/dev/null'
+    "$BUILDROOT/src/gen1/main/compiler/naic -i GRAMMAR -o ASM" \
+    "$BUILDROOT/src/gen1/main/assembler/naia -i ASM -o BYTECODE -l BYTECODE.labelmap" \
+    "$BUILDROOT/src/gen1/main/engine/naie -D -X -I -b BYTECODE -d INPUT -l BYTECODE.labelmap >/dev/null" \
+    "$BUILDROOT/src/gen1/main/engine/naie -D -X -I -r -b BYTECODE -d INPUT -l BYTECODE.labelmap >/dev/null"
 }
 
 EXEC_MULTI_TEST ()
 {
   FILE=$1
-  ../bin/multitest.pl \
+  $BUILDROOT/bin/multitest.pl \
     $FILE \
-    '../src/parser/gen1/main/compiler/naic -i GRAMMAR -o ASM' \
-    '../src/parser/gen1/main/assembler/naia -i ASM -o BYTECODE' \
-    '../src/parser/gen1/main/engine/naie -D -X -I -b BYTECODE -d INPUT >/dev/null'
+    "$BUILDROOT/src/gen1/main/compiler/naic -i GRAMMAR -o ASM" \
+    "$BUILDROOT/src/gen1/main/assembler/naia -i ASM -o BYTECODE" \
+    "$BUILDROOT/src/gen1/main/engine/naie -D -X -I -b BYTECODE -d INPUT >/dev/null"
 }
 
 if [ "x$SINGLETEST" != "x" ]; then

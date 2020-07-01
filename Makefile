@@ -99,10 +99,10 @@ superclean:
 		done
 
 test:
-	@cd t/ && make
+	@BUILDROOT=`pwd` make -C t/ all
 
 doc:
-	@cd d/ && make
+	@BUILDROOT=`pwd` make -C d/ all
 
 install:
 	@sudo cp src/main/engine/naie \

@@ -3,7 +3,7 @@ Parser library and tools based on Parsing Expression Grammar.
 
 Tour of the repository:
 
-The 'instructions.pl' file should be(come) the single source of all
+The 'src/instructions.pl' file should be(come) the single source of all
 truth regarding the PEG assembly (and sub-assembly) instruction set.
 
 The 'release', 'copyright.c' and 'Makefile' files should be
@@ -17,27 +17,33 @@ The 'd' directory contains documentation. Yes, it's in LaTex. I like LaTex.
 The 'bin' directory contains (build and test) supportive executables.
 Although you can argue whether the disassembler is that.
 
-In 'src/parser':
+In 'src/':
 
-gen0    - you need this when you do a 'make superclean' and you haven't
-          done 'make install'. It's to get things going from the very
-          beginning; it bootstraps the grammar of the compiler and
-          assembler themselves.
+There are multiple generations of the compiler/assembler/engine.
+This has different purposes:
 
-          'make superclean' without having previously installed
-          the executables, requires perl btw, be warned.
+gen0 is an implementation of the compiler and assembler (not engine)
+in perl. This is to bootstrap the process. 'make superclean' causes you
+to land here.
 
-grammar     - contains the grammar for the compiler and assembler.
+gen1 and gen2 are native compilers/assemblers/engines, that use the
+previous generation's bytecode to parse the grammar and assembly.
 
-include     - contains the header files, split up by library.
+gen3 is a new concept that incorporates a scripting language into the
+grammar syntax. The idea is that, in the end, the entire compiler and
+assembler can exist only as a bytecode.
 
-gen1/lib - contains the C code, split up by library.
+src/genX/grammar  - contains the grammar for the compiler and assembler.
 
-gen1/main - contains the C code main functions, split up by library.
+src/genX/include  - contains the header files, split up by library.
 
-gen1/precomp - contains the precompiled stuff needed to make library
-              building work. Predominantly, a C translation of the
-              'instructions.pl' file, mentioned above.
+src/genX/lib      - contains the C code, split up by library.
 
-subsys - EXPERIMENTAL. I'm trying to create a sub-assembly code
-         that PEG's are compiled to.
+src/genX/main     - contains the C code main functions, split up by library.
+
+src/genX/precomp  - contains the precompiled stuff needed to make library
+                    building work. Predominantly, a C translation of the
+                    'instructions.pl' file, mentioned above.
+
+src/subsys - EXPERIMENTAL. I'm trying to create a sub-assembly code
+             that PEG's are compiled to.

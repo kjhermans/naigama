@@ -11,6 +11,9 @@ my $prefixset = 0;
 my $slotmapfile;
 my %slotmap;
 my $currentrule;
+my $rules = {};
+my $called = {};
+my $firstrule;
 
 while (my $arg = shift @ARGV) {
   if ($arg =~ s/^-//) {
@@ -58,6 +61,8 @@ my $input = '';
 }
 
 compile($input);
+
+postcheck();
 
 if ($slotmapfile) {
   slotmap_write();
@@ -323,7 +328,12 @@ sub output_assembly
   for (my $i=0; $i < scalar(@{$tokens}); $i++) {
     my $token = $tokens->[ $i ];
     if ($token->{type} eq 'rule') {
+      if (defined($rules->{$token->{str}})) {
+        die "Duplicate rule definition $token->{str}";
+      }
+      $rules->{$token->{str}} = 1;
       if ($i == 0) {
+        $firstrule = $token->{str};
         print $out
           "  call __RULE_$token->{str}\n" .
           "  end 0\n";
@@ -703,8 +713,29 @@ sub _output_asm_dot
 sub _output_asm_ref
 {
   my $token = shift;
+  if (!defined($called->{$token->{str}})) {
+    $called->{$token->{str}} = 1;
+  } else {
+    ++($called->{$token->{str}});
+  }
   print $out
     "  call __RULE_$token->{str}\n";
+}
+
+sub postcheck
+{
+  foreach my $key (keys(%{$called})) {
+    if (!defined($rules->{$key})) {
+      die "Rule $key called but not defined.";
+    }
+  }
+  foreach my $key (keys(%{$rules})) {
+    next if ($key eq '__prefix');
+    next if ($key eq $firstrule);
+    if (!defined($called->{$key})) {
+      print STDERR "Warning: Rule $key defined but not called.\n";
+    }
+  }
 }
 
 1;

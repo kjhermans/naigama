@@ -21,6 +21,8 @@ NAIG_ERR_T naig_run
     naig_result_t* result
   );
 
+#include "version.h"
+
 #include <naigama/compiler/naic.h>
 #include <naigama/assembler/naia.h>
 #include <naigama/engine/naie.h>

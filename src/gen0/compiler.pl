@@ -2,6 +2,8 @@
 
 use Data::Dumper;
 
+print STDERR "This is Naigama compiler Generation 0.\n";
+
 my ($inputfile, $outputfile) = ( '-', '-' );
 
 my $labelcount = 0;

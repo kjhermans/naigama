@@ -46,6 +46,7 @@ int main
   FILE* output = stdout;
   FILE* labelmap = NULL;
   int i, debug = 0;
+  char* gen = NAIG_GENERATION;
 
   for (i=0; i < argc; i++) {
     char* arg = argv[ i ];
@@ -101,7 +102,7 @@ int main
       case 'h':
       default:
         fprintf(stderr,
-          "This is naia, the Naigama assembler program.\n"
+          "This is naia %s, the Naigama assembler program.\n"
           "Usage: %s [options]\n"
           "Options:\n"
           "-? / -h    Display this message\n"
@@ -109,6 +110,7 @@ int main
           "-o <path>  Output bytecode file (- for, or otherwise stdout)\n"
           "-l <path>  Emit labelmap at <path>\n"
           "-D         Debug (prepare for a lot of data on stderr)\n"
+          , gen
           , argv[ 0 ]
         );
         exit(-7);

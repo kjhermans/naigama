@@ -45,6 +45,7 @@ int main
   unsigned char* data;
   unsigned data_length;
   NAIG_ERR_T e;
+  char* gen = NAIG_GENERATION;
 
   for (i=0; i < argc; i++) {
     char* arg = argv[ i ];
@@ -112,7 +113,7 @@ int main
       case 'h':
       default:
         fprintf(stderr,
-          "This is naig, the Naigama all in one engine.\n"
+          "This is naig %s, the Naigama all in one engine.\n"
           "Usage: %s [options]\n"
           "Options:\n"
           "-? / -h      Display this message\n"
@@ -122,6 +123,7 @@ int main
           "-D <text>    Input data text\n"
           "-o <path>    Output file (default or - is stdout)\n"
           "-O <format>  Output format (one of 'bin', 'csv', 'rpl').\n"
+          , gen
           , argv[ 0 ]
         );
         exit(-1);

@@ -47,6 +47,7 @@ int main
   FILE* output = stdout;
   FILE* slotmap = NULL;
   int i, debug = 0, traps = 0;
+  char* gen = NAIG_GENERATION;
 
 #ifdef _DEBUG
   fprintf(stderr, "Welcome to %s\n", argv[ 0 ]);
@@ -99,7 +100,7 @@ int main
       case 'h':
       default:
         fprintf(stderr,
-          "This is naic, the Naigama grammar compiler program.\n"
+          "This is naic %s, the Naigama grammar compiler program.\n"
           "Usage: %s [options]\n"
           "Options:\n"
           "-? / -h    Display this message\n"
@@ -108,6 +109,7 @@ int main
           "-m <path>  Output slotmap file (optional)\n"
           "-D         Debug (prepare for a lot of data on stderr)\n"
           "-t         Generate traps\n"
+          , gen
           , argv[ 0 ]
         );
         exit(-1);

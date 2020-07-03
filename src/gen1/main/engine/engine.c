@@ -40,6 +40,7 @@ int main
   char* labelmap = 0;
   naie_engine_t engine;
   naie_result_t result;
+  char* gen = NAIG_GENERATION;
 
   for (i=0; i < argc; i++) {
     char* arg = argv[ i ];
@@ -118,7 +119,7 @@ int main
       case 'h':
       default:
         fprintf(stderr,
-          "This is naie, the Naigama bytecode execution engine.\n"
+          "This is naie %s, the Naigama bytecode execution engine.\n"
           "Usage: %s [options]\n"
           "Options:\n"
           "-? / -h    Display this message\n"
@@ -132,6 +133,7 @@ int main
           "-X         Diligent (gather stats while running)\n"
           "-I         Input is a string. Text position is displayed on error\n"
           "-s <size>  Stack size\n"
+          , gen
           , argv[ 0 ]
         );
         exit(-1);

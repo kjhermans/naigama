@@ -2,6 +2,8 @@
 
 use Data::Dumper;
 
+print STDERR "This is Naigama assembler Generation 0.\n";
+
 my $instructions;
 my %labelmap;
 my ($inputfile, $outputfile) = ( '-', '-' );

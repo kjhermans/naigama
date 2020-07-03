@@ -1,8 +1,14 @@
-all: stage_0 stage_1 stage_2 stage_3 stage_4 stage_5 stage_6 stage_7 stage_8 \
-     stage_9 stage_10
+all:
+	@make stages 2>&1 | tee /tmp/make.log
 
 debug:
-	@export DEBUG=-D_DEBUG && make
+	@export DEBUG=-D_DEBUG && make stages 2>&1 | tee /tmp/make.log
+
+stages: \
+  stage_0 \
+  stage_1 stage_2 stage_3 stage_4 \
+  stage_5 stage_6 stage_7 stage_8 \
+  stage_9 stage_10
 
 arm_bare_metal:
 	@export ARCH=arm-none-eabi- && make
@@ -18,6 +24,7 @@ arm_bare_metal:
 ## stage_8: gen2 mains building
 
 stage_0:
+	@echo "---- Building stage 0"
 	@MFS=`find src/ -name Makefile | xargs grep -l stage_0`; \
 		for MF in $$MFS; do \
 			DIR=`dirname $$MF`; \
@@ -25,6 +32,7 @@ stage_0:
 		done
 
 stage_1:
+	@echo "---- Building stage 1"
 	@MFS=`find src/ -name Makefile | xargs grep -l stage_1`; \
 		for MF in $$MFS; do \
 			DIR=`dirname $$MF`; \
@@ -32,6 +40,7 @@ stage_1:
 		done
 
 stage_2:
+	@echo "---- Building stage 2"
 	@MFS=`find src/ -name Makefile | xargs grep -l stage_2`; \
 		for MF in $$MFS; do \
 			DIR=`dirname $$MF`; \
@@ -39,6 +48,7 @@ stage_2:
 		done
 
 stage_3:
+	@echo "---- Building stage 3"
 	@MFS=`find src/ -name Makefile | xargs grep -l stage_3`; \
 		for MF in $$MFS; do \
 			DIR=`dirname $$MF`; \
@@ -46,6 +56,7 @@ stage_3:
 		done
 
 stage_4:
+	@echo "---- Building stage 4"
 	@MFS=`find src/ -name Makefile | xargs grep -l stage_4`; \
 		for MF in $$MFS; do \
 			DIR=`dirname $$MF`; \
@@ -53,6 +64,7 @@ stage_4:
 		done
 
 stage_5:
+	@echo "---- Building stage 5"
 	@MFS=`find src/ -name Makefile | xargs grep -l stage_5`; \
 		for MF in $$MFS; do \
 			DIR=`dirname $$MF`; \
@@ -60,6 +72,7 @@ stage_5:
 		done
 
 stage_6:
+	@echo "---- Building stage 6"
 	@MFS=`find src/ -name Makefile | xargs grep -l stage_6`; \
 		for MF in $$MFS; do \
 			DIR=`dirname $$MF`; \
@@ -67,6 +80,7 @@ stage_6:
 		done
 
 stage_7:
+	@echo "---- Building stage 7"
 	@MFS=`find src/ -name Makefile | xargs grep -l stage_7`; \
 		for MF in $$MFS; do \
 			DIR=`dirname $$MF`; \
@@ -74,6 +88,7 @@ stage_7:
 		done
 
 stage_8:
+	@echo "---- Building stage 8"
 	@MFS=`find src/ -name Makefile | xargs grep -l stage_8`; \
 		for MF in $$MFS; do \
 			DIR=`dirname $$MF`; \
@@ -81,6 +96,7 @@ stage_8:
 		done
 
 stage_9:
+	@echo "---- Building stage 9"
 	@MFS=`find src/ -name Makefile | xargs grep -l stage_9`; \
 		for MF in $$MFS; do \
 			DIR=`dirname $$MF`; \
@@ -88,6 +104,7 @@ stage_9:
 		done
 
 stage_10:
+	@echo "---- Building stage 10"
 	@MFS=`find src/ -name Makefile | xargs grep -l stage_10`; \
 		for MF in $$MFS; do \
 			DIR=`dirname $$MF`; \

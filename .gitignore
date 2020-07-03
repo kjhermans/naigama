@@ -9,9 +9,12 @@ d/compendium.lot
 d/compendium.pdf
 d/compendium.toc
 
-src/parser/gen1/main/assembler/naia
-src/parser/gen1/main/compiler/naic
-src/parser/gen1/main/engine/naie
-src/parser/gen1/main/naigama/naig
-src/parser/grammar/assembly.byc.labelmap
-src/parser/grammar/grammar.byc.labelmap
+src/gen1/main/assembler/naia
+src/gen1/main/compiler/naic
+src/gen1/main/engine/naie
+src/gen1/main/naigama/naig
+src/gen2/main/assembler/naia
+src/gen2/main/compiler/naic
+src/gen2/main/engine/naie
+src/gen2/main/naigama/naig
+

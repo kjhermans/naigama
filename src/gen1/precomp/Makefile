@@ -1,5 +1,5 @@
 stage_1: 
-	@perl ./generate.pl \
+	@perl $(BUILDROOT)/bin/gen_grammar_headers.pl \
 		$(BUILDROOT)/src/instructions.pl \
 		$(BUILDROOT)/src/gen1/grammar/grammar.byc \
 		$(BUILDROOT)/src/gen1/grammar/assembly.byc \

@@ -1,4 +1,5 @@
-all: stage_0 stage_1 stage_2 stage_3 stage_4 stage_5 stage_6 stage_7 stage_8
+all: stage_0 stage_1 stage_2 stage_3 stage_4 stage_5 stage_6 stage_7 stage_8 \
+     stage_9 stage_10
 
 debug:
 	@export DEBUG=-D_DEBUG && make
@@ -77,6 +78,20 @@ stage_8:
 		for MF in $$MFS; do \
 			DIR=`dirname $$MF`; \
 			BUILDROOT=`pwd` make -C $$DIR stage_8; \
+		done
+
+stage_9:
+	@MFS=`find src/ -name Makefile | xargs grep -l stage_9`; \
+		for MF in $$MFS; do \
+			DIR=`dirname $$MF`; \
+			BUILDROOT=`pwd` make -C $$DIR stage_9; \
+		done
+
+stage_10:
+	@MFS=`find src/ -name Makefile | xargs grep -l stage_10`; \
+		for MF in $$MFS; do \
+			DIR=`dirname $$MF`; \
+			BUILDROOT=`pwd` make -C $$DIR stage_10; \
 		done
 
 archive: clean

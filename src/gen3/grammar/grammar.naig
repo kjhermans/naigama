@@ -2,22 +2,21 @@
 
 GRAMMAR            <- ( DEFINITION+ / SINGLE_EXPRESSION ) END
 
-__prefix           <- ( '--' [^\n]* '\n' / %s+ )*
+S                  <- %s+
+COMMENT            <- '--' [^\n]* '\n'
+__prefix           <- ( COMMENT / S )*
 END                <- !.
 
-DEFINITION         <- RULE
+DEFINITION         <- FUNCDECL / RULE
 SINGLE_EXPRESSION  <- EXPRESSION
 
-RULE               <- { IDENT } OPTARGS LEFTARROW EXPRESSION
+RULE               <- { IDENT } LEFTARROW EXPRESSION
 EXPRESSION         <- { TERMS } OR NOTHING /
                       { TERMS } OR EXPRESSION /
-                      { TERMS } /
-                      CALL
+                      { TERMS }
 
 TERMS              <- { TERM }+
-TERM               <- { NAMESPACE } / { ENDOWEDMATCHER }
-NAMESPACE          <- NSOPEN EXPRESSION NSCLOSE
-ENDOWEDMATCHER     <- { NOT / AND }? MATCHER { QUANTIFIER }?
+TERM               <- { NOT / AND }? MATCHER { QUANTIFIER }?
 QUANTIFIER         <- '?' /
                       '+' /
                       '*' /
@@ -40,15 +39,11 @@ MATCHER            <- { ANY } /
 
 BITMASK            <- '|' [0-9a-fA-F]^2 '|' [0-9a-fA-F]^2 '|'
 
-VARCAPTURE         <- CBOPEN COLON { IDENT } ( SEMICOLON { TYPE } )? COLON
+VARCAPTURE         <- CBOPEN COLON { IDENT } COLON
                       EXPRESSION { CBCLOSE } CAPTUREEND
 CAPTURE            <- CBOPEN EXPRESSION { CBCLOSE } CAPTUREEND
 GROUP              <- BOPEN EXPRESSION { BCLOSE }
-CAPTUREEND         <- ( REPLACE / RECYCLE / NSRANGE )?
-
-NSRANGE            <- '#' { [0-9]+ } '-' { [0-9]+ } /
-                      '#' '-' { [0-9]+ }
-                      '#' { [0-9]+ }
+CAPTUREEND         <- ( REPLACE / RECYCLE )?
 
 SET                <- ABOPEN { SETNOT? } (
                         { '\\' ([nrtv\\\]\-] / [0-9]^3) / [^\\\]] } '-' 
@@ -58,14 +53,7 @@ SET                <- ABOPEN { SETNOT? } (
                       )+ { ABCLOSE }
 
 VARREFERENCE       <- '$' ( { IDENT } / { NUMBER } )
-REFERENCE          <- IDENT !( OPTARGS LEFTARROW )
-
-TYPE               <- 'uint32' /
-                      'int32' /
-                      'unet32' /
-                      'net32' /
-                      'decimal' /
-                      IDENT
+REFERENCE          <- IDENT !( LEFTARROW )
 
 REPLACE            <- RIGHTARROW { REPLACETERMS }
 REPLACETERMS       <- REPLACETERM+
@@ -73,7 +61,7 @@ REPLACETERM        <- { STRINGLITERAL } / { HEXLITERAL } / { VARREFERENCE }
 
 RECYCLE            <- FATARROW { IDENT }
 
-IDENT              <- [a-zA-Z_] [a-zA-Z_0-9]^-63
+-- IDENT              <- [a-zA-Z_] [a-zA-Z_0-9]^-63
 LEFTARROW          <- '<-'
 RIGHTARROW         <- '->'
 FATARROW           <- '=>'
@@ -82,66 +70,55 @@ AND                <- '&'
 MACRO              <- '%' [a-zA-Z] [a-zA-Z0-9]*
 HEXLITERAL         <- '0x' [0-9a-fA-F]^2
 NUMBER             <- [0-9]+
-STRINGLITERAL      <- '\'' ( '\\' ([nrtv\\'] / [0-9]^3) / [^'\\] )* '\''
+-- STRINGLITERAL      <- '\'' ( '\\' ([nrtv\\'] / [0-9]^3) / [^'\\] )* '\''
 STRING             <- STRINGLITERAL 'i'?
 OR                 <- '/'
 ANY                <- '.'
 NOTHING            <- '...'
-CBOPEN             <- '{'
-COLON              <- ':'
-CBCLOSE            <- '}'
-BOPEN              <- '('
-BCLOSE             <- ')'
-ABOPEN             <- '['
-ABCLOSE            <- ']'
+-- CBOPEN             <- '{'
+-- COLON              <- ':'
+-- CBCLOSE            <- '}'
+-- BOPEN              <- '('
+-- BCLOSE             <- ')'
+-- ABOPEN             <- '['
+-- ABCLOSE            <- ']'
 SETNOT             <- '^'
-SEMICOLON          <- ';'
-COMMA              <- ','
-LT                 <- '<'
-GT                 <- '>'
-NSOPEN             <- '[['
-NSCLOSE            <- ']]'
-
---
-
-OPTARGS            <- { ARGS }?
-ARGS               <- BOPEN { IDENT } ( COMMA { IDENT } )* BCLOSE
-CALL               <- LT { IDENT } { ARGS } GT
+-- SEMICOLON          <- ';'
+-- COMMA              <- ','
+-- LT                 <- '<'
+-- GT                 <- '>'
 
 -- scripting engine
 
-SCRIPT         <- ( TOPSTMT )*
-TOPSTMT        <- { FUNCDECL } / { IMPORTSTMT }
-IMPORTSTMT     <- KW_IMPORT STRINGLITERAL SEMICOLON
+FUNCDECL       <- KW_FUNCTION S IDENT FUNCPARAMDECL FUNCBODY
+FUNCPARAMDECL  <- BOPEN { ( IDENT ( COMMA IDENT )* )? } BCLOSE
+FUNCBODY       <- CBOPEN { LOWSTMT* } CBCLOSE
+
 LOWSTMT        <- { ST_IF } /
                   { ST_WHILE } /
                   { ST_RETURN } /
                   { ST_OTHER } /
                   { VARDECL } /
                   { ASSIGNMENT } /
-                  ( EXPRESSION )? SEMICOLON
+                  ( SCR_EXPRESSION )? SEMICOLON
 
-FUNCDECL       <- KW_FUNCTION S+ IDENT FUNCPARAMDECL FUNCBODY
-FUNCPARAMDECL  <- BOPEN { ( IDENT ( COMMA IDENT )* )? } BCLOSE
-FUNCBODY       <- CBOPEN { LOWSTMT* } CBCLOSE
-
-ST_IF          <- KW_IF BOPEN { EXPRESSION } BCLOSE
+ST_IF          <- KW_IF BOPEN { SCR_EXPRESSION } BCLOSE
                     CBOPEN { LOWSTMT* } CBCLOSE
                     { IF_ELSEIF* }
                     { IF_ELSE? }
-IF_ELSEIF      <- KW_ELSEIF BOPEN { EXPRESSION } BCLOSE
+IF_ELSEIF      <- KW_ELSEIF BOPEN { SCR_EXPRESSION } BCLOSE
                     CBOPEN { LOWSTMT* } CBCLOSE 
 IF_ELSE        <- KW_ELSE CBOPEN { LOWSTMT* } CBCLOSE
 
-ST_WHILE       <- KW_WHILE BOPEN { EXPRESSION } BCLOSE
+ST_WHILE       <- KW_WHILE BOPEN { SCR_EXPRESSION } BCLOSE
                     CBOPEN { LOWSTMT* } CBCLOSE
 
-ST_RETURN      <- KW_RETURN { EXPRESSION? } SEMICOLON
+ST_RETURN      <- KW_RETURN { SCR_EXPRESSION? } SEMICOLON
 ST_OTHER       <- ( KW_BREAK / KW_CONTINUE ) SEMICOLON
 
-VARDECL        <- KW_VAR S+ IDENT ( ASSIGN { EXPRESSION } )? SEMICOLON
+VARDECL        <- KW_VAR S IDENT ( ASSIGN { SCR_EXPRESSION } )? SEMICOLON
 
-ASSIGNMENT     <- IDENT ASSIGNS EXPRESSION SEMICOLON
+ASSIGNMENT     <- IDENT ASSIGNS SCR_EXPRESSION SEMICOLON
 
 -- Copied from https://en.cppreference.com/w/c/language/operator_precedence
 --
@@ -181,10 +158,10 @@ ASSIGNMENT     <- IDENT ASSIGNS EXPRESSION SEMICOLON
 -- 	&= ^= |= 	Assignment by bitwise AND, XOR, and OR
 -- 15 	, 		Comma 	Left-to-right 
 
-EXPRESSION     <- BINOP_P12
+SCR_EXPRESSION <- BINOP_P12
 
-BINOP_P12      <- { BINOP_P11 } ( OR BINOP_P11 )*
-BINOP_P11      <- { BINOP_P10 } ( AND BINOP_P10 )*
+BINOP_P12      <- { BINOP_P11 } ( LOGOR BINOP_P11 )*
+BINOP_P11      <- { BINOP_P10 } ( LOGAND BINOP_P10 )*
 BINOP_P10      <- { BINOP_P09 } ( BITOR BINOP_P09 )*
 BINOP_P09      <- { BINOP_P08 } ( BITXOR BINOP_P08 )*
 BINOP_P08      <- { BINOP_P07 } ( BITAND BINOP_P07 )*
@@ -194,18 +171,18 @@ BINOP_P05      <- { BINOP_P04 } ( ( LSHIFT / RSHIFT ) BINOP_P04 )*
 BINOP_P04      <- { BINOP_P03 } ( ( ADD / SUB ) BINOP_P03 )*
 BINOP_P03      <- { UNARIES }   ( ( MUL / DIV / POW ) UNARIES )*
 
-UNARIES        <- { UNARY }* { TERM }
-UNARY          <- { NOT / INC / DEC }
-TERM           <- { LITERAL } /
+UNARIES        <- { UNARY }* { SCR_TERM }
+UNARY          <- { LOGNOT / BITNOT / INC / DEC }
+SCR_TERM       <- { LITERAL } /
                   { FUNCTIONCALL } /
-                  { REFERENCE } /
-                  { BOPEN { EXPRESSION } BCLOSE }
+                  { SCR_REFERENCE } /
+                  { BOPEN { SCR_EXPRESSION } BCLOSE }
 
-FUNCTIONCALL   <- { REFERENCE }
-                  BOPEN ( EXPRESSION ( COMMA EXPRESSION )* )? BCLOSE
+FUNCTIONCALL   <- { SCR_REFERENCE }
+                  BOPEN ( SCR_EXPRESSION ( COMMA SCR_EXPRESSION )* )? BCLOSE
 
-REFERENCE      <- IDENT ( DOT IDENT )* INDEX*
-INDEX          <- ABOPEN { EXPRESSION } ABCLOSE
+SCR_REFERENCE  <- IDENT ( DOT IDENT )* INDEX*
+INDEX          <- ABOPEN { SCR_EXPRESSION } ABCLOSE
 
 LITERAL        <- STRINGLITERAL /
                   HASHLITERAL /
@@ -217,15 +194,15 @@ LITERAL        <- STRINGLITERAL /
 STRINGLITERAL  <- '\'' { ( '\\' ([nrtv\\'] / [0-9]^3) / [^'\\] )* } '\''
 HASHLITERAL    <- { CBOPEN ( HASHELT ( COMMA HASHELT )* )? CBCLOSE }
 HASHELT        <- { HASHKEY COLON HASHVALUE }
-HASHKEY        <- { TERM }
-HASHVALUE      <- { TERM }
+HASHKEY        <- { SCR_TERM }
+HASHVALUE      <- { SCR_TERM }
 LISTLITERAL    <- { ABOPEN ( LISTELT ( COMMA LISTELT )* )? ABCLOSE }
-LISTELT        <- { TERM }
+LISTELT        <- { SCR_TERM }
 FLOATLITERAL   <- { [0-9]* '.' [0-9]+ }
 INTLITERAL     <- { [0-9]+ }
 BOOLEANLITERAL <- { 'true' / 'false' }
 
-KW_IMPORT      <- 'import'
+-- KW_IMPORT      <- 'import'
 KW_FUNCTION    <- 'function'
 KW_VAR         <- 'var'
 KW_WHILE       <- 'while'
@@ -244,40 +221,42 @@ CBCLOSE        <- '}'
 ABOPEN         <- '['
 ABCLOSE        <- ']'
 ASSIGNS        <- { ASSIGN / PLUSIS / MINIS / MULIS / DIVIS /
-                    BITANDIS / BITORIS / BITXORIS /
+                    BITANDIS / BITORIS / BITXORIS / BITNOTIS /
                     LSHIFTIS / RSHIFTIS }
-ASSIGN         <- { '=' }
-PLUSIS         <- { '+=' }
-MINIS          <- { '-=' }
-MULIS          <- { '*=' }
-DIVIS          <- { '/=' }
-EQUALS         <- { '==' }
-NEQUALS        <- { '!=' }
-LT             <- { '<' !'=' }
-GT             <- { '>' !'=' }
-LTEQ           <- { '<=' }
-GTEQ           <- { '>=' }
+ASSIGN         <- '='
+PLUSIS         <- '+='
+MINIS          <- '-='
+MULIS          <- '*='
+DIVIS          <- '/='
+EQUALS         <- '=='
+NEQUALS        <- '!='
+LT             <- '<' !'='
+GT             <- '>' !'='
+LTEQ           <- '<='
+GTEQ           <- '>='
 SEMICOLON      <- ';'
-COLON          <- { ':' }
-POW            <- { '**' }
-MUL            <- { '*' !'*' }
-DIV            <- { '/' !'=' }
-ADD            <- { '+' ![+=] }
-SUB            <- { '-' ![\-=] }
-INC            <- { '++' }
-DEC            <- { '--' }
-AND            <- { '&&' }
-OR             <- { '||' }
-BITAND         <- { '&' ![&=] }
-BITOR          <- { '|' ![|=] }
-BITXOR         <- { '^' !'=' }
-BITANDIS       <- { '&=' }
-BITORIS        <- { '|=' }
-BITXORIS       <- { '^=' }
-NOT            <- { '!' !'=' }
-COMMA          <- { ',' }
-DOT            <- { '.' }
-LSHIFT         <- { '<<' ! '=' }
-RSHIFT         <- { '>>' ! '=' }
-LSHIFT         <- { '<<=' }
-RSHIFT         <- { '>>=' }
+COLON          <- ':'
+POW            <- '**'
+MUL            <- '*' !'*'
+DIV            <- '/' !'='
+ADD            <- '+' ![+=]
+SUB            <- '-' ![\-=]
+INC            <- '++'
+DEC            <- '--'
+LOGAND         <- '&&'
+LOGOR          <- '||'
+LOGNOT         <- '!' !'='
+BITAND         <- '&' ![&=]
+BITOR          <- '|' ![|=]
+BITXOR         <- '^' !'='
+BITNOT         <- '~'
+BITANDIS       <- '&='
+BITORIS        <- '|='
+BITXORIS       <- '^='
+BITNOTIS       <- '~='
+COMMA          <- ','
+DOT            <- '.'
+LSHIFT         <- '<<' ! '='
+RSHIFT         <- '>>' ! '='
+LSHIFTIS       <- '<<='
+RSHIFTIS       <- '>>='

@@ -36,10 +36,6 @@ NAIG_ERR_T naic_process_terms
           == SLOT_TERM_ENDOWEDMATCHER)
       {
         CHECK(naic_process_endowedmatcher(naic));
-      } else if (naic->captures->actions[ naic->capindex ].slot
-                 == SLOT_TERM_NAMESPACE)
-      {
-        //..
       }
     } else {
       RETURNERR(NAIC_ERR_TOKEN);

@@ -82,8 +82,6 @@ NAIG_ERR_T naic_process_term_get_quantifier
       quantifier[ 0 ] = naic_atoi(naic, q);
       quantifier[ 1 ] = quantifier[ 0 ];
       break;
-    case SLOT_QUANTIFIER_IDENT:
-      quantifier = (int[]){ -1, 1 }; return NAIG_OK; /* TODO */
     }
   } else {
     quantifier[ 0 ] = 1;

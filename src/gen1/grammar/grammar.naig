@@ -18,14 +18,15 @@ EXPRESSION         <- { TERMS } OR NOTHING /
 TERMS              <- { TERM }+
 TERM               <- { ENDOWEDMATCHER }
 ENDOWEDMATCHER     <- { NOT / AND }? MATCHER { QUANTIFIER }?
+
 QUANTIFIER         <- '?' /
                       '+' /
                       '*' /
                       '^' { [0-9]+ } '-' { [0-9]+ } /
                       '^' '-' { [0-9]+ } /
                       '^' { [0-9]+ } '-' /
-                      '^' { [0-9]+ } /
-                      '^$' { IDENT }
+                      '^' { [0-9]+ }
+
 MATCHER            <- { ANY } /
                       { SET } /
                       { STRING } /

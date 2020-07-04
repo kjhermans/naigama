@@ -109,9 +109,11 @@ int main
           exit(-1);
         }
         break;
+      default:
+        fprintf(stderr, "Unknown switch -%c\n", *arg);
+        __attribute__((fallthrough));
       case '?':
       case 'h':
-      default:
         fprintf(stderr,
           "This is naig %s, the Naigama all in one engine.\n"
           "Usage: %s [options]\n"

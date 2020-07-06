@@ -677,19 +677,3 @@ __RULE_SETNOT:
   call __RULE___prefix
   char 5e
   ret
-__RULE_SEMICOLON:
-  call __RULE___prefix
-  char 3b
-  ret
-__RULE_COMMA:
-  call __RULE___prefix
-  char 2c
-  ret
-__RULE_LT:
-  call __RULE___prefix
-  char 3c
-  ret
-__RULE_GT:
-  call __RULE___prefix
-  char 3e
-  ret

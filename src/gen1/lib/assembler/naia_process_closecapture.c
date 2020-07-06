@@ -39,9 +39,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 NAIG_ERR_T naia_process_closecapture
   (naia_t* naia, unsigned i)
 {
-  uint32_t opcode[ 3 ] = { htonl(OPCODE_CLOSECAPTURE) };
+  uint32_t opcode[ 2 ] = { htonl(OPCODE_CLOSECAPTURE) };
   uint32_t slot;
-  uint32_t type = 0; // future
 
   slot = atoi_substr(
     naia->assembly,
@@ -49,7 +48,6 @@ NAIG_ERR_T naia_process_closecapture
     naia->captures->actions[ i+1 ].length
   );
   opcode[ 1 ] = htonl(slot);
-  opcode[ 2 ] = htonl(type);
   CHECK(naia->write(opcode, sizeof(opcode), naia->write_arg));
   return NAIG_OK;
 }

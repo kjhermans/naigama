@@ -254,14 +254,9 @@ sub second_pass
       $output .= pack('N', $instructions->{lc('OPENCAPTURE')}{instr});
       $output .= pack('N', $1);
 
-    } elsif ($line =~ /^\s*closecapture\s+([0-9]+)(\s+([0-9]+))?$/) {
+    } elsif ($line =~ /^\s*closecapture\s+([0-9]+)$/) {
       $output .= pack('N', $instructions->{lc('CLOSECAPTURE')}{instr});
       $output .= pack('N', $1);
-      if (defined($3)) {
-        $output .= pack('N', $3);
-      } else {
-        $output .= pack('N', 0);
-      }
 
     } elsif ($line =~ /^\s*var\s+([0-9]+)$/) {
       $output .= pack('N', $instructions->{lc('VAR')}{instr});

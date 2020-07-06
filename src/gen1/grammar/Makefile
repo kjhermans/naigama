@@ -1,4 +1,4 @@
-stage_1: grammar.byc assembly.byc 
+stage_01: grammar.byc assembly.byc 
 
 grammar.byc: grammar.asm
 	@./assemble.sh grammar.asm grammar.byc

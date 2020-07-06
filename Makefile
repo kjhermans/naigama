@@ -5,16 +5,19 @@ debug:
 	@export DEBUG=-D_DEBUG && make stages 2>&1 | tee /tmp/make.log
 
 stages: \
-  stage_0 \
-  stage_1 stage_2 stage_3 stage_4 \
+  stage_00 \
+  stage_01 stage_2 stage_3 stage_4 \
   stage_5 stage_6 stage_7 stage_8 \
   stage_9 stage_10
 
 arm_bare_metal:
 	@export ARCH=arm-none-eabi- && make
 
-## stage_0: library functions.h generation
-## stage_1: gen1 grammar.byc etc generation (using gen0 compiler)
+instructions:
+	@perl ./bin/gen_instructions.pl > ./src/instructions.pl
+
+## stage_00: library functions.h generation
+## stage_01: gen1 grammar.byc etc generation (using gen0 compiler)
 ## stage_2: gen1 bytecode.h etc generation
 ## stage_3: gen1 library building
 ## stage_4: gen1 mains building
@@ -23,20 +26,20 @@ arm_bare_metal:
 ## stage_7: gen2 library building
 ## stage_8: gen2 mains building
 
-stage_0:
+stage_00:
 	@echo "---- Building stage 0"
-	@MFS=`find src/ -name Makefile | xargs grep -l stage_0`; \
+	@MFS=`find src/ -name Makefile | xargs grep -l stage_00`; \
 		for MF in $$MFS; do \
 			DIR=`dirname $$MF`; \
-			BUILDROOT=`pwd` make -C $$DIR stage_0; \
+			BUILDROOT=`pwd` make -C $$DIR stage_00; \
 		done
 
-stage_1:
+stage_01:
 	@echo "---- Building stage 1"
-	@MFS=`find src/ -name Makefile | xargs grep -l stage_1`; \
+	@MFS=`find src/ -name Makefile | xargs grep -l stage_01`; \
 		for MF in $$MFS; do \
 			DIR=`dirname $$MF`; \
-			BUILDROOT=`pwd` make -C $$DIR stage_1; \
+			BUILDROOT=`pwd` make -C $$DIR stage_01; \
 		done
 
 stage_2:

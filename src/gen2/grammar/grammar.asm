@@ -725,25 +725,5 @@ SETNOT:
   call __prefix
   char 5e
   ret
--- Rule
-SEMICOLON:
-  call __prefix
-  char 3b
-  ret
--- Rule
-COMMA:
-  call __prefix
-  char 2c
-  ret
--- Rule
-LT:
-  call __prefix
-  char 3c
-  ret
--- Rule
-GT:
-  call __prefix
-  char 3e
-  ret
 
   end 0

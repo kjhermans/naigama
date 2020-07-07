@@ -1,5 +1,7 @@
 #!/usr/bin/perl
 
+use Digest::SHA qw ( sha256_hex );
+
 my (
   $instrfile,
   $bytecodefile,
@@ -68,12 +70,16 @@ sub absorb_binary
 
 sub write_instructions_file
 {
+  my $data = '';
   open FILE, "> $path/instructions.h";
   foreach my $mnem (sort(keys(%{$instr}))) {
     print FILE "#define OPCODE_" . uc($mnem) . ' 0x' .
       sprintf("%.8x", $instr->{$mnem}{instr}) . "\n";
     print FILE "#define INSTR_" . uc($mnem) . ' "' . $mnem . "\"\n";
+    $data .= sprintf("%.8x", $instr->{$mnem}{instr});
   }
+  my $hash = sha256_hex($data);
+  print FILE "#define DIGEST_INSTR 0x" . substr($hash, 0, 16) . "\n";
   close FILE;
 }
 

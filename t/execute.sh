@@ -5,10 +5,10 @@ EXEC_SINGLE_TEST ()
   FILE=$1
   ../bin/singletest.pl \
     $FILE \
-    "$BUILDROOT/src/gen1/main/compiler/naic -i GRAMMAR -o ASM" \
-    "$BUILDROOT/src/gen1/main/assembler/naia -i ASM -o BYTECODE -l BYTECODE.labelmap" \
-    "$BUILDROOT/src/gen1/main/engine/naie -D -X -I -b BYTECODE -d INPUT -l BYTECODE.labelmap >/dev/null" \
-    "$BUILDROOT/src/gen1/main/engine/naie -D -X -I -r -b BYTECODE -d INPUT -l BYTECODE.labelmap >/dev/null"
+    "$BUILDROOT/src/gen2/main/compiler/naic -i GRAMMAR -o ASM" \
+    "$BUILDROOT/src/gen2/main/assembler/naia -i ASM -o BYTECODE -l BYTECODE.labelmap" \
+    "$BUILDROOT/src/gen2/main/engine/naie -D -X -I -b BYTECODE -d INPUT -l BYTECODE.labelmap >/dev/null" \
+    "$BUILDROOT/src/gen2/main/engine/naie -D -X -I -r -b BYTECODE -d INPUT -l BYTECODE.labelmap >/dev/null"
 }
 
 EXEC_MULTI_TEST ()
@@ -16,9 +16,9 @@ EXEC_MULTI_TEST ()
   FILE=$1
   $BUILDROOT/bin/multitest.pl \
     $FILE \
-    "$BUILDROOT/src/gen1/main/compiler/naic -i GRAMMAR -o ASM" \
-    "$BUILDROOT/src/gen1/main/assembler/naia -i ASM -o BYTECODE" \
-    "$BUILDROOT/src/gen1/main/engine/naie -D -X -I -b BYTECODE -d INPUT >/dev/null"
+    "$BUILDROOT/src/gen2/main/compiler/naic -i GRAMMAR -o ASM" \
+    "$BUILDROOT/src/gen2/main/assembler/naia -i ASM -o BYTECODE" \
+    "$BUILDROOT/src/gen2/main/engine/naie -D -X -I -b BYTECODE -d INPUT >/dev/null"
 }
 
 if [ "x$SINGLETEST" != "x" ]; then

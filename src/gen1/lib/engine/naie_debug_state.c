@@ -53,9 +53,9 @@ void naie_debug_state
       ? sizeof(copy)
       : engine->input_length - engine->input_pos
   );
-  for (i=0; i < engine->labelmap.size; i++) {
-    if (engine->labelmap.entries[ i ].offset == engine->bytecode_pos) {
-      fprintf(stderr, "                %s\n", engine->labelmap.entries[ i ].label);
+  for (i=0; i < engine->labels.count; i++) {
+    if (engine->labels.entries[ i ].offset == engine->bytecode_pos) {
+      fprintf(stderr, "                %s\n", engine->labels.entries[ i ].label);
     }
   }
   for (i=0; i < sizeof(copy); i++) {
@@ -70,19 +70,19 @@ void naie_debug_state
     , copy
   );
   unsigned s = 0;
-  for (i=0; i < engine->stack.size; i++) {
+  for (i=0; i < engine->stack.count; i++) {
     if (engine->stack.entries[ i ].type == NAIG_STACK_CATCH) {
       s = i;
     }
   }
-  if (s && s > engine->stack.size - 8) {
-    s = engine->stack.size - 8;
+  if (s && s > engine->stack.count - 8) {
+    s = engine->stack.count - 8;
   }
   if (fullstack) {
     s = 0;
   }
   fprintf(stderr, "(%.3u prec.) ", s);
-  for (i=s; i < engine->stack.size; i++) {
+  for (i=s; i < engine->stack.count; i++) {
     fprintf(stderr, "%s:%u "
       , ((engine->stack.entries[ i ].type == NAIG_STACK_CALL)
           ? "CLL" : "ALT")

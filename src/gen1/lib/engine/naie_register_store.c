@@ -41,15 +41,30 @@ NAIG_ERR_T naie_register_store
 {
   unsigned i;
 
-  for (i=0; i < NAIG_MAX_REGISTER; i++) {
-    if (engine->reg[ i ].value == 0 ||
-          (engine->reg[ i ].reg == reg &&
-           engine->reg[ i ].stacklen == engine->stack.size))
+  for (i=0; i < engine->reg.length; i++) {
+    if (engine->reg.entries[ i ].value == 0 ||
+          (engine->reg.entries[ i ].reg == reg &&
+           engine->reg.entries[ i ].stacklen == engine->stack.count))
     {
-      engine->reg[ i ].reg = reg;
-      engine->reg[ i ].stacklen = engine->stack.size;
-      engine->reg[ i ].value = value;
+      engine->reg.entries[ i ].reg = reg;
+      engine->reg.entries[ i ].stacklen = engine->stack.count;
+      engine->reg.entries[ i ].value = value;
       return NAIG_OK;
+    }
+  }
+  if (engine->reg.realloc) {
+    engine->reg.entries = realloc(
+      engine->reg.entries,
+      sizeof(naie_register_t) * (engine->reg.length + 32)
+    );
+    if (NULL != engine->reg.entries) {
+      memset(
+        &(engine->reg.entries[ engine->reg.length ]),
+        0,
+        (engine->reg.length + 32)
+      );
+      engine->reg.length += 32;
+      return naie_register_store(engine, reg, value);
     }
   }
   return NAIE_ERR_REGFULL;

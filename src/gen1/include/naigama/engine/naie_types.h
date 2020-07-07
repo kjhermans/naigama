@@ -55,6 +55,20 @@ naie_stackentry_t;
 
 typedef struct
 {
+  uint32_t                              offset;
+  char                                  label[ NAIG_MAX_LABEL ];
+}
+naie_labelentry_t;
+
+typedef struct
+{
+  unsigned                              input_pos;
+  unsigned                              bytecode_pos;
+}
+naie_loopdetectentry_t;
+
+typedef struct
+{
   unsigned                              action;
   uint32_t                              slot;
   unsigned                              inputpos;
@@ -71,17 +85,38 @@ typedef struct
   const unsigned char*                  bytecode;
   unsigned                              bytecode_length;
   unsigned                              bytecode_pos;
-  unsigned                              stacksizebeforefail;
   struct {
-    naie_stackentry_t                     entries[ NAIG_MAX_STACK ];
-    unsigned                              size;
+    naie_stackentry_t*                    entries;
+    unsigned                              count;
+    unsigned                              length;
+    int                                   realloc;
   }                                     stack;
   struct {
-    naie_action_t                         entries[ NAIG_MAX_ACTIONS ];
-    unsigned                              size;
+    naie_action_t*                        entries;
+    unsigned                              count;
+    unsigned                              length;
+    int                                   realloc;
   }                                     actions;
-  unsigned                              noinstructions;
-  unsigned                              maxstackdepth;
+  struct {
+    naie_labelentry_t*                    entries;
+    unsigned                              count;
+    unsigned                              length;
+  }                                     labels;
+  struct{
+    naie_register_t*                      entries;
+    unsigned                              length;
+    int                                   realloc;
+  }                                     reg;
+  struct {
+    naie_loopdetectentry_t*               entries;
+    unsigned                              count;
+    unsigned                              length;
+  }                                     loopdetect;
+  struct {
+    unsigned                              stacksizebeforefail;
+    unsigned                              noinstructions;
+    unsigned                              maxstackdepth;
+  }                                     forensics;
   unsigned                              flags;
 #define NAIE_FLAG_DEBUG                 (1<<0)
 #define NAIE_FLAG_DILIGENT              (1<<1)
@@ -89,21 +124,6 @@ typedef struct
 #define NAIE_FLAG_DOREPLACE             (1<<3)
 #define NAIE_FLAG_ENDLESS               (1<<4)
 #define NAIE_FLAG_UTF8                  (1<<5)
-  struct {
-    struct {
-      uint32_t                              offset;
-      char                                  label[ NAIG_MAX_LABEL ];
-    }                                     entries[ NAIG_MAX_LABELMAP ];
-    unsigned                              size;
-  }                                     labelmap;
-  naie_register_t                       reg[ NAIG_MAX_REGISTER ];
-  struct {
-    struct {
-      unsigned                              input_pos;
-      unsigned                              bytecode_pos;
-    }                                     entries[ NAIE_MAX_LOOPDETECT ];
-    unsigned                              size;
-  }                                     loopdetect;
 }
 naie_engine_t;
 

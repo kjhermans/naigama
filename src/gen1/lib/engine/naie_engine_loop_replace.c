@@ -48,7 +48,7 @@ NAIG_ERR_T naie_engine_loop_replace
   naie_action_t action;
   unsigned i, region_start, region_stop;
 
-  if ((i = engine->actions.size) < 2) {
+  if ((i = engine->actions.count) < 2) {
     RETURNERR(NAIE_ERR_ACTIONLIST);
   }
   --i;
@@ -95,9 +95,9 @@ NAIG_ERR_T naie_engine_loop_replace
       RETURNERR(NAIE_ERR_CODEOVERFLOW);
     }
     if (engine->flags & NAIE_FLAG_DILIGENT) {
-      ++(engine->noinstructions);
-      if (engine->stack.size > engine->maxstackdepth) {
-        engine->maxstackdepth = engine->stack.size;
+      ++(engine->forensics.noinstructions);
+      if (engine->stack.count > engine->forensics.maxstackdepth) {
+        engine->forensics.maxstackdepth = engine->stack.count;
       }
     }
     if (engine->flags & NAIE_FLAG_DEBUG) {

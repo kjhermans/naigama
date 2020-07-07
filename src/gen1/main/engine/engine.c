@@ -55,7 +55,9 @@ int main
   FILE* output = stdout;
   unsigned char* bytecode = 0;
   unsigned bytecode_length = 0;
-  //unsigned stacksize = 256;
+  unsigned stacksize = 256;
+  unsigned actionsize = 1024;
+  unsigned regsize = 32;
   unsigned char* data = 0;
   unsigned data_length = 0;
   char* labelmap = 0;
@@ -125,17 +127,17 @@ int main
         suppress = !suppress;
         break;
       case 's':
-        fprintf(stderr, "Stack size not supported.\n"); exit(-1);
-/*
         if (i < argc - 1) {
           int s = atoi(argv[ ++i ]);
           if (s > 0) {
             stacksize = s;
             break;
           }
+        } else {
+          fprintf(stderr, "Stacksize needs a parameter.\n");
+          exit(-1);
         }
-        __attribute__((fallthrough));
-*/
+        break;
       case '?':
       case 'h':
       default:
@@ -173,6 +175,21 @@ int main
     if (e.code) {
       return -1;
     }
+    {
+      void* mem = malloc(stacksize * sizeof(naie_stackentry_t));
+      engine.stack.entries = mem;
+      engine.stack.length = stacksize;
+    }
+    {
+      void* mem = malloc(actionsize * sizeof(naie_action_t));
+      engine.actions.entries = mem;
+      engine.actions.length = actionsize;
+    }
+    {
+      void* mem = malloc(regsize * sizeof(naie_register_t));
+      engine.reg.entries = mem;
+      engine.reg.length = regsize;
+    }
     if (debug) { engine.flags |= NAIE_FLAG_DEBUG; }
     if (diligent) { engine.flags |= NAIE_FLAG_DILIGENT; }
     if (replace) { engine.flags |= NAIE_FLAG_DOREPLACE; }
@@ -196,7 +213,7 @@ int main
         }
       }
       if (debug) {
-        engine.stack.size = engine.stacksizebeforefail;
+        engine.stack.count = engine.forensics.stacksizebeforefail;
         naie_debug_state(&engine, 1);
       }
       return -1;
@@ -205,8 +222,12 @@ int main
       naie_result_debug(&result, data);
     }
     if (diligent) {
-      fprintf(stderr, "Number of instructions: %u\n", engine.noinstructions);
-      fprintf(stderr, "Max stack depth: %u\n", engine.maxstackdepth);
+      fprintf(stderr, "Number of instructions: %u\n"
+        , engine.forensics.noinstructions
+      );
+      fprintf(stderr, "Max stack depth: %u\n"
+        , engine.forensics.maxstackdepth
+      );
     }
     if (!suppress) {
       e = naie_output(&result, output);

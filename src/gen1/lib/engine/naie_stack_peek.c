@@ -39,8 +39,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 NAIG_ERR_T naie_stack_peek
   (naie_engine_t* engine, naie_stackentry_t** entry)
 {
-  if (engine->stack.size > 0) {
-    *entry = &(engine->stack.entries[ (engine->stack.size)-1 ]);
+  if (engine->stack.count > 0) {
+    *entry = &(engine->stack.entries[ (engine->stack.count)-1 ]);
     return NAIG_OK;
   }
   RETURNERR(NAIE_ERR_STACKEMPTY);

@@ -48,9 +48,9 @@ NAIG_ERR_T naie_labelmap_get
 {
   unsigned i;
 
-  for (i=0; i < engine->labelmap.size; i++) {
-    if (0 == strcmp(label, engine->labelmap.entries[ i ].label)) {
-      *offset = engine->labelmap.entries[ i ].offset;
+  for (i=0; i < engine->labels.count; i++) {
+    if (0 == strcmp(label, engine->labels.entries[ i ].label)) {
+      *offset = engine->labels.entries[ i ].offset;
       return NAIG_OK;
     }
   }

@@ -48,5 +48,23 @@ NAIG_ERR_T naie_engine_init
   engine->input = input;
   engine->input_length = input_length;
   //engine->flags = NAIE_FLAG_ENDLESS;
+  {
+    void* mem = malloc(256 * sizeof(naie_stackentry_t));
+    engine->stack.entries = mem;
+    engine->stack.length = 256;
+    engine->stack.realloc = 1;
+  }
+  {
+    void* mem = malloc(4096 * sizeof(naie_action_t));
+    engine->actions.entries = mem;
+    engine->actions.length = 4096;
+    engine->actions.realloc = 1;
+  }
+  {
+    void* mem = malloc(128 * sizeof(naie_register_t));
+    engine->reg.entries = mem;
+    engine->reg.length = 128;
+    engine->reg.realloc = 1;
+  }
   return NAIG_OK;
 }

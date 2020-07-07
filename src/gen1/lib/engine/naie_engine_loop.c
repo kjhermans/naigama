@@ -77,9 +77,9 @@ NAIG_ERR_T naie_engine_loop
       RETURNERR(NAIE_ERR_CODEOVERFLOW);
     }
     if (engine->flags & NAIE_FLAG_DILIGENT) {
-      ++(engine->noinstructions);
-      if (engine->stack.size > engine->maxstackdepth) {
-        engine->maxstackdepth = engine->stack.size;
+      ++(engine->forensics.noinstructions);
+      if (engine->stack.count > engine->forensics.maxstackdepth) {
+        engine->forensics.maxstackdepth = engine->stack.count;
       }
     }
     if (engine->flags & NAIE_FLAG_DEBUG) {
@@ -197,12 +197,12 @@ NAIG_ERR_T naie_engine_loop
 
     case OPCODE_BACKCOMMIT:
       param1 = GET_32BIT_NWO(engine->bytecode, engine->bytecode_pos + 4);
-      if (engine->stack.size) {
+      if (engine->stack.count) {
         CHECK(naie_stack_pop(engine, &entry));
         if (entry.type == NAIG_STACK_CATCH) {
           engine->bytecode_pos = param1;
           engine->input_pos = entry.input_pos;
-          engine->actions.size = entry.actioncount;
+          engine->actions.count = entry.actioncount;
         } else {
           RETURNERR(NAIE_ERR_STACKCORRUPT);
         }
@@ -256,7 +256,7 @@ NAIG_ERR_T naie_engine_loop
         RETURNERR(NAIE_ERR_STACKCORRUPT);
       }
       entryptr->input_pos = engine->input_pos;
-      entryptr->actioncount = engine->actions.size;
+      entryptr->actioncount = engine->actions.count;
       engine->bytecode_pos = param1;
       goto NEXT;
 
@@ -384,17 +384,17 @@ FAIL:
     if (engine->flags & NAIE_FLAG_DEBUG) {
       fprintf(stderr, "======== FAIL\n");
     }
-    engine->stacksizebeforefail = engine->stack.size;
-    while (engine->stack.size) {
+    engine->forensics.stacksizebeforefail = engine->stack.count;
+    while (engine->stack.count) {
       CHECK(naie_stack_pop(engine, &entry));
       if (entry.type == NAIG_STACK_CATCH) {
         engine->bytecode_pos = entry.address;
         engine->input_pos = entry.input_pos;
-        engine->actions.size = entry.actioncount;
+        engine->actions.count = entry.actioncount;
         goto NEXT;
       }
     }
-    engine->actions.size = 0;
+    engine->actions.count = 0;
     result->code = -1;
     return NAIG_FAILURE;
 

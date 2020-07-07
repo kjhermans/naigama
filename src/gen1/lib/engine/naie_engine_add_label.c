@@ -36,19 +36,26 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 NAIG_ERR_T naie_engine_add_label
   (naie_engine_t* engine, char* string, uint32_t offset)
 {
-  if (engine->labelmap.size < NAIG_MAX_LABELMAP) {
-    snprintf(
-      engine->labelmap.entries[ engine->labelmap.size ].label,
-      NAIG_MAX_LABEL,
-      "%s",
-      string
+  if (engine->labels.count >= engine->labels.length) {
+    engine->labels.entries = realloc(
+      engine->labels.entries,
+      sizeof(naie_labelentry_t) * (engine->labels.count + 1)
     );
-    engine->labelmap.entries[ engine->labelmap.size ].offset = offset;
-    ++(engine->labelmap.size);
-#ifdef _DEBUG
-    fprintf(stderr, "Adding label '%s' -> %u\n", string, offset);
-#endif
-    return NAIG_OK;
+    if (NULL == engine->labels.entries) {
+      return NAIE_ERR_LABELMAP;
+    }
+    engine->labels.length = engine->labels.count + 1;
   }
-  return NAIE_ERR_LABELMAP;
+  snprintf(
+    engine->labels.entries[ engine->labels.count ].label,
+    NAIG_MAX_LABEL,
+    "%s",
+    string
+  );
+  engine->labels.entries[ engine->labels.count ].offset = offset;
+  ++(engine->labels.count);
+#ifdef _DEBUG
+  fprintf(stderr, "Adding label '%s' -> %u\n", string, offset);
+#endif
+  return NAIG_OK;
 }

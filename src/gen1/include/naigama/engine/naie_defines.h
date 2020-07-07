@@ -67,12 +67,12 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 /** Limits **/
 
-#define NAIG_MAX_STACK                  16384
-#define NAIG_MAX_ACTIONS                16384
+//#define NAIG_MAX_STACK                  16384
+//#define NAIG_MAX_ACTIONS                16384
 #define NAIG_MAX_LABEL                  128
-#define NAIG_MAX_LABELMAP               1024
-#define NAIG_MAX_REGISTER               128
-#define NAIE_MAX_LOOPDETECT             256
+//#define NAIG_MAX_LABELMAP               1024
+//#define NAIG_MAX_REGISTER               128
+//#define NAIE_MAX_LOOPDETECT             256
 
 /** Macroes **/
 

@@ -63,7 +63,7 @@ void naie_debug_actions
 {
   unsigned i;
 
-  for (i=0; i < engine->actions.size; i++) {
+  for (i=0; i < engine->actions.count; i++) {
     fprintf(stderr,
       "Action #%u; act=%s, slot=%u, pos=%u, sl=%u, int=%"PRIu64"\n"
       , i

@@ -43,13 +43,24 @@ NAIG_ERR_T naie_stack_push
     uint32_t address
   )
 {
-  if (engine->stack.size < NAIG_MAX_STACK) {
-    engine->stack.entries[ engine->stack.size ].type = type;
-    engine->stack.entries[ engine->stack.size ].address = address;
-    engine->stack.entries[ engine->stack.size ].input_pos = engine->input_pos;
-    engine->stack.entries[ engine->stack.size ].actioncount = engine->actions.size;
-    ++(engine->stack.size);
-    return NAIG_OK;
+  if (engine->stack.count >= engine->stack.length) {
+    if (engine->stack.realloc) {
+      engine->stack.entries = realloc(
+        engine->stack.entries,
+        sizeof(naie_stackentry_t) * (engine->stack.length + 512)
+      );
+      if (NULL == engine->stack.entries) {
+        RETURNERR(NAIE_ERR_STACKFULL);
+      }
+      engine->stack.length += 512;
+    } else {
+      RETURNERR(NAIE_ERR_STACKFULL);
+    }
   }
-  RETURNERR(NAIE_ERR_STACKFULL);
+  engine->stack.entries[ engine->stack.count ].type = type;
+  engine->stack.entries[ engine->stack.count ].address = address;
+  engine->stack.entries[ engine->stack.count ].input_pos = engine->input_pos;
+  engine->stack.entries[ engine->stack.count ].actioncount = engine->actions.count;
+  ++(engine->stack.count);
+  return NAIG_OK;
 }

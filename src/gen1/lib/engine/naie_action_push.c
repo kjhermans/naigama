@@ -39,12 +39,22 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 NAIG_ERR_T naie_action_push
   (naie_engine_t* engine, naie_action_t action)
 {
-  if (engine->actions.size >= NAIG_MAX_ACTIONS) {
-    RETURNERR(NAIE_ERR_ACTIONFULL);
+  if (engine->actions.count >= engine->actions.length) {
+    if (engine->actions.realloc) {
+      engine->actions.entries = realloc(
+        engine->actions.entries,
+        sizeof(naie_action_t) * (engine->actions.length + 512)
+      );
+      if (NULL == engine->actions.entries) {
+        RETURNERR(NAIE_ERR_ACTIONFULL);
+      }
+      engine->actions.length += 512;
+    } else {
+      RETURNERR(NAIE_ERR_ACTIONFULL);
+    }
   }
-//  action.inputpos = engine->input_pos;
   action.stacklength = naie_stack_call_size(engine);
-  engine->actions.entries[ engine->actions.size ] = action;
-  (engine->actions.size)++;
+  engine->actions.entries[ engine->actions.count ] = action;
+  (engine->actions.count)++;
   return NAIG_OK;
 }

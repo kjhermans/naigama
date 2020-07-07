@@ -41,7 +41,7 @@ unsigned naie_stack_call_size
 {
   unsigned i, result = 0;
 
-  for (i=0; i < engine->stack.size; i++) {
+  for (i=0; i < engine->stack.count; i++) {
     if (engine->stack.entries[ i ].type == NAIG_STACK_CALL) {
       ++result;
     }

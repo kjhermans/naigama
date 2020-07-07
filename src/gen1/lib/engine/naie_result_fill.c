@@ -46,13 +46,13 @@ NAIG_ERR_T naie_result_fill
   unsigned level, j, i, start;
   naie_action_t* a, * b;
 
-  for (i=0; i < engine->actions.size; i++) {
+  for (i=0; i < engine->actions.count; i++) {
     a = &(engine->actions.entries[ i ]);
     switch (a->action) {
     case NAIG_ACTION_OPENCAPTURE:
       start = a->inputpos;
       level = 1;
-      for (j=i+1; j < engine->actions.size; j++) {
+      for (j=i+1; j < engine->actions.count; j++) {
         b = &(engine->actions.entries[ j ]);
         switch (b->action) {
         case NAIG_ACTION_OPENCAPTURE:

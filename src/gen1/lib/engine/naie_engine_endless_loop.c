@@ -42,7 +42,7 @@ NAIG_ERR_T naie_engine_endless_loop
   unsigned i;
 
   if (engine->flags & NAIE_FLAG_ENDLESS) {
-    for (i=0; i < engine->loopdetect.size; i++) {
+    for (i=0; i < engine->loopdetect.count; i++) {
 fprintf(stderr, "Comparing %u %u %u %u\n", engine->loopdetect.entries[ i ].bytecode_pos, engine->bytecode_pos, engine->loopdetect.entries[ i ].bytecode_pos, engine->input_pos);
 
       if (engine->loopdetect.entries[ i ].bytecode_pos == engine->bytecode_pos
@@ -51,21 +51,21 @@ fprintf(stderr, "Comparing %u %u %u %u\n", engine->loopdetect.entries[ i ].bytec
         RETURNERR(NAIE_ERR_ENDLESSLOOP);
       }
     }
-    if (engine->loopdetect.size == NAIE_MAX_LOOPDETECT) {
+    if (engine->loopdetect.count == engine->loopdetect.length) {
       memmove(
         &(engine->loopdetect.entries[ 1 ]),
         &(engine->loopdetect.entries[ 0 ]),
-        (sizeof(engine->loopdetect.entries[ 0 ]) * (NAIE_MAX_LOOPDETECT-1))
+        (sizeof(engine->loopdetect.entries[ 0 ]) * (-engine->loopdetect.length))
       );
     } else {
-      if (engine->loopdetect.size) {
+      if (engine->loopdetect.count) {
         memmove(
           &(engine->loopdetect.entries[ 1 ]),
           &(engine->loopdetect.entries[ 0 ]),
-          (sizeof(engine->loopdetect.entries[ 0 ]) * engine->loopdetect.size)
+          (sizeof(engine->loopdetect.entries[ 0 ]) * engine->loopdetect.count)
         );
       }
-      ++(engine->loopdetect.size);
+      ++(engine->loopdetect.count);
     }
     engine->loopdetect.entries[ 0 ].bytecode_pos = engine->bytecode_pos;
     engine->loopdetect.entries[ 0 ].input_pos = engine->input_pos;

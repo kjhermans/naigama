@@ -45,7 +45,7 @@ NAIG_ERR_T naie_variable
     unsigned* valuesize
   )
 {
-  unsigned i = engine->actions.size;
+  unsigned i = engine->actions.count;
   naie_action_t* c = &(engine->actions.entries[ i ]);
   unsigned start, stop;
   int stopfound = 0, startfound = 0;

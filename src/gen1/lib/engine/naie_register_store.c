@@ -33,6 +33,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "naie_private.h"
 
+#define REGISTER_INCREASE 32
+
 /**
  *
  */
@@ -55,15 +57,15 @@ NAIG_ERR_T naie_register_store
   if (engine->reg.realloc) {
     engine->reg.entries = realloc(
       engine->reg.entries,
-      sizeof(naie_register_t) * (engine->reg.length + 32)
+      sizeof(naie_register_t) * (engine->reg.length + REGISTER_INCREASE)
     );
     if (NULL != engine->reg.entries) {
       memset(
         &(engine->reg.entries[ engine->reg.length ]),
         0,
-        (engine->reg.length + 32)
+        (engine->reg.length + REGISTER_INCREASE)
       );
-      engine->reg.length += 32;
+      engine->reg.length += REGISTER_INCREASE;
       return naie_register_store(engine, reg, value);
     }
   }

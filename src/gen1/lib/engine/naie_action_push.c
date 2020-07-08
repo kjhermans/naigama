@@ -33,6 +33,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "naie_private.h"
 
+#define ACTION_INCREASE 128
+
 /**
  *
  */
@@ -43,12 +45,12 @@ NAIG_ERR_T naie_action_push
     if (engine->actions.realloc) {
       engine->actions.entries = realloc(
         engine->actions.entries,
-        sizeof(naie_action_t) * (engine->actions.length + 512)
+        sizeof(naie_action_t) * (engine->actions.length + ACTION_INCREASE)
       );
       if (NULL == engine->actions.entries) {
         RETURNERR(NAIE_ERR_ACTIONFULL);
       }
-      engine->actions.length += 512;
+      engine->actions.length += ACTION_INCREASE;
     } else {
       RETURNERR(NAIE_ERR_ACTIONFULL);
     }

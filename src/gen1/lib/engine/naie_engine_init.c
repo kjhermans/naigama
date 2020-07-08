@@ -33,6 +33,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "naie_private.h"
 
+#define TABLE_INIT_SIZE 32
+
 NAIG_ERR_T naie_engine_init
   (
     naie_engine_t* engine,
@@ -49,21 +51,21 @@ NAIG_ERR_T naie_engine_init
   engine->input_length = input_length;
   //engine->flags = NAIE_FLAG_ENDLESS;
   {
-    void* mem = malloc(256 * sizeof(naie_stackentry_t));
+    void* mem = malloc(TABLE_INIT_SIZE * sizeof(naie_stackentry_t));
     engine->stack.entries = mem;
-    engine->stack.length = 256;
+    engine->stack.length = TABLE_INIT_SIZE;
     engine->stack.realloc = 1;
   }
   {
-    void* mem = malloc(4096 * sizeof(naie_action_t));
+    void* mem = malloc(TABLE_INIT_SIZE * sizeof(naie_action_t));
     engine->actions.entries = mem;
-    engine->actions.length = 4096;
+    engine->actions.length = TABLE_INIT_SIZE;
     engine->actions.realloc = 1;
   }
   {
-    void* mem = malloc(128 * sizeof(naie_register_t));
+    void* mem = malloc(TABLE_INIT_SIZE * sizeof(naie_register_t));
     engine->reg.entries = mem;
-    engine->reg.length = 128;
+    engine->reg.length = TABLE_INIT_SIZE;
     engine->reg.realloc = 1;
   }
   return NAIG_OK;

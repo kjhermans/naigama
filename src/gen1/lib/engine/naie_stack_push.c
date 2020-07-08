@@ -33,6 +33,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "naie_private.h"
 
+#define STACK_INCREASE 64
+
 /**
  *
  */
@@ -47,12 +49,12 @@ NAIG_ERR_T naie_stack_push
     if (engine->stack.realloc) {
       engine->stack.entries = realloc(
         engine->stack.entries,
-        sizeof(naie_stackentry_t) * (engine->stack.length + 512)
+        sizeof(naie_stackentry_t) * (engine->stack.length + STACK_INCREASE)
       );
       if (NULL == engine->stack.entries) {
         RETURNERR(NAIE_ERR_STACKFULL);
       }
-      engine->stack.length += 512;
+      engine->stack.length += STACK_INCREASE;
     } else {
       RETURNERR(NAIE_ERR_STACKFULL);
     }

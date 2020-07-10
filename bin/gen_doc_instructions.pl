@@ -7,6 +7,7 @@ my $structure = eval($s);
 
 my $texindex = '';
 foreach my $key (sort keys(%{$structure})) {
+  next if ($key =~ /^scr_/);
   $texindex .=
     "\\newpage\n" .
     "\\input{instr_" . lc($key) . ".tex}\n\n";

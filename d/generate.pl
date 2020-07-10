@@ -25,7 +25,10 @@ foreach my $i (sort(keys(%{$instructions}))) {
   if ($p1 eq 'LABEL' && $p2 ne '-') {
     my $tmp = $p1; $p1 = $p2; $p2 = $tmp;
   }
-  print FILE "'$i' \& $p1 \& $p2 \\\\\n";
+  next if ($i =~ /^scr_/);
+  my $_i = $i;
+  $_i =~ s/_/\\_/g;
+  print FILE "'$_i' \& $p1 \& $p2 \\\\\n";
 }
 
 print FILE '\\end{tabular}
@@ -45,7 +48,10 @@ print FILE '
 ';
 
 foreach my $i (sort(keys(%{$instructions}))) {
-  print FILE $i . ' & ' . sprintf("%.8x", $instructions->{$i}{instr}) .
+  my $_i = $i;
+  $_i =~ s/_/\\_/g;
+  next if ($i =~ /^scr_/);
+  print FILE $_i . ' & ' . sprintf("%.8x", $instructions->{$i}{instr}) .
     " \& $instructions->{$i}{param1} \& $instructions->{$i}{param2} " .
     " \& $instructions->{$i}{size} " .
     "\\\\\n";

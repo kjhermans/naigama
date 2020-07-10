@@ -133,8 +133,9 @@ superclean:
 			make -C $$DIR superclean; \
 		done
 
-test:
+test: all
 	@BUILDROOT=`pwd` make -C t/ all
+	@BUILDROOT=`pwd` make -C src/gen3/t/ all
 
 doc:
 	@BUILDROOT=`pwd` make -C d/ all

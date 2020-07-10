@@ -1,6 +1,6 @@
 all:
-	perl ../bin/gen_doc_instructions.pl ../instructions.pl
-	perl ./generate.pl ../instructions.pl .
+	perl ../bin/gen_doc_instructions.pl ../src/instructions.pl
+	perl ./generate.pl ../src/instructions.pl .
 	texi2pdf --batch compendium.tex >/dev/null || true
 
 clean:

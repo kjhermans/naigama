@@ -89,8 +89,8 @@ struct naie_engine
   unsigned                              bytecode_pos;
   struct {
     naie_stackentry_t*                    entries;
-    unsigned                              count;
-    unsigned                              length;
+    unsigned                              count;  // amount used
+    unsigned                              length; // amount allocated
     int                                   realloc;
   }                                     stack;
   struct {

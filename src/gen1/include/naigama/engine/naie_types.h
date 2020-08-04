@@ -132,6 +132,7 @@ struct naie_engine
   unsigned                              debugstate;
 #define NAIE_DEBUG_FREE                 0
 #define NAIE_DEBUG_HALT                 1
+#define NAIE_DEBUG_CALL                 2
 };
 
 typedef struct {

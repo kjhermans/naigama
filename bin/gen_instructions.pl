@@ -24,7 +24,7 @@ my @hamming = (
 
 my $global_instructions = {
   noop => { opcode => '00000000', size => 4 },
-  trap => { opcode => 'ffffffff', size => 4 },
+  trap => { opcode => 'ff00ffff', size => 4 },
   end  => { size => 8, param1 => 'code' },
 };
 

@@ -1,0 +1,51 @@
+\section{Naigama Script}
+
+From generation 3 onwards, Naigama contains a(n ECMA-script like)
+scripting language inside the grammar, and it is possible to combine
+rule definitions with function definitions. Like so:
+
+\begin{myquote}
+\begin{verbatim}
+RULE <- { .* } => handle_capture
+
+function handle_capture () {
+  output("You said " + get_capture());
+}
+
+\end{verbatim}
+\end{myquote}
+\textit{Example of a Naigama file, containing script.}
+
+\subsection{Predeclared Functions}
+
+The following functions have been predeclared:
+
+\newline
+\textbf{call(rule);}
+\newline
+This function will call the named rule.
+
+\newline
+\textbf{end(code);}
+\newline
+This function will end the current run with code.
+
+\newline
+\textbf{get\_capture();}
+\newline
+This function will return the contents of the current capture
+as a string.
+
+\newline
+\textbf{output(string);}
+\newline
+This function will completely replace the output.
+
+\newline
+\textbf{replace(string);}
+\newline
+This function will replace the current capture.
+
+\subsection{Function Definition}
+
+\subsection{Function Calling}

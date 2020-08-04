@@ -7,8 +7,8 @@ EXEC_SINGLE_TEST ()
     $FILE \
     "$BUILDROOT/src/gen3/main/compiler/naic -i GRAMMAR -o ASM" \
     "$BUILDROOT/src/gen3/main/assembler/naia -i ASM -o BYTECODE -l BYTECODE.labelmap" \
-    "$BUILDROOT/src/gen3/main/engine/naie -D -X -I -b BYTECODE -d INPUT -l BYTECODE.labelmap >/dev/null" \
-    "$BUILDROOT/src/gen3/main/engine/naie -D -X -I -r -b BYTECODE -d INPUT -l BYTECODE.labelmap >/dev/null"
+    "$BUILDROOT/src/gen3/main/engine/naie -v -x -I -c BYTECODE -i INPUT -l BYTECODE.labelmap >/dev/null" \
+    "$BUILDROOT/src/gen3/main/engine/naie -v -x -I -r -c BYTECODE -i INPUT -l BYTECODE.labelmap >/dev/null"
 }
 
 EXEC_MULTI_TEST ()
@@ -18,7 +18,7 @@ EXEC_MULTI_TEST ()
     $FILE \
     "$BUILDROOT/src/gen3/main/compiler/naic -i GRAMMAR -o ASM" \
     "$BUILDROOT/src/gen3/main/assembler/naia -i ASM -o BYTECODE" \
-    "$BUILDROOT/src/gen3/main/engine/naie -D -X -I -b BYTECODE -d INPUT >/dev/null"
+    "$BUILDROOT/src/gen3/main/engine/naie -v -x -I -c BYTECODE -i INPUT >/dev/null"
 }
 
 if [ "x$SINGLETEST" != "x" ]; then

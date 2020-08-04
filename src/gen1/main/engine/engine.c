@@ -70,7 +70,7 @@ int main
     if (*arg == '-') {
       ++arg;
       switch (*arg) {
-      case 'b':
+      case 'c':
         if (i < argc - 1) {
           char* path = argv[ i+1 ];
           if (absorb_file(path, &bytecode, &bytecode_length)) {
@@ -79,7 +79,7 @@ int main
           }
         }
         break;
-      case 'd':
+      case 'i':
         if (i < argc - 1) {
           char* path = argv[ i+1 ];
           if (absorb_file(path, &data, &data_length)) {
@@ -107,10 +107,10 @@ int main
           }
         }
         break;
-      case 'X':
+      case 'x':
         diligent = !diligent;
         break;
-      case 'D':
+      case 'v':
         if (bytecode) { logmem(bytecode, bytecode_length); }
         if (data) { logmem(data, data_length); }
         debug = 1;
@@ -138,6 +138,19 @@ int main
           exit(-1);
         }
         break;
+      case 'd':
+        switch (arg[ 1 ]) {
+        case 0:
+          break;
+        case 't':
+          break;
+        case 'i':
+          break;
+        default:
+          fprintf(stderr, "Debugging flag not understood.\n");
+          exit(-1);
+        }
+        break;
       case '?':
       case 'h':
       default:
@@ -146,14 +159,17 @@ int main
           "Usage: %s [options]\n"
           "Options:\n"
           "-? / -h    Display this message\n"
-          "-b <path>  Bytecode file\n"
-          "-d <path>  Data file\n"
+          "-c <path>  Bytecode file\n"
+          "-i <path>  Data input file\n"
           "-o <path>  Output file (otherwise stdout)\n"
           "-l <path>  Labelmap file\n"
           "-r         Perform replacements and output result\n"
-          "-S         Suppress binary output (implicit in -D and -r)\n"
-          "-D         Debug (prepare for a lot of data on stderr)\n"
-          "-X         Diligent (gather stats while running)\n"
+          "-S         Suppress binary output (implicit in -v and -r)\n"
+          "-v         Verbose (prepare for a lot of data on stderr)\n"
+          "-x         Diligent (gather stats while running)\n"
+          "-d <off>   Start debugger at bytecode offset\n"
+          "-dt <text> Start debugger at input text substring equivalent\n"
+          "-di <off>  Start debugger at input offset\n"
           "-I         Input is a string. Text position is displayed on error\n"
           "-s <size>  Stack size\n"
           , gen

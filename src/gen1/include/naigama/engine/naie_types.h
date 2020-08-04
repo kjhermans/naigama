@@ -77,7 +77,9 @@ typedef struct
 }
 naie_action_t;
 
-typedef struct
+typedef struct naie_engine naie_engine_t;
+
+struct naie_engine
 {
   const unsigned char*                  input;
   unsigned                              input_length;
@@ -124,8 +126,8 @@ typedef struct
 #define NAIE_FLAG_DOREPLACE             (1<<3)
 #define NAIE_FLAG_ENDLESS               (1<<4)
 #define NAIE_FLAG_UTF8                  (1<<5)
-}
-naie_engine_t;
+  NAIG_ERR_T                          (*debugger)(naie_engine_t*);
+};
 
 typedef struct {
   uint32_t                              action;

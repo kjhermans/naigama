@@ -3,20 +3,27 @@
 GRAMMAR            <- ( DEFINITION+ / SINGLE_EXPRESSION ) END
 
 S                  <- %s+
+
 COMMENT            <- '--' [^\n]* '\n'
+
 __prefix           <- ( COMMENT / S )*
+
 END                <- !.
 
 DEFINITION         <- FUNCDECL / RULE
+
 SINGLE_EXPRESSION  <- EXPRESSION
 
 RULE               <- { IDENT } LEFTARROW EXPRESSION
+
 EXPRESSION         <- { TERMS } OR NOTHING /
                       { TERMS } OR EXPRESSION /
                       { TERMS }
 
 TERMS              <- { TERM }+
+
 TERM               <- { NOT / AND }? MATCHER { QUANTIFIER }?
+
 QUANTIFIER         <- '?' /
                       '+' /
                       '*' /
@@ -25,6 +32,7 @@ QUANTIFIER         <- '?' /
                       '^' { [0-9]+ } '-' /
                       '^' { [0-9]+ } /
                       '^$' { IDENT }
+
 MATCHER            <- { ANY } /
                       { SET } /
                       { STRING } /
@@ -39,10 +47,17 @@ MATCHER            <- { ANY } /
 
 BITMASK            <- '|' [0-9a-fA-F]^2 '|' [0-9a-fA-F]^2 '|'
 
-VARCAPTURE         <- CBOPEN COLON { IDENT } COLON
+VARCAPTURE         <- CBOPEN COLON { IDENT } { CAPTURETYPE }? COLON
                       EXPRESSION { CBCLOSE } CAPTUREEND
+
+CAPTURETYPE        <- SEMICOLON TYPE
+
+TYPE               <- { 'uint32' / 'int32' }
+
 CAPTURE            <- CBOPEN EXPRESSION { CBCLOSE } CAPTUREEND
+
 GROUP              <- BOPEN EXPRESSION { BCLOSE }
+
 CAPTUREEND         <- ( REPLACE / RECYCLE )?
 
 SET                <- ABOPEN { SETNOT? } (
@@ -53,15 +68,17 @@ SET                <- ABOPEN { SETNOT? } (
                       )+ { ABCLOSE }
 
 VARREFERENCE       <- '$' ( { IDENT } / { NUMBER } )
+
 REFERENCE          <- IDENT !( LEFTARROW )
 
 REPLACE            <- RIGHTARROW { REPLACETERMS }
+
 REPLACETERMS       <- REPLACETERM+
+
 REPLACETERM        <- { STRINGLITERAL } / { HEXLITERAL } / { VARREFERENCE }
 
 RECYCLE            <- FATARROW { IDENT }
 
--- IDENT              <- [a-zA-Z_] [a-zA-Z_0-9]^-63
 LEFTARROW          <- '<-'
 RIGHTARROW         <- '->'
 FATARROW           <- '=>'
@@ -70,28 +87,18 @@ AND                <- '&'
 MACRO              <- '%' [a-zA-Z] [a-zA-Z0-9]*
 HEXLITERAL         <- '0x' [0-9a-fA-F]^2
 NUMBER             <- [0-9]+
--- STRINGLITERAL      <- '\'' ( '\\' ([nrtv\\'] / [0-9]^3) / [^'\\] )* '\''
 STRING             <- STRINGLITERAL 'i'?
 OR                 <- '/'
 ANY                <- '.'
 NOTHING            <- '...'
--- CBOPEN             <- '{'
--- COLON              <- ':'
--- CBCLOSE            <- '}'
--- BOPEN              <- '('
--- BCLOSE             <- ')'
--- ABOPEN             <- '['
--- ABCLOSE            <- ']'
 SETNOT             <- '^'
--- SEMICOLON          <- ';'
--- COMMA              <- ','
--- LT                 <- '<'
--- GT                 <- '>'
 
 -- scripting engine
 
 FUNCDECL       <- KW_FUNCTION S IDENT FUNCPARAMDECL FUNCBODY
+
 FUNCPARAMDECL  <- BOPEN { ( IDENT ( COMMA IDENT )* )? } BCLOSE
+
 FUNCBODY       <- CBOPEN { LOWSTMT* } CBCLOSE
 
 LOWSTMT        <- { ST_IF } /
@@ -106,14 +113,17 @@ ST_IF          <- KW_IF BOPEN { SCR_EXPRESSION } BCLOSE
                     CBOPEN { LOWSTMT* } CBCLOSE
                     { IF_ELSEIF* }
                     { IF_ELSE? }
+
 IF_ELSEIF      <- KW_ELSEIF BOPEN { SCR_EXPRESSION } BCLOSE
                     CBOPEN { LOWSTMT* } CBCLOSE 
+
 IF_ELSE        <- KW_ELSE CBOPEN { LOWSTMT* } CBCLOSE
 
 ST_WHILE       <- KW_WHILE BOPEN { SCR_EXPRESSION } BCLOSE
                     CBOPEN { LOWSTMT* } CBCLOSE
 
 ST_RETURN      <- KW_RETURN { SCR_EXPRESSION? } SEMICOLON
+
 ST_OTHER       <- ( KW_BREAK / KW_CONTINUE ) SEMICOLON
 
 VARDECL        <- KW_VAR S IDENT ( ASSIGN { SCR_EXPRESSION } )? SEMICOLON
@@ -172,7 +182,9 @@ BINOP_P04      <- { BINOP_P03 } ( ( ADD / SUB ) BINOP_P03 )*
 BINOP_P03      <- { UNARIES }   ( ( MUL / DIV / POW ) UNARIES )*
 
 UNARIES        <- { UNARY }* { SCR_TERM }
+
 UNARY          <- { LOGNOT / BITNOT / INC / DEC }
+
 SCR_TERM       <- { LITERAL } /
                   { FUNCTIONCALL } /
                   { SCR_REFERENCE } /
@@ -182,6 +194,7 @@ FUNCTIONCALL   <- { SCR_REFERENCE }
                   BOPEN ( SCR_EXPRESSION ( COMMA SCR_EXPRESSION )* )? BCLOSE
 
 SCR_REFERENCE  <- IDENT ( DOT IDENT )* INDEX*
+
 INDEX          <- ABOPEN { SCR_EXPRESSION } ABCLOSE
 
 LITERAL        <- STRINGLITERAL /

@@ -126,7 +126,12 @@ struct naie_engine
 #define NAIE_FLAG_DOREPLACE             (1<<3)
 #define NAIE_FLAG_ENDLESS               (1<<4)
 #define NAIE_FLAG_UTF8                  (1<<5)
-  NAIG_ERR_T                          (*debugger)(naie_engine_t*);
+  NAIG_ERR_T                          (*debugger)(naie_engine_t*,uint32_t);
+  unsigned                              debugoffset;
+  char*                                 debugtext;
+  unsigned                              debugstate;
+#define NAIE_DEBUG_FREE                 0
+#define NAIE_DEBUG_HALT                 1
 };
 
 typedef struct {

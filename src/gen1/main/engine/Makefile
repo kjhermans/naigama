@@ -7,7 +7,7 @@ LIBS=\
 
 all: $(TARGET)
 
-OBJECTS=engine.o engine_replace.o
+OBJECTS=engine.o engine_replace.o engine_debug.o
 
 $(TARGET): $(OBJECTS) $(LIBS)
 	$(CC) -o $(TARGET) $(OBJECTS) $(LIBS)

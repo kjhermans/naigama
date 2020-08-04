@@ -45,6 +45,15 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 extern NAIG_ERR_T engine_replace
   (naie_engine_t* engine, naie_result_t* result, FILE* output);
 
+extern NAIG_ERR_T engine_debug_bytecode
+  (naie_engine_t* engine, uint32_t);
+
+extern NAIG_ERR_T engine_debug_inputtext
+  (naie_engine_t* engine, uint32_t);
+
+extern NAIG_ERR_T engine_debug_inputoffset
+  (naie_engine_t* engine, uint32_t);
+
 /**
  *
  */
@@ -64,6 +73,9 @@ int main
   naie_engine_t engine;
   naie_result_t result;
   char* gen = NAIG_GENERATION;
+  int debugmode = 0;
+  unsigned debugoffset = 0;
+  char* debugtext = 0;
 
   for (i=0; i < argc; i++) {
     char* arg = argv[ i ];
@@ -139,12 +151,22 @@ int main
         }
         break;
       case 'd':
+        if (i >= argc - 1) {
+          fprintf(stderr, "Debugging option needs argument.\n");
+          exit(-1);
+        }
         switch (arg[ 1 ]) {
         case 0:
+          debugmode = 1;
+          debugoffset = atoi(argv[ ++i ]);
           break;
         case 't':
+          debugmode = 2;
+          debugtext = argv[ ++i ];
           break;
         case 'i':
+          debugmode = 3;
+          debugoffset = atoi(argv[ ++i ]);
           break;
         default:
           fprintf(stderr, "Debugging flag not understood.\n");
@@ -215,6 +237,16 @@ int main
         fprintf(stderr, "Labelmap set error %d\n", e.code);
         return -1;
       }
+    }
+    if (debugmode == 1) {
+      engine.debugger = engine_debug_bytecode;
+      engine.debugoffset = debugoffset;
+    } else if (debugmode == 2) {
+      engine.debugger = engine_debug_inputtext;
+      engine.debugtext = debugtext;
+    } else if (debugmode == 3) {
+      engine.debugger = engine_debug_inputoffset;
+      engine.debugoffset = debugoffset;
     }
     e = naie_engine_run(
       &engine,

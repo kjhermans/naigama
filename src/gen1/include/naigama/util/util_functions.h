@@ -44,6 +44,12 @@ unsigned octal
   (unsigned c1, unsigned c2, unsigned c3)
   __attribute__ ((warn_unused_result));
 
+/* declared in /home/work/work/naigama/src/gen1/lib/util//readline.c */
+extern
+char* readline
+  (char* prompt)
+  __attribute__ ((warn_unused_result));
+
 /* declared in /home/work/work/naigama/src/gen1/lib/util//strxypos.c */
 extern
 int strxypos

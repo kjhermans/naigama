@@ -85,7 +85,7 @@ NAIG_ERR_T naie_engine_loop
     if (engine->flags & NAIE_FLAG_DEBUG) {
       naie_debug_state(engine, 0);
       if (engine->debugger) {
-        CHECK(engine->debugger(engine));
+        CHECK(engine->debugger(engine, opcode));
       }
     }
 

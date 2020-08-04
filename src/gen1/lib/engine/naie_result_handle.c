@@ -90,7 +90,6 @@ NAIG_ERR_T naie_result_handle
             && r.actions[ i ].slot == slot)
         {
           if (insertfnc) {
-fprintf(stderr, "INSERT %u: %u %u\n", i, r.actions[ i ].start, r.actions[ i ].length);
             CHECK(
               insertfnc(
                 (engine ? engine->input : 0),

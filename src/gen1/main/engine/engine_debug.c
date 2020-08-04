@@ -47,7 +47,27 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define NAIG_DBGCMD_CALL 4
 
 static
+char debug_commands[] =
+  " CMD <- { 'next' / 'n' / \n"
+  "          'quit' / 'q' / \n"
+  "          'cont' / 'c' / \n"
+  "          'over' / 'o' / \n"
+  "          'help' / 'h' / '?' / \n"
+  "          'state' / \n"
+  "          'input' %s+ ( 'offset' %s+ { [0-9]+ } / \n"
+  "                        'text' %s+ { [a-zA-Z0-9]+ } ) / \n"
+  "          'instr' %s+ { 'call' / 'catch' / 'ret' } \n"
+  "          'label' %s+ { [a-zA-Z_][0-9a-zA-Z_]^63 } \n"
+  "        }\n";
+
+static
 unsigned lastcmd = 0;
+
+extern NAIG_ERR_T engine_debug_instruction
+  (naie_engine_t* engine, uint32_t opcode);
+
+extern NAIG_ERR_T engine_debug_over
+  (naie_engine_t* engine, uint32_t opcode);
 
 static
 NAIG_ERR_T engine_debug_handler
@@ -57,31 +77,47 @@ NAIG_ERR_T engine_debug_handler
   unsigned curcmd = lastcmd;
 
 BEGIN:
+  if (opcode == 0xffffffff) {
+    fprintf(stderr, "======== FAIL\n");
+  } else {
+    naie_debug_state(engine, 0);
+  }
   switch (engine->debugstate) {
   case NAIE_DEBUG_FREE:
     return NAIG_OK;
   case NAIE_DEBUG_HALT:
     cmdstr = readline("naid > ");
-    if (0 == strcmp(cmdstr, "q") || 0 == strcmp(cmdstr, "quit")) {
+    if (0 == strcmp(cmdstr, "n") || 0 == strcmp(cmdstr, "next")) {
+      curcmd = NAIG_DBGCMD_NEXT;
+    } else if (0 == strcmp(cmdstr, "q") || 0 == strcmp(cmdstr, "quit")) {
       curcmd = NAIG_DBGCMD_QUIT;
     } else if (0 == strcmp(cmdstr, "c") || 0 == strcmp(cmdstr, "cont")) {
       curcmd = NAIG_DBGCMD_CONT;
     } else if (0 == strcmp(cmdstr, "over")) {
       curcmd = NAIG_DBGCMD_OVER;
-    } else if (0 == strcmp(cmdstr, "call")) {
-      curcmd = NAIG_DBGCMD_CALL;
     } else if (0 == strcmp(cmdstr, "?")
                || 0 == strcmp(cmdstr, "h")
                || 0 == strcmp(cmdstr, "help"))
     {
       fprintf(stderr,
-        "Commands:\n"
-        "next            Jump to next instruction.\n"
-        "quit q          Stop execution.\n"
-        "cont c          Continue running.\n"
-        "over            Jump over function call.\n"
-        "call            Continue to next CALL instruction.\n"
+        "---- Flow following commands:\n"
+        "next n            Jump to next instruction.\n"
+        "cont c            Continue running.\n"
+        "over o            Jump over function call.\n"
+        "input text <text> Run to input text <text>\n"
+        "input offset <n>  Run to input offset <n>\n"
+        "instr <mnem>      Run to instruction <mnem>\n"
+        "state             Output full state\n"
+        "\n"
+        "---- Flow upsetting commands:\n"
+        "quit q            Stop execution.\n"
+        "label <lab>       Jump to <lab>.\n"
+        "call <lab>        Call <lab>.\n"
+        "cancelfail        Cancel the current FAIL state.\n"
       );
+      goto BEGIN;
+    } else if (0 == strcmp(cmdstr, "state")) {
+      naie_debug_state(engine, 1);
       goto BEGIN;
     } else if (*cmdstr) {
       fprintf(stderr, "Unknown command. Assuming 'next'\n");
@@ -101,16 +137,16 @@ BEGIN:
       engine->debugstate = NAIE_DEBUG_FREE;
       break;
     case NAIG_DBGCMD_OVER:
-      fprintf(stderr, "Jump over.\n");
-      if (opcode == OPCODE_CALL) {
-        //.. set state to something waiting for RET
-      } else {
-        fprintf(stderr, "Require a call instruction for stepping over.\n");
-      }
+      fprintf(stderr, "Jumping over current calling context.\n");
+      engine->debugstate = NAIE_DEBUG_FREE;
+      engine->debugger = engine_debug_over;
+      engine->debugoffset = engine->stack.count;;
       break;
     case NAIG_DBGCMD_CALL:
       fprintf(stderr, "Continue to CALL.\n");
-      engine->debugstate = NAIE_DEBUG_CALL;
+      engine->debugstate = NAIE_DEBUG_FREE;
+      engine->debugger = engine_debug_instruction;
+      engine->debugoffset = OPCODE_CALL;
       break;
     }
     break;
@@ -124,15 +160,30 @@ BEGIN:
 NAIG_ERR_T engine_debug_bytecode
   (naie_engine_t* engine, uint32_t opcode)
 {
-  switch (engine->debugstate) {
-  case NAIE_DEBUG_FREE:
-    if (engine->bytecode_pos == engine->debugoffset) {
-      fprintf(stdout, "Break point reached because bytecode offset = %u.\n"
-        , engine->bytecode_pos
-      );
-      engine->debugstate = NAIE_DEBUG_HALT;
-    }
-    break;
+  if (engine->debugstate == NAIE_DEBUG_FREE
+      && engine->bytecode_pos == engine->debugoffset)
+  {
+    fprintf(stdout, "Break point reached because bytecode offset = %u.\n"
+      , engine->bytecode_pos
+    );
+    engine->debugstate = NAIE_DEBUG_HALT;
+  }
+  return engine_debug_handler(engine, opcode);
+}
+
+/**
+ *
+ */
+NAIG_ERR_T engine_debug_instruction
+  (naie_engine_t* engine, uint32_t opcode)
+{
+  if (engine->debugstate == NAIE_DEBUG_FREE
+      && opcode == engine->debugoffset)
+  {
+    fprintf(stdout, "Break point reached because opcode = %.8x.\n"
+      , engine->debugoffset
+    );
+    engine->debugstate = NAIE_DEBUG_HALT;
   }
   return engine_debug_handler(engine, opcode);
 }
@@ -143,6 +194,36 @@ NAIG_ERR_T engine_debug_bytecode
 NAIG_ERR_T engine_debug_inputtext
   (naie_engine_t* engine, uint32_t opcode)
 {
+  char* t = engine->debugtext;
+  unsigned l = strlen(t);
+
+  if (engine->debugstate == NAIE_DEBUG_FREE
+      && engine->input_pos < engine->input_length - l
+      && 0 == memcmp(engine->input + engine->input_pos, t, l))
+  {
+    fprintf(stdout, "Break point reached because input text is '%s'.\n"
+      , t
+    );
+    engine->debugstate = NAIE_DEBUG_HALT;
+  }
+  return engine_debug_handler(engine, opcode);
+}
+
+/**
+ *
+ */
+NAIG_ERR_T engine_debug_over
+  (naie_engine_t* engine, uint32_t opcode)
+{
+  if (engine->debugstate == NAIE_DEBUG_FREE
+      && engine->stack.count < engine->debugoffset)
+  {
+    fprintf(stdout, "Break point reached because stack size < %u.\n"
+      , engine->debugoffset
+    );
+    engine->debugstate = NAIE_DEBUG_HALT;
+  }
+  return engine_debug_handler(engine, opcode);
 }
 
 /**
@@ -151,21 +232,13 @@ NAIG_ERR_T engine_debug_inputtext
 NAIG_ERR_T engine_debug_inputoffset
   (naie_engine_t* engine, uint32_t opcode)
 {
-  switch (engine->debugstate) {
-  case NAIE_DEBUG_FREE:
-    if (engine->input_pos == engine->debugoffset) {
-      fprintf(stdout, "Break point reached because input offset = %u.\n"
-        , engine->input_pos
-      );
-      engine->debugstate = NAIE_DEBUG_HALT;
-    }
-    break;
-  case NAIE_DEBUG_CALL:
-    if (opcode == OPCODE_CALL) {
-      fprintf(stdout, "Break point reached because opcode == CALL.\n");
-      engine->debugstate = NAIE_DEBUG_HALT;
-    }
-    break;
+  if (engine->debugstate == NAIE_DEBUG_FREE
+      && engine->input_pos == engine->debugoffset)
+  {
+    fprintf(stdout, "Break point reached because input offset = %u.\n"
+      , engine->input_pos
+    );
+    engine->debugstate = NAIE_DEBUG_HALT;
   }
   return engine_debug_handler(engine, opcode);
 }

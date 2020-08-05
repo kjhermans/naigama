@@ -15,3 +15,14 @@ The introduction of Hamming distance in Naigama bytecode instruction
 opcode values addresses [Threat \thethreatbcupset].
 
 \input{table_bytecode.tex}
+
+\subsection{Measure: Randomization of Opcode Values}
+
+The source code base allows you to re-randomize the instruction set.
+You can do this by issueing 'make instructions'. This will upset
+your entire build tree and lock you out from previous versions
+of instruction sets and bytecodes generated therein.
+
+It is a roadmap item currently to generate a file format for bytecode
+that comes with an 'instruction set signature' that allows engine
+to recognize or reject non conforming bytecodes.

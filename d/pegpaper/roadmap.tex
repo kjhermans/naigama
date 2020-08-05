@@ -12,17 +12,6 @@ A fuzzer would be a great tool to verify whether the intention of the
 policy designer is met
 (as well as a great test for the strength of the engine).
 
-\subsection{Debugging}
-
-This item should be addressed by the introduction of a checkpoint instruction
-that is emitted only in bytecodes that are marked for debugging, and that
-trigger the debugging engine to halt execution and allow stepping from that
-point onward. The use of label and slot maps, already in place, should allow
-for intuitive feedback to the debugger user at that point.
-
-Alternatively, the engine is provided with a command line option that
-instructs it to halt on a given bytecode offset.
-
 \subsection{Bytecode Transport File Format}
 
 A bytecode format with a cryptography based authentication string (HMAC)

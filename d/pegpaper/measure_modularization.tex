@@ -64,3 +64,29 @@ by the compiler, to their offsets in the bytecode.
 
 A label map allows for better debugging, as offsets in the bytecode
 can be reduced to more intuitively named labels.
+
+\subsubsection{Tooling: Disassembler}
+
+Naigama comes with a disassembler (in ./bin/disassembler), which recreates
+the Naigama assembly from bytecode. The output of the disassembler prefixes
+all instructions with a label, consisting of its offset in the bytecode,
+in decimal (the reason that labels may start with a number in Naigama).
+
+\subsubsection{Tooling: Debugger}
+
+The Naigama engine can be run in debugging mode. In this case, one can
+interactively step through the parsing process, instruction by instruction,
+and when the FAIL state is invoked.
+
+\begin{myquote}
+\begin{verbatim}
+$ ./src/gen2/main/engine/naie \
+  -c ./src/gen1/grammar/grammar.byc \
+  -l ./src/gen1/grammar/grammar.byc.labelmap \
+  -i ./src/gen1/grammar/grammar.naig \
+  -di 0 -v
+
+\end{verbatim}
+\end{myquote}
+\textit{Example of the invocation of the Naigama engine as debugger.}
+

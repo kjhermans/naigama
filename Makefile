@@ -13,7 +13,7 @@ stages: \
 arm_bare_metal:
 	@export ARCH=arm-none-eabi- && make
 
-instructions:
+instructions: superclean
 	@perl ./bin/gen_instructions.pl > ./src/instructions.pl
 
 ## stage_00: library functions.h generation

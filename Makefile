@@ -128,7 +128,7 @@ archive: clean
 	cd .. && tar czf ~/naigama-src-$$RELEASE.tar.gz --exclude=\.git naigama/
 
 clean:
-	@MFS=`find src/ doc/ -name Makefile`; \
+	@MFS=`find src/ d/ -name Makefile | xargs grep -l 'clean:'`; \
 		for MF in $$MFS; do \
 			DIR=`dirname $$MF`; \
 			make -C $$DIR clean; \

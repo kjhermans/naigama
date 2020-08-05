@@ -1,0 +1,24 @@
+\subsection{Measure: Traps}
+
+\subsubsection{Addition of the 'Trap' Instruction}
+
+One or more 'trap' instructions can be emitted by the compiler in places that,
+under normal circumstances, would be unreachable. For example, straight
+after the following possible instructions:
+
+\begin{itemize}
+\item{jump}
+\item{ret}
+\item{end}
+\item{commit}
+\item{partialcommit}
+\item{backcommit}
+\item{fail}
+\item{failtwice}
+\end{itemize}
+
+The possible advantage of placing traps is that, when the value of the
+bytecode offset in the engine is somehow subverted, it may land on a trap
+and halt execution.
+
+The addition of the 'trap' instruction addresses [Threat \thethreatbcupset].

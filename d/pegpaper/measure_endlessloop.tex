@@ -1,0 +1,42 @@
+\subsection{Measure: Endless Loop Detection}
+
+Endless loop detection can be done in two places: while compiling the
+grammar, and while running the bytecode in the engine.
+
+\subsubsection{Endless Loop Detection During Compilation}
+
+Since PEG is a left recursive parser, it explicitly forbids
+leftmost recursion. Rules that reference themselves as the first item
+in their production definition, like so:
+
+\begin{myquote}
+\begin{verbatim}
+RULE <- RULE OTHER_RULE_OR_TERMINAL
+
+\end{verbatim}
+\end{myquote}
+
+will necessarily create an endless loop when encountered during execution,
+and are therefore forbidden by the compiler. However, it's quite easy to
+create second, third or n-th order offences. For example:
+
+\begin{myquote}
+\begin{verbatim}
+RULE1 <- RULE2 'blah'
+RULE2 <- RULE1 'foo'
+
+\end{verbatim}
+\end{myquote}
+
+will wreak the same havoc, but is less easy to detect by the compiler.
+
+\subsubsection{Endless Loop Detection During Execution}
+
+Endless loop detection in both LPEG and Naigama is a fairly straightforward
+process in the engine: the second time the engine encounters the same
+combination of input offset value and bytecode offset value, is when the
+code is caught in an endless loop, and the execution will halt with a
+system error.
+
+Endless loop detection addresses [Threat \thethreatbcexec] and
+[Threat \thethreatbcerror].

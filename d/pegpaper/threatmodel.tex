@@ -1,0 +1,64 @@
+\section{Threat Model}
+Assuming that the Naigama parser, like many parsers, implements the
+following workflow sequence:
+
+\begin{itemize}
+\item A policy that comprehensively describes the structure
+      of a piece of input data is written down in a grammar.
+\item The grammar is held against
+      a piece of real input data by an engine (via, in this case,
+      a process of compilation and assembly to a bytecode).
+\item The engine provides a conclusion: the real
+      input data either matches the grammar or it doesn't.
+\item Optional detail of matching inputs follow, or subsequent actions
+      are performed on the input.
+\end{itemize}
+
+This paper then proposes that a parser is threatened by the following phenomena
+(apart from malicious inputs, or inputs which have been changed before being
+offered to the engine, which are considered
+an elementary form of protection that a parser should offer):
+
+\refstepcounter{defctr}
+\newcounter{threatintent} \setcounter{threatintent}{\value{defctr}}
+\thedefctr .
+The intention of the grammar writer is not easily conveyed in bytecode
+(and is therefore prone to mistakes).
+
+The intention of the grammar writer is not correctly conveyed in
+bytecode, and:
+
+\refstepcounter{defctr}
+\newcounter{threatbcerror} \setcounter{threatbcerror}{\value{defctr}}
+\thedefctr .
+This is something that can be proven before execution.
+
+\refstepcounter{defctr}
+\newcounter{threatbcexec} \setcounter{threatbcexec}{\value{defctr}}
+\thedefctr .
+This only becomes apparent during execution.
+
+The intention of the grammar writer is correctly conveyed in bytecode,
+but the bytecode is somehow corrupted, because either:
+
+\refstepcounter{defctr}
+\newcounter{threatbcsign} \setcounter{threatbcsign}{\value{defctr}}
+\thedefctr .
+The bytecode is replaced by a malicious or stupid actor before execution, or
+
+\refstepcounter{defctr}
+\newcounter{threatbcupset} \setcounter{threatbcupset}{\value{defctr}}
+\thedefctr .
+Some of the bytecode's bits accidentally change value before or
+during execution.
+
+\refstepcounter{defctr}
+\newcounter{threatengine} \setcounter{threatengine}{\value{defctr}}
+\thedefctr .
+The intention of the grammar writer is correctly conveyed in bytecode,
+but the engine is somehow corrupted during execution.
+
+\refstepcounter{defctr}
+\newcounter{threatinput} \setcounter{threatinput}{\value{defctr}}
+\thedefctr .
+The input is somehow corrupted during execution.

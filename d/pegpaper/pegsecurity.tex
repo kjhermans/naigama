@@ -1,0 +1,85 @@
+\documentclass[11pt]{amsart}
+%\documentclass[11pt]{report}
+\usepackage[toc,page]{appendix}
+\usepackage{float}
+\usepackage{mathtools}
+\usepackage{geometry}        % See geometry.pdf to learn the layout options.
+\geometry{a4paper}           % ... or a4paper or a5paper or ...
+%\geometry{landscape}        % Activate for for rotated page geometry
+%\usepackage[parfill]{parskip} % Activate to begin paragraphs with empty line
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{epstopdf}
+
+\usepackage[most]{tcolorbox}
+\definecolor{block-gray}{gray}{0.85}
+\newtcolorbox{myquote}{colback=block-gray,grow to right by=+0mm,grow to left by=-10mm, boxrule=0pt,boxsep=0pt,breakable}
+
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+\graphicspath{ {images/} }
+
+\renewcommand{\familydefault}{\sfdefault}
+\newcounter{defctr}
+
+\title{PEG Security}
+\author{Kees-Jan Hermans}
+%\date{}                     % Activate to display a given date or no date
+
+\begin{document}
+\maketitle
+
+This document contains a description of the measures that
+where implemented in the open source software Parsing Expression
+Grammar (PEG) suite Naigama,
+with the express intent to (more) securely enable
+parsing and processing of inputs.
+
+\vspace*{3\baselineskip}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=60mm]{../naigama}
+\end{figure}
+
+\vfill
+
+\begin{table}[]
+\centering
+\begin{tabular}{ll}
+Author & Kees-Jan Hermans / kees.jan.hermans@gmail.com \\
+Version & 0.1.2 \\
+Classification & - \\
+Generated on & \today \\
+\end{tabular}
+\end{table}
+
+\newpage
+
+\tableofcontents
+
+\setlength{\parindent}{4em}
+\setlength{\parskip}{1em}
+
+\newpage
+\input{intro.tex}
+\input{threatmodel.tex}
+\input{assumptions.tex}
+\section{Measures}
+\input{measure_modularization.tex}
+\input{measure_readonly.tex}
+\input{measure_32bit.tex}
+\input{measure_hamming.tex}
+\input{measure_traps.tex}
+\input{measure_fileformat.tex}
+\input{measure_endlessloop.tex}
+\input{measure_errorhandling.tex}
+%\input{consider_unicode.tex}
+\input{conclusion.tex}
+\input{roadmap.tex}
+
+\newpage
+\section{Colofon}
+\listoftables
+\input{bib.tex}
+
+\end{document}

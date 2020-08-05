@@ -1,0 +1,40 @@
+
+\begin{table}[]
+\centering
+\caption{Naigama Bytecode Instructions}
+\label{tab:naig_bytecode}
+\begin{tabular}{lllll}
+\textbf{Mnemonic} & \textbf{Opcode} & \textbf{Param1} & \textbf{Param2} & \textbf{Length} \\
+any & 000003d1 &  &   & 4 \\
+backcommit & 0004033a & address &   & 8 \\
+call & 0004031d & address &   & 8 \\
+catch & 0004033c & address &   & 8 \\
+char & 0004036c & char &   & 8 \\
+closecapture & 00040348 & slot &   & 8 \\
+commit & 00040324 & address &   & 8 \\
+condjump & 000803e2 & register & address  & 12 \\
+counter & 000803af & register & value  & 12 \\
+end & 00040036 & code &   & 8 \\
+endreplace & 00000317 &  &   & 4 \\
+fail & 0000034b &  &   & 4 \\
+failtwice & 00000388 &  &   & 4 \\
+jump & 000403e1 & address &   & 8 \\
+maskedchar & 0008037e & char & mask  & 12 \\
+noop & 00000000 &  &   & 4 \\
+opencapture & 00040369 & slot &   & 8 \\
+partialcommit & 0004031e & address &   & 8 \\
+quad & 00040309 & quad &   & 8 \\
+range & 00080341 & from & until  & 12 \\
+replace & 00080359 & slot & address  & 12 \\
+ret & 00000366 &  &   & 4 \\
+set & 0020031b & set &   & 36 \\
+skip & 00040378 & number &   & 8 \\
+span & 002003fa & set &   & 36 \\
+testany & 00040355 & address &   & 8 \\
+testchar & 000803f3 & address & char  & 12 \\
+testquad & 00080382 & address & quad  & 12 \\
+testset & 0024033f & address & set  & 40 \\
+trap & ff00ffff &  &   & 4 \\
+var & 000403e4 & slot &   & 8 \\
+\end{tabular}
+\end{table}

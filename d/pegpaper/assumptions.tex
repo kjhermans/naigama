@@ -1,0 +1,35 @@
+\section{Easy Pickings and Assumptions}
+
+\subsection{Coveying the Intention of the Grammar Writer}
+
+Wrt [Threat \thethreatintent], it is assumed that the grammar writer has been
+or can be taught to use Regular Expressions \cite{bib:regex}, and
+Backus-Naur (-like) notation \cite{bib:backusnaur}. These are the fundamentals
+behind PEG grammar notation when it comes to defining rule terminals and
+non terminals respectively.
+
+It is also assumed, should this not be the case, that for example, a GUI
+based policy definition application, exists or can be made. This document
+does not deal with the specifics of those.
+
+\subsection{The Hardness of the Bytecode Execution Engine}
+
+Wrt [Threat \thethreatengine], it is assumed that a bytecode execution
+engine can be ported to hardware (or a hardware description language, such
+as VHDL \cite{bib:vhdl})  with relative ease. This is at least
+intuitively supported by the following facts:
+
+\begin{itemize}
+\item The amount of bytecode instructions is relatively low (around thirty,
+      many of which are only emitted by the optimizer, which is a step
+      that can be skipped). See table [Table \ref{tab:naig_bytecode}]
+      for all Naigama parser instructions.
+\item The amount of memory manipulations that must be performed per
+      bytecode instruction is relatively low. For reference, the Naigama
+      bytecode engine main loop consists of about 400 lines of C code
+      [src/gen2/lib/engine/naie\_engine\_loop.c].
+\end{itemize}
+
+Hardware execution of the PEG bytecode engine should provide some
+confidence the risk of bitfaults or attacks on the engine logic itself, can
+be considered minimal [citation needed].

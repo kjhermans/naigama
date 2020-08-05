@@ -1,0 +1,32 @@
+\section{Conclusion}
+
+[Threat \thethreatintent] is not addressed by Naigama. It is assumed that
+the the grammar syntax is intuitive enough for the
+person drafting policy. Otherwise, it is assumed that a GUI application
+exists which can make this task easier.
+
+[Threat \thethreatbcerror] is addressed by modularization of the Naigama
+toolchain, allowing replacement, foregoing and reversing of modules and / or
+their function. Debugging and fuzzing, both roadmap items, should make the
+toolchain more complete.
+
+[Threat \thethreatbcexec] is addressed by endless loop detection.
+
+However, intuitively, it seems as if more could be done here.
+Debugging could play a role, as well as several other, perhaps
+more 'artificially intelligent' options (for example, when the stack
+grows in size to far beyond the amount of bytes in input).
+
+[Threat \thethreatbcsign] is not yet addressed by Naigama. This is in
+the roadmap section (secure file format).
+
+[Threat \thethreatbcupset] is addressed by the Hamming distance of
+opcodes, the alignment of instructions, and the possibility to insert
+trap instructions in the bytecode.
+
+[Threat \thethreatengine] is only addressed by Naigama in the sense that
+it intuitively seems to be well placed for implementation
+in hardware.
+
+[Threat \thethreatinput] is addressed by Naigama by strictly enforcing
+the read-only-ness of bytecode and input.

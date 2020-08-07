@@ -36,6 +36,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <unistd.h>
 #include <fcntl.h>
+#include <signal.h>
 
 #include "../../lib/naigama/naig_private.h"
 
@@ -54,6 +55,17 @@ extern NAIG_ERR_T engine_debug_inputtext
 extern NAIG_ERR_T engine_debug_inputoffset
   (naie_engine_t* engine, uint32_t);
 
+static
+naie_engine_t engine;
+
+static
+void engine_debug_signal
+  (int signum)
+{
+  fprintf(stderr, "Interrupted.\n");
+  engine.debugstate = NAIE_DEBUG_HALT;
+}
+
 /**
  *
  */
@@ -70,7 +82,6 @@ int main
   unsigned char* data = 0;
   unsigned data_length = 0;
   char* labelmap = 0;
-  naie_engine_t engine;
   naie_result_t result;
   char* gen = NAIG_GENERATION;
   int debugmode = 0;
@@ -238,6 +249,9 @@ int main
         fprintf(stderr, "Labelmap set error %d\n", e.code);
         return -1;
       }
+    }
+    if (debugmode) {
+      signal(SIGINT, engine_debug_signal);
     }
     if (debugmode == 1) {
       engine.debugger = engine_debug_bytecode;

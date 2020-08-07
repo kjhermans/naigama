@@ -37,6 +37,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "../../lib/naigama/naig_private.h"
 #include "../../lib/engine/naie_private.h"
 
+#include <naigama/naigama.h>
 #include <naigama/engine/naie.h>
 #include <naigama/util/util_functions.h>
 
@@ -47,18 +48,25 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define NAIG_DBGCMD_CALL 4
 
 static
-char debug_commands[] =
-  " CMD <- { 'next' / 'n' / \n"
-  "          'quit' / 'q' / \n"
-  "          'cont' / 'c' / \n"
-  "          'over' / 'o' / \n"
-  "          'help' / 'h' / '?' / \n"
-  "          'state' / \n"
-  "          'input' %s+ ( 'offset' %s+ { [0-9]+ } / \n"
-  "                        'text' %s+ { [a-zA-Z0-9]+ } ) / \n"
-  "          'instr' %s+ { 'call' / 'catch' / 'ret' } \n"
-  "          'label' %s+ { [a-zA-Z_][0-9a-zA-Z_]^63 } \n"
-  "        }\n";
+char debug_commands_grammar[] =
+  " CMD <- ( \n"
+  "          { 'next' / 'n' } / \n"
+  "          { 'quit' / 'q' } / \n"
+  "          { 'cont' / 'c' } / \n"
+  "          { 'over' / 'o' } / \n"
+  "          { 'help' / 'h' / '?' } / \n"
+  "          { 'state' } / \n"
+  "          { 'input' %s+ ( 'offset' %s+ { [0-9]+ } / \n"
+  "                          'text' %s+ { .+ } ) } / \n"
+  "          { 'instr' %s+ { 'call' / 'catch' / 'ret' } } \n"
+  "          { 'label' %s+ { [a-zA-Z_][0-9a-zA-Z_]^63 } } \n"
+  "        ) !. \n";
+
+static
+naig_t debug_commands;
+
+static
+int debug_commands_init = 0;
 
 static
 unsigned lastcmd = 0;
@@ -75,6 +83,13 @@ NAIG_ERR_T engine_debug_handler
 {
   char* cmdstr;
   unsigned curcmd = lastcmd;
+  naig_result_t cmd;
+
+  if (!debug_commands_init) {
+    memset(&debug_commands, 0, sizeof(debug_commands));
+    naig_compile(&debug_commands, debug_commands_grammar);
+    debug_commands_init = 1;
+  }
 
 BEGIN:
   if (opcode == 0xffffffff) {
@@ -87,6 +102,8 @@ BEGIN:
     return NAIG_OK;
   case NAIE_DEBUG_HALT:
     cmdstr = readline("naid > ");
+    naig_run(&debug_commands, cmdstr, strlen(cmdstr), &cmd);
+naie_result_debug(&(cmd.result), cmdstr);
     if (0 == strcmp(cmdstr, "n") || 0 == strcmp(cmdstr, "next")) {
       curcmd = NAIG_DBGCMD_NEXT;
     } else if (0 == strcmp(cmdstr, "q") || 0 == strcmp(cmdstr, "quit")) {

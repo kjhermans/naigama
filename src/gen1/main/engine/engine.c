@@ -62,7 +62,7 @@ static
 void engine_debug_signal
   (int signum)
 {
-  fprintf(stderr, "Interrupted.\n");
+  fprintf(stderr, "Interrupted on signal %d.\n", signum);
   engine.debugstate = NAIE_DEBUG_HALT;
 }
 

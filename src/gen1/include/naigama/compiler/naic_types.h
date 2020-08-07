@@ -1,15 +1,18 @@
 #ifndef _NAIC_TYPES_H_
 #define _NAIC_TYPES_H_
 
-#include <naigama/engine/naie.h>
+#include <naigama/naig_types.h>
+#include <naigama/engine/naie_types.h>
+#include "naic_defines.h"
 
 typedef struct
 {
-  unsigned          size;
+  unsigned          length; // malloced
+  unsigned          count;  // used
   struct {
     char              name[ 64 ];
     unsigned          slot;
-  }                 table[ NAIC_SLOTMAP_SIZE ];
+  }*                table;
 }
 naic_slotmap_t;
 

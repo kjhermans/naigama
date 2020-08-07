@@ -41,7 +41,7 @@ NAIG_ERR_T naic_slotmap_write
 {
   unsigned i;
 
-  for (i=0; i < slotmap->size; i++) {
+  for (i=0; i < slotmap->count; i++) {
     uint32_t f[2] = { htonl(slotmap->table[ i ].slot), -1 };
     char* str = slotmap->table[ i ].name;
     if (fwrite(f, sizeof(uint32_t), 2, out) != 2) {

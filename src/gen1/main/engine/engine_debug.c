@@ -55,12 +55,16 @@ char debug_commands_grammar[] =
   "          { 'cont' / 'c' } / \n"
   "          { 'over' / 'o' } / \n"
   "          { 'help' / 'h' / '?' } / \n"
+  "          { 'verbose' / 'v' } / \n"
   "          { 'state' } / \n"
   "          { 'input' %s+ ( 'offset' %s+ { [0-9]+ } / \n"
   "                          'text' %s+ { .+ } ) } / \n"
   "          { 'instr' %s+ { [a-z]^-63 } } / \n"
   "          { 'label' %s+ { [a-zA-Z_][0-9a-zA-Z_]^-63 } } \n"
   "        ) !. \n";
+
+static
+int verbose = 1;
 
 static
 naig_t debug_commands;
@@ -77,6 +81,9 @@ extern NAIG_ERR_T engine_debug_instruction
 extern NAIG_ERR_T engine_debug_over
   (naie_engine_t* engine, uint32_t opcode);
 
+extern NAIG_ERR_T engine_debug_cont
+  (naie_engine_t* engine, uint32_t opcode);
+
 extern NAIG_ERR_T engine_debug_inputoffset
   (naie_engine_t* engine, uint32_t opcode);
 
@@ -85,7 +92,6 @@ NAIG_ERR_T engine_debug_handler
   (naie_engine_t* engine, uint32_t opcode)
 {
   char* cmdstr;
-//  unsigned curcmd = lastcmd;
   naig_result_t cmd;
 
   if (!debug_commands_init) {
@@ -95,10 +101,12 @@ NAIG_ERR_T engine_debug_handler
   }
 
 BEGIN:
-  if (opcode == 0xffffffff) {
-    fprintf(stderr, "======== FAIL\n");
-  } else {
-    naie_debug_state(engine, 0);
+  if (verbose) {
+    if (opcode == 0xffffffff) {
+      fprintf(stderr, "======== FAIL\n");
+    } else {
+      naie_debug_state(engine, 0);
+    }
   }
   switch (engine->debugstate) {
   case NAIE_DEBUG_FREE:
@@ -124,6 +132,7 @@ BEGIN:
                  naic_slotmap_query(&(debug_commands.slotmap), "CMD_CONTC"))
       {
         fprintf(stderr, "Continue.\n");
+        engine->debugger = engine_debug_cont;
         engine->debugstate = NAIE_DEBUG_FREE;
         return NAIG_OK;
       } else if (cmd.result.actions[ 0 ].slot ==
@@ -134,6 +143,12 @@ BEGIN:
         engine->debugger = engine_debug_over;
         engine->debugoffset = engine->stack.count;;
         return NAIG_OK;
+      } else if (cmd.result.actions[ 0 ].slot ==
+                 naic_slotmap_query(&(debug_commands.slotmap), "CMD_VERBOSEV"))
+      {
+        fprintf(stderr, "Toggling verbose.\n");
+        verbose = !verbose;
+        goto BEGIN;
       } else if (cmd.result.actions[ 0 ].slot ==
                  naic_slotmap_query(&(debug_commands.slotmap), "CMD_HELPH"))
       {
@@ -266,6 +281,15 @@ NAIG_ERR_T engine_debug_over
     );
     engine->debugstate = NAIE_DEBUG_HALT;
   }
+  return engine_debug_handler(engine, opcode);
+}
+
+/**
+ *
+ */
+NAIG_ERR_T engine_debug_cont
+  (naie_engine_t* engine, uint32_t opcode)
+{
   return engine_debug_handler(engine, opcode);
 }
 

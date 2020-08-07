@@ -58,8 +58,8 @@ char debug_commands_grammar[] =
   "          { 'state' } / \n"
   "          { 'input' %s+ ( 'offset' %s+ { [0-9]+ } / \n"
   "                          'text' %s+ { .+ } ) } / \n"
-  "          { 'instr' %s+ { 'call' / 'catch' / 'ret' } } \n"
-  "          { 'label' %s+ { [a-zA-Z_][0-9a-zA-Z_]^63 } } \n"
+  "          { 'instr' %s+ { [a-z]^-63 } } / \n"
+  "          { 'label' %s+ { [a-zA-Z_][0-9a-zA-Z_]^-63 } } \n"
   "        ) !. \n";
 
 static
@@ -68,8 +68,8 @@ naig_t debug_commands;
 static
 int debug_commands_init = 0;
 
-static
-unsigned lastcmd = 0;
+//static
+//unsigned lastcmd = 0;
 
 extern NAIG_ERR_T engine_debug_instruction
   (naie_engine_t* engine, uint32_t opcode);
@@ -77,12 +77,15 @@ extern NAIG_ERR_T engine_debug_instruction
 extern NAIG_ERR_T engine_debug_over
   (naie_engine_t* engine, uint32_t opcode);
 
+extern NAIG_ERR_T engine_debug_inputoffset
+  (naie_engine_t* engine, uint32_t opcode);
+
 static
 NAIG_ERR_T engine_debug_handler
   (naie_engine_t* engine, uint32_t opcode)
 {
   char* cmdstr;
-  unsigned curcmd = lastcmd;
+//  unsigned curcmd = lastcmd;
   naig_result_t cmd;
 
   if (!debug_commands_init) {
@@ -102,70 +105,93 @@ BEGIN:
     return NAIG_OK;
   case NAIE_DEBUG_HALT:
     cmdstr = readline("naid > ");
-    naig_run(&debug_commands, cmdstr, strlen(cmdstr), &cmd);
-naie_result_debug(&(cmd.result), cmdstr);
-    if (0 == strcmp(cmdstr, "n") || 0 == strcmp(cmdstr, "next")) {
-      curcmd = NAIG_DBGCMD_NEXT;
-    } else if (0 == strcmp(cmdstr, "q") || 0 == strcmp(cmdstr, "quit")) {
-      curcmd = NAIG_DBGCMD_QUIT;
-    } else if (0 == strcmp(cmdstr, "c") || 0 == strcmp(cmdstr, "cont")) {
-      curcmd = NAIG_DBGCMD_CONT;
-    } else if (0 == strcmp(cmdstr, "over")) {
-      curcmd = NAIG_DBGCMD_OVER;
-    } else if (0 == strcmp(cmdstr, "?")
-               || 0 == strcmp(cmdstr, "h")
-               || 0 == strcmp(cmdstr, "help"))
-    {
-      fprintf(stderr,
-        "---- Flow following commands:\n"
-        "next n            Jump to next instruction.\n"
-        "cont c            Continue running.\n"
-        "over o            Jump over function call.\n"
-        "input text <text> Run to input text <text>\n"
-        "input offset <n>  Run to input offset <n>\n"
-        "instr <mnem>      Run to instruction <mnem>\n"
-        "state             Output full state\n"
-        "\n"
-        "---- Flow upsetting commands:\n"
-        "quit q            Stop execution.\n"
-        "label <lab>       Jump to <lab>.\n"
-        "call <lab>        Call <lab>.\n"
-        "cancelfail        Cancel the current FAIL state.\n"
-      );
-      goto BEGIN;
-    } else if (0 == strcmp(cmdstr, "state")) {
-      naie_debug_state(engine, 1);
-      goto BEGIN;
-    } else if (*cmdstr) {
-      fprintf(stderr, "Unknown command. Assuming 'next'\n");
-      curcmd = NAIG_DBGCMD_NEXT;
-    }
-    lastcmd = curcmd;
-    free(cmdstr);
-    switch (curcmd) {
-    case NAIG_DBGCMD_NEXT:
+    naig_run(&debug_commands, (unsigned char*)cmdstr, strlen(cmdstr), &cmd);
+//naie_result_debug(&(cmd.result), (unsigned char*)cmdstr);
+//naic_slotmap_debug(&(debug_commands.slotmap));
+
+    if (cmd.result.count) {
+      if (cmd.result.actions[ 0 ].slot ==
+          naic_slotmap_query(&(debug_commands.slotmap), "CMD_NEXTN"))
+      {
+        fprintf(stderr, "Next.\n");
+        return NAIG_OK;
+      } else if (cmd.result.actions[ 0 ].slot ==
+                 naic_slotmap_query(&(debug_commands.slotmap), "CMD_QUITQ"))
+      {
+        fprintf(stderr, "Quit.\n");
+        exit(0);
+      } else if (cmd.result.actions[ 0 ].slot ==
+                 naic_slotmap_query(&(debug_commands.slotmap), "CMD_CONTC"))
+      {
+        fprintf(stderr, "Continue.\n");
+        engine->debugstate = NAIE_DEBUG_FREE;
+        return NAIG_OK;
+      } else if (cmd.result.actions[ 0 ].slot ==
+                 naic_slotmap_query(&(debug_commands.slotmap), "CMD_OVERO"))
+      {
+        fprintf(stderr, "Jumping over current calling context.\n");
+        engine->debugstate = NAIE_DEBUG_FREE;
+        engine->debugger = engine_debug_over;
+        engine->debugoffset = engine->stack.count;;
+        return NAIG_OK;
+      } else if (cmd.result.actions[ 0 ].slot ==
+                 naic_slotmap_query(&(debug_commands.slotmap), "CMD_HELPH"))
+      {
+        fprintf(stderr,
+          "---- Flow following commands:\n"
+          "next n            Jump to next instruction.\n"
+          "cont c            Continue running.\n"
+          "over o            Jump over function call.\n"
+          "input text <text> Run to input text <text>\n"
+          "input offset <n>  Run to input offset <n>\n"
+          "instr <mnem>      Run to instruction <mnem>\n"
+          "state             Output full state\n"
+          "\n"
+          "---- Flow upsetting commands:\n"
+          "quit q            Stop execution.\n"
+          "label <lab>       Jump to <lab>.\n"
+          "call <lab>        Call <lab>.\n"
+          "cancelfail        Cancel the current FAIL state.\n"
+        );
+        goto BEGIN;
+      } else if (cmd.result.actions[ 0 ].slot ==
+                 naic_slotmap_query(&(debug_commands.slotmap), "CMD_STATE"))
+      {
+        fprintf(stderr, "Showing engine state.\n");
+        naie_debug_state(engine, 1);
+        goto BEGIN;
+      } else if (cmd.result.actions[ 0 ].slot ==
+                 naic_slotmap_query(&(debug_commands.slotmap), "CMD_INPUTSOFFSETSTEXTS"))
+      {
+        char param[ 64 ];
+        snprintf(param, sizeof(param), "%-.*s", cmd.result.actions[ 1 ].length, cmdstr + cmd.result.actions[ 1 ].start);
+        if (cmd.result.actions[ 1 ].slot == cmd.result.actions[ 0 ].slot + 1) {
+          engine->debugger = engine_debug_inputoffset;
+          engine->debugoffset = atoi(param);
+          engine->debugstate = NAIE_DEBUG_FREE;
+          return NAIG_OK;
+        } else if (cmd.result.actions[ 1 ].slot == cmd.result.actions[ 0 ].slot + 2) {
+//..
+        }
+      } else if (cmd.result.actions[ 0 ].slot ==
+                 naic_slotmap_query(&(debug_commands.slotmap), "CMD_INSTRSAZ"))
+      {
+        char param[ 64 ];
+        snprintf(param, sizeof(param), "%-.*s", cmd.result.actions[ 1 ].length, cmdstr + cmd.result.actions[ 1 ].start);
+        if (0 == strcmp(param, "call")) {
+          fprintf(stderr, "Running up to the next 'call' instruction.\n");
+          engine->debugger = engine_debug_instruction;
+          engine->debugoffset = OPCODE_CALL;
+          engine->debugstate = NAIE_DEBUG_FREE;
+          return NAIG_OK;
+        }
+      }
+    } else if (!strlen(cmdstr)) {
       fprintf(stderr, "Next.\n");
       return NAIG_OK;
-    case NAIG_DBGCMD_QUIT:
-      fprintf(stderr, "Quit.\n");
-      exit(0);
-    case NAIG_DBGCMD_CONT:
-      fprintf(stderr, "Continue.\n");
-      engine->debugstate = NAIE_DEBUG_FREE;
-      break;
-    case NAIG_DBGCMD_OVER:
-      fprintf(stderr, "Jumping over current calling context.\n");
-      engine->debugstate = NAIE_DEBUG_FREE;
-      engine->debugger = engine_debug_over;
-      engine->debugoffset = engine->stack.count;;
-      break;
-    case NAIG_DBGCMD_CALL:
-      fprintf(stderr, "Continue to CALL.\n");
-      engine->debugstate = NAIE_DEBUG_FREE;
-      engine->debugger = engine_debug_instruction;
-      engine->debugoffset = OPCODE_CALL;
-      break;
     }
+
+    free(cmdstr);
     break;
   }
   return NAIG_OK;

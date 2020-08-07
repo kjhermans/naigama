@@ -171,6 +171,14 @@ NAIG_ERR_T naic_slotmap_add
   )
   __attribute__ ((warn_unused_result));
 
+/* declared in /home/work/work/naigama/src/gen1/lib/compiler//naic_slotmap_debug.c */
+extern
+NAIG_ERR_T naic_slotmap_debug
+  (
+    naic_slotmap_t* slotmap
+  )
+  __attribute__ ((warn_unused_result));
+
 /* declared in /home/work/work/naigama/src/gen1/lib/compiler//naic_slotmap_get.c */
 extern
 NAIG_ERR_T naic_slotmap_get

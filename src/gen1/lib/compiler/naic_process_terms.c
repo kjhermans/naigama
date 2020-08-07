@@ -27,7 +27,7 @@ NAIG_ERR_T naic_process_terms
 #endif
 
   ++(naic->capindex);
-  while (naic->capindex < naic->captures->size
+  while (naic->capindex < naic->captures->count
          && naic->captures->actions[ naic->capindex ].start < end)
   {
     if (naic->captures->actions[ naic->capindex ].slot == SLOT_TERMS_TERM) {

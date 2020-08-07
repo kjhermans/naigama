@@ -59,7 +59,10 @@ NAIG_ERR_T naic_slotmap_add
   }
   if (slotmap->count == slotmap->length) {
     slotmap->length += 8;
-    slotmap->table = malloc(sizeof(slotmap->table[ 0 ]) * slotmap->length);
+    slotmap->table = realloc(
+      slotmap->table,
+      sizeof(slotmap->table[ 0 ]) * slotmap->length
+    );
   }
   snprintf(
     scratch,

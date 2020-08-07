@@ -39,8 +39,8 @@ void naie_result_debug
   unsigned i;
 
   fprintf(stderr, "End code: %d\n", result->code);
-  fprintf(stderr, "%u actions total\n", result->size);
-  for (i=0; i < result->size; i++) {
+  fprintf(stderr, "%u actions total\n", result->count);
+  for (i=0; i < result->count; i++) {
     switch (result->actions[ i ].action) {
     case NAIG_ACTION_OPENCAPTURE:
       fprintf(stderr, "Action #%u: capture slot %u, %u->%u '%-.*s'\n"

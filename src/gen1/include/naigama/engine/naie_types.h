@@ -146,8 +146,9 @@ naie_resact_t;
 typedef struct
 {
   int                                   code;
-  naie_resact_t                         actions[ NAIG_MAX_ACTIONS ];
-  unsigned                              size;
+  naie_resact_t*                        actions;
+  unsigned                              length; // allocated
+  unsigned                              count;  // used
 }
 naie_result_t;
 

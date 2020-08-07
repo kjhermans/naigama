@@ -57,7 +57,7 @@ NAIG_ERR_T naia_process_testchar
     )
   );
   opcode[ 1 ] = htonl(offset);
-  if (i+3 < naia->captures->size
+  if (i+3 < naia->captures->count
       && naia->captures->actions[ i+3 ].slot == ASMSLOT_HEXBYTE_AFAF)
   {
     _chr[ 1 ] = hexcodon(

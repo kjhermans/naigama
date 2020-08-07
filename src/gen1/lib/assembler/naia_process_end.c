@@ -42,7 +42,7 @@ NAIG_ERR_T naia_process_end
   uint32_t opcode[ 2 ] = { htonl(OPCODE_END) };
   uint32_t endcode = 0;
 
-  if (i+1 < naia->captures->size
+  if (i+1 < naia->captures->count
       && naia->captures->actions[ i+1 ].slot == ASMSLOT_NUMBER)
   {
     endcode = atoi_substr(

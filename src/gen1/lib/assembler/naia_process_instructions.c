@@ -21,7 +21,7 @@ NAIG_ERR_T naia_process_instructions
 {
   unsigned i;
 
-  for (i=0; i < naia->captures->size; i++) {
+  for (i=0; i < naia->captures->count; i++) {
     switch (naia->captures->actions[ i ].slot) {
     case ASMSLOT_ANYINSTR_ANY:
       CHECK(naia_process_any(naia, i)); break;

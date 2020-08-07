@@ -21,7 +21,7 @@ NAIG_ERR_T naia_process_labels
 {
   unsigned i, offset = 0;
 
-  for (i=0; i < naia->captures->size; i++) {
+  for (i=0; i < naia->captures->count; i++) {
     switch (naia->captures->actions[ i ].slot) {
     case ASMSLOT_ANYINSTR_ANY:
       offset += NAIG_INSTR_LENGTH(OPCODE_ANY);

@@ -51,7 +51,7 @@ NAIG_ERR_T naie_result_handle
   int delta;
   uint32_t slot;
 
-  for (i=0; i < r.size; i++) {
+  for (i=0; i < r.count; i++) {
     switch (r.actions[ i ].action) {
     case NAIG_ACTION_OPENCAPTURE:
       if (capturefnc) {
@@ -76,7 +76,7 @@ NAIG_ERR_T naie_result_handle
             arg
           )
         );
-        for (j=i+1; j < r.size; j++) {
+        for (j=i+1; j < r.count; j++) {
           r.actions[ j ].start -= delta;
         }
       }
@@ -84,7 +84,7 @@ NAIG_ERR_T naie_result_handle
     case NAIG_ACTION_REPLACE_CHAR:
     case NAIG_ACTION_REPLACE_QUAD:
       slot = r.actions[ i ].slot;
-      for(; i < r.size; i++) {
+      for(; i < r.count; i++) {
         if ((r.actions[ i ].action == NAIG_ACTION_REPLACE_CHAR
              || r.actions[ i ].action == NAIG_ACTION_REPLACE_QUAD)
             && r.actions[ i ].slot == slot)
@@ -99,7 +99,7 @@ NAIG_ERR_T naie_result_handle
                 arg
               )
             );
-            for (j=i+1; j < r.size; j++) {
+            for (j=i+1; j < r.count; j++) {
               r.actions[ j ].start +=
                 (r.actions[ i ].action == NAIG_ACTION_REPLACE_CHAR ? 1 : 4);
             }

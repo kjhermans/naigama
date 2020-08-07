@@ -49,7 +49,7 @@ NAIG_ERR_T naie_result_query
     naie_result_query_scope(
       result,
       0,
-      result->size,
+      result->count,
       path,
       path_length,
       0,

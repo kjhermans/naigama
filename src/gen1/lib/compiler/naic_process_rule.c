@@ -44,7 +44,7 @@ NAIG_ERR_T naic_process_rule
     CHECK(naic->write(naic->write_arg, "  trap\n"));
   }
 
-  for (i = naic->capindex; i < naic->captures->size; i++) {
+  for (i = naic->capindex; i < naic->captures->count; i++) {
     if (naic->captures->actions[ i ].start >= end) {
       break;
     }

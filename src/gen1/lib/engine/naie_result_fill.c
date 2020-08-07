@@ -65,11 +65,18 @@ NAIG_ERR_T naie_result_fill
           --level;
           if (level == 0) {
             if (a->slot == b->slot && a->stacklength == b->stacklength) {
-              result->actions[ result->size ].action= a->action;
-              result->actions[ result->size ].slot = b->slot;
-              result->actions[ result->size ].start = start;
-              result->actions[ result->size ].length = b->inputpos - start;
-              ++(result->size);
+              if (result->count == result->length) {
+                result->length += 8;
+                result->actions = realloc(
+                  result->actions,
+                  sizeof(naie_resact_t) * result->length
+                );
+              }
+              result->actions[ result->count ].action= a->action;
+              result->actions[ result->count ].slot = b->slot;
+              result->actions[ result->count ].start = start;
+              result->actions[ result->count ].length = b->inputpos - start;
+              ++(result->count);
               goto EndInnerLoop;
             } else {
 #ifdef _DEBUG
@@ -85,11 +92,18 @@ NAIG_ERR_T naie_result_fill
     case NAIG_ACTION_DELETE:
     case NAIG_ACTION_REPLACE_CHAR:
     case NAIG_ACTION_REPLACE_QUAD:
-      result->actions[ result->size ].action = a->action;
-      result->actions[ result->size ].start = a->inputpos;
-      result->actions[ result->size ].slot = a->slot;
-      result->actions[ result->size ].length = a->intvalue;
-      ++(result->size);
+      if (result->count == result->length) {
+        result->length += 8;
+        result->actions = realloc(
+          result->actions,
+          sizeof(naie_resact_t) * result->length
+        );
+      }
+      result->actions[ result->count ].action = a->action;
+      result->actions[ result->count ].start = a->inputpos;
+      result->actions[ result->count ].slot = a->slot;
+      result->actions[ result->count ].length = a->intvalue;
+      ++(result->count);
       break;
     default: ;
     }

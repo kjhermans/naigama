@@ -20,14 +20,14 @@ NAIG_ERR_T naic_process_tokens
   (naic_t* naic)
 {
 #ifdef _DEBUG
-  unsigned i; for (i=0; i < naic->captures->size; i++) {
+  unsigned i; for (i=0; i < naic->captures->count; i++) {
     naic->capindex = i;
     naic_debug(naic);
   }
   naic->capindex = 0;
 #endif
 
-  while (naic->capindex < naic->captures->size) {
+  while (naic->capindex < naic->captures->count) {
 #ifdef _DEBUG
     fprintf(stderr, "-- %s ", __FILE__); naic_debug(naic);
 #endif

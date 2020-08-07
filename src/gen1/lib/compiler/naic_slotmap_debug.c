@@ -36,7 +36,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /**
  *
  */
-NAIG_ERR_T naic_slotmap_debug
+void naic_slotmap_debug
   (
     naic_slotmap_t* slotmap
   )
@@ -49,5 +49,4 @@ NAIG_ERR_T naic_slotmap_debug
       , slotmap->table[ i ].slot
     );
   }
-  return NAIG_OK;
 }

@@ -102,6 +102,14 @@ char* naie_instr_string
   (uint32_t opcode)
   __attribute__ ((warn_unused_result));
 
+/* declared in /home/work/work/naigama/src/gen1/lib/engine//naie_labelmap_debug.c */
+extern
+NAIG_ERR_T naie_labelmap_debug
+  (
+    naie_engine_t* engine
+  )
+  __attribute__ ((warn_unused_result));
+
 /* declared in /home/work/work/naigama/src/gen1/lib/engine//naie_labelmap_get.c */
 extern
 NAIG_ERR_T naie_labelmap_get

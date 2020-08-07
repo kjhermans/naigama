@@ -3,7 +3,8 @@ CC=$(ARCH)gcc
 CFLAGS=-g -O2 -Wall -Wextra $(DEBUG) -I$(BUILDROOT)/src/gen1/include
 LIBS=\
 	$(BUILDROOT)/src/gen1/lib/engine/libnaie.a \
-	$(BUILDROOT)/src/gen1/lib/util/libutil.a
+	$(BUILDROOT)/src/gen1/lib/util/libutil.a \
+	$(BUILDROOT)/src/gen1/lib/naigama/libnaigama.a
 
 all: $(TARGET)
 

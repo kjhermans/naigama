@@ -80,7 +80,7 @@ NAIG_ERR_T naig_compile
   CHECK(
     naic_compile(
       grammar,
-      NULL,
+      &(naig->slotmap),
       0,
       0,
       naig_write_assembly,

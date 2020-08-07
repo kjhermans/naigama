@@ -144,7 +144,7 @@ int main
   NAIG_ERR_T e;
   if (slotmap) {
     naic_slotmap_t map;
-    map.size = 0;
+    memset(&map, 0, sizeof(map));
     e = naic_compile(grammar, &map, debug, traps, naic_write_file, output);
     if (e.code == 0) { e = naic_slotmap_write(&map, slotmap); }
   } else {

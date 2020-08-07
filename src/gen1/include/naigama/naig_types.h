@@ -40,16 +40,18 @@ typedef struct
 }
 NAIG_ERR_T;
 
+#include <naigama/compiler/naic_types.h>
+#include <naigama/engine/naie_types.h>
+
 typedef struct
 {
   char*                         grammar;
   unsigned char*                bytecode;
   unsigned                      bytecode_length;
   int                           debug;
+  naic_slotmap_t                slotmap;
 }
 naig_t;
-
-#include <naigama/engine/naie_types.h>
 
 typedef struct
 {

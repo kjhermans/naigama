@@ -85,7 +85,6 @@ int main
   naie_result_t result;
   char* gen = NAIG_GENERATION;
   int debugmode = 0;
-  unsigned debugoffset = 0;
   char* debugtext = 0;
 
   for (i=0; i < argc; i++) {
@@ -162,27 +161,7 @@ int main
         }
         break;
       case 'd':
-        if (i >= argc - 1) {
-          fprintf(stderr, "Debugging option needs argument.\n");
-          exit(-1);
-        }
-        switch (arg[ 1 ]) {
-        case 0:
-          debugmode = 1;
-          debugoffset = atoi(argv[ ++i ]);
-          break;
-        case 't':
-          debugmode = 2;
-          debugtext = argv[ ++i ];
-          break;
-        case 'i':
-          debugmode = 3;
-          debugoffset = atoi(argv[ ++i ]);
-          break;
-        default:
-          fprintf(stderr, "Debugging flag not understood.\n");
-          exit(-1);
-        }
+        debugmode = 1;
         break;
       case '?':
       case 'h':
@@ -200,10 +179,7 @@ int main
           "-S          Suppress binary output (implicit in -v and -r)\n"
           "-v          Verbose (prepare for a lot of data on stderr)\n"
           "-x          Diligent (gather stats while running)\n"
-          "-d <off>    Start debugger at bytecode offset\n"
-          "-dt <text>  Start debugger at input text substring equivalent\n"
-          "-di <off>   Start debugger at input offset\n"
-          "-dl <label> Start debugger at label (requires labelmap)\n"
+          "-d          Start debugger\n"
           "-I          Input is a string. Text position is displayed on error\n"
           "-s <size>   Stack size\n"
           , gen
@@ -252,16 +228,8 @@ int main
     }
     if (debugmode) {
       signal(SIGINT, engine_debug_signal);
-    }
-    if (debugmode == 1) {
-      engine.debugger = engine_debug_bytecode;
-      engine.debugoffset = debugoffset;
-    } else if (debugmode == 2) {
-      engine.debugger = engine_debug_inputtext;
-      engine.debugtext = debugtext;
-    } else if (debugmode == 3) {
       engine.debugger = engine_debug_inputoffset;
-      engine.debugoffset = debugoffset;
+      engine.debugoffset = 0;
     }
     e = naie_engine_run(
       &engine,

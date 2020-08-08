@@ -146,8 +146,8 @@ BEGIN:
       } else if (cmd.result.actions[ 0 ].slot ==
                  naic_slotmap_query(&(debug_commands.slotmap), "CMD_VERBOSEV"))
       {
-        fprintf(stderr, "Toggling verbose.\n");
         verbose = !verbose;
+        fprintf(stderr, "Toggling verbose to %s.\n", (verbose?"on":"off"));
         goto BEGIN;
       } else if (cmd.result.actions[ 0 ].slot ==
                  naic_slotmap_query(&(debug_commands.slotmap), "CMD_HELPH"))

@@ -31,71 +31,23 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \brief
  */
 
-#include <ctype.h>
-
 #include "naie_private.h"
 
 /**
- *
+ * Reverse lookup; input is offset, output is label name.
  */
-void naie_debug_state
-  (naie_engine_t* engine, int full)
+char* naie_labelmap_reverse
+  (
+    naie_engine_t* engine,
+    uint32_t offset
+  )
 {
-  char copy[ 9 ];
   unsigned i;
-  uint32_t opcode =GET_32BIT_NWO(engine->bytecode, engine->bytecode_pos);
 
-  memset(copy, 0, sizeof(copy));
-  memcpy(
-    copy,
-    engine->input + engine->input_pos,
-    (sizeof(copy) < engine->input_length - engine->input_pos)
-      ? sizeof(copy)
-      : engine->input_length - engine->input_pos
-  );
   for (i=0; i < engine->labels.count; i++) {
-    if (engine->labels.entries[ i ].offset == engine->bytecode_pos) {
-      fprintf(stderr, "                %s\n", engine->labels.entries[ i ].label);
+    if (offset == engine->labels.entries[ i ].offset) {
+      return engine->labels.entries[ i ].label;
     }
   }
-  for (i=0; i < sizeof(copy); i++) {
-    if (!isprint(copy[ i ])) { copy[ i ] = '.'; }
-  }
-  copy[ sizeof(copy) - 1 ] = 0;
-  if (full) {
-    naie_debug_instruction(engine);
-  }
-  fprintf(stderr,
-    "%13s @ %.6u txt: @ %.6u %s stk:"
-    , naie_instr_string(opcode)
-    , engine->bytecode_pos
-    , engine->input_pos
-    , copy
-  );
-  unsigned s = 0;
-  for (i=0; i < engine->stack.count; i++) {
-    if (engine->stack.entries[ i ].type == NAIG_STACK_CATCH) {
-      s = i;
-    }
-  }
-  if (s && s > engine->stack.count - 8) {
-    s = engine->stack.count - 8;
-  }
-  if (full) {
-    s = 0;
-    fprintf(stderr, "\n");
-  } else {
-    fprintf(stderr, "(%.3u prec.) ", s);
-  }
-  for (i=s; i < engine->stack.count; i++) {
-    fprintf(stderr, "%s:%u "
-      , ((engine->stack.entries[ i ].type == NAIG_STACK_CALL)
-          ? "CLL" : "ALT")
-      , engine->stack.entries[ i ].address
-    );
-  }
-  fprintf(stderr, "\n");
-  if (full) {
-    naie_debug_actions(engine);
-  }
+  return NULL;
 }

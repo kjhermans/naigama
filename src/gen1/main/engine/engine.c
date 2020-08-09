@@ -85,7 +85,6 @@ int main
   naie_result_t result;
   char* gen = NAIG_GENERATION;
   int debugmode = 0;
-  char* debugtext = 0;
 
   for (i=0; i < argc; i++) {
     char* arg = argv[ i ];

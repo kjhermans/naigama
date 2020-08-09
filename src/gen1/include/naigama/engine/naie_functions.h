@@ -20,10 +20,15 @@ extern
 void naie_debug_actions
   (naie_engine_t* engine);
 
+/* declared in /home/work/work/naigama/src/gen1/lib/engine//naie_debug_instruction.c */
+extern
+void naie_debug_instruction
+  (naie_engine_t* engine);
+
 /* declared in /home/work/work/naigama/src/gen1/lib/engine//naie_debug_state.c */
 extern
 void naie_debug_state
-  (naie_engine_t* engine, int fullstack);
+  (naie_engine_t* engine, int full);
 
 /* declared in /home/work/work/naigama/src/gen1/lib/engine//naie_engine_add_label.c */
 extern
@@ -117,6 +122,15 @@ NAIG_ERR_T naie_labelmap_get
     naie_engine_t* engine,
     char* label,
     uint32_t* offset
+  )
+  __attribute__ ((warn_unused_result));
+
+/* declared in /home/work/work/naigama/src/gen1/lib/engine//naie_labelmap_reverse.c */
+extern
+char* naie_labelmap_reverse
+  (
+    naie_engine_t* engine,
+    uint32_t offset
   )
   __attribute__ ((warn_unused_result));
 

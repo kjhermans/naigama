@@ -36,7 +36,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "naie_private.h"
 
 /**
- *
+ * Prints to stderr the current state of the engine.
  */
 void naie_debug_state
   (naie_engine_t* engine, int full)

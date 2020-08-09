@@ -34,7 +34,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "naie_private.h"
 
 /**
- *
+ * Debugs the current instruction (more verbosely than the normal
+ * debugging function does.
  */
 void naie_debug_instruction
   (naie_engine_t* engine)

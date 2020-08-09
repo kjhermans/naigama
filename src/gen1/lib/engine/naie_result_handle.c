@@ -34,7 +34,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "naie_private.h"
 
 /**
- *
+ * Callback API for the action list.
+ * Iterates through the action list and calls caller provided functions
+ * along the way.
  */
 NAIG_ERR_T naie_result_handle
   (

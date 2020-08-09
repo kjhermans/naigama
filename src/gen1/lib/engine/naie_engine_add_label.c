@@ -33,6 +33,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "naie_private.h"
 
+/**
+ * Adds a label to the label map.
+ */
 NAIG_ERR_T naie_engine_add_label
   (naie_engine_t* engine, char* string, uint32_t offset)
 {

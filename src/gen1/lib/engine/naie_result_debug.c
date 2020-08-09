@@ -33,6 +33,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <naigama/engine/naie.h>
 
+/**
+ * Prints to stderr the engine result (action list).
+ */
 void naie_result_debug
   (naie_result_t* result, unsigned char* data)
 {

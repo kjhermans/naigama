@@ -34,10 +34,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "naie_private.h"
 
 /**
- * Runs the engine, instead of from the beginning, from a certain
- * symbol in the bytecode, against the input. Precondition is that
- * the labelmap must be loaded, so that the starting bytecode offset
- * can be resolved.
+ * Gets an offset from the labelmap, given a label string.
  */
 NAIG_ERR_T naie_labelmap_get
   (

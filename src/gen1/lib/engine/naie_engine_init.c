@@ -35,6 +35,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #define TABLE_INIT_SIZE 32
 
+/**
+ * Initializer function for the engine structure.
+ */
 NAIG_ERR_T naie_engine_init
   (
     naie_engine_t* engine,

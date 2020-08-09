@@ -35,9 +35,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 /**
  * Runs the engine, instead of from the beginning, from a certain
- * symbol in the bytecode, against the input. Precondition is that
- * the labelmap must be loaded, so that the starting bytecode offset
- * can be resolved.
+ * offset in the bytecode, against the input.
  */
 NAIG_ERR_T naie_engine_call_offset
   (

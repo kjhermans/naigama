@@ -56,7 +56,7 @@ char* naie_debug_action_string
 }
 
 /**
- *
+ * Prints to stderr the current list of actions.
  */
 void naie_debug_actions
   (naie_engine_t* engine)

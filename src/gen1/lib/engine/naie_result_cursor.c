@@ -34,7 +34,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "naie_private.h"
 
 /**
- *
+ * Initializes a cursor onto the action list.
  */
 NAIG_ERR_T naie_result_cursor
   (

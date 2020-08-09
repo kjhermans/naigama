@@ -34,7 +34,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "naie_private.h"
 
 /**
- *
+ * Endless loop detection (not finished - currently unused).
  */
 NAIG_ERR_T naie_engine_endless_loop
   (naie_engine_t* engine)

@@ -34,7 +34,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "naie_private.h"
 
 /**
- *
+ * Determines the scope of the given action list item.
  */
 NAIG_ERR_T naie_result_cursor_scope
   (naie_result_t* result, unsigned start, unsigned scope, unsigned* end)

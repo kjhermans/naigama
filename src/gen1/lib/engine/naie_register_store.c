@@ -36,7 +36,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define REGISTER_INCREASE 32
 
 /**
- *
+ * Stores an entry into the register (counters).
  */
 NAIG_ERR_T naie_register_store
   (naie_engine_t* engine, uint32_t reg, uint32_t value)

@@ -34,7 +34,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "naie_private.h"
 
 /**
- *
+ * Returns the top item on the stack.
  */
 NAIG_ERR_T naie_stack_peek
   (naie_engine_t* engine, naie_stackentry_t** entry)

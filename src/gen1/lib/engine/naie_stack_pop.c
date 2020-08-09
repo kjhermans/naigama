@@ -34,7 +34,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "naie_private.h"
 
 /**
- *
+ * Pops the top item off the stack.
  */
 NAIG_ERR_T naie_stack_pop
   (naie_engine_t* engine, naie_stackentry_t* entry)

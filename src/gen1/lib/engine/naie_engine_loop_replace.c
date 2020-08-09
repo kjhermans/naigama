@@ -33,6 +33,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "naie_private.h"
 
+/**
+ * Performs the replacement bytecode (which only pushes actions on the
+ * action list). Actual replacement is done by the action processor.
+ */
 NAIG_ERR_T naie_engine_loop_replace
   (
     naie_engine_t* engine,

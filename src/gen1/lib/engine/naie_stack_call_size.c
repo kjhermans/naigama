@@ -34,7 +34,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "naie_private.h"
 
 /**
- *
+ * Returns the amount of entries on the stack that are of type CALL.
  */
 unsigned naie_stack_call_size
   (naie_engine_t* engine)

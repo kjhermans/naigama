@@ -36,7 +36,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define STACK_INCREASE 64
 
 /**
- *
+ * Pushes an item on the top of the stack.
  */
 NAIG_ERR_T naie_stack_push
   (

@@ -36,7 +36,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "naie_private.h"
 
 /**
- *
+ * Writes the engine output to a file
+ * (input to the action processor).
  */
 NAIG_ERR_T naie_output
   (naie_result_t* result, FILE* output)

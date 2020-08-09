@@ -34,7 +34,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "naie_private.h"
 
 /**
- *
+ * Steps into the first child at the action list cursor.
  */
 NAIG_ERR_T naie_result_cursor_child
   (

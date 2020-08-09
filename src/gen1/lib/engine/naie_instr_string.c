@@ -34,7 +34,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "naie_private.h"
 
 /**
- *
+ * Returns a string value for each opcode.
+ * This C file should be automatically generated.
  */
 char* naie_instr_string
   (uint32_t opcode)

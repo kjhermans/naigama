@@ -36,7 +36,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define ACTION_INCREASE 128
 
 /**
- *
+ * Pushes an action onto the action list.
  */
 NAIG_ERR_T naie_action_push
   (naie_engine_t* engine, naie_action_t action)

@@ -76,10 +76,18 @@ NAIG_ERR_T naie_engine_loop
       }
       RETURNERR(NAIE_ERR_CODEOVERFLOW);
     }
-    if (engine->flags & NAIE_FLAG_DILIGENT) {
-      ++(engine->forensics.noinstructions);
-      if (engine->stack.count > engine->forensics.maxstackdepth) {
-        engine->forensics.maxstackdepth = engine->stack.count;
+    ++(engine->forensics.noinstructions);
+    if (engine->stack.count > engine->forensics.maxstackdepth) {
+      engine->forensics.maxstackdepth = engine->stack.count;
+    }
+    if (engine->config.maxnoinstructions) {
+      if (engine->forensics.noinstructions > engine->config.maxnoinstructions) {
+        RETURNERR(NAIE_ERR_MAXINSTR);
+      }
+    }
+    if (engine->config.maxstackdepth) {
+      if (engine->forensics.maxstackdepth > engine->config.maxstackdepth) {
+        RETURNERR(NAIE_ERR_MAXSTACK);
       }
     }
     if (engine->flags & NAIE_FLAG_DEBUG) {

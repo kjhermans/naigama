@@ -64,6 +64,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define NAIE_ERR_BITFAULT               ((NAIG_ERR_T){ .code = -28 })
 #define NAIE_ERR_TRAP                   ((NAIG_ERR_T){ .code = -29 })
 #define NAIE_ERR_ENDLESSLOOP            ((NAIG_ERR_T){ .code = -30 })
+#define NAIE_ERR_MAXSTACK               ((NAIG_ERR_T){ .code = -31 })
+#define NAIE_ERR_MAXINSTR               ((NAIG_ERR_T){ .code = -32 })
 
 /** Limits **/
 

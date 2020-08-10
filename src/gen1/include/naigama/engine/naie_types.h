@@ -119,6 +119,10 @@ struct naie_engine
     unsigned                              noinstructions;
     unsigned                              maxstackdepth;
   }                                     forensics;
+  struct {
+    unsigned                              maxnoinstructions;
+    unsigned                              maxstackdepth;
+  }                                     config;
   unsigned                              flags;
 #define NAIE_FLAG_DEBUG                 (1<<0)
 #define NAIE_FLAG_DILIGENT              (1<<1)

@@ -1,3 +1,8 @@
+stage_2:
+	@$(BUILDROOT)/bin/gen_instr_string.pl \
+		$(BUILDROOT)/src/instructions.pl \
+		engine/naie_instr_string.c
+
 stage_3:
 	@cd engine && make -j 4
 	@cd compiler && make -j 4
@@ -13,4 +18,3 @@ clean:
 	@cd naigama && make clean
 
 superclean: clean
-

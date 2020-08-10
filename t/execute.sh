@@ -21,6 +21,16 @@ EXEC_MULTI_TEST ()
     "$BUILDROOT/src/gen2/main/engine/naie -v -x -I -c BYTECODE -i INPUT >/dev/null"
 }
 
+EXEC_BITFAULT_TEST ()
+{
+  FILE=$1
+  $BUILDROOT/bin/bitfaulttest.pl \
+    $FILE \
+    "$BUILDROOT/src/gen2/main/compiler/naic -i GRAMMAR -o ASM" \
+    "$BUILDROOT/src/gen2/main/assembler/naia -i ASM -o BYTECODE -l BYTECODE.labelmap" \
+    "$BUILDROOT/src/gen2/main/engine/naie -v -x -I -c BYTECODE -i INPUT -l BYTECODE.labelmap >/dev/null"
+}
+
 if [ "x$SINGLETEST" != "x" ]; then
   EXEC_SINGLE_TEST $SINGLETEST
 elif [ "x$MULTITEST" != "x" ]; then
@@ -37,6 +47,12 @@ else
   FILES=`ls single_*.tst`
   for FILE in $FILES; do
     EXEC_SINGLE_TEST $FILE
+  done
+
+  echo "Bitfault tests"
+  FILES=`ls bitfault_*.tst`
+  for FILE in $FILES; do
+    EXEC_BITFAULT_TEST $FILE
   done
   
 fi

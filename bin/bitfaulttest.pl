@@ -32,6 +32,7 @@ if ($test =~ /-- (Grammar):\s*\n(.*)\n-- (Input|Hexinput):\s*\n(.*)$/s) {
 
 #include <naigama/naigama.h>
 #include <naigama/engine/naie.h>
+#include <naigama/disassembler/naid.h>
 
 static unsigned char input[] = {
 ";
@@ -49,6 +50,18 @@ static char grammar[] = {
   }
   print FILE '0x00
 };
+
+#include <stdarg.h>
+
+static NAIG_ERR_T debdis
+  (void* ptr, char* fmt, ...)
+{
+  (void)ptr;
+  va_list ap;
+  va_start(ap, fmt);
+  vfprintf(stderr, fmt, ap);
+  return NAIG_OK;
+}
 
 int main(int argc, char* argv[])
 {
@@ -73,6 +86,9 @@ int main(int argc, char* argv[])
     engine.config.maxnoinstructions = 500000;
     e = naie_engine_run(&engine, &result);
     ++(occurence[ 512 - e.code ]);
+    if (e.code == 0) {
+      naid_disassemble(bytecodecopy, naigama.bytecode_length, debdis, 0);
+    }
   }
   for (i=0; i < 1024; i++) {
     if (occurence[ i ]) {

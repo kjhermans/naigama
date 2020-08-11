@@ -14,6 +14,7 @@ $(LIB): $(OBJECTS)
 		$(BUILDROOT)/src/gen1/lib/engine/libnaie.a \
 		$(BUILDROOT)/src/gen1/lib/compiler/libnaic.a \
 		$(BUILDROOT)/src/gen1/lib/assembler/libnaia.a \
+		$(BUILDROOT)/src/gen1/lib/disassembler/libnaid.a \
 		$(BUILDROOT)/src/gen1/lib/util/libutil.a \
 
 clean:

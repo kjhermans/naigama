@@ -41,7 +41,7 @@ NAIG_ERR_T naid_do_disassemble
 {
   unsigned bytecode_offset = 0;
   uint32_t opcode, param1, param2;
-  unsigned instrlength;
+  unsigned instrlength, i;
 
   while (bytecode_offset < naid->bytecode_length) {
     CHECK(naid->write(naid->write_arg, "%u: ", bytecode_offset));
@@ -80,6 +80,8 @@ NAIG_ERR_T naid_do_disassemble
       CHECK(naid->write(naid->write_arg, "char %.2x\n", param1));
       break;
     case OPCODE_CLOSECAPTURE:
+      param1 = GET_32BIT_NWO(naid->bytecode, bytecode_offset + 4);
+      CHECK(naid->write(naid->write_arg, "closecapture %u\n", param1));
       break;
     case OPCODE_COMMIT:
       param1 = GET_32BIT_NWO(naid->bytecode, bytecode_offset + 4);
@@ -89,8 +91,17 @@ NAIG_ERR_T naid_do_disassemble
       }
       break;
     case OPCODE_CONDJUMP:
+      param1 = GET_32BIT_NWO(naid->bytecode, bytecode_offset + 4);
+      param2 = GET_32BIT_NWO(naid->bytecode, bytecode_offset + 8);
+      CHECK(naid->write(naid->write_arg, "condjump %u %u\n", param1, param2));
+      if (param2 > naid->bytecode_length) {
+        CHECK(naid->write(naid->write_arg, "-- ERROR: Jump out of bounds.\n"));
+      }
       break;
     case OPCODE_COUNTER:
+      param1 = GET_32BIT_NWO(naid->bytecode, bytecode_offset + 4);
+      param2 = GET_32BIT_NWO(naid->bytecode, bytecode_offset + 8);
+      CHECK(naid->write(naid->write_arg, "counter %u %u\n", param1, param2));
       break;
     case OPCODE_END:
       param1 = GET_32BIT_NWO(naid->bytecode, bytecode_offset + 4);
@@ -113,11 +124,16 @@ NAIG_ERR_T naid_do_disassemble
       }
       break;
     case OPCODE_MASKEDCHAR:
+      param1 = GET_32BIT_NWO(naid->bytecode, bytecode_offset + 4);
+      param2 = GET_32BIT_NWO(naid->bytecode, bytecode_offset + 8);
+      CHECK(naid->write(naid->write_arg, "maskedchar %.2x %.2x\n", param1, param2));
       break;
     case OPCODE_NOOP:
       CHECK(naid->write(naid->write_arg, "noop\n", param1));
       break;
     case OPCODE_OPENCAPTURE:
+      param1 = GET_32BIT_NWO(naid->bytecode, bytecode_offset + 4);
+      CHECK(naid->write(naid->write_arg, "opencapture %u\n", param1));
       break;
     case OPCODE_PARTIALCOMMIT:
       param1 = GET_32BIT_NWO(naid->bytecode, bytecode_offset + 4);
@@ -131,17 +147,38 @@ NAIG_ERR_T naid_do_disassemble
       CHECK(naid->write(naid->write_arg, "char %.8x\n", param1));
       break;
     case OPCODE_RANGE:
+      param1 = GET_32BIT_NWO(naid->bytecode, bytecode_offset + 4);
+      param2 = GET_32BIT_NWO(naid->bytecode, bytecode_offset + 8);
+      CHECK(naid->write(naid->write_arg, "range %u %u\n", param1, param2));
       break;
     case OPCODE_REPLACE:
+      param1 = GET_32BIT_NWO(naid->bytecode, bytecode_offset + 4);
+      param2 = GET_32BIT_NWO(naid->bytecode, bytecode_offset + 8);
+      CHECK(naid->write(naid->write_arg, "replace %u %u\n", param1, param2));
+      if (param2 > naid->bytecode_length) {
+        CHECK(naid->write(naid->write_arg, "-- ERROR: Jump out of bounds.\n"));
+      }
       break;
     case OPCODE_RET:
       CHECK(naid->write(naid->write_arg, "ret\n", param1));
       break;
     case OPCODE_SET:
+      CHECK(naid->write(naid->write_arg, "set ", param1));
+      for (i=0; i < 32; i++) {
+        CHECK(naid->write(naid->write_arg, "%.2x", naid->bytecode + 4 + i));
+      }
+      CHECK(naid->write(naid->write_arg, "\n"));
       break;
     case OPCODE_SKIP:
+      param1 = GET_32BIT_NWO(naid->bytecode, bytecode_offset + 4);
+      CHECK(naid->write(naid->write_arg, "skip %u\n", param1));
       break;
     case OPCODE_SPAN:
+      CHECK(naid->write(naid->write_arg, "span ", param1));
+      for (i=0; i < 32; i++) {
+        CHECK(naid->write(naid->write_arg, "%.2x", naid->bytecode + 4 + i));
+      }
+      CHECK(naid->write(naid->write_arg, "\n"));
       break;
     case OPCODE_TESTANY:
       param1 = GET_32BIT_NWO(naid->bytecode, bytecode_offset + 4);
@@ -152,21 +189,27 @@ NAIG_ERR_T naid_do_disassemble
       break;
     case OPCODE_TESTCHAR:
       param1 = GET_32BIT_NWO(naid->bytecode, bytecode_offset + 4);
-      CHECK(naid->write(naid->write_arg, "testchar %u\n", param1));
+      param2 = GET_32BIT_NWO(naid->bytecode, bytecode_offset + 8);
+      CHECK(naid->write(naid->write_arg, "testchar %.2x %u\n", param2, param1));
       if (param1 > naid->bytecode_length) {
         CHECK(naid->write(naid->write_arg, "-- ERROR: Jump out of bounds.\n"));
       }
       break;
     case OPCODE_TESTQUAD:
       param1 = GET_32BIT_NWO(naid->bytecode, bytecode_offset + 4);
-      CHECK(naid->write(naid->write_arg, "testquad %u\n", param1));
+      param2 = GET_32BIT_NWO(naid->bytecode, bytecode_offset + 8);
+      CHECK(naid->write(naid->write_arg, "testquad %.8x %u\n", param2, param1));
       if (param1 > naid->bytecode_length) {
         CHECK(naid->write(naid->write_arg, "-- ERROR: Jump out of bounds.\n"));
       }
       break;
     case OPCODE_TESTSET:
       param1 = GET_32BIT_NWO(naid->bytecode, bytecode_offset + 4);
-      CHECK(naid->write(naid->write_arg, "testset %u\n", param1));
+      CHECK(naid->write(naid->write_arg, "testset "));
+      for (i=0; i < 32; i++) {
+        CHECK(naid->write(naid->write_arg, "%.2x", naid->bytecode + 4 + i));
+      }
+      CHECK(naid->write(naid->write_arg, " %u\n", param1));
       if (param1 > naid->bytecode_length) {
         CHECK(naid->write(naid->write_arg, "-- ERROR: Jump out of bounds.\n"));
       }
@@ -175,6 +218,8 @@ NAIG_ERR_T naid_do_disassemble
       CHECK(naid->write(naid->write_arg, "trap\n", param1));
       break;
     case OPCODE_VAR:
+      param1 = GET_32BIT_NWO(naid->bytecode, bytecode_offset + 4);
+      CHECK(naid->write(naid->write_arg, "var %u\n", param1));
       break;
     default:
       naid->write(naid->write_arg, "-- Unknown opcode\n");

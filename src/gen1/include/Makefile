@@ -1,6 +1,11 @@
 stage_00: functions
 
-functions: naie_functions naic_functions naia_functions util_functions
+functions: \
+	naie_functions \
+	naic_functions \
+	naia_functions \
+	naid_functions \
+	util_functions
 
 naie_functions: naigama/engine/naie_functions.h
 
@@ -22,6 +27,15 @@ naigama/assembler/naia_functions.h: $(BUILDROOT)/src/gen1/lib/assembler/*.c
 	perl $(BUILDROOT)/bin/gen_functions_header.pl \
 		$(BUILDROOT)/src/gen1/lib/assembler/ \
 		> naigama/assembler/naia_functions.h
+
+util_functions: naigama/util/util_functions.h
+
+naid_functions: naigama/disassembler/naid_functions.h
+
+naigama/disassembler/naid_functions.h: $(BUILDROOT)/src/gen1/lib/disassembler/*.c
+	perl $(BUILDROOT)/bin/gen_functions_header.pl \
+		$(BUILDROOT)/src/gen1/lib/disassembler/ \
+		> naigama/disassembler/naid_functions.h
 
 util_functions: naigama/util/util_functions.h
 

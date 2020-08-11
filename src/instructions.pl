@@ -351,8 +351,8 @@ $VAR1 = {
                          'size' => 40
                        },
           'trap' => {
-                      'instr' => 4294967295,
-                      'opcode' => 'ffffffff',
+                      'instr' => 4278255615,
+                      'opcode' => 'ff00ffff',
                       'size' => 4
                     },
           'var' => {

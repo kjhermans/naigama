@@ -126,8 +126,8 @@
 #define INSTR_TESTQUAD "testquad"
 #define OPCODE_TESTSET 0x0024033f
 #define INSTR_TESTSET "testset"
-#define OPCODE_TRAP 0xffffffff
+#define OPCODE_TRAP 0xff00ffff
 #define INSTR_TRAP "trap"
 #define OPCODE_VAR 0x000403e4
 #define INSTR_VAR "var"
-#define DIGEST_INSTR 0x34ac2384fcbad2b6
+#define DIGEST_INSTR 0x972b24f9e0756859

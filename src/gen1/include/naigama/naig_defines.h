@@ -34,7 +34,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef _NAIG_DEFINES_H_
 #define _NAIG_DEFINES_H_
 
-#define OPCODE_TRAP                     0xffffffff
+//#define OPCODE_TRAP                     0xffffffff
 
 /** Error handling **/
 

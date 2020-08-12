@@ -8,7 +8,7 @@ HASHELT      <- STRING %s* ':' %s* VALUE
 ARRAY        <- '[' %s* OPTARRAYELTS %s* ']'
 OPTARRAYELTS <- ARRAYELTS / ...
 ARRAYELTS    <- VALUE %s* ',' %s* ARRAYELTS / VALUE
-VALUE        <- STRING / INT / FLOAT / BOOL / NULL / HASH / ARRAY
+VALUE        <- STRING / FLOAT / INT / BOOL / NULL / HASH / ARRAY
 STRING       <- { '"' [^"]* '"' }
 INT          <- { [0-9]+ }
 FLOAT        <- { [0-9]* '.' [0-9]+ }
@@ -26,16 +26,16 @@ NULL         <- { 'null' }
         "height": 500
     },
     "image": {
-        "src": "Images/Sun.png",
+        "src": { "foo" : "bar", "bar" : 0.23 },
         "name": "sun1",
-        "hOffset": 250,
-        "vOffset": 250,
+        "hOffset": 250.0,
+        "vOffset": 250.5,
         "alignment": "center"
     },
     "text": {
-        "data": "Click Here",
+        "data": [ "some", "sub", "array", 3, 5.7, false, null ],
         "size": 36,
-        "style": "bold",
+        "style": null,
         "name": "text1",
         "hOffset": 250,
         "vOffset": 100,

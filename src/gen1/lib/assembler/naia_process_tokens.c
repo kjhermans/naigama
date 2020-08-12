@@ -21,7 +21,7 @@ NAIG_ERR_T naia_process_tokens
 {
 #ifdef _DEBUG
   unsigned i;
-  for (i=0; i < naia->captures->size; i++) {
+  for (i=0; i < naia->captures->count; i++) {
     fprintf(stderr, "Token %u: %u->%u %s '%-.*s'\n"
       , i
       , naia->captures->actions[ i ].start

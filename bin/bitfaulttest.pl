@@ -87,6 +87,7 @@ int main(int argc, char* argv[])
     e = naie_engine_run(&engine, &result);
     ++(occurence[ 512 - e.code ]);
     if (e.code == 0) {
+      fprintf(stderr, "\n-- Bit %u\n", i);
       naid_disassemble(bytecodecopy, naigama.bytecode_length, debdis, 0);
     }
   }
@@ -103,13 +104,13 @@ int main(int argc, char* argv[])
   my $cmd =
     "gcc -g -O2 -Wall -Wextra " .
     "-I$ROOT/src/gen2/include " .
-    "-o /tmp/bf.exe $tmpfile.c " .
+    "-o /tmp/bf_$n.exe $tmpfile.c " .
     "$ROOT/src/gen2/lib/naigama/libnaigama.a";
   print STDERR "$cmd\n";
   if (system($cmd)) {
     die "Error on compilation";
   }
-  system("/tmp/bf.exe");
+  system("/tmp/bf_$n.exe");
 }
 
 sub hexdecode

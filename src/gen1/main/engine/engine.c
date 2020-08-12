@@ -46,10 +46,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 extern NAIG_ERR_T engine_replace
   (naie_engine_t* engine, naie_result_t* result, FILE* output);
 
-extern NAIG_ERR_T engine_debug_bytecode
-  (naie_engine_t* engine, uint32_t);
-
-extern NAIG_ERR_T engine_debug_inputtext
+extern NAIG_ERR_T engine_debug_cont
   (naie_engine_t* engine, uint32_t);
 
 extern NAIG_ERR_T engine_debug_inputoffset
@@ -229,6 +226,8 @@ int main
       signal(SIGINT, engine_debug_signal);
       engine.debugger = engine_debug_inputoffset;
       engine.debugoffset = 0;
+    } else if (debug) {
+      engine.debugger = engine_debug_cont;
     }
     e = naie_engine_run(
       &engine,
@@ -243,7 +242,7 @@ int main
         }
       }
       if (debug) {
-        engine.stack.count = engine.forensics.stacksizebeforefail;
+        engine.stack.count = engine.forensics.maxstackdepth; //stacksizebeforefail;
         naie_debug_state(&engine, 1);
       }
       return -1;

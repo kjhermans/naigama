@@ -38,31 +38,34 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * Writes the contents of a piece of memory to stderr, hexdump-style.
  */
 void logmem
-  (void* _mem, unsigned int size)
+  (FILE* file, void* _mem, unsigned int size)
 {
   char* mem = _mem;
   char print[16];
   unsigned int c = 0;
   *print = 0;
+  if (file == 0) {
+    file = stderr;
+  }
   fprintf(stderr, "Debugging memory at %p size %u\n", _mem, size);
   if (size == 0) {
     return;
   }
-  fprintf(stderr, "%.8x  ", c);
+  fprintf(file, "%.8x  ", c);
   while (size--) {
     unsigned char byte = *mem++;
-    fprintf(stderr, "%.2x ", byte);
+    fprintf(file, "%.2x ", byte);
     print[c % 16] = (isprint(byte) ? byte : '.');
     if ((++c % 16) == 0) {
-      fprintf(stderr, "     %-.*s\n%.8x  ", 16, print, c);
+      fprintf(file, "     %-.*s\n%.8x  ", 16, print, c);
       *print = 0;
     }
   }
   while (c % 16) {
     print[c % 16] = ' ';
     c++;
-    fprintf(stderr, "   ");
+    fprintf(file, "   ");
   }
-  fprintf(stderr, "     %-.*s\n", 16, print);
-  fflush(stderr);
+  fprintf(file, "     %-.*s\n", 16, print);
+  fflush(file);
 }

@@ -56,10 +56,10 @@ static char grammar[] = {
 static NAIG_ERR_T debdis
   (void* ptr, char* fmt, ...)
 {
-  (void)ptr;
+  FILE* f = (FILE*)ptr;
   va_list ap;
   va_start(ap, fmt);
-  vfprintf(stderr, fmt, ap);
+  vfprintf(f, fmt, ap);
   return NAIG_OK;
 }
 
@@ -74,7 +74,11 @@ int main(int argc, char* argv[])
   unsigned occurence[ 1024 ] = { 0 };
 
   memset(&naigama, 0, sizeof(naigama));
-  naig_compile(&naigama, grammar);
+  naig_compile(&naigama, grammar, 1);
+
+  FILE* file = fopen("/tmp/orig_' . $n . '.asm", "w");
+  naid_disassemble(naigama.bytecode, naigama.bytecode_length, debdis, file);
+  fclose(file);
 
   for (i=0; i < naigama.bytecode_length * 8; i++) {
     unsigned char offset = i / 8;
@@ -87,8 +91,17 @@ int main(int argc, char* argv[])
     e = naie_engine_run(&engine, &result);
     ++(occurence[ 512 - e.code ]);
     if (e.code == 0) {
-      fprintf(stderr, "\n-- Bit %u\n", i);
-      naid_disassemble(bytecodecopy, naigama.bytecode_length, debdis, 0);
+      char path[ 1024 ];
+      char cmd[ 1024 ];
+      snprintf(path, sizeof(path), "/tmp/bitfault_' . $n . '_%u.asm", i);
+      file = fopen(path, "w");
+      fprintf(file, "-- Bit %u\n", i);
+      naid_disassemble(bytecodecopy, naigama.bytecode_length, debdis, file);
+      fclose(file);
+      snprintf(cmd, sizeof(cmd), "diff /tmp/orig_' . $n . '.asm /tmp/bitfault_' . $n . '.asm", i);
+      system(cmd);
+      system("sync");
+      unlink(path);
     }
   }
   for (i=0; i < 1024; i++) {
@@ -102,7 +115,7 @@ int main(int argc, char* argv[])
 
   my $ROOT = $ENV{BUILDROOT};
   my $cmd =
-    "gcc -g -O2 -Wall -Wextra " .
+    "gcc -g -Wall -Wextra " .
     "-I$ROOT/src/gen2/include " .
     "-o /tmp/bf_$n.exe $tmpfile.c " .
     "$ROOT/src/gen2/lib/naigama/libnaigama.a";

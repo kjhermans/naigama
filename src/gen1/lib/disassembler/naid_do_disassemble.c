@@ -165,7 +165,7 @@ NAIG_ERR_T naid_do_disassemble
     case OPCODE_SET:
       CHECK(naid->write(naid->write_arg, "set ", param1));
       for (i=0; i < 32; i++) {
-        CHECK(naid->write(naid->write_arg, "%.2x", naid->bytecode[ 4 + i ]));
+        CHECK(naid->write(naid->write_arg, "%.2x", naid->bytecode[ bytecode_offset + 4 + i ]));
       }
       CHECK(naid->write(naid->write_arg, "\n"));
       break;
@@ -176,7 +176,7 @@ NAIG_ERR_T naid_do_disassemble
     case OPCODE_SPAN:
       CHECK(naid->write(naid->write_arg, "span ", param1));
       for (i=0; i < 32; i++) {
-        CHECK(naid->write(naid->write_arg, "%.2x", naid->bytecode[ 4 + i ]));
+        CHECK(naid->write(naid->write_arg, "%.2x", naid->bytecode[ bytecode_offset + 4 + i ]));
       }
       CHECK(naid->write(naid->write_arg, "\n"));
       break;
@@ -207,7 +207,7 @@ NAIG_ERR_T naid_do_disassemble
       param1 = GET_32BIT_NWO(naid->bytecode, bytecode_offset + 4);
       CHECK(naid->write(naid->write_arg, "testset "));
       for (i=0; i < 32; i++) {
-        CHECK(naid->write(naid->write_arg, "%.2x", naid->bytecode[ 4 + i ]));
+        CHECK(naid->write(naid->write_arg, "%.2x", naid->bytecode[ bytecode_offset + 8 + i ]));
       }
       CHECK(naid->write(naid->write_arg, " %u\n", param1));
       if (param1 > naid->bytecode_length) {

@@ -96,7 +96,7 @@ NAIG_ERR_T engine_debug_handler
 
   if (!debug_commands_init) {
     memset(&debug_commands, 0, sizeof(debug_commands));
-    naig_compile(&debug_commands, debug_commands_grammar);
+    naig_compile(&debug_commands, debug_commands_grammar, 0);
     debug_commands_init = 1;
   }
 

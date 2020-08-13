@@ -48,7 +48,7 @@ NAIG_ERR_T naigama_run
   naig_t naig;
   naig_result_t result;
 
-  CHECK(naig_compile(&naig, grammar));
+  CHECK(naig_compile(&naig, grammar, 0));
   CHECK(naig_run(&naig, data, data_length, &result));
   return NAIG_OK;
 }

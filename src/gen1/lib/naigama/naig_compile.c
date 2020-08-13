@@ -73,7 +73,7 @@ NAIG_ERR_T naig_write_bytecode
  *
  */
 NAIG_ERR_T naig_compile
-  (naig_t* naig, char* grammar)
+  (naig_t* naig, char* grammar, int traps)
 {
   char* assembly = NULL;
 
@@ -82,7 +82,7 @@ NAIG_ERR_T naig_compile
       grammar,
       &(naig->slotmap),
       0,
-      0,
+      traps,
       naig_write_assembly,
       &assembly
     )

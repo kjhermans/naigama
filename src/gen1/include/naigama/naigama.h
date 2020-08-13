@@ -11,7 +11,7 @@ int naig_init_mem
   (naig_t* naig, void* mem, unsigned size);
 
 NAIG_ERR_T naig_compile
-  (naig_t* naig, char* grammar);
+  (naig_t* naig, char* grammar, int traps);
 
 NAIG_ERR_T naig_run
   (

@@ -189,13 +189,14 @@ Will yield the following statistics wrt exit codes:
 
 \begin{myquote}
 \begin{verbatim}
-Code   1 occurence 191  // parser failure
-Code   0 occurence 6785 // success
-Code -19 occurence 107  // stack corruption
-Code -20 occurence 3751 // bad opcode
-Code -21 occurence 1239 // overflow
-Code -32 occurence 23   // endless loop
-
+Code   1 occurence 191   // parser failure
+Code   0 occurence 6785  // success
+Code -19 occurence 107   // stack corruption
+Code -20 occurence 3751  // bad opcode
+Code -21 occurence 1239  // overflow
+Code -32 occurence 23    // endless loop
+                  -----+
+                  12096
 
 \end{verbatim}
 \end{myquote}
@@ -203,7 +204,30 @@ Code -32 occurence 23   // endless loop
 The amount of parser failures is explainable: this bytecode contains
 a large amount of sets. Sets are 32 bytes long and a bitflip in them
 can cause both false positives and false negatives in parsing, making
-the engine exit as is the input had been incorrect. However, most bitflips
+the engine exit as if the input had been incorrect. However, most bitflips
 in bytecode sets will not result in a failure at all: since most of the
 bits in most sets are zero, and this case tests a happy flow, most sets
 will only become more, but unnoticedly, 'inclusive'.
+
+This is the major reason for the large amount of successful exits.
+
+Now we run the compiler with traps. The result:
+
+\begin{myquote}
+\begin{verbatim}
+Code   0 occurence 7     // success
+Code -19 occurence 21    // stack corruption
+Code -20 occurence 490   // bad opcode
+Code -21 occurence 147   // overflow
+Code -29 occurence 12320 // trap
+Code -32 occurence 7     // endless loop
+                   ----+
+                   12992
+
+\end{verbatim}
+\end{myquote}
+
+The result is rather dramatic. There are more instructions (7\%) in the bytecode
+(this compiler generates traps before and after the assembly for each rule only,
+but could emit a lot more of them (see [Section \ref{sec:traps}]))
+but the amount of successful exits decreases by close to 100\% (99.89\%).

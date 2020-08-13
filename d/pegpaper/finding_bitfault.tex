@@ -67,8 +67,8 @@ exits are still quite harmless.
 \end{myquote}
 \textit{Example of a 'harmless' bit flip}
 
-The remaining three mess up, because they change jumps which accidentally
-end up well enough:
+The remaining three mess up, because they change jump instructions
+which accidentally end up well enough:
 
 \begin{myquote}
 \begin{verbatim}
@@ -189,12 +189,13 @@ Will yield the following statistics wrt exit codes:
 
 \begin{myquote}
 \begin{verbatim}
-Code   1 occurence 191   // parser failure
-Code   0 occurence 6785  // success
-Code -19 occurence 107   // stack corruption
-Code -20 occurence 3751  // bad opcode
-Code -21 occurence 1239  // overflow
-Code -32 occurence 23    // endless loop
+Code   1 occurence 437   // parser failure
+Code   0 occurence 5044  // success
+Code -19 occurence 144   // stack corruption
+Code -20 occurence 4521  // bad opcode
+Code -21 occurence 1603  // overflow
+Code -23 occurence 322   // action list
+Code -32 occurence 25    // endless loop
                   -----+
                   12096
 
@@ -215,12 +216,12 @@ Now we run the compiler with traps. The result:
 
 \begin{myquote}
 \begin{verbatim}
-Code   0 occurence 7     // success
-Code -19 occurence 21    // stack corruption
-Code -20 occurence 490   // bad opcode
-Code -21 occurence 147   // overflow
-Code -29 occurence 12320 // trap
-Code -32 occurence 7     // endless loop
+Code   0 occurence 1     // success
+Code -19 occurence 3     // stack corruption
+Code -20 occurence 70    // bad opcode
+Code -21 occurence 21    // overflow
+Code -29 occurence 12896 // trap
+Code -32 occurence 1     // endless loop
                    ----+
                    12992
 
@@ -230,4 +231,7 @@ Code -32 occurence 7     // endless loop
 The result is rather dramatic. There are more instructions (7\%) in the bytecode
 (this compiler generates traps before and after the assembly for each rule only,
 but could emit a lot more of them (see [Section \ref{sec:traps}]))
-but the amount of successful exits decreases by close to 100\% (99.89\%).
+but the amount of successful exits decreases to almost zero.
+
+In fact, the only successful change comes when 'call 16' at offset zero
+is changed to 'call 272', and at offset 272 we find a 'ret' instruction.

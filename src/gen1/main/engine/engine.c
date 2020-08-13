@@ -129,8 +129,8 @@ int main
         diligent = !diligent;
         break;
       case 'v':
-        if (bytecode) { logmem(bytecode, bytecode_length); }
-        if (data) { logmem(data, data_length); }
+        if (bytecode) { logmem(stderr, bytecode, bytecode_length); }
+        if (data) { logmem(stderr, data, data_length); }
         debug = 1;
         suppress = 1;
         break;

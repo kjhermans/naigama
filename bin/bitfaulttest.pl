@@ -78,10 +78,11 @@ int main(int argc, char* argv[])
 
   FILE* file = fopen("/tmp/orig_' . $n . '.asm", "w");
   naid_disassemble(naigama.bytecode, naigama.bytecode_length, debdis, file);
+  logmem(file, naigama.bytecode, naigama.bytecode_length);
   fclose(file);
 
   for (i=0; i < naigama.bytecode_length * 8; i++) {
-    unsigned char offset = i / 8;
+    unsigned offset = i / 8;
     unsigned char mask = 1 << (i % 8);
     unsigned char bytecodecopy[ naigama.bytecode_length ];
     memcpy(bytecodecopy, naigama.bytecode, naigama.bytecode_length);
@@ -95,12 +96,13 @@ int main(int argc, char* argv[])
       char cmd[ 1024 ];
       snprintf(path, sizeof(path), "/tmp/bitfault_' . $n . '_%u.asm", i);
       file = fopen(path, "w");
-      fprintf(file, "-- Bit %u\n", i);
+      fprintf(file, "-- Bit %u; exit code %d\n", i, e.code);
       naid_disassemble(bytecodecopy, naigama.bytecode_length, debdis, file);
+      logmem(file, bytecodecopy, naigama.bytecode_length);
       fclose(file);
-      snprintf(cmd, sizeof(cmd), "diff /tmp/orig_' . $n . '.asm /tmp/bitfault_' . $n . '.asm", i);
+      snprintf(cmd, sizeof(cmd), "diff /tmp/orig_' . $n . '.asm /tmp/bitfault_' . $n . '_%u.asm", i);
       system(cmd);
-      system("sync");
+//      system("sync");
       unlink(path);
     }
   }

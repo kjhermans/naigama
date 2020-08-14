@@ -72,9 +72,18 @@ int main(int argc, char* argv[])
   (void)argc;
   (void)argv;
   unsigned occurence[ 1024 ] = { 0 };
+  NAIG_ERR_T e;
 
   memset(&naigama, 0, sizeof(naigama));
-  naig_compile(&naigama, grammar, 1);
+  naig_compile(&naigama, grammar, 0);
+
+  e = naie_engine_init(&engine, naigama.bytecode, naigama.bytecode_length, input, sizeof(input));
+  engine.config.maxnoinstructions = 500000;
+  e = naie_engine_run(&engine, &result);
+  if (e.code) {
+    printf("PROGRAM ENDED IN ERROR %d\n", e.code);
+    exit(-1);
+  }
 
   FILE* file = fopen("/tmp/orig_' . $n . '.asm", "w");
   naid_disassemble(naigama.bytecode, naigama.bytecode_length, debdis, file);
@@ -87,7 +96,7 @@ int main(int argc, char* argv[])
     unsigned char bytecodecopy[ naigama.bytecode_length ];
     memcpy(bytecodecopy, naigama.bytecode, naigama.bytecode_length);
     bytecodecopy[ offset ] ^= mask;
-    NAIG_ERR_T e = naie_engine_init(&engine, bytecodecopy, naigama.bytecode_length, input, sizeof(input));
+    e = naie_engine_init(&engine, bytecodecopy, naigama.bytecode_length, input, sizeof(input));
     engine.config.maxnoinstructions = 500000;
     e = naie_engine_run(&engine, &result);
     ++(occurence[ 512 - e.code ]);
@@ -102,7 +111,9 @@ int main(int argc, char* argv[])
       fclose(file);
       snprintf(cmd, sizeof(cmd), "diff /tmp/orig_' . $n . '.asm /tmp/bitfault_' . $n . '_%u.asm", i);
       system(cmd);
-//      system("sync");
+      system("echo");
+      system("echo ooooooooooooooooooo");
+      system("echo");
       unlink(path);
     }
   }

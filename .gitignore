@@ -9,6 +9,12 @@ d/compendium.lot
 d/compendium.pdf
 d/compendium.toc
 
+d/pegpaper/pegsecurity.aux
+d/pegpaper/pegsecurity.log
+d/pegpaper/pegsecurity.lot
+d/pegpaper/pegsecurity.pdf
+d/pegpaper/pegsecurity.toc
+
 src/gen1/main/assembler/naia
 src/gen1/main/compiler/naic
 src/gen1/main/engine/naie

@@ -29,6 +29,7 @@ NAIG_ERR_T naic_process_endowedmatcher
   int quantifier[ 2 ] = { 1, 1 };
   naic_t copy;
   unsigned i, end;
+  char* trap = (naic->flags & NAIC_FLG_TRAPS) ? "trap\n" : "";
 
 #ifdef _DEBUG
   fprintf(stderr, "-- %s ", __FILE__); naic_debug(naic);
@@ -90,8 +91,10 @@ NAIG_ERR_T naic_process_endowedmatcher
     CHECK(naic_process_matcher(naic));
     CHECK(naic->write(naic->write_arg,
                           "  partialcommit %s\n"
+                          "%s"
                           "%s:\n"
                           , l4
+                          , trap
                           , l5
     ));
   } else if (quantifier[ 1 ] > quantifier[ 0 ]) {
@@ -113,12 +116,14 @@ NAIG_ERR_T naic_process_endowedmatcher
                             "%s:\n"
                             "  condjump %u %s\n"
                             "  commit %s\n"
+                            "%s"
                             "%s:\n"
                             , l6
                             , l6
                             , ctr
                             , l5
                             , l4
+                            , trap
                             , l4
       ));
     } else {
@@ -128,13 +133,11 @@ NAIG_ERR_T naic_process_endowedmatcher
       ));
       CHECK(naic_process_matcher(naic));
       CHECK(naic->write(naic->write_arg,
-//                            "  partialcommit %s\n"
-//                            "%s:\n"
                             "  commit %s\n"
+                            "%s"
                             "%s:\n"
-//                            , l5
-//                            , l5
                             , l4
+                            , trap
                             , l4
       ));
     }
@@ -150,10 +153,12 @@ NAIG_ERR_T naic_process_endowedmatcher
   } else if (notand == '&') {
     CHECK(naic->write(naic->write_arg,
                           "  backcommit %s\n"
+                          "%s"
                           "%s:\n"
                           "  fail\n"
                           "%s:\n"
                           , l2
+                          , trap
                           , l1
                           , l2
     ));

@@ -29,6 +29,7 @@ NAIG_ERR_T naic_process_terms_or_expression
 {
   char l1[ 64 ];
   char l2[ 64 ];
+  char* trap = (naic->flags & NAIC_FLG_TRAPS) ? "trap\n" : "";
 
 #ifdef _DEBUG
   fprintf(stderr, "-- %s ", __FILE__); naic_debug(naic);
@@ -43,8 +44,10 @@ NAIG_ERR_T naic_process_terms_or_expression
   CHECK(naic_process_terms(naic));
   CHECK(naic->write(naic->write_arg,
     "  commit %s\n"
+    "%s"
     "%s:\n"
     , l2
+    , trap
     , l1
   ));
   CHECK(naic_process_expression(naic));

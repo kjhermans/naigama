@@ -216,22 +216,16 @@ Now we run the compiler with traps. The result:
 
 \begin{myquote}
 \begin{verbatim}
-Code   0 occurence 1     // success
-Code -19 occurence 3     // stack corruption
-Code -20 occurence 70    // bad opcode
-Code -21 occurence 21    // overflow
-Code -29 occurence 12896 // trap
-Code -32 occurence 1     // endless loop
-                   ----+
-                   12992
+Code   1 occurence 390   // failure
+Code   0 occurence 6817  // success
+Code -19 occurence 102   // stack corruption
+Code -20 occurence 4519  // bad opcode
+Code -21 occurence 1577  // address overflow
+Code -23 occurence 321   // action list error
+Code -29 occurence 112   // trap
+Code -32 occurence 18    // endless loop
 
 \end{verbatim}
 \end{myquote}
 
-The result is rather dramatic. There are more instructions (7\%) in the bytecode
-(this compiler generates traps before and after the assembly for each rule only,
-but could emit a lot more of them (see [Section \ref{sec:traps}]))
-but the amount of successful exits decreases to almost zero.
-
-In fact, the only successful change comes when 'call 16' at offset zero
-is changed to 'call 272', and at offset 272 we find a 'ret' instruction.
+This is disappointing. The traps don't add any detection of bitfaults.

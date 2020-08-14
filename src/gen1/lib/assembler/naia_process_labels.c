@@ -62,6 +62,9 @@ NAIG_ERR_T naia_process_labels
     case ASMSLOT_NOOPINSTR_NOOP:
       offset += NAIG_INSTR_LENGTH(OPCODE_NOOP);
       break;
+    case ASMSLOT_TRAPINSTR_TRAP:
+      offset += NAIG_INSTR_LENGTH(OPCODE_TRAP);
+      break;
     case ASMSLOT_OPENCAPTUREINSTR_OPENCAPTURE:
       offset += NAIG_INSTR_LENGTH(OPCODE_OPENCAPTURE);
       break;

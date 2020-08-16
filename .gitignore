@@ -19,8 +19,9 @@ src/gen1/main/assembler/naia
 src/gen1/main/compiler/naic
 src/gen1/main/engine/naie
 src/gen1/main/naigama/naig
+src/gen1/main/disassembler/naid
 src/gen2/main/assembler/naia
 src/gen2/main/compiler/naic
 src/gen2/main/engine/naie
 src/gen2/main/naigama/naig
-
+src/gen2/main/disassembler/naid

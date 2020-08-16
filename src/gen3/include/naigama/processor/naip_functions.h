@@ -21,6 +21,12 @@ NAIG_ERR_T naip_bitand
   (naip_stent_t* term1, naip_stent_t* term2, naip_stent_t* outcome)
   __attribute__ ((warn_unused_result));
 
+/* declared in /home/work/work/naigama/src/gen3/lib/processor//naip_copy.c */
+extern
+NAIG_ERR_T naip_copy
+  (naip_stent_t* source, naip_stent_t* target)
+  __attribute__ ((warn_unused_result));
+
 /* declared in /home/work/work/naigama/src/gen3/lib/processor//naip_istrue.c */
 extern
 int naip_istrue

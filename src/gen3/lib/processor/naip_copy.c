@@ -36,41 +36,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /**
  *
  */
-NAIG_ERR_T naip_add
-  (naip_stent_t* term1, naip_stent_t* term2, naip_stent_t* outcome)
+NAIG_ERR_T naip_copy
+  (naip_stent_t* source, naip_stent_t* target)
 {
-  switch (term1->type) {
-  case NAIP_TYPE_NULL:
-    CHECK(naip_copy(term2, outcome));
-    break;
-  case NAIP_TYPE_BOOLEAN:
-    return NAIP_ERR_OPERATION;
-  case NAIP_TYPE_INT:
-    switch (term2->type) {
-    case NAIP_TYPE_NULL: CHECK(naip_copy(term2, outcome)); break;
-    case NAIP_TYPE_BOOLEAN: return NAIP_ERR_OPERATION;
-    case NAIP_TYPE_INT: naip_int(outcome, term1->value._int + term2->value._int); break;
-    case NAIP_TYPE_FLOAT:
-    case NAIP_TYPE_STRING: ;
-    }
-    break;
-  case NAIP_TYPE_FLOAT:
-    switch (term2->type) {
-    case NAIP_TYPE_NULL: CHECK(naip_copy(term2, outcome)); break;
-    case NAIP_TYPE_BOOLEAN: return NAIP_ERR_OPERATION;
-    case NAIP_TYPE_INT:
-    case NAIP_TYPE_FLOAT:
-    case NAIP_TYPE_STRING: ;
-    }
-    break;
-  case NAIP_TYPE_STRING:
-    switch (term2->type) {
-    case NAIP_TYPE_NULL: CHECK(naip_copy(term2, outcome)); break;
-    case NAIP_TYPE_BOOLEAN: return NAIP_ERR_OPERATION;
-    case NAIP_TYPE_INT:
-    case NAIP_TYPE_FLOAT:
-    case NAIP_TYPE_STRING: ;
-    }
-    break;
-  }
+  //..
+  return NAIG_OK;
 }

@@ -34,9 +34,19 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef _NAIP_H_
 #define _NAIP_H_
 
+#include <naigama/naigama.h>
+
+#define NAIP_ERR_SYSTEM         ((NAIG_ERR_T){ .code = -257 })
+#define NAIP_ERR_OPERATION      ((NAIG_ERR_T){ .code = -257 })
+
 typedef struct
 {
   uint8_t                       type;
+#define NAIP_TYPE_NULL                  0
+#define NAIP_TYPE_BOOLEAN               1
+#define NAIP_TYPE_INT                   2
+#define NAIP_TYPE_FLOAT                 3
+#define NAIP_TYPE_STRING                4
   uint8_t                       flags;
   uint16_t                      refcount;
   union {

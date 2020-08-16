@@ -8,7 +8,7 @@ stages: \
   stage_00 \
   stage_01 stage_2 stage_3 stage_4 \
   stage_5 stage_6 stage_7 stage_8 \
-  stage_9 stage_10
+  stage_9 stage_10 stage_11
 
 arm_bare_metal:
 	@export ARCH=arm-none-eabi- && make

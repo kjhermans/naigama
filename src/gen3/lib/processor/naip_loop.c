@@ -40,7 +40,7 @@ NAIG_ERR_T naip_loop
   (naip_t* engine)
 {
   naip_stent_t entry1, entry2, entry3;
-  uint32_t opcode, param1, param2, param3;
+  uint32_t opcode, param1; //, param2, param3;
 
   while (1) {
     //.. check engine->bytecode_offset
@@ -67,11 +67,8 @@ NAIG_ERR_T naip_loop
     case OPCODE_SCR_BITANDIS:
       STACK_POP(entry1);
       STACK_POP(entry2);
-      NAIP_IFTRUE(naip_bitand(&entry1, &entry2, &entry3), entry3) {
-        STACK_PUSHTRUE();
-      } else {
-        STACK_PUSHFALSE();
-      }
+      CHECK(naip_bitand(&entry1, &entry2, &entry1));
+      STACK_PUSH(entry1);
       break;
 
     case OPCODE_SCR_BITNOT:
@@ -173,5 +170,5 @@ NAIG_ERR_T naip_loop
   }
 
 SYSTEMERROR: ;
-
+  return NAIP_ERR_SYSTEM;
 }

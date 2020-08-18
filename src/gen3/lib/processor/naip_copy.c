@@ -39,6 +39,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 NAIG_ERR_T naip_copy
   (naip_stent_t* source, naip_stent_t* target)
 {
-  //..
+  *target = *source;
   return NAIG_OK;
 }

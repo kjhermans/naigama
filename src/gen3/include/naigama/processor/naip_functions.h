@@ -27,6 +27,16 @@ NAIG_ERR_T naip_copy
   (naip_stent_t* source, naip_stent_t* target)
   __attribute__ ((warn_unused_result));
 
+/* declared in /home/work/work/naigama/src/gen3/lib/processor//naip_float.c */
+extern
+void naip_float
+  (naip_stent_t* target, double value);
+
+/* declared in /home/work/work/naigama/src/gen3/lib/processor//naip_int.c */
+extern
+void naip_int
+  (naip_stent_t* target, int64_t value);
+
 /* declared in /home/work/work/naigama/src/gen3/lib/processor//naip_istrue.c */
 extern
 int naip_istrue

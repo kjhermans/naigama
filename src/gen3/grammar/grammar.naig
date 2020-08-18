@@ -14,7 +14,7 @@ DEFINITION         <- FUNCDECL / RULE
 
 SINGLE_EXPRESSION  <- EXPRESSION
 
-RULE               <- { IDENT } LEFTARROW EXPRESSION
+RULE               <- { IDENT } LEFTARROW EXPRESSION SEMICOLON
 
 EXPRESSION         <- { TERMS } OR NOTHING /
                       { TERMS } OR EXPRESSION /
@@ -22,7 +22,9 @@ EXPRESSION         <- { TERMS } OR NOTHING /
 
 TERMS              <- { TERM }+
 
-TERM               <- { NOT / AND }? MATCHER { QUANTIFIER }?
+TERM               <- { ENDOWEDMATCHER }
+
+ENDOWEDMATCHER     <- { NOT / AND }? MATCHER { QUANTIFIER }?
 
 QUANTIFIER         <- '?' /
                       '+' /
@@ -95,7 +97,7 @@ SETNOT             <- '^'
 
 -- scripting engine
 
-FUNCDECL       <- KW_FUNCTION S IDENT FUNCPARAMDECL FUNCBODY
+FUNCDECL       <- KW_FUNCTION S { IDENT } FUNCPARAMDECL FUNCBODY
 
 FUNCPARAMDECL  <- BOPEN { ( IDENT ( COMMA IDENT )* )? } BCLOSE
 
@@ -129,6 +131,10 @@ ST_OTHER       <- ( KW_BREAK / KW_CONTINUE ) SEMICOLON
 VARDECL        <- KW_VAR S IDENT ( ASSIGN { SCR_EXPRESSION } )? SEMICOLON
 
 ASSIGNMENT     <- IDENT ASSIGNS SCR_EXPRESSION SEMICOLON
+
+ASSIGNS        <- { ASSIGN / PLUSIS / MINIS / MULIS / DIVIS /
+                    BITANDIS / BITORIS / BITXORIS / BITNOTIS /
+                    LSHIFTIS / RSHIFTIS }
 
 -- Copied from https://en.cppreference.com/w/c/language/operator_precedence
 --
@@ -226,16 +232,13 @@ KW_ELSE        <- 'else'
 KW_BREAK       <- 'break'
 KW_CONTINUE    <- 'continue'
 
-IDENT          <- { [a-zA-Z_][a-zA-Z0-9_]^0-63 }
+IDENT          <- [a-zA-Z_][a-zA-Z0-9_]^0-63
 BOPEN          <- '('
 BCLOSE         <- ')'
 CBOPEN         <- '{'
 CBCLOSE        <- '}'
 ABOPEN         <- '['
 ABCLOSE        <- ']'
-ASSIGNS        <- { ASSIGN / PLUSIS / MINIS / MULIS / DIVIS /
-                    BITANDIS / BITORIS / BITXORIS / BITNOTIS /
-                    LSHIFTIS / RSHIFTIS }
 ASSIGN         <- '='
 PLUSIS         <- '+='
 MINIS          <- '-='

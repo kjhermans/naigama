@@ -40,6 +40,7 @@ NAIG_ERR_T naic_process_expression
     CHECK(naic_process_terms(naic));
     break;
   default:
+    fprintf(stderr, "Unexpected token type %u\n", naic->captures->actions[ naic->capindex ].slot);
     RETURNERR(NAIC_ERR_TOKEN);
   }
   return NAIG_OK;

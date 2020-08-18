@@ -1,0 +1,1 @@
+../../../gen1/lib/compiler/naic_process_term_get_quantifier.c

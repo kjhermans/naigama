@@ -39,5 +39,12 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 int naip_istrue
   (naip_stent_t* term)
 {
-  
+  switch (term->type) {
+  case NAIP_TYPE_NULL: return 0;
+  case NAIP_TYPE_BOOLEAN: return term->value._int;
+  case NAIP_TYPE_INT: return term->value._int;
+  case NAIP_TYPE_FLOAT: return (int)(term->value._flt);
+  case NAIP_TYPE_STRING: return term->value._str.siz;
+  }
+  return 0;
 }

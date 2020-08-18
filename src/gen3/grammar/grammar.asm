@@ -79,31 +79,32 @@ RULE:
   closecapture 0 0
   call LEFTARROW
   call EXPRESSION
+  call SEMICOLON
   ret
 -- Rule
 EXPRESSION:
   call __prefix
-  catch __RIGHTHAND_120
+  catch __RIGHTHAND_126
   opencapture 1
   call TERMS
   closecapture 1 0
   call OR
   call NOTHING
-  commit __LEFTHAND_121
-__RIGHTHAND_120:
-  catch __RIGHTHAND_146
+  commit __LEFTHAND_127
+__RIGHTHAND_126:
+  catch __RIGHTHAND_152
   opencapture 2
   call TERMS
   closecapture 2 0
   call OR
   call EXPRESSION
-  commit __LEFTHAND_147
-__RIGHTHAND_146:
+  commit __LEFTHAND_153
+__RIGHTHAND_152:
   opencapture 3
   call TERMS
   closecapture 3 0
-__LEFTHAND_147:
-__LEFTHAND_121:
+__LEFTHAND_153:
+__LEFTHAND_127:
   ret
 -- Rule
 TERMS:
@@ -111,62 +112,60 @@ TERMS:
   opencapture 4
   call TERM
   closecapture 4 0
-  catch __TERM_188
-__TERM_187:
+  catch __TERM_194
+__TERM_193:
   opencapture 4
   call TERM
   closecapture 4 0
-  partialcommit __TERM_187
-__TERM_188:
+  partialcommit __TERM_193
+__TERM_194:
   ret
 -- Rule
 TERM:
   call __prefix
-  catch __TERM_205
   opencapture 5
-  catch __RIGHTHAND_208
-  call NOT
-  commit __LEFTHAND_209
-__RIGHTHAND_208:
-  call AND
-__LEFTHAND_209:
+  call ENDOWEDMATCHER
   closecapture 5 0
-  commit __TERM_205
-__TERM_205:
-  call MATCHER
-  catch __TERM_231
+  ret
+-- Rule
+ENDOWEDMATCHER:
+  call __prefix
+  catch __TERM_223
   opencapture 6
-  call QUANTIFIER
+  catch __RIGHTHAND_226
+  call NOT
+  commit __LEFTHAND_227
+__RIGHTHAND_226:
+  call AND
+__LEFTHAND_227:
   closecapture 6 0
-  commit __TERM_231
-__TERM_231:
+  commit __TERM_223
+__TERM_223:
+  call MATCHER
+  catch __TERM_249
+  opencapture 7
+  call QUANTIFIER
+  closecapture 7 0
+  commit __TERM_249
+__TERM_249:
   ret
 -- Rule
 QUANTIFIER:
   call __prefix
-  catch __RIGHTHAND_240
+  catch __RIGHTHAND_258
   char 3f
-  commit __LEFTHAND_241
-__RIGHTHAND_240:
-  catch __RIGHTHAND_248
+  commit __LEFTHAND_259
+__RIGHTHAND_258:
+  catch __RIGHTHAND_266
   char 2b
-  commit __LEFTHAND_249
-__RIGHTHAND_248:
-  catch __RIGHTHAND_256
+  commit __LEFTHAND_267
+__RIGHTHAND_266:
+  catch __RIGHTHAND_274
   char 2a
-  commit __LEFTHAND_257
-__RIGHTHAND_256:
-  catch __RIGHTHAND_264
+  commit __LEFTHAND_275
+__RIGHTHAND_274:
+  catch __RIGHTHAND_282
   char 5e
-  opencapture 7
-  set 000000000000ff03000000000000000000000000000000000000000000000000
-  catch __TERM_282
-__TERM_281:
-  set 000000000000ff03000000000000000000000000000000000000000000000000
-  partialcommit __TERM_281
-__TERM_282:
-  closecapture 7 0
-  char 2d
   opencapture 8
   set 000000000000ff03000000000000000000000000000000000000000000000000
   catch __TERM_300
@@ -175,149 +174,158 @@ __TERM_299:
   partialcommit __TERM_299
 __TERM_300:
   closecapture 8 0
-  commit __LEFTHAND_265
-__RIGHTHAND_264:
-  catch __RIGHTHAND_302
-  char 5e
   char 2d
   opencapture 9
   set 000000000000ff03000000000000000000000000000000000000000000000000
-  catch __TERM_326
-__TERM_325:
+  catch __TERM_318
+__TERM_317:
   set 000000000000ff03000000000000000000000000000000000000000000000000
-  partialcommit __TERM_325
-__TERM_326:
+  partialcommit __TERM_317
+__TERM_318:
   closecapture 9 0
-  commit __LEFTHAND_303
-__RIGHTHAND_302:
-  catch __RIGHTHAND_328
+  commit __LEFTHAND_283
+__RIGHTHAND_282:
+  catch __RIGHTHAND_320
   char 5e
+  char 2d
   opencapture 10
   set 000000000000ff03000000000000000000000000000000000000000000000000
-  catch __TERM_346
-__TERM_345:
+  catch __TERM_344
+__TERM_343:
   set 000000000000ff03000000000000000000000000000000000000000000000000
-  partialcommit __TERM_345
-__TERM_346:
+  partialcommit __TERM_343
+__TERM_344:
   closecapture 10 0
-  char 2d
-  commit __LEFTHAND_329
-__RIGHTHAND_328:
-  catch __RIGHTHAND_354
+  commit __LEFTHAND_321
+__RIGHTHAND_320:
+  catch __RIGHTHAND_346
   char 5e
   opencapture 11
   set 000000000000ff03000000000000000000000000000000000000000000000000
-  catch __TERM_372
-__TERM_371:
+  catch __TERM_364
+__TERM_363:
   set 000000000000ff03000000000000000000000000000000000000000000000000
-  partialcommit __TERM_371
-__TERM_372:
+  partialcommit __TERM_363
+__TERM_364:
   closecapture 11 0
-  commit __LEFTHAND_355
-__RIGHTHAND_354:
+  char 2d
+  commit __LEFTHAND_347
+__RIGHTHAND_346:
+  catch __RIGHTHAND_372
+  char 5e
+  opencapture 12
+  set 000000000000ff03000000000000000000000000000000000000000000000000
+  catch __TERM_390
+__TERM_389:
+  set 000000000000ff03000000000000000000000000000000000000000000000000
+  partialcommit __TERM_389
+__TERM_390:
+  closecapture 12 0
+  commit __LEFTHAND_373
+__RIGHTHAND_372:
   char 5e
   char 24
-  opencapture 12
+  opencapture 13
   call IDENT
-  closecapture 12 0
-__LEFTHAND_355:
-__LEFTHAND_329:
-__LEFTHAND_303:
-__LEFTHAND_265:
-__LEFTHAND_257:
-__LEFTHAND_249:
-__LEFTHAND_241:
+  closecapture 13 0
+__LEFTHAND_373:
+__LEFTHAND_347:
+__LEFTHAND_321:
+__LEFTHAND_283:
+__LEFTHAND_275:
+__LEFTHAND_267:
+__LEFTHAND_259:
   ret
 -- Rule
 MATCHER:
   call __prefix
-  catch __RIGHTHAND_392
-  opencapture 13
-  call ANY
-  closecapture 13 0
-  commit __LEFTHAND_393
-__RIGHTHAND_392:
-  catch __RIGHTHAND_406
+  catch __RIGHTHAND_410
   opencapture 14
-  call SET
+  call ANY
   closecapture 14 0
-  commit __LEFTHAND_407
-__RIGHTHAND_406:
-  catch __RIGHTHAND_420
+  commit __LEFTHAND_411
+__RIGHTHAND_410:
+  catch __RIGHTHAND_424
   opencapture 15
-  call STRING
+  call SET
   closecapture 15 0
-  commit __LEFTHAND_421
-__RIGHTHAND_420:
-  catch __RIGHTHAND_434
+  commit __LEFTHAND_425
+__RIGHTHAND_424:
+  catch __RIGHTHAND_438
   opencapture 16
-  call BITMASK
+  call STRING
   closecapture 16 0
-  commit __LEFTHAND_435
-__RIGHTHAND_434:
-  catch __RIGHTHAND_448
+  commit __LEFTHAND_439
+__RIGHTHAND_438:
+  catch __RIGHTHAND_452
   opencapture 17
-  call HEXLITERAL
+  call BITMASK
   closecapture 17 0
-  commit __LEFTHAND_449
-__RIGHTHAND_448:
-  catch __RIGHTHAND_462
+  commit __LEFTHAND_453
+__RIGHTHAND_452:
+  catch __RIGHTHAND_466
   opencapture 18
-  call VARCAPTURE
+  call HEXLITERAL
   closecapture 18 0
-  commit __LEFTHAND_463
-__RIGHTHAND_462:
-  catch __RIGHTHAND_476
+  commit __LEFTHAND_467
+__RIGHTHAND_466:
+  catch __RIGHTHAND_480
   opencapture 19
-  call CAPTURE
+  call VARCAPTURE
   closecapture 19 0
-  commit __LEFTHAND_477
-__RIGHTHAND_476:
-  catch __RIGHTHAND_490
+  commit __LEFTHAND_481
+__RIGHTHAND_480:
+  catch __RIGHTHAND_494
   opencapture 20
-  call GROUP
+  call CAPTURE
   closecapture 20 0
-  commit __LEFTHAND_491
-__RIGHTHAND_490:
-  catch __RIGHTHAND_504
+  commit __LEFTHAND_495
+__RIGHTHAND_494:
+  catch __RIGHTHAND_508
   opencapture 21
-  call MACRO
+  call GROUP
   closecapture 21 0
-  commit __LEFTHAND_505
-__RIGHTHAND_504:
-  catch __RIGHTHAND_518
+  commit __LEFTHAND_509
+__RIGHTHAND_508:
+  catch __RIGHTHAND_522
   opencapture 22
-  call VARREFERENCE
+  call MACRO
   closecapture 22 0
-  commit __LEFTHAND_519
-__RIGHTHAND_518:
+  commit __LEFTHAND_523
+__RIGHTHAND_522:
+  catch __RIGHTHAND_536
   opencapture 23
-  call REFERENCE
+  call VARREFERENCE
   closecapture 23 0
-__LEFTHAND_519:
-__LEFTHAND_505:
-__LEFTHAND_491:
-__LEFTHAND_477:
-__LEFTHAND_463:
-__LEFTHAND_449:
-__LEFTHAND_435:
-__LEFTHAND_421:
-__LEFTHAND_407:
-__LEFTHAND_393:
+  commit __LEFTHAND_537
+__RIGHTHAND_536:
+  opencapture 24
+  call REFERENCE
+  closecapture 24 0
+__LEFTHAND_537:
+__LEFTHAND_523:
+__LEFTHAND_509:
+__LEFTHAND_495:
+__LEFTHAND_481:
+__LEFTHAND_467:
+__LEFTHAND_453:
+__LEFTHAND_439:
+__LEFTHAND_425:
+__LEFTHAND_411:
   ret
 -- Rule
 BITMASK:
   call __prefix
   char 7c
   counter 0 2
-__TERM_552:
+__TERM_570:
   set 000000000000ff037e0000007e00000000000000000000000000000000000000
-  condjump 0 __TERM_552
+  condjump 0 __TERM_570
   char 7c
   counter 1 2
-__TERM_564:
+__TERM_582:
   set 000000000000ff037e0000007e00000000000000000000000000000000000000
-  condjump 1 __TERM_564
+  condjump 1 __TERM_582
   char 7c
   ret
 -- Rule
@@ -325,20 +333,20 @@ VARCAPTURE:
   call __prefix
   call CBOPEN
   call COLON
-  opencapture 24
-  call IDENT
-  closecapture 24 0
-  catch __TERM_601
   opencapture 25
-  call CAPTURETYPE
+  call IDENT
   closecapture 25 0
-  commit __TERM_601
-__TERM_601:
+  catch __TERM_619
+  opencapture 26
+  call CAPTURETYPE
+  closecapture 26 0
+  commit __TERM_619
+__TERM_619:
   call COLON
   call EXPRESSION
-  opencapture 26
+  opencapture 27
   call CBCLOSE
-  closecapture 26 0
+  closecapture 27 0
   call CAPTUREEND
   ret
 -- Rule
@@ -350,26 +358,26 @@ CAPTURETYPE:
 -- Rule
 TYPE:
   call __prefix
-  opencapture 27
-  catch __RIGHTHAND_658
+  opencapture 28
+  catch __RIGHTHAND_676
   quad 75696e74
   char 33
   char 32
-  commit __LEFTHAND_659
-__RIGHTHAND_658:
+  commit __LEFTHAND_677
+__RIGHTHAND_676:
   quad 696e7433
   char 32
-__LEFTHAND_659:
-  closecapture 27 0
+__LEFTHAND_677:
+  closecapture 28 0
   ret
 -- Rule
 CAPTURE:
   call __prefix
   call CBOPEN
   call EXPRESSION
-  opencapture 28
+  opencapture 29
   call CBCLOSE
-  closecapture 28 0
+  closecapture 29 0
   call CAPTUREEND
   ret
 -- Rule
@@ -377,223 +385,223 @@ GROUP:
   call __prefix
   call BOPEN
   call EXPRESSION
-  opencapture 29
+  opencapture 30
   call BCLOSE
-  closecapture 29 0
+  closecapture 30 0
   ret
 -- Rule
 CAPTUREEND:
   call __prefix
-  catch __TERM_729
-  catch __RIGHTHAND_732
+  catch __TERM_747
+  catch __RIGHTHAND_750
   call REPLACE
-  commit __LEFTHAND_733
-__RIGHTHAND_732:
+  commit __LEFTHAND_751
+__RIGHTHAND_750:
   call RECYCLE
-__LEFTHAND_733:
-  commit __TERM_729
-__TERM_729:
+__LEFTHAND_751:
+  commit __TERM_747
+__TERM_747:
   ret
 -- Rule
 SET:
   call __prefix
   call ABOPEN
-  opencapture 30
-  catch __TERM_761
+  opencapture 31
+  catch __TERM_779
   call SETNOT
-  commit __TERM_761
-__TERM_761:
-  closecapture 30 0
-  catch __RIGHTHAND_770
-  opencapture 31
-  catch __RIGHTHAND_778
-  char 5c
-  catch __RIGHTHAND_792
-  set 0000000000200000000000300040540000000000000000000000000000000000
-  commit __LEFTHAND_793
-__RIGHTHAND_792:
-  counter 2 3
-__TERM_802:
-  set 000000000000ff03000000000000000000000000000000000000000000000000
-  condjump 2 __TERM_802
-__LEFTHAND_793:
-  commit __LEFTHAND_779
-__RIGHTHAND_778:
-  set ffffffffffffffffffffffcfffffffffffffffffffffffffffffffffffffffff
-__LEFTHAND_779:
+  commit __TERM_779
+__TERM_779:
   closecapture 31 0
-  char 2d
+  catch __RIGHTHAND_788
   opencapture 32
-  catch __RIGHTHAND_824
+  catch __RIGHTHAND_796
   char 5c
-  catch __RIGHTHAND_838
+  catch __RIGHTHAND_810
   set 0000000000200000000000300040540000000000000000000000000000000000
-  commit __LEFTHAND_839
-__RIGHTHAND_838:
+  commit __LEFTHAND_811
+__RIGHTHAND_810:
   counter 2 3
-__TERM_848:
+__TERM_820:
   set 000000000000ff03000000000000000000000000000000000000000000000000
-  condjump 2 __TERM_848
-__LEFTHAND_839:
-  commit __LEFTHAND_825
-__RIGHTHAND_824:
+  condjump 2 __TERM_820
+__LEFTHAND_811:
+  commit __LEFTHAND_797
+__RIGHTHAND_796:
   set ffffffffffffffffffffffcfffffffffffffffffffffffffffffffffffffffff
-__LEFTHAND_825:
+__LEFTHAND_797:
   closecapture 32 0
-  commit __LEFTHAND_771
-__RIGHTHAND_770:
-  opencapture 33
-  catch __RIGHTHAND_864
-  char 5c
-  catch __RIGHTHAND_878
-  set 0000000000200000000000300040540000000000000000000000000000000000
-  commit __LEFTHAND_879
-__RIGHTHAND_878:
-  counter 2 3
-__TERM_888:
-  set 000000000000ff03000000000000000000000000000000000000000000000000
-  condjump 2 __TERM_888
-__LEFTHAND_879:
-  commit __LEFTHAND_865
-__RIGHTHAND_864:
-  set ffffffffffffffffffffffcfffffffffffffffffffffffffffffffffffffffff
-__LEFTHAND_865:
-  closecapture 33 0
-__LEFTHAND_771:
-  catch __TERM_768
-__TERM_767:
-  catch __RIGHTHAND_898
-  opencapture 31
-  catch __RIGHTHAND_906
-  char 5c
-  catch __RIGHTHAND_920
-  set 0000000000200000000000300040540000000000000000000000000000000000
-  commit __LEFTHAND_921
-__RIGHTHAND_920:
-  counter 2 3
-__TERM_930:
-  set 000000000000ff03000000000000000000000000000000000000000000000000
-  condjump 2 __TERM_930
-__LEFTHAND_921:
-  commit __LEFTHAND_907
-__RIGHTHAND_906:
-  set ffffffffffffffffffffffcfffffffffffffffffffffffffffffffffffffffff
-__LEFTHAND_907:
-  closecapture 31 0
   char 2d
-  opencapture 32
-  catch __RIGHTHAND_952
-  char 5c
-  catch __RIGHTHAND_966
-  set 0000000000200000000000300040540000000000000000000000000000000000
-  commit __LEFTHAND_967
-__RIGHTHAND_966:
-  counter 2 3
-__TERM_976:
-  set 000000000000ff03000000000000000000000000000000000000000000000000
-  condjump 2 __TERM_976
-__LEFTHAND_967:
-  commit __LEFTHAND_953
-__RIGHTHAND_952:
-  set ffffffffffffffffffffffcfffffffffffffffffffffffffffffffffffffffff
-__LEFTHAND_953:
-  closecapture 32 0
-  commit __LEFTHAND_899
-__RIGHTHAND_898:
   opencapture 33
-  catch __RIGHTHAND_992
+  catch __RIGHTHAND_842
   char 5c
-  catch __RIGHTHAND_1006
+  catch __RIGHTHAND_856
   set 0000000000200000000000300040540000000000000000000000000000000000
-  commit __LEFTHAND_1007
-__RIGHTHAND_1006:
+  commit __LEFTHAND_857
+__RIGHTHAND_856:
   counter 2 3
-__TERM_1016:
+__TERM_866:
   set 000000000000ff03000000000000000000000000000000000000000000000000
-  condjump 2 __TERM_1016
-__LEFTHAND_1007:
-  commit __LEFTHAND_993
-__RIGHTHAND_992:
+  condjump 2 __TERM_866
+__LEFTHAND_857:
+  commit __LEFTHAND_843
+__RIGHTHAND_842:
   set ffffffffffffffffffffffcfffffffffffffffffffffffffffffffffffffffff
-__LEFTHAND_993:
+__LEFTHAND_843:
   closecapture 33 0
-__LEFTHAND_899:
-  partialcommit __TERM_767
-__TERM_768:
+  commit __LEFTHAND_789
+__RIGHTHAND_788:
   opencapture 34
-  call ABCLOSE
+  catch __RIGHTHAND_882
+  char 5c
+  catch __RIGHTHAND_896
+  set 0000000000200000000000300040540000000000000000000000000000000000
+  commit __LEFTHAND_897
+__RIGHTHAND_896:
+  counter 2 3
+__TERM_906:
+  set 000000000000ff03000000000000000000000000000000000000000000000000
+  condjump 2 __TERM_906
+__LEFTHAND_897:
+  commit __LEFTHAND_883
+__RIGHTHAND_882:
+  set ffffffffffffffffffffffcfffffffffffffffffffffffffffffffffffffffff
+__LEFTHAND_883:
   closecapture 34 0
+__LEFTHAND_789:
+  catch __TERM_786
+__TERM_785:
+  catch __RIGHTHAND_916
+  opencapture 32
+  catch __RIGHTHAND_924
+  char 5c
+  catch __RIGHTHAND_938
+  set 0000000000200000000000300040540000000000000000000000000000000000
+  commit __LEFTHAND_939
+__RIGHTHAND_938:
+  counter 2 3
+__TERM_948:
+  set 000000000000ff03000000000000000000000000000000000000000000000000
+  condjump 2 __TERM_948
+__LEFTHAND_939:
+  commit __LEFTHAND_925
+__RIGHTHAND_924:
+  set ffffffffffffffffffffffcfffffffffffffffffffffffffffffffffffffffff
+__LEFTHAND_925:
+  closecapture 32 0
+  char 2d
+  opencapture 33
+  catch __RIGHTHAND_970
+  char 5c
+  catch __RIGHTHAND_984
+  set 0000000000200000000000300040540000000000000000000000000000000000
+  commit __LEFTHAND_985
+__RIGHTHAND_984:
+  counter 2 3
+__TERM_994:
+  set 000000000000ff03000000000000000000000000000000000000000000000000
+  condjump 2 __TERM_994
+__LEFTHAND_985:
+  commit __LEFTHAND_971
+__RIGHTHAND_970:
+  set ffffffffffffffffffffffcfffffffffffffffffffffffffffffffffffffffff
+__LEFTHAND_971:
+  closecapture 33 0
+  commit __LEFTHAND_917
+__RIGHTHAND_916:
+  opencapture 34
+  catch __RIGHTHAND_1010
+  char 5c
+  catch __RIGHTHAND_1024
+  set 0000000000200000000000300040540000000000000000000000000000000000
+  commit __LEFTHAND_1025
+__RIGHTHAND_1024:
+  counter 2 3
+__TERM_1034:
+  set 000000000000ff03000000000000000000000000000000000000000000000000
+  condjump 2 __TERM_1034
+__LEFTHAND_1025:
+  commit __LEFTHAND_1011
+__RIGHTHAND_1010:
+  set ffffffffffffffffffffffcfffffffffffffffffffffffffffffffffffffffff
+__LEFTHAND_1011:
+  closecapture 34 0
+__LEFTHAND_917:
+  partialcommit __TERM_785
+__TERM_786:
+  opencapture 35
+  call ABCLOSE
+  closecapture 35 0
   ret
 -- Rule
 VARREFERENCE:
   call __prefix
   char 24
-  catch __RIGHTHAND_1050
-  opencapture 35
-  call IDENT
-  closecapture 35 0
-  commit __LEFTHAND_1051
-__RIGHTHAND_1050:
+  catch __RIGHTHAND_1068
   opencapture 36
-  call NUMBER
+  call IDENT
   closecapture 36 0
-__LEFTHAND_1051:
+  commit __LEFTHAND_1069
+__RIGHTHAND_1068:
+  opencapture 37
+  call NUMBER
+  closecapture 37 0
+__LEFTHAND_1069:
   ret
 -- Rule
 REFERENCE:
   call __prefix
   call IDENT
-  catch __TERM_1082
+  catch __TERM_1100
   call LEFTARROW
   failtwice
-__TERM_1082:
+__TERM_1100:
   ret
 -- Rule
 REPLACE:
   call __prefix
   call RIGHTARROW
-  opencapture 37
+  opencapture 38
   call REPLACETERMS
-  closecapture 37 0
+  closecapture 38 0
   ret
 -- Rule
 REPLACETERMS:
   call __prefix
   call REPLACETERM
-  catch __TERM_1116
-__TERM_1115:
+  catch __TERM_1134
+__TERM_1133:
   call REPLACETERM
-  partialcommit __TERM_1115
-__TERM_1116:
+  partialcommit __TERM_1133
+__TERM_1134:
   ret
 -- Rule
 REPLACETERM:
   call __prefix
-  catch __RIGHTHAND_1118
-  opencapture 38
-  call STRINGLITERAL
-  closecapture 38 0
-  commit __LEFTHAND_1119
-__RIGHTHAND_1118:
-  catch __RIGHTHAND_1132
+  catch __RIGHTHAND_1136
   opencapture 39
-  call HEXLITERAL
+  call STRINGLITERAL
   closecapture 39 0
-  commit __LEFTHAND_1133
-__RIGHTHAND_1132:
+  commit __LEFTHAND_1137
+__RIGHTHAND_1136:
+  catch __RIGHTHAND_1150
   opencapture 40
-  call VARREFERENCE
+  call HEXLITERAL
   closecapture 40 0
-__LEFTHAND_1133:
-__LEFTHAND_1119:
+  commit __LEFTHAND_1151
+__RIGHTHAND_1150:
+  opencapture 41
+  call VARREFERENCE
+  closecapture 41 0
+__LEFTHAND_1151:
+__LEFTHAND_1137:
   ret
 -- Rule
 RECYCLE:
   call __prefix
   call FATARROW
-  opencapture 41
+  opencapture 42
   call IDENT
-  closecapture 41 0
+  closecapture 42 0
   ret
 -- Rule
 LEFTARROW:
@@ -628,11 +636,11 @@ MACRO:
   call __prefix
   char 25
   set 0000000000000000feffff07feffff0700000000000000000000000000000000
-  catch __TERM_1222
-__TERM_1221:
+  catch __TERM_1240
+__TERM_1239:
   set 000000000000ff03feffff07feffff0700000000000000000000000000000000
-  partialcommit __TERM_1221
-__TERM_1222:
+  partialcommit __TERM_1239
+__TERM_1240:
   ret
 -- Rule
 HEXLITERAL:
@@ -640,28 +648,28 @@ HEXLITERAL:
   char 30
   char 78
   counter 2 2
-__TERM_1232:
+__TERM_1250:
   set 000000000000ff037e0000007e00000000000000000000000000000000000000
-  condjump 2 __TERM_1232
+  condjump 2 __TERM_1250
   ret
 -- Rule
 NUMBER:
   call __prefix
   set 000000000000ff03000000000000000000000000000000000000000000000000
-  catch __TERM_1240
-__TERM_1239:
+  catch __TERM_1258
+__TERM_1257:
   set 000000000000ff03000000000000000000000000000000000000000000000000
-  partialcommit __TERM_1239
-__TERM_1240:
+  partialcommit __TERM_1257
+__TERM_1258:
   ret
 -- Rule
 STRING:
   call __prefix
   call STRINGLITERAL
-  catch __TERM_1251
+  catch __TERM_1269
   char 69
-  commit __TERM_1251
-__TERM_1251:
+  commit __TERM_1269
+__TERM_1269:
   ret
 -- Rule
 OR:
@@ -690,7 +698,9 @@ FUNCDECL:
   call __prefix
   call KW_FUNCTION
   call S
+  opencapture 43
   call IDENT
+  closecapture 43 0
   call FUNCPARAMDECL
   call FUNCBODY
   ret
@@ -698,133 +708,133 @@ FUNCDECL:
 FUNCPARAMDECL:
   call __prefix
   call BOPEN
-  opencapture 42
-  catch __TERM_1323
+  opencapture 44
+  catch __TERM_1347
   call IDENT
-  catch __TERM_1336
-__TERM_1335:
+  catch __TERM_1360
+__TERM_1359:
   call COMMA
   call IDENT
-  partialcommit __TERM_1335
-__TERM_1336:
-  commit __TERM_1323
-__TERM_1323:
-  closecapture 42 0
+  partialcommit __TERM_1359
+__TERM_1360:
+  commit __TERM_1347
+__TERM_1347:
+  closecapture 44 0
   call BCLOSE
   ret
 -- Rule
 FUNCBODY:
   call __prefix
   call CBOPEN
-  opencapture 43
-  catch __TERM_1372
-__TERM_1371:
+  opencapture 45
+  catch __TERM_1396
+__TERM_1395:
   call LOWSTMT
-  partialcommit __TERM_1371
-__TERM_1372:
-  closecapture 43 0
+  partialcommit __TERM_1395
+__TERM_1396:
+  closecapture 45 0
   call CBCLOSE
   ret
 -- Rule
 LOWSTMT:
   call __prefix
-  catch __RIGHTHAND_1380
-  opencapture 44
-  call ST_IF
-  closecapture 44 0
-  commit __LEFTHAND_1381
-__RIGHTHAND_1380:
-  catch __RIGHTHAND_1394
-  opencapture 45
-  call ST_WHILE
-  closecapture 45 0
-  commit __LEFTHAND_1395
-__RIGHTHAND_1394:
-  catch __RIGHTHAND_1408
+  catch __RIGHTHAND_1404
   opencapture 46
-  call ST_RETURN
+  call ST_IF
   closecapture 46 0
-  commit __LEFTHAND_1409
-__RIGHTHAND_1408:
-  catch __RIGHTHAND_1422
+  commit __LEFTHAND_1405
+__RIGHTHAND_1404:
+  catch __RIGHTHAND_1418
   opencapture 47
-  call ST_OTHER
+  call ST_WHILE
   closecapture 47 0
-  commit __LEFTHAND_1423
-__RIGHTHAND_1422:
-  catch __RIGHTHAND_1436
+  commit __LEFTHAND_1419
+__RIGHTHAND_1418:
+  catch __RIGHTHAND_1432
   opencapture 48
-  call VARDECL
+  call ST_RETURN
   closecapture 48 0
-  commit __LEFTHAND_1437
-__RIGHTHAND_1436:
-  catch __RIGHTHAND_1450
+  commit __LEFTHAND_1433
+__RIGHTHAND_1432:
+  catch __RIGHTHAND_1446
   opencapture 49
-  call ASSIGNMENT
+  call ST_OTHER
   closecapture 49 0
-  commit __LEFTHAND_1451
-__RIGHTHAND_1450:
-  catch __TERM_1467
+  commit __LEFTHAND_1447
+__RIGHTHAND_1446:
+  catch __RIGHTHAND_1460
+  opencapture 50
+  call VARDECL
+  closecapture 50 0
+  commit __LEFTHAND_1461
+__RIGHTHAND_1460:
+  catch __RIGHTHAND_1474
+  opencapture 51
+  call ASSIGNMENT
+  closecapture 51 0
+  commit __LEFTHAND_1475
+__RIGHTHAND_1474:
+  catch __TERM_1491
   call SCR_EXPRESSION
-  commit __TERM_1467
-__TERM_1467:
+  commit __TERM_1491
+__TERM_1491:
   call SEMICOLON
-__LEFTHAND_1451:
-__LEFTHAND_1437:
-__LEFTHAND_1423:
-__LEFTHAND_1409:
-__LEFTHAND_1395:
-__LEFTHAND_1381:
+__LEFTHAND_1475:
+__LEFTHAND_1461:
+__LEFTHAND_1447:
+__LEFTHAND_1433:
+__LEFTHAND_1419:
+__LEFTHAND_1405:
   ret
 -- Rule
 ST_IF:
   call __prefix
   call KW_IF
   call BOPEN
-  opencapture 50
+  opencapture 52
   call SCR_EXPRESSION
-  closecapture 50 0
+  closecapture 52 0
   call BCLOSE
   call CBOPEN
-  opencapture 51
-  catch __TERM_1528
-__TERM_1527:
-  call LOWSTMT
-  partialcommit __TERM_1527
-__TERM_1528:
-  closecapture 51 0
-  call CBCLOSE
-  opencapture 52
-  catch __TERM_1546
-__TERM_1545:
-  call IF_ELSEIF
-  partialcommit __TERM_1545
-__TERM_1546:
-  closecapture 52 0
   opencapture 53
-  catch __TERM_1557
-  call IF_ELSE
-  commit __TERM_1557
-__TERM_1557:
+  catch __TERM_1552
+__TERM_1551:
+  call LOWSTMT
+  partialcommit __TERM_1551
+__TERM_1552:
   closecapture 53 0
+  call CBCLOSE
+  opencapture 54
+  catch __TERM_1570
+__TERM_1569:
+  call IF_ELSEIF
+  partialcommit __TERM_1569
+__TERM_1570:
+  closecapture 54 0
+  opencapture 55
+  catch __TERM_1581
+  call IF_ELSE
+  commit __TERM_1581
+__TERM_1581:
+  closecapture 55 0
   ret
 -- Rule
 IF_ELSEIF:
   call __prefix
   call KW_ELSEIF
   call BOPEN
-  opencapture 54
+  opencapture 56
   call SCR_EXPRESSION
-  closecapture 54 0
+  closecapture 56 0
   call BCLOSE
   call CBOPEN
-  opencapture 55
-  catch __TERM_1606
-__TERM_1605:
+  opencapture 57
+  catch __TERM_1630
+__TERM_1629:
   call LOWSTMT
-  partialcommit __TERM_1605
-__TERM_1606:
-  closecapture 55 0
+  partialcommit __TERM_1629
+__TERM_1630:
+  closecapture 57 0
   call CBCLOSE
   ret
 -- Rule
@@ -832,13 +842,13 @@ IF_ELSE:
   call __prefix
   call KW_ELSE
   call CBOPEN
-  opencapture 56
-  catch __TERM_1636
-__TERM_1635:
+  opencapture 58
+  catch __TERM_1660
+__TERM_1659:
   call LOWSTMT
-  partialcommit __TERM_1635
-__TERM_1636:
-  closecapture 56 0
+  partialcommit __TERM_1659
+__TERM_1660:
+  closecapture 58 0
   call CBCLOSE
   ret
 -- Rule
@@ -846,41 +856,41 @@ ST_WHILE:
   call __prefix
   call KW_WHILE
   call BOPEN
-  opencapture 57
+  opencapture 59
   call SCR_EXPRESSION
-  closecapture 57 0
+  closecapture 59 0
   call BCLOSE
   call CBOPEN
-  opencapture 58
-  catch __TERM_1690
-__TERM_1689:
+  opencapture 60
+  catch __TERM_1714
+__TERM_1713:
   call LOWSTMT
-  partialcommit __TERM_1689
-__TERM_1690:
-  closecapture 58 0
+  partialcommit __TERM_1713
+__TERM_1714:
+  closecapture 60 0
   call CBCLOSE
   ret
 -- Rule
 ST_RETURN:
   call __prefix
   call KW_RETURN
-  opencapture 59
-  catch __TERM_1713
+  opencapture 61
+  catch __TERM_1737
   call SCR_EXPRESSION
-  commit __TERM_1713
-__TERM_1713:
-  closecapture 59 0
+  commit __TERM_1737
+__TERM_1737:
+  closecapture 61 0
   call SEMICOLON
   ret
 -- Rule
 ST_OTHER:
   call __prefix
-  catch __RIGHTHAND_1728
+  catch __RIGHTHAND_1752
   call KW_BREAK
-  commit __LEFTHAND_1729
-__RIGHTHAND_1728:
+  commit __LEFTHAND_1753
+__RIGHTHAND_1752:
   call KW_CONTINUE
-__LEFTHAND_1729:
+__LEFTHAND_1753:
   call SEMICOLON
   ret
 -- Rule
@@ -889,13 +899,13 @@ VARDECL:
   call KW_VAR
   call S
   call IDENT
-  catch __TERM_1769
+  catch __TERM_1793
   call ASSIGN
-  opencapture 60
+  opencapture 62
   call SCR_EXPRESSION
-  closecapture 60 0
-  commit __TERM_1769
-__TERM_1769:
+  closecapture 62 0
+  commit __TERM_1793
+__TERM_1793:
   call SEMICOLON
   ret
 -- Rule
@@ -907,6 +917,63 @@ ASSIGNMENT:
   call SEMICOLON
   ret
 -- Rule
+ASSIGNS:
+  call __prefix
+  opencapture 63
+  catch __RIGHTHAND_1850
+  call ASSIGN
+  commit __LEFTHAND_1851
+__RIGHTHAND_1850:
+  catch __RIGHTHAND_1858
+  call PLUSIS
+  commit __LEFTHAND_1859
+__RIGHTHAND_1858:
+  catch __RIGHTHAND_1866
+  call MINIS
+  commit __LEFTHAND_1867
+__RIGHTHAND_1866:
+  catch __RIGHTHAND_1874
+  call MULIS
+  commit __LEFTHAND_1875
+__RIGHTHAND_1874:
+  catch __RIGHTHAND_1882
+  call DIVIS
+  commit __LEFTHAND_1883
+__RIGHTHAND_1882:
+  catch __RIGHTHAND_1890
+  call BITANDIS
+  commit __LEFTHAND_1891
+__RIGHTHAND_1890:
+  catch __RIGHTHAND_1898
+  call BITORIS
+  commit __LEFTHAND_1899
+__RIGHTHAND_1898:
+  catch __RIGHTHAND_1906
+  call BITXORIS
+  commit __LEFTHAND_1907
+__RIGHTHAND_1906:
+  catch __RIGHTHAND_1914
+  call BITNOTIS
+  commit __LEFTHAND_1915
+__RIGHTHAND_1914:
+  catch __RIGHTHAND_1922
+  call LSHIFTIS
+  commit __LEFTHAND_1923
+__RIGHTHAND_1922:
+  call RSHIFTIS
+__LEFTHAND_1923:
+__LEFTHAND_1915:
+__LEFTHAND_1907:
+__LEFTHAND_1899:
+__LEFTHAND_1891:
+__LEFTHAND_1883:
+__LEFTHAND_1875:
+__LEFTHAND_1867:
+__LEFTHAND_1859:
+__LEFTHAND_1851:
+  closecapture 63 0
+  ret
+-- Rule
 SCR_EXPRESSION:
   call __prefix
   call BINOP_P12
@@ -914,450 +981,450 @@ SCR_EXPRESSION:
 -- Rule
 BINOP_P12:
   call __prefix
-  opencapture 61
+  opencapture 64
   call BINOP_P11
-  closecapture 61 0
-  catch __TERM_1842
-__TERM_1841:
+  closecapture 64 0
+  catch __TERM_1958
+__TERM_1957:
   call LOGOR
   call BINOP_P11
-  partialcommit __TERM_1841
-__TERM_1842:
+  partialcommit __TERM_1957
+__TERM_1958:
   ret
 -- Rule
 BINOP_P11:
   call __prefix
-  opencapture 62
+  opencapture 65
   call BINOP_P10
-  closecapture 62 0
-  catch __TERM_1872
-__TERM_1871:
+  closecapture 65 0
+  catch __TERM_1988
+__TERM_1987:
   call LOGAND
   call BINOP_P10
-  partialcommit __TERM_1871
-__TERM_1872:
+  partialcommit __TERM_1987
+__TERM_1988:
   ret
 -- Rule
 BINOP_P10:
   call __prefix
-  opencapture 63
+  opencapture 66
   call BINOP_P09
-  closecapture 63 0
-  catch __TERM_1902
-__TERM_1901:
+  closecapture 66 0
+  catch __TERM_2018
+__TERM_2017:
   call BITOR
   call BINOP_P09
-  partialcommit __TERM_1901
-__TERM_1902:
+  partialcommit __TERM_2017
+__TERM_2018:
   ret
 -- Rule
 BINOP_P09:
   call __prefix
-  opencapture 64
+  opencapture 67
   call BINOP_P08
-  closecapture 64 0
-  catch __TERM_1932
-__TERM_1931:
+  closecapture 67 0
+  catch __TERM_2048
+__TERM_2047:
   call BITXOR
   call BINOP_P08
-  partialcommit __TERM_1931
-__TERM_1932:
+  partialcommit __TERM_2047
+__TERM_2048:
   ret
 -- Rule
 BINOP_P08:
   call __prefix
-  opencapture 65
+  opencapture 68
   call BINOP_P07
-  closecapture 65 0
-  catch __TERM_1962
-__TERM_1961:
+  closecapture 68 0
+  catch __TERM_2078
+__TERM_2077:
   call BITAND
   call BINOP_P07
-  partialcommit __TERM_1961
-__TERM_1962:
+  partialcommit __TERM_2077
+__TERM_2078:
   ret
 -- Rule
 BINOP_P07:
   call __prefix
-  opencapture 66
+  opencapture 69
   call BINOP_P06
-  closecapture 66 0
-  catch __TERM_1992
-__TERM_1991:
-  catch __RIGHTHAND_2000
+  closecapture 69 0
+  catch __TERM_2108
+__TERM_2107:
+  catch __RIGHTHAND_2116
   call EQUALS
-  commit __LEFTHAND_2001
-__RIGHTHAND_2000:
+  commit __LEFTHAND_2117
+__RIGHTHAND_2116:
   call NEQUALS
-__LEFTHAND_2001:
+__LEFTHAND_2117:
   call BINOP_P06
-  partialcommit __TERM_1991
-__TERM_1992:
+  partialcommit __TERM_2107
+__TERM_2108:
   ret
 -- Rule
 BINOP_P06:
   call __prefix
-  opencapture 67
+  opencapture 70
   call BINOP_P05
-  closecapture 67 0
-  catch __TERM_2036
-__TERM_2035:
-  catch __RIGHTHAND_2044
+  closecapture 70 0
+  catch __TERM_2152
+__TERM_2151:
+  catch __RIGHTHAND_2160
   call LTEQ
-  commit __LEFTHAND_2045
-__RIGHTHAND_2044:
-  catch __RIGHTHAND_2052
+  commit __LEFTHAND_2161
+__RIGHTHAND_2160:
+  catch __RIGHTHAND_2168
   call LT
-  commit __LEFTHAND_2053
-__RIGHTHAND_2052:
-  catch __RIGHTHAND_2060
+  commit __LEFTHAND_2169
+__RIGHTHAND_2168:
+  catch __RIGHTHAND_2176
   call GTEQ
-  commit __LEFTHAND_2061
-__RIGHTHAND_2060:
+  commit __LEFTHAND_2177
+__RIGHTHAND_2176:
   call GT
-__LEFTHAND_2061:
-__LEFTHAND_2053:
-__LEFTHAND_2045:
+__LEFTHAND_2177:
+__LEFTHAND_2169:
+__LEFTHAND_2161:
   call BINOP_P05
-  partialcommit __TERM_2035
-__TERM_2036:
+  partialcommit __TERM_2151
+__TERM_2152:
   ret
 -- Rule
 BINOP_P05:
   call __prefix
-  opencapture 68
+  opencapture 71
   call BINOP_P04
-  closecapture 68 0
-  catch __TERM_2096
-__TERM_2095:
-  catch __RIGHTHAND_2104
+  closecapture 71 0
+  catch __TERM_2212
+__TERM_2211:
+  catch __RIGHTHAND_2220
   call LSHIFT
-  commit __LEFTHAND_2105
-__RIGHTHAND_2104:
+  commit __LEFTHAND_2221
+__RIGHTHAND_2220:
   call RSHIFT
-__LEFTHAND_2105:
+__LEFTHAND_2221:
   call BINOP_P04
-  partialcommit __TERM_2095
-__TERM_2096:
+  partialcommit __TERM_2211
+__TERM_2212:
   ret
 -- Rule
 BINOP_P04:
   call __prefix
-  opencapture 69
+  opencapture 72
   call BINOP_P03
-  closecapture 69 0
-  catch __TERM_2140
-__TERM_2139:
-  catch __RIGHTHAND_2148
+  closecapture 72 0
+  catch __TERM_2256
+__TERM_2255:
+  catch __RIGHTHAND_2264
   call ADD
-  commit __LEFTHAND_2149
-__RIGHTHAND_2148:
+  commit __LEFTHAND_2265
+__RIGHTHAND_2264:
   call SUB
-__LEFTHAND_2149:
+__LEFTHAND_2265:
   call BINOP_P03
-  partialcommit __TERM_2139
-__TERM_2140:
+  partialcommit __TERM_2255
+__TERM_2256:
   ret
 -- Rule
 BINOP_P03:
   call __prefix
-  opencapture 70
+  opencapture 73
   call UNARIES
-  closecapture 70 0
-  catch __TERM_2184
-__TERM_2183:
-  catch __RIGHTHAND_2192
+  closecapture 73 0
+  catch __TERM_2300
+__TERM_2299:
+  catch __RIGHTHAND_2308
   call MUL
-  commit __LEFTHAND_2193
-__RIGHTHAND_2192:
-  catch __RIGHTHAND_2200
+  commit __LEFTHAND_2309
+__RIGHTHAND_2308:
+  catch __RIGHTHAND_2316
   call DIV
-  commit __LEFTHAND_2201
-__RIGHTHAND_2200:
+  commit __LEFTHAND_2317
+__RIGHTHAND_2316:
   call POW
-__LEFTHAND_2201:
-__LEFTHAND_2193:
+__LEFTHAND_2317:
+__LEFTHAND_2309:
   call UNARIES
-  partialcommit __TERM_2183
-__TERM_2184:
+  partialcommit __TERM_2299
+__TERM_2300:
   ret
 -- Rule
 UNARIES:
   call __prefix
-  catch __TERM_2224
-__TERM_2223:
-  opencapture 71
+  catch __TERM_2340
+__TERM_2339:
+  opencapture 74
   call UNARY
-  closecapture 71 0
-  partialcommit __TERM_2223
-__TERM_2224:
-  opencapture 72
+  closecapture 74 0
+  partialcommit __TERM_2339
+__TERM_2340:
+  opencapture 75
   call SCR_TERM
-  closecapture 72 0
+  closecapture 75 0
   ret
 -- Rule
 UNARY:
   call __prefix
-  opencapture 73
-  catch __RIGHTHAND_2250
+  opencapture 76
+  catch __RIGHTHAND_2366
   call LOGNOT
-  commit __LEFTHAND_2251
-__RIGHTHAND_2250:
-  catch __RIGHTHAND_2258
+  commit __LEFTHAND_2367
+__RIGHTHAND_2366:
+  catch __RIGHTHAND_2374
   call BITNOT
-  commit __LEFTHAND_2259
-__RIGHTHAND_2258:
-  catch __RIGHTHAND_2266
+  commit __LEFTHAND_2375
+__RIGHTHAND_2374:
+  catch __RIGHTHAND_2382
   call INC
-  commit __LEFTHAND_2267
-__RIGHTHAND_2266:
+  commit __LEFTHAND_2383
+__RIGHTHAND_2382:
   call DEC
-__LEFTHAND_2267:
-__LEFTHAND_2259:
-__LEFTHAND_2251:
-  closecapture 73 0
+__LEFTHAND_2383:
+__LEFTHAND_2375:
+__LEFTHAND_2367:
+  closecapture 76 0
   ret
 -- Rule
 SCR_TERM:
   call __prefix
-  catch __RIGHTHAND_2280
-  opencapture 74
-  call LITERAL
-  closecapture 74 0
-  commit __LEFTHAND_2281
-__RIGHTHAND_2280:
-  catch __RIGHTHAND_2294
-  opencapture 75
-  call FUNCTIONCALL
-  closecapture 75 0
-  commit __LEFTHAND_2295
-__RIGHTHAND_2294:
-  catch __RIGHTHAND_2308
-  opencapture 76
-  call SCR_REFERENCE
-  closecapture 76 0
-  commit __LEFTHAND_2309
-__RIGHTHAND_2308:
+  catch __RIGHTHAND_2396
   opencapture 77
-  call BOPEN
-  opencapture 78
-  call SCR_EXPRESSION
-  closecapture 78 0
-  call BCLOSE
+  call LITERAL
   closecapture 77 0
-__LEFTHAND_2309:
-__LEFTHAND_2295:
-__LEFTHAND_2281:
+  commit __LEFTHAND_2397
+__RIGHTHAND_2396:
+  catch __RIGHTHAND_2410
+  opencapture 78
+  call FUNCTIONCALL
+  closecapture 78 0
+  commit __LEFTHAND_2411
+__RIGHTHAND_2410:
+  catch __RIGHTHAND_2424
+  opencapture 79
+  call SCR_REFERENCE
+  closecapture 79 0
+  commit __LEFTHAND_2425
+__RIGHTHAND_2424:
+  opencapture 80
+  call BOPEN
+  opencapture 81
+  call SCR_EXPRESSION
+  closecapture 81 0
+  call BCLOSE
+  closecapture 80 0
+__LEFTHAND_2425:
+__LEFTHAND_2411:
+__LEFTHAND_2397:
   ret
 -- Rule
 FUNCTIONCALL:
   call __prefix
-  opencapture 79
+  opencapture 82
   call SCR_REFERENCE
-  closecapture 79 0
+  closecapture 82 0
   call BOPEN
-  catch __TERM_2373
+  catch __TERM_2489
   call SCR_EXPRESSION
-  catch __TERM_2386
-__TERM_2385:
+  catch __TERM_2502
+__TERM_2501:
   call COMMA
   call SCR_EXPRESSION
-  partialcommit __TERM_2385
-__TERM_2386:
-  commit __TERM_2373
-__TERM_2373:
+  partialcommit __TERM_2501
+__TERM_2502:
+  commit __TERM_2489
+__TERM_2489:
   call BCLOSE
   ret
 -- Rule
 SCR_REFERENCE:
   call __prefix
   call IDENT
-  catch __TERM_2416
-__TERM_2415:
+  catch __TERM_2532
+__TERM_2531:
   call DOT
   call IDENT
-  partialcommit __TERM_2415
-__TERM_2416:
-  catch __TERM_2434
-__TERM_2433:
+  partialcommit __TERM_2531
+__TERM_2532:
+  catch __TERM_2550
+__TERM_2549:
   call INDEX
-  partialcommit __TERM_2433
-__TERM_2434:
+  partialcommit __TERM_2549
+__TERM_2550:
   ret
 -- Rule
 INDEX:
   call __prefix
   call ABOPEN
-  opencapture 80
+  opencapture 83
   call SCR_EXPRESSION
-  closecapture 80 0
+  closecapture 83 0
   call ABCLOSE
   ret
 -- Rule
 LITERAL:
   call __prefix
-  catch __RIGHTHAND_2460
+  catch __RIGHTHAND_2576
   call STRINGLITERAL
-  commit __LEFTHAND_2461
-__RIGHTHAND_2460:
-  catch __RIGHTHAND_2468
+  commit __LEFTHAND_2577
+__RIGHTHAND_2576:
+  catch __RIGHTHAND_2584
   call HASHLITERAL
-  commit __LEFTHAND_2469
-__RIGHTHAND_2468:
-  catch __RIGHTHAND_2476
+  commit __LEFTHAND_2585
+__RIGHTHAND_2584:
+  catch __RIGHTHAND_2592
   call LISTLITERAL
-  commit __LEFTHAND_2477
-__RIGHTHAND_2476:
-  catch __RIGHTHAND_2484
+  commit __LEFTHAND_2593
+__RIGHTHAND_2592:
+  catch __RIGHTHAND_2600
   call FLOATLITERAL
-  commit __LEFTHAND_2485
-__RIGHTHAND_2484:
-  catch __RIGHTHAND_2492
+  commit __LEFTHAND_2601
+__RIGHTHAND_2600:
+  catch __RIGHTHAND_2608
   call INTLITERAL
-  commit __LEFTHAND_2493
-__RIGHTHAND_2492:
+  commit __LEFTHAND_2609
+__RIGHTHAND_2608:
   call BOOLEANLITERAL
-__LEFTHAND_2493:
-__LEFTHAND_2485:
-__LEFTHAND_2477:
-__LEFTHAND_2469:
-__LEFTHAND_2461:
+__LEFTHAND_2609:
+__LEFTHAND_2601:
+__LEFTHAND_2593:
+__LEFTHAND_2585:
+__LEFTHAND_2577:
   ret
 -- Rule
 STRINGLITERAL:
   call __prefix
   char 27
-  opencapture 81
-  catch __TERM_2522
-__TERM_2521:
-  catch __RIGHTHAND_2524
+  opencapture 84
+  catch __TERM_2638
+__TERM_2637:
+  catch __RIGHTHAND_2640
   char 5c
-  catch __RIGHTHAND_2538
+  catch __RIGHTHAND_2654
   set 0000000080000000000000100040540000000000000000000000000000000000
-  commit __LEFTHAND_2539
-__RIGHTHAND_2538:
+  commit __LEFTHAND_2655
+__RIGHTHAND_2654:
   counter 3 3
-__TERM_2548:
+__TERM_2664:
   set 000000000000ff03000000000000000000000000000000000000000000000000
-  condjump 3 __TERM_2548
-__LEFTHAND_2539:
-  commit __LEFTHAND_2525
-__RIGHTHAND_2524:
+  condjump 3 __TERM_2664
+__LEFTHAND_2655:
+  commit __LEFTHAND_2641
+__RIGHTHAND_2640:
   set ffffffff7fffffffffffffefffffffffffffffffffffffffffffffffffffffff
-__LEFTHAND_2525:
-  partialcommit __TERM_2521
-__TERM_2522:
-  closecapture 81 0
+__LEFTHAND_2641:
+  partialcommit __TERM_2637
+__TERM_2638:
+  closecapture 84 0
   char 27
   ret
 -- Rule
 HASHLITERAL:
   call __prefix
-  opencapture 82
+  opencapture 85
   call CBOPEN
-  catch __TERM_2579
+  catch __TERM_2695
   call HASHELT
-  catch __TERM_2592
-__TERM_2591:
+  catch __TERM_2708
+__TERM_2707:
   call COMMA
   call HASHELT
-  partialcommit __TERM_2591
-__TERM_2592:
-  commit __TERM_2579
-__TERM_2579:
+  partialcommit __TERM_2707
+__TERM_2708:
+  commit __TERM_2695
+__TERM_2695:
   call CBCLOSE
-  closecapture 82 0
+  closecapture 85 0
   ret
 -- Rule
 HASHELT:
   call __prefix
-  opencapture 83
+  opencapture 86
   call HASHKEY
   call COLON
   call HASHVALUE
-  closecapture 83 0
-  ret
--- Rule
-HASHKEY:
-  call __prefix
-  opencapture 84
-  call SCR_TERM
-  closecapture 84 0
-  ret
--- Rule
-HASHVALUE:
-  call __prefix
-  opencapture 85
-  call SCR_TERM
-  closecapture 85 0
-  ret
--- Rule
-LISTLITERAL:
-  call __prefix
-  opencapture 86
-  call ABOPEN
-  catch __TERM_2675
-  call LISTELT
-  catch __TERM_2688
-__TERM_2687:
-  call COMMA
-  call LISTELT
-  partialcommit __TERM_2687
-__TERM_2688:
-  commit __TERM_2675
-__TERM_2675:
-  call ABCLOSE
   closecapture 86 0
   ret
 -- Rule
-LISTELT:
+HASHKEY:
   call __prefix
   opencapture 87
   call SCR_TERM
   closecapture 87 0
   ret
 -- Rule
-FLOATLITERAL:
+HASHVALUE:
   call __prefix
   opencapture 88
-  catch __TERM_2730
-__TERM_2729:
+  call SCR_TERM
+  closecapture 88 0
+  ret
+-- Rule
+LISTLITERAL:
+  call __prefix
+  opencapture 89
+  call ABOPEN
+  catch __TERM_2791
+  call LISTELT
+  catch __TERM_2804
+__TERM_2803:
+  call COMMA
+  call LISTELT
+  partialcommit __TERM_2803
+__TERM_2804:
+  commit __TERM_2791
+__TERM_2791:
+  call ABCLOSE
+  closecapture 89 0
+  ret
+-- Rule
+LISTELT:
+  call __prefix
+  opencapture 90
+  call SCR_TERM
+  closecapture 90 0
+  ret
+-- Rule
+FLOATLITERAL:
+  call __prefix
+  opencapture 91
+  catch __TERM_2846
+__TERM_2845:
   set 000000000000ff03000000000000000000000000000000000000000000000000
-  partialcommit __TERM_2729
-__TERM_2730:
+  partialcommit __TERM_2845
+__TERM_2846:
   char 2e
   set 000000000000ff03000000000000000000000000000000000000000000000000
-  catch __TERM_2742
-__TERM_2741:
+  catch __TERM_2858
+__TERM_2857:
   set 000000000000ff03000000000000000000000000000000000000000000000000
-  partialcommit __TERM_2741
-__TERM_2742:
-  closecapture 88 0
+  partialcommit __TERM_2857
+__TERM_2858:
+  closecapture 91 0
   ret
 -- Rule
 INTLITERAL:
   call __prefix
-  opencapture 89
+  opencapture 92
   set 000000000000ff03000000000000000000000000000000000000000000000000
-  catch __TERM_2754
-__TERM_2753:
+  catch __TERM_2870
+__TERM_2869:
   set 000000000000ff03000000000000000000000000000000000000000000000000
-  partialcommit __TERM_2753
-__TERM_2754:
-  closecapture 89 0
+  partialcommit __TERM_2869
+__TERM_2870:
+  closecapture 92 0
   ret
 -- Rule
 BOOLEANLITERAL:
   call __prefix
-  opencapture 90
-  catch __RIGHTHAND_2762
+  opencapture 93
+  catch __RIGHTHAND_2878
   quad 74727565
-  commit __LEFTHAND_2763
-__RIGHTHAND_2762:
+  commit __LEFTHAND_2879
+__RIGHTHAND_2878:
   quad 66616c73
   char 65
-__LEFTHAND_2763:
-  closecapture 90 0
+__LEFTHAND_2879:
+  closecapture 93 0
   ret
 -- Rule
 KW_FUNCTION:
@@ -1418,18 +1485,16 @@ KW_CONTINUE:
 -- Rule
 IDENT:
   call __prefix
-  opencapture 91
   set 0000000000000000feffff87feffff0700000000000000000000000000000000
-  catch __TERM_2845
+  catch __TERM_2955
   counter 3 63
-__TERM_2846:
+__TERM_2956:
   set 000000000000ff03feffff87feffff0700000000000000000000000000000000
-  partialcommit __TERM_2847
-__TERM_2847:
-  condjump 3 __TERM_2846
-  commit __TERM_2845
-__TERM_2845:
-  closecapture 91 0
+  partialcommit __TERM_2957
+__TERM_2957:
+  condjump 3 __TERM_2956
+  commit __TERM_2955
+__TERM_2955:
   ret
 -- Rule
 BOPEN:
@@ -1460,63 +1525,6 @@ ABOPEN:
 ABCLOSE:
   call __prefix
   char 5d
-  ret
--- Rule
-ASSIGNS:
-  call __prefix
-  opencapture 92
-  catch __RIGHTHAND_2890
-  call ASSIGN
-  commit __LEFTHAND_2891
-__RIGHTHAND_2890:
-  catch __RIGHTHAND_2898
-  call PLUSIS
-  commit __LEFTHAND_2899
-__RIGHTHAND_2898:
-  catch __RIGHTHAND_2906
-  call MINIS
-  commit __LEFTHAND_2907
-__RIGHTHAND_2906:
-  catch __RIGHTHAND_2914
-  call MULIS
-  commit __LEFTHAND_2915
-__RIGHTHAND_2914:
-  catch __RIGHTHAND_2922
-  call DIVIS
-  commit __LEFTHAND_2923
-__RIGHTHAND_2922:
-  catch __RIGHTHAND_2930
-  call BITANDIS
-  commit __LEFTHAND_2931
-__RIGHTHAND_2930:
-  catch __RIGHTHAND_2938
-  call BITORIS
-  commit __LEFTHAND_2939
-__RIGHTHAND_2938:
-  catch __RIGHTHAND_2946
-  call BITXORIS
-  commit __LEFTHAND_2947
-__RIGHTHAND_2946:
-  catch __RIGHTHAND_2954
-  call BITNOTIS
-  commit __LEFTHAND_2955
-__RIGHTHAND_2954:
-  catch __RIGHTHAND_2962
-  call LSHIFTIS
-  commit __LEFTHAND_2963
-__RIGHTHAND_2962:
-  call RSHIFTIS
-__LEFTHAND_2963:
-__LEFTHAND_2955:
-__LEFTHAND_2947:
-__LEFTHAND_2939:
-__LEFTHAND_2931:
-__LEFTHAND_2923:
-__LEFTHAND_2915:
-__LEFTHAND_2907:
-__LEFTHAND_2899:
-__LEFTHAND_2891:
-  closecapture 92 0
   ret
 -- Rule
 ASSIGN:
@@ -1563,19 +1571,19 @@ NEQUALS:
 LT:
   call __prefix
   char 3c
-  catch __TERM_3024
+  catch __TERM_3042
   char 3d
   failtwice
-__TERM_3024:
+__TERM_3042:
   ret
 -- Rule
 GT:
   call __prefix
   char 3e
-  catch __TERM_3036
+  catch __TERM_3054
   char 3d
   failtwice
-__TERM_3036:
+__TERM_3054:
   ret
 -- Rule
 LTEQ:
@@ -1609,37 +1617,37 @@ POW:
 MUL:
   call __prefix
   char 2a
-  catch __TERM_3078
+  catch __TERM_3096
   char 2a
   failtwice
-__TERM_3078:
+__TERM_3096:
   ret
 -- Rule
 DIV:
   call __prefix
   char 2f
-  catch __TERM_3090
+  catch __TERM_3108
   char 3d
   failtwice
-__TERM_3090:
+__TERM_3108:
   ret
 -- Rule
 ADD:
   call __prefix
   char 2b
-  catch __TERM_3102
+  catch __TERM_3120
   set 0000000000080020000000000000000000000000000000000000000000000000
   failtwice
-__TERM_3102:
+__TERM_3120:
   ret
 -- Rule
 SUB:
   call __prefix
   char 2d
-  catch __TERM_3114
+  catch __TERM_3132
   set 0000000000200020000000000000000000000000000000000000000000000000
   failtwice
-__TERM_3114:
+__TERM_3132:
   ret
 -- Rule
 INC:
@@ -1669,37 +1677,37 @@ LOGOR:
 LOGNOT:
   call __prefix
   char 21
-  catch __TERM_3150
+  catch __TERM_3168
   char 3d
   failtwice
-__TERM_3150:
+__TERM_3168:
   ret
 -- Rule
 BITAND:
   call __prefix
   char 26
-  catch __TERM_3162
+  catch __TERM_3180
   set 0000000040000020000000000000000000000000000000000000000000000000
   failtwice
-__TERM_3162:
+__TERM_3180:
   ret
 -- Rule
 BITOR:
   call __prefix
   char 7c
-  catch __TERM_3174
+  catch __TERM_3192
   set 0000000000000020000000000000001000000000000000000000000000000000
   failtwice
-__TERM_3174:
+__TERM_3192:
   ret
 -- Rule
 BITXOR:
   call __prefix
   char 5e
-  catch __TERM_3186
+  catch __TERM_3204
   char 3d
   failtwice
-__TERM_3186:
+__TERM_3204:
   ret
 -- Rule
 BITNOT:
@@ -1745,20 +1753,20 @@ LSHIFT:
   call __prefix
   char 3c
   char 3c
-  catch __TERM_3240
+  catch __TERM_3258
   char 3d
   failtwice
-__TERM_3240:
+__TERM_3258:
   ret
 -- Rule
 RSHIFT:
   call __prefix
   char 3e
   char 3e
-  catch __TERM_3252
+  catch __TERM_3270
   char 3d
   failtwice
-__TERM_3252:
+__TERM_3270:
   ret
 -- Rule
 LSHIFTIS:

@@ -50,7 +50,7 @@ NAIG_ERR_T naip_add
     case NAIP_TYPE_NULL: CHECK(naip_copy(term2, outcome)); break;
     case NAIP_TYPE_BOOLEAN: return NAIP_ERR_OPERATION;
     case NAIP_TYPE_INT: naip_int(outcome, term1->value._int + term2->value._int); break;
-    case NAIP_TYPE_FLOAT:
+    case NAIP_TYPE_FLOAT: naip_float(outcome, term1->value._int + term2->value._flt); break;
     case NAIP_TYPE_STRING: ;
     }
     break;
@@ -58,8 +58,8 @@ NAIG_ERR_T naip_add
     switch (term2->type) {
     case NAIP_TYPE_NULL: CHECK(naip_copy(term2, outcome)); break;
     case NAIP_TYPE_BOOLEAN: return NAIP_ERR_OPERATION;
-    case NAIP_TYPE_INT:
-    case NAIP_TYPE_FLOAT:
+    case NAIP_TYPE_INT: naip_float(outcome, term1->value._flt + term2->value._int); break;
+    case NAIP_TYPE_FLOAT: naip_float(outcome, term1->value._flt + term2->value._flt); break;
     case NAIP_TYPE_STRING: ;
     }
     break;
@@ -73,4 +73,5 @@ NAIG_ERR_T naip_add
     }
     break;
   }
+  return NAIG_OK;
 }

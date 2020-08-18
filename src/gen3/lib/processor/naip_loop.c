@@ -41,17 +41,21 @@ NAIG_ERR_T naip_loop
 {
   naip_stent_t entry1, entry2, entry3;
   uint32_t opcode, param1; //, param2, param3;
+  unsigned instrlength;
 
   while (1) {
     //.. check engine->bytecode_offset
     opcode = GET_32BIT_NWO(engine->bytecode, engine->bytecode_offset);
+    instrlength = engine->bytecode[ engine->bytecode_offset + 1 ];
     //.. check instruction size is inside bytecode buffer
+
     switch (opcode) {
     case OPCODE_SCR_ADD:
       STACK_POP(entry1);
       STACK_POP(entry2);
       CHECK(naip_add(&entry1, &entry2, &entry3));
       STACK_PUSH(entry3);
+      engine->bytecode_offset += instrlength;
       break;
 
     case OPCODE_SCR_ASSIGN:
@@ -62,6 +66,7 @@ NAIG_ERR_T naip_loop
       STACK_POP(entry2);
       CHECK(naip_bitand(&entry1, &entry2, &entry3));
       STACK_PUSH(entry3);
+      engine->bytecode_offset += instrlength;
       break;
 
     case OPCODE_SCR_BITANDIS:
@@ -69,6 +74,7 @@ NAIG_ERR_T naip_loop
       STACK_POP(entry2);
       CHECK(naip_bitand(&entry1, &entry2, &entry1));
       STACK_PUSH(entry1);
+      engine->bytecode_offset += instrlength;
       break;
 
     case OPCODE_SCR_BITNOT:

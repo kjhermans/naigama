@@ -1,10 +1,10 @@
 TARGET=naic
 CC=$(ARCH)gcc
-CFLAGS=-g -O2 -Wall -Wextra $(DEBUG) -I$(BUILDROOT)/src/gen2/include
+CFLAGS=-g -O2 -Wall -Wextra $(DEBUG) -I$(BUILDROOT)/src/gen3/include
 LIBS=\
-	$(BUILDROOT)/src/gen2/lib/compiler/libnaic.a \
-	$(BUILDROOT)/src/gen2/lib/engine/libnaie.a \
-	$(BUILDROOT)/src/gen2/lib/util/libutil.a
+	$(BUILDROOT)/src/gen3/lib/compiler/libnaic.a \
+	$(BUILDROOT)/src/gen3/lib/engine/libnaie.a \
+	$(BUILDROOT)/src/gen3/lib/util/libutil.a
 
 all: $(TARGET)
 
@@ -16,11 +16,11 @@ clean:
 
 superclean: clean
 
-$(BUILDROOT)/src/gen2/lib/compiler/libnaic.a:
-	@cd $(BUILDROOT)/src/gen2/lib/compiler && make
+$(BUILDROOT)/src/gen3/lib/compiler/libnaic.a:
+	@cd $(BUILDROOT)/src/gen3/lib/compiler && make
 
-$(BUILDROOT)/src/gen2/lib/engine/libnaie.a:
-	@cd $(BUILDROOT)/src/gen2/lib/engine && make
+$(BUILDROOT)/src/gen3/lib/engine/libnaie.a:
+	@cd $(BUILDROOT)/src/gen3/lib/engine && make
 
-$(BUILDROOT)/src/gen2/lib/util/libutil.a:
-	@cd $(BUILDROOT)/src/gen2/lib/util && make
+$(BUILDROOT)/src/gen3/lib/util/libutil.a:
+	@cd $(BUILDROOT)/src/gen3/lib/util && make

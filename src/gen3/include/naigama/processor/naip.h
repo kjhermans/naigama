@@ -37,7 +37,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <naigama/naigama.h>
 
 #define NAIP_ERR_SYSTEM         ((NAIG_ERR_T){ .code = -257 })
-#define NAIP_ERR_OPERATION      ((NAIG_ERR_T){ .code = -257 })
+#define NAIP_ERR_TYPE           ((NAIG_ERR_T){ .code = -258 })
+#define NAIP_ERR_OPERATION      ((NAIG_ERR_T){ .code = -259 })
 
 typedef struct
 {
@@ -50,6 +51,11 @@ typedef struct
   uint8_t                       flags;
   uint16_t                      refcount;
   union {
+    struct {
+      char*                         ptr;
+      unsigned                      siz;
+    }                             _str;
+    double                        _flt;
     int64_t                       _int;
   }                             value;
 }

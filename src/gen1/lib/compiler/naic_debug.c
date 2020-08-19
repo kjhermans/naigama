@@ -20,9 +20,10 @@ void naic_debug
   (naic_t* naic)
 {
 #ifdef _DEBUG
-  fprintf(stderr, "Token %u; %s %u->%u '%-.*s'\n"
+  fprintf(stderr, "%u: Token %s (%u) %u->%u '%-.*s'\n"
     , naic->capindex
     , naic_slotmap_string(naic->captures->actions[ naic->capindex ].slot)
+    , naic->captures->actions[ naic->capindex ].slot
     , naic->captures->actions[ naic->capindex ].start
     , naic->captures->actions[ naic->capindex ].length
     , naic->captures->actions[ naic->capindex ].length

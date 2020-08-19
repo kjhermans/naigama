@@ -45,6 +45,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define NAIG_ERR_WRITE                  ((NAIG_ERR_T){ .code = -2 })
 #define NAIG_ERR_UNIMPL                 ((NAIG_ERR_T){ .code = -3 })
 #define NAIG_ERR_NOTFOUND               ((NAIG_ERR_T){ .code = -4 })
+#define NAIG_ERR_OVERFLOW               ((NAIG_ERR_T){ .code = -5 })
 
 #define NAIE_ERR_STACKFULL              ((NAIG_ERR_T){ .code = -17 })
 #define NAIE_ERR_STACKEMPTY             ((NAIG_ERR_T){ .code = -18 })

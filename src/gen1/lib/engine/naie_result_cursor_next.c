@@ -35,6 +35,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 /**
  * Steps to the next item at the same level in the action list cursor.
+ *
+ * \param cursor The cursor
+ * \param slot   When -1, gives you the next sibling
+ *               regardless of slot (token type) value.
+ *               Otherwise, asserts that the next
+ *               sibling is of this type.
+ * \param action Result in case of success.
  */
 NAIG_ERR_T naie_result_cursor_next
   (
@@ -43,27 +50,23 @@ NAIG_ERR_T naie_result_cursor_next
     naie_resact_t* action
   )
 {
-  if (cursor->scope_begin && cursor->scope_begin == cursor->scope_end) {
-    ++(cursor->scope_end);
+  unsigned i;
+  naie_resact_t* r0, * r1;
+ 
+  if (cursor->index >= cursor->result->count) {
+    return NAIG_ERR_NOTFOUND;
   }
-  while (cursor->scope_begin < cursor->parent_scope_end) {
-    cursor->scope_begin = cursor->scope_end;
-    CHECK_NODEBUG(
-      naie_result_cursor_scope(
-        cursor->result,
-        cursor->scope_begin,
-        cursor->parent_scope_end,
-        &(cursor->scope_end)
-      )
-    );
-    if (slot < 0) {
-      *action = cursor->result->actions[ cursor->scope_begin ];
-      return NAIG_OK;
-    } else if ((unsigned)slot
-               == cursor->result->actions[ cursor->scope_begin ].slot)
-    {
-      *action = cursor->result->actions[ cursor->scope_begin ];
-      return NAIG_OK;
+  r0 = &(cursor->result->actions[ cursor->index ]);
+  for (i = cursor->index + 1; i < cursor->result->count; i++) {
+    r1 = &(cursor->result->actions[ i ]);
+    if (r1->start >= r0->start + r0->length) {
+      if ((unsigned)slot == r1->slot) {
+        cursor->index = i;
+        *action = *r1;
+        return NAIG_OK;
+      } else {
+        return NAIG_ERR_NOTFOUND;
+      }
     }
   }
   return NAIG_ERR_NOTFOUND;

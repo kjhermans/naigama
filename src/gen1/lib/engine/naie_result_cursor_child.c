@@ -35,6 +35,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 /**
  * Steps into the first child at the action list cursor.
+ *
+ * \param cursor The cursor
+ * \param slot   When -1, gives you the first child
+ *               regardless of slot (token type) value.
+ *               Otherwise, asserts that the first
+ *               child is of this type.
+ * \param action Result in case of success.
  */
 NAIG_ERR_T naie_result_cursor_child
   (
@@ -43,33 +50,28 @@ NAIG_ERR_T naie_result_cursor_child
     naie_resact_t* action
   )
 {
-  if (cursor->scope_begin == cursor->scope_end) {
+  naie_resact_t* r0, * r1;
+
+  if (cursor->index >= cursor->result->count) {
     return NAIG_ERR_NOTFOUND;
   }
-  if (cursor->scope_begin + 1 >= cursor->parent_scope_end) {
-    return NAIG_ERR_NOTFOUND;
-  }
-  cursor->parent_scope_begin = cursor->scope_begin;
-  cursor->parent_scope_end = cursor->scope_end;
-  ++(cursor->scope_begin);
-  CHECK(
-    naie_result_cursor_scope(
-      cursor->result,
-      cursor->scope_begin,
-      cursor->parent_scope_end,
-      &(cursor->scope_end)
-    )
-  );
-  if (slot < 0) {
-    *action = cursor->result->actions[ cursor->scope_begin ];
-    return NAIG_OK;
-  } else if ((unsigned)slot
-             == cursor->result->actions[ cursor->scope_begin ].slot)
+  r0 = &(cursor->result->actions[ cursor->index ]);
+  r1 = &(cursor->result->actions[ cursor->index + 1 ]);
+  if (r1->start >= r0->start
+      && r1->start + r1->length <= r0->start + r0->length)
   {
-    *action = cursor->result->actions[ cursor->scope_begin ];
-    return NAIG_OK;
+    if (slot == -1) {
+      ++(cursor->index);
+      *action = *r1;
+      return NAIG_OK;
+    } else if ((unsigned)slot == r1->slot) {
+      ++(cursor->index);
+      *action = *r1;
+      return NAIG_OK;
+    } else {
+      return NAIG_ERR_NOTFOUND;
+    }
   } else {
-    CHECK(naie_result_cursor_next(cursor, slot, action));
-    return NAIG_OK;
+    return NAIG_ERR_NOTFOUND;
   }
 }

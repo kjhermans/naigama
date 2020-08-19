@@ -35,19 +35,23 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 /**
  * Initializes a cursor onto the action list.
+ *
+ * \param The parsing result
+ * \param The to be initialized cursor
+ * \param The index inside the cursor. Set to zero for
+ *        starting at the top.
  */
 NAIG_ERR_T naie_result_cursor
   (
     naie_result_t* result,
-    naie_rescrs_t* cursor
+    naie_rescrs_t* cursor,
+    unsigned i
   )
 {
-  memset(cursor, 0, sizeof(*cursor));
+  if (i >= result->count) {
+    RETURNERR(NAIG_ERR_OVERFLOW);
+  }
   cursor->result = result;
-  cursor->parent_scope_begin = 0;
-  cursor->parent_scope_end = cursor->result->count;
-  cursor->scope_begin = 0;
-  cursor->scope_end = 0;
-//  CHECK(naie_result_cursor_scope(cursor->result, 0, &(cursor->scope_end)));
+  cursor->index = i;
   return NAIG_OK;
 }

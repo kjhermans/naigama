@@ -162,10 +162,7 @@ naie_result_t;
 typedef struct
 {
   naie_result_t*                        result;
-  unsigned                              parent_scope_begin;
-  unsigned                              parent_scope_end;
-  unsigned                              scope_begin;
-  unsigned                              scope_end;
+  unsigned                              index;
 }
 naie_rescrs_t;
 

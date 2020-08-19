@@ -157,7 +157,8 @@ extern
 NAIG_ERR_T naie_result_cursor
   (
     naie_result_t* result,
-    naie_rescrs_t* cursor
+    naie_rescrs_t* cursor,
+    unsigned i
   )
   __attribute__ ((warn_unused_result));
 
@@ -179,12 +180,6 @@ NAIG_ERR_T naie_result_cursor_next
     int slot,
     naie_resact_t* action
   )
-  __attribute__ ((warn_unused_result));
-
-/* declared in /home/work/work/naigama/src/gen1/lib/engine//naie_result_cursor_scope.c */
-extern
-NAIG_ERR_T naie_result_cursor_scope
-  (naie_result_t* result, unsigned start, unsigned scope, unsigned* end)
   __attribute__ ((warn_unused_result));
 
 /* declared in /home/work/work/naigama/src/gen1/lib/engine//naie_result_debug.c */

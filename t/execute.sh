@@ -49,10 +49,10 @@ else
     EXEC_SINGLE_TEST $FILE
   done
 
-  echo "Bitfault tests"
-  FILES=`ls bitfault_*.tst`
-  for FILE in $FILES; do
-    EXEC_BITFAULT_TEST $FILE
-  done
+#  echo "Bitfault tests"
+#  FILES=`ls bitfault_*.tst`
+#  for FILE in $FILES; do
+#    EXEC_BITFAULT_TEST $FILE
+#  done
   
 fi

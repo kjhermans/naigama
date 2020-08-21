@@ -41,7 +41,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *               regardless of slot (token type) value.
  *               Otherwise, asserts that the next
  *               sibling is of this type.
- * \param action Result in case of success.
+ * \param action Result in case of success (may be NULL).
  */
 NAIG_ERR_T naie_result_cursor_next
   (
@@ -62,7 +62,7 @@ NAIG_ERR_T naie_result_cursor_next
     if (r1->start >= r0->start + r0->length) {
       if ((unsigned)slot == r1->slot) {
         cursor->index = i;
-        *action = *r1;
+        if (action) { *action = *r1; }
         return NAIG_OK;
       } else {
         return NAIG_ERR_NOTFOUND;

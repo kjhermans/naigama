@@ -158,7 +158,8 @@ NAIG_ERR_T naie_result_cursor
   (
     naie_result_t* result,
     naie_rescrs_t* cursor,
-    unsigned i
+    unsigned index,
+    int slot
   )
   __attribute__ ((warn_unused_result));
 
@@ -180,6 +181,12 @@ NAIG_ERR_T naie_result_cursor_next
     int slot,
     naie_resact_t* action
   )
+  __attribute__ ((warn_unused_result));
+
+/* declared in /home/work/work/naigama/src/gen1/lib/engine//naie_result_cursor_string.c */
+extern
+NAIG_ERR_T naie_result_cursor_string
+  (naie_rescrs_t* cursor, char* input, char* buf, unsigned siz)
   __attribute__ ((warn_unused_result));
 
 /* declared in /home/work/work/naigama/src/gen1/lib/engine//naie_result_debug.c */

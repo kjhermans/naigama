@@ -45,13 +45,17 @@ NAIG_ERR_T naie_result_cursor
   (
     naie_result_t* result,
     naie_rescrs_t* cursor,
-    unsigned i
+    unsigned index,
+    int slot
   )
 {
-  if (i >= result->count) {
+  if (index>= result->count) {
     RETURNERR(NAIG_ERR_OVERFLOW);
   }
+  if (slot >= 0 && result->actions[ index ].slot != slot) {
+    RETURNERR(NAIG_ERR_NOTFOUND);
+  }
   cursor->result = result;
-  cursor->index = i;
+  cursor->index = index;
   return NAIG_OK;
 }

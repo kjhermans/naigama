@@ -41,7 +41,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *               regardless of slot (token type) value.
  *               Otherwise, asserts that the first
  *               child is of this type.
- * \param action Result in case of success.
+ * \param action Result in case of success (may be NULL).
  */
 NAIG_ERR_T naie_result_cursor_child
   (
@@ -62,11 +62,11 @@ NAIG_ERR_T naie_result_cursor_child
   {
     if (slot == -1) {
       ++(cursor->index);
-      *action = *r1;
+      if (action) { *action = *r1; }
       return NAIG_OK;
     } else if ((unsigned)slot == r1->slot) {
       ++(cursor->index);
-      *action = *r1;
+      if (action) { *action = *r1; }
       return NAIG_OK;
     } else {
       return NAIG_ERR_NOTFOUND;

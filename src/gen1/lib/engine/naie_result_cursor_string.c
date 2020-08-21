@@ -34,21 +34,19 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "naie_private.h"
 
 /**
- * Debugs the current instruction (more verbosely than the normal
- * debugging function does.
+ *
  */
-void naie_debug_instruction
-  (naie_engine_t* engine)
+NAIG_ERR_T naie_result_cursor_string
+  (naie_rescrs_t* cursor, char* input, char* buf, unsigned siz)
 {
-  uint32_t opcode, param1; //, param2;
-  char* label;
-
-  opcode = GET_32BIT_NWO(engine->bytecode, engine->bytecode_pos);
-  switch (opcode) {
-  case OPCODE_CALL:
-    param1 = GET_32BIT_NWO(engine->bytecode, engine->bytecode_pos + 4);
-    label = naie_labelmap_reverse(engine, param1);
-    fprintf(stderr, "CALL %u %s\n", param1, (label ? label : ""));
-    break;
+  if (cursor->index < cursor->result->count) {
+    snprintf(buf, siz,
+       "%-.*s",
+       cursor->result->actions[ cursor->index ].length,
+       input + cursor->result->actions[ cursor->index ].start
+    );
+    return NAIG_OK;
+  } else {
+    return NAIG_ERR_NOTFOUND;
   }
 }

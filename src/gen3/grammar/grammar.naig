@@ -99,9 +99,11 @@ SETNOT             <- '^'
 
 FUNCDECL       <- KW_FUNCTION S { IDENT } { FUNCPARAMDECL } { FUNCBODY }
 
-FUNCPARAMDECL  <- BOPEN { ( { IDENT } ( COMMA { IDENT } )* )? } BCLOSE
+FUNCPARAMDECL  <- BOPEN ( { PARAMDECL } ( COMMA { PARAMDECL } )* )? BCLOSE
 
-FUNCBODY       <- CBOPEN LOWSTMT* CBCLOSE
+PARAMDECL      <- { IDENT } { IDENT } / { IDENT }
+
+FUNCBODY       <- CBOPEN { LOWSTMT }* CBCLOSE
 
 LOWSTMT        <- { ST_IF } /
                   { ST_WHILE } /
@@ -176,16 +178,27 @@ ASSIGNS        <- { ASSIGN / PLUSIS / MINIS / MULIS / DIVIS /
 
 SCR_EXPRESSION <- BINOP_P12
 
-BINOP_P12      <- { BINOP_P11 } ( LOGOR BINOP_P11 )*
-BINOP_P11      <- { BINOP_P10 } ( LOGAND BINOP_P10 )*
-BINOP_P10      <- { BINOP_P09 } ( BITOR BINOP_P09 )*
-BINOP_P09      <- { BINOP_P08 } ( BITXOR BINOP_P08 )*
-BINOP_P08      <- { BINOP_P07 } ( BITAND BINOP_P07 )*
-BINOP_P07      <- { BINOP_P06 } ( ( EQUALS / NEQUALS ) BINOP_P06 )*
-BINOP_P06      <- { BINOP_P05 } ( ( LTEQ / LT / GTEQ / GT ) BINOP_P05 )*
-BINOP_P05      <- { BINOP_P04 } ( ( LSHIFT / RSHIFT ) BINOP_P04 )*
-BINOP_P04      <- { BINOP_P03 } ( ( ADD / SUB ) BINOP_P03 )*
-BINOP_P03      <- { UNARIES }   ( ( MUL / DIV / POW ) UNARIES )*
+-- BINOP_P12      <- { BINOP_P11 } ( LOGOR BINOP_P11 )*
+-- BINOP_P11      <- { BINOP_P10 } ( LOGAND BINOP_P10 )*
+-- BINOP_P10      <- { BINOP_P09 } ( BITOR BINOP_P09 )*
+-- BINOP_P09      <- { BINOP_P08 } ( BITXOR BINOP_P08 )*
+-- BINOP_P08      <- { BINOP_P07 } ( BITAND BINOP_P07 )*
+-- BINOP_P07      <- { BINOP_P06 } ( ( EQUALS / NEQUALS ) BINOP_P06 )*
+-- BINOP_P06      <- { BINOP_P05 } ( ( LTEQ / LT / GTEQ / GT ) BINOP_P05 )*
+-- BINOP_P05      <- { BINOP_P04 } ( ( LSHIFT / RSHIFT ) BINOP_P04 )*
+-- BINOP_P04      <- { BINOP_P03 } ( ( ADD / SUB ) BINOP_P03 )*
+-- BINOP_P03      <- { UNARIES }   ( ( MUL / DIV / POW ) UNARIES )*
+
+BINOP_P12      <- { BINOP_P11 } { LOGOR SCR_EXPRESSION }*
+BINOP_P11      <- { BINOP_P10 } { LOGAND SCR_EXPRESSION }*
+BINOP_P10      <- { BINOP_P09 } { BITOR SCR_EXPRESSION }*
+BINOP_P09      <- { BINOP_P08 } { BITXOR SCR_EXPRESSION }*
+BINOP_P08      <- { BINOP_P07 } { BITAND SCR_EXPRESSION }*
+BINOP_P07      <- { BINOP_P06 } { ( EQUALS / NEQUALS ) SCR_EXPRESSION }*
+BINOP_P06      <- { BINOP_P05 } { ( LTEQ / LT / GTEQ / GT ) SCR_EXPRESSION }*
+BINOP_P05      <- { BINOP_P04 } { ( LSHIFT / RSHIFT ) SCR_EXPRESSION }*
+BINOP_P04      <- { BINOP_P03 } { ( ADD / SUB ) SCR_EXPRESSION }*
+BINOP_P03      <- { UNARIES }   { ( MUL / DIV / POW ) SCR_EXPRESSION }*
 
 UNARIES        <- { UNARY }* { SCR_TERM }
 
@@ -239,40 +252,40 @@ CBOPEN         <- '{'
 CBCLOSE        <- '}'
 ABOPEN         <- '['
 ABCLOSE        <- ']'
-ASSIGN         <- '='
-PLUSIS         <- '+='
-MINIS          <- '-='
-MULIS          <- '*='
-DIVIS          <- '/='
-EQUALS         <- '=='
-NEQUALS        <- '!='
-LT             <- '<' !'='
-GT             <- '>' !'='
-LTEQ           <- '<='
-GTEQ           <- '>='
-SEMICOLON      <- ';'
-COLON          <- ':'
-POW            <- '**'
-MUL            <- '*' !'*'
-DIV            <- '/' !'='
-ADD            <- '+' ![+=]
-SUB            <- '-' ![\-=]
-INC            <- '++'
-DEC            <- '--'
-LOGAND         <- '&&'
-LOGOR          <- '||'
-LOGNOT         <- '!' !'='
-BITAND         <- '&' ![&=]
-BITOR          <- '|' ![|=]
-BITXOR         <- '^' !'='
-BITNOT         <- '~'
-BITANDIS       <- '&='
-BITORIS        <- '|='
-BITXORIS       <- '^='
-BITNOTIS       <- '~='
-COMMA          <- ','
-DOT            <- '.'
-LSHIFT         <- '<<' ! '='
-RSHIFT         <- '>>' ! '='
-LSHIFTIS       <- '<<='
-RSHIFTIS       <- '>>='
+ASSIGN         <- { '=' }
+PLUSIS         <- { '+=' }
+MINIS          <- { '-=' }
+MULIS          <- { '*=' }
+DIVIS          <- { '/=' }
+EQUALS         <- { '==' }
+NEQUALS        <- { '!=' }
+LT             <- { '<' } !'='
+GT             <- { '>' } !'='
+LTEQ           <- { '<=' }
+GTEQ           <- { '>=' }
+SEMICOLON      <- { ';' }
+COLON          <- { ':' }
+POW            <- { '**' }
+MUL            <- { '*' } !'*'
+DIV            <- { '/' } !'='
+ADD            <- { '+' } ![+=]
+SUB            <- { '-' } ![\-=]
+INC            <- { '++' }
+DEC            <- { '--' }
+LOGAND         <- { '&&' }
+LOGOR          <- { '||' }
+LOGNOT         <- { '!' } !'='
+BITAND         <- { '&' } ![&=]
+BITOR          <- { '|' } ![|=]
+BITXOR         <- { '^' } !'='
+BITNOT         <- { '~' }
+BITANDIS       <- { '&=' }
+BITORIS        <- { '|=' }
+BITXORIS       <- { '^=' }
+BITNOTIS       <- { '~=' }
+COMMA          <- { ',' }
+DOT            <- { '.' }
+LSHIFT         <- { '<<' } !'='
+RSHIFT         <- { '>>' } !'='
+LSHIFTIS       <- { '<<=' }
+RSHIFTIS       <- { '>>=' }

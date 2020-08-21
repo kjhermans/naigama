@@ -33,34 +33,40 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "naic_private.h"
 
+static
+NAIG_ERR_T naic_process_function_param
+  (naic_t* naic, naie_rescrs_t* cursor)
+{
+  char param[ 65 ];
+  naie_rescrs_t subcursor = *cursor;
+  naie_resact_t action;
+
+  CHECK(naie_result_cursor_child(&subcursor, SLOT_PARAMDECL_IDENT_2, &action));
+  CHECK(naie_result_cursor_string(&subcursor, naic->grammar, param, sizeof(param)));
+  CHECK(naic->write(naic->write_arg, "-- Parameter %s\n", param));
+  //..
+  return NAIG_OK;
+}
+
 /**
  *
  */
-NAIG_ERR_T naic_process_function
-  (naic_t* naic)
+NAIG_ERR_T naic_process_function_params
+  (naic_t* naic, naie_rescrs_t* cursor)
 {
-  naie_resact_t* a = &(naic->captures->actions[ naic->capindex ]);
-  char* chr = naic->grammar + a->start;
-  char label[ 64 ];
-  naie_rescrs_t cursor;
+  naie_resact_t action;
 
-  snprintf(label, sizeof(label), "__FUNC_%-.*s", a->length, chr);
-  
-  ++(naic->capindex);
-  CHECK(naic->write(naic->write_arg, "\n-- Function\n"));
-  CHECK(naic->write(naic->write_arg, "%s:\n", label));
-  CHECK(
-    naie_result_cursor(
-      naic->captures,
-      &cursor,
-      naic->capindex,
-      SLOT_FUNCDECL_FUNCPARAMDECL
-    )
+  CATCHOUT(
+    naie_result_cursor_child(cursor, SLOT_FUNCPARAMDECL_PARAMDECL, &action),
+    NAIG_ERR_NOTFOUND
   );
-  CHECK(naic_process_function_params(naic, &cursor));
-  CHECK(naie_result_cursor_next(&cursor, SLOT_FUNCDECL_FUNCBODY, 0));
-  CHECK(naic_process_function_body(naic, &cursor));
-  CHECK(naic->write(naic->write_arg, "ret\n"));
-
+  CHECK(naic_process_function_param(naic, cursor));
+  while (1) {
+    CATCHOUT(
+      naie_result_cursor_next(cursor, SLOT_FUNCPARAMDECL_PARAMDECL_1, &action),
+      NAIG_ERR_NOTFOUND
+    );
+    CHECK(naic_process_function_param(naic, cursor));
+  }
   return NAIG_OK;
 }

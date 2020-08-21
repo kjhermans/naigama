@@ -36,31 +36,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /**
  *
  */
-NAIG_ERR_T naic_process_function
-  (naic_t* naic)
+NAIG_ERR_T naic_process_function_body
+  (naic_t* naic, naie_rescrs_t* cursor)
 {
-  naie_resact_t* a = &(naic->captures->actions[ naic->capindex ]);
-  char* chr = naic->grammar + a->start;
-  char label[ 64 ];
-  naie_rescrs_t cursor;
-
-  snprintf(label, sizeof(label), "__FUNC_%-.*s", a->length, chr);
-  
-  ++(naic->capindex);
-  CHECK(naic->write(naic->write_arg, "\n-- Function\n"));
-  CHECK(naic->write(naic->write_arg, "%s:\n", label));
-  CHECK(
-    naie_result_cursor(
-      naic->captures,
-      &cursor,
-      naic->capindex,
-      SLOT_FUNCDECL_FUNCPARAMDECL
-    )
-  );
-  CHECK(naic_process_function_params(naic, &cursor));
-  CHECK(naie_result_cursor_next(&cursor, SLOT_FUNCDECL_FUNCBODY, 0));
-  CHECK(naic_process_function_body(naic, &cursor));
-  CHECK(naic->write(naic->write_arg, "ret\n"));
-
+  fprintf(stderr, "FUNCTION BODY CURSOR INDEX %u\n", cursor->index);
   return NAIG_OK;
 }

@@ -1,6 +1,66 @@
 \section{Counters}
 
-One addition that the Naigama makes to PLEG, is the introduction
+An addition that the Naigama makes to LPEG, is the introduction
 of counters to prevent matchers being written out completely
 when a large, but absolute, upper bound of a matcher's quantifier
 is given.
+
+For example:
+
+\begin{myquote}
+\begin{verbatim}
+HEXLITERAL <- [0-9a-fA-F]^8-32
+
+\end{verbatim}
+\end{myquote}
+
+Must be written out by LPEG as repetitions, like so:
+
+\begin{myquote}
+\begin{verbatim}
+  set 000000000000ff037e0000007e000000000000000000000000000 ...
+  set 000000000000ff037e0000007e000000000000000000000000000 ...
+  set 000000000000ff037e0000007e000000000000000000000000000 ...
+-- ... repeated eight times total ...
+
+  set 000000000000ff037e0000007e000000000000000000000000000 ...
+  partialcommit LABEL1
+LABEL1:
+-- ... repeated 24 times ...
+
+\end{verbatim}
+\end{myquote}
+
+Naigama solves this by introducing counters. These are numbered
+registers for a counter, whose value can only go down (to zero).
+The instructions to implement a counted loop are
+'counter' and 'condjump'. The first one sets the counter's value,
+the second one only jumps when the value is non zero.
+The grammar above is then compiled as follows:
+
+\begin{myquote}
+\begin{verbatim}
+  call HEXLITERAL
+  end
+-- Rule
+HEXLITERAL:
+  counter 0 8
+__TERM_2:
+  set 000000000000ff037e0000007e000000000000000000000000000 ...
+  condjump 0 __TERM_2
+  catch __TERM_3
+  counter 1 24
+__TERM_4:
+  set 000000000000ff037e0000007e000000000000000000000000000 ...
+  partialcommit __TERM_5
+__TERM_5:
+  condjump 1 __TERM_4
+  commit __TERM_3
+__TERM_3:
+  ret
+
+\end{verbatim}
+\end{myquote}
+
+Not only delivers this feature much more efficient code, the code
+is also less cluttered, and more de-compileable.

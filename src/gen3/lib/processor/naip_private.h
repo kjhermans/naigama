@@ -43,13 +43,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "generated.h"
 
-#include <arpa/inet.h>
-
-#ifdef GET_32BIT_NWO
-#undef GET_32BIT_NWO
-#endif
-#define GET_32BIT_NWO(mem,off) ({ uint32_t _vl; memcpy(&_vl,(mem)+(off),4); _vl=ntohl(_vl); _vl; })
-
 #define STACK_POP(ent) { \
   if (engine->stack_size) { \
     ent = engine->stack[ --(engine->stack_size) ]; \

@@ -78,21 +78,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 /** Macroes **/
 
-#ifdef __unix__
-#include <arpa/inet.h>
-#else
-#define ntohl(x) x
-#define htonl(x) x
-//extern void LOGME(char* fmt, ...);
-//#define fprintf(stderr, ...) LOGME(__VA_ARGS__)
-#endif
-
-#ifdef GET_32BIT_NWO
-#undef GET_32BIT_NWO
-#endif
-#define GET_32BIT_NWO(mem,off) ({ uint32_t _vl; memcpy(&_vl,(mem)+(off),4); _vl=ntohl(_vl); _vl; })
-
-
 #ifdef DATAINSET
 #undef DATAINSET
 #endif

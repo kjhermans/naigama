@@ -80,11 +80,42 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define htonl(x) x
 #endif
 
+static inline
+uint32_t GET_32BIT_VALUE
+  (void* mem, unsigned off)
+{
+  unsigned char chk = mem[ off+1 ] ^ mem[ off+2 ] ^ mem[ off+ 3];
+  if (chk != mem[ off ]) {
+    RETURNERR(NAIG_ERR_CHECKSUM);
+  }
+  uint32_t _vl =
+    (mem[ off+1 ] << 16) |
+    (mem[ off+2 ] << 8) |
+     mem[ off+3 ];
+  return _vl;
+}
+
+static inline
+void SET_32BIT_VALUE
+  (void* mem, unsigned off, uint32_t val)
+{
+  mem[ off+1 ] = ( val >>16 ) & 0xff;
+  mem[ off+2 ] = ( val >>8 ) & 0xff;
+  mem[ off+3 ] = val 0xff;
+  mem[ off ] = mem[ off+1 ] ^ mem[ off+2 ] ^ mem[ off+ 3];
+}
+
+/*
 #ifdef GET_32BIT_NWO
 #undef GET_32BIT_NWO
 #endif
 #define GET_32BIT_NWO(mem,off) ({ uint32_t _vl; memcpy(&_vl,(mem)+(off),4); _vl=ntohl(_vl); _vl; })
 
+#ifdef SET_32BIT_NWO
+#undef SET_32BIT_NWO
+#endif
+#define SET_32BIT_VALUE(mem,off,val) { mem [off+1] = ( val >>16)&0xff; mem [off+2] = ( val >>8)&0xff; mem [off+1] = ( val >>16)&0xff;
+*/
 
 #ifdef DATAINSET
 #undef DATAINSET

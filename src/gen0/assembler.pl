@@ -151,21 +151,17 @@ sub second_pass
       $output .= pack('N', $instructions->{lc('TESTANY')}{instr});
       $output .= pack('N', $address);
 
-    } elsif ($line =~ /^\s*char\s+($char)(\s+($char))?$/) {
+    } elsif ($line =~ /^\s*char\s+($char)$/) {
       my $c = hex($1);
-      my $m = (defined($2)? hex($2) : 0);
       $output .= pack('N', $instructions->{lc('CHAR')}{instr});
-      $output .= pack('n', $m);
-      $output .= pack('n', $c);
+      $output .= pack('N', $c);
 
-    } elsif ($line =~ /^\s*testchar\s+($char)\s+($label)(\s+($char))?$/) {
+    } elsif ($line =~ /^\s*testchar\s+($char)\s+($label)$/) {
       my ($c, $address) = (hex($1), $labelmap{$2});
-      my $m = (defined($3)? hex($3) : 0);
       die "Unknown label $2" if (!defined($address));
       $output .= pack('N', $instructions->{lc('TESTCHAR')}{instr});
       $output .= pack('N', $address);
-      $output .= pack('n', $m);
-      $output .= pack('n', $c);
+      $output .= pack('N', $c);
 
     } elsif ($line =~ /^\s*quad\s+($quad)$/) {
       my $q = hex($1);

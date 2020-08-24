@@ -263,7 +263,7 @@ LT             <- { '<' } !'='
 GT             <- { '>' } !'='
 LTEQ           <- { '<=' }
 GTEQ           <- { '>=' }
-SEMICOLON      <- { ';' }
+SEMICOLON      <- ';'
 COLON          <- { ':' }
 POW            <- { '**' }
 MUL            <- { '*' } !'*'
@@ -283,7 +283,7 @@ BITANDIS       <- { '&=' }
 BITORIS        <- { '|=' }
 BITXORIS       <- { '^=' }
 BITNOTIS       <- { '~=' }
-COMMA          <- { ',' }
+COMMA          <- ','
 DOT            <- { '.' }
 LSHIFT         <- { '<<' } !'='
 RSHIFT         <- { '>>' } !'='

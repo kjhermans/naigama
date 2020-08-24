@@ -53,8 +53,6 @@ NAIG_ERR_T naic_compile
   naie_result_t result;
   NAIG_ERR_T e;
 
-fprintf(stderr, "BYTECODE SIZE IS %u\n", sizeof(bytecode));
-
   CHECK(
     naie_engine_init(
       &engine,

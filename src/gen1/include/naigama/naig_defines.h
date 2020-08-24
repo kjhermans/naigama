@@ -81,14 +81,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define htonl(x) x
 #endif
 
-    //return NAIG_ERR_CHECKSUM;
 
 #define GET_32BIT_VALUE(mem,off) \
 ({ \
   const unsigned char* _mem = mem; \
   unsigned char chk = (_mem[ off+1 ] ^ _mem[ off+2 ] ^ _mem[ off+ 3 ]); \
   if (chk != _mem[ off ]) { \
-fprintf(stderr, "CHECKSUM ERROR.\n"); \
+    return NAIG_ERR_CHECKSUM; \
   } \
   uint32_t _vl = \
     (_mem[ off+1 ] << 16) | \

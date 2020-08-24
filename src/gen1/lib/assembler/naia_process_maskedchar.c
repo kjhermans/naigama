@@ -39,13 +39,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 NAIG_ERR_T naia_process_maskedchar
   (naia_t* naia, unsigned i)
 {
-  uint32_t opcode[ 3 ] = { htonl(OPCODE_MASKEDCHAR) };
+  uint32_t opcode[ 3 ] = { SET_32BIT_VALUE(OPCODE_MASKEDCHAR) };
 
-  opcode[ 1 ] = htonl(hexcodon(
+  opcode[ 1 ] = SET_32BIT_VALUE(hexcodon(
     naia->assembly[ naia->captures->actions[ i+1 ].start ],
     naia->assembly[ naia->captures->actions[ i+1 ].start+1 ]
   ));
-  opcode[ 2 ] = htonl(hexcodon(
+  opcode[ 2 ] = SET_32BIT_VALUE(hexcodon(
     naia->assembly[ naia->captures->actions[ i+2 ].start ],
     naia->assembly[ naia->captures->actions[ i+2 ].start+1 ]
   ));

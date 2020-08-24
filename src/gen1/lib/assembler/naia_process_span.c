@@ -39,7 +39,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 NAIG_ERR_T naia_process_span
   (naia_t* naia, unsigned i)
 {
-  uint32_t opcode[ 9 ] = { htonl(OPCODE_SPAN) };
+  uint32_t opcode[ 9 ] = { SET_32BIT_VALUE(OPCODE_SPAN) };
   unsigned char* set = (unsigned char*)(&(opcode[ 1 ]));
   unsigned c;
 

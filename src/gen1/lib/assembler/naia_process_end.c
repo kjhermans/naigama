@@ -39,7 +39,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 NAIG_ERR_T naia_process_end
   (naia_t* naia, unsigned i)
 {
-  uint32_t opcode[ 2 ] = { htonl(OPCODE_END) };
+  uint32_t opcode[ 2 ] = { SET_32BIT_VALUE(OPCODE_END) };
   uint32_t endcode = 0;
 
   if (i+1 < naia->captures->count
@@ -51,7 +51,7 @@ NAIG_ERR_T naia_process_end
       naia->captures->actions[ i+1 ].length
     );
   }
-  opcode[ 1 ] = htonl(endcode);
+  opcode[ 1 ] = SET_32BIT_VALUE(endcode);
   CHECK(naia->write(opcode, sizeof(opcode), naia->write_arg));
   return NAIG_OK;
 }

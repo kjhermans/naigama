@@ -39,7 +39,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 NAIG_ERR_T naia_process_counter
   (naia_t* naia, unsigned i)
 {
-  uint32_t opcode[ 3 ] = { htonl(OPCODE_COUNTER) };
+  uint32_t opcode[ 3 ] = { SET_32BIT_VALUE(OPCODE_COUNTER) };
   uint32_t reg;
   uint32_t num;
 
@@ -48,13 +48,13 @@ NAIG_ERR_T naia_process_counter
     naia->captures->actions[ i+1 ].start,
     naia->captures->actions[ i+1 ].length
   );
-  opcode[ 1 ] = htonl(reg);
+  opcode[ 1 ] = SET_32BIT_VALUE(reg);
   num = atoi_substr(
     naia->assembly,
     naia->captures->actions[ i+2 ].start,
     naia->captures->actions[ i+2 ].length
   );
-  opcode[ 2 ] = htonl(num);
+  opcode[ 2 ] = SET_32BIT_VALUE(num);
   CHECK(naia->write(opcode, sizeof(opcode), naia->write_arg));
   return NAIG_OK;
 }

@@ -39,7 +39,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 NAIG_ERR_T naia_process_call
   (naia_t* naia, unsigned i)
 {
-  uint32_t opcode[ 2 ] = { htonl(OPCODE_CALL) };
+  uint32_t opcode[ 2 ] = { SET_32BIT_VALUE(OPCODE_CALL) };
   uint32_t offset;
 
   CHECK(
@@ -50,7 +50,7 @@ NAIG_ERR_T naia_process_call
       &offset
     )
   );
-  opcode[ 1 ] = htonl(offset);
+  opcode[ 1 ] = SET_32BIT_VALUE(offset);
   CHECK(naia->write(opcode, sizeof(opcode), naia->write_arg));
   return NAIG_OK;
 }

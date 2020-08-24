@@ -39,9 +39,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 NAIG_ERR_T naia_process_char
   (naia_t* naia, unsigned i)
 {
-  uint32_t opcode[ 2 ] = { htonl(OPCODE_CHAR) };
+  uint32_t opcode[ 2 ] = { SET_32BIT_VALUE(OPCODE_CHAR) };
 
-  opcode[ 1 ] = htonl(hexcodon(
+  opcode[ 1 ] = SET_32BIT_VALUE(hexcodon(
     naia->assembly[ naia->captures->actions[ i+1 ].start ],
     naia->assembly[ naia->captures->actions[ i+1 ].start+1 ]
   ));

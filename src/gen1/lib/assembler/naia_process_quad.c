@@ -39,7 +39,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 NAIG_ERR_T naia_process_quad
   (naia_t* naia, unsigned i)
 {
-  uint32_t opcode[ 2 ] = { htonl(OPCODE_QUAD) };
+  uint32_t opcode[ 2 ] = { SET_32BIT_VALUE(OPCODE_QUAD) };
   uint32_t chr = 0;
   unsigned char* _chr = (unsigned char*)(&chr);
 

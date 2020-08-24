@@ -39,7 +39,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 NAIG_ERR_T naia_process_testquad
   (naia_t* naia, unsigned i)
 {
-  uint32_t opcode[ 3 ] = { htonl(OPCODE_TESTQUAD) };
+  uint32_t opcode[ 3 ] = { SET_32BIT_VALUE(OPCODE_TESTQUAD) };
   uint32_t offset;
   uint32_t chr = 0;
   unsigned char* _chr = (unsigned char*)(&chr);
@@ -52,7 +52,7 @@ NAIG_ERR_T naia_process_testquad
       &offset
     )
   );
-  opcode[ 1 ] = htonl(offset);
+  opcode[ 1 ] = SET_32BIT_VALUE(offset);
   _chr[ 0 ] = hexcodon(
     naia->assembly[ naia->captures->actions[ i+1 ].start ],
     naia->assembly[ naia->captures->actions[ i+1 ].start+1 ]

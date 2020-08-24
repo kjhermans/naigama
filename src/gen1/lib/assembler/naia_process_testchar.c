@@ -39,7 +39,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 NAIG_ERR_T naia_process_testchar
   (naia_t* naia, unsigned i)
 {
-  uint32_t opcode[ 2 ] = { htonl(OPCODE_TESTCHAR) };
+  uint32_t opcode[ 2 ] = { SET_32BIT_VALUE(OPCODE_TESTCHAR) };
   uint32_t chr = 0;
   uint32_t offset;
   unsigned char* _chr = (unsigned char*)(&chr);
@@ -56,7 +56,7 @@ NAIG_ERR_T naia_process_testchar
       &offset
     )
   );
-  opcode[ 1 ] = htonl(offset);
+  opcode[ 1 ] = SET_32BIT_VALUE(offset);
   if (i+3 < naia->captures->count
       && naia->captures->actions[ i+3 ].slot == ASMSLOT_HEXBYTE_AFAF)
   {

@@ -65,8 +65,11 @@ NAIG_ERR_T naie_engine_loop
     if (engine->bytecode_pos > engine->bytecode_length - 4) {
       RETURNERR(NAIE_ERR_CODEOVERFLOW);
     }
+    if (engine->bytecode_pos % 4) {
+      RETURNERR(NAIE_ERR_BITFAULT);
+    }
     CHECK(naie_engine_endless_loop(engine));
-    opcode = GET_32BIT_NWO(engine->bytecode, engine->bytecode_pos);
+    opcode = GET_32BIT_VALUE(engine->bytecode, engine->bytecode_pos);
     instruction_size = ((opcode >> 16) & 0xff) + 4;
     if (engine->bytecode_pos + instruction_size > engine->bytecode_length) {
       if (engine->flags & NAIE_FLAG_DEBUG) {
@@ -112,7 +115,7 @@ NAIG_ERR_T naie_engine_loop
       goto NEXT;
 
     case OPCODE_SKIP:
-      param1 = GET_32BIT_NWO(engine->bytecode, engine->bytecode_pos + 4);
+      param1 = GET_32BIT_VALUE(engine->bytecode, engine->bytecode_pos + 4);
       if (engine->input_pos <= engine->input_length - param1) {
         engine->input_pos += param1;
         engine->bytecode_pos += instruction_size;
@@ -122,7 +125,7 @@ NAIG_ERR_T naie_engine_loop
       goto NEXT;
 
     case OPCODE_CALL:
-      param1 = GET_32BIT_NWO(engine->bytecode, engine->bytecode_pos + 4);
+      param1 = GET_32BIT_VALUE(engine->bytecode, engine->bytecode_pos + 4);
       CHECK(
         naie_stack_push(
           engine,
@@ -173,13 +176,13 @@ NAIG_ERR_T naie_engine_loop
       goto NEXT;
 
     case OPCODE_CATCH:
-      param1 = GET_32BIT_NWO(engine->bytecode, engine->bytecode_pos + 4);
+      param1 = GET_32BIT_VALUE(engine->bytecode, engine->bytecode_pos + 4);
       CHECK(naie_stack_push(engine, NAIG_STACK_CATCH, param1));
       engine->bytecode_pos += instruction_size;
       goto NEXT;
 
     case OPCODE_COMMIT:
-      param1 = GET_32BIT_NWO(engine->bytecode, engine->bytecode_pos + 4);
+      param1 = GET_32BIT_VALUE(engine->bytecode, engine->bytecode_pos + 4);
       CHECK(naie_stack_pop(engine, &entry));
       if (entry.type == NAIG_STACK_CATCH) {
         engine->bytecode_pos = param1;
@@ -189,7 +192,7 @@ NAIG_ERR_T naie_engine_loop
       goto NEXT;
 
     case OPCODE_END:
-      param1 = GET_32BIT_NWO(engine->bytecode, engine->bytecode_pos + 4);
+      param1 = GET_32BIT_VALUE(engine->bytecode, engine->bytecode_pos + 4);
       result->code = param1;
       CHECK(naie_result_fill(engine, result));
       return NAIG_OK;
@@ -205,7 +208,7 @@ NAIG_ERR_T naie_engine_loop
       goto FAIL;
 
     case OPCODE_BACKCOMMIT:
-      param1 = GET_32BIT_NWO(engine->bytecode, engine->bytecode_pos + 4);
+      param1 = GET_32BIT_VALUE(engine->bytecode, engine->bytecode_pos + 4);
       if (engine->stack.count) {
         CHECK(naie_stack_pop(engine, &entry));
         if (entry.type == NAIG_STACK_CATCH) {
@@ -221,12 +224,12 @@ NAIG_ERR_T naie_engine_loop
       goto NEXT;
 
     case OPCODE_JUMP:
-      param1 = GET_32BIT_NWO(engine->bytecode, engine->bytecode_pos + 4);
+      param1 = GET_32BIT_VALUE(engine->bytecode, engine->bytecode_pos + 4);
       engine->bytecode_pos = param1;
       goto NEXT;
 
     case OPCODE_OPENCAPTURE:
-      param1 = GET_32BIT_NWO(engine->bytecode, engine->bytecode_pos + 4);
+      param1 = GET_32BIT_VALUE(engine->bytecode, engine->bytecode_pos + 4);
       action = (naie_action_t){
         .action = NAIG_ACTION_OPENCAPTURE,
         .slot = param1,
@@ -237,7 +240,7 @@ NAIG_ERR_T naie_engine_loop
       goto NEXT;
 
     case OPCODE_CLOSECAPTURE:
-      param1 = GET_32BIT_NWO(engine->bytecode, engine->bytecode_pos + 4);
+      param1 = GET_32BIT_VALUE(engine->bytecode, engine->bytecode_pos + 4);
       action = (naie_action_t){
         .action = NAIG_ACTION_CLOSECAPTURE,
         .slot = param1,
@@ -248,8 +251,8 @@ NAIG_ERR_T naie_engine_loop
       goto NEXT;
 
     case OPCODE_REPLACE:
-      param1 = GET_32BIT_NWO(engine->bytecode, engine->bytecode_pos + 4);
-      param2 = GET_32BIT_NWO(engine->bytecode, engine->bytecode_pos + 8);
+      param1 = GET_32BIT_VALUE(engine->bytecode, engine->bytecode_pos + 4);
+      param2 = GET_32BIT_VALUE(engine->bytecode, engine->bytecode_pos + 8);
       if (engine->flags & NAIE_FLAG_DOREPLACE) {
         engine->bytecode_pos += instruction_size;
         CHECK(naie_engine_loop_replace(engine, param1));
@@ -259,7 +262,7 @@ NAIG_ERR_T naie_engine_loop
       goto NEXT;
 
     case OPCODE_PARTIALCOMMIT:
-      param1 = GET_32BIT_NWO(engine->bytecode, engine->bytecode_pos + 4);
+      param1 = GET_32BIT_VALUE(engine->bytecode, engine->bytecode_pos + 4);
       CHECK(naie_stack_peek(engine, &entryptr));
       if (entryptr->type != NAIG_STACK_CATCH) {
         RETURNERR(NAIE_ERR_STACKCORRUPT);
@@ -309,7 +312,7 @@ NAIG_ERR_T naie_engine_loop
       goto NEXT;
 
     case OPCODE_TESTANY:
-      param1 = GET_32BIT_NWO(engine->bytecode, engine->bytecode_pos + 4);
+      param1 = GET_32BIT_VALUE(engine->bytecode, engine->bytecode_pos + 4);
       if (engine->input_pos < engine->input_length) {
         engine->bytecode_pos += instruction_size;
       } else {
@@ -318,7 +321,7 @@ NAIG_ERR_T naie_engine_loop
       goto NEXT;
 
     case OPCODE_TESTCHAR:
-      param1 = GET_32BIT_NWO(engine->bytecode, engine->bytecode_pos + 4); // address
+      param1 = GET_32BIT_VALUE(engine->bytecode, engine->bytecode_pos + 4); // address
       param2 = engine->bytecode[ engine->bytecode_pos + 11 ];             // match
       if (engine->input_pos < engine->input_length
           && engine->input[ engine->input_pos ] == param2)
@@ -330,7 +333,7 @@ NAIG_ERR_T naie_engine_loop
       goto NEXT;
 
     case OPCODE_TESTSET:
-      param1 = GET_32BIT_NWO(engine->bytecode, engine->bytecode_pos + 4);
+      param1 = GET_32BIT_VALUE(engine->bytecode, engine->bytecode_pos + 4);
       set = engine->bytecode + engine->bytecode_pos + 8;
       if (engine->input_pos < engine->input_length
           && DATAINSET(set, engine->input[ engine->input_pos ]))
@@ -342,7 +345,7 @@ NAIG_ERR_T naie_engine_loop
       goto NEXT;
 
     case OPCODE_VAR:
-      param1 = GET_32BIT_NWO(engine->bytecode, engine->bytecode_pos + 4);
+      param1 = GET_32BIT_VALUE(engine->bytecode, engine->bytecode_pos + 4);
       CHECK(naie_variable(engine, engine->input, param1, &value, &valuesize));
       if (valuesize == 0) {
         goto FAIL;
@@ -358,15 +361,15 @@ NAIG_ERR_T naie_engine_loop
       goto NEXT;
 
     case OPCODE_COUNTER:
-      param1 = GET_32BIT_NWO(engine->bytecode, engine->bytecode_pos + 4);
-      param2 = GET_32BIT_NWO(engine->bytecode, engine->bytecode_pos + 8);
+      param1 = GET_32BIT_VALUE(engine->bytecode, engine->bytecode_pos + 4);
+      param2 = GET_32BIT_VALUE(engine->bytecode, engine->bytecode_pos + 8);
       CHECK(naie_register_store(engine, param1, param2));
       engine->bytecode_pos += instruction_size;
       goto NEXT;
 
     case OPCODE_CONDJUMP:
-      param1 = GET_32BIT_NWO(engine->bytecode, engine->bytecode_pos + 4);
-      param2 = GET_32BIT_NWO(engine->bytecode, engine->bytecode_pos + 8);
+      param1 = GET_32BIT_VALUE(engine->bytecode, engine->bytecode_pos + 4);
+      param2 = GET_32BIT_VALUE(engine->bytecode, engine->bytecode_pos + 8);
       CHECK(naie_register_retrieve(engine, param1, &param3));
       if (param3 == 1) {
         engine->bytecode_pos += instruction_size;

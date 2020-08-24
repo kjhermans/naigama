@@ -51,6 +51,20 @@ exit 0;
 
 ##---- functions ---------------------------------------------------------##
 
+sub dec32bit
+{
+  my $str = shift;
+  my $byte0 = ord(substr($str, 0, 1));
+  my $byte1 = ord(substr($str, 1, 1));
+  my $byte2 = ord(substr($str, 2, 1));
+  my $byte3 = ord(substr($str, 3, 1));
+  return (
+    ($byte1 << 16) |
+    ($byte2 << 8) |
+    $byte3
+  );
+}
+
 sub absorb_binary
 {
   my $path = shift; die "$path not found" if (! -f $path);
@@ -160,8 +174,8 @@ sub write_slotmap_file
   while (length($slotmap)) {
     $slotmap =~ s/^(.{4})(.{4})//s || die "Illegal slotmap file";
     my ($i, $p) = ($1, $2);
-    my $index = unpack('N', $i);
-    my $parentindex = unpack('N', $p);
+    my $index = dec32bit($i);
+    my $parentindex = dec32bit($p);
     $slotmap =~ s/^([^\0]+)\0// || die "Illegal slotmap file";
     my $ident = $1; $ident =~ s/_+$//; $ident =~ s/__/_/g;
     print FILE "  case $index: return \"$ident\"; break; \\\n";
@@ -179,8 +193,8 @@ sub write_asmslotmap_file
   while (length($asmslotmap)) {
     $asmslotmap =~ s/^(.{4})(.{4})//s || die "Illegal slotmap file";
     my ($i, $p) = ($1, $2);
-    my $index = unpack('N', $i);
-    my $parentindex = unpack('N', $p);
+    my $index = dec32bit($i);
+    my $parentindex = dec32bit($p);
     $asmslotmap =~ s/^([^\0]+)\0// || die "Illegal slotmap file";
     my $ident = $1; $ident =~ s/_+$//; $ident =~ s/__/_/g;
     print FILE "  case $index: return \"$ident\"; break; \\\n";
@@ -198,8 +212,8 @@ sub write_optslotmap_file
   while (length($optslotmap)) {
     $optslotmap =~ s/^(.{4})(.{4})//s || die "Illegal slotmap file";
     my ($i, $p) = ($1, $2);
-    my $index = unpack('N', $i);
-    my $parentindex = unpack('N', $p);
+    my $index = dec32bit($i);
+    my $parentindex = dec32bit($p);
     $optslotmap =~ s/^([^\0]+)\0// || die "Illegal slotmap file";
     my $ident = $1; $ident =~ s/_+$//; $ident =~ s/__/_/g;
     print FILE "  case $index: return \"$ident\"; break; \\\n";
@@ -217,7 +231,7 @@ sub write_optlabelmap_file
   while (length($optlabelmap)) {
     $optlabelmap =~ s/^(.{4})//s || die "Illegal labelmap file";
     my ($i) = ($1);
-    my $index = unpack('N', $i);
+    my $index = dec32bit($i);
     $optlabelmap =~ s/^([^\0]+)\0// || die "Illegal labelmap file";
     my $ident = $1;
     print FILE

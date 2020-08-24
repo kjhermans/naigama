@@ -91,32 +91,27 @@ if ($outputfile eq '-') {
 
 my $labelmap;
 if ($inputfile ne '-' && -f "$inputfile.labelmap") {
-  $labelmap = eval( `cat "$inputfile.labelmap"` );
-}
-
-sub absorb_binary
-{
-  my $result = '';
-  my $path = shift; die "Found not found" if (! -f $path);
-  die "Error $@ opening $bytecodefile" if (!open(FILE, '<', $path));
-  binmode FILE;
-  my $buf;
-  while (1) {
-    my $n = sysread(FILE, $buf, 1024);
-    if (!$n) {
-      close FILE;
-      return $result;
-    }
-    $result .= $buf;
+  my $lfile = absorb_binary("$inputfile.labelmap");
+  while (length($lfile)) {
+    $lfile =~ s/^(....)//s;
+    my $offset = dec32bit($1);
+    $lfile =~ s/^([^\0]+)\0//;
+    my $label = $1;
+    $labelmap->{$label} = $offset;
   }
 }
 
 my $bytecode = absorb_binary($inputfile);
 
+print $out "-- Generated at " . localtime . " by gen0 disassembler.\n";
+
 my $offset = 0;
 while ($offset < length($bytecode)) {
-  my $label = labelreverse($offset);
-  my $opcode = unpack('N', substr($bytecode, $offset, 4));
+  my @labels = labelreverse($offset);
+  foreach my $label (@labels) {
+    print $out "$label:\n";
+  }
+  my $opcode = dec32bit(substr($bytecode, $offset, 4));
   if ($opcode == $INSTR_NOOP) {
     print $out "$offset: noop";
     $offset += 4;
@@ -124,29 +119,29 @@ while ($offset < length($bytecode)) {
     print $out "$offset: any";
     $offset += 4;
   } elsif ($opcode == $INSTR_BACKCOMMIT) {
-    my $address = unpack('N', substr($bytecode, $offset + 4, 4));
+    my $address = dec32bit(substr($bytecode, $offset + 4, 4));
     print $out "$offset: backcommit $address";
     $offset += 8;
   } elsif ($opcode == $INSTR_SKIP) {
-    my $n = unpack('N', substr($bytecode, $offset + 4, 4));
+    my $n = dec32bit(substr($bytecode, $offset + 4, 4));
     print $out "$offset: skip $n";
     $offset += 8;
   } elsif ($opcode == $INSTR_CALL) {
-    my $address = unpack('N', substr($bytecode, $offset + 4, 4));
+    my $address = dec32bit(substr($bytecode, $offset + 4, 4));
     my $funclabel = labelreverse($address);
     if (!defined($funclabel)) {
       print $out "$offset: call $address";
     } else {
-      print $out "$offset: call $address -- Calling $funclabel";
+      print $out "$offset: call $address -- ($funclabel)";
     }
     $offset += 8;
   } elsif ($opcode == $INSTR_CHAR) {
-    my $char = unpack('N', substr($bytecode, $offset + 4, 4));
+    my $char = dec32bit(substr($bytecode, $offset + 4, 4));
     print $out "$offset: char " . sprintf("%.2x", $char);
     $offset += 8;
   } elsif ($opcode == $INSTR_MASKEDCHAR) {
-    my $char = unpack('N', substr($bytecode, $offset + 4, 4));
-    my $mask = unpack('N', substr($bytecode, $offset + 8, 4));
+    my $char = dec32bit(substr($bytecode, $offset + 4, 4));
+    my $mask = dec32bit(substr($bytecode, $offset + 8, 4));
     print $out "$offset: maskedchar " . sprintf("%.2x", $char) .
                " " . sprintf("%.2x", $mask);
     $offset += 12;
@@ -155,19 +150,19 @@ while ($offset < length($bytecode)) {
     print $out "$offset: quad " . sprintf("%.8x", $char);
     $offset += 8;
   } elsif ($opcode == $INSTR_CATCH) {
-    my $address = unpack('N', substr($bytecode, $offset + 4, 4));
+    my $address = dec32bit(substr($bytecode, $offset + 4, 4));
     print $out "$offset: catch $address";
     $offset += 8;
   } elsif ($opcode == $INSTR_CLOSECAPTURE) {
-    my $slot = unpack('N', substr($bytecode, $offset + 4, 4));
+    my $slot = dec32bit(substr($bytecode, $offset + 4, 4));
     print $out "$offset: closecapture $slot";
     $offset += 8;
   } elsif ($opcode == $INSTR_COMMIT) {
-    my $address = unpack('N', substr($bytecode, $offset + 4, 4));
+    my $address = dec32bit(substr($bytecode, $offset + 4, 4));
     print $out "$offset: commit $address";
     $offset += 8;
   } elsif ($opcode == $INSTR_END) {
-    my $code = unpack('N', substr($bytecode, $offset + 4, 4));
+    my $code = dec32bit(substr($bytecode, $offset + 4, 4));
     print $out "$offset: end $code";
     $offset += 8;
   } elsif ($opcode == $INSTR_FAIL) {
@@ -177,20 +172,20 @@ while ($offset < length($bytecode)) {
     print $out "$offset: failtwice";
     $offset += 4;
   } elsif ($opcode == $INSTR_JUMP) {
-    my $address = unpack('N', substr($bytecode, $offset + 4, 4));
+    my $address = dec32bit(substr($bytecode, $offset + 4, 4));
     print $out "$offset: jump $address";
     $offset += 8;
   } elsif ($opcode == $INSTR_OPENCAPTURE) {
-    my $slot = unpack('N', substr($bytecode, $offset + 4, 4));
+    my $slot = dec32bit(substr($bytecode, $offset + 4, 4));
     print $out "$offset: opencapture $slot";
     $offset += 8;
   } elsif ($opcode == $INSTR_PARTIALCOMMIT) {
-    my $address = unpack('N', substr($bytecode, $offset + 4, 4));
+    my $address = dec32bit(substr($bytecode, $offset + 4, 4));
     print $out "$offset: partialcommit $address";
     $offset += 8;
   } elsif ($opcode == $INSTR_REPLACE) {
-    my $address1 = unpack('N', substr($bytecode, $offset + 4, 4));
-    my $address2 = unpack('N', substr($bytecode, $offset + 8, 4));
+    my $address1 = dec32bit(substr($bytecode, $offset + 4, 4));
+    my $address2 = dec32bit(substr($bytecode, $offset + 8, 4));
     print $out "$offset: replace $address1 $address2";
     $offset += 12;
   } elsif ($opcode == $INSTR_STARTREPLACE) {
@@ -221,25 +216,21 @@ while ($offset < length($bytecode)) {
     }
     $offset += 36;
   } elsif ($opcode == $INSTR_TESTANY) {
-    my $address = unpack('N', substr($bytecode, $offset + 4, 4));
+    my $address = dec32bit(substr($bytecode, $offset + 4, 4));
     print $out "$offset: testany $address";
     $offset += 8;
   } elsif ($opcode == $INSTR_TESTCHAR) {
-    my $address = unpack('N', substr($bytecode, $offset + 4, 4));
-    my $mask = unpack('n', substr($bytecode, $offset + 8, 2));
-    my $char = unpack('n', substr($bytecode, $offset + 10, 2));
+    my $address = dec32bit(substr($bytecode, $offset + 4, 4));
+    my $char = dec32bit(substr($bytecode, $offset + 8, 4));
     print $out "$offset: testchar " . sprintf("%.2x", $char) . " $address";
-    if ($mask) {
-      print $out sprintf("&%.2x", $mask);
-    }
     $offset += 12;
   } elsif ($opcode == $INSTR_TESTQUAD) {
-    my $address = unpack('N', substr($bytecode, $offset + 4, 4));
+    my $address = dec32bit(substr($bytecode, $offset + 4, 4));
     my $quad = unpack('N', substr($bytecode, $offset + 8, 4));
     print $out "$offset: testquad " . sprintf("%.8x", $char) . " $address";
     $offset += 12;
   } elsif ($opcode == $INSTR_TESTSET) {
-    my $address = unpack('N', substr($bytecode, $offset + 4, 4));
+    my $address = dec32bit(substr($bytecode, $offset + 4, 4));
     print $out "$offset: testset ";
     for (my $i=0; $i < 32; $i++) {
       print $out sprintf("%.2x", ord(substr($bytecode, $offset + 8 + $i, 1)));
@@ -250,41 +241,72 @@ while ($offset < length($bytecode)) {
     }
     $offset += 40;
   } elsif ($opcode == $INSTR_VAR) {
-    my $var = unpack('N', substr($bytecode, $offset + 4, 4));
+    my $var = dec32bit(substr($bytecode, $offset + 4, 4));
     print $out "$offset: var $var";
     $offset += 8;
   } elsif ($opcode == $INSTR_COUNTER) {
-    my $register = unpack('N', substr($bytecode, $offset + 4, 4));
-    my $value = unpack('N', substr($bytecode, $offset + 8, 4));
+    my $register = dec32bit(substr($bytecode, $offset + 4, 4));
+    my $value = dec32bit(substr($bytecode, $offset + 8, 4));
     print $out "$offset: counter $register $value";
     $offset += 12;
   } elsif ($opcode == $INSTR_CONDJUMP) {
-    my $register = unpack('N', substr($bytecode, $offset + 4, 4));
-    my $jump = unpack('N', substr($bytecode, $offset + 8, 4));
+    my $register = dec32bit(substr($bytecode, $offset + 4, 4));
+    my $jump = dec32bit(substr($bytecode, $offset + 8, 4));
     print $out "$offset: condjump $register $jump";
     $offset += 12;
   } else {
     print $out "-- Unknown opcode $opcode\n";
     die "Unknown opcode $opcode";
   }
-  if (defined($label) && $label ne 'unknown') {
-    print $out "        -- = $label";
-  }
   print $out "\n";
+}
+
+sub absorb_binary
+{
+  my $result = '';
+  my $path = shift; die "Found not found" if (! -f $path);
+  die "Error $@ opening $bytecodefile" if (!open(FILE, '<', $path));
+  binmode FILE;
+  my $buf;
+  while (1) {
+    my $n = sysread(FILE, $buf, 1024);
+    if (!$n) {
+      close FILE;
+      return $result;
+    }
+    $result .= $buf;
+  }
+}
+
+sub dec32bit
+{
+  my $str = shift;
+  my $byte0 = ord(substr($str, 0, 1));
+  my $byte1 = ord(substr($str, 1, 1));
+  my $byte2 = ord(substr($str, 2, 1));
+  my $byte3 = ord(substr($str, 3, 1));
+  if ($byte0 != ($byte1 ^ $byte2 ^ $byte3)) {
+    die "Checksum failure.";
+  }
+  return (
+    ($byte1 << 16) |
+    ($byte2 << 8) |
+    $byte3
+  );
 }
 
 sub labelreverse
 {
   my $address = shift;
-  my $result;
+  my @result;
   foreach my $key (keys(%{$labelmap})) {
     if ($labelmap->{$key} eq $address) {
       if (!defined($result) || length($key) < length($result)) {
-        $result = $key;
+        push @result, $key;
       }
     }
   }
-  return $result;
+  return (wantarray ? @result : $result[0]);
 }
 
 sub debugset

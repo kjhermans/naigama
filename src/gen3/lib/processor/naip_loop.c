@@ -45,7 +45,7 @@ NAIG_ERR_T naip_loop
 
   while (1) {
     //.. check engine->bytecode_offset
-    opcode = GET_32BIT_NWO(engine->bytecode, engine->bytecode_offset);
+    opcode = GET_32BIT_VALUE(engine->bytecode, engine->bytecode_offset);
     instrlength = engine->bytecode[ engine->bytecode_offset + 1 ];
     //.. check instruction size is inside bytecode buffer
 
@@ -120,7 +120,7 @@ NAIG_ERR_T naip_loop
       break;
 
     case OPCODE_SCR_JUMP:
-      param1 = GET_32BIT_NWO(engine->bytecode, engine->bytecode_offset + 4);
+      param1 = GET_32BIT_VALUE(engine->bytecode, engine->bytecode_offset + 4);
       engine->bytecode_offset = param1;
       break;
 

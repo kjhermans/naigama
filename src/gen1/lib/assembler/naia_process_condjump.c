@@ -39,7 +39,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 NAIG_ERR_T naia_process_condjump
   (naia_t* naia, unsigned i)
 {
-  uint32_t opcode[ 3 ] = { htonl(OPCODE_CONDJUMP) };
+  uint32_t opcode[ 3 ] = { SET_32BIT_VALUE(OPCODE_CONDJUMP) };
   uint32_t reg;
   uint32_t offset;
 
@@ -48,7 +48,7 @@ NAIG_ERR_T naia_process_condjump
     naia->captures->actions[ i+1 ].start,
     naia->captures->actions[ i+1 ].length
   );
-  opcode[ 1 ] = htonl(reg);
+  opcode[ 1 ] = SET_32BIT_VALUE(reg);
   CHECK(
     naia_label_get(
       naia,
@@ -57,7 +57,7 @@ NAIG_ERR_T naia_process_condjump
       &offset
     )
   );
-  opcode[ 2 ] = htonl(offset);
+  opcode[ 2 ] = SET_32BIT_VALUE(offset);
   CHECK(naia->write(opcode, sizeof(opcode), naia->write_arg));
   return NAIG_OK;
 }

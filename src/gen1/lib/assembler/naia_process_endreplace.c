@@ -39,7 +39,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 NAIG_ERR_T naia_process_endreplace
   (naia_t* naia, unsigned i)
 {
-  uint32_t opcode = htonl(OPCODE_ENDREPLACE);
+  uint32_t opcode = SET_32BIT_VALUE(OPCODE_ENDREPLACE);
   (void)i;
 
   CHECK(naia->write(&opcode, sizeof(opcode), naia->write_arg));

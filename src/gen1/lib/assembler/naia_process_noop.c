@@ -39,7 +39,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 NAIG_ERR_T naia_process_noop
   (naia_t* naia, unsigned i)
 {
-  uint32_t opcode = htonl(OPCODE_NOOP);
+  uint32_t opcode = SET_32BIT_VALUE(OPCODE_NOOP);
   (void)i;
 
   CHECK(naia->write(&opcode, sizeof(opcode), naia->write_arg));

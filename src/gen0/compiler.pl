@@ -62,6 +62,7 @@ my $input = '';
   close $in;
 }
 
+print $out "-- Generated at " . localtime . " by the gen0 compiler.\n";
 compile($input);
 
 postcheck();
@@ -561,12 +562,22 @@ sub slotmap_put
   $slotmap{$str} = $slot;
 }
 
+sub enc32bit
+{
+  my $value = shift;
+  my $byte1 = ($value >> 16) & 0xff;
+  my $byte2 = ($value >> 8) & 0xff;
+  my $byte3 = $value & 0xff;
+  my $byte0 = $byte1 ^ $byte2 ^ $byte3;
+  return chr($byte0) . chr($byte1) . chr($byte2) . chr($byte3);
+}
+
 sub slotmap_write
 {
   foreach my $key (sort(keys(%slotmap))) {
     my $slot = $slotmap{$key};
-    syswrite $slotmapfile, pack('N', $slot);
-    syswrite $slotmapfile, pack('N', 0xffffffff);
+    syswrite $slotmapfile, enc32bit($slot);
+    syswrite $slotmapfile, enc32bit(0xffffffff);
     syswrite $slotmapfile, $key;
     syswrite $slotmapfile, chr(0);
   }

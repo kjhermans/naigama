@@ -46,6 +46,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define NAIG_ERR_UNIMPL                 ((NAIG_ERR_T){ .code = -3 })
 #define NAIG_ERR_NOTFOUND               ((NAIG_ERR_T){ .code = -4 })
 #define NAIG_ERR_OVERFLOW               ((NAIG_ERR_T){ .code = -5 })
+#define NAIG_ERR_CHECKSUM               ((NAIG_ERR_T){ .code = -6 })
 
 #define NAIE_ERR_STACKFULL              ((NAIG_ERR_T){ .code = -17 })
 #define NAIE_ERR_STACKEMPTY             ((NAIG_ERR_T){ .code = -18 })
@@ -80,30 +81,45 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define htonl(x) x
 #endif
 
-static inline
-uint32_t GET_32BIT_VALUE
-  (void* mem, unsigned off)
-{
-  unsigned char chk = mem[ off+1 ] ^ mem[ off+2 ] ^ mem[ off+ 3];
-  if (chk != mem[ off ]) {
-    RETURNERR(NAIG_ERR_CHECKSUM);
-  }
-  uint32_t _vl =
-    (mem[ off+1 ] << 16) |
-    (mem[ off+2 ] << 8) |
-     mem[ off+3 ];
-  return _vl;
-}
+    //return NAIG_ERR_CHECKSUM;
 
+#define GET_32BIT_VALUE(mem,off) \
+({ \
+  const unsigned char* _mem = mem; \
+  unsigned char chk = (_mem[ off+1 ] ^ _mem[ off+2 ] ^ _mem[ off+ 3 ]); \
+  if (chk != _mem[ off ]) { \
+fprintf(stderr, "CHECKSUM ERROR.\n"); \
+  } \
+  uint32_t _vl = \
+    (_mem[ off+1 ] << 16) | \
+    (_mem[ off+2 ] << 8) | \
+     _mem[ off+3 ]; \
+  _vl; \
+})
+
+/*
 static inline
 void SET_32BIT_VALUE
   (void* mem, unsigned off, uint32_t val)
 {
-  mem[ off+1 ] = ( val >>16 ) & 0xff;
-  mem[ off+2 ] = ( val >>8 ) & 0xff;
-  mem[ off+3 ] = val 0xff;
-  mem[ off ] = mem[ off+1 ] ^ mem[ off+2 ] ^ mem[ off+ 3];
+  unsigned char* _mem = mem;
+  _mem[ off+1 ] = ( val >>16 ) & 0xff;
+  _mem[ off+2 ] = ( val >>8 ) & 0xff;
+  _mem[ off+3 ] = val & 0xff;
+  _mem[ off ] = _mem[ off+1 ] ^ _mem[ off+2 ] ^ _mem[ off+ 3 ];
 }
+*/
+
+#define SET_32BIT_VALUE(val) \
+({ \
+  uint32_t _vl, _og = val; \
+  unsigned char* _mem = (unsigned char*)(&_vl); \
+  _mem[ 1 ] = ( _og >>16 ) & 0xff; \
+  _mem[ 2 ] = ( _og >>8 ) & 0xff; \
+  _mem[ 3 ] = _og & 0xff; \
+  _mem[ 0 ] = (_mem[ 1 ] ^ _mem[ 2 ] ^ _mem[ 3 ]); \
+  _vl; \
+})
 
 /*
 #ifdef GET_32BIT_NWO

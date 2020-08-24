@@ -39,7 +39,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 NAIG_ERR_T naia_process_testset
   (naia_t* naia, unsigned i)
 {
-  uint32_t opcode[ 10 ] = { htonl(OPCODE_TESTSET) };
+  uint32_t opcode[ 10 ] = { SET_32BIT_VALUE(OPCODE_TESTSET) };
   unsigned char* set = (unsigned char*)(&(opcode[ 2 ]));
   unsigned c;
   uint32_t offset;
@@ -52,7 +52,7 @@ NAIG_ERR_T naia_process_testset
       &offset
     )
   );
-  opcode[ 1 ] = htonl(offset);
+  opcode[ 1 ] = SET_32BIT_VALUE(offset);
   for (c=0; c < 32; c++) {
     set[ c ] = hexcodon(
       naia->assembly[ naia->captures->actions[ i+1 ].start + (c*2) ],

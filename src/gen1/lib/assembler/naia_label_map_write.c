@@ -43,7 +43,7 @@ NAIG_ERR_T naia_label_map_write
 
   for (i=0; i < naia->labels.size; i++) {
     uint8_t close = 0;
-    uint32_t offset = htonl(naia->labels.table[ i ].offset);
+    uint32_t offset = SET_32BIT_VALUE(naia->labels.table[ i ].offset);
     size_t s;
     s = fwrite(&offset, 4, 1, map);
     if (s != 1) {

@@ -16,6 +16,18 @@
 static
 const unsigned char bytecode[] = GRAMMAR_BYTECODE;
 
+static
+NAIG_ERR_T naic_engine_debug_cont
+  (naie_engine_t* engine, uint32_t opcode)
+{
+  if (opcode == 0xffffffff) {
+    fprintf(stderr, "======== FAIL\n");
+  } else {
+    naie_debug_state(engine, 0);
+  }
+  return NAIG_OK;
+}
+
 /**
  *
  */
@@ -42,7 +54,10 @@ NAIG_ERR_T naic_compile
       strlen(grammar)
     )
   );
-  if (debug) { engine.flags |= NAIE_FLAG_DEBUG; }
+  if (debug) {
+    engine.flags |= NAIE_FLAG_DEBUG;
+    engine.debugger = naic_engine_debug_cont;
+  }
   e = naie_engine_run(&engine, &result);
   if (e.code == 1) { //NAIG_FAILURE) {
     unsigned yx[ 2 ];

@@ -43,10 +43,10 @@ void naie_debug_instruction
   uint32_t opcode, param1; //, param2;
   char* label;
 
-  opcode = GET_32BIT_NWO(engine->bytecode, engine->bytecode_pos);
+  opcode = GET_32BIT_VALUE(engine->bytecode, engine->bytecode_pos);
   switch (opcode) {
   case OPCODE_CALL:
-    param1 = GET_32BIT_NWO(engine->bytecode, engine->bytecode_pos + 4);
+    param1 = GET_32BIT_VALUE(engine->bytecode, engine->bytecode_pos + 4);
     label = naie_labelmap_reverse(engine, param1);
     fprintf(stderr, "CALL %u %s\n", param1, (label ? label : ""));
     break;

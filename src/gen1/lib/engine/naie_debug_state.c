@@ -43,7 +43,7 @@ void naie_debug_state
 {
   char copy[ 9 ];
   unsigned i;
-  uint32_t opcode =GET_32BIT_NWO(engine->bytecode, engine->bytecode_pos);
+  uint32_t opcode =GET_32BIT_VALUE(engine->bytecode, engine->bytecode_pos);
 
   memset(copy, 0, sizeof(copy));
   memcpy(
@@ -95,7 +95,7 @@ void naie_debug_state
     );
     if (full) {
       if (engine->stack.entries[ i ].type == NAIG_STACK_CALL) {
-        fprintf(stderr, "%s\n", naie_labelmap_reverse(engine, GET_32BIT_NWO(engine->bytecode, engine->stack.entries[ i ].address - 4)));
+        fprintf(stderr, "%s\n", naie_labelmap_reverse(engine, GET_32BIT_VALUE(engine->bytecode, engine->stack.entries[ i ].address - 4)));
       } else {
         fprintf(stderr, "%s\n", naie_labelmap_reverse(engine, engine->stack.entries[ i ].address));
       }

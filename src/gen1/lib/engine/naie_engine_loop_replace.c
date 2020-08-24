@@ -88,7 +88,7 @@ NAIG_ERR_T naie_engine_loop_replace
     if (engine->bytecode_pos > engine->bytecode_length - 4) {
       RETURNERR(NAIE_ERR_CODEOVERFLOW);
     }
-    opcode = GET_32BIT_NWO(engine->bytecode, engine->bytecode_pos);
+    opcode = GET_32BIT_VALUE(engine->bytecode, engine->bytecode_pos);
     instruction_size = ((opcode >> 16) & 0xff) + 4;
     if (engine->bytecode_pos + instruction_size > engine->bytecode_length) {
       if (engine->flags & NAIE_FLAG_DEBUG) {
@@ -138,7 +138,7 @@ NAIG_ERR_T naie_engine_loop_replace
       goto NEXT;
 
     case OPCODE_VAR:
-      param1 = GET_32BIT_NWO(engine->bytecode, engine->bytecode_pos + 4);
+      param1 = GET_32BIT_VALUE(engine->bytecode, engine->bytecode_pos + 4);
       CHECK(naie_variable(engine, engine->input, param1, &value, &valuesize));
       for (i=0; i + 4 < valuesize; i += 4) {
         memcpy(&quad, value + i, 4);

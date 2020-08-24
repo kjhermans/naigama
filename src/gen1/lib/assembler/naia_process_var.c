@@ -39,7 +39,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 NAIG_ERR_T naia_process_var
   (naia_t* naia, unsigned i)
 {
-  uint32_t opcode[ 2 ] = { htonl(OPCODE_VAR) };
+  uint32_t opcode[ 2 ] = { SET_32BIT_VALUE(OPCODE_VAR) };
   uint32_t slot;
 
   slot = atoi_substr(
@@ -47,7 +47,7 @@ NAIG_ERR_T naia_process_var
     naia->captures->actions[ i+1 ].start,
     naia->captures->actions[ i+1 ].length
   );
-  opcode[ 1 ] = htonl(slot);
+  opcode[ 1 ] = SET_32BIT_VALUE(slot);
   CHECK(naia->write(opcode, sizeof(opcode), naia->write_arg));
   return NAIG_OK;
 }

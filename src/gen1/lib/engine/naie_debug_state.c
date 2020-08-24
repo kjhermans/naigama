@@ -35,15 +35,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "naie_private.h"
 
-/**
- * Prints to stderr the current state of the engine.
- */
-void naie_debug_state
+static
+NAIG_ERR_T _naie_debug_state
   (naie_engine_t* engine, int full)
 {
   char copy[ 9 ];
   unsigned i;
-  uint32_t opcode =GET_32BIT_VALUE(engine->bytecode, engine->bytecode_pos);
+  uint32_t opcode = GET_32BIT_VALUE(engine->bytecode, engine->bytecode_pos);
 
   memset(copy, 0, sizeof(copy));
   memcpy(
@@ -105,4 +103,16 @@ void naie_debug_state
   if (full) {
     naie_debug_actions(engine);
   }
+  return NAIG_OK;
 }
+
+/**
+ * Prints to stderr the current state of the engine.
+ */
+void naie_debug_state
+  (naie_engine_t* engine, int full)
+{
+  NAIG_ERR_T e = _naie_debug_state(engine, full);
+  (void)e;
+}
+

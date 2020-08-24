@@ -52,7 +52,7 @@ NAIG_ERR_T naie_result_cursor
   if (index>= result->count) {
     RETURNERR(NAIG_ERR_OVERFLOW);
   }
-  if (slot >= 0 && result->actions[ index ].slot != slot) {
+  if (slot >= 0 && result->actions[ index ].slot != (unsigned)slot) {
     RETURNERR(NAIG_ERR_NOTFOUND);
   }
   cursor->result = result;

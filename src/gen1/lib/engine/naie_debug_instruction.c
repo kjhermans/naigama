@@ -33,11 +33,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "naie_private.h"
 
-/**
- * Debugs the current instruction (more verbosely than the normal
- * debugging function does.
- */
-void naie_debug_instruction
+static
+NAIG_ERR_T _naie_debug_instruction
   (naie_engine_t* engine)
 {
   uint32_t opcode, param1; //, param2;
@@ -51,4 +48,16 @@ void naie_debug_instruction
     fprintf(stderr, "CALL %u %s\n", param1, (label ? label : ""));
     break;
   }
+  return NAIG_OK;
+}
+
+/**
+ * Debugs the current instruction (more verbosely than the normal
+ * debugging function does.
+ */
+void naie_debug_instruction
+  (naie_engine_t* engine)
+{
+  NAIG_ERR_T e = _naie_debug_instruction(engine);
+  (void)e;
 }

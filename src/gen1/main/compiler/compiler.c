@@ -220,13 +220,13 @@ int main
           "-? / -h    Display this message\n"
           "-i <path>  Input grammar file (- for stdin)\n"
           "-o <path>  Output assembly file (- for, or otherwise stdout)\n"
+          "-b         Incorporate the assembler and output bytecode at -o\n"
+          "-a <path>  Emit bytecode at -o, and assembly at -a\n"
           "-m <path>  Output slotmap file (optional)\n"
           "-D         Debug (prepare for a lot of data on stderr)\n"
           "-t         Generate traps\n"
           "-s         Generate reduced instruction set\n"
           "-l         Write out loops instead of using counters\n"
-          "-b         Incorporate the assembler and output bytecode\n"
-          "-a <path>  Emit bytecode at -o, and assembly at -a\n"
           , gen
           , argv[ 0 ]
         );

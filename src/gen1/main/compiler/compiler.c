@@ -100,7 +100,8 @@ NAIG_ERR_T do_compile
     FILE* output,
     FILE* slotmap,
     int assemble,
-    char* asmfile
+    char* asmfile,
+    FILE* labelmap
   )
 {
   naic_slotmap_t map;
@@ -120,7 +121,7 @@ NAIG_ERR_T do_compile
       }
     }
     fprintf(stderr, "Assembly...\n");
-    CHECK(naia_assemble(assembly, 0, flags & NAIC_FLG_DEBUG, naic_write_bin, output));
+    CHECK(naia_assemble(assembly, labelmap, flags & NAIC_FLG_DEBUG, naic_write_bin, output));
   } else {
     CHECK(naic_compile(grammar, &map, flags, naic_write_file, output));
   }
@@ -141,6 +142,7 @@ int main
   FILE* output = stdout;
   FILE* slotmap = NULL;
   char* assembly = 0;
+  FILE* labelmap = NULL;
   unsigned flags = 0;
   int i, assemble = 0;
   char* gen = NAIG_GENERATION;
@@ -195,7 +197,7 @@ int main
       case 's':
         flags |= NAIC_FLG_TERSE;
         break;
-      case 'l':
+      case 'w':
         flags |= NAIC_FLG_LOOPS;
         break;
       case 'b':
@@ -207,6 +209,19 @@ int main
           assembly = argv[ i+1 ];
         } else {
           fprintf(stderr, "-a requires a path\n");
+          exit(-6);
+        }
+        break;
+      case 'l':
+        if (i < argc - 1) {
+          char* path = argv[ i+1 ];
+          labelmap = fopen(path, "w");
+          if (!labelmap) {
+            fprintf(stderr, "Could not open labelmap file.\n");
+            exit(-7);
+          }
+        } else {
+          fprintf(stderr, "-l requires a path\n");
           exit(-6);
         }
         break;
@@ -223,10 +238,11 @@ int main
           "-b         Incorporate the assembler and output bytecode at -o\n"
           "-a <path>  Emit bytecode at -o, and assembly at -a\n"
           "-m <path>  Output slotmap file (optional)\n"
+          "-l <path>  Labelmap path (only works when -a or -b is given).\n"
           "-D         Debug (prepare for a lot of data on stderr)\n"
           "-t         Generate traps\n"
           "-s         Generate reduced instruction set\n"
-          "-l         Write out loops instead of using counters\n"
+          "-w         Write out loops instead of using counters\n"
           , gen
           , argv[ 0 ]
         );
@@ -238,6 +254,6 @@ int main
     fprintf(stderr, "No grammar given.\n");
     exit(-1);
   }
-  NAIG_ERR_T e = do_compile(grammar, flags, output, slotmap, assemble, assembly);
+  NAIG_ERR_T e = do_compile(grammar, flags, output, slotmap, assemble, assembly, labelmap);
   return e.code;
 }

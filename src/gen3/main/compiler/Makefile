@@ -4,6 +4,7 @@ CFLAGS=-g -O2 -Wall -Wextra $(DEBUG) -I$(BUILDROOT)/src/gen3/include
 LIBS=\
 	$(BUILDROOT)/src/gen3/lib/compiler/libnaic.a \
 	$(BUILDROOT)/src/gen3/lib/engine/libnaie.a \
+	$(BUILDROOT)/src/gen3/lib/assembler/libnaia.a \
 	$(BUILDROOT)/src/gen3/lib/util/libutil.a
 
 all: $(TARGET)
@@ -21,6 +22,9 @@ $(BUILDROOT)/src/gen3/lib/compiler/libnaic.a:
 
 $(BUILDROOT)/src/gen3/lib/engine/libnaie.a:
 	@cd $(BUILDROOT)/src/gen3/lib/engine && make
+
+$(BUILDROOT)/src/gen3/lib/assembler/libnaia.a:
+	@cd $(BUILDROOT)/src/gen3/lib/assembler && make
 
 $(BUILDROOT)/src/gen3/lib/util/libutil.a:
 	@cd $(BUILDROOT)/src/gen3/lib/util && make

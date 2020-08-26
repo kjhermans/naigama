@@ -45,6 +45,41 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <naigama/util/util_functions.h>
 
 static
+NAIG_ERR_T naic_write_string
+  (void* arg, char* fmt, ...)
+{
+  char** assembly = (char**)arg;
+  va_list ap;
+  char* realc;
+  unsigned len;
+
+  if (*assembly) {
+    len = strlen(*assembly);
+  } else {
+    len = 0;
+  }
+  realc = (char*)realloc(*assembly, len + 1024);
+  va_start(ap, fmt);
+  vsnprintf(realc + len, 1024, fmt, ap);
+  va_end(ap); 
+  *assembly = realc;
+  return NAIG_OK;
+}
+
+static
+NAIG_ERR_T naic_write_bin
+  (void* ptr, unsigned size, void* arg)
+{
+  FILE* file = (FILE*)arg;
+  size_t s;
+
+  if ((s = fwrite(ptr, 1, size, file)) != size) {
+    RETURNERR(NAIG_ERR_WRITE);
+  }
+  return NAIG_OK;
+}
+
+static
 NAIG_ERR_T naic_write_file
   (void* arg, char* fmt, ...)
 {
@@ -54,6 +89,28 @@ NAIG_ERR_T naic_write_file
   va_start(ap, fmt);
   vfprintf(file, fmt, ap);
   va_end(ap);
+  return NAIG_OK;
+}
+
+static
+NAIG_ERR_T do_compile
+  (char* grammar, unsigned flags, FILE* output, FILE* slotmap, int assemble)
+{
+  naic_slotmap_t map;
+  char* assembly = 0;
+
+  memset(&map, 0, sizeof(map));
+  if (assemble) {
+    fprintf(stderr, "Compling...\n");
+    CHECK(naic_compile(grammar, &map, flags, naic_write_string, &assembly));
+    fprintf(stderr, "Assembly...\n");
+    CHECK(naia_assemble(assembly, 0, flags & NAIC_FLG_DEBUG, naic_write_bin, output));
+  } else {
+    CHECK(naic_compile(grammar, &map, flags, naic_write_file, output));
+  }
+  if (slotmap) {
+    CHECK(naic_slotmap_write(&map, slotmap));
+  }
   return NAIG_OK;
 }
 
@@ -68,7 +125,7 @@ int main
   FILE* output = stdout;
   FILE* slotmap = NULL;
   unsigned flags = 0;
-  int i;
+  int i, assemble = 0;
   char* gen = NAIG_GENERATION;
 
 #ifdef _DEBUG
@@ -124,6 +181,9 @@ int main
       case 'l':
         flags |= NAIC_FLG_LOOPS;
         break;
+      case 'b':
+        assemble = 1;
+        break;
       case '?':
       case 'h':
       default:
@@ -139,6 +199,7 @@ int main
           "-t         Generate traps\n"
           "-s         Generate reduced instruction set\n"
           "-l         Write out loops instead of using counters\n"
+          "-b         Incorporate the assembler and output bytecode\n"
           , gen
           , argv[ 0 ]
         );
@@ -150,14 +211,6 @@ int main
     fprintf(stderr, "No grammar given.\n");
     exit(-1);
   }
-  NAIG_ERR_T e;
-  if (slotmap) {
-    naic_slotmap_t map;
-    memset(&map, 0, sizeof(map));
-    e = naic_compile(grammar, &map, flags, naic_write_file, output);
-    if (e.code == 0) { e = naic_slotmap_write(&map, slotmap); }
-  } else {
-    e = naic_compile(grammar, NULL, flags, naic_write_file, output);
-  }
+  NAIG_ERR_T e = do_compile(grammar, flags, output, slotmap, assemble);
   return e.code;
 }

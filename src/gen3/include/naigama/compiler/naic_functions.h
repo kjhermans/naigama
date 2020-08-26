@@ -75,6 +75,12 @@ NAIG_ERR_T naic_process_function_params
   (naic_t* naic, naie_rescrs_t* cursor)
   __attribute__ ((warn_unused_result));
 
+/* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_process_function_stmt.c */
+extern
+NAIG_ERR_T naic_process_function_stmt
+  (naic_t* naic, naie_rescrs_t cursor)
+  __attribute__ ((warn_unused_result));
+
 /* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_process_group.c */
 extern
 NAIG_ERR_T naic_process_group

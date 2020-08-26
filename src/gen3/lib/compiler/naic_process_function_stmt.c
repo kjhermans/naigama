@@ -30,27 +30,14 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \file
  * \brief
  */
-
 #include "naic_private.h"
 
 /**
  *
  */
-NAIG_ERR_T naic_process_function_body
-  (naic_t* naic, naie_rescrs_t* cursor)
+NAIG_ERR_T naic_process_function_stmt
+  (naic_t* naic, naie_rescrs_t cursor)
 {
-  naie_rescrs_t stmcur = *cursor;
-
-  CATCHOUT(
-    naie_result_cursor_child(&stmcur, SLOT_FUNCBODY_LOWSTMT, 0),
-    NAIG_ERR_NOTFOUND
-  );
-  while (1) {
-    CHECK(naic_process_function_stmt(naic, stmcur));
-    CATCHOUT(
-      naie_result_cursor_next(&stmcur, SLOT_FUNCBODY_LOWSTMT, 0),
-      NAIG_ERR_NOTFOUND
-    );
-  }
+  //..
   return NAIG_OK;
 }

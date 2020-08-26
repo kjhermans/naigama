@@ -18,5 +18,6 @@ naigama/compiler/naic_functions.h: $(BUILDROOT)/src/gen3/lib/compiler/*.c
 
 superclean:
 	@rm -f naigama/processor/naip_functions.h
+	@rm -f naigama/compiler/naic_functions.h
 
 clean:

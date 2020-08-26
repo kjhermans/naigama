@@ -15,8 +15,7 @@ NAIG_ERR_T naic_compile
   (
     char* grammar,
     naic_slotmap_t* slots,
-    int debug,
-    int traps,
+    unsigned flags,
     NAIG_ERR_T(*fnc)(void*,char*,...),
     void* arg
   )

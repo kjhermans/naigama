@@ -35,8 +35,7 @@ NAIG_ERR_T naic_compile
   (
     char* grammar,
     naic_slotmap_t* slots,
-    int debug,
-    int traps,
+    unsigned flags,
     NAIG_ERR_T(*fnc)(void*,char*,...),
     void* arg
   )
@@ -54,8 +53,7 @@ NAIG_ERR_T naic_compile
       strlen(grammar)
     )
   );
-  if (debug) {
-    engine.flags |= NAIE_FLAG_DEBUG;
+  if (flags & NAIC_FLG_DEBUG) {
     engine.debugger = naic_engine_debug_cont;
   }
   e = naie_engine_run(&engine, &result);
@@ -75,11 +73,9 @@ NAIG_ERR_T naic_compile
     .slotmap     = slots,
     .labelcount  = 0,
     .write       = fnc,
-    .write_arg   = arg
+    .write_arg   = arg,
+    .flags       = flags
   };
-  if (traps) {
-    naic.flags |= NAIC_FLG_TRAPS;
-  }
   CHECK(naic_process_tokens(&naic));
   return NAIG_OK;
 }

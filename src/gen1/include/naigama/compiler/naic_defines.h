@@ -17,5 +17,8 @@
 #define NAIC_FLG_FIRSTRULE      (1<<0)
 #define NAIC_FLG_IMPLICITPREFIX (1<<1)
 #define NAIC_FLG_TRAPS          (1<<2)
+#define NAIC_FLG_TERSE          (1<<3)
+#define NAIC_FLG_DEBUG          (1<<4)
+#define NAIC_FLG_LOOPS          (1<<5)
 
 #endif

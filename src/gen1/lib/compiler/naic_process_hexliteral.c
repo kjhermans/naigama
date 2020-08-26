@@ -28,6 +28,10 @@ NAIG_ERR_T naic_process_hexliteral
   fprintf(stderr, "-- %s ", __FILE__); naic_debug(naic);
 #endif
 
-  CHECK(naic->write(naic->write_arg, "  char %.2x\n", chr));
+  if (naic->flags & NAIC_FLG_TERSE) {
+    CHECK(naic->write(naic->write_arg, "  range %.2x %.2x\n", chr, chr));
+  } else {
+    CHECK(naic->write(naic->write_arg, "  char %.2x\n", chr));
+  }
   return NAIG_OK;
 }

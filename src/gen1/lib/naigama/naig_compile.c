@@ -76,13 +76,17 @@ NAIG_ERR_T naig_compile
   (naig_t* naig, char* grammar, int traps)
 {
   char* assembly = NULL;
+  unsigned flags = 0;
+
+  if (traps) {
+    flags |= NAIC_FLG_TRAPS;
+  }
 
   CHECK(
     naic_compile(
       grammar,
       &(naig->slotmap),
-      0,
-      traps,
+      flags,
       naig_write_assembly,
       &assembly
     )

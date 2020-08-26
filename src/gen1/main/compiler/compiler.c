@@ -67,7 +67,8 @@ int main
   unsigned grammar_length = 0;
   FILE* output = stdout;
   FILE* slotmap = NULL;
-  int i, debug = 0, traps = 0;
+  unsigned flags = 0;
+  int i;
   char* gen = NAIG_GENERATION;
 
 #ifdef _DEBUG
@@ -88,7 +89,7 @@ int main
         }
         break;
       case 'D':
-        debug = 1;
+        flags |= NAIC_FLG_DEBUG;
         break;
       case 'o':
         if (i < argc - 1) {
@@ -115,7 +116,13 @@ int main
         }
         break;
       case 't':
-        traps = 1;
+        flags |= NAIC_FLG_TRAPS;
+        break;
+      case 's':
+        flags |= NAIC_FLG_TERSE;
+        break;
+      case 'l':
+        flags |= NAIC_FLG_LOOPS;
         break;
       case '?':
       case 'h':
@@ -130,6 +137,8 @@ int main
           "-m <path>  Output slotmap file (optional)\n"
           "-D         Debug (prepare for a lot of data on stderr)\n"
           "-t         Generate traps\n"
+          "-s         Generate reduced instruction set\n"
+          "-l         Write out loops instead of using counters\n"
           , gen
           , argv[ 0 ]
         );
@@ -145,10 +154,10 @@ int main
   if (slotmap) {
     naic_slotmap_t map;
     memset(&map, 0, sizeof(map));
-    e = naic_compile(grammar, &map, debug, traps, naic_write_file, output);
+    e = naic_compile(grammar, &map, flags, naic_write_file, output);
     if (e.code == 0) { e = naic_slotmap_write(&map, slotmap); }
   } else {
-    e = naic_compile(grammar, NULL, debug, traps, naic_write_file, output);
+    e = naic_compile(grammar, NULL, flags, naic_write_file, output);
   }
   return e.code;
 }

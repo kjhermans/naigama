@@ -94,7 +94,14 @@ NAIG_ERR_T naic_write_file
 
 static
 NAIG_ERR_T do_compile
-  (char* grammar, unsigned flags, FILE* output, FILE* slotmap, int assemble)
+  (
+    char* grammar,
+    unsigned flags,
+    FILE* output,
+    FILE* slotmap,
+    int assemble,
+    char* asmfile
+  )
 {
   naic_slotmap_t map;
   char* assembly = 0;
@@ -103,6 +110,15 @@ NAIG_ERR_T do_compile
   if (assemble) {
     fprintf(stderr, "Compling...\n");
     CHECK(naic_compile(grammar, &map, flags, naic_write_string, &assembly));
+    if (asmfile) {
+      FILE* f = fopen(asmfile, "w");
+      if (f) {
+        fprintf(f, "%s", assembly);
+        fclose(f);
+      } else {
+        fprintf(stderr, "WARNING: Could not emit assembly at '%s'\n", asmfile);
+      }
+    }
     fprintf(stderr, "Assembly...\n");
     CHECK(naia_assemble(assembly, 0, flags & NAIC_FLG_DEBUG, naic_write_bin, output));
   } else {
@@ -124,6 +140,7 @@ int main
   unsigned grammar_length = 0;
   FILE* output = stdout;
   FILE* slotmap = NULL;
+  char* assembly = 0;
   unsigned flags = 0;
   int i, assemble = 0;
   char* gen = NAIG_GENERATION;
@@ -184,6 +201,15 @@ int main
       case 'b':
         assemble = 1;
         break;
+      case 'a':
+        assemble = 1;
+        if (i < argc - 1) {
+          assembly = argv[ i+1 ];
+        } else {
+          fprintf(stderr, "-a requires a path\n");
+          exit(-6);
+        }
+        break;
       case '?':
       case 'h':
       default:
@@ -200,6 +226,7 @@ int main
           "-s         Generate reduced instruction set\n"
           "-l         Write out loops instead of using counters\n"
           "-b         Incorporate the assembler and output bytecode\n"
+          "-a <path>  Emit bytecode at -o, and assembly at -a\n"
           , gen
           , argv[ 0 ]
         );
@@ -211,6 +238,6 @@ int main
     fprintf(stderr, "No grammar given.\n");
     exit(-1);
   }
-  NAIG_ERR_T e = do_compile(grammar, flags, output, slotmap, assemble);
+  NAIG_ERR_T e = do_compile(grammar, flags, output, slotmap, assemble, assembly);
   return e.code;
 }

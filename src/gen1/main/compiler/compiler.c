@@ -108,7 +108,7 @@ NAIG_ERR_T do_compile
 
   memset(&map, 0, sizeof(map));
   if (assemble) {
-    fprintf(stderr, "Compling...\n");
+    fprintf(stderr, "Compiling...\n");
     CHECK(naic_compile(grammar, &map, flags, naic_write_string, &assembly));
     if (asmfile) {
       FILE* f = fopen(asmfile, "w");

@@ -3,38 +3,38 @@
 \centering
 \caption{Naigama Assembly Instructions}
 \label{tab:naig_assembly}
-\begin{tabular}{lll}
-\textbf{Mnemonic} & \textbf{Param1} & \textbf{Param2} \\
-'any' &  &  \\
-'backcommit' &  & LABEL \\
-'call' &  & LABEL \\
-'catch' &  & LABEL \\
-'char' & char &  \\
-'closecapture' & slot &  \\
-'commit' &  & LABEL \\
-'condjump' & register & LABEL \\
-'counter' & register & value \\
-'end' & code &  \\
-'endreplace' &  &  \\
-'fail' &  &  \\
-'failtwice' &  &  \\
-'jump' &  & LABEL \\
-'maskedchar' & char & mask \\
-'noop' &  &  \\
-'opencapture' & slot &  \\
-'partialcommit' &  & LABEL \\
-'quad' & quad &  \\
-'range' & from & until \\
-'replace' & slot & LABEL \\
-'ret' &  &  \\
-'set' & set &  \\
-'skip' & number &  \\
-'span' & set &  \\
-'testany' &  & LABEL \\
-'testchar' & char & LABEL \\
-'testquad' & quad & LABEL \\
-'testset' & set & LABEL \\
-'trap' &  &  \\
-'var' & slot &  \\
+\begin{tabular}{llll}
+\textbf{Mnemonic} & \textbf{Param1} & \textbf{Param2} & \textbf{Terse} \\
+'any' &  &  &  \\
+'backcommit' &  & LABEL & v \\
+'call' &  & LABEL & v \\
+'catch' &  & LABEL & v \\
+'char' & char &  &  \\
+'closecapture' & slot &  & v \\
+'commit' &  & LABEL & v \\
+'condjump' & register & LABEL &  \\
+'counter' & register & value &  \\
+'end' & code &  & v \\
+'endreplace' &  &  & v \\
+'fail' &  &  & v \\
+'failtwice' &  &  &  \\
+'jump' &  & LABEL & v \\
+'maskedchar' & char & mask & v \\
+'noop' &  &  &  \\
+'opencapture' & slot &  & v \\
+'partialcommit' &  & LABEL &  \\
+'quad' & quad &  &  \\
+'range' & from & until & v \\
+'replace' & slot & LABEL & v \\
+'ret' &  &  & v \\
+'set' & set &  & v \\
+'skip' & number &  &  \\
+'span' & set &  &  \\
+'testany' &  & LABEL &  \\
+'testchar' & char & LABEL &  \\
+'testquad' & quad & LABEL &  \\
+'testset' & set & LABEL &  \\
+'trap' &  &  &  \\
+'var' & slot &  & v \\
 \end{tabular}
 \end{table}

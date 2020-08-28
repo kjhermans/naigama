@@ -50,6 +50,12 @@ NAIG_ERR_T naic_process_endowedmatcher
   (naic_t* naic)
   __attribute__ ((warn_unused_result));
 
+/* declared in /home/work/work/naigama/src/gen1/lib/compiler//naic_process_endowedmatcher_noloops.c */
+extern
+NAIG_ERR_T naic_process_endowedmatcher_noloops
+  (naic_t* naic)
+  __attribute__ ((warn_unused_result));
+
 /* declared in /home/work/work/naigama/src/gen1/lib/compiler//naic_process_expression.c */
 extern
 NAIG_ERR_T naic_process_expression

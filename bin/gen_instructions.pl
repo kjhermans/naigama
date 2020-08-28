@@ -1,7 +1,13 @@
 #!/usr/bin/perl
 
+my $result = {};
+
 use Data::Dumper;
 $Data::Dumper::Sortkeys = 1;
+
+my $instrfile = shift @ARGV;
+my $instrperl = `cat $instrfile`;
+my $instrhash = eval $instrperl;
 
 my @hamming = (
   0x00, 0x03, 0x05, 0x06, 0x09, 0x0a, 0x0c, 0x0f,  
@@ -25,38 +31,38 @@ my @hamming = (
 my $global_instructions = {
   noop => { opcode => '00000000', size => 4 },
   trap => { opcode => 'ff00ffff', size => 4 },
-  end  => { size => 8, param1 => 'code' },
+  end  => { size => 8, param1 => 'code', terse => 1 },
 };
 
 my $parser_instructions = {
-  call          => { size => 8,  param1 => 'address' },
-  ret           => { size => 4 },
-  jump          => { size => 8,  param1 => 'address' },
+  call          => { size => 8,  param1 => 'address', terse => 1 },
+  ret           => { size => 4, terse => 1 },
+  jump          => { size => 8,  param1 => 'address', terse => 1 },
   counter       => { size => 12, param1 => 'register', param2 => 'value' },
   condjump      => { size => 12, param1 => 'register', param2 => 'address' },
   any           => { size => 4 },
   testany       => { size => 8,  param1 => 'address' },
   char          => { size => 8,  param1 => 'char' },
   testchar      => { size => 12, param1 => 'address', param2 => 'char' },
-  maskedchar    => { size => 12, param1 => 'char', param2 => 'mask' },
+  maskedchar    => { size => 12, param1 => 'char', param2 => 'mask', terse => 1 },
   quad          => { size => 8,  param1 => 'quad' },
   testquad      => { size => 12, param1 => 'address', param2 => 'quad' },
-  set           => { size => 36, param1 => 'set' },
+  set           => { size => 36, param1 => 'set', terse => 1 },
   testset       => { size => 40, param1 => 'address', param2 => 'set' },
   span          => { size => 36, param1 => 'set' },
-  range         => { size => 12, param1 => 'from', param2 => 'until' },
+  range         => { size => 12, param1 => 'from', param2 => 'until', terse => 1 },
   skip          => { size => 8,  param1 => 'number' },
-  catch         => { size => 8,  param1 => 'address' },
-  commit        => { size => 8,  param1 => 'address' },
+  catch         => { size => 8,  param1 => 'address', terse => 1 },
+  commit        => { size => 8,  param1 => 'address', terse => 1 },
   partialcommit => { size => 8,  param1 => 'address' },
-  backcommit    => { size => 8,  param1 => 'address' },
-  fail          => { size => 4 },
+  backcommit    => { size => 8,  param1 => 'address', terse => 1 },
+  fail          => { size => 4, terse => 1 },
   failtwice     => { size => 4 },
-  opencapture   => { size => 8,  param1 => 'slot' },
-  closecapture  => { size => 8,  param1 => 'slot' },
-  var           => { size => 8,  param1 => 'slot' },
-  replace       => { size => 12, param1 => 'slot', param2 => 'address' },
-  endreplace    => { size => 4 },
+  opencapture   => { size => 8,  param1 => 'slot', terse => 1 },
+  closecapture  => { size => 8,  param1 => 'slot', terse => 1 },
+  var           => { size => 8,  param1 => 'slot', terse => 1 },
+  replace       => { size => 12, param1 => 'slot', param2 => 'address', terse => 1 },
+  endreplace    => { size => 4, terse => 1 },
 };
 
 my $script_instructions = {
@@ -97,13 +103,22 @@ my $script_instructions = {
   scr_shiftoutis => { size => 4 },
 };
 
-my $result = {};
+{
+  foreach my $key (keys(%{$instrhash})) {
+    print STDERR "Updating $key with opce $instrhash->{$key}{opcode}\n";
+    if ($key =~ /^scr_/) {
+      $script_instructions->{$key}{opcode} = $instrhash->{$key}{opcode};
+    } else {
+      $parser_instructions->{$key}{opcode} = $instrhash->{$key}{opcode};
+    }
+  }
+}
 
 srand(time());
 
-assign_opcodes(0, $global_instructions, $result);
-assign_opcodes(3, $parser_instructions, $result);
-assign_opcodes(5, $script_instructions, $result);
+assign_opcodes(0, $global_instructions);
+assign_opcodes(3, $parser_instructions);
+assign_opcodes(5, $script_instructions);
 
 print STDERR scalar(keys(%{$result})) . " instructions generated.\n";
 foreach my $key (sort(keys(%{$result}))) {
@@ -117,8 +132,7 @@ sub assign_opcodes
 {
   my $category = shift;
   my $instr = shift;
-  my $result = shift;
-  foreach my $key (keys(%{$instr})) {
+  foreach my $key (sort(keys(%{$instr}))) {
     if (!defined($instr->{$key}{opcode})) {
       my $i = int(rand(scalar(@hamming)));
       my $h = $hamming[ $i ];
@@ -129,7 +143,8 @@ sub assign_opcodes
         sprintf("%.2x", $category) .
         sprintf("%.2x", $h);
     }
-    $result->{$key} = $instr->{$key};
+    $result->{$key} = eval(Dumper($instr->{$key}));
+    $result->{$key}{mnem} = $key;
     $result->{$key}{instr} = eval("0x" . $instr->{$key}{opcode});
   }
 }

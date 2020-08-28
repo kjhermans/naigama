@@ -35,7 +35,11 @@ NAIG_ERR_T naic_process_terms
       if (naic->captures->actions[ naic->capindex ].slot
           == SLOT_TERM_ENDOWEDMATCHER)
       {
-        CHECK(naic_process_endowedmatcher(naic));
+        if (naic->flags & (NAIC_FLG_TERSE|NAIC_FLG_LOOPS)) {
+          CHECK(naic_process_endowedmatcher_noloops(naic));
+        } else {
+          CHECK(naic_process_endowedmatcher(naic));
+        }
       }
     } else {
       RETURNERR(NAIC_ERR_TOKEN);

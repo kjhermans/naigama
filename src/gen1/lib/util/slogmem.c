@@ -37,7 +37,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /**
  * Writes the contents of a piece of memory to stderr, hexdump-style.
  */
-void logmem
+void flogmem
   (FILE* file, void* _mem, unsigned int size)
 {
   char* mem = _mem;

@@ -34,11 +34,6 @@ unsigned hexcodon
   (unsigned high, unsigned low)
   __attribute__ ((warn_unused_result));
 
-/* declared in /home/work/work/naigama/src/gen1/lib/util//logmem.c */
-extern
-void logmem
-  (FILE* file, void* _mem, unsigned int size);
-
 /* declared in /home/work/work/naigama/src/gen1/lib/util//octal.c */
 extern
 unsigned octal
@@ -50,6 +45,11 @@ extern
 char* readline
   (char* prompt)
   __attribute__ ((warn_unused_result));
+
+/* declared in /home/work/work/naigama/src/gen1/lib/util//slogmem.c */
+extern
+void flogmem
+  (FILE* file, void* _mem, unsigned int size);
 
 /* declared in /home/work/work/naigama/src/gen1/lib/util//strxypos.c */
 extern

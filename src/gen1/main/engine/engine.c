@@ -49,6 +49,9 @@ extern NAIG_ERR_T engine_replace
 extern NAIG_ERR_T engine_debug_cont
   (naie_engine_t* engine, uint32_t);
 
+extern NAIG_ERR_T engine_debug_fuzz
+  (naie_engine_t* engine, uint32_t);
+
 extern NAIG_ERR_T engine_debug_inputoffset
   (naie_engine_t* engine, uint32_t);
 
@@ -81,7 +84,7 @@ int main
   char* labelmap = 0;
   naie_result_t result;
   char* gen = NAIG_GENERATION;
-  int debugmode = 0;
+  int debugmode = 0, fuzzer = 0;
 
   for (i=0; i < argc; i++) {
     char* arg = argv[ i ];
@@ -159,6 +162,9 @@ int main
       case 'd':
         debugmode = 1;
         break;
+      case 'f':
+        fuzzer = 1;
+        break;
       case '?':
       case 'h':
       default:
@@ -173,9 +179,10 @@ int main
           "-l <path>   Labelmap file\n"
           "-r          Perform replacements and output result\n"
           "-S          Suppress binary output (implicit in -v and -r)\n"
+          "-d          Start debugger\n"
           "-v          Verbose (prepare for a lot of data on stderr)\n"
           "-x          Diligent (gather stats while running)\n"
-          "-d          Start debugger\n"
+          "-f <path>   Fuzzer; produce fuzzed inputs in directory <path>\n"
           "-I          Input is a string. Text position is displayed on error\n"
           "-s <size>   Stack size\n"
           , gen
@@ -228,6 +235,8 @@ int main
       engine.debugoffset = 0;
     } else if (debug) {
       engine.debugger = engine_debug_cont;
+    } else if (fuzzer) {
+      engine.debugger = engine_debug_fuzz;
     }
     e = naie_engine_run(
       &engine,

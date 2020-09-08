@@ -140,7 +140,7 @@ NAIG_ERR_T naie_engine_loop
       if (engine->input_pos >= engine->input_length) {
         goto FAIL;
       }
-      param1 = engine->bytecode[ engine->bytecode_pos + 7 ];
+      param1 = GET_32BIT_VALUE(engine->bytecode, engine->bytecode_pos + 4);
       if (engine->input[ engine->input_pos ] == param1) {
         ++(engine->input_pos);
         engine->bytecode_pos += instruction_size;

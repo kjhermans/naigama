@@ -130,7 +130,8 @@ struct naie_engine
 #define NAIE_FLAG_DOREPLACE             (1<<3)
 #define NAIE_FLAG_ENDLESS               (1<<4)
 #define NAIE_FLAG_UTF8                  (1<<5)
-  NAIG_ERR_T                          (*debugger)(naie_engine_t*,uint32_t);
+  NAIG_ERR_T                         (*debugger)(naie_engine_t*,uint32_t,void*);
+  void*                                 debugarg;
   unsigned                              debugoffset;
   char*                                 debugtext;
   unsigned                              debugstate;

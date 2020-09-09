@@ -95,7 +95,7 @@ NAIG_ERR_T naie_engine_loop
     }
     if (engine->flags & NAIE_FLAG_DEBUG) {
       if (engine->debugger) {
-        CHECK(engine->debugger(engine, opcode));
+        CHECK(engine->debugger(engine, opcode, engine->debugarg));
       }
     }
 
@@ -395,7 +395,7 @@ NAIG_ERR_T naie_engine_loop
 FAIL:
     if (engine->flags & NAIE_FLAG_DEBUG) {
       if (engine->debugger) {
-        CHECK(engine->debugger(engine, 0xffffffff));
+        CHECK(engine->debugger(engine, 0xffffffff, engine->debugarg));
       }
     }
     engine->forensics.stacksizebeforefail = engine->stack.count;

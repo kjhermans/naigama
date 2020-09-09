@@ -41,19 +41,47 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <naigama/engine/naie.h>
 #include <naigama/util/util_functions.h>
 
+struct edbfstruct
+{
+  char* path;
+};
+
+static struct edbfstruct edbf = { 0 };
+
+static
+NAIG_ERR_T engine_debug_fuzz_alt_char
+  (int fail, uint32_t chr)
+{
+  return NAIG_OK;
+}
+
+static
+NAIG_ERR_T engine_debug_fuzz_alt_end
+  ()
+{
+  return NAIG_OK;
+}
+
 /**
  *
  */
 NAIG_ERR_T engine_debug_fuzz
-  (naie_engine_t* engine, uint32_t opcode)
+  (naie_engine_t* engine, uint32_t opcode, void* arg)
 {
+  uint32_t param1;
+
   switch (opcode) {
   case OPCODE_ANY:
-    //.. produce a 
+    CHECK(engine_debug_fuzz_alt_char(0, rand() % 256));
+    CHECK(engine_debug_fuzz_alt_end());
     break;
   case OPCODE_COUNTER:
     break;
   case OPCODE_CHAR:
+    param1 = GET_32BIT_VALUE(engine->bytecode, engine->bytecode_pos + 4);
+    CHECK(engine_debug_fuzz_alt_char(0, param1));
+    CHECK(engine_debug_fuzz_alt_char(1, (param1 ^ param1) & 0xff));
+    CHECK(engine_debug_fuzz_alt_end());
     break;
   case OPCODE_MASKEDCHAR:
     break;

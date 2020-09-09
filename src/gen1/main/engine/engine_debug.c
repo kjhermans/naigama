@@ -76,20 +76,20 @@ int debug_commands_init = 0;
 //unsigned lastcmd = 0;
 
 extern NAIG_ERR_T engine_debug_instruction
-  (naie_engine_t* engine, uint32_t opcode);
+  (naie_engine_t* engine, uint32_t opcode, void* arg);
 
 extern NAIG_ERR_T engine_debug_over
-  (naie_engine_t* engine, uint32_t opcode);
+  (naie_engine_t* engine, uint32_t opcode, void* arg);
 
 extern NAIG_ERR_T engine_debug_cont
-  (naie_engine_t* engine, uint32_t opcode);
+  (naie_engine_t* engine, uint32_t opcode, void* arg);
 
 extern NAIG_ERR_T engine_debug_inputoffset
-  (naie_engine_t* engine, uint32_t opcode);
+  (naie_engine_t* engine, uint32_t opcode, void* arg);
 
 static
 NAIG_ERR_T engine_debug_handler
-  (naie_engine_t* engine, uint32_t opcode)
+  (naie_engine_t* engine, uint32_t opcode, void* arg)
 {
   char* cmdstr;
   naig_result_t cmd;
@@ -216,7 +216,7 @@ BEGIN:
  *
  */
 NAIG_ERR_T engine_debug_bytecode
-  (naie_engine_t* engine, uint32_t opcode)
+  (naie_engine_t* engine, uint32_t opcode, void* arg)
 {
   if (engine->debugstate == NAIE_DEBUG_FREE
       && engine->bytecode_pos == engine->debugoffset)
@@ -226,14 +226,14 @@ NAIG_ERR_T engine_debug_bytecode
     );
     engine->debugstate = NAIE_DEBUG_HALT;
   }
-  return engine_debug_handler(engine, opcode);
+  return engine_debug_handler(engine, opcode, arg);
 }
 
 /**
  *
  */
 NAIG_ERR_T engine_debug_instruction
-  (naie_engine_t* engine, uint32_t opcode)
+  (naie_engine_t* engine, uint32_t opcode, void* arg)
 {
   if (engine->debugstate == NAIE_DEBUG_FREE
       && opcode == engine->debugoffset)
@@ -243,14 +243,14 @@ NAIG_ERR_T engine_debug_instruction
     );
     engine->debugstate = NAIE_DEBUG_HALT;
   }
-  return engine_debug_handler(engine, opcode);
+  return engine_debug_handler(engine, opcode, arg);
 }
 
 /**
  *
  */
 NAIG_ERR_T engine_debug_inputtext
-  (naie_engine_t* engine, uint32_t opcode)
+  (naie_engine_t* engine, uint32_t opcode, void* arg)
 {
   char* t = engine->debugtext;
   unsigned l = strlen(t);
@@ -264,14 +264,14 @@ NAIG_ERR_T engine_debug_inputtext
     );
     engine->debugstate = NAIE_DEBUG_HALT;
   }
-  return engine_debug_handler(engine, opcode);
+  return engine_debug_handler(engine, opcode, arg);
 }
 
 /**
  *
  */
 NAIG_ERR_T engine_debug_over
-  (naie_engine_t* engine, uint32_t opcode)
+  (naie_engine_t* engine, uint32_t opcode, void* arg)
 {
   if (engine->debugstate == NAIE_DEBUG_FREE
       && engine->stack.count < engine->debugoffset)
@@ -281,23 +281,23 @@ NAIG_ERR_T engine_debug_over
     );
     engine->debugstate = NAIE_DEBUG_HALT;
   }
-  return engine_debug_handler(engine, opcode);
+  return engine_debug_handler(engine, opcode, arg);
 }
 
 /**
  *
  */
 NAIG_ERR_T engine_debug_cont
-  (naie_engine_t* engine, uint32_t opcode)
+  (naie_engine_t* engine, uint32_t opcode, void* arg)
 {
-  return engine_debug_handler(engine, opcode);
+  return engine_debug_handler(engine, opcode, arg);
 }
 
 /**
  *
  */
 NAIG_ERR_T engine_debug_inputoffset
-  (naie_engine_t* engine, uint32_t opcode)
+  (naie_engine_t* engine, uint32_t opcode, void* arg)
 {
   if (engine->debugstate == NAIE_DEBUG_FREE
       && engine->input_pos == engine->debugoffset)
@@ -307,5 +307,5 @@ NAIG_ERR_T engine_debug_inputoffset
     );
     engine->debugstate = NAIE_DEBUG_HALT;
   }
-  return engine_debug_handler(engine, opcode);
+  return engine_debug_handler(engine, opcode, arg);
 }

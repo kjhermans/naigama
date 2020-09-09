@@ -47,13 +47,13 @@ extern NAIG_ERR_T engine_replace
   (naie_engine_t* engine, naie_result_t* result, FILE* output);
 
 extern NAIG_ERR_T engine_debug_cont
-  (naie_engine_t* engine, uint32_t);
+  (naie_engine_t* engine, uint32_t, void*);
 
 extern NAIG_ERR_T engine_debug_fuzz
-  (naie_engine_t* engine, uint32_t);
+  (naie_engine_t* engine, uint32_t, void*);
 
 extern NAIG_ERR_T engine_debug_inputoffset
-  (naie_engine_t* engine, uint32_t);
+  (naie_engine_t* engine, uint32_t, void*);
 
 static
 naie_engine_t engine;

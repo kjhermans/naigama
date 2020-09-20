@@ -8,5 +8,7 @@ SEP='
 
 '
 
+echo $SEP
+
 cat /tmp/test.xml; echo $SEP
-cat /tmp/leftspool/in/msg_00000000.xml; echo $SEP
+cat /tmp/filterupload_1.result; echo $SEP

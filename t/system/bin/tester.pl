@@ -14,6 +14,8 @@ my $stopped = 0;
 
 my $time;
 
+system('printenv');
+
 $SIG{CHLD} = sub {
   while( ( my $child = waitpid( -1, &WNOHANG ) ) > 0 ) {
     print STDERR "\@$time: PID $child SIGCHLD\n";

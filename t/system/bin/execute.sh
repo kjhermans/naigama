@@ -10,6 +10,7 @@ fi;
 DIRS=`find $TOP -maxdepth 1 -type d | grep test | sort -n`
 
 export SYSTEMTESTROOT=`pwd`
+export PATH=$PATH:$SYSTEMTESTROOT/bin
 
 for DIR in $DIRS; do
   if [ "$DIR" != "." ]; then
@@ -26,7 +27,10 @@ for DIR in $DIRS; do
       fi
       if [ "$RUN" = "yes" ]; then
         /bin/echo -n "  [ST] $DIR; result in /tmp/$DIR.log .. "
-        cd $DIR && make SYSTEMTESTROOT=$SYSTEMTESTROOT TESTROOT=$SYSTEMTESTROOT/$DIR >/tmp/$DIR.log 2>&1
+        cd $DIR && make \
+          SYSTEMTESTROOT=$SYSTEMTESTROOT \
+          TESTROOT=$SYSTEMTESTROOT/$DIR \
+          >/tmp/$DIR.log 2>&1
         if grep -q SUCCESS /tmp/$DIR.log; then
           echo "	Succeeded."
         else

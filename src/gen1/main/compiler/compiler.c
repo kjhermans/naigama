@@ -139,7 +139,7 @@ NAIG_ERR_T do_compile
     fclose(slotmap);
   }
   if (slotmaph) {
-    CHECK(naic_slotmap_write_h(&map, slotmap));
+    CHECK(naic_slotmap_write_h(&map, slotmaph));
     fclose(slotmaph);
   }
   return NAIG_OK;

@@ -99,6 +99,7 @@ NAIG_ERR_T do_compile
     unsigned flags,
     FILE* output,
     FILE* slotmap,
+    FILE* slotmaph,
     int assemble,
     char* asmfile,
     FILE* labelmap
@@ -121,12 +122,25 @@ NAIG_ERR_T do_compile
       }
     }
     fprintf(stderr, "Assembly...\n");
-    CHECK(naia_assemble(assembly, labelmap, flags & NAIC_FLG_DEBUG, naic_write_bin, output));
+    CHECK(
+      naia_assemble(
+        assembly,
+        labelmap,
+        flags & NAIC_FLG_DEBUG,
+        naic_write_bin,
+        output
+      )
+    );
   } else {
     CHECK(naic_compile(grammar, &map, flags, naic_write_file, output));
   }
   if (slotmap) {
     CHECK(naic_slotmap_write(&map, slotmap));
+    fclose(slotmap);
+  }
+  if (slotmaph) {
+    CHECK(naic_slotmap_write_h(&map, slotmap));
+    fclose(slotmaph);
   }
   return NAIG_OK;
 }
@@ -141,6 +155,7 @@ int main
   unsigned grammar_length = 0;
   FILE* output = stdout;
   FILE* slotmap = NULL;
+  FILE* slotmaph = NULL;
   char* assembly = 0;
   FILE* labelmap = NULL;
   unsigned flags = 0;
@@ -191,6 +206,16 @@ int main
           }
         }
         break;
+      case 'M':
+        if (i < argc - 1) {
+          char* path = argv[ i+1 ];
+          slotmaph = fopen(path, "w");
+          if (NULL == slotmaph) {
+            fprintf(stderr, "Could not open %s\n", path);
+            exit(-6);
+          }
+        }
+        break;
       case 't':
         flags |= NAIC_FLG_TRAPS;
         break;
@@ -238,6 +263,7 @@ int main
           "-b         Incorporate the assembler and output bytecode at -o\n"
           "-a <path>  Emit bytecode at -o, and assembly at -a\n"
           "-m <path>  Output slotmap file (optional)\n"
+          "-M <path>  Output slotmap.h file (optional)\n"
           "-l <path>  Labelmap path (only works when -a or -b is given).\n"
           "-D         Debug (prepare for a lot of data on stderr)\n"
           "-t         Generate traps\n"
@@ -254,6 +280,8 @@ int main
     fprintf(stderr, "No grammar given.\n");
     exit(-1);
   }
-  NAIG_ERR_T e = do_compile(grammar, flags, output, slotmap, assemble, assembly, labelmap);
+  NAIG_ERR_T e = do_compile(
+    grammar, flags, output, slotmap, slotmaph, assemble, assembly, labelmap
+  );
   return e.code;
 }

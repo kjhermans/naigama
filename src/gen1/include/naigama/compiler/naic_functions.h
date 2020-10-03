@@ -214,6 +214,12 @@ NAIG_ERR_T naic_slotmap_write
   (naic_slotmap_t* slotmap, FILE* out)
   __attribute__ ((warn_unused_result));
 
+/* declared in /home/work/work/naigama/src/gen1/lib/compiler//naic_slotmap_write_h.c */
+extern
+NAIG_ERR_T naic_slotmap_write_h
+  (naic_slotmap_t* slotmap, FILE* out)
+  __attribute__ ((warn_unused_result));
+
 /* declared in /home/work/work/naigama/src/gen1/lib/compiler//naic_string_unescape.c */
 extern
 NAIG_ERR_T naic_string_unescape

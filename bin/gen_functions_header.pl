@@ -78,6 +78,7 @@ sub enter_code {
     'u_int16_t\*?',
     'uint16_t\*?',
     'int16_t\*?',
+    'naie_resobj_t\*',
     'NAIG_ERR_T',
     'NAIG_BOOL_T',
   );

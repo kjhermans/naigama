@@ -167,6 +167,18 @@ typedef struct
 }
 naie_rescrs_t;
 
+typedef struct naie_resobj naie_resobj_t;
+
+struct naie_resobj
+{
+  unsigned                              type;
+  char*                                 string;
+  unsigned                              stringlen;
+  unsigned                              origoffset;
+  naie_resobj_t**                       children;
+  unsigned                              nchildren;
+};
+
 typedef struct
 {
   struct {

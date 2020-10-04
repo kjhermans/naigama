@@ -216,6 +216,25 @@ NAIG_ERR_T naie_result_handle
   )
   __attribute__ ((warn_unused_result));
 
+/* declared in /home/work/work/naigama/src/gen1/lib/engine//naie_result_object.c */
+extern
+naie_resobj_t* naie_result_object
+  (
+    naie_engine_t* engine,
+    naie_result_t* result
+  )
+  __attribute__ ((warn_unused_result));
+
+/* declared in /home/work/work/naigama/src/gen1/lib/engine//naie_result_object_debug.c */
+extern
+void naie_result_object_debug_
+  (naie_resobj_t* object, unsigned indent);
+
+/* declared in /home/work/work/naigama/src/gen1/lib/engine//naie_result_object_debug.c */
+extern
+void naie_result_object_debug
+  (naie_resobj_t* object);
+
 /* declared in /home/work/work/naigama/src/gen1/lib/engine//naie_result_query.c */
 extern
 NAIG_ERR_T naie_result_query

@@ -41,7 +41,7 @@ void naie_result_object_debug_
   unsigned i;
 
   for (i=0; i < indent; i++) { fprintf(stderr, "  "); }
-  fprintf(stderr, "%.4u \n", object->type);
+  fprintf(stderr, "%.4u - ", object->type);
   for (i=0; i < object->stringlen; i++) {
     if (!isprint(object->string[ i ])) {
       fprintf(stderr, ".");
@@ -49,6 +49,7 @@ void naie_result_object_debug_
       fprintf(stderr, "%c", object->string[ i ]);
     }
   }
+  fprintf(stderr, "\n");
   for (i=0; i < object->nchildren; i++) {
     naie_result_object_debug_(object->children[ i ], indent + 1);
   }

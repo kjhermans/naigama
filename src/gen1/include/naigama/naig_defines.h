@@ -41,7 +41,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define NAIG_FAILURE                    ((NAIG_ERR_T){ .code = 1 })
 #define NAIG_OK                         ((NAIG_ERR_T){ .code = 0 })
 
-#define NAIG_ISOK(fnc) ({ NAIG_ERR_T __e = (fnc); __e.code != 0; })
+#define NAIG_ISOK(fnc) ({ NAIG_ERR_T __e = (fnc); __e.code == 0; })
 
 #define NAIG_ERR_READ                   ((NAIG_ERR_T){ .code = -1 })
 #define NAIG_ERR_WRITE                  ((NAIG_ERR_T){ .code = -2 })

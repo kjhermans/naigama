@@ -235,6 +235,11 @@ extern
 void naie_result_object_debug
   (naie_resobj_t* object);
 
+/* declared in /home/work/work/naigama/src/gen1/lib/engine//naie_result_object_free.c */
+extern
+void naie_result_object_free
+  (naie_resobj_t* object);
+
 /* declared in /home/work/work/naigama/src/gen1/lib/engine//naie_result_query.c */
 extern
 NAIG_ERR_T naie_result_query

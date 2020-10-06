@@ -42,6 +42,10 @@ NAIG_ERR_T naic_process_terms
         }
       }
     } else {
+      snprintf(naic->error, sizeof(naic->error),
+        "Unexpected term token %u",
+        naic->captures->actions[ naic->capindex ].slot
+      );
       RETURNERR(NAIC_ERR_TOKEN);
     }
   }

@@ -31,6 +31,9 @@ NAIG_ERR_T naic_var_put
       if (naic->rulevarmap.table[ i ].slot == slot) {
         return NAIG_OK; // same definition revisited through a quantifier
       } else {
+        snprintf(naic->error, sizeof(naic->error),
+          "Double variable declaration '%-.*s'", len, str
+        );
         RETURNERR(NAIC_ERR_VARDOUBLE); // namespace collision
       }
     }

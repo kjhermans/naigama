@@ -104,6 +104,9 @@ NAIG_ERR_T naic_process_endowedmatcher_noloops
       ));
     }
   } else if (quantifier[ 1 ] != quantifier[ 0 ]) {
+    snprintf(naic->error, sizeof(naic->error),
+      "Quantifier error %u > %u", quantifier[ 0 ], quantifier[ 1 ]
+    );
     RETURNERR(NAIC_ERR_QUANTIFIER);
   }
   if (notand == '!') {

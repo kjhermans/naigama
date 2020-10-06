@@ -58,6 +58,10 @@ NAIG_ERR_T naic_process_matcher
     CHECK(naic_process_group(naic));
     break;
   default:
+    snprintf(naic->error, sizeof(naic->error),
+      "Unexpected token type %u",
+      naic->captures->actions[ naic->capindex ].slot
+    );
     RETURNERR(NAIC_ERR_TOKEN);
   }
   return NAIG_OK;

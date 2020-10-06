@@ -53,6 +53,7 @@ NAIG_ERR_T naic_process_macro
       for (i = '0'; i <= '9'; i++) { NAIC_SET_BIT_SET(set, i); }
       break;
     default:
+      snprintf(naic->error, sizeof(naic->error), "Unknown macro '%c'", *chr);
       RETURNERR(NAIC_ERR_MACRO);
     }
     break;
@@ -61,10 +62,14 @@ NAIG_ERR_T naic_process_macro
       NAIC_SET_BIT_SET(set, '\n');
       NAIC_SET_BIT_SET(set, '\r');
     } else {
+      snprintf(naic->error, sizeof(naic->error),
+        "Unknown macro '%c%c'", chr[0], chr[1]
+      );
       RETURNERR(NAIC_ERR_MACRO);
     }
     break;
   default:
+    snprintf(naic->error, sizeof(naic->error), "Macro length error.");
     RETURNERR(NAIC_ERR_MACRO);
   }
   CHECK(naic->write(naic->write_arg, "  set "));

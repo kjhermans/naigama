@@ -22,8 +22,8 @@ complexitem <- '<' {:tag: %w+ } optattrs %s* '>'
                '</' $tag '>'
 internals   <- ( item / { (!(%s* '<') .)+ } )*
 optattrs    <- ( attrname EQUALS attrvalue )*
-attrname    <- {:brace: ['"] } { %w+ } $brace
-attrvalue   <- {:brace: ['"] } { ( ! $brace . )* } $brace
+attrname    <- {:nbrace: ['"] } { %w+ } $nbrace
+attrvalue   <- {:vbrace: ['"] } { ( ! $vbrace . )* } $vbrace
 EQUALS      <- '='
 
 -- Hexinput:

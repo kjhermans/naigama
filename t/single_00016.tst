@@ -12,9 +12,9 @@ complexitem <- '<' {:tag: XMLIDENT } optattrs %s* '>'
                '</' $tag '>'
 complexbody <- (item / { (!(%s* '<') .)+ })*
 optattrs    <- ( ( attrname1 / attrname2 ) EQUALS attrvalue )*
-attrname1   <- {:brace: ['"] } { XMLIDENT } $brace
+attrname1   <- {:nbrace: ['"] } { XMLIDENT } $nbrace
 attrname2   <- { XMLIDENT }
-attrvalue   <- {:brace: ['"] } { ( ! $brace . )* } $brace
+attrvalue   <- {:vbrace: ['"] } { ( ! $vbrace . )* } $vbrace
 EQUALS      <- '='
 XMLIDENT    <- [a-zA-Z:]+
 

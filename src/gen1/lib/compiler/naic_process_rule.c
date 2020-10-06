@@ -47,7 +47,7 @@ NAIG_ERR_T naic_process_rule
   fprintf(stderr, "-- %s ", __FILE__); naic_debug(naic);
 #endif
 
-  naic->rulevarmap.size = 0;
+//  naic->rulevarmap.size = 0;
   naic->currentrule = a;
   CHECK(naic->write(naic->write_arg, "-- Rule\n"));
   if (naic->flags & NAIC_FLG_TRAPS) {

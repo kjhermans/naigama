@@ -12,9 +12,9 @@ complexitem <- '<' {:tag: %w+ } optattrs %s* '>'
                '</' $tag '>'
 complexbody <- (item / { (!(%s* '<') .)+ })*
 optattrs    <- ( ( attrname1 / attrname2 ) EQUALS attrvalue )*
-attrname1   <- {:brace: ['"] } { %w+ } $brace
+attrname1   <- {:nbrace: ['"] } { %w+ } $nbrace
 attrname2   <- { %w+ }
-attrvalue   <- {:brace: ['"] } { ( ! $brace . )* } $brace
+attrvalue   <- {:vbrace: ['"] } { ( ! $vbrace . )* } $vbrace
 EQUALS      <- '='
 
 -- Input:

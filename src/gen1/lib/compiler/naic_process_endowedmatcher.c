@@ -35,7 +35,9 @@ NAIG_ERR_T naic_process_endowedmatcher
   fprintf(stderr, "-- %s ", __FILE__); naic_debug(naic);
 #endif
 
-  if (naic->captures->actions[ naic->capindex ].slot == SLOT_TERM_ENDOWEDMATCHER) {
+  if (naic->captures->actions[ naic->capindex ].slot
+      == SLOT_TERM_ENDOWEDMATCHER)
+  {
     end = naic->captures->actions[ naic->capindex ].start +
           naic->captures->actions[ naic->capindex ].length;
     ++(naic->capindex);
@@ -50,7 +52,9 @@ NAIG_ERR_T naic_process_endowedmatcher
   snprintf(l5, sizeof(l5), "__TERM_%u", (naic->labelcount)++);
   snprintf(l6, sizeof(l6), "__TERM_%u", (naic->labelcount)++);
 
-  if (naic->captures->actions[ naic->capindex ].slot == SLOT_ENDOWEDMATCHER_NOTAND) {
+  if (naic->captures->actions[ naic->capindex ].slot
+      == SLOT_ENDOWEDMATCHER_NOTAND)
+  {
     notand= naic->grammar[ naic->captures->actions[ naic->capindex ].start ];
     if (notand == '!' || notand == '&') {
       CHECK(naic->write(naic->write_arg, "  catch %s\n", l1));

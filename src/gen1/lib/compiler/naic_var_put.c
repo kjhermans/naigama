@@ -28,8 +28,11 @@ NAIG_ERR_T naic_var_put
     if (naic->rulevarmap.table[ i ].keysize == len
         && 0 == memcmp(naic->rulevarmap.table[ i ].key, str, len))
     {
-//      RETURNERR(NAIC_ERR_VARDOUBLE);
-      return NAIG_OK;
+      if (naic->rulevarmap.table[ i ].slot == slot) {
+        return NAIG_OK; // same definition revisited through a quantifier
+      } else {
+        RETURNERR(NAIC_ERR_VARDOUBLE); // namespace collision
+      }
     }
   }
   naic->rulevarmap.table[ i ].key = str;

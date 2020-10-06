@@ -37,10 +37,12 @@ NAIG_ERR_T naic_process_term_get_quantifier
 #endif
 
   while (i < naic->captures->count
-         && naic->captures->actions[ i ].start + naic->captures->actions[ i ].length <= end)
+         && naic->captures->actions[ i ].start
+            + naic->captures->actions[ i ].length <= end)
   {
     if (naic->captures->actions[ i ].slot == SLOT_ENDOWEDMATCHER_QUANTIFIER
-        && naic->captures->actions[ i ].start + naic->captures->actions[ i ].length == end)
+        && naic->captures->actions[ i ].start
+           + naic->captures->actions[ i ].length == end)
     {
       q = i;
     }

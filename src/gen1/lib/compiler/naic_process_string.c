@@ -66,6 +66,8 @@ NAIG_ERR_T naic_process_string
   fprintf(stderr, "-- %s ", __FILE__); naic_debug(naic);
 #endif
 
+  naic->quad.nbytes = 0;
+  naic->quad.tmpvalue = 0;
   if (naic->grammar[ stop-1 ] == 'i') {
     return naic_process_string_caseinsensitive(naic);
   }
@@ -77,5 +79,7 @@ NAIG_ERR_T naic_process_string
       naic_process_string_callback
     )
   );
+  naic->quad.nbytes = 0;
+  naic->quad.tmpvalue = 0;
   return NAIG_OK;
 }

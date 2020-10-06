@@ -18,7 +18,7 @@ const unsigned char bytecode[] = GRAMMAR_BYTECODE;
 
 static
 NAIG_ERR_T naic_engine_debug_cont
-  (naie_engine_t* engine, uint32_t opcode)
+  (naie_engine_t* engine, uint32_t opcode, void* ptr)
 {
   if (opcode == 0xffffffff) {
     fprintf(stderr, "======== FAIL\n");

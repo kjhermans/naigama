@@ -41,6 +41,7 @@ typedef struct
   }                 rulevarmap;
   NAIG_ERR_T      (*write)(void* ptr, char* fmt, ...);
   void*             write_arg;
+  char              error[ 256 ];
 }
 naic_t;
 

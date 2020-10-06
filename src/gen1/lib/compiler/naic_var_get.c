@@ -29,5 +29,8 @@ NAIG_ERR_T naic_var_get
       return NAIG_OK;
     }
   }
+  snprintf(naic->error, sizeof(naic->error),
+    "Variable '%-.*s' not found.\n", len, str
+  );
   return NAIC_NOTFOUND;
 }

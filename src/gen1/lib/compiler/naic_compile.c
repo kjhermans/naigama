@@ -40,6 +40,7 @@ NAIG_ERR_T naic_compile
     void* arg
   )
 {
+  naic_t naic;
   naie_engine_t engine;
   naie_result_t result;
   NAIG_ERR_T e;
@@ -66,16 +67,22 @@ NAIG_ERR_T naic_compile
     }
     exit(-1);
   }
-  naic_t naic = {
-    .grammar     = grammar,
-    .captures    = &result,
-    .capindex    = 0,
-    .slotmap     = slots,
-    .labelcount  = 0,
-    .write       = fnc,
-    .write_arg   = arg,
-    .flags       = flags
-  };
-  CHECK(naic_process_tokens(&naic));
+  memset(&naic, 0, sizeof(naic));
+  naic.grammar     = grammar;
+  naic.captures    = &result;
+  naic.capindex    = 0;
+  naic.slotmap     = slots;
+  naic.labelcount  = 0;
+  naic.write       = fnc;
+  naic.write_arg   = arg;
+  naic.flags       = flags;
+  if (!NAIG_ISOK(naic_process_tokens(&naic))) {
+    if (strlen(naic.error)) {
+      fprintf(stderr, "Compiler error: %s\n", naic.error);
+    } else {
+      fprintf(stderr, "Compiler error.\n");
+    }
+    return NAIG_FAILURE;
+  }
   return NAIG_OK;
 }

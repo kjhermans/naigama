@@ -78,6 +78,8 @@ NAIG_ERR_T naig_compile
   char* assembly = NULL;
   unsigned flags = 0;
 
+  memset(naig, 0, sizeof(*naig));
+
   if (traps) {
     flags |= NAIC_FLG_TRAPS;
   }

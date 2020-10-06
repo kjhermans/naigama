@@ -66,7 +66,7 @@ NAIG_ERR_T naic_process_endowedmatcher
 
   copy = *naic;
   if (quantifier[ 0 ] == 1) {
-    CHECK(naic_process_matcher(&copy));
+    CHECK(naic_process_matcher(naic));
   } else if (quantifier[ 0 ] > 1) {
     unsigned ctr = (naic->counter)++;
     CHECK(naic->write(naic->write_arg,
@@ -76,15 +76,18 @@ NAIG_ERR_T naic_process_endowedmatcher
                           , quantifier[ 0 ]
                           , l3
     ));
-    CHECK(naic_process_matcher(&copy));
+    CHECK(naic_process_matcher(naic));
     CHECK(naic->write(naic->write_arg,
                           "  condjump %u %s\n"
                           , ctr
                           , l3
     ));
   }
-  naic->labelcount = copy.labelcount;
-  naic->rulevarmap = copy.rulevarmap;
+
+  naic->currentrule = copy.currentrule;
+  naic->capindex = copy.capindex;
+  naic->counter = copy.counter;
+
   if (quantifier[ 1 ] == -1) {
     CHECK(naic->write(naic->write_arg,
                           "  catch %s\n"
@@ -92,6 +95,7 @@ NAIG_ERR_T naic_process_endowedmatcher
                           , l5
                           , l4
     ));
+    naic->slot = copy.slot;
     CHECK(naic_process_matcher(naic));
     CHECK(naic->write(naic->write_arg,
                           "  partialcommit %s\n"
@@ -114,6 +118,7 @@ NAIG_ERR_T naic_process_endowedmatcher
                             , diff
                             , l5
       ));
+      naic->slot = copy.slot;
       CHECK(naic_process_matcher(naic));
       CHECK(naic->write(naic->write_arg,
                             "  partialcommit %s\n"
@@ -135,6 +140,7 @@ NAIG_ERR_T naic_process_endowedmatcher
                             "  catch %s\n"
                             , l4
       ));
+      naic->slot = copy.slot;
       CHECK(naic_process_matcher(naic));
       CHECK(naic->write(naic->write_arg,
                             "  commit %s\n"
@@ -173,6 +179,5 @@ NAIG_ERR_T naic_process_endowedmatcher
     }
   }
   naic->capindex = i;
-  if (copy.slot > naic->slot) { naic->slot = copy.slot; }
   return NAIG_OK;
 }

@@ -40,8 +40,8 @@ void naie_result_object_debug_
 {
   unsigned i;
 
+  fprintf(stderr, "%.4u -", object->type);
   for (i=0; i < indent; i++) { fprintf(stderr, "  "); }
-  fprintf(stderr, "%.4u - ", object->type);
   for (i=0; i < object->stringlen; i++) {
     if (!isprint(object->string[ i ])) {
       fprintf(stderr, ".");

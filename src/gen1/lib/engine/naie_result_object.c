@@ -34,25 +34,44 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "naie_private.h"
 
 static
+naie_resobj_t* naie_result_object_children
+  (
+    naie_engine_t* engine,
+    naie_result_t* result,
+    naie_resobj_t* object,
+    unsigned i
+  );
+
+static
 naie_resobj_t* naie_result_object_
   (
     naie_engine_t* engine,
     naie_result_t* result,
-    unsigned off
+    unsigned i
   )
 {
   naie_resobj_t* object = malloc(sizeof(naie_resobj_t));
-  unsigned i = off;
 
-  object->type = result->actions[ off ].slot;
-  object->origoffset = result->actions[ off ].start;
-  object->stringlen = result->actions[ off ].length;
+  object->type = result->actions[ i ].slot;
+  object->origoffset = result->actions[ i ].start;
+  object->stringlen = result->actions[ i ].length;
   object->string = malloc(object->stringlen + 1);
   memcpy(object->string, engine->input + object->origoffset, object->stringlen);
   object->string[ object->stringlen ] = 0;
   object->children = 0;
   object->nchildren = 0;
+  return naie_result_object_children(engine, result, object, i);
+}
 
+static
+naie_resobj_t* naie_result_object_children
+  (
+    naie_engine_t* engine,
+    naie_result_t* result,
+    naie_resobj_t* object,
+    unsigned i
+  )
+{
   for (++i; i < result->count; i++) {
     if (result->actions[ i ].start >= object->origoffset + object->stringlen) {
       break;
@@ -87,5 +106,16 @@ naie_resobj_t* naie_result_object
     naie_result_t* result
   )
 {
-  return naie_result_object_(engine, result, 0);
+  naie_resobj_t* object = malloc(sizeof(naie_resobj_t));
+
+  object->type = -1; // top
+  object->origoffset = 0;
+  object->stringlen = engine->input_length;
+  object->string = malloc(object->stringlen + 1);
+  memcpy(object->string, engine->input + object->origoffset, object->stringlen);
+  object->string[ object->stringlen ] = 0;
+  object->children = 0;
+  object->nchildren = 0;
+  
+  return naie_result_object_children(engine, result, object, 0);
 }

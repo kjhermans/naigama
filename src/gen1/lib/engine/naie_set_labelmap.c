@@ -70,6 +70,7 @@ OneMoreLabel:
         char* string = (char*)(&(block[ 4 ]));
         memcpy(&offset, block, 4);
         offset = SET_32BIT_VALUE(offset);
+        offset &= ~(0xff << 24);
         for (i=4; i < blocksize; i++) {
           if (block[ i ] == 0) {
             CHECK(naie_engine_add_label(engine, string, offset));

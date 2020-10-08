@@ -1,11 +1,11 @@
 -- Grammar:
 
-RULE <- { .* } => handle_capture
+RULE <- { .* } => handle_capture;
 
 function handle_capture
   ()
 {
-  print("You said " + capture);
+  print('You said ' + capture);
 }
 
 -- Input:

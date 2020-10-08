@@ -18,8 +18,10 @@ const unsigned char bytecode[] = ASSEMBLY_BYTECODE;
 
 static
 NAIG_ERR_T naia_engine_debug_cont
-  (naie_engine_t* engine, uint32_t opcode)
+  (naie_engine_t* engine, uint32_t opcode, void* ptr)
 {
+  (void)ptr;
+
   if (opcode == 0xffffffff) {
     fprintf(stderr, "======== FAIL\n");
   } else {

@@ -1,3 +1,6 @@
+'foo'				foo		OK
+'foo'				bar		NOK
+
 'foo'i 				foo		OK
 'foo'i 				fOo		OK
 'foo'i 				FOO		OK

@@ -44,6 +44,12 @@ NAIG_ERR_T naic_process_capture
   (naic_t* naic)
   __attribute__ ((warn_unused_result));
 
+/* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_process_end.c */
+extern
+NAIG_ERR_T naic_process_end
+  (naic_t* naic)
+  __attribute__ ((warn_unused_result));
+
 /* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_process_endowedmatcher.c */
 extern
 NAIG_ERR_T naic_process_endowedmatcher

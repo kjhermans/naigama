@@ -72,7 +72,7 @@ void engine_debug_signal
 int main
   (int argc, char* argv[])
 {
-  int i, debug = 0, diligent = 0, stringpos = 0, replace = 0, suppress = 0;;
+  int i, debug = 0, diligent = 0, stringpos = 0, replace = 0, suppress = 0, tree = 0;
   FILE* output = stdout;
   unsigned char* bytecode = 0;
   unsigned bytecode_length = 0;
@@ -165,6 +165,9 @@ int main
       case 'f':
         fuzzer = 1;
         break;
+      case 't':
+        tree = 1;
+        break;
       case '?':
       case 'h':
       default:
@@ -181,6 +184,7 @@ int main
           "-S          Suppress binary output (implicit in -v and -r)\n"
           "-d          Start debugger\n"
           "-v          Verbose (prepare for a lot of data on stderr)\n"
+          "-t          Provide capture tree at the end\n"
           "-x          Diligent (gather stats while running)\n"
           "-f <path>   Fuzzer; produce fuzzed inputs in directory <path>\n"
           "-I          Input is a string. Text position is displayed on error\n"
@@ -258,6 +262,10 @@ int main
     }
     if (debug) {
       naie_result_debug(&result, data);
+    }
+    if (tree) {
+      naie_resobj_t* obj = naie_result_object(&engine, &result);
+      naie_result_object_debug(obj);
     }
     if (diligent) {
       fprintf(stderr, "Number of instructions: %u\n"

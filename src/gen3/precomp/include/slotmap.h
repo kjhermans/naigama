@@ -71,81 +71,80 @@
   case 69: return "ST_RETURN_SCREXPRESSION"; break; \
   case 70: return "VARDECL_SCREXPRESSION"; break; \
   case 71: return "ASSIGNS_ASSIGNPLUSISMINISMULISDI"; break; \
-  case 72: return "BINOP_P12_LOGORBINOPPEXPATOM"; break; \
+  case 72: return "BINOP_P12_LOGORBINOPPSCRTERM"; break; \
   case 73: return "BINOP_P12_LOGOR"; break; \
-  case 74: return "BINOP_P11_LOGANDBINOPPEXPATOM"; break; \
+  case 74: return "BINOP_P11_LOGANDBINOPPSCRTERM"; break; \
   case 75: return "BINOP_P11_LOGAND"; break; \
-  case 76: return "BINOP_P10_BITORBINOPPEXPATOM"; break; \
+  case 76: return "BINOP_P10_BITORBINOPPSCRTERM"; break; \
   case 77: return "BINOP_P10_BITOR"; break; \
-  case 78: return "BINOP_P09_BITXORBINOPPEXPATOM"; break; \
+  case 78: return "BINOP_P09_BITXORBINOPPSCRTERM"; break; \
   case 79: return "BINOP_P09_BITXOR"; break; \
-  case 80: return "BINOP_P08_BITANDBINOPPEXPATOM"; break; \
+  case 80: return "BINOP_P08_BITANDBINOPPSCRTERM"; break; \
   case 81: return "BINOP_P08_BITAND"; break; \
-  case 82: return "BINOP_P07_EQUALSNEQUALSBINOPPEXP"; break; \
+  case 82: return "BINOP_P07_EQUALSNEQUALSBINOPPSCR"; break; \
   case 83: return "BINOP_P07_EQUALSNEQUALS"; break; \
-  case 84: return "BINOP_P06_LTEQLTGTEQGTBINOPPEXPA"; break; \
+  case 84: return "BINOP_P06_LTEQLTGTEQGTBINOPPSCRT"; break; \
   case 85: return "BINOP_P06_LTEQLTGTEQGT"; break; \
-  case 86: return "BINOP_P05_LSHIFTRSHIFTBINOPPEXPA"; break; \
+  case 86: return "BINOP_P05_LSHIFTRSHIFTBINOPPSCRT"; break; \
   case 87: return "BINOP_P05_LSHIFTRSHIFT"; break; \
-  case 88: return "BINOP_P04_ADDSUBBINOPPEXPATOM"; break; \
+  case 88: return "BINOP_P04_ADDSUBBINOPPSCRTERM"; break; \
   case 89: return "BINOP_P04_ADDSUB"; break; \
-  case 90: return "BINOP_P03_MULDIVPOWEXPATOM"; break; \
+  case 90: return "BINOP_P03_MULDIVPOWSCRTERM"; break; \
   case 91: return "BINOP_P03_MULDIVPOW"; break; \
-  case 92: return "EXPATOM_UNARY"; break; \
-  case 93: return "EXPATOM_SCRTERM"; break; \
-  case 94: return "UNARY_LOGNOTBITNOTINCDEC"; break; \
-  case 95: return "SCR_TERM_LITERAL"; break; \
-  case 96: return "SCR_TERM_FUNCTIONCALL"; break; \
-  case 97: return "SCR_TERM_SCRREFERENCE"; break; \
-  case 98: return "SCR_TERM_BOPENSCREXPRESSIONBCLOS"; break; \
-  case 99: return "SCR_TERM_SCREXPRESSION"; break; \
-  case 100: return "FUNCTIONCALL_SCRREFERENCE"; break; \
-  case 101: return "INDEX_SCREXPRESSION"; break; \
-  case 102: return "STRINGLITERAL_NRTV"; break; \
-  case 103: return "HASHLITERAL_CBOPENHASHELTCOMMAHA"; break; \
-  case 104: return "HASHELT_HASHKEYCOLONHASHVALUE"; break; \
-  case 105: return "HASHKEY_SCRTERM"; break; \
-  case 106: return "HASHVALUE_SCRTERM"; break; \
-  case 107: return "LISTLITERAL_ABOPENLISTELTCOMMALI"; break; \
-  case 108: return "LISTELT_SCRTERM"; break; \
-  case 109: return "FLOATLITERAL"; break; \
-  case 110: return "INTLITERAL"; break; \
-  case 111: return "BOOLEANLITERAL_TRUEFALSEKWIMPORT"; break; \
-  case 112: return "ASSIGN"; break; \
-  case 113: return "PLUSIS"; break; \
-  case 114: return "MINIS"; break; \
-  case 115: return "MULIS"; break; \
-  case 116: return "DIVIS"; break; \
-  case 117: return "EQUALS"; break; \
-  case 118: return "NEQUALS"; break; \
-  case 119: return "LT"; break; \
-  case 120: return "GT"; break; \
-  case 121: return "LTEQ"; break; \
-  case 122: return "GTEQ"; break; \
-  case 123: return "COLON"; break; \
-  case 124: return "POW"; break; \
-  case 125: return "MUL"; break; \
-  case 126: return "DIV"; break; \
-  case 127: return "ADD"; break; \
-  case 128: return "SUB"; break; \
-  case 129: return "INC"; break; \
-  case 130: return "DEC"; break; \
-  case 131: return "LOGAND"; break; \
-  case 132: return "LOGOR"; break; \
-  case 133: return "LOGNOT"; break; \
-  case 134: return "BITAND"; break; \
-  case 135: return "BITOR"; break; \
-  case 136: return "BITXOR"; break; \
-  case 137: return "BITNOT"; break; \
-  case 138: return "BITANDIS"; break; \
-  case 139: return "BITORIS"; break; \
-  case 140: return "BITXORIS"; break; \
-  case 141: return "BITNOTIS"; break; \
-  case 142: return "DOT"; break; \
-  case 143: return "LSHIFT"; break; \
-  case 144: return "RSHIFT"; break; \
-  case 145: return "LSHIFTIS"; break; \
-  case 146: return "RSHIFTIS"; break; \
+  case 92: return "UNOP_LOGNOTBITNOTINCDEC"; break; \
+  case 93: return "SCR_TERM_FUNCTIONCALL"; break; \
+  case 94: return "SCR_TERM_BOPENSCREXPRESSIONBCLOS"; break; \
+  case 95: return "SCR_TERM_SCREXPRESSION"; break; \
+  case 96: return "SCR_TERM_UNOP"; break; \
+  case 97: return "LVALUE_LITERAL"; break; \
+  case 98: return "LVALUE_SCRREFERENCE"; break; \
+  case 99: return "FUNCTIONCALL_SCRREFERENCE"; break; \
+  case 100: return "INDEX_SCREXPRESSION"; break; \
+  case 101: return "STRINGLITERAL_NRTV"; break; \
+  case 102: return "HASHLITERAL_CBOPENHASHELTCOMMAHA"; break; \
+  case 103: return "HASHELT_HASHKEYCOLONHASHVALUE"; break; \
+  case 104: return "HASHKEY_SCRTERM"; break; \
+  case 105: return "HASHVALUE_SCRTERM"; break; \
+  case 106: return "LISTLITERAL_ABOPENLISTELTCOMMALI"; break; \
+  case 107: return "LISTELT_SCRTERM"; break; \
+  case 108: return "FLOATLITERAL"; break; \
+  case 109: return "INTLITERAL"; break; \
+  case 110: return "BOOLEANLITERAL_TRUEFALSEKWIMPORT"; break; \
+  case 111: return "ASSIGN"; break; \
+  case 112: return "PLUSIS"; break; \
+  case 113: return "MINIS"; break; \
+  case 114: return "MULIS"; break; \
+  case 115: return "DIVIS"; break; \
+  case 116: return "EQUALS"; break; \
+  case 117: return "NEQUALS"; break; \
+  case 118: return "LT"; break; \
+  case 119: return "GT"; break; \
+  case 120: return "LTEQ"; break; \
+  case 121: return "GTEQ"; break; \
+  case 122: return "COLON"; break; \
+  case 123: return "POW"; break; \
+  case 124: return "MUL"; break; \
+  case 125: return "DIV"; break; \
+  case 126: return "ADD"; break; \
+  case 127: return "SUB"; break; \
+  case 128: return "INC"; break; \
+  case 129: return "DEC"; break; \
+  case 130: return "LOGAND"; break; \
+  case 131: return "LOGOR"; break; \
+  case 132: return "LOGNOT"; break; \
+  case 133: return "BITAND"; break; \
+  case 134: return "BITOR"; break; \
+  case 135: return "BITXOR"; break; \
+  case 136: return "BITNOT"; break; \
+  case 137: return "BITANDIS"; break; \
+  case 138: return "BITORIS"; break; \
+  case 139: return "BITXORIS"; break; \
+  case 140: return "BITNOTIS"; break; \
+  case 141: return "DOT"; break; \
+  case 142: return "LSHIFT"; break; \
+  case 143: return "RSHIFT"; break; \
+  case 144: return "LSHIFTIS"; break; \
+  case 145: return "RSHIFTIS"; break; \
 
 
 #define SLOT_RULE_IDENT 0
@@ -220,78 +219,77 @@
 #define SLOT_ST_RETURN_SCREXPRESSION 69
 #define SLOT_VARDECL_SCREXPRESSION 70
 #define SLOT_ASSIGNS_ASSIGNPLUSISMINISMULISDI 71
-#define SLOT_BINOP_P12_LOGORBINOPPEXPATOM 72
+#define SLOT_BINOP_P12_LOGORBINOPPSCRTERM 72
 #define SLOT_BINOP_P12_LOGOR 73
-#define SLOT_BINOP_P11_LOGANDBINOPPEXPATOM 74
+#define SLOT_BINOP_P11_LOGANDBINOPPSCRTERM 74
 #define SLOT_BINOP_P11_LOGAND 75
-#define SLOT_BINOP_P10_BITORBINOPPEXPATOM 76
+#define SLOT_BINOP_P10_BITORBINOPPSCRTERM 76
 #define SLOT_BINOP_P10_BITOR 77
-#define SLOT_BINOP_P09_BITXORBINOPPEXPATOM 78
+#define SLOT_BINOP_P09_BITXORBINOPPSCRTERM 78
 #define SLOT_BINOP_P09_BITXOR 79
-#define SLOT_BINOP_P08_BITANDBINOPPEXPATOM 80
+#define SLOT_BINOP_P08_BITANDBINOPPSCRTERM 80
 #define SLOT_BINOP_P08_BITAND 81
-#define SLOT_BINOP_P07_EQUALSNEQUALSBINOPPEXP 82
+#define SLOT_BINOP_P07_EQUALSNEQUALSBINOPPSCR 82
 #define SLOT_BINOP_P07_EQUALSNEQUALS 83
-#define SLOT_BINOP_P06_LTEQLTGTEQGTBINOPPEXPA 84
+#define SLOT_BINOP_P06_LTEQLTGTEQGTBINOPPSCRT 84
 #define SLOT_BINOP_P06_LTEQLTGTEQGT 85
-#define SLOT_BINOP_P05_LSHIFTRSHIFTBINOPPEXPA 86
+#define SLOT_BINOP_P05_LSHIFTRSHIFTBINOPPSCRT 86
 #define SLOT_BINOP_P05_LSHIFTRSHIFT 87
-#define SLOT_BINOP_P04_ADDSUBBINOPPEXPATOM 88
+#define SLOT_BINOP_P04_ADDSUBBINOPPSCRTERM 88
 #define SLOT_BINOP_P04_ADDSUB 89
-#define SLOT_BINOP_P03_MULDIVPOWEXPATOM 90
+#define SLOT_BINOP_P03_MULDIVPOWSCRTERM 90
 #define SLOT_BINOP_P03_MULDIVPOW 91
-#define SLOT_EXPATOM_UNARY 92
-#define SLOT_EXPATOM_SCRTERM 93
-#define SLOT_UNARY_LOGNOTBITNOTINCDEC 94
-#define SLOT_SCR_TERM_LITERAL 95
-#define SLOT_SCR_TERM_FUNCTIONCALL 96
-#define SLOT_SCR_TERM_SCRREFERENCE 97
-#define SLOT_SCR_TERM_BOPENSCREXPRESSIONBCLOS 98
-#define SLOT_SCR_TERM_SCREXPRESSION 99
-#define SLOT_FUNCTIONCALL_SCRREFERENCE 100
-#define SLOT_INDEX_SCREXPRESSION 101
-#define SLOT_STRINGLITERAL_NRTV 102
-#define SLOT_HASHLITERAL_CBOPENHASHELTCOMMAHA 103
-#define SLOT_HASHELT_HASHKEYCOLONHASHVALUE 104
-#define SLOT_HASHKEY_SCRTERM 105
-#define SLOT_HASHVALUE_SCRTERM 106
-#define SLOT_LISTLITERAL_ABOPENLISTELTCOMMALI 107
-#define SLOT_LISTELT_SCRTERM 108
-#define SLOT_FLOATLITERAL 109
-#define SLOT_INTLITERAL 110
-#define SLOT_BOOLEANLITERAL_TRUEFALSEKWIMPORT 111
-#define SLOT_ASSIGN 112
-#define SLOT_PLUSIS 113
-#define SLOT_MINIS 114
-#define SLOT_MULIS 115
-#define SLOT_DIVIS 116
-#define SLOT_EQUALS 117
-#define SLOT_NEQUALS 118
-#define SLOT_LT 119
-#define SLOT_GT 120
-#define SLOT_LTEQ 121
-#define SLOT_GTEQ 122
-#define SLOT_COLON 123
-#define SLOT_POW 124
-#define SLOT_MUL 125
-#define SLOT_DIV 126
-#define SLOT_ADD 127
-#define SLOT_SUB 128
-#define SLOT_INC 129
-#define SLOT_DEC 130
-#define SLOT_LOGAND 131
-#define SLOT_LOGOR 132
-#define SLOT_LOGNOT 133
-#define SLOT_BITAND 134
-#define SLOT_BITOR 135
-#define SLOT_BITXOR 136
-#define SLOT_BITNOT 137
-#define SLOT_BITANDIS 138
-#define SLOT_BITORIS 139
-#define SLOT_BITXORIS 140
-#define SLOT_BITNOTIS 141
-#define SLOT_DOT 142
-#define SLOT_LSHIFT 143
-#define SLOT_RSHIFT 144
-#define SLOT_LSHIFTIS 145
-#define SLOT_RSHIFTIS 146
+#define SLOT_UNOP_LOGNOTBITNOTINCDEC 92
+#define SLOT_SCR_TERM_FUNCTIONCALL 93
+#define SLOT_SCR_TERM_BOPENSCREXPRESSIONBCLOS 94
+#define SLOT_SCR_TERM_SCREXPRESSION 95
+#define SLOT_SCR_TERM_UNOP 96
+#define SLOT_LVALUE_LITERAL 97
+#define SLOT_LVALUE_SCRREFERENCE 98
+#define SLOT_FUNCTIONCALL_SCRREFERENCE 99
+#define SLOT_INDEX_SCREXPRESSION 100
+#define SLOT_STRINGLITERAL_NRTV 101
+#define SLOT_HASHLITERAL_CBOPENHASHELTCOMMAHA 102
+#define SLOT_HASHELT_HASHKEYCOLONHASHVALUE 103
+#define SLOT_HASHKEY_SCRTERM 104
+#define SLOT_HASHVALUE_SCRTERM 105
+#define SLOT_LISTLITERAL_ABOPENLISTELTCOMMALI 106
+#define SLOT_LISTELT_SCRTERM 107
+#define SLOT_FLOATLITERAL 108
+#define SLOT_INTLITERAL 109
+#define SLOT_BOOLEANLITERAL_TRUEFALSEKWIMPORT 110
+#define SLOT_ASSIGN 111
+#define SLOT_PLUSIS 112
+#define SLOT_MINIS 113
+#define SLOT_MULIS 114
+#define SLOT_DIVIS 115
+#define SLOT_EQUALS 116
+#define SLOT_NEQUALS 117
+#define SLOT_LT 118
+#define SLOT_GT 119
+#define SLOT_LTEQ 120
+#define SLOT_GTEQ 121
+#define SLOT_COLON 122
+#define SLOT_POW 123
+#define SLOT_MUL 124
+#define SLOT_DIV 125
+#define SLOT_ADD 126
+#define SLOT_SUB 127
+#define SLOT_INC 128
+#define SLOT_DEC 129
+#define SLOT_LOGAND 130
+#define SLOT_LOGOR 131
+#define SLOT_LOGNOT 132
+#define SLOT_BITAND 133
+#define SLOT_BITOR 134
+#define SLOT_BITXOR 135
+#define SLOT_BITNOT 136
+#define SLOT_BITANDIS 137
+#define SLOT_BITORIS 138
+#define SLOT_BITXORIS 139
+#define SLOT_BITNOTIS 140
+#define SLOT_DOT 141
+#define SLOT_LSHIFT 142
+#define SLOT_RSHIFT 143
+#define SLOT_LSHIFTIS 144
+#define SLOT_RSHIFTIS 145

@@ -144,25 +144,25 @@ ASSIGNS        <- { ASSIGN / PLUSIS / MINIS / MULIS / DIVIS /
 
 SCR_EXPRESSION <- BINOP_P12
 
-BINOP_P12      <- ( BINOP_P11 / EXPATOM ) { { LOGOR }                 ( BINOP_P11 / EXPATOM ) }*
-BINOP_P11      <- ( BINOP_P10 / EXPATOM ) { { LOGAND }                ( BINOP_P10 / EXPATOM ) }*
-BINOP_P10      <- ( BINOP_P09 / EXPATOM ) { { BITOR }                 ( BINOP_P09 / EXPATOM ) }*
-BINOP_P09      <- ( BINOP_P08 / EXPATOM ) { { BITXOR }                ( BINOP_P08 / EXPATOM ) }*
-BINOP_P08      <- ( BINOP_P07 / EXPATOM ) { { BITAND }                ( BINOP_P07 / EXPATOM ) }*
-BINOP_P07      <- ( BINOP_P06 / EXPATOM ) { { EQUALS / NEQUALS }      ( BINOP_P06 / EXPATOM ) }*
-BINOP_P06      <- ( BINOP_P05 / EXPATOM ) { { LTEQ / LT / GTEQ / GT } ( BINOP_P05 / EXPATOM ) }*
-BINOP_P05      <- ( BINOP_P04 / EXPATOM ) { { LSHIFT / RSHIFT }       ( BINOP_P04 / EXPATOM ) }*
-BINOP_P04      <- ( BINOP_P03 / EXPATOM ) { { ADD / SUB }             ( BINOP_P03 / EXPATOM ) }*
-BINOP_P03      <- (             EXPATOM ) { { MUL / DIV / POW }       (             EXPATOM ) }*
+BINOP_P12      <- ( BINOP_P11 / SCR_TERM ) { { LOGOR }                 ( BINOP_P11 / SCR_TERM ) }*
+BINOP_P11      <- ( BINOP_P10 / SCR_TERM ) { { LOGAND }                ( BINOP_P10 / SCR_TERM ) }*
+BINOP_P10      <- ( BINOP_P09 / SCR_TERM ) { { BITOR }                 ( BINOP_P09 / SCR_TERM ) }*
+BINOP_P09      <- ( BINOP_P08 / SCR_TERM ) { { BITXOR }                ( BINOP_P08 / SCR_TERM ) }*
+BINOP_P08      <- ( BINOP_P07 / SCR_TERM ) { { BITAND }                ( BINOP_P07 / SCR_TERM ) }*
+BINOP_P07      <- ( BINOP_P06 / SCR_TERM ) { { EQUALS / NEQUALS }      ( BINOP_P06 / SCR_TERM ) }*
+BINOP_P06      <- ( BINOP_P05 / SCR_TERM ) { { LTEQ / LT / GTEQ / GT } ( BINOP_P05 / SCR_TERM ) }*
+BINOP_P05      <- ( BINOP_P04 / SCR_TERM ) { { LSHIFT / RSHIFT }       ( BINOP_P04 / SCR_TERM ) }*
+BINOP_P04      <- ( BINOP_P03 / SCR_TERM ) { { ADD / SUB }             ( BINOP_P03 / SCR_TERM ) }*
+BINOP_P03      <- (             SCR_TERM ) { { MUL / DIV / POW }       (             SCR_TERM ) }*
 
-EXPATOM        <- { UNARY }* { SCR_TERM }
+UNOP           <- { LOGNOT / BITNOT / INC / DEC }
 
-UNARY          <- { LOGNOT / BITNOT / INC / DEC }
+SCR_TERM       <- { FUNCTIONCALL } /
+                  { BOPEN { SCR_EXPRESSION } BCLOSE } /
+                  { UNOP }* LVALUE
 
-SCR_TERM       <- { LITERAL } /
-                  { FUNCTIONCALL } /
-                  { SCR_REFERENCE } /
-                  { BOPEN { SCR_EXPRESSION } BCLOSE }
+LVALUE         <- { LITERAL } /
+                  { SCR_REFERENCE }
 
 FUNCTIONCALL   <- { SCR_REFERENCE }
                   BOPEN ( SCR_EXPRESSION ( COMMA SCR_EXPRESSION )* )? BCLOSE

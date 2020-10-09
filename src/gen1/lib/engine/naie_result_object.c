@@ -39,7 +39,7 @@ naie_resobj_t* naie_result_object_children
     naie_engine_t* engine,
     naie_result_t* result,
     naie_resobj_t* object,
-    unsigned i
+    int i
   );
 
 static
@@ -47,7 +47,7 @@ naie_resobj_t* naie_result_object_
   (
     naie_engine_t* engine,
     naie_result_t* result,
-    unsigned i
+    int i
   )
 {
   naie_resobj_t* object = malloc(sizeof(naie_resobj_t));
@@ -69,10 +69,11 @@ naie_resobj_t* naie_result_object_children
     naie_engine_t* engine,
     naie_result_t* result,
     naie_resobj_t* object,
-    unsigned i
+    int i
   )
 {
-  for (++i; i < result->count; i++) {
+  ++i;
+  for (; i < (int)(result->count); i++) {
     if (result->actions[ i ].start >= object->origoffset + object->stringlen) {
       break;
     }
@@ -117,5 +118,5 @@ naie_resobj_t* naie_result_object
   object->children = 0;
   object->nchildren = 0;
   
-  return naie_result_object_children(engine, result, object, 0);
+  return naie_result_object_children(engine, result, object, -1);
 }

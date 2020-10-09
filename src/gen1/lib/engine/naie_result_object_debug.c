@@ -40,7 +40,11 @@ void naie_result_object_debug_
 {
   unsigned i;
 
-  fprintf(stderr, "%.4u -", object->type);
+  if (object->type == -1) {
+    fprintf(stderr, "TOP  - ");
+  } else {
+    fprintf(stderr, "%.4u - ", object->type);
+  }
   for (i=0; i < indent; i++) { fprintf(stderr, "  "); }
   for (i=0; i < object->stringlen; i++) {
     if (!isprint(object->string[ i ])) {

@@ -140,69 +140,22 @@ ASSIGNS        <- { ASSIGN / PLUSIS / MINIS / MULIS / DIVIS /
                     BITANDIS / BITORIS / BITXORIS / BITNOTIS /
                     LSHIFTIS / RSHIFTIS }
 
--- Copied from https://en.cppreference.com/w/c/language/operator_precedence
---
--- Precedence 	Operator 	Description 	Associativity
--- 1 	++ -- 		Suffix/postfix increment and decrement 	Left-to-right
--- 	() 		Function call
--- 	[] 		Array subscripting
--- 	. 		Structure and union member access
--- 	-> 		Structure and union member access through pointer
--- 	(type){list} 	Compound literal(C99)
--- 2 	++ -- 		Prefix increment and decrement[note 1] 	Right-to-left
--- 	+ - 		Unary plus and minus
--- 	! ~ 		Logical NOT and bitwise NOT
--- 	(type) 		Cast
--- 	* 		Indirection (dereference)
--- 	& 		Address-of
--- 	sizeof 		Size-of[note 2]
--- 	_Alignof 	Alignment requirement(C11)
-
--- 3 	* / % 		Multiplication, division, and remainder Left-to-right
--- 4 	+ - 		Addition and subtraction
--- 5 	<< >> 		Bitwise left shift and right shift
--- 6 	< <= 		For relational operators < and ≤ respectively
--- 	> >= 		For relational operators > and ≥ respectively
--- 7 	== != 		For relational = and ≠ respectively
--- 8 	& 		Bitwise AND
--- 9 	^ 		Bitwise XOR (exclusive or)
--- 10 	| 		Bitwise OR (inclusive or)
--- 11 	&& 		Logical AND
--- 12 	|| 		Logical OR
-
--- 13 	?: 		Ternary conditional[note 3] 	Right-to-Left
--- 14 	= 		Simple assignment
--- 	+= -= 		Assignment by sum and difference
--- 	*= /= %= 	Assignment by product, quotient, and remainder
--- 	<<= >>= 	Assignment by bitwise left shift and right shift
--- 	&= ^= |= 	Assignment by bitwise AND, XOR, and OR
--- 15 	, 		Comma 	Left-to-right 
+-- Operator precedence from https://en.cppreference.com/w/c/language/operator_precedence
 
 SCR_EXPRESSION <- BINOP_P12
 
--- BINOP_P12      <- { BINOP_P11 } ( LOGOR BINOP_P11 )*
--- BINOP_P11      <- { BINOP_P10 } ( LOGAND BINOP_P10 )*
--- BINOP_P10      <- { BINOP_P09 } ( BITOR BINOP_P09 )*
--- BINOP_P09      <- { BINOP_P08 } ( BITXOR BINOP_P08 )*
--- BINOP_P08      <- { BINOP_P07 } ( BITAND BINOP_P07 )*
--- BINOP_P07      <- { BINOP_P06 } ( ( EQUALS / NEQUALS ) BINOP_P06 )*
--- BINOP_P06      <- { BINOP_P05 } ( ( LTEQ / LT / GTEQ / GT ) BINOP_P05 )*
--- BINOP_P05      <- { BINOP_P04 } ( ( LSHIFT / RSHIFT ) BINOP_P04 )*
--- BINOP_P04      <- { BINOP_P03 } ( ( ADD / SUB ) BINOP_P03 )*
--- BINOP_P03      <- { UNARIES }   ( ( MUL / DIV / POW ) UNARIES )*
+BINOP_P12      <- ( BINOP_P11 / EXPATOM ) { { LOGOR }                 ( BINOP_P11 / EXPATOM ) }*
+BINOP_P11      <- ( BINOP_P10 / EXPATOM ) { { LOGAND }                ( BINOP_P10 / EXPATOM ) }*
+BINOP_P10      <- ( BINOP_P09 / EXPATOM ) { { BITOR }                 ( BINOP_P09 / EXPATOM ) }*
+BINOP_P09      <- ( BINOP_P08 / EXPATOM ) { { BITXOR }                ( BINOP_P08 / EXPATOM ) }*
+BINOP_P08      <- ( BINOP_P07 / EXPATOM ) { { BITAND }                ( BINOP_P07 / EXPATOM ) }*
+BINOP_P07      <- ( BINOP_P06 / EXPATOM ) { { EQUALS / NEQUALS }      ( BINOP_P06 / EXPATOM ) }*
+BINOP_P06      <- ( BINOP_P05 / EXPATOM ) { { LTEQ / LT / GTEQ / GT } ( BINOP_P05 / EXPATOM ) }*
+BINOP_P05      <- ( BINOP_P04 / EXPATOM ) { { LSHIFT / RSHIFT }       ( BINOP_P04 / EXPATOM ) }*
+BINOP_P04      <- ( BINOP_P03 / EXPATOM ) { { ADD / SUB }             ( BINOP_P03 / EXPATOM ) }*
+BINOP_P03      <- (             EXPATOM ) { { MUL / DIV / POW }       (             EXPATOM ) }*
 
-BINOP_P12      <- { BINOP_P11 } { LOGOR SCR_EXPRESSION }*
-BINOP_P11      <- { BINOP_P10 } { LOGAND SCR_EXPRESSION }*
-BINOP_P10      <- { BINOP_P09 } { BITOR SCR_EXPRESSION }*
-BINOP_P09      <- { BINOP_P08 } { BITXOR SCR_EXPRESSION }*
-BINOP_P08      <- { BINOP_P07 } { BITAND SCR_EXPRESSION }*
-BINOP_P07      <- { BINOP_P06 } { ( EQUALS / NEQUALS ) SCR_EXPRESSION }*
-BINOP_P06      <- { BINOP_P05 } { ( LTEQ / LT / GTEQ / GT ) SCR_EXPRESSION }*
-BINOP_P05      <- { BINOP_P04 } { ( LSHIFT / RSHIFT ) SCR_EXPRESSION }*
-BINOP_P04      <- { BINOP_P03 } { ( ADD / SUB ) SCR_EXPRESSION }*
-BINOP_P03      <- { UNARIES }   { ( MUL / DIV / POW ) SCR_EXPRESSION }*
-
-UNARIES        <- { UNARY }* { SCR_TERM }
+EXPATOM        <- { UNARY }* { SCR_TERM }
 
 UNARY          <- { LOGNOT / BITNOT / INC / DEC }
 
@@ -214,7 +167,7 @@ SCR_TERM       <- { LITERAL } /
 FUNCTIONCALL   <- { SCR_REFERENCE }
                   BOPEN ( SCR_EXPRESSION ( COMMA SCR_EXPRESSION )* )? BCLOSE
 
-SCR_REFERENCE  <- IDENT ( DOT SCR_REFERENCE )* INDEX*
+SCR_REFERENCE  <- IDENT INDEX* ( DOT SCR_REFERENCE )*
 
 INDEX          <- ABOPEN { SCR_EXPRESSION } ABCLOSE
 

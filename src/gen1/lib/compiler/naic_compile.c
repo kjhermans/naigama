@@ -11,6 +11,9 @@
  * \brief
  */
 
+#include <sys/types.h>
+#include <sys/stat.h>
+
 #include "naic_private.h"
 
 static
@@ -20,6 +23,8 @@ static
 NAIG_ERR_T naic_engine_debug_cont
   (naie_engine_t* engine, uint32_t opcode, void* ptr)
 {
+  (void)ptr;
+
   if (opcode == 0xffffffff) {
     fprintf(stderr, "======== FAIL\n");
   } else {
@@ -55,7 +60,14 @@ NAIG_ERR_T naic_compile
     )
   );
   if (flags & NAIC_FLG_DEBUG) {
+    struct stat s;
+    fprintf(stderr, "Running compiler in debug mode.\n");
+    engine.flags |= NAIE_FLAG_DEBUG;
     engine.debugger = naic_engine_debug_cont;
+    if (stat("grammar.byc.labelmap", &s) == 0) {
+      fprintf(stderr, "Loading labelmap for grammar bytecode.\n");
+      CHECK(naie_set_labelmap(&engine, "grammar.byc.labelmap"));
+    }
   }
   e = naie_engine_run(&engine, &result);
   if (e.code == 1) { //NAIG_FAILURE) {

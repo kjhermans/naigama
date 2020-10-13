@@ -10,7 +10,7 @@ __prefix           <- ( COMMENT / S )*
 
 END                <- !.
 
-DEFINITION         <- FUNCDECL / RULE
+DEFINITION         <- { FUNCDECL } / { RULE }
 
 SINGLE_EXPRESSION  <- EXPRESSION
 
@@ -113,7 +113,7 @@ LOWSTMT        <- { ST_IF } /
                   { ST_OTHER } /
                   { VARDECL } /
                   { ASSIGNMENT } /
-                  ( SCR_EXPRESSION )? SEMICOLON
+                  { SCR_EXPRESSION }? SEMICOLON
 
 ST_IF          <- KW_IF BOPEN { SCR_EXPRESSION } BCLOSE
                     CBOPEN { LOWSTMT* } CBCLOSE
@@ -144,30 +144,28 @@ ASSIGNS        <- { ASSIGN / PLUSIS / MINIS / MULIS / DIVIS /
 
 SCR_EXPRESSION <- BINOP_P12
 
-BINOP_P12      <- ( BINOP_P11 / SCR_TERM ) { { LOGOR }                 ( BINOP_P11 / SCR_TERM ) }*
-BINOP_P11      <- ( BINOP_P10 / SCR_TERM ) { { LOGAND }                ( BINOP_P10 / SCR_TERM ) }*
-BINOP_P10      <- ( BINOP_P09 / SCR_TERM ) { { BITOR }                 ( BINOP_P09 / SCR_TERM ) }*
-BINOP_P09      <- ( BINOP_P08 / SCR_TERM ) { { BITXOR }                ( BINOP_P08 / SCR_TERM ) }*
-BINOP_P08      <- ( BINOP_P07 / SCR_TERM ) { { BITAND }                ( BINOP_P07 / SCR_TERM ) }*
-BINOP_P07      <- ( BINOP_P06 / SCR_TERM ) { { EQUALS / NEQUALS }      ( BINOP_P06 / SCR_TERM ) }*
-BINOP_P06      <- ( BINOP_P05 / SCR_TERM ) { { LTEQ / LT / GTEQ / GT } ( BINOP_P05 / SCR_TERM ) }*
-BINOP_P05      <- ( BINOP_P04 / SCR_TERM ) { { LSHIFT / RSHIFT }       ( BINOP_P04 / SCR_TERM ) }*
-BINOP_P04      <- ( BINOP_P03 / SCR_TERM ) { { ADD / SUB }             ( BINOP_P03 / SCR_TERM ) }*
-BINOP_P03      <- (             SCR_TERM ) { { MUL / DIV / POW }       (             SCR_TERM ) }*
+BINOP_P12      <- ( BINOP_P11 / SCR_TERM ) { ( LOGOR )                 ( BINOP_P11 / SCR_TERM ) }*
+BINOP_P11      <- ( BINOP_P10 / SCR_TERM ) { ( LOGAND )                ( BINOP_P10 / SCR_TERM ) }*
+BINOP_P10      <- ( BINOP_P09 / SCR_TERM ) { ( BITOR )                 ( BINOP_P09 / SCR_TERM ) }*
+BINOP_P09      <- ( BINOP_P08 / SCR_TERM ) { ( BITXOR )                ( BINOP_P08 / SCR_TERM ) }*
+BINOP_P08      <- ( BINOP_P07 / SCR_TERM ) { ( BITAND )                ( BINOP_P07 / SCR_TERM ) }*
+BINOP_P07      <- ( BINOP_P06 / SCR_TERM ) { ( EQUALS / NEQUALS )      ( BINOP_P06 / SCR_TERM ) }*
+BINOP_P06      <- ( BINOP_P05 / SCR_TERM ) { ( LTEQ / LT / GTEQ / GT ) ( BINOP_P05 / SCR_TERM ) }*
+BINOP_P05      <- ( BINOP_P04 / SCR_TERM ) { ( LSHIFT / RSHIFT )       ( BINOP_P04 / SCR_TERM ) }*
+BINOP_P04      <- ( BINOP_P03 / SCR_TERM ) { ( ADD / SUB )             ( BINOP_P03 / SCR_TERM ) }*
+BINOP_P03      <- (             SCR_TERM ) { ( MUL / DIV / POW )       (             SCR_TERM ) }*
 
 UNOP           <- { LOGNOT / BITNOT / INC / DEC }
 
 SCR_TERM       <- { FUNCTIONCALL } /
                   { BOPEN { SCR_EXPRESSION } BCLOSE } /
-                  { UNOP }* LVALUE
-
-LVALUE         <- { LITERAL } /
-                  { SCR_REFERENCE }
+                  { LITERAL } /
+                  { UNOP }* { SCR_REFERENCE }
 
 FUNCTIONCALL   <- { SCR_REFERENCE }
-                  BOPEN ( SCR_EXPRESSION ( COMMA SCR_EXPRESSION )* )? BCLOSE
+                  BOPEN ( { SCR_EXPRESSION } ( COMMA { SCR_EXPRESSION } )* )? BCLOSE
 
-SCR_REFERENCE  <- IDENT INDEX* ( DOT SCR_REFERENCE )*
+SCR_REFERENCE  <- { IDENT } INDEX* ( DOT SCR_REFERENCE )*
 
 INDEX          <- ABOPEN { SCR_EXPRESSION } ABCLOSE
 

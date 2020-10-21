@@ -47,5 +47,9 @@ NAIG_ERR_T naic_compile_function
   );
   // CHECK(naic_compile_function_params(naic, func->children[1]));
   CHECK(naic_compile_function_body(naic, func->children[2]));
+  CHECK(naic->write(naic->write_arg,
+    "  __s:push __void\n"
+    "  __s:ret\n"
+  ));
   return NAIG_OK;
 }

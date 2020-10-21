@@ -36,13 +36,23 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /**
  *
  */
-NAIG_ERR_T naic_compile_function_stmt
-  (naic_t* naic, naie_resobj_t* stmt)
+NAIG_ERR_T naic_firstpass_function
+  (naic_t* naic, naie_resobj_t* func)
 {
-  switch (stmt->children[0]->type) {
-  case SLOT_LOWSTMT_SCREXPRESSION:
-    CHECK(naic_compile_expr(naic, stmt->children[0]));
-    break;
+  naic_nspent_t entry = {
+    .key = func->children[0]->string,
+    .type = NAIC_NSPTYPE_FUNCTION,
+    .value.function.paramcount = 0
+  };
+  unsigned i;
+
+  for (i=0; i < func->children[1]->nchildren; i++) {
+    char* param = func->children[1]->children[i]->children[0]->string;
+    entry.value.function.params[ entry.value.function.paramcount ].name = param;
+    TODO("Implement param type at function first pass");
+    entry.value.function.params[ entry.value.function.paramcount ].type = NULL;
+    (entry.value.function.paramcount)++;
   }
+  CHECK(naic_nsp_add(naic, entry));
   return NAIG_OK;
 }

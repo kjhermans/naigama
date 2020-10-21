@@ -36,13 +36,24 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /**
  *
  */
-NAIG_ERR_T naic_compile_function_stmt
-  (naic_t* naic, naie_resobj_t* stmt)
+NAIG_ERR_T naic_nsp_add
+  (naic_t* naic, naic_nspent_t entry)
 {
-  switch (stmt->children[0]->type) {
-  case SLOT_LOWSTMT_SCREXPRESSION:
-    CHECK(naic_compile_expr(naic, stmt->children[0]));
-    break;
+  unsigned i;
+
+  for (i=0; i < naic->nsp.count; i++) {
+    if (0 == strcmp(naic->nsp.entries[ i ].key, entry.key)) {
+      return NAIC_ERR_NAMESPACE;
+    }
   }
+  if (naic->nsp.count >= naic->nsp.length) {
+    naic->nsp.length += 32;
+    naic->nsp.entries = realloc(
+      naic->nsp.entries,
+      sizeof(naic_nspent_t) * (naic->nsp.length)
+    );
+  }
+fprintf(stderr, "Namespace add '%s'\n", entry.key);
+  naic->nsp.entries[ (naic->nsp.count)++ ] = entry;
   return NAIG_OK;
 }

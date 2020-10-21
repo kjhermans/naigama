@@ -37,7 +37,25 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
 NAIG_ERR_T naic_compile_rule
-  (naic_t* naic, naie_resobj_t* top)
+  (naic_t* naic, naie_resobj_t* rule)
 {
+  naie_result_object_debug(rule);
+  unsigned i;
+  char success[ 64 ], alt[ 64 ];
+
+  snprintf(success, sizeof(success), "__SUCCESS_%u", ++(naic->labelcount));
+  for (i=1; i < rule->nchildren - 1; i++) {
+    snprintf(alt, sizeof(alt), "__ALT_%u", ++(naic->labelcount));
+    CHECK(naic->write(naic->write_arg, "  catch %s\n", alt));
+    CHECK(naic->write(naic->write_arg, "-- alternative %u in rule %s\n", i, rule->children[0]->string));
+    //.. go into rule->children[ i ]
+    CHECK(naic->write(naic->write_arg, "-- /alternative %u in rule %s\n", i, rule->children[0]->string));
+    CHECK(naic->write(naic->write_arg, "  commit %s\n", success));
+    CHECK(naic->write(naic->write_arg, "%s:\n", alt));
+  }
+  CHECK(naic->write(naic->write_arg, "-- alternative %u in rule %s\n", i, rule->children[0]->string));
+  //.. go into rule->children[ i ]
+  CHECK(naic->write(naic->write_arg, "-- /alternative %u in rule %s\n", i, rule->children[0]->string));
+  CHECK(naic->write(naic->write_arg, "%s:\n", success));
   return NAIG_OK;
 }

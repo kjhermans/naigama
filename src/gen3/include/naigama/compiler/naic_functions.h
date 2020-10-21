@@ -42,7 +42,7 @@ NAIG_ERR_T naic_compile_expr_literal
 /* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_compile_expr_reference.c */
 extern
 NAIG_ERR_T naic_compile_expr_reference
-  (naic_t* naic, naie_resobj_t* lit)
+  (naic_t* naic, naie_resobj_t* ref)
   __attribute__ ((warn_unused_result));
 
 /* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_compile_function.c */
@@ -66,13 +66,49 @@ NAIG_ERR_T naic_compile_function_stmt
 /* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_compile_rule.c */
 extern
 NAIG_ERR_T naic_compile_rule
-  (naic_t* naic, naie_resobj_t* top)
+  (naic_t* naic, naie_resobj_t* rule)
   __attribute__ ((warn_unused_result));
 
 /* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_compile_top.c */
 extern
 NAIG_ERR_T naic_compile_top
   (naic_t* naic, naie_resobj_t* top)
+  __attribute__ ((warn_unused_result));
+
+/* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_firstpass_function.c */
+extern
+NAIG_ERR_T naic_firstpass_function
+  (naic_t* naic, naie_resobj_t* func)
+  __attribute__ ((warn_unused_result));
+
+/* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_firstpass_rule.c */
+extern
+NAIG_ERR_T naic_firstpass_rule
+  (naic_t* naic, naie_resobj_t* rule)
+  __attribute__ ((warn_unused_result));
+
+/* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_nsp_add.c */
+extern
+NAIG_ERR_T naic_nsp_add
+  (naic_t* naic, naic_nspent_t entry)
+  __attribute__ ((warn_unused_result));
+
+/* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_nsp_function_def_add.c */
+extern
+NAIG_ERR_T naic_nsp_function_def_add
+  (naic_t* naic, char* string)
+  __attribute__ ((warn_unused_result));
+
+/* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_nsp_rule_def_add.c */
+extern
+NAIG_ERR_T naic_nsp_rule_def_add
+  (naic_t* naic, char* string)
+  __attribute__ ((warn_unused_result));
+
+/* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_nsp_rule_ref_add.c */
+extern
+NAIG_ERR_T naic_nsp_rule_ref_add
+  (naic_t* naic, char* string)
   __attribute__ ((warn_unused_result));
 
 /* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_slotmap_write.c */

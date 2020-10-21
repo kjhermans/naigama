@@ -36,13 +36,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /**
  *
  */
-NAIG_ERR_T naic_compile_function_stmt
-  (naic_t* naic, naie_resobj_t* stmt)
+NAIG_ERR_T naic_nsp_rule_ref_add
+  (naic_t* naic, char* string)
 {
-  switch (stmt->children[0]->type) {
-  case SLOT_LOWSTMT_SCREXPRESSION:
-    CHECK(naic_compile_expr(naic, stmt->children[0]));
-    break;
-  }
-  return NAIG_OK;
 }

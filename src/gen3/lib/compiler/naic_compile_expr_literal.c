@@ -43,7 +43,7 @@ NAIG_ERR_T naic_compile_expr_literal
   case SLOT_INTLITERAL:
     CHECK(
       naic->write(naic->write_arg,
-        "  push %s\n"
+        "  __s:push %s\n"
         , lit->children[ 0 ]->string
       )
     );

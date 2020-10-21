@@ -33,16 +33,29 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "naic_private.h"
 
+static
+NAIG_ERR_T naic_firstpass_rule_namespace_refs
+  (naic_t* naic, naie_resobj_t* rule)
+{
+  unsigned i;
+
+  for (i=0; i < rule->nchildren; i++) {
+    if (rule->children[ i ]->type == SLOT_MATCHER_REFERENCE) {
+      CHECK(naic_nsp_rule_ref_add(naic, rule->string));
+    } else {
+      CHECK(naic_firstpass_rule_namespace_refs(naic, rule->children[ i ]));
+    }
+  }
+  return NAIG_OK;
+}
+
 /**
  *
  */
-NAIG_ERR_T naic_compile_function_stmt
-  (naic_t* naic, naie_resobj_t* stmt)
+NAIG_ERR_T naic_firstpass_rule
+  (naic_t* naic, naie_resobj_t* rule)
 {
-  switch (stmt->children[0]->type) {
-  case SLOT_LOWSTMT_SCREXPRESSION:
-    CHECK(naic_compile_expr(naic, stmt->children[0]));
-    break;
-  }
+  CHECK(naic_nsp_rule_def_add(naic, rule->children[0]->string));
+  CHECK(naic_firstpass_rule_namespace_refs(naic, rule));
   return NAIG_OK;
 }

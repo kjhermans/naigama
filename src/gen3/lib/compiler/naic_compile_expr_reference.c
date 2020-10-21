@@ -42,7 +42,7 @@ NAIG_ERR_T naic_compile_expr_reference
   unsigned i;
 
   for (i=0; i < ref->nchildren; i++) {
-    if (ref->children[ i ].type == SLOT_SCR_REFERENCE_IDENT) {
+    if (ref->children[ i ]->type == SLOT_SCR_REFERENCE_IDENT) {
       
     }
   }

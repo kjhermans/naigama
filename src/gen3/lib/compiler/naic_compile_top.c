@@ -41,6 +41,18 @@ NAIG_ERR_T naic_compile_top
 {
   unsigned i;
 
+  /** first pass **/
+  for (i=0; i < top->nchildren; i++) {
+    switch (top->children[ i ]->type) {
+    case SLOT_DEFINITION_RULE:
+      CHECK(naic_firstpass_rule(naic, top->children[ i ]));
+      break;
+    case SLOT_DEFINITION_FUNCDECL:
+      CHECK(naic_firstpass_function(naic, top->children[ i ]));
+      break;
+    }
+  }
+  /** second pass **/
   for (i=0; i < top->nchildren; i++) {
     switch (top->children[ i ]->type) {
     case SLOT_DEFINITION_RULE:

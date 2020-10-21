@@ -82,7 +82,6 @@ NAIG_ERR_T naic_compile
   }
   memset(&naic, 0, sizeof(naic));
   naic.grammar     = grammar;
-  naic.captures    = &result;
   naic.capindex    = 0;
   naic.slotmap     = slots;
   naic.labelcount  = 0;

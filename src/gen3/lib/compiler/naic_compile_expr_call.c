@@ -46,7 +46,7 @@ NAIG_ERR_T naic_compile_expr_call
   }
   CHECK(
     naic->write(naic->write_arg,
-      "  call __FUNC_%s\n"
+      "  __s:call __FUNC_%s\n"
       , stmt->children[0]->string
     )
   );

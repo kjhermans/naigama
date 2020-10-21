@@ -47,10 +47,10 @@ NAIG_ERR_T naic_compile_expr
       CHECK(naic_compile_expr(naic, expr->children[ i ]));
       switch (expr->children[ i ]->children[ 0 ]->type) {
       case SLOT_ADD:
-        CHECK(naic->write(naic->write_arg, "  add\n"));
+        CHECK(naic->write(naic->write_arg, "  __s:add\n"));
         break;
       case SLOT_SUB:
-        CHECK(naic->write(naic->write_arg, "  sub\n"));
+        CHECK(naic->write(naic->write_arg, "  __s:sub\n"));
         break;
       }
       break;
@@ -58,13 +58,13 @@ NAIG_ERR_T naic_compile_expr
       CHECK(naic_compile_expr(naic, expr->children[ i ]));
       switch (expr->children[ i ]->children[ 0 ]->type) {
       case SLOT_MUL:
-        CHECK(naic->write(naic->write_arg, "  mul\n"));
+        CHECK(naic->write(naic->write_arg, "  __s:mul\n"));
         break;
       case SLOT_DIV:
-        CHECK(naic->write(naic->write_arg, "  div\n"));
+        CHECK(naic->write(naic->write_arg, "  __s:div\n"));
         break;
       case SLOT_POW:
-        CHECK(naic->write(naic->write_arg, "  pow\n"));
+        CHECK(naic->write(naic->write_arg, "  __s:pow\n"));
         break;
       }
       break;
@@ -78,7 +78,7 @@ NAIG_ERR_T naic_compile_expr
       CHECK(naic_compile_expr_reference(naic, expr->children[ i ]));
       break;
     default:
-      fprintf(stderr, "TYPE: %u\n", expr->children[ i ]->type);
+      //fprintf(stderr, "TYPE: %u\n", expr->children[ i ]->type);
       break;
     }
   }

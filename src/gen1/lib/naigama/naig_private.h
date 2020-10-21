@@ -43,7 +43,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifdef TODO
 #undef TODO
 #endif
-#define TODO(str) fprintf(stderr, "TODO: %s\n", str);
+#define TODO(__str) \
+  fprintf(stderr, "TODO: %s in %s:%d\n", __str, __FILE__, __LINE__)
 
 #ifdef _DEBUG
 #define DEBUG(__e) { \

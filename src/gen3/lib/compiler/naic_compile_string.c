@@ -33,11 +33,30 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "naic_private.h"
 
+static
+NAIG_ERR_T naic_compile_char
+  (naic_t* naic, unsigned chr, int last)
+{
+  (void)last;
+
+  CHECK(naic->write(naic->write_arg, "  char %.2x\n", chr));
+  return NAIG_OK;
+}
+
 /**
  *
  */
-NAIG_ERR_T naic_nsp_rule_ref_add
-  (naic_t* naic, char* string)
+NAIG_ERR_T naic_compile_string
+  (naic_t* naic, naie_resobj_t* string)
 {
+  string = string->children[ 0 ];
+  CHECK(
+    naic_string_unescape(
+      naic,
+      string->origoffset,
+      string->origoffset + string->stringlen,
+      naic_compile_char
+    )
+  );
   return NAIG_OK;
 }

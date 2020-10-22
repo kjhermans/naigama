@@ -36,8 +36,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /**
  *
  */
-NAIG_ERR_T naic_nsp_rule_ref_add
-  (naic_t* naic, char* string)
+NAIG_ERR_T naic_compile_endforce
+  (naic_t* naic, naie_resobj_t* end)
 {
+  CHECK(naic->write(naic->write_arg, "  end %d\n", atoi(end->children[ 0 ]->string)));
   return NAIG_OK;
 }

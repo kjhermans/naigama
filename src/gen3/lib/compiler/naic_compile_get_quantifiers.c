@@ -36,8 +36,45 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /**
  *
  */
-NAIG_ERR_T naic_nsp_rule_ref_add
-  (naic_t* naic, char* string)
+NAIG_ERR_T naic_compile_get_quantifiers
+  (naie_resobj_t* quant, int range[ 2 ])
 {
+  switch (quant->children[ 0 ]->type) {
+  case SLOT_QUANTIFIER:
+    range[ 0 ] = 0;
+    range[ 1 ] = 1;
+    break;
+  case SLOT_QUANTIFIER_1:
+    range[ 0 ] = 1;
+    range[ 1 ] = -1;
+    break;
+  case SLOT_QUANTIFIER_2:
+    range[ 0 ] = 0;
+    range[ 1 ] = -1;
+    break;
+  case SLOT_QUANTIFIER_3: //  case SLOT_QUANTIFIER_4:
+    range[ 0 ] = atoi(quant->children[ 0 ]->string);
+    range[ 1 ] = atoi(quant->children[ 1 ]->string);
+    if (range[ 0 ] > range[ 1 ]) {
+      return NAIC_ERR_QUANTIFIER;
+    }
+    break;
+  case SLOT_QUANTIFIER_5:
+    range[ 0 ] = 0;
+    range[ 1 ] = atoi(quant->children[ 0 ]->string);
+    break;
+  case SLOT_QUANTIFIER_6:
+    range[ 0 ] = atoi(quant->children[ 0 ]->string);
+    range[ 1 ] = -1;
+    break;
+  case SLOT_QUANTIFIER_7:
+    range[ 0 ] = atoi(quant->children[ 0 ]->string);
+    range[ 1 ] = range[ 0 ];
+    break;
+//  case SLOT_QUANTIFIER_IDENT:
+  }
+  if (range[ 0 ] == 0 && range[ 1 ] == 0) {
+    return NAIC_ERR_QUANTIFIER;
+  }
   return NAIG_OK;
 }

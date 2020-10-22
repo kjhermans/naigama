@@ -4,9 +4,11 @@ GRAMMAR            <- ( DEFINITION+ / SINGLE_EXPRESSION ) END
 
 S                  <- %s+
 
+MULTILINECOMMENT   <- '--[[' ( !']]' .)* ']]'
+
 COMMENT            <- '--' [^\n]* '\n'
 
-__prefix           <- ( COMMENT / S )*
+__prefix           <- ( MULTILINECOMMENT / COMMENT / S )*
 
 END                <- !.
 
@@ -22,13 +24,15 @@ EXPRESSION         <- { TERMS } OR NOTHING /
 
 TERMS              <- { TERM }+
 
-TERM               <- { ENDOWEDMATCHER }
+TERM               <- { SCANMATCHER } / { QUANTIFIEDMATCHER }
 
-ENDOWEDMATCHER     <- { NOT / AND }? MATCHER { QUANTIFIER }?
+SCANMATCHER        <- ( { NOT } / { AND } ) MATCHER
 
-QUANTIFIER         <- '?' /
-                      '+' /
-                      '*' /
+QUANTIFIEDMATCHER  <- MATCHER { QUANTIFIER }?
+
+QUANTIFIER         <- { '?' } /
+                      { '+' } /
+                      { '*' } /
                       '^' { [0-9]+ } '-' { [0-9]+ } /
                       '^' '-' { [0-9]+ } /
                       '^' { [0-9]+ } '-' /
@@ -59,7 +63,7 @@ TYPE               <- { 'uint32' / 'int32' }
 
 CAPTURE            <- CBOPEN EXPRESSION { CBCLOSE } CAPTUREEND
 
-GROUP              <- BOPEN EXPRESSION { BCLOSE }
+GROUP              <- BOPEN EXPRESSION BCLOSE
 
 CAPTUREEND         <- ( REPLACE / RECYCLE )?
 
@@ -68,7 +72,7 @@ SET                <- ABOPEN { SETNOT? } (
                         { '\\' ([nrtv\\\]\-] / [0-9]^3) / [^\\\]] }
                         /
                         { '\\' ([nrtv\\\]\-] / [0-9]^3) / [^\\\]] }
-                      )+ { ABCLOSE }
+                      )+ ABCLOSE
 
 VARREFERENCE       <- '$' ( { IDENT } / { NUMBER } )
 
@@ -155,7 +159,7 @@ BINOP_P05      <- ( BINOP_P04 / SCR_TERM ) { ( LSHIFT / RSHIFT )       ( BINOP_P
 BINOP_P04      <- ( BINOP_P03 / SCR_TERM ) { ( ADD / SUB )             ( BINOP_P03 / SCR_TERM ) }*
 BINOP_P03      <- (             SCR_TERM ) { ( MUL / DIV / POW )       (             SCR_TERM ) }*
 
-UNOP           <- { LOGNOT / BITNOT / INC / DEC }
+UNOP           <- { LOGNOT / BITNOT } -- todo: increment and decrement optors
 
 SCR_TERM       <- { FUNCTIONCALL } /
                   { BOPEN { SCR_EXPRESSION } BCLOSE } /

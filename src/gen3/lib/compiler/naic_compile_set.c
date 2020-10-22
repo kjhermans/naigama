@@ -33,11 +33,71 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "naic_private.h"
 
+static
+unsigned naic_set_char
+  (char* chr)
+{
+  switch (*chr) {
+  case '\\':
+    ++chr;
+    switch (*chr) {
+    case 'n':
+      return (unsigned)'\n';
+    case 'r':
+      return (unsigned)'\r';
+    case 't':
+      return (unsigned)'\t';
+    case 'v':
+      return (unsigned)'\v';
+    case '\\':
+      return (unsigned)'\\';
+    case ']':
+      return (unsigned)']';
+    case '0': case '1': case '2': case '3': case '4':
+    case '5': case '6': case '7': case '8': case '9':
+      return octal(chr[0], chr[1], chr[2]);
+    }
+  default:
+    return (unsigned)(*chr);
+  }
+}
+
 /**
  *
  */
-NAIG_ERR_T naic_nsp_rule_ref_add
-  (naic_t* naic, char* string)
+NAIG_ERR_T naic_compile_set
+  (naic_t* naic, naie_resobj_t* set)
 {
+  unsigned char bitmask[ 32 ] = { 0 };
+  int invert = 0;
+  unsigned i;
+
+  if (set->children[ 0 ]->type == SLOT_SET_SETNOT
+      && 0 == strcmp(set->children[ 0 ]->string, "^"))
+  {
+    invert = 1;
+  }
+  for (i=1; i < set->nchildren; i++) {
+    if (set->children[ i ]->type == SLOT_SET_NRTV) {
+      unsigned from = naic_set_char(set->children[ i ]->string);
+      unsigned until = naic_set_char(set->children[ ++i ]->string);
+      for (; from <= until; from++) {
+        NAIC_SET_BIT_SET(bitmask, from);
+      }
+    } else if (set->children[ i ]->type == SLOT_SET_NRTV_2) {
+      unsigned chr = naic_set_char(set->children[ i ]->string);
+      NAIC_SET_BIT_SET(bitmask, chr);
+    }
+  }
+  if (invert) {
+    for (i=0; i < sizeof(bitmask); i++) {
+      bitmask[ i ] = ~bitmask[ i ];
+    }
+  }
+  CHECK(naic->write(naic->write_arg, "  set "));
+  for (i=0; i < sizeof(bitmask); i++) {
+    CHECK(naic->write(naic->write_arg, "%.2x", bitmask[ i ]));
+  }
+  CHECK(naic->write(naic->write_arg, "\n"));
   return NAIG_OK;
 }

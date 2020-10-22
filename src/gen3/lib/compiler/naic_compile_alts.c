@@ -36,8 +36,21 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /**
  *
  */
-NAIG_ERR_T naic_nsp_rule_ref_add
-  (naic_t* naic, char* string)
+NAIG_ERR_T naic_compile_alts
+  (naic_t* naic, naie_resobj_t* alts, unsigned off)
 {
+  unsigned i;
+  char success[ 64 ], alt[ 64 ];
+
+  snprintf(success, sizeof(success), "__SUCCESS_%u", ++(naic->labelcount));
+  for (i=off; i < alts->nchildren - 1; i++) {
+    snprintf(alt, sizeof(alt), "__ALT_%u", ++(naic->labelcount));
+    CHECK(naic->write(naic->write_arg, "  catch %s\n", alt));
+    CHECK(naic_compile_terms(naic, alts->children[ i ]));
+    CHECK(naic->write(naic->write_arg, "  commit %s\n", success));
+    CHECK(naic->write(naic->write_arg, "%s:\n", alt));
+  }
+  CHECK(naic_compile_terms(naic, alts->children[ i ]));
+  CHECK(naic->write(naic->write_arg, "%s:\n", success));
   return NAIG_OK;
 }

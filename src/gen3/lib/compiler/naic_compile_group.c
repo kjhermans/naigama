@@ -36,8 +36,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /**
  *
  */
-NAIG_ERR_T naic_nsp_rule_ref_add
-  (naic_t* naic, char* string)
+NAIG_ERR_T naic_compile_group
+  (naic_t* naic, naie_resobj_t* group)
 {
+  CHECK(naic_compile_alts(naic, group, 0));
   return NAIG_OK;
 }

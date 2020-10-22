@@ -36,8 +36,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /**
  *
  */
-NAIG_ERR_T naic_nsp_rule_ref_add
-  (naic_t* naic, char* string)
+NAIG_ERR_T naic_compile_term
+  (naic_t* naic, naie_resobj_t* term)
 {
+  if (term->children[ 0 ]->type == SLOT_TERM_SCANMATCHER) {
+    CHECK(naic_compile_term_notand(naic, term));
+  } else if (term->children[ 0 ]->type == SLOT_TERM_QUANTIFIEDMATCHER) {
+    CHECK(naic_compile_term_quantified(naic, term));
+  }
   return NAIG_OK;
 }

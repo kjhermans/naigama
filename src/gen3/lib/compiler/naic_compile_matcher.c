@@ -36,8 +36,42 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /**
  *
  */
-NAIG_ERR_T naic_nsp_rule_ref_add
-  (naic_t* naic, char* string)
+NAIG_ERR_T naic_compile_matcher
+  (naic_t* naic, naie_resobj_t* matcher)
 {
+  switch (matcher->type) {
+  case SLOT_MATCHER_ANY:
+    CHECK(naic_compile_any(naic));
+    break;
+  case SLOT_MATCHER_SET:
+    CHECK(naic_compile_set(naic, matcher));
+    break;
+  case SLOT_MATCHER_STRING:
+    CHECK(naic_compile_string(naic, matcher));
+    break;
+  case SLOT_MATCHER_BITMASK:
+    break;
+  case SLOT_MATCHER_HEXLITERAL:
+    CHECK(naic_compile_hexliteral(naic, matcher));
+    break;
+  case SLOT_MATCHER_VARCAPTURE:
+    break;
+  case SLOT_MATCHER_CAPTURE:
+    break;
+  case SLOT_MATCHER_GROUP:
+    CHECK(naic_compile_group(naic, matcher));
+    break;
+  case SLOT_MATCHER_MACRO:
+    CHECK(naic_compile_macro(naic, matcher));
+    break;
+  case SLOT_MATCHER_ENDFORCE:
+    CHECK(naic_compile_endforce(naic, matcher));
+    break;
+  case SLOT_MATCHER_VARREFERENCE:
+    break;
+  case SLOT_MATCHER_REFERENCE:
+    CHECK(naic_compile_reference(naic, matcher));
+    break;
+  }
   return NAIG_OK;
 }

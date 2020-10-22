@@ -1,5 +1,5 @@
-CFILES:=$(shell find . -type f,l | grep '\.c$$')
-OBJECTS:=$(shell find . -type f,l | grep '\.c$$' | sort | sed -e 's/\.c$$/.o/')
+CFILES:=$(shell ls *.c')
+OBJECTS:=$(shell ls *.c | sort | sed -e 's/\.c$$/.o/')
 LIB=libnaic.a
 CC=$(ARCH)gcc
 AR=$(ARCH)ar

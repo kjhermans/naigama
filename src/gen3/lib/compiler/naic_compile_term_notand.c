@@ -36,8 +36,22 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /**
  *
  */
-NAIG_ERR_T naic_nsp_rule_ref_add
-  (naic_t* naic, char* string)
+NAIG_ERR_T naic_compile_term_notand
+  (naic_t* naic, naie_resobj_t* term)
 {
+  char labelout[ 64 ];
+
+  snprintf(labelout, sizeof(labelout), "__SCANNER_%u", ++(naic->labelcount));
+  CHECK(naic->write(naic->write_arg, "  catch %s\n", labelout));
+  CHECK(naic_compile_matcher(naic, term->children[ 0 ]->children[ 1 ]));
+  if (term->children[ 0 ]->children[ 0 ]->type == SLOT_SCANMATCHER_NOT) {
+    CHECK(naic->write(naic->write_arg, "  failtwice\n"));
+    CHECK(naic->write(naic->write_arg, "%s:\n", labelout));
+  } else if (term->children[ 0 ]->children[ 0 ]->type == SLOT_SCANMATCHER_AND) {
+    CHECK(naic->write(naic->write_arg, "  backcommit %s_OUT\n", labelout));
+    CHECK(naic->write(naic->write_arg, "%s:\n", labelout));
+    CHECK(naic->write(naic->write_arg, "  fail\n"));
+    CHECK(naic->write(naic->write_arg, "%s_OUT:\n", labelout));
+  }
   return NAIG_OK;
 }

@@ -36,8 +36,31 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /**
  *
  */
-NAIG_ERR_T naic_nsp_rule_ref_add
-  (naic_t* naic, char* string)
+NAIG_ERR_T naic_compile_term_quantified
+  (naic_t* naic, naie_resobj_t* term)
 {
+  int range[ 2 ];
+
+  if (term->children[ 0 ]->nchildren == 1) {
+    CHECK(naic_compile_matcher(naic, term->children[ 0 ]->children[ 0 ]));
+  } else {
+    CHECK(
+      naic_compile_get_quantifiers(
+        term->children[ 0 ]->children[ 1 ],
+        range
+      )
+    );
+    if (range[ 0 ] == 1 && range[ 1 ] == 1) {
+      CHECK(naic_compile_matcher(naic, term->children[ 0 ]->children[ 0 ]));
+    } else {
+      CHECK(
+        naic_compile_quantified_matcher(
+          naic,
+          term->children[ 0 ]->children[ 0 ],
+          range
+        )
+      );
+    }
+  }
   return NAIG_OK;
 }

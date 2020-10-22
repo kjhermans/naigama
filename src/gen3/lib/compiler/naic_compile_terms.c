@@ -36,8 +36,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /**
  *
  */
-NAIG_ERR_T naic_nsp_rule_ref_add
-  (naic_t* naic, char* string)
+NAIG_ERR_T naic_compile_terms
+  (naic_t* naic, naie_resobj_t* terms)
 {
+  unsigned i;
+
+  for (i=0; i < terms->nchildren; i++) {
+    CHECK(naic_compile_term(naic, terms->children[ i ]));
+  }
   return NAIG_OK;
 }

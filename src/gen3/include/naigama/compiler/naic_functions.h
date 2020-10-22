@@ -21,6 +21,24 @@ NAIG_ERR_T naic_compile
   )
   __attribute__ ((warn_unused_result));
 
+/* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_compile_alts.c */
+extern
+NAIG_ERR_T naic_compile_alts
+  (naic_t* naic, naie_resobj_t* alts, unsigned off)
+  __attribute__ ((warn_unused_result));
+
+/* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_compile_any.c */
+extern
+NAIG_ERR_T naic_compile_any
+  (naic_t* naic)
+  __attribute__ ((warn_unused_result));
+
+/* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_compile_endforce.c */
+extern
+NAIG_ERR_T naic_compile_endforce
+  (naic_t* naic, naie_resobj_t* end)
+  __attribute__ ((warn_unused_result));
+
 /* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_compile_expr.c */
 extern
 NAIG_ERR_T naic_compile_expr
@@ -63,10 +81,88 @@ NAIG_ERR_T naic_compile_function_stmt
   (naic_t* naic, naie_resobj_t* stmt)
   __attribute__ ((warn_unused_result));
 
+/* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_compile_get_quantifiers.c */
+extern
+NAIG_ERR_T naic_compile_get_quantifiers
+  (naie_resobj_t* quant, int range[ 2 ])
+  __attribute__ ((warn_unused_result));
+
+/* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_compile_group.c */
+extern
+NAIG_ERR_T naic_compile_group
+  (naic_t* naic, naie_resobj_t* group)
+  __attribute__ ((warn_unused_result));
+
+/* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_compile_hexliteral.c */
+extern
+NAIG_ERR_T naic_compile_hexliteral
+  (naic_t* naic, naie_resobj_t* hex)
+  __attribute__ ((warn_unused_result));
+
+/* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_compile_macro.c */
+extern
+NAIG_ERR_T naic_compile_macro
+  (naic_t* naic, naie_resobj_t* macro)
+  __attribute__ ((warn_unused_result));
+
+/* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_compile_matcher.c */
+extern
+NAIG_ERR_T naic_compile_matcher
+  (naic_t* naic, naie_resobj_t* matcher)
+  __attribute__ ((warn_unused_result));
+
+/* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_compile_quantified_matcher.c */
+extern
+NAIG_ERR_T naic_compile_quantified_matcher
+  (naic_t* naic, naie_resobj_t* matcher, int range[ 2 ])
+  __attribute__ ((warn_unused_result));
+
+/* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_compile_reference.c */
+extern
+NAIG_ERR_T naic_compile_reference
+  (naic_t* naic, naie_resobj_t* ref)
+  __attribute__ ((warn_unused_result));
+
 /* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_compile_rule.c */
 extern
 NAIG_ERR_T naic_compile_rule
   (naic_t* naic, naie_resobj_t* rule)
+  __attribute__ ((warn_unused_result));
+
+/* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_compile_set.c */
+extern
+NAIG_ERR_T naic_compile_set
+  (naic_t* naic, naie_resobj_t* set)
+  __attribute__ ((warn_unused_result));
+
+/* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_compile_string.c */
+extern
+NAIG_ERR_T naic_compile_string
+  (naic_t* naic, naie_resobj_t* string)
+  __attribute__ ((warn_unused_result));
+
+/* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_compile_term.c */
+extern
+NAIG_ERR_T naic_compile_term
+  (naic_t* naic, naie_resobj_t* term)
+  __attribute__ ((warn_unused_result));
+
+/* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_compile_term_notand.c */
+extern
+NAIG_ERR_T naic_compile_term_notand
+  (naic_t* naic, naie_resobj_t* term)
+  __attribute__ ((warn_unused_result));
+
+/* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_compile_term_quantified.c */
+extern
+NAIG_ERR_T naic_compile_term_quantified
+  (naic_t* naic, naie_resobj_t* term)
+  __attribute__ ((warn_unused_result));
+
+/* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_compile_terms.c */
+extern
+NAIG_ERR_T naic_compile_terms
+  (naic_t* naic, naie_resobj_t* terms)
   __attribute__ ((warn_unused_result));
 
 /* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_compile_top.c */
@@ -121,6 +217,17 @@ NAIG_ERR_T naic_slotmap_write
 extern
 NAIG_ERR_T naic_slotmap_write_h
   (naic_slotmap_t* slotmap, FILE* out)
+  __attribute__ ((warn_unused_result));
+
+/* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_string_unescape.c */
+extern
+NAIG_ERR_T naic_string_unescape
+  (
+    naic_t* naic,
+    unsigned start,
+    unsigned stop,
+    NAIG_ERR_T(*fnc)(naic_t*,unsigned,int)
+  )
   __attribute__ ((warn_unused_result));
 
 

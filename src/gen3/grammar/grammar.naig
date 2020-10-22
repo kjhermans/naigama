@@ -16,7 +16,7 @@ DEFINITION         <- { FUNCDECL } / { RULE }
 
 SINGLE_EXPRESSION  <- EXPRESSION
 
-RULE               <- { IDENT } LEFTARROW EXPRESSION SEMICOLON
+RULE               <- { IDENT } LEFTARROW EXPRESSION
 
 EXPRESSION         <- { TERMS } OR NOTHING /
                       { TERMS } OR EXPRESSION /
@@ -76,7 +76,7 @@ SET                <- ABOPEN { SETNOT? } (
 
 VARREFERENCE       <- '$' ( { IDENT } / { NUMBER } )
 
-REFERENCE          <- IDENT !( LEFTARROW )
+REFERENCE          <- !KW_FUNCTION { IDENT } !LEFTARROW
 
 REPLACE            <- RIGHTARROW { REPLACETERMS }
 

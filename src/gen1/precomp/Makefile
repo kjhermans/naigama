@@ -1,4 +1,4 @@
-stage_01: 
+stage_2: 
 	@perl $(BUILDROOT)/bin/gen_grammar_headers.pl \
 		$(BUILDROOT)/src/instructions.pl \
 		$(BUILDROOT)/src/gen1/grammar/grammar.byc \

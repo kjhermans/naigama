@@ -36,46 +36,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /**
  *
  */
-NAIG_ERR_T naic_compile_matcher
-  (naic_t* naic, naie_resobj_t* matcher)
+NAIG_ERR_T naic_compile_bitmask
+  (naic_t* naic, naie_resobj_t* bitmask)
 {
-  switch (matcher->type) {
-  case SLOT_MATCHER_ANY:
-    CHECK(naic_compile_any(naic));
-    break;
-  case SLOT_MATCHER_SET:
-    CHECK(naic_compile_set(naic, matcher));
-    break;
-  case SLOT_MATCHER_STRING:
-    CHECK(naic_compile_string(naic, matcher));
-    break;
-  case SLOT_MATCHER_BITMASK:
-    CHECK(naic_compile_bitmask(naic, matcher));
-    break;
-  case SLOT_MATCHER_HEXLITERAL:
-    CHECK(naic_compile_hexliteral(naic, matcher));
-    break;
-  case SLOT_MATCHER_VARCAPTURE:
-    CHECK(naic_compile_varcapture(naic, matcher));
-    break;
-  case SLOT_MATCHER_CAPTURE:
-    CHECK(naic_compile_capture(naic, matcher));
-    break;
-  case SLOT_MATCHER_GROUP:
-    CHECK(naic_compile_group(naic, matcher));
-    break;
-  case SLOT_MATCHER_MACRO:
-    CHECK(naic_compile_macro(naic, matcher));
-    break;
-  case SLOT_MATCHER_ENDFORCE:
-    CHECK(naic_compile_endforce(naic, matcher));
-    break;
-  case SLOT_MATCHER_VARREFERENCE:
-    CHECK(naic_compile_varref(naic, matcher));
-    break;
-  case SLOT_MATCHER_REFERENCE:
-    CHECK(naic_compile_reference(naic, matcher));
-    break;
-  }
+  char* chr = bitmask->string;
+
+  NAIC_WRITE("  maskedchar %c%c %c%c\n", chr[1], chr[2], chr[4], chr[5]);
   return NAIG_OK;
 }

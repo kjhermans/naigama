@@ -33,6 +33,18 @@ NAIG_ERR_T naic_compile_any
   (naic_t* naic)
   __attribute__ ((warn_unused_result));
 
+/* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_compile_bitmask.c */
+extern
+NAIG_ERR_T naic_compile_bitmask
+  (naic_t* naic, naie_resobj_t* bitmask)
+  __attribute__ ((warn_unused_result));
+
+/* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_compile_capture.c */
+extern
+NAIG_ERR_T naic_compile_capture
+  (naic_t* naic, naie_resobj_t* group)
+  __attribute__ ((warn_unused_result));
+
 /* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_compile_endforce.c */
 extern
 NAIG_ERR_T naic_compile_endforce
@@ -171,6 +183,18 @@ NAIG_ERR_T naic_compile_top
   (naic_t* naic, naie_resobj_t* top)
   __attribute__ ((warn_unused_result));
 
+/* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_compile_varcapture.c */
+extern
+NAIG_ERR_T naic_compile_varcapture
+  (naic_t* naic, naie_resobj_t* capture)
+  __attribute__ ((warn_unused_result));
+
+/* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_compile_varref.c */
+extern
+NAIG_ERR_T naic_compile_varref
+  (naic_t* naic, naie_resobj_t* ref)
+  __attribute__ ((warn_unused_result));
+
 /* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_firstpass_function.c */
 extern
 NAIG_ERR_T naic_firstpass_function
@@ -205,6 +229,18 @@ NAIG_ERR_T naic_nsp_rule_def_add
 extern
 NAIG_ERR_T naic_nsp_rule_ref_add
   (naic_t* naic, char* string)
+  __attribute__ ((warn_unused_result));
+
+/* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_nsp_rule_var_add.c */
+extern
+NAIG_ERR_T naic_nsp_rule_var_add
+  (naic_t* naic, char* string, unsigned slot)
+  __attribute__ ((warn_unused_result));
+
+/* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_nsp_rule_var_get.c */
+extern
+NAIG_ERR_T naic_nsp_rule_var_get
+  (naic_t* naic, char* key, unsigned* slot)
   __attribute__ ((warn_unused_result));
 
 /* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_slotmap_write.c */

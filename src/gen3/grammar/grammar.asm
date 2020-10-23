@@ -1791,176 +1791,174 @@ SEMICOLON:
 -- Rule
 COLON:
   call __prefix
-  opencapture 122
   char 3a
-  closecapture 122 0
   ret
 -- Rule
 POW:
   call __prefix
-  opencapture 123
+  opencapture 122
   char 2a
   char 2a
-  closecapture 123 0
+  closecapture 122 0
   ret
 -- Rule
 MUL:
   call __prefix
-  opencapture 124
+  opencapture 123
   char 2a
-  closecapture 124 0
-  catch __TERM_3586
+  closecapture 123 0
+  catch __TERM_3580
   char 2a
   failtwice
-__TERM_3586:
+__TERM_3580:
   ret
 -- Rule
 DIV:
   call __prefix
-  opencapture 125
+  opencapture 124
   char 2f
-  closecapture 125 0
-  catch __TERM_3604
+  closecapture 124 0
+  catch __TERM_3598
   char 3d
   failtwice
-__TERM_3604:
+__TERM_3598:
   ret
 -- Rule
 ADD:
   call __prefix
-  opencapture 126
+  opencapture 125
   char 2b
-  closecapture 126 0
-  catch __TERM_3622
+  closecapture 125 0
+  catch __TERM_3616
   set 0000000000080020000000000000000000000000000000000000000000000000
   failtwice
-__TERM_3622:
+__TERM_3616:
   ret
 -- Rule
 SUB:
   call __prefix
-  opencapture 127
+  opencapture 126
   char 2d
-  closecapture 127 0
-  catch __TERM_3640
+  closecapture 126 0
+  catch __TERM_3634
   set 0000000000200020000000000000000000000000000000000000000000000000
   failtwice
-__TERM_3640:
+__TERM_3634:
   ret
 -- Rule
 INC:
   call __prefix
-  opencapture 128
+  opencapture 127
   char 2b
   char 2b
-  closecapture 128 0
+  closecapture 127 0
   ret
 -- Rule
 DEC:
   call __prefix
-  opencapture 129
+  opencapture 128
   char 2d
   char 2d
-  closecapture 129 0
+  closecapture 128 0
   ret
 -- Rule
 LOGAND:
   call __prefix
-  opencapture 130
+  opencapture 129
   char 26
   char 26
-  closecapture 130 0
+  closecapture 129 0
   ret
 -- Rule
 LOGOR:
   call __prefix
-  opencapture 131
+  opencapture 130
   char 7c
   char 7c
-  closecapture 131 0
+  closecapture 130 0
   ret
 -- Rule
 LOGNOT:
   call __prefix
-  opencapture 132
+  opencapture 131
   char 21
-  closecapture 132 0
-  catch __TERM_3706
+  closecapture 131 0
+  catch __TERM_3700
   char 3d
   failtwice
-__TERM_3706:
+__TERM_3700:
   ret
 -- Rule
 BITAND:
   call __prefix
-  opencapture 133
+  opencapture 132
   char 26
-  closecapture 133 0
-  catch __TERM_3724
+  closecapture 132 0
+  catch __TERM_3718
   set 0000000040000020000000000000000000000000000000000000000000000000
   failtwice
-__TERM_3724:
+__TERM_3718:
   ret
 -- Rule
 BITOR:
   call __prefix
-  opencapture 134
+  opencapture 133
   char 7c
-  closecapture 134 0
-  catch __TERM_3742
+  closecapture 133 0
+  catch __TERM_3736
   set 0000000000000020000000000000001000000000000000000000000000000000
   failtwice
-__TERM_3742:
+__TERM_3736:
   ret
 -- Rule
 BITXOR:
   call __prefix
-  opencapture 135
+  opencapture 134
   char 5e
-  closecapture 135 0
-  catch __TERM_3760
+  closecapture 134 0
+  catch __TERM_3754
   char 3d
   failtwice
-__TERM_3760:
+__TERM_3754:
   ret
 -- Rule
 BITNOT:
   call __prefix
-  opencapture 136
+  opencapture 135
   char 7e
-  closecapture 136 0
+  closecapture 135 0
   ret
 -- Rule
 BITANDIS:
   call __prefix
-  opencapture 137
+  opencapture 136
   char 26
   char 3d
-  closecapture 137 0
+  closecapture 136 0
   ret
 -- Rule
 BITORIS:
   call __prefix
-  opencapture 138
+  opencapture 137
   char 7c
   char 3d
-  closecapture 138 0
+  closecapture 137 0
   ret
 -- Rule
 BITXORIS:
   call __prefix
-  opencapture 139
+  opencapture 138
   char 5e
   char 3d
-  closecapture 139 0
+  closecapture 138 0
   ret
 -- Rule
 BITNOTIS:
   call __prefix
-  opencapture 140
+  opencapture 139
   char 7e
   char 3d
-  closecapture 140 0
+  closecapture 139 0
   ret
 -- Rule
 COMMA:
@@ -1970,51 +1968,51 @@ COMMA:
 -- Rule
 DOT:
   call __prefix
-  opencapture 141
+  opencapture 140
   char 2e
-  closecapture 141 0
+  closecapture 140 0
   ret
 -- Rule
 LSHIFT:
   call __prefix
-  opencapture 142
+  opencapture 141
   char 3c
   char 3c
-  closecapture 142 0
-  catch __TERM_3856
+  closecapture 141 0
+  catch __TERM_3850
   char 3d
   failtwice
-__TERM_3856:
+__TERM_3850:
   ret
 -- Rule
 RSHIFT:
   call __prefix
-  opencapture 143
+  opencapture 142
   char 3e
   char 3e
-  closecapture 143 0
-  catch __TERM_3874
+  closecapture 142 0
+  catch __TERM_3868
   char 3d
   failtwice
-__TERM_3874:
+__TERM_3868:
   ret
 -- Rule
 LSHIFTIS:
   call __prefix
-  opencapture 144
+  opencapture 143
   char 3c
   char 3c
   char 3d
-  closecapture 144 0
+  closecapture 143 0
   ret
 -- Rule
 RSHIFTIS:
   call __prefix
-  opencapture 145
+  opencapture 144
   char 3e
   char 3e
   char 3d
-  closecapture 145 0
+  closecapture 144 0
   ret
 
   end 0

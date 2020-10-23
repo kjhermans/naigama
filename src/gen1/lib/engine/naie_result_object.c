@@ -52,6 +52,7 @@ naie_resobj_t* naie_result_object_
 {
   naie_resobj_t* object = malloc(sizeof(naie_resobj_t));
 
+  memset(object, 0, sizeof(*object));
   object->type = result->actions[ i ].slot;
   object->origoffset = result->actions[ i ].start;
   object->stringlen = result->actions[ i ].length;
@@ -108,6 +109,7 @@ naie_resobj_t* naie_result_object
 {
   naie_resobj_t* object = malloc(sizeof(naie_resobj_t));
 
+  memset(object, 0, sizeof(*object));
   object->type = -1; // top
   object->origoffset = 0;
   object->stringlen = engine->input_length;

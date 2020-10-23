@@ -53,7 +53,6 @@ NAIG_ERR_T naic_nsp_add
       sizeof(naic_nspent_t) * (naic->nsp.length)
     );
   }
-fprintf(stderr, "Namespace add '%s'\n", entry.key);
   naic->nsp.entries[ (naic->nsp.count)++ ] = entry;
   return NAIG_OK;
 }

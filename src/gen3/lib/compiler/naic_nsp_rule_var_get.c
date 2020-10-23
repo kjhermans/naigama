@@ -33,40 +33,21 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "naic_private.h"
 
-static
-NAIG_ERR_T naic_firstpass_rule_tree
-  (naic_t* naic, naie_resobj_t* rule, naie_resobj_t* top)
-{
-  unsigned i;
-  char* name;
-
-  for (i=0; i < top->nchildren; i++) {
-    if (top->children[ i ]->type == SLOT_MATCHER_CAPTURE) {
-      top->children[ i ]->auxptr = malloc(sizeof(unsigned));
-      memcpy(top->children[ i ]->auxptr, &(naic->slot), sizeof(unsigned));
-      ++(naic->slot);
-      CHECK(naic_firstpass_rule_tree(naic, rule, top->children[ i ]));
-    } else if (top->children[ i ]->type == SLOT_MATCHER_VARCAPTURE) {
-      name = top->children[ i ]->children[ 0 ]->string;
-      CHECK(naic_nsp_rule_var_add(naic, name, naic->slot));
-      top->children[ i ]->auxptr = malloc(sizeof(unsigned));
-      memcpy(top->children[ i ]->auxptr, &(naic->slot), sizeof(unsigned));
-      ++(naic->slot);
-      CHECK(naic_firstpass_rule_tree(naic, rule, top->children[ i ]));
-    } else {
-      CHECK(naic_firstpass_rule_tree(naic, rule, top->children[ i ]));
-    }
-  }
-  return NAIG_OK;
-}
-
 /**
  *
  */
-NAIG_ERR_T naic_firstpass_rule
-  (naic_t* naic, naie_resobj_t* rule)
+NAIG_ERR_T naic_nsp_rule_var_get
+  (naic_t* naic, char* key, unsigned* slot)
 {
-  CHECK(naic_nsp_rule_def_add(naic, rule->children[0]->string));
-  CHECK(naic_firstpass_rule_tree(naic, rule, rule));
-  return NAIG_OK;
+  unsigned i;
+
+  for (i=0; i < naic->nsp.count; i++) {
+    if (0 == strcmp(naic->nsp.entries[ i ].key, key)
+        && naic->nsp.entries[ i ].type == NAIC_NSPTYPE_VAR)
+    {
+      *slot = naic->nsp.entries[ i ].value.variable.slot;
+      return NAIG_OK;
+    }
+  }
+  return NAIG_ERR_NOTFOUND;
 }

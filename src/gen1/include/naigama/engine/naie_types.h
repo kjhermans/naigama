@@ -177,6 +177,7 @@ struct naie_resobj
   unsigned                              origoffset;
   naie_resobj_t**                       children;
   unsigned                              nchildren;
+  void*                                 auxptr; /* this one is for you */
 };
 
 typedef struct

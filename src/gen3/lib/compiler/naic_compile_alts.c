@@ -45,12 +45,12 @@ NAIG_ERR_T naic_compile_alts
   snprintf(success, sizeof(success), "__SUCCESS_%u", ++(naic->labelcount));
   for (i=off; i < alts->nchildren - 1; i++) {
     snprintf(alt, sizeof(alt), "__ALT_%u", ++(naic->labelcount));
-    CHECK(naic->write(naic->write_arg, "  catch %s\n", alt));
+    NAIC_WRITE("  catch %s\n", alt);
     CHECK(naic_compile_terms(naic, alts->children[ i ]));
-    CHECK(naic->write(naic->write_arg, "  commit %s\n", success));
-    CHECK(naic->write(naic->write_arg, "%s:\n", alt));
+    NAIC_WRITE("  commit %s\n", success);
+    NAIC_WRITE("%s:\n", alt);
   }
   CHECK(naic_compile_terms(naic, alts->children[ i ]));
-  CHECK(naic->write(naic->write_arg, "%s:\n", success));
+  NAIC_WRITE("%s:\n", success);
   return NAIG_OK;
 }

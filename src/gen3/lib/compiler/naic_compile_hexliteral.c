@@ -39,6 +39,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 NAIG_ERR_T naic_compile_hexliteral
   (naic_t* naic, naie_resobj_t* hex)
 {
-  CHECK(naic->write(naic->write_arg, "  char %s\n", hex->string + 2));
+  NAIC_WRITE("  char %s\n", hex->string + 2);
   return NAIG_OK;
 }

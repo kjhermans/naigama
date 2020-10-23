@@ -41,12 +41,7 @@ NAIG_ERR_T naic_compile_expr_literal
 {
   switch (lit->children[ 0 ]->type) {
   case SLOT_INTLITERAL:
-    CHECK(
-      naic->write(naic->write_arg,
-        "  __s:push %s\n"
-        , lit->children[ 0 ]->string
-      )
-    );
+    NAIC_WRITE("  __s:push %s\n" , lit->children[ 0 ]->string);
     break;
   }
   return NAIG_OK;

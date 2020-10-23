@@ -94,10 +94,10 @@ NAIG_ERR_T naic_compile_set
       bitmask[ i ] = ~bitmask[ i ];
     }
   }
-  CHECK(naic->write(naic->write_arg, "  set "));
+  NAIC_WRITE("  set ");
   for (i=0; i < sizeof(bitmask); i++) {
-    CHECK(naic->write(naic->write_arg, "%.2x", bitmask[ i ]));
+    NAIC_WRITE("%.2x", bitmask[ i ]);
   }
-  CHECK(naic->write(naic->write_arg, "\n"));
+  NAIC_WRITE("\n");
   return NAIG_OK;
 }

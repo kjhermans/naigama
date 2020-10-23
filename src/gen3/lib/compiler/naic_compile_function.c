@@ -39,17 +39,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 NAIG_ERR_T naic_compile_function
   (naic_t* naic, naie_resobj_t* func)
 {
-  CHECK(
-    naic->write(naic->write_arg,
-      "\n__FUNC_%s:\n"
-      , func->children[0]->string
-    )
-  );
+  NAIC_WRITE("\n__FUNC_%s:\n", func->children[0]->string);
   // CHECK(naic_compile_function_params(naic, func->children[1]));
   CHECK(naic_compile_function_body(naic, func->children[2]));
-  CHECK(naic->write(naic->write_arg,
-    "  __s:push __void\n"
-    "  __s:ret\n"
-  ));
+  NAIC_WRITE("  __s:push __void\n  __s:ret\n");
   return NAIG_OK;
 }

@@ -40,66 +40,63 @@ NAIG_ERR_T naic_compile_quantified_matcher
   (naic_t* naic, naie_resobj_t* matcher, int range[ 2 ])
 {
   int i, diff;
-  unsigned slotretain = naic->slot;
   char counterlabel[ 64 ];
   char forgivelabel[ 64 ];
   char foreverlabel[ 64 ];
   unsigned counter;
 
-  snprintf(forgivelabel, sizeof(forgivelabel), "__FORGIVE_%u", ++(naic->labelcount));
-  snprintf(foreverlabel, sizeof(foreverlabel), "__FOREVER_%u", ++(naic->labelcount));
+  snprintf(forgivelabel, sizeof(forgivelabel),
+    "__FORGIVE_%u", ++(naic->labelcount));
+  snprintf(foreverlabel, sizeof(foreverlabel),
+    "__FOREVER_%u", ++(naic->labelcount));
   if (naic->flags & NAIC_FLG_LOOPS) {
     for (i=0; i < range[ 0 ]; i++) {
-      naic->slot = slotretain;
       CHECK(naic_compile_matcher(naic, matcher));
     }
   } else if (range[ 0 ] > 0) {
     counter = (naic->counter)++;
-    snprintf(counterlabel, sizeof(counterlabel), "__COUNTER_%u", ++(naic->labelcount));
-    CHECK(naic->write(naic->write_arg, "  counter %u %d\n", counter, range[ 0 ]));
-    CHECK(naic->write(naic->write_arg, "%s:\n", counterlabel));
-    naic->slot = slotretain;
+    snprintf(counterlabel, sizeof(counterlabel),
+      "__COUNTER_%u", ++(naic->labelcount));
+    NAIC_WRITE("  counter %u %d\n", counter, range[ 0 ]);
+    NAIC_WRITE("%s:\n", counterlabel);
     CHECK(naic_compile_matcher(naic, matcher));
-    CHECK(naic->write(naic->write_arg, "  condjump %u %s\n", counter, counterlabel));
+    NAIC_WRITE("  condjump %u %s\n", counter, counterlabel);
   }
   if (range[ 1 ] == -1) {
-    CHECK(naic->write(naic->write_arg, "  catch %s\n", forgivelabel));
-    CHECK(naic->write(naic->write_arg, "%s:\n", foreverlabel));
-    naic->slot = slotretain;
+    NAIC_WRITE("  catch %s\n", forgivelabel);
+    NAIC_WRITE("%s:\n", foreverlabel);
     CHECK(naic_compile_matcher(naic, matcher));
-    CHECK(naic->write(naic->write_arg, "  partialcommit %s\n", foreverlabel));
-    CHECK(naic->write(naic->write_arg, "%s:\n", forgivelabel));
+    NAIC_WRITE("  partialcommit %s\n", foreverlabel);
+    NAIC_WRITE("%s:\n", forgivelabel);
   } else if (range[ 1 ] > range[ 0 ]) {
     diff = range[ 1 ] - range[ 0 ];
     if (diff > 1) {
       if (naic->flags & NAIC_FLG_LOOPS) {
-        CHECK(naic->write(naic->write_arg, "  catch %s\n", forgivelabel));
+        NAIC_WRITE("  catch %s\n", forgivelabel);
         for (i=0; i < diff; i++) {
-          naic->slot = slotretain;
           CHECK(naic_compile_matcher(naic, matcher));
-          CHECK(naic->write(naic->write_arg, "  partialcommit\n", forgivelabel));
+          NAIC_WRITE("  partialcommit\n", forgivelabel);
         }
-        CHECK(naic->write(naic->write_arg, "  commit\n"));
-        CHECK(naic->write(naic->write_arg, "%s:\n", forgivelabel));
+        NAIC_WRITE("  commit\n");
+        NAIC_WRITE("%s:\n", forgivelabel);
       } else {
         counter = (naic->counter)++;
-        snprintf(counterlabel, sizeof(counterlabel), "__COUNTER_%u", ++(naic->labelcount));
-        CHECK(naic->write(naic->write_arg, "  catch %s\n", forgivelabel));
-        CHECK(naic->write(naic->write_arg, "  counter %u %d\n", counter, range[ 1 ]));
-        CHECK(naic->write(naic->write_arg, "%s:\n", counterlabel));
-        naic->slot = slotretain;
+        snprintf(counterlabel, sizeof(counterlabel),
+          "__COUNTER_%u", ++(naic->labelcount));
+        NAIC_WRITE("  catch %s\n", forgivelabel);
+        NAIC_WRITE("  counter %u %d\n", counter, range[ 1 ]);
+        NAIC_WRITE("%s:\n", counterlabel);
         CHECK(naic_compile_matcher(naic, matcher));
-        CHECK(naic->write(naic->write_arg, "  partialcommit\n", forgivelabel));
-        CHECK(naic->write(naic->write_arg, "  condjump %u %s\n", counter, counterlabel));
-        CHECK(naic->write(naic->write_arg, "  commit\n"));
-        CHECK(naic->write(naic->write_arg, "%s:\n", forgivelabel));
+        NAIC_WRITE("  partialcommit\n", forgivelabel);
+        NAIC_WRITE("  condjump %u %s\n", counter, counterlabel);
+        NAIC_WRITE("  commit\n");
+        NAIC_WRITE("%s:\n", forgivelabel);
       }
     } else if (diff == 1) {
-      CHECK(naic->write(naic->write_arg, "  catch %s\n", forgivelabel));
-      naic->slot = slotretain;
+      NAIC_WRITE("  catch %s\n", forgivelabel);
       CHECK(naic_compile_matcher(naic, matcher));
-      CHECK(naic->write(naic->write_arg, "  commit\n"));
-      CHECK(naic->write(naic->write_arg, "%s:\n", forgivelabel));
+      NAIC_WRITE("  commit\n");
+      NAIC_WRITE("%s:\n", forgivelabel);
     }
   }
   return NAIG_OK;

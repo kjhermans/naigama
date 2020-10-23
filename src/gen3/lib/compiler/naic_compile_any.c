@@ -39,6 +39,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 NAIG_ERR_T naic_compile_any
   (naic_t* naic)
 {
-  CHECK(naic->write(naic->write_arg, "  any\n"));
+  NAIC_WRITE("  any\n");
   return NAIG_OK;
 }

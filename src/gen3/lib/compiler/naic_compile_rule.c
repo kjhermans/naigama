@@ -41,8 +41,8 @@ NAIG_ERR_T naic_compile_rule
 {
   char* rulename = rule->children[0]->string;
 
-  CHECK(naic->write(naic->write_arg, "\n__RULE_%s:\n", rulename));
+  NAIC_WRITE("\n__RULE_%s:\n", rulename);
   CHECK(naic_compile_alts(naic, rule, 1));
-  CHECK(naic->write(naic->write_arg, "  ret -- %s\n", rulename));
+  NAIC_WRITE("  ret -- %s\n", rulename);
   return NAIG_OK;
 }

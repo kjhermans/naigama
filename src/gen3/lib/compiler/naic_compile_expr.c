@@ -47,10 +47,10 @@ NAIG_ERR_T naic_compile_expr
       CHECK(naic_compile_expr(naic, expr->children[ i ]));
       switch (expr->children[ i ]->children[ 0 ]->type) {
       case SLOT_ADD:
-        CHECK(naic->write(naic->write_arg, "  __s:add\n"));
+        NAIC_WRITE("  __s:add\n");
         break;
       case SLOT_SUB:
-        CHECK(naic->write(naic->write_arg, "  __s:sub\n"));
+        NAIC_WRITE("  __s:sub\n");
         break;
       }
       break;
@@ -58,13 +58,13 @@ NAIG_ERR_T naic_compile_expr
       CHECK(naic_compile_expr(naic, expr->children[ i ]));
       switch (expr->children[ i ]->children[ 0 ]->type) {
       case SLOT_MUL:
-        CHECK(naic->write(naic->write_arg, "  __s:mul\n"));
+        NAIC_WRITE("  __s:mul\n");
         break;
       case SLOT_DIV:
-        CHECK(naic->write(naic->write_arg, "  __s:div\n"));
+        NAIC_WRITE("  __s:div\n");
         break;
       case SLOT_POW:
-        CHECK(naic->write(naic->write_arg, "  __s:pow\n"));
+        NAIC_WRITE("  __s:pow\n");
         break;
       }
       break;

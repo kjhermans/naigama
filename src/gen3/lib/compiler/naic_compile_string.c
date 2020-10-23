@@ -39,7 +39,7 @@ NAIG_ERR_T naic_compile_char
 {
   (void)last;
 
-  CHECK(naic->write(naic->write_arg, "  char %.2x\n", chr));
+  NAIC_WRITE("  char %.2x\n", chr);
   return NAIG_OK;
 }
 

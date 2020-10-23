@@ -67,11 +67,11 @@ NAIG_ERR_T naic_compile_macro
     snprintf(naic->error, sizeof(naic->error), "Macro length error.");
     RETURNERR(NAIC_ERR_MACRO);
   }
-  CHECK(naic->write(naic->write_arg, "  set "));
+  NAIC_WRITE("  set ");
   for (i=0; i < sizeof(set); i++) {
-    CHECK(naic->write(naic->write_arg, "%.2x", set[ i ]));
+    NAIC_WRITE("%.2x", set[ i ]);
   }
-  CHECK(naic->write(naic->write_arg, "\n"));
+  NAIC_WRITE("\n");
 
   return NAIG_OK;
 }

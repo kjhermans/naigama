@@ -42,16 +42,16 @@ NAIG_ERR_T naic_compile_term_notand
   char labelout[ 64 ];
 
   snprintf(labelout, sizeof(labelout), "__SCANNER_%u", ++(naic->labelcount));
-  CHECK(naic->write(naic->write_arg, "  catch %s\n", labelout));
+  NAIC_WRITE("  catch %s\n", labelout);
   CHECK(naic_compile_matcher(naic, term->children[ 0 ]->children[ 1 ]));
   if (term->children[ 0 ]->children[ 0 ]->type == SLOT_SCANMATCHER_NOT) {
-    CHECK(naic->write(naic->write_arg, "  failtwice\n"));
-    CHECK(naic->write(naic->write_arg, "%s:\n", labelout));
+    NAIC_WRITE("  failtwice\n");
+    NAIC_WRITE("%s:\n", labelout);
   } else if (term->children[ 0 ]->children[ 0 ]->type == SLOT_SCANMATCHER_AND) {
-    CHECK(naic->write(naic->write_arg, "  backcommit %s_OUT\n", labelout));
-    CHECK(naic->write(naic->write_arg, "%s:\n", labelout));
-    CHECK(naic->write(naic->write_arg, "  fail\n"));
-    CHECK(naic->write(naic->write_arg, "%s_OUT:\n", labelout));
+    NAIC_WRITE("  backcommit %s_OUT\n", labelout);
+    NAIC_WRITE("%s:\n", labelout);
+    NAIC_WRITE("  fail\n");
+    NAIC_WRITE("%s_OUT:\n", labelout);
   }
   return NAIG_OK;
 }

@@ -20,12 +20,16 @@ typedef struct
 {
   char*             key;
 #define NAIC_NSPTYPE_RULE               1
-#define NAIC_NSPTYPE_FUNCTION           2
+#define NAIC_NSPTYPE_VAR                2
+#define NAIC_NSPTYPE_FUNCTION           3
   unsigned          type;
   union {
     struct {
       int               defined;
     }                 rule;
+    struct {
+      unsigned          slot;
+    }                 variable;
     struct {
       struct {
         char*             type;

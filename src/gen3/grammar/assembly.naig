@@ -19,7 +19,8 @@ INSTRUCTION        <- {
                         TESTCHARINSTR / TESTQUADINSTR /
                         TESTSETINSTR / VARINSTR /
                         COUNTERINSTR / CONDJUMPINSTR /
-                        LABELDEF
+                        LABELDEF /
+                        SCR_INSTRUCTION
                       }
 
 END                <- !.
@@ -31,15 +32,15 @@ CATCHINSTR         <- { 'catch' } S LABEL
 CHARINSTR          <- { 'char' } S HEXBYTE
 MASKEDCHARINSTR    <- { 'maskedchar' } S HEXBYTE S HEXBYTE
 CLOSECAPTUREINSTR  <- { 'closecapture' } S SLOT (S TYPE)?
-COMMITINSTR        <- { 'commit' } S LABEL
-ENDINSTR           <- { 'end' } (S CODE )? 
+COMMITINSTR        <- { 'commit' } ( S LABEL )?
+ENDINSTR           <- { 'end' } ( S CODE )? 
 FAILINSTR          <- { 'fail' }
 FAILTWICEINSTR     <- { 'failtwice' }
 JUMPINSTR          <- { 'jump' } S LABEL
 NOOPINSTR          <- { 'noop' }
 TRAPINSTR          <- { 'trap' }
 OPENCAPTUREINSTR   <- { 'opencapture' } S SLOT
-PARTIALCOMMITINSTR <- { 'partialcommit' } S LABEL
+PARTIALCOMMITINSTR <- { 'partialcommit' } ( S LABEL )?
 QUADINSTR          <- { 'quad' } S QUAD
 REPLACEINSTR       <- { 'replace' } S LABEL S LABEL
 ENDREPLACEINSTR    <- { 'endreplace' }
@@ -57,6 +58,20 @@ COUNTERINSTR       <- { 'counter' } S REGISTER S NUMBER
 CONDJUMPINSTR      <- { 'condjump' } S REGISTER S LABEL
 
 LABELDEF           <- { LABEL } COLON
+
+-- script related instructions
+
+SCR_INSTRUCTION    <- SCR_ADD /
+                      SCR_CALL /
+                      SCR_PUSH /
+                      SCR_RET
+
+SCR_ADD            <- { '__s:add' }
+SCR_CALL           <- { '__s:call' } S LABEL
+SCR_PUSH           <- { '__s:push' } S 
+SCR_RET            <- { '__s:ret' } S NUMBER
+
+-- terminals
 
 CODE               <- NUMBER
 HEXBYTE            <- { [0-9a-fA-F]^2 }

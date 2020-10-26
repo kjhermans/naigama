@@ -225,12 +225,6 @@ NAIG_ERR_T naic_nsp_rule_def_add
   (naic_t* naic, char* string)
   __attribute__ ((warn_unused_result));
 
-/* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_nsp_rule_ref_add.c */
-extern
-NAIG_ERR_T naic_nsp_rule_ref_add
-  (naic_t* naic, char* string)
-  __attribute__ ((warn_unused_result));
-
 /* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_nsp_rule_var_add.c */
 extern
 NAIG_ERR_T naic_nsp_rule_var_add

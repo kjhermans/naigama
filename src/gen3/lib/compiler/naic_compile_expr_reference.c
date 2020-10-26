@@ -43,7 +43,10 @@ NAIG_ERR_T naic_compile_expr_reference
 
   for (i=0; i < ref->nchildren; i++) {
     if (ref->children[ i ]->type == SLOT_SCR_REFERENCE_IDENT) {
-      
+      char* name = ref->children[ i ]->children[ 0 ]->string;
+      char* type;
+      unsigned reg;
+      CHECK(naic_scope_get(naic->currentscope, name, &type, &reg));
     }
   }
   return NAIG_OK;

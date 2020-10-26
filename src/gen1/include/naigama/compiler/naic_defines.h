@@ -12,6 +12,7 @@
 #define NAIC_ERR_VARDOUBLE      (NAIG_ERR_T){ .code = 262 }
 #define NAIC_ERR_SLOTMAPFULL    (NAIG_ERR_T){ .code = 263 }
 #define NAIC_ERR_NAMESPACE      (NAIG_ERR_T){ .code = 264 }
+#define NAIC_ERR_TYPE           (NAIG_ERR_T){ .code = 265 }
 
 #define NAIC_SET_BIT_SET(set,bit) {set[bit/8]|=(1<<(bit%8));}
 

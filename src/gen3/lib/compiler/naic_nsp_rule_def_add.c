@@ -44,6 +44,6 @@ NAIG_ERR_T naic_nsp_rule_def_add
     .type = NAIC_NSPTYPE_RULE
   };
 
-  CHECK(naic_nsp_add(naic, entry));
+  CHECK(naic_nsp_add(&(naic->nsp), entry));
   return NAIG_OK;
 }

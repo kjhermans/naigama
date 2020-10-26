@@ -36,14 +36,27 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /**
  *
  */
-NAIG_ERR_T naic_compile_function
-  (naic_t* naic, naie_resobj_t* func)
+NAIG_ERR_T naic_compile_function_params
+  (naic_t* naic, naie_resobj_t* params)
 {
-  NAIC_WRITE("\n__FUNC_%s:\n", func->children[0]->string);
-  naic->functionscope.nsp.count = 0;
-  naic->currentscope = &(naic->functionscope);
-  CHECK(naic_compile_function_params(naic, func->children[1]));
-  CHECK(naic_compile_function_body(naic, func->children[2]));
-  NAIC_WRITE("  __s:push __void\n  __s:ret\n");
+  unsigned i;
+  char* name, * type = 0;
+  naie_resobj_t* param;
+
+  for (i=0; i < params->nchildren; i++) {
+    param = params->children[ i ];
+    if (param->type == SLOT_FUNCPARAMDECL_PARAMDECL
+        || param->type == SLOT_FUNCPARAMDECL_PARAMDECL_1)
+    {
+      if (param->children[ 0 ]->type == SLOT_PARAMDECL_IDENT) {
+        type = param->children[ 0 ]->children[ 0 ]->string;
+        name = param->children[ 1 ]->children[ 0 ]->string;
+        CHECK(naic_scope_add(naic->currentscope, name, type));
+      } else if (param->children[ 0 ]->type == SLOT_PARAMDECL_IDENT_2) {
+        name = param->children[ 0 ]->children[ 0 ]->string;
+        CHECK(naic_scope_add(naic->currentscope, name, 0));
+      }
+    }
+  }
   return NAIG_OK;
 }

@@ -36,14 +36,24 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /**
  *
  */
-NAIG_ERR_T naic_compile_function
-  (naic_t* naic, naie_resobj_t* func)
+NAIG_ERR_T naic_scope_add
+  (naic_scope_t* scope, char* name, char* type)
 {
-  NAIC_WRITE("\n__FUNC_%s:\n", func->children[0]->string);
-  naic->functionscope.nsp.count = 0;
-  naic->currentscope = &(naic->functionscope);
-  CHECK(naic_compile_function_params(naic, func->children[1]));
-  CHECK(naic_compile_function_body(naic, func->children[2]));
-  NAIC_WRITE("  __s:push __void\n  __s:ret\n");
+  unsigned reg = (
+    scope->nsp.count ?
+    (scope->nsp.entries[ scope->nsp.count - 1 ].value.codevar.reg + 1) :
+      (scope->up ?
+      (scope->up->nsp.entries[ scope->up->nsp.count - 1 ].value.codevar.reg+1) :
+      1
+      )
+    );
+  naic_nspent_t entry = {
+    .key = name,
+    .type = NAIC_NSPTYPE_CODEVAR,
+    .value.codevar.subtype = type,
+    .value.codevar.reg = reg
+  };
+
+  CHECK(naic_nsp_add(&(scope->nsp), entry));
   return NAIG_OK;
 }

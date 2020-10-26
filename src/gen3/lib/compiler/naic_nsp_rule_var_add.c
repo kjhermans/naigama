@@ -45,6 +45,6 @@ NAIG_ERR_T naic_nsp_rule_var_add
     .value.variable.slot = slot
   };
 
-  CHECK(naic_nsp_add(naic, entry));
+  CHECK(naic_nsp_add(&(naic->nsp), entry));
   return NAIG_OK;
 }

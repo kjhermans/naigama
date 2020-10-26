@@ -37,22 +37,22 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
 NAIG_ERR_T naic_nsp_add
-  (naic_t* naic, naic_nspent_t entry)
+  (naic_nsp_t* nsp, naic_nspent_t entry)
 {
   unsigned i;
 
-  for (i=0; i < naic->nsp.count; i++) {
-    if (0 == strcmp(naic->nsp.entries[ i ].key, entry.key)) {
+  for (i=0; i < nsp->count; i++) {
+    if (0 == strcmp(nsp->entries[ i ].key, entry.key)) {
       return NAIC_ERR_NAMESPACE;
     }
   }
-  if (naic->nsp.count >= naic->nsp.length) {
-    naic->nsp.length += 32;
-    naic->nsp.entries = realloc(
-      naic->nsp.entries,
-      sizeof(naic_nspent_t) * (naic->nsp.length)
+  if (nsp->count >= nsp->length) {
+    nsp->length += 32;
+    nsp->entries = realloc(
+      nsp->entries,
+      sizeof(naic_nspent_t) * (nsp->length)
     );
   }
-  naic->nsp.entries[ (naic->nsp.count)++ ] = entry;
+  nsp->entries[ (nsp->count)++ ] = entry;
   return NAIG_OK;
 }

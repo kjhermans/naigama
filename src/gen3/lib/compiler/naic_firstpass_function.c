@@ -53,6 +53,6 @@ NAIG_ERR_T naic_firstpass_function
     entry.value.function.params[ entry.value.function.paramcount ].type = NULL;
     (entry.value.function.paramcount)++;
   }
-  CHECK(naic_nsp_add(naic, entry));
+  CHECK(naic_nsp_add(&(naic->nsp), entry));
   return NAIG_OK;
 }

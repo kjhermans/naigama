@@ -87,6 +87,12 @@ NAIG_ERR_T naic_compile_function_body
   (naic_t* naic, naie_resobj_t* body)
   __attribute__ ((warn_unused_result));
 
+/* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_compile_function_params.c */
+extern
+NAIG_ERR_T naic_compile_function_params
+  (naic_t* naic, naie_resobj_t* params)
+  __attribute__ ((warn_unused_result));
+
 /* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_compile_function_stmt.c */
 extern
 NAIG_ERR_T naic_compile_function_stmt
@@ -210,7 +216,7 @@ NAIG_ERR_T naic_firstpass_rule
 /* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_nsp_add.c */
 extern
 NAIG_ERR_T naic_nsp_add
-  (naic_t* naic, naic_nspent_t entry)
+  (naic_nsp_t* nsp, naic_nspent_t entry)
   __attribute__ ((warn_unused_result));
 
 /* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_nsp_function_def_add.c */
@@ -235,6 +241,18 @@ NAIG_ERR_T naic_nsp_rule_var_add
 extern
 NAIG_ERR_T naic_nsp_rule_var_get
   (naic_t* naic, char* key, unsigned* slot)
+  __attribute__ ((warn_unused_result));
+
+/* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_scope_add.c */
+extern
+NAIG_ERR_T naic_scope_add
+  (naic_scope_t* scope, char* name, char* type)
+  __attribute__ ((warn_unused_result));
+
+/* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_scope_get.c */
+extern
+NAIG_ERR_T naic_scope_get
+  (naic_scope_t* scope, char* name, char** type, unsigned* reg)
   __attribute__ ((warn_unused_result));
 
 /* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_slotmap_write.c */

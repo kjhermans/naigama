@@ -64,19 +64,33 @@ typedef struct
 }
 naic_ref_t;
 
+typedef struct naic_scope naic_scope_t;
+
+struct naic_scope
+{
+  naic_scope_t*     up;
+  naic_nspent_t*    names;
+  unsigned          length; // malloced
+  unsigned          count;  // used
+};
+
 typedef struct
 {
   char*             grammar;
   naic_slotmap_t*   slotmap;
-  unsigned          capindex;
+//  unsigned          capindex;
   unsigned          labelcount;
   unsigned          counter;
   unsigned          slot;
   unsigned          flags;
+  naic_scope_t*     scope;
+/*
   struct {
     uint32_t          tmpvalue;
     unsigned          nbytes;
   }                 quad;
+*/
+/*
   struct {
     struct {
       char*             key;
@@ -85,8 +99,9 @@ typedef struct
     }                 table[ NAIC_RULEVARMAP_SIZE ];
     unsigned          size;
   }                 rulevarmap;
+*/
   naic_nsp_t        nsp;
-  naic_ref_t        references;
+//  naic_ref_t        references;
   NAIG_ERR_T      (*write)(void* ptr, char* fmt, ...);
   void*             write_arg;
   char              error[ 256 ];

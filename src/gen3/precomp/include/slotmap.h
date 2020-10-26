@@ -36,7 +36,7 @@
   case 34: return "VARCAPTURE_CAPTURETYPE"; break; \
   case 35: return "VARCAPTURE_CBCLOSE"; break; \
   case 36: return "TYPE_UINTINT"; break; \
-  case 37: return "CAPTURE_CBCLOSE"; break; \
+  case 37: return "CAPTUREEND_REPLACERECYCLE"; break; \
   case 38: return "SET_SETNOT"; break; \
   case 39: return "SET_NRTV"; break; \
   case 40: return "SET_NRTV_1"; break; \
@@ -110,40 +110,41 @@
   case 108: return "FLOATLITERAL"; break; \
   case 109: return "INTLITERAL"; break; \
   case 110: return "BOOLEANLITERAL_TRUEFALSEKWIMPORT"; break; \
-  case 111: return "ASSIGN"; break; \
-  case 112: return "PLUSIS"; break; \
-  case 113: return "MINIS"; break; \
-  case 114: return "MULIS"; break; \
-  case 115: return "DIVIS"; break; \
-  case 116: return "EQUALS"; break; \
-  case 117: return "NEQUALS"; break; \
-  case 118: return "LT"; break; \
-  case 119: return "GT"; break; \
-  case 120: return "LTEQ"; break; \
-  case 121: return "GTEQ"; break; \
-  case 122: return "POW"; break; \
-  case 123: return "MUL"; break; \
-  case 124: return "DIV"; break; \
-  case 125: return "ADD"; break; \
-  case 126: return "SUB"; break; \
-  case 127: return "INC"; break; \
-  case 128: return "DEC"; break; \
-  case 129: return "LOGAND"; break; \
-  case 130: return "LOGOR"; break; \
-  case 131: return "LOGNOT"; break; \
-  case 132: return "BITAND"; break; \
-  case 133: return "BITOR"; break; \
-  case 134: return "BITXOR"; break; \
-  case 135: return "BITNOT"; break; \
-  case 136: return "BITANDIS"; break; \
-  case 137: return "BITORIS"; break; \
-  case 138: return "BITXORIS"; break; \
-  case 139: return "BITNOTIS"; break; \
-  case 140: return "DOT"; break; \
-  case 141: return "LSHIFT"; break; \
-  case 142: return "RSHIFT"; break; \
-  case 143: return "LSHIFTIS"; break; \
-  case 144: return "RSHIFTIS"; break; \
+  case 111: return "IDENT_AZAZAZAZ"; break; \
+  case 112: return "ASSIGN"; break; \
+  case 113: return "PLUSIS"; break; \
+  case 114: return "MINIS"; break; \
+  case 115: return "MULIS"; break; \
+  case 116: return "DIVIS"; break; \
+  case 117: return "EQUALS"; break; \
+  case 118: return "NEQUALS"; break; \
+  case 119: return "LT"; break; \
+  case 120: return "GT"; break; \
+  case 121: return "LTEQ"; break; \
+  case 122: return "GTEQ"; break; \
+  case 123: return "POW"; break; \
+  case 124: return "MUL"; break; \
+  case 125: return "DIV"; break; \
+  case 126: return "ADD"; break; \
+  case 127: return "SUB"; break; \
+  case 128: return "INC"; break; \
+  case 129: return "DEC"; break; \
+  case 130: return "LOGAND"; break; \
+  case 131: return "LOGOR"; break; \
+  case 132: return "LOGNOT"; break; \
+  case 133: return "BITAND"; break; \
+  case 134: return "BITOR"; break; \
+  case 135: return "BITXOR"; break; \
+  case 136: return "BITNOT"; break; \
+  case 137: return "BITANDIS"; break; \
+  case 138: return "BITORIS"; break; \
+  case 139: return "BITXORIS"; break; \
+  case 140: return "BITNOTIS"; break; \
+  case 141: return "DOT"; break; \
+  case 142: return "LSHIFT"; break; \
+  case 143: return "RSHIFT"; break; \
+  case 144: return "LSHIFTIS"; break; \
+  case 145: return "RSHIFTIS"; break; \
 
 
 #define SLOT_DEFINITION_FUNCDECL 0
@@ -183,7 +184,7 @@
 #define SLOT_VARCAPTURE_CAPTURETYPE 34
 #define SLOT_VARCAPTURE_CBCLOSE 35
 #define SLOT_TYPE_UINTINT 36
-#define SLOT_CAPTURE_CBCLOSE 37
+#define SLOT_CAPTUREEND_REPLACERECYCLE 37
 #define SLOT_SET_SETNOT 38
 #define SLOT_SET_NRTV 39
 #define SLOT_SET_NRTV_1 40
@@ -257,37 +258,38 @@
 #define SLOT_FLOATLITERAL 108
 #define SLOT_INTLITERAL 109
 #define SLOT_BOOLEANLITERAL_TRUEFALSEKWIMPORT 110
-#define SLOT_ASSIGN 111
-#define SLOT_PLUSIS 112
-#define SLOT_MINIS 113
-#define SLOT_MULIS 114
-#define SLOT_DIVIS 115
-#define SLOT_EQUALS 116
-#define SLOT_NEQUALS 117
-#define SLOT_LT 118
-#define SLOT_GT 119
-#define SLOT_LTEQ 120
-#define SLOT_GTEQ 121
-#define SLOT_POW 122
-#define SLOT_MUL 123
-#define SLOT_DIV 124
-#define SLOT_ADD 125
-#define SLOT_SUB 126
-#define SLOT_INC 127
-#define SLOT_DEC 128
-#define SLOT_LOGAND 129
-#define SLOT_LOGOR 130
-#define SLOT_LOGNOT 131
-#define SLOT_BITAND 132
-#define SLOT_BITOR 133
-#define SLOT_BITXOR 134
-#define SLOT_BITNOT 135
-#define SLOT_BITANDIS 136
-#define SLOT_BITORIS 137
-#define SLOT_BITXORIS 138
-#define SLOT_BITNOTIS 139
-#define SLOT_DOT 140
-#define SLOT_LSHIFT 141
-#define SLOT_RSHIFT 142
-#define SLOT_LSHIFTIS 143
-#define SLOT_RSHIFTIS 144
+#define SLOT_IDENT_AZAZAZAZ 111
+#define SLOT_ASSIGN 112
+#define SLOT_PLUSIS 113
+#define SLOT_MINIS 114
+#define SLOT_MULIS 115
+#define SLOT_DIVIS 116
+#define SLOT_EQUALS 117
+#define SLOT_NEQUALS 118
+#define SLOT_LT 119
+#define SLOT_GT 120
+#define SLOT_LTEQ 121
+#define SLOT_GTEQ 122
+#define SLOT_POW 123
+#define SLOT_MUL 124
+#define SLOT_DIV 125
+#define SLOT_ADD 126
+#define SLOT_SUB 127
+#define SLOT_INC 128
+#define SLOT_DEC 129
+#define SLOT_LOGAND 130
+#define SLOT_LOGOR 131
+#define SLOT_LOGNOT 132
+#define SLOT_BITAND 133
+#define SLOT_BITOR 134
+#define SLOT_BITXOR 135
+#define SLOT_BITNOT 136
+#define SLOT_BITANDIS 137
+#define SLOT_BITORIS 138
+#define SLOT_BITXORIS 139
+#define SLOT_BITNOTIS 140
+#define SLOT_DOT 141
+#define SLOT_LSHIFT 142
+#define SLOT_RSHIFT 143
+#define SLOT_LSHIFTIS 144
+#define SLOT_RSHIFTIS 145

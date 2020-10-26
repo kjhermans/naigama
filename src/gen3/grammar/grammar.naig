@@ -61,11 +61,11 @@ CAPTURETYPE        <- SEMICOLON TYPE
 
 TYPE               <- { 'uint32' / 'int32' }
 
-CAPTURE            <- CBOPEN EXPRESSION { CBCLOSE } CAPTUREEND
+CAPTURE            <- CBOPEN EXPRESSION CBCLOSE CAPTUREEND
 
 GROUP              <- BOPEN EXPRESSION BCLOSE
 
-CAPTUREEND         <- ( REPLACE / RECYCLE )?
+CAPTUREEND         <- { REPLACE / RECYCLE }?
 
 SET                <- ABOPEN { SETNOT? } (
                         { '\\' ([nrtv\\\]\-] / [0-9]^3) / [^\\\]] } '-' 
@@ -202,7 +202,7 @@ KW_ELSE        <- 'else'
 KW_BREAK       <- 'break'
 KW_CONTINUE    <- 'continue'
 
-IDENT          <- [a-zA-Z_][a-zA-Z0-9_]^0-63
+IDENT          <- { [a-zA-Z_][a-zA-Z0-9_]^0-63 }
 BOPEN          <- '('
 BCLOSE         <- ')'
 CBOPEN         <- '{'

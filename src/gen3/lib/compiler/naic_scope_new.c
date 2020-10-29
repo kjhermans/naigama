@@ -36,27 +36,16 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /**
  *
  */
-NAIG_ERR_T naic_compile_function_params
-  (naic_t* naic, naie_resobj_t* params)
+NAIG_ERR_T naic_scope_new
+  (naic_t* naic, naic_scope_t** scope)
 {
-  unsigned i;
-  char* name, * type = 0;
-  naie_resobj_t* param;
+  naic_scope_t* result = malloc(sizeof(naic_scope_t));
 
-  for (i=0; i < params->nchildren; i++) {
-    param = params->children[ i ];
-    if (param->type == SLOT_FUNCPARAMDECL_PARAMDECL
-        || param->type == SLOT_FUNCPARAMDECL_PARAMDECL_1)
-    {
-      if (param->children[ 0 ]->type == SLOT_PARAMDECL_SCRTYPE) {
-        type = param->children[ 0 ]->children[ 0 ]->string;
-        name = param->children[ 1 ]->children[ 0 ]->string;
-        CHECK(naic_scope_add(naic->currentscope, name, type));
-      } else if (param->children[ 0 ]->type == SLOT_PARAMDECL_IDENT_1) {
-        name = param->children[ 0 ]->children[ 0 ]->string;
-        CHECK(naic_scope_add(naic->currentscope, name, 0));
-      }
-    }
+  memset(result, 0, sizeof(result));
+  result->up = naic->currentscope;
+  naic->currentscope = result;
+  if (scope) {
+    *scope = result;
   }
   return NAIG_OK;
 }

@@ -92,7 +92,7 @@ typedef struct
   }                 quad;
 */
   naic_nsp_t        nsp;
-  naic_scope_t      functionscope;
+  naic_scope_t      globalscope;
   naic_scope_t*     currentscope;
   NAIG_ERR_T      (*write)(void* ptr, char* fmt, ...);
   void*             write_arg;

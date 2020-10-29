@@ -36,27 +36,20 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /**
  *
  */
-NAIG_ERR_T naic_compile_function_params
-  (naic_t* naic, naie_resobj_t* params)
+NAIG_ERR_T naic_compile_global
+  (naic_t* naic, naie_resobj_t* global)
 {
-  unsigned i;
-  char* name, * type = 0;
-  naie_resobj_t* param;
+  char* type = 0;
+  char* ident = 0;
+  naie_resobj_t* expr = 0;
 
-  for (i=0; i < params->nchildren; i++) {
-    param = params->children[ i ];
-    if (param->type == SLOT_FUNCPARAMDECL_PARAMDECL
-        || param->type == SLOT_FUNCPARAMDECL_PARAMDECL_1)
-    {
-      if (param->children[ 0 ]->type == SLOT_PARAMDECL_SCRTYPE) {
-        type = param->children[ 0 ]->children[ 0 ]->string;
-        name = param->children[ 1 ]->children[ 0 ]->string;
-        CHECK(naic_scope_add(naic->currentscope, name, type));
-      } else if (param->children[ 0 ]->type == SLOT_PARAMDECL_IDENT_1) {
-        name = param->children[ 0 ]->children[ 0 ]->string;
-        CHECK(naic_scope_add(naic->currentscope, name, 0));
-      }
-    }
+  if (global->children[ 0 ]->type == SLOT_VARDECL_SCRTYPE) {
+    type = global->children[ 0 ]->children[ 0 ]->string;
+    ident = global->children[ 1 ]->children[ 0 ]->string;
+  } else {
+    ident = global->children[ 0 ]->children[ 0 ]->string;
   }
+  //.. assign expr
+  CHECK(naic_scope_add(&(naic->globalscope), ident, type));
   return NAIG_OK;
 }

@@ -47,6 +47,7 @@ NAIG_ERR_T naic_compile_expr_reference
       char* type;
       unsigned reg;
       CHECK(naic_scope_get(naic->currentscope, name, &type, &reg));
+      NAIC_WRITE("  __s:fetch %u\n", reg);
     }
   }
   return NAIG_OK;

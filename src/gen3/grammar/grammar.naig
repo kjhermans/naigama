@@ -12,7 +12,7 @@ __prefix           <- ( MULTILINECOMMENT / COMMENT / S )*
 
 END                <- !.
 
-DEFINITION         <- { FUNCDECL } / { RULE }
+DEFINITION         <- { GLOBALVARDECL } / { FUNCDECL } / { RULE }
 
 SINGLE_EXPRESSION  <- EXPRESSION
 
@@ -76,7 +76,7 @@ SET                <- ABOPEN { SETNOT? } (
 
 VARREFERENCE       <- '$' ( { IDENT } / { NUMBER } )
 
-REFERENCE          <- !KW_FUNCTION { IDENT } !LEFTARROW
+REFERENCE          <- !( KW_FUNCTION / KW_VAR ) { IDENT } !LEFTARROW
 
 REPLACE            <- RIGHTARROW { REPLACETERMS }
 
@@ -107,9 +107,11 @@ FUNCDECL       <- KW_FUNCTION S { IDENT } { FUNCPARAMDECL } { FUNCBODY }
 
 FUNCPARAMDECL  <- BOPEN ( { PARAMDECL } ( COMMA { PARAMDECL } )* )? BCLOSE
 
-PARAMDECL      <- { IDENT } { IDENT } / { IDENT }
+PARAMDECL      <- { SCR_TYPE } { IDENT } / { IDENT }
 
 FUNCBODY       <- CBOPEN { LOWSTMT }* CBCLOSE
+
+GLOBALVARDECL  <- VARDECL
 
 LOWSTMT        <- { ST_IF } /
                   { ST_WHILE } /
@@ -136,9 +138,12 @@ ST_RETURN      <- KW_RETURN { SCR_EXPRESSION? } SEMICOLON
 
 ST_OTHER       <- ( KW_BREAK / KW_CONTINUE ) SEMICOLON
 
-VARDECL        <- KW_VAR S IDENT ( ASSIGN { SCR_EXPRESSION } )? SEMICOLON
+VARDECL        <- KW_VAR S ( { SCR_TYPE } { IDENT } / { IDENT } )
+                    ( ASSIGN { SCR_EXPRESSION } )? SEMICOLON
 
 ASSIGNMENT     <- IDENT ASSIGNS SCR_EXPRESSION SEMICOLON
+
+SCR_TYPE       <- IDENT
 
 ASSIGNS        <- { ASSIGN / PLUSIS / MINIS / MULIS / DIVIS /
                     BITANDIS / BITORIS / BITXORIS / BITNOTIS /
@@ -209,7 +214,7 @@ CBOPEN         <- '{'
 CBCLOSE        <- '}'
 ABOPEN         <- '['
 ABCLOSE        <- ']'
-ASSIGN         <- { '=' }
+ASSIGN         <- '='
 PLUSIS         <- { '+=' }
 MINIS          <- { '-=' }
 MULIS          <- { '*=' }

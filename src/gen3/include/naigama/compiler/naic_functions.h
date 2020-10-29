@@ -105,6 +105,12 @@ NAIG_ERR_T naic_compile_get_quantifiers
   (naie_resobj_t* quant, int range[ 2 ])
   __attribute__ ((warn_unused_result));
 
+/* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_compile_global.c */
+extern
+NAIG_ERR_T naic_compile_global
+  (naic_t* naic, naie_resobj_t* global)
+  __attribute__ ((warn_unused_result));
+
 /* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_compile_group.c */
 extern
 NAIG_ERR_T naic_compile_group
@@ -253,6 +259,18 @@ NAIG_ERR_T naic_scope_add
 extern
 NAIG_ERR_T naic_scope_get
   (naic_scope_t* scope, char* name, char** type, unsigned* reg)
+  __attribute__ ((warn_unused_result));
+
+/* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_scope_new.c */
+extern
+NAIG_ERR_T naic_scope_new
+  (naic_t* naic, naic_scope_t** scope)
+  __attribute__ ((warn_unused_result));
+
+/* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_scope_pop.c */
+extern
+NAIG_ERR_T naic_scope_pop
+  (naic_t* naic, naic_scope_t* scope)
   __attribute__ ((warn_unused_result));
 
 /* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_slotmap_write.c */

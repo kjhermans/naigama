@@ -40,10 +40,10 @@ NAIG_ERR_T naic_compile_function
   (naic_t* naic, naie_resobj_t* func)
 {
   NAIC_WRITE("\n__FUNC_%s:\n", func->children[0]->string);
-  naic->functionscope.nsp.count = 0;
-  naic->currentscope = &(naic->functionscope);
+  CHECK(naic_scope_new(naic, 0));
   CHECK(naic_compile_function_params(naic, func->children[1]));
   CHECK(naic_compile_function_body(naic, func->children[2]));
+  CHECK(naic_scope_pop(naic, 0));
   NAIC_WRITE("  __s:push __void\n  __s:ret\n");
   return NAIG_OK;
 }

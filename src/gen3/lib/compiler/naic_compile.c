@@ -87,6 +87,7 @@ NAIG_ERR_T naic_compile
   naic.write       = fnc;
   naic.write_arg   = arg;
   naic.flags       = flags;
+  naic.currentscope = &(naic.globalscope);
   object = naie_result_object(&engine, &result);
   if (!NAIG_ISOK(naic_compile_top(&naic, object))) {
     if (strlen(naic.error)) {

@@ -61,6 +61,9 @@ NAIG_ERR_T naic_compile_top
     case SLOT_DEFINITION_FUNCDECL:
       CHECK(naic_compile_function(naic, top->children[ i ]));
       break;
+    case SLOT_DEFINITION_GLOBALVARDECL:
+      CHECK(naic_compile_global(naic, top->children[ i ]));
+      break;
     }
   }
   return NAIG_OK;

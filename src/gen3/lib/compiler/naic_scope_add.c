@@ -39,21 +39,23 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 NAIG_ERR_T naic_scope_add
   (naic_scope_t* scope, char* name, char* type)
 {
-  unsigned reg = (
-    scope->nsp.count ?
-    (scope->nsp.entries[ scope->nsp.count - 1 ].value.codevar.reg + 1) :
-      (scope->up ?
-      (scope->up->nsp.entries[ scope->up->nsp.count - 1 ].value.codevar.reg+1) :
-      1
-      )
-    );
-  naic_nspent_t entry = {
+  naic_scope_t* search = scope;
+  unsigned reg = 1;
+  naic_nspent_t entry;
+
+  while (search) {
+    if (search->nsp.count) {
+      reg = search->nsp.entries[ search->nsp.count - 1 ].value.codevar.reg + 1;
+      break;
+    }
+    search = search->up;
+  }
+  entry = (naic_nspent_t){
     .key = name,
     .type = NAIC_NSPTYPE_CODEVAR,
     .value.codevar.subtype = type,
     .value.codevar.reg = reg
   };
-
   CHECK(naic_nsp_add(&(scope->nsp), entry));
   return NAIG_OK;
 }

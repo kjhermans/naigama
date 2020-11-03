@@ -41,11 +41,11 @@ NAIG_ERR_T naia_label_get
 {
   unsigned i;
 
-  for (i=0; i < naia->labels.size; i++) {
-    if (naia->labels.table[ i ].len == len &&
-        0 == memcmp(naia->labels.table[ i ].str, str, len))
+  for (i=0; i < naia->labels.count; i++) {
+    if (naia->labels.entries[ i ].len == len &&
+        0 == memcmp(naia->labels.entries[ i ].str, str, len))
     {
-      *offset = naia->labels.table[ i ].offset;
+      *offset = naia->labels.entries[ i ].offset;
       return NAIG_OK;
     }
   }

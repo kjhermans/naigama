@@ -41,20 +41,24 @@ NAIG_ERR_T naia_label_put
 {
   unsigned i;
 
-  for (i=0; i < naia->labels.size; i++) {
-    if (naia->labels.table[ i ].len == len &&
-        0 == memcmp(naia->labels.table[ i ].str, str, len))
+  for (i=0; i < naia->labels.count; i++) {
+    if (naia->labels.entries[ i ].len == len &&
+        0 == memcmp(naia->labels.entries[ i ].str, str, len))
     {
       fprintf(stderr, "Double label encountered '%-.*s'\n", len, str);
       RETURNERR(NAIA_ERR_LABEL);
     }
   }
-  if (i < NAIA_LABELS_MAX) {
-    naia->labels.table[ naia->labels.size ].str = str;
-    naia->labels.table[ naia->labels.size ].len = len;
-    naia->labels.table[ naia->labels.size ].offset = offset;
+  if (naia->labels.count >= naia->labels.length) {
+    naia->labels.length = naia->labels.count + 32;
+    naia->labels.entries = realloc(
+      naia->labels.entries, sizeof(naia_labent_t) * naia->labels.length
+    );
   }
-  ++(naia->labels.size);
+  naia->labels.entries[ naia->labels.count ].str = str;
+  naia->labels.entries[ naia->labels.count ].len = len;
+  naia->labels.entries[ naia->labels.count ].offset = offset;
+  ++(naia->labels.count);
 #ifdef _DEBUG
   fprintf(stderr, "Label %-.*s at offset %u\n", len, str, offset);
 #endif

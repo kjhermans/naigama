@@ -3,15 +3,20 @@
 
 typedef struct
 {
+  char*             str;
+  unsigned          len;
+  unsigned          offset;
+}
+naia_labent_t;
+
+typedef struct
+{
   char*             assembly;
   naie_result_t*    captures;
   struct {
-    unsigned          size;
-    struct {
-      char*             str;
-      unsigned          len;
-      unsigned          offset;
-    }                 table[ NAIA_LABELS_MAX ];
+    naia_labent_t*    entries;
+    unsigned          length; // malloced
+    unsigned          count;  // used
   }                 labels;
   NAIG_ERR_T      (*write)(void* ptr, unsigned size, void* arg);
   void*             write_arg;

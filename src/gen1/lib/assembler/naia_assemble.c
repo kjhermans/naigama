@@ -74,11 +74,13 @@ NAIG_ERR_T naia_assemble
   }
 
   naia_t naia = {
-    .assembly     = assembly,
-    .captures     = &result,
-    .labels.size  = 0,
-    .write        = write,
-    .write_arg    = arg
+    .assembly       = assembly,
+    .captures       = &result,
+    .labels.entries = malloc(sizeof(naia_labent_t) * 1024),
+    .labels.count   = 0,
+    .labels.length  = 1024,
+    .write          = write,
+    .write_arg      = arg
   };
 
   CHECK(naia_process_tokens(&naia));

@@ -41,21 +41,21 @@ NAIG_ERR_T naia_label_map_write
 {
   unsigned i;
 
-  for (i=0; i < naia->labels.size; i++) {
+  for (i=0; i < naia->labels.count; i++) {
     uint8_t close = 0;
-    uint32_t offset = SET_32BIT_VALUE(naia->labels.table[ i ].offset);
+    uint32_t offset = SET_32BIT_VALUE(naia->labels.entries[ i ].offset);
     size_t s;
     s = fwrite(&offset, 4, 1, map);
     if (s != 1) {
       RETURNERR(NAIG_ERR_WRITE);
     }
     s = fwrite(
-      naia->labels.table[ i ].str,
+      naia->labels.entries[ i ].str,
       1,
-      naia->labels.table[ i ].len,
+      naia->labels.entries[ i ].len,
       map
     );
-    if (s != naia->labels.table[ i ].len) {
+    if (s != naia->labels.entries[ i ].len) {
       RETURNERR(NAIG_ERR_WRITE);
     }
     s = fwrite(&close, 1, 1, map);

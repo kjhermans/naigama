@@ -41,7 +41,7 @@ NAIG_ERR_T naic_scope_new
 {
   naic_scope_t* result = malloc(sizeof(naic_scope_t));
 
-  memset(result, 0, sizeof(result));
+  memset(result, 0, sizeof(*result));
   result->up = naic->currentscope;
   naic->currentscope = result;
   if (scope) {

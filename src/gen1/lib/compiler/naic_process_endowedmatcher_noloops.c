@@ -26,9 +26,9 @@ NAIG_ERR_T naic_process_endowedmatcher_noloops
   char l5[ 64 ];
   char l6[ 64 ];
   char notand = 0;
-  int quantifier[ 2 ] = { 1, 1 };
+  int i, quantifier[ 2 ] = { 1, 1 };
   naic_t copy;
-  unsigned i, end;
+  unsigned end;
   char* trap = (naic->flags & NAIC_FLG_TRAPS) ? "trap\n" : "";
 
 #ifdef _DEBUG
@@ -83,7 +83,7 @@ NAIG_ERR_T naic_process_endowedmatcher_noloops
                           , l5
     ));
   } else if (quantifier[ 1 ] > quantifier[ 0 ]) {
-    unsigned diff = quantifier[ 1 ] - quantifier[ 0 ];
+    int diff = quantifier[ 1 ] - quantifier[ 0 ];
     if (diff > 0) {
       CHECK(naic->write(naic->write_arg,
                             "  catch %s\n"

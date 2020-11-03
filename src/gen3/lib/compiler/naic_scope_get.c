@@ -39,7 +39,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 NAIG_ERR_T naic_scope_get
   (naic_scope_t* scope, char* name, char** type, unsigned* reg)
 {
-  naic_nspent_t entry;
   unsigned i;
 
   while (scope) {

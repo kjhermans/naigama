@@ -40,7 +40,7 @@ void naie_result_object_debug_
 {
   unsigned i;
 
-  if (object->type == -1) {
+  if ((int)(object->type) == -1) {
     fprintf(stderr, "TOP  - ");
   } else {
     fprintf(stderr, "%.4u ", object->type);

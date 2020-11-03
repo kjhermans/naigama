@@ -148,6 +148,7 @@ while ($offset < length($bytecode)) {
   } elsif ($opcode == $INSTR_QUAD) {
     my $char = unpack('N', substr($bytecode, $offset + 4, 4));
     print $out "$offset: quad " . sprintf("%.8x", $char);
+    print $out "-- " . chr(($char>>24)&0xff) . chr(($char>>16)&0xff) . chr(($char>>8)&0xff) . chr($char&0xff) . ' ';
     $offset += 8;
   } elsif ($opcode == $INSTR_CATCH) {
     my $address = dec32bit(substr($bytecode, $offset + 4, 4));

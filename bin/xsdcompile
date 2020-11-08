@@ -1,0 +1,379 @@
+#!/usr/bin/perl
+
+use strict;
+use Data::Dumper;
+
+$Data::Dumper::Indent = 1;
+$Data::Dumper::Sortkeys = 1;
+
+my $xsdpath = shift @ARGV;
+
+my @nsp = ( 'jdssdm' ); # must be a command line option to fill this list
+
+my @includes;
+my $counter = 0;
+my $xsddir = $xsdpath; $xsddir =~ s/\/[^\/]+$//;
+my $xsdhash = load_xml($xsdpath, $xsddir);
+$xsdhash->{xml} =~ s/<annotation.*?<\/annotation>//sg;
+push @includes, $xsdhash;
+parse_xml($xsdhash);
+parse_xsd($xsdhash);
+parse_xsd_secondrun($xsdhash);
+
+print Dumper { objects => $xsdhash->{objects}, types => $xsdhash->{types} };
+
+exit 0;
+
+sub load_xml
+{
+  my $path = shift;
+  my $dir = shift;
+  my $xml;
+  if (-f $path) {
+    $xml = `cat $path`;
+  } elsif (-f "$dir/$path") {
+    $xml = `cat $dir/$path`;
+  } else {
+    die "Could not load $path, not even at $dir";
+  }
+  $xml =~ s/<!--.*?-->//sg;
+  $xml =~ s/<?.*?>//s;
+  return {
+    xml => $xml,
+    stack => [],
+    path => $path,
+    dir => $dir
+  };
+}
+
+sub parse_xml
+{
+  my $prs = shift;
+  while (length($prs->{xml})) {
+    $prs->{xml} =~ s/^\s+//;
+    if ($prs->{xml} =~ s/^<([a-zA-Z0-9_:]+)\s*//) {
+      my $tagname = $1;
+      my $tag = {
+        name => $tagname
+      };
+      if (scalar(@{$prs->{stack}})) {
+        push @{$prs->{stack}[-1]{children}}, $tag;
+        $prs->{stack}[-1]{keys}{$tagname} = $tag;
+      } else {
+        $prs->{top} = $tag;
+      }
+      push @{$prs->{stack}}, $tag;
+      while (length($prs->{xml})) {
+        if ($prs->{xml} =~ s/^([a-zA-Z0-9_:]+)\s*=\s*"(.*?)"\s*//) {
+          $tag->{attrs}{$1} = $2;
+        } else {
+          last;
+        }
+      }
+      if ($prs->{xml} =~ s/^\/>\s*//) {
+        $tag->{__type} = 'simple';
+        pop @{$prs->{stack}};
+      } elsif ($prs->{xml} =~ s/^>\s*//) {
+        $tag->{__type} = 'complex';
+        while (length($prs->{xml})) {
+          if ($prs->{xml} =~ s/^<!\[CDATA\[(.*?)\]\]//s) {
+            $tag->{text} .= $1;
+          } elsif ($prs->{xml} =~ s/^([^<]+)//) {
+            $tag->{text} .= $1;
+          } else {
+            last;
+          }
+        }
+        if (length($tag->{text})) {
+          if ($prs->{xml} =~ s/^<\/\s*$tagname\s*>//) {
+            pop @{$prs->{stack}};
+          } else {
+            die "Tags with text fill should close at $prs->{xml}";
+          }
+        }
+      } else {
+        die "Unexpected token at $prs->{xml}";
+      }
+    } elsif ($prs->{xml} =~ s/^<\/([a-zA-Z0-9_:]+)\s*>\s*//) {
+      my $tagname = $1;
+      if (scalar(@{$prs->{stack}}) && $prs->{stack}[-1]{name} eq $tagname) {
+        pop @{$prs->{stack}};
+      } else {
+        die "Close tag; expected $prs->{stack}[-1]{name} at $prs->{xml}";
+      }
+    } else {
+      die "Parse error at $prs->{xml}; expected tag";
+    }
+  }
+}
+
+sub reconstitute_xml
+{
+  my $hash = shift;
+  my $indent = shift || 0;
+  my $s = '';
+  if ($hash->{name}) {
+    $s .= '  ' x $indent;
+    $s .= "<$hash->{name}";
+    if (defined($hash->{attrs}) && scalar(keys(%{$hash->{attrs}}))) {
+      foreach my $attr (keys(%{$hash->{attrs}})) {
+        $s .= " $attr=\"$hash->{attrs}{$attr}\"";
+      }
+    }
+    if (!defined($hash->{children}) && !length($hash->{text})) {
+      $s .= "/>\n";
+      return $s;
+    } else {
+      $s .= ">\n";
+    }
+  }
+  if (length($hash->{text})) {
+    $s .= $hash->{text} . "\n";
+  } elsif (defined($hash->{children})) {
+    foreach my $child (@{$hash->{children}}) {
+      $s .= reconstitute_xml($child, $indent + 1);
+    }
+  }
+  if ($hash->{name}) {
+    $s .= '  ' x $indent . "</$hash->{name}>\n";
+  }
+  return $s;
+}
+
+sub parse_xsd
+{
+  my $prs = shift;
+  parse_xsd_includes($prs);
+  parse_xsd_top($prs);
+}
+
+sub parse_xsd_includes
+{
+  my $prs = shift;
+  foreach my $child (@{$prs->{top}{children}}) {
+    if ($child->{name} eq 'include' || $child->{name} eq 'import') {
+      my $location = $child->{attrs}{schemaLocation};
+      my $xsd = load_xml($location, $prs->{dir});
+      $xsd->{xml} =~ s/<annotation.*?<\/annotation>//sg;
+      parse_xml($xsd);
+      push @includes, $xsd;
+      print STDERR "Included $location\n";
+      parse_xsd_includes($xsd);
+    }
+  }
+}
+
+sub parse_xsd_top
+{
+  my $prs = shift;
+  foreach my $include (@includes) {
+    foreach my $child (@{$include->{top}{children}}) {
+      if ($child->{name} eq 'element') {
+        my $objname = $child->{attrs}{name};
+        my $objtype = $child->{attrs}{type};
+        if ($objtype) {
+          $objtype =~ s/^.*://;
+          $prs->{objects}{$objname} = $objtype;
+        } else {
+          my $anontypename = "ANONTYPE_" . ++$counter;
+          my $anontype = { __name => $anontypename };
+          $prs->{objects}{$objname} = $anontypename;
+          $prs->{types}{$anontypename} = $anontype;
+          discover_xsd_type($prs, $child->{children}[0], $anontype);
+        }
+      } elsif ($child->{name} eq 'complexType') {
+        my $typename = $child->{attrs}{name};
+        $typename =~ s/^.*://;
+        my $type = { __name => $typename };
+        $prs->{types}{$typename} = $type;
+        xsd_discover_type($prs, $child, $type);
+      } elsif ($child->{name} eq 'simpleType') {
+        my $typename = $child->{attrs}{name};
+        $typename =~ s/^.*://;
+        my $type = { simple => 1 };
+        $prs->{types}{$typename} = $type;
+        xsd_discover_attributes($prs, $child, $type);
+        xsd_discover_enum($prs, $child, $type);
+      } elsif ($child->{name} !~ /^(include|import)$/) {
+        die "Unknown element $child->{name}\n";
+      }
+    }
+  }
+}
+
+sub xsd_discover_type
+{
+  my ($prs, $node, $type) = @_;
+  xsd_discover_attributes($prs, $node, $type);
+  if ($node->{name} eq 'complexType') {
+    xsd_discover_members($prs, $node, $type);
+  } elsif ($node->{name} eq 'simpleType') {
+    xsd_discover_enum($prs, $node, $type);
+  }
+}
+
+sub xsd_discover_members
+{
+  my ($prs, $node, $type) = @_;
+  if ($node->{keys}{sequence}) {
+    xsd_type_add_sequence($prs, $node->{keys}{sequence}, $type);
+  }
+  if ($node->{keys}{complexContent}{keys}{extension}{keys}{sequence}) {
+    xsd_type_add_sequence(
+      $prs,
+      $node->{keys}{complexContent}{keys}{extension}{keys}{sequence},
+      $type
+    );
+  }
+  if ($node->{keys}{complexContent}{keys}{extension}{keys}{choice}) {
+    xsd_type_add_sequence(
+      $prs,
+      $node->{keys}{complexContent}{keys}{extension}{keys}{choice},
+      $type
+    );
+  }
+  if ($node->{keys}{sequence}{keys}{choice}) {
+    xsd_type_add_sequence(
+      $prs,
+      $node->{keys}{sequence}{keys}{choice},
+      $type
+    );
+  }
+}
+
+sub xsd_type_add_sequence
+{
+  my ($prs, $sequence, $type) = @_;
+  foreach my $child (@{$sequence->{children}}) {
+    if ($child->{name} eq 'element') {
+      my $membername = $child->{attrs}{name};
+      my $membertype = $child->{attrs}{type};
+      if ($membertype) {
+        $membertype =~ s/^.*://;
+        $type->{members}{$membername} = $membertype;
+      } else {
+        if ($child->{keys}{complexType}) {
+          my $anontypename = "ANONTYPE_" . ++$counter;
+          my $anontype = {};
+          $type->{members}{$membername} = $anontypename;
+          $prs->{types}{$anontypename} = $anontype;
+          xsd_discover_members($prs, $child->{keys}{complexType}, $anontype);
+        } else {
+print STDERR "Anonymous type for $membername not understood.\n";
+        }
+      }
+    }
+  }
+}
+
+sub xsd_discover_attributes
+{
+  my ($prs, $node, $type) = @_;
+  if ($node->{keys}{attribute}) {
+    xsd_type_add_attributes($node, $type);
+  }
+  if ($node->{keys}{complexContent}{keys}{extension}{keys}{attribute}) {
+    xsd_type_add_attributes(
+      $node->{keys}{complexContent}{keys}{extension},
+      $type
+    );
+  }
+}
+
+sub xsd_discover_enum
+{
+  my ($prs, $node, $type) = @_;
+  if ($node->{keys}{restriction}{keys}{enumeration}) {
+    foreach my $elt (@{$node->{keys}{restriction}{children}}) {
+      if ($elt->{name} eq 'enumeration') {
+        my $enumelt = $elt->{attrs}{value};
+        push @{$type->{enum}}, $enumelt;
+      }
+    }
+  }
+}
+
+sub xsd_type_add_attributes
+{
+  my ($attrs, $type) = @_;
+  foreach my $child (@{$attrs->{children}}) {
+    if ($child->{name} eq 'attribute') {
+      my $attrname = $child->{attrs}{name};
+      my $attrtype = $child->{attrs}{type};
+      $attrtype =~ s/^.*://;
+      $type->{attrs}{$attrname} = $attrtype;
+    }
+  }
+}
+
+sub xsd_extensions
+{
+  my ($prs, $child) = @_;
+  if ($child->{name} eq 'complexType') {
+    my $typename = $child->{attrs}{name};
+    my $type = $prs->{types}{$typename};
+    if ($child->{keys}{complexContent}{keys}{extension}) {
+      my $basename =
+        $child->{keys}{complexContent}{keys}{extension}{attrs}{base};
+      if ($basename) {
+        $basename =~ s/^.*://;
+        my $basetype = $prs->{types}{$basename};
+        if ($basetype) {
+          foreach my $member (keys(%{$basetype->{members}})) {
+            $type->{members}{$member} = "$basetype->{members}{$member}";
+          }
+          foreach my $attr (keys(%{$basetype->{attrs}})) {
+            $type->{attrs}{$attr} = "$basetype->{attrs}{$attr}";
+          }
+        }
+      }
+      if ($child->{keys}{complexContent}{keys}{extension}{keys}{sequence}) {
+        foreach my $cchild (@{$child->{keys}{complexContent}{keys}{extension}{keys}{sequence}{children}}) {
+          if ($cchild->{name} eq 'element') {
+            my $cchildname = $cchild->{attrs}{name};
+            my $cchildtypename = $cchild->{attrs}{type};
+print STDERR "TYPE $typename MEMBER $cchildtypename\n";
+            $cchildtypename =~ s/^.*://;
+            if ($cchildtypename) {
+              $type->{members}{$cchildname} = $cchildtypename;
+} else {
+print STDERR reconstitute_xml($child);
+            }
+          }
+        }
+      }
+      if ($child->{keys}{complexContent}{keys}{extension}{keys}{choice}) {
+      }
+    }
+    if ($child->{keys}{simpleContent}{keys}{extension}) {
+      my $basename =
+        $child->{keys}{simpleContent}{keys}{extension}{attrs}{base};
+      if ($basename) {
+        $basename =~ s/^.*://;
+        my $basetype = $prs->{types}{$basename};
+        if ($basetype) {
+          if (defined($basetype->{enum}) && scalar(@{$basetype->{enum}})) {
+            foreach my $enumelt (@{$basetype->{enum}}) {
+              push @{$type->{enum}}, $enumelt;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+sub parse_xsd_secondrun
+{
+  my $prs = shift;
+  foreach my $child (@{$prs->{top}{children}}) {
+    xsd_extensions($prs, $child);
+  }
+  foreach my $include (@includes) {
+    foreach my $child (@{$include->{top}{children}}) {
+      xsd_extensions($prs, $child);
+    }
+  }
+}
+
+1;

@@ -1,0 +1,164 @@
+#!/usr/bin/perl
+
+#use strict;
+use Data::Dumper;
+
+my $file = shift @ARGV;
+my $perl = `cat $file`;
+my $hash = eval $perl;
+
+## Structure:
+## {
+##   objects => {
+##     foo => 'foobar',
+##     bar => 'barfu',
+##   },
+##   types => {
+##     foobar => {
+##       simple => undef,
+##       textcontent => undef,
+##       attrs => { 'oi' => 'String', 'yo' => 'Date' },
+##       members => {
+##         oui => barfu,
+##         yes => stringy
+##       }
+##     },
+##     barfu => {
+##       simple => 1,
+##       attrs => { 'gonow' => 'String' },
+##     },
+##     stringy => {
+##       textcontent => 1,
+##     },
+##   }
+## }
+
+$hash->{types}{boolean} = {
+  textcontent => 1,
+  enum => 1,
+  enumvalues => [ 'true', 'false' ]
+};
+$hash->{types}{anyType} = {
+  
+};
+
+my $sanitized = {};
+my $sanitized_reversed = {};
+
+print "TOP <- ";
+
+die "No objects" if (!scalar(keys(%{$hash->{objects}})));
+
+my $s = '';
+foreach my $objname (sort keys(%{$hash->{objects}})) {
+  $s .= "TOP_" . $objname . " / ";
+}
+$s =~ s/\/\s+$//;
+print $s . "\n";
+
+print "S <- %s*\n";
+print "ATTR_OTHER <- S { [a-zA-Z0-9:_]+ } S '=' S '\"' { [^\"]* } '\"'\n";
+print "CONTENT_OTHER <- { ( !'<' . )* }\n";
+
+foreach my $objname (sort keys(%{$hash->{objects}})) {
+  print "TOP_" . $objname . " <- S '<$objname";
+  print_element($objname, $hash->{objects}{$objname});
+}
+
+#sanitize_hash($hash);
+
+foreach my $typename (sort keys(%{$hash->{types}})) {
+  my $type = $hash->{types}{$typename};
+  if (scalar(keys(%{$type->{attrs}}))) {
+    print 'ATTRS_' . sanitized($typename) . ' <- (';
+    my $s = '';
+    foreach my $attr (sort keys(%{$type->{attrs}})) {
+      $s .= 'ATTR_' . sanitized($typename, $attr) . ' / ';
+    }
+    $s .= "ATTR_OTHER )*\n";
+    print $s;
+    foreach my $attr (sort keys(%{$type->{attrs}})) {
+      print
+        'ATTR_' . sanitized($typename, $attr) . 
+        " <- S '$attr' S '=' S '\"' { ( !'\"' .)* } '\"'\n";
+    }
+  } else {
+    print 'ATTRS_' . sanitized($typename) . " <- ( ATTR_OTHER )*\n";
+  }
+  if (scalar(@{$type->{enum}})) {
+    print 'ENUM_' . sanitized($typename) . ' <- S { ';
+    my $s = '';
+    foreach my $enumelt (@{$type->{enum}}) {
+      $s .= "'$enumelt' / ";
+    }
+    $s =~ s/ \/ $//;
+    $s .= "} / CONTENT_OTHER\n";
+    print $s;
+  }
+  if (scalar(keys(%{$type->{members}}))) {
+    print 'MEMBERS_' . sanitized($typename) . ' <- (';
+    my $s = '';
+    foreach my $membername (sort keys(%{$type->{members}})) {
+      $s .= 'MEMBER_' . sanitized($typename, $membername ) . ' / ';
+    }
+    $s =~ s/ \/ $//;
+    print $s . " )*\n";
+    foreach my $membername (sort keys(%{$type->{members}})) {
+      my $membertypename = $type->{members}{$membername};
+      print 'MEMBER_' . sanitized($typename, $membername) .
+            " <- S '<$membername";
+      print_element($membername, $membertypename);
+    }
+  }
+}
+
+sub print_element
+{
+  my ($name, $typename) = @_;
+  my $type = $hash->{types}{$typename} || die "Type '$typename' not found";
+  print "' ATTRS_" . sanitized($typename) . ' S';
+  print " ( '/>' / '>' ";
+  if (!scalar(keys(%{$type->{members}}))) {
+    if (scalar(@{$type->{enum}})) {
+      print ' ENUM_' . sanitized($typename);
+    } else {
+      print " { ( !'<' . )* }";
+    }
+    print " '</$name>' )\n";
+  } else {
+    print ' MEMBERS_' . sanitized($typename) . " S '</$name>' )\n";
+  }
+}
+
+sub sanitized
+{
+  my $key = join('//', @_);
+  if (defined($sanitized->{$key})) {
+    return $sanitized->{$key};
+  }
+  my @result;
+  my $length = 0;
+  while (my $param = shift @_) {
+    my $str = "$param";
+    $str =~ s/[^a-zA-Z0-9]//;
+    push @result, $str;
+    $length += (length($str) + 1);
+  }
+  if ($length > 54) {
+    my $allowed = 54 / scalar(@result);
+    for (my $i=0; $i < scalar(@result); $i++) {
+      my $str = $result[$i];
+      $str = substr($str, 0, $allowed);
+      splice(@result, $i, 1, $str);
+    }
+  }
+  my $result = join('_', @result);
+  while (defined($sanitized_reversed->{$result})) {
+    $result .= '_x';
+  }
+  $sanitized->{$key} = $result;
+  $sanitized_reversed->{$result} = $key;
+  return $result;
+}
+
+1;

@@ -3,11 +3,12 @@
 date
 
 TOP='.';
+DIRS='.'
 if [ "x$SYSTEMTEST" != "x" ]; then
-  TOP=$SYSTEMTEST
+  DIRS=$SYSTEMTEST
+else
+  DIRS=`find $TOP -maxdepth 1 -type d | grep test | sort -n`
 fi;
-
-DIRS=`find $TOP -maxdepth 1 -type d | grep test | sort -n`
 
 export SYSTEMTESTROOT=`pwd`
 export PATH=$PATH:$SYSTEMTESTROOT/bin

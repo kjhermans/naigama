@@ -141,6 +141,12 @@ NAIG_ERR_T naic_compile_quantified_matcher
   (naic_t* naic, naie_resobj_t* matcher, int range[ 2 ])
   __attribute__ ((warn_unused_result));
 
+/* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_compile_quantified_matcher_trad.c */
+extern
+NAIG_ERR_T naic_compile_quantified_matcher_trad
+  (naic_t* naic, naie_resobj_t* matcher, int range[ 2 ])
+  __attribute__ ((warn_unused_result));
+
 /* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_compile_reference.c */
 extern
 NAIG_ERR_T naic_compile_reference

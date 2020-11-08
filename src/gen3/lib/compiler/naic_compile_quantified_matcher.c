@@ -34,7 +34,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "naic_private.h"
 
 /**
- *
+ * Writes out the obligatory and forgiving loops from quantifiers
+ * by using counter instructions (Naigama specific).
  */
 NAIG_ERR_T naic_compile_quantified_matcher
   (naic_t* naic, naie_resobj_t* matcher, int range[ 2 ])
@@ -49,11 +50,7 @@ NAIG_ERR_T naic_compile_quantified_matcher
     "__FORGIVE_%u", ++(naic->labelcount));
   snprintf(foreverlabel, sizeof(foreverlabel),
     "__FOREVER_%u", ++(naic->labelcount));
-  if (naic->flags & NAIC_FLG_LOOPS) {
-    for (i=0; i < range[ 0 ]; i++) {
-      CHECK(naic_compile_matcher(naic, matcher));
-    }
-  } else if (range[ 0 ] > 0) {
+  if (range[ 0 ] > 0) {
     counter = (naic->counter)++;
     snprintf(counterlabel, sizeof(counterlabel),
       "__COUNTER_%u", ++(naic->labelcount));
@@ -71,27 +68,17 @@ NAIG_ERR_T naic_compile_quantified_matcher
   } else if (range[ 1 ] > range[ 0 ]) {
     diff = range[ 1 ] - range[ 0 ];
     if (diff > 1) {
-      if (naic->flags & NAIC_FLG_LOOPS) {
-        NAIC_WRITE("  catch %s\n", forgivelabel);
-        for (i=0; i < diff; i++) {
-          CHECK(naic_compile_matcher(naic, matcher));
-          NAIC_WRITE("  partialcommit\n", forgivelabel);
-        }
-        NAIC_WRITE("  commit\n");
-        NAIC_WRITE("%s:\n", forgivelabel);
-      } else {
-        counter = (naic->counter)++;
-        snprintf(counterlabel, sizeof(counterlabel),
-          "__COUNTER_%u", ++(naic->labelcount));
-        NAIC_WRITE("  catch %s\n", forgivelabel);
-        NAIC_WRITE("  counter %u %d\n", counter, range[ 1 ]);
-        NAIC_WRITE("%s:\n", counterlabel);
-        CHECK(naic_compile_matcher(naic, matcher));
-        NAIC_WRITE("  partialcommit\n", forgivelabel);
-        NAIC_WRITE("  condjump %u %s\n", counter, counterlabel);
-        NAIC_WRITE("  commit\n");
-        NAIC_WRITE("%s:\n", forgivelabel);
-      }
+      counter = (naic->counter)++;
+      snprintf(counterlabel, sizeof(counterlabel),
+        "__COUNTER_%u", ++(naic->labelcount));
+      NAIC_WRITE("  catch %s\n", forgivelabel);
+      NAIC_WRITE("  counter %u %d\n", counter, range[ 1 ]);
+      NAIC_WRITE("%s:\n", counterlabel);
+      CHECK(naic_compile_matcher(naic, matcher));
+      NAIC_WRITE("  partialcommit\n");
+      NAIC_WRITE("  condjump %u %s\n", counter, counterlabel);
+      NAIC_WRITE("  commit\n");
+      NAIC_WRITE("%s:\n", forgivelabel);
     } else if (diff == 1) {
       NAIC_WRITE("  catch %s\n", forgivelabel);
       CHECK(naic_compile_matcher(naic, matcher));

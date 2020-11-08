@@ -219,6 +219,9 @@ int main
       case 't':
         flags |= NAIC_FLG_TRAPS;
         break;
+      case 'T':
+        flags |= NAIC_FLG_TRADITIONAL;
+        break;
       case 's':
         flags |= NAIC_FLG_TERSE;
         break;
@@ -267,6 +270,7 @@ int main
           "-l <path>  Labelmap path (only works when -a or -b is given).\n"
           "-D         Debug (prepare for a lot of data on stderr)\n"
           "-t         Generate traps\n"
+          "-T         'Traditional' output (LPEG compatible)\n"
           "-s         Generate reduced instruction set\n"
           "-w         Write out loops instead of using counters\n"
           , gen

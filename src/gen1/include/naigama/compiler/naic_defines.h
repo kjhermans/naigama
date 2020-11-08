@@ -22,6 +22,7 @@
 #define NAIC_FLG_TERSE          (1<<3)
 #define NAIC_FLG_DEBUG          (1<<4)
 #define NAIC_FLG_LOOPS          (1<<5)
+#define NAIC_FLG_TRADITIONAL    (1<<6)
 
 #define NAIC_WRITE(...) CHECK(naic->write(naic->write_arg, __VA_ARGS__))
 

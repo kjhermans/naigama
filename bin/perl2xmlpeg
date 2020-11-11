@@ -44,8 +44,9 @@ $hash->{types}{anyType} = {
 
 my $sanitized = {};
 my $sanitized_reversed = {};
+my $x = 0;
 
-print "TOP <- ";
+output("TOP <- ");
 
 die "No objects" if (!scalar(keys(%{$hash->{objects}})));
 
@@ -54,79 +55,107 @@ foreach my $objname (sort keys(%{$hash->{objects}})) {
   $s .= "TOP_" . $objname . " / ";
 }
 $s =~ s/\/\s+$//;
-print $s . "\n";
+output($s . "\n");
 
-print "S <- %s*\n";
-print "ATTR_OTHER <- S { [a-zA-Z0-9:_]+ } S '=' S '\"' { [^\"]* } '\"'\n";
-print "CONTENT_OTHER <- { ( !'<' . )* }\n";
+output("S <- %s*\n");
+output("ATTR_OTHER <- S { [a-zA-Z0-9:_]+ } S '=' S '\"' { [^\"]* } '\"'\n");
+output("CONTENT_OTHER <- { ( !'<' . )* }\n");
+
+print "
+-- Naigama specific grammar for 'any' XML
+ANYXML      <- complexitem* / text
+item        <- S complexitem / S simpleitem
+simpleitem  <- S '<' { W } optattrs S '/>'
+complexitem <- S '<' {:tag: W } optattrs S '>'
+                 complexbody S
+                 '</' \$tag '>'
+complexbody <- S (item / { (!(S '<') .)+ })*
+optattrs    <- S ( { attrname1 / attrname2 } EQUALS attrvalue )*
+attrname1   <- S {:nbrace: ['\"] } { W } \$nbrace
+attrname2   <- S { W }
+attrvalue   <- S {:vbrace: ['\"] } { ( ! \$vbrace . )* } \$vbrace
+text        <- S { ( !'<' . )* }
+EQUALS      <- S '='
+W           <- S [a-zA-Z0-9:_-]+
+-- /End 'any' XML grammar
+
+";
 
 foreach my $objname (sort keys(%{$hash->{objects}})) {
-  print "TOP_" . $objname . " <- S '<$objname";
+  output("TOP_" . $objname . " <- S '<$objname");
   print_element($objname, $hash->{objects}{$objname});
 }
 
 #sanitize_hash($hash);
 
 foreach my $typename (sort keys(%{$hash->{types}})) {
+  output("-- Type $typename\n");
   my $type = $hash->{types}{$typename};
   if (scalar(keys(%{$type->{attrs}}))) {
-    print 'ATTRS_' . sanitized($typename) . ' <- (';
+    output('ATTRS_' . sanitized($typename) . ' <- (');
     my $s = '';
     foreach my $attr (sort keys(%{$type->{attrs}})) {
       $s .= 'ATTR_' . sanitized($typename, $attr) . ' / ';
     }
     $s .= "ATTR_OTHER )*\n";
-    print $s;
+    output($s);
     foreach my $attr (sort keys(%{$type->{attrs}})) {
       print
         'ATTR_' . sanitized($typename, $attr) . 
         " <- S '$attr' S '=' S '\"' { ( !'\"' .)* } '\"'\n";
     }
   } else {
-    print 'ATTRS_' . sanitized($typename) . " <- ( ATTR_OTHER )*\n";
+    output('ATTRS_' . sanitized($typename) . " <- ( ATTR_OTHER )*\n");
   }
   if (scalar(@{$type->{enum}})) {
-    print 'ENUM_' . sanitized($typename) . ' <- S { ';
+    output('ENUM_' . sanitized($typename) . ' <- S { ');
     my $s = '';
-    foreach my $enumelt (@{$type->{enum}}) {
+    foreach my $enumelt (reverse(sort(@{$type->{enum}}))) {
       $s .= "'$enumelt' / ";
     }
     $s =~ s/ \/ $//;
     $s .= "} / CONTENT_OTHER\n";
-    print $s;
+    output($s);
   }
   if (scalar(keys(%{$type->{members}}))) {
-    print 'MEMBERS_' . sanitized($typename) . ' <- (';
+    output('MEMBERS_' . sanitized($typename) . ' <- (');
     my $s = '';
     foreach my $membername (sort keys(%{$type->{members}})) {
       $s .= 'MEMBER_' . sanitized($typename, $membername ) . ' / ';
     }
     $s =~ s/ \/ $//;
-    print $s . " )*\n";
+    output($s . " )*\n");
     foreach my $membername (sort keys(%{$type->{members}})) {
       my $membertypename = $type->{members}{$membername};
-      print 'MEMBER_' . sanitized($typename, $membername) .
-            " <- S '<$membername";
+      output(
+        'MEMBER_' . sanitized($typename, $membername) .
+        " <- S '<$membername"
+      );
       print_element($membername, $membertypename);
     }
   }
+  output("\n");
 }
 
 sub print_element
 {
   my ($name, $typename) = @_;
+  if ($typename eq 'anyType') {
+    output("' ATTRS_anyType '>' S ANYXML S '</$name>'\n");
+    return;
+  }
   my $type = $hash->{types}{$typename} || die "Type '$typename' not found";
-  print "' ATTRS_" . sanitized($typename) . ' S';
-  print " ( '/>' / '>' ";
+  output("' ATTRS_" . sanitized($typename) . ' S');
+  output(" ( '/>' / '>' ");
   if (!scalar(keys(%{$type->{members}}))) {
     if (scalar(@{$type->{enum}})) {
-      print ' ENUM_' . sanitized($typename);
+      output(' ENUM_' . sanitized($typename));
     } else {
-      print " { ( !'<' . )* }";
+      output(" { ( !'<' . )* }");
     }
-    print " '</$name>' )\n";
+    output(" '</$name>' )\n");
   } else {
-    print ' MEMBERS_' . sanitized($typename) . " S '</$name>' )\n";
+    output(' MEMBERS_' . sanitized($typename) . " S '</$name>' )\n");
   }
 }
 
@@ -159,6 +188,29 @@ sub sanitized
   $sanitized->{$key} = $result;
   $sanitized_reversed->{$result} = $key;
   return $result;
+}
+
+sub output
+{
+  my $str = shift;
+print $str; return;
+#  if ($x > 80) {
+#    print "\n    ";
+#    $x = 4;
+#  }
+#  while (length($str) > 80) {
+#    if ($str =~ s/^(.{60}.*?)\s//) {
+#      print $1 . "\n    ";
+#    } else {
+#      last;
+#    }
+#  }
+#  print $str;
+#  if ($str =~ /\n$/) {
+#    $x = 0;
+#  } else {
+#    $x += length($str);
+#  }
 }
 
 1;

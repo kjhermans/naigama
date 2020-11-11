@@ -190,10 +190,9 @@ sub parse_xsd_top
       } elsif ($child->{name} eq 'simpleType') {
         my $typename = $child->{attrs}{name};
         $typename =~ s/^.*://;
-        my $type = { simple => 1 };
+        my $type = { simple => 1, __name => $typename };
         $prs->{types}{$typename} = $type;
-        xsd_discover_attributes($prs, $child, $type);
-        xsd_discover_enum($prs, $child, $type);
+        xsd_discover_type($prs, $child, $type);
       } elsif ($child->{name} !~ /^(include|import)$/) {
         die "Unknown element $child->{name}\n";
       }
@@ -204,176 +203,213 @@ sub parse_xsd_top
 sub xsd_discover_type
 {
   my ($prs, $node, $type) = @_;
-  xsd_discover_attributes($prs, $node, $type);
-  if ($node->{name} eq 'complexType') {
-    xsd_discover_members($prs, $node, $type);
-  } elsif ($node->{name} eq 'simpleType') {
-    xsd_discover_enum($prs, $node, $type);
+  foreach my $child (@{$node->{children}}) {
+    if ($child->{name} eq 'complexContent') {
+      xsd_complexcontent($prs, $child, $type);
+    } elsif ($child->{name} eq 'simpleContent') {
+      xsd_simplecontent($prs, $child, $type);
+    } elsif ($child->{name} eq 'sequence') {
+      xsd_sequence($prs, $child, $type);
+    } elsif ($child->{name} eq 'attribute') {
+      xsd_attribute($prs, $child, $type);
+    } elsif ($child->{name} eq 'choice') {
+      xsd_choice($prs, $child, $type);
+    } elsif ($child->{name} eq 'restriction') {
+      xsd_restriction($prs, $child, $type);
+    } else {
+      die "Unknown child $child->{name}";
+    }
   }
 }
 
-sub xsd_discover_members
+sub xsd_complexcontent
 {
   my ($prs, $node, $type) = @_;
-  if ($node->{keys}{sequence}) {
-    xsd_type_add_sequence($prs, $node->{keys}{sequence}, $type);
-  }
-  if ($node->{keys}{complexContent}{keys}{extension}{keys}{sequence}) {
-    xsd_type_add_sequence(
-      $prs,
-      $node->{keys}{complexContent}{keys}{extension}{keys}{sequence},
-      $type
-    );
-  }
-  if ($node->{keys}{complexContent}{keys}{extension}{keys}{choice}) {
-    xsd_type_add_sequence(
-      $prs,
-      $node->{keys}{complexContent}{keys}{extension}{keys}{choice},
-      $type
-    );
-  }
-  if ($node->{keys}{sequence}{keys}{choice}) {
-    xsd_type_add_sequence(
-      $prs,
-      $node->{keys}{sequence}{keys}{choice},
-      $type
-    );
+  foreach my $child (@{$node->{children}}) {
+    if ($child->{name} eq 'extension') {
+      xsd_extension($prs, $child, $type);
+    } else {
+      die "Unknown child $child->{name}";
+    }
   }
 }
 
-sub xsd_type_add_sequence
+sub xsd_simplecontent
 {
-  my ($prs, $sequence, $type) = @_;
-  foreach my $child (@{$sequence->{children}}) {
+  my ($prs, $node, $type) = @_;
+  foreach my $child (@{$node->{children}}) {
+    if ($child->{name} eq 'extension') {
+      xsd_extension($prs, $child, $type);
+    } else {
+      die "Unknown child $child->{name}";
+    }
+  }
+}
+
+
+sub xsd_extension
+{
+  my ($prs, $node, $type) = @_;
+  my $base = $node->{attrs}{base};
+  if ($base) {
+   $base =~ s/^.*://;
+    $type->{extends} = $base;
+  }
+  foreach my $child (@{$node->{children}}) {
+    if ($child->{name} eq 'sequence') {
+      xsd_sequence($prs, $child, $type);
+    } elsif ($child->{name} eq 'choice') {
+      xsd_choice($prs, $child, $type);
+    } elsif ($child->{name} eq 'attribute') {
+      xsd_attribute($prs, $child, $type);
+    } else {
+      die "Unknown child $child->{name}";
+    }
+  }
+}
+
+
+sub xsd_sequence
+{
+  my ($prs, $node, $type) = @_;
+  foreach my $child (@{$node->{children}}) {
     if ($child->{name} eq 'element') {
-      my $membername = $child->{attrs}{name};
-      my $membertype = $child->{attrs}{type};
-      if ($membertype) {
-        $membertype =~ s/^.*://;
-        $type->{members}{$membername} = $membertype;
+      xsd_element($prs, $child, $type);
+    } elsif ($child->{name} eq 'choice') {
+      xsd_choice($prs, $child, $type);
+    } elsif ($child->{name} eq 'sequence') {
+      xsd_sequence($prs, $child, $type);
+    } else {
+      die "Unknown child $child->{name}";
+    }
+  }
+}
+
+sub xsd_element
+{
+  my ($prs, $node, $type) = @_;
+  my $membername = $node->{attrs}{name};
+  my $membertype = $node->{attrs}{type};
+  if (length($membertype)) {
+    $membertype =~ s/^.*://;
+    $type->{members}{$membername} = $membertype;
+  } else {
+    foreach my $child (@{$node->{children}}) {
+      if ($child->{name} eq 'simpleType') {
+        my $subtypename = 'ANON_' . ++$counter;
+        my $subtype = { __name => $subtypename, simple => 1 };
+        $prs->{types}{$subtypename} = $subtype;
+        xsd_discover_type($prs, $child, $subtype);
+        $type->{members}{$membername} = $subtypename;
+      } elsif ($child->{name} eq 'complexType') {
+        my $subtypename = 'ANON_' . ++$counter;
+        my $subtype = { __name => $subtypename };
+        $prs->{types}{$subtypename} = $subtype;
+        xsd_discover_type($prs, $child, $subtype);
+        $type->{members}{$membername} = $subtypename;
       } else {
-        if ($child->{keys}{complexType}) {
-          my $anontypename = "ANONTYPE_" . ++$counter;
-          my $anontype = {};
-          $type->{members}{$membername} = $anontypename;
-          $prs->{types}{$anontypename} = $anontype;
-          xsd_discover_members($prs, $child->{keys}{complexType}, $anontype);
-        } else {
-print STDERR "Anonymous type for $membername not understood.\n";
-        }
+        die "Unknown child $child->{name}";
       }
     }
   }
 }
 
-sub xsd_discover_attributes
+sub xsd_attribute
 {
   my ($prs, $node, $type) = @_;
-  if ($node->{keys}{attribute}) {
-    xsd_type_add_attributes($node, $type);
-  }
-  if ($node->{keys}{complexContent}{keys}{extension}{keys}{attribute}) {
-    xsd_type_add_attributes(
-      $node->{keys}{complexContent}{keys}{extension},
-      $type
-    );
-  }
-}
-
-sub xsd_discover_enum
-{
-  my ($prs, $node, $type) = @_;
-  if ($node->{keys}{restriction}{keys}{enumeration}) {
-    foreach my $elt (@{$node->{keys}{restriction}{children}}) {
-      if ($elt->{name} eq 'enumeration') {
-        my $enumelt = $elt->{attrs}{value};
-        push @{$type->{enum}}, $enumelt;
+  my $attrname = $node->{attrs}{name};
+  my $attrtype = $node->{attrs}{type};
+  if (length($attrtype)) {
+    $attrtype =~ s/^.*://;
+    $type->{attrs}{$attrname} = $attrtype;
+  } else {
+    foreach my $child (@{$node->{children}}) {
+      if ($child->{name} eq 'simpleType') {
+        print STDERR "Unhandled attr simpleType: " . reconstitute_xml($node);
+        $type->{attrs}{$attrname} = "String";
+      } else {
+        die "Unknown child $child->{name}";
       }
     }
   }
 }
 
-sub xsd_type_add_attributes
+sub xsd_choice
 {
-  my ($attrs, $type) = @_;
-  foreach my $child (@{$attrs->{children}}) {
-    if ($child->{name} eq 'attribute') {
-      my $attrname = $child->{attrs}{name};
-      my $attrtype = $child->{attrs}{type};
-      $attrtype =~ s/^.*://;
-      $type->{attrs}{$attrname} = $attrtype;
+  my ($prs, $node, $type) = @_;
+  foreach my $child (@{$node->{children}}) {
+    if ($child->{name} eq 'element') {
+      xsd_element($prs, $child, $type);
+    } else {
+      die "Unknown child $child->{name}";
     }
+  }
+}
+
+sub xsd_restriction
+{
+  my ($prs, $node, $type) = @_;
+  foreach my $child (@{$node->{children}}) {
+    if ($child->{name} eq 'minLength') {
+    } elsif ($child->{name} eq 'enumeration') {
+      xsd_enumeration($prs, $child, $type);
+    } elsif ($child->{name} eq 'totalDigits') {
+    } elsif ($child->{name} eq 'fractionDigits') {
+    } elsif ($child->{name} eq 'minInclusive') {
+    } elsif ($child->{name} eq 'maxInclusive') {
+    } elsif ($child->{name} eq 'maxLength') {
+    } elsif ($child->{name} eq 'pattern') {
+    } else {
+      die "Unknown child $child->{name}";
+    }
+  }
+}
+
+sub xsd_enumeration
+{
+  my ($prs, $node, $type) = @_;
+  my $value = $node->{attrs}{value};
+  if (length($value)) {
+    push @{$type->{enum}}, $value;
   }
 }
 
 sub xsd_extensions
 {
-  my ($prs, $child) = @_;
-  if ($child->{name} eq 'complexType') {
-    my $typename = $child->{attrs}{name};
-    my $type = $prs->{types}{$typename};
-    if ($child->{keys}{complexContent}{keys}{extension}) {
-      my $basename =
-        $child->{keys}{complexContent}{keys}{extension}{attrs}{base};
-      if ($basename) {
-        $basename =~ s/^.*://;
-        my $basetype = $prs->{types}{$basename};
-        if ($basetype) {
-          foreach my $member (keys(%{$basetype->{members}})) {
-            $type->{members}{$member} = "$basetype->{members}{$member}";
-          }
-          foreach my $attr (keys(%{$basetype->{attrs}})) {
-            $type->{attrs}{$attr} = "$basetype->{attrs}{$attr}";
-          }
+  my $prs = shift;
+  while (1) {
+    my $extensions = 0;
+    foreach my $typename (keys(%{$prs->{types}})) {
+      my $type = $prs->{types}{$typename};
+      if (length($type->{extends})) {
+        my $extendstype = $prs->{types}{$type->{extends}}
+          || die "Could not find extension $type->{extends}";
+        foreach my $extendsmember (keys(%{$extendstype->{members}})) {
+          $type->{members}{$extendsmember}
+            = $extendstype->{members}{$extendsmember};
         }
-      }
-      if ($child->{keys}{complexContent}{keys}{extension}{keys}{sequence}) {
-        foreach my $cchild (@{$child->{keys}{complexContent}{keys}{extension}{keys}{sequence}{children}}) {
-          if ($cchild->{name} eq 'element') {
-            my $cchildname = $cchild->{attrs}{name};
-            my $cchildtypename = $cchild->{attrs}{type};
-print STDERR "TYPE $typename MEMBER $cchildtypename\n";
-            $cchildtypename =~ s/^.*://;
-            if ($cchildtypename) {
-              $type->{members}{$cchildname} = $cchildtypename;
-} else {
-print STDERR reconstitute_xml($child);
-            }
-          }
+        foreach my $extendsattr (keys(%{$extendstype->{attrs}})) {
+          $type->{attrs}{$extendsattr}
+            = $extendstype->{attrs}{$extendsattr};
         }
-      }
-      if ($child->{keys}{complexContent}{keys}{extension}{keys}{choice}) {
+        foreach my $enumitem (@{$extendstype->{enum}}) {
+          push @{$type->{enum}}, $enumitem;
+        }
+        delete $type->{extends};
+        if ($extendstype->{extends}) {
+          $type->{extends} = $extendstype->{extends};
+        }
+        ++$extensions;
       }
     }
-    if ($child->{keys}{simpleContent}{keys}{extension}) {
-      my $basename =
-        $child->{keys}{simpleContent}{keys}{extension}{attrs}{base};
-      if ($basename) {
-        $basename =~ s/^.*://;
-        my $basetype = $prs->{types}{$basename};
-        if ($basetype) {
-          if (defined($basetype->{enum}) && scalar(@{$basetype->{enum}})) {
-            foreach my $enumelt (@{$basetype->{enum}}) {
-              push @{$type->{enum}}, $enumelt;
-            }
-          }
-        }
-      }
-    }
+    last if ($extensions == 0);
   }
 }
 
 sub parse_xsd_secondrun
 {
   my $prs = shift;
-  foreach my $child (@{$prs->{top}{children}}) {
-    xsd_extensions($prs, $child);
-  }
-  foreach my $include (@includes) {
-    foreach my $child (@{$include->{top}{children}}) {
-      xsd_extensions($prs, $child);
-    }
-  }
+  xsd_extensions($prs);
 }
 
 1;

@@ -31,19 +31,17 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \brief
  */
 
-#ifndef _NAIE_PRIVATE_H_
-#define _NAIE_PRIVATE_H_
+#include "naie_private.h"
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-
-#include <naigama/engine/naie.h>
-#include "generated.h"
-
-#include "../naigama/naig_private.h"
-
-extern unsigned* instruction_sizes;
-extern char** instruction_idents;
-
-#endif
+/**
+ *
+ */
+NAIG_ERR_T naie_fstack_pop
+  (naie_scalar_stack_t* stack, naie_scalar_t* scalar)
+{
+  if (stack->nelts) {
+    *scalar = stack->elts[ --(stack->nelts) ];
+    return NAIG_OK;
+  }
+  return NAIE_ERR_STACKEMPTY;
+}

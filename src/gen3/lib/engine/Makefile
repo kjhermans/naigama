@@ -1,5 +1,4 @@
-CFILES:=$(shell find . -type l | grep '\.c$$')
-OBJECTS:=$(shell find . -type l | grep '\.c$$' | sort | sed -e 's/\.c$$/.o/')
+OBJECTS:=$(shell ls *.c | sort | sed -e 's/\.c$$/.o/')
 LIB=libnaie.a
 CC=$(ARCH)gcc
 AR=$(ARCH)ar

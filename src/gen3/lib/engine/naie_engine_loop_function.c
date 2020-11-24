@@ -39,6 +39,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 NAIG_ERR_T naie_engine_loop_function
   (naie_engine_t* engine)
 {
+  naie_scalar_t scalar1, scalar2, scalar3;
+  uint32_t param1, param2, param3;
+  unsigned instruction_size;
+  uint32_t opcode;
+
   while (1) {
     if (engine->bytecode_pos > engine->bytecode_length - 4) {
       RETURNERR(NAIE_ERR_CODEOVERFLOW);
@@ -68,10 +73,37 @@ NAIG_ERR_T naie_engine_loop_function
       engine->bytecode_pos += instruction_size;
       goto NEXT;
 
-    case SCR_CALL:
-    case SCR_RET:
-    case SCR_PUSH:
-    case SCR_ADD:
+    case OPCODE_SCR_CALL:
+      param1 = GET_32BIT_VALUE(engine->bytecode, engine->bytecode_pos + 4);
+      scalar1 = (naie_scalar_t){
+        .type = NAIE_SCALAR_TYPE_STACKRETURN,
+        .value._return = engine->bytecode_pos + 8
+      };
+      CHECK(naie_fstack_push(&(engine->fstack), scalar1));
+      engine->bytecode_pos = param1;
+      goto NEXT;
+
+    case OPCODE_SCR_RET:
+      CHECK(naie_fstack_pop(&(engine->fstack), &scalar1));
+      if (scalar1.type != NAIE_SCALAR_TYPE_STACKRETURN) {
+        //.. error
+      }
+      engine->bytecode_pos = scalar1.value._return;
+      goto NEXT;
+
+    case OPCODE_SCR_PUSH:
+      scalar1 = *((naie_scalar_t*)(engine->bytecode + engine->bytecode_pos+4));
+      CHECK(naie_fstack_push(&(engine->fstack), scalar1));
+      engine->bytecode_pos += instruction_size;
+      goto NEXT;
+
+    case OPCODE_SCR_ADD:
+      CHECK(naie_fstack_pop(&(engine->fstack), &scalar1));
+      CHECK(naie_fstack_pop(&(engine->fstack), &scalar2));
+      CHECK(naie_scalar_add(scalar1, scalar2, &scalar3));
+      CHECK(naie_fstack_push(&(engine->fstack), scalar3));
+      engine->bytecode_pos += instruction_size;
+      goto NEXT;
 
     default:
       RETURNERR(NAIE_ERR_BADOPCODE);

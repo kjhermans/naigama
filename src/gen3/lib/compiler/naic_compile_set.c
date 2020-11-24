@@ -57,6 +57,7 @@ unsigned naic_set_char
     case '5': case '6': case '7': case '8': case '9':
       return octal(chr[0], chr[1], chr[2]);
     }
+    __attribute__((fallthrough));
   default:
     return (unsigned)(*chr);
   }

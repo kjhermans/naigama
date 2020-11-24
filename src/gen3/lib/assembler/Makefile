@@ -1,4 +1,3 @@
-CFILES:=$(shell ls *.c')
 OBJECTS:=$(shell ls *.c | sort | sed -e 's/\.c$$/.o/')
 LIB=libnaia.a
 CC=$(ARCH)gcc

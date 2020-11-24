@@ -41,7 +41,6 @@ NAIG_ERR_T naic_compile_global
 {
   char* type = 0;
   char* ident = 0;
-  naie_resobj_t* expr = 0;
 
   if (global->children[ 0 ]->type == SLOT_VARDECL_SCRTYPE) {
     type = global->children[ 0 ]->children[ 0 ]->string;
@@ -49,7 +48,7 @@ NAIG_ERR_T naic_compile_global
   } else {
     ident = global->children[ 0 ]->children[ 0 ]->string;
   }
-  //.. assign expr
+  //.. potentially assign expr
   CHECK(naic_scope_add(&(naic->globalscope), ident, type));
   return NAIG_OK;
 }

@@ -40,7 +40,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 NAIG_ERR_T naic_compile_quantified_matcher
   (naic_t* naic, naie_resobj_t* matcher, int range[ 2 ])
 {
-  int i, diff;
+  int diff;
   char counterlabel[ 64 ];
   char forgivelabel[ 64 ];
   char foreverlabel[ 64 ];

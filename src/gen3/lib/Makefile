@@ -1,5 +1,5 @@
 stage_11:
-	@cd processor && make
+#	@cd processor && make
 	@cd engine && make -j 4
 	@cd compiler && make -j 4
 	@cd assembler && make -j 4

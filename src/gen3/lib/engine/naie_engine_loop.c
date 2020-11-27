@@ -379,9 +379,45 @@ NAIG_ERR_T naie_engine_loop
       goto NEXT;
 
     case OPCODE_ISOLATE:
-      
+      param1 = GET_32BIT_VALUE(engine->bytecode, engine->bytecode_pos + 4);
+      {
+        unsigned stop, i;
+        for (i = engine->actions.count; i > 0; i--) {
+          switch (engine->actions.entries[ i-1 ].action) {
+          case NAIG_ACTION_CLOSECAPTURE:
+            if (engine->actions.entries[ i-1 ].slot == param1) {
+              stop = engine->actions.entries[ i-1 ].inputpos;
+              for (--i; i > 0; i--) {
+                switch (engine->actions.entries[ i-1 ].action) {
+                case NAIG_ACTION_OPENCAPTURE:
+                  if (engine->actions.entries[ i-1 ].slot == param1) {
+                    unsigned start = engine->actions.entries[ i-1 ].inputpos;
+                    unsigned origpos = engine->input_pos;
+                    unsigned origlength = engine->input_length;
+                    const unsigned char* originput = engine->input;
+                    engine->input = engine->input + start;
+                    engine->input_pos = 0;
+                    engine->input_length = (stop - start);
+                    engine->bytecode_pos += instruction_size;
+fprintf(stderr, "Going into isolation for piece '%-.*s'\n", engine->input_length, engine->input);
+                    if (NAIG_ISOK(naie_engine_loop(engine, result))) {
+                      engine->input_pos = origpos;
+                      engine->input = originput;
+                      engine->input_length = origlength;
+                      goto NEXT;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      RETURNERR(NAIE_ERR_ACTIONLIST);
 
     case OPCODE_ENDISOLATE:
+      engine->bytecode_pos += instruction_size;
+      return NAIG_OK;
 
     case OPCODE_TRAP:
       RETURNERR(NAIE_ERR_TRAP);

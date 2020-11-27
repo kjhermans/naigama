@@ -442,5 +442,20 @@ $VAR1 = {
                      'param1' => 'slot',
                      'size' => 8,
                      'terse' => 1
-                   }
+                   },
+          'isolate' => {
+                     'instr' => 274435,
+                     'mnem' => 'isolate',
+                     'opcode' => '00043003',
+                     'param1' => 'slot',
+                     'size' => 8,
+                     'terse' => 0
+          },
+          'endisolate' => {
+                     'instr' => 12293,
+                     'mnem' => 'endisolate',
+                     'opcode' => '00003005',
+                     'size' => 4,
+                     'terse' => 0
+          },
         };

@@ -18,16 +18,12 @@
 #define INSTR_COUNTER "counter"
 #define OPCODE_END 0x000400d8
 #define INSTR_END "end"
-#define OPCODE_ENDISOLATE 0x000003f5
-#define INSTR_ENDISOLATE "endisolate"
 #define OPCODE_ENDREPLACE 0x00000399
 #define INSTR_ENDREPLACE "endreplace"
 #define OPCODE_FAIL 0x0000034b
 #define INSTR_FAIL "fail"
 #define OPCODE_FAILTWICE 0x00000390
 #define INSTR_FAILTWICE "failtwice"
-#define OPCODE_ISOLATE 0x000003e2
-#define INSTR_ISOLATE "isolate"
 #define OPCODE_JUMP 0x00040333
 #define INSTR_JUMP "jump"
 #define OPCODE_MASKEDCHAR 0x00080365
@@ -134,4 +130,4 @@
 #define INSTR_TRAP "trap"
 #define OPCODE_VAR 0x000403ee
 #define INSTR_VAR "var"
-#define DIGEST_INSTR 0xf1a03ccbef8e146e
+#define DIGEST_INSTR 0x3dc6abe4fafa2d06

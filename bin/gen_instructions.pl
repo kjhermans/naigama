@@ -8,6 +8,7 @@ $Data::Dumper::Sortkeys = 1;
 my $instrfile = shift @ARGV;
 my $instrperl = `cat $instrfile`;
 my $instrhash = eval $instrperl;
+my $generation = shift @ARGV;
 
 my @hamming = (
   0x00, 0x03, 0x05, 0x06, 0x09, 0x0a, 0x0c, 0x0f,  
@@ -35,74 +36,74 @@ my $global_instructions = {
 };
 
 my $parser_instructions = {
-  call          => { size => 8,  param1 => 'address', terse => 1 },
-  ret           => { size => 4, terse => 1 },
-  jump          => { size => 8,  param1 => 'address', terse => 1 },
-  counter       => { size => 12, param1 => 'register', param2 => 'value' },
-  condjump      => { size => 12, param1 => 'register', param2 => 'address' },
-  any           => { size => 4 },
-  testany       => { size => 8,  param1 => 'address' },
-  char          => { size => 8,  param1 => 'char' },
-  testchar      => { size => 12, param1 => 'address', param2 => 'char' },
-  maskedchar    => { size => 12, param1 => 'char', param2 => 'mask', terse => 1 },
-  quad          => { size => 8,  param1 => 'quad' },
-  testquad      => { size => 12, param1 => 'address', param2 => 'quad' },
-  set           => { size => 36, param1 => 'set', terse => 1 },
-  testset       => { size => 40, param1 => 'address', param2 => 'set' },
-  span          => { size => 36, param1 => 'set' },
-  range         => { size => 12, param1 => 'from', param2 => 'until', terse => 1 },
-  skip          => { size => 8,  param1 => 'number' },
-  catch         => { size => 8,  param1 => 'address', terse => 1 },
-  commit        => { size => 8,  param1 => 'address', terse => 1 },
-  partialcommit => { size => 8,  param1 => 'address' },
-  backcommit    => { size => 8,  param1 => 'address', terse => 1 },
-  fail          => { size => 4, terse => 1 },
-  failtwice     => { size => 4 },
-  opencapture   => { size => 8,  param1 => 'slot', terse => 1 },
-  closecapture  => { size => 8,  param1 => 'slot', terse => 1 },
-  var           => { size => 8,  param1 => 'slot', terse => 1 },
-  replace       => { size => 12, param1 => 'slot', param2 => 'address', terse => 1 },
-  endreplace    => { size => 4, terse => 1 },
-  isolate       => { size => 4, },
-  endisolate    => { size => 4, },
+  call          => { gen => 0, size => 8,  param1 => 'address', terse => 1 },
+  ret           => { gen => 0, size => 4, terse => 1 },
+  jump          => { gen => 0, size => 8,  param1 => 'address', terse => 1 },
+  counter       => { gen => 0, size => 12, param1 => 'register', param2 => 'value' },
+  condjump      => { gen => 0, size => 12, param1 => 'register', param2 => 'address' },
+  any           => { gen => 0, size => 4 },
+  testany       => { gen => 0, size => 8,  param1 => 'address' },
+  char          => { gen => 0, size => 8,  param1 => 'char' },
+  testchar      => { gen => 0, size => 12, param1 => 'address', param2 => 'char' },
+  maskedchar    => { gen => 0, size => 12, param1 => 'char', param2 => 'mask', terse => 1 },
+  quad          => { gen => 0, size => 8,  param1 => 'quad' },
+  testquad      => { gen => 0, size => 12, param1 => 'address', param2 => 'quad' },
+  set           => { gen => 0, size => 36, param1 => 'set', terse => 1 },
+  testset       => { gen => 0, size => 40, param1 => 'address', param2 => 'set' },
+  span          => { gen => 0, size => 36, param1 => 'set' },
+  range         => { gen => 0, size => 12, param1 => 'from', param2 => 'until', terse => 1 },
+  skip          => { gen => 0, size => 8,  param1 => 'number' },
+  catch         => { gen => 0, size => 8,  param1 => 'address', terse => 1 },
+  commit        => { gen => 0, size => 8,  param1 => 'address', terse => 1 },
+  partialcommit => { gen => 0, size => 8,  param1 => 'address' },
+  backcommit    => { gen => 0, size => 8,  param1 => 'address', terse => 1 },
+  fail          => { gen => 0, size => 4, terse => 1 },
+  failtwice     => { gen => 0, size => 4 },
+  opencapture   => { gen => 0, size => 8,  param1 => 'slot', terse => 1 },
+  closecapture  => { gen => 0, size => 8,  param1 => 'slot', terse => 1 },
+  var           => { gen => 0, size => 8,  param1 => 'slot', terse => 1 },
+  replace       => { gen => 1, size => 12, param1 => 'slot', param2 => 'address', terse => 1 },
+  endreplace    => { gen => 1, size => 4, terse => 1 },
+  isolate       => { gen => 3, size => 8,  param1 => 'slot' },
+  endisolate    => { gen => 3, size => 4 },
 };
 
 my $script_instructions = {
-  scr_condjump   => { size => 12 },
-  scr_jump       => { size => 8 },
-  scr_call       => { size => 8 },
-  scr_ret        => { size => 4 },
-  scr_push       => { size => 4 },
-  scr_pop        => { size => 4 },
-  scr_equals     => { size => 4 },
-  scr_nequals    => { size => 4 },
-  scr_lt         => { size => 4 },
-  scr_gt         => { size => 4 },
-  scr_lteq       => { size => 4 },
-  scr_gteq       => { size => 4 },
-  scr_pow        => { size => 4 },
-  scr_mul        => { size => 4 },
-  scr_div        => { size => 4 },
-  scr_add        => { size => 4 },
-  scr_sub        => { size => 4 },
-  scr_inc        => { size => 4 },
-  scr_dec        => { size => 4 },
-  scr_logand     => { size => 4 },
-  scr_logor      => { size => 4 },
-  scr_lognot     => { size => 4 },
-  scr_bitand     => { size => 4 },
-  scr_bitor      => { size => 4 },
-  scr_bitxor     => { size => 4 },
-  scr_bitnot     => { size => 4 },
-  scr_assign     => { size => 4 },
-  scr_bitandis   => { size => 4 },
-  scr_bitoris    => { size => 4 },
-  scr_bitxoris   => { size => 4 },
-  scr_bitnotis   => { size => 4 },
-  scr_shiftin    => { size => 4 },
-  scr_shiftout   => { size => 4 },
-  scr_shiftinis  => { size => 4 },
-  scr_shiftoutis => { size => 4 },
+  scr_condjump   => { gen => 3, size => 12 },
+  scr_jump       => { gen => 3, size => 8 },
+  scr_call       => { gen => 3, size => 8 },
+  scr_ret        => { gen => 3, size => 4 },
+  scr_push       => { gen => 3, size => 4 },
+  scr_pop        => { gen => 3, size => 4 },
+  scr_equals     => { gen => 3, size => 4 },
+  scr_nequals    => { gen => 3, size => 4 },
+  scr_lt         => { gen => 3, size => 4 },
+  scr_gt         => { gen => 3, size => 4 },
+  scr_lteq       => { gen => 3, size => 4 },
+  scr_gteq       => { gen => 3, size => 4 },
+  scr_pow        => { gen => 3, size => 4 },
+  scr_mul        => { gen => 3, size => 4 },
+  scr_div        => { gen => 3, size => 4 },
+  scr_add        => { gen => 3, size => 4 },
+  scr_sub        => { gen => 3, size => 4 },
+  scr_inc        => { gen => 3, size => 4 },
+  scr_dec        => { gen => 3, size => 4 },
+  scr_logand     => { gen => 3, size => 4 },
+  scr_logor      => { gen => 3, size => 4 },
+  scr_lognot     => { gen => 3, size => 4 },
+  scr_bitand     => { gen => 3, size => 4 },
+  scr_bitor      => { gen => 3, size => 4 },
+  scr_bitxor     => { gen => 3, size => 4 },
+  scr_bitnot     => { gen => 3, size => 4 },
+  scr_assign     => { gen => 3, size => 4 },
+  scr_bitandis   => { gen => 3, size => 4 },
+  scr_bitoris    => { gen => 3, size => 4 },
+  scr_bitxoris   => { gen => 3, size => 4 },
+  scr_bitnotis   => { gen => 3, size => 4 },
+  scr_shiftin    => { gen => 3, size => 4 },
+  scr_shiftout   => { gen => 3, size => 4 },
+  scr_shiftinis  => { gen => 3, size => 4 },
+  scr_shiftoutis => { gen => 3, size => 4 },
 };
 
 {
@@ -126,7 +127,22 @@ print STDERR scalar(keys(%{$result})) . " instructions generated.\n";
 foreach my $key (sort(keys(%{$result}))) {
   print STDERR "$key -> $result->{$key}{opcode}\n";
 }
-print Dumper $result;
+print "{\n";
+foreach my $key (sort(keys(%{$result}))) {
+  if (!defined($generation) || $result->{$key}{gen} > $generation) {
+    print  "    {
+      mnem => '$result->{$key}{mnem}',
+      opcode => '$result->{$key}{opcode}',
+      instr => " . int($result->{$key}{instr}) . ",
+      param1 => '$result->{$key}{param1}',
+      param2 => '$result->{$key}{param2}',
+      size => " . int($result->{$key}{size}) . ",
+      terse => " . int($result->{$key}{terse}) . ",
+      gen => " . int($result->{$key}{gen}) . "
+    },\n";
+  }
+}
+print "};\n";
 
 exit 0;
 
@@ -145,8 +161,13 @@ sub assign_opcodes
         sprintf("%.2x", $category) .
         sprintf("%.2x", $h);
     }
-    $result->{$key} = eval(Dumper($instr->{$key}));
+#    $result->{$key} = eval(Dumper($instr->{$key}));
     $result->{$key}{mnem} = $key;
     $result->{$key}{instr} = eval("0x" . $instr->{$key}{opcode});
+    $result->{$key}{param1} = $instr->{$key}{param1};
+    $result->{$key}{param2} = $instr->{$key}{param2};
+    $result->{$key}{size} = $instr->{$key}{size};
+    $result->{$key}{terse} = $instr->{$key}{terse};
+    $result->{$key}{gen} = $instr->{$key}{gen};
   }
 }

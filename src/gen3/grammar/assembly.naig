@@ -10,6 +10,7 @@ INSTRUCTION        <- {
                         CATCHINSTR / CHARINSTR / MASKEDCHARINSTR /
                         CLOSECAPTUREINSTR / COMMITINSTR /
                         ENDREPLACEINSTR / REPLACEINSTR /
+                        ISOLATEINSTR / ENDISOLATEINSTR /
                         ENDINSTR / FAILTWICEINSTR / FAILINSTR /
                         JUMPINSTR / NOOPINSTR / TRAPINSTR /
                         OPENCAPTUREINSTR / PARTIALCOMMITINSTR /
@@ -19,8 +20,8 @@ INSTRUCTION        <- {
                         TESTCHARINSTR / TESTQUADINSTR /
                         TESTSETINSTR / VARINSTR /
                         COUNTERINSTR / CONDJUMPINSTR /
-                        LABELDEF /
-                        SCR_INSTRUCTION
+                        SCR_INSTRUCTION /
+                        LABELDEF
                       }
 
 END                <- !.
@@ -56,7 +57,7 @@ TESTSETINSTR       <- { 'testset' } S SET S LABEL
 VARINSTR           <- { 'var' } S SLOT
 COUNTERINSTR       <- { 'counter' } S REGISTER S NUMBER
 CONDJUMPINSTR      <- { 'condjump' } S REGISTER S LABEL
-ISOLATEINSTR       <- { 'isolate' }
+ISOLATEINSTR       <- { 'isolate' } S SLOT
 ENDISOLATEINSTR    <- { 'endisolate' }
 
 LABELDEF           <- { LABEL } COLON

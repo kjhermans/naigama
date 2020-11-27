@@ -51,7 +51,7 @@ NAIG_ERR_T naic_compile_capture
   {
     switch (group->children[ 1 ]->children[ 0 ]->type) {
     case SLOT_RECYCLE_IDENT:
-      NAIC_WRITE("  isolate\n");
+      NAIC_WRITE("  isolate %u\n", *((unsigned*)(group->auxptr)));
       NAIC_WRITE(
         "  call %s\n",
         group->children[ 1 ]->children[ 0 ]->children[ 0 ]->string

@@ -53,11 +53,9 @@ char* naie_instr_string
     case OPCODE_CONDJUMP: return "CONDJUMP";
     case OPCODE_COUNTER: return "COUNTER";
     case OPCODE_END: return "END";
-    case OPCODE_ENDISOLATE: return "ENDISOLATE";
     case OPCODE_ENDREPLACE: return "ENDREPLACE";
     case OPCODE_FAIL: return "FAIL";
     case OPCODE_FAILTWICE: return "FAILTWICE";
-    case OPCODE_ISOLATE: return "ISOLATE";
     case OPCODE_JUMP: return "JUMP";
     case OPCODE_MASKEDCHAR: return "MASKEDCHAR";
     case OPCODE_NOOP: return "NOOP";

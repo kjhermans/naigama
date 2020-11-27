@@ -279,6 +279,15 @@ NAIG_ERR_T naic_scope_pop
   (naic_t* naic, naic_scope_t* scope)
   __attribute__ ((warn_unused_result));
 
+/* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_slotmap_query.c */
+extern
+unsigned naic_slotmap_query
+  (
+    naic_slotmap_t* slotmap,
+    char* slotname
+  )
+  __attribute__ ((warn_unused_result));
+
 /* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_slotmap_write.c */
 extern
 NAIG_ERR_T naic_slotmap_write

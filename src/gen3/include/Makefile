@@ -1,6 +1,6 @@
 stage_00: functions
 
-functions: naip_functions naic_functions naie_functions
+functions: naip_functions naic_functions naie_functions naia_functions
 
 naip_functions: naigama/processor/naip_functions.h
 
@@ -22,6 +22,13 @@ naigama/engine/naie_functions.h: $(BUILDROOT)/src/gen3/lib/engine/*.c
 	perl $(BUILDROOT)/bin/gen_functions_header.pl \
 		$(BUILDROOT)/src/gen3/lib/engine/ \
 		> naigama/engine/naie_functions.h
+
+naia_functions: naigama/assembler/naia_functions.h
+
+naigama/assembler/naia_functions.h: $(BUILDROOT)/src/gen3/lib/assembler/*.c
+	perl $(BUILDROOT)/bin/gen_functions_header.pl \
+		$(BUILDROOT)/src/gen3/lib/assembler/ \
+		> naigama/assembler/naia_functions.h
 
 superclean:
 	@rm -f naigama/processor/naip_functions.h

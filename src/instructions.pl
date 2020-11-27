@@ -1,113 +1,125 @@
 $VAR1 = {
           'any' => {
-                     'instr' => 801,
+                     'instr' => 996,
                      'mnem' => 'any',
-                     'opcode' => '00000321',
+                     'opcode' => '000003e4',
                      'size' => 4
                    },
           'backcommit' => {
-                            'instr' => 263116,
+                            'instr' => 263104,
                             'mnem' => 'backcommit',
-                            'opcode' => '000403cc',
+                            'opcode' => '000403c0',
                             'param1' => 'address',
                             'size' => 8,
                             'terse' => 1
                           },
           'call' => {
-                      'instr' => 262963,
+                      'instr' => 263042,
                       'mnem' => 'call',
-                      'opcode' => '00040333',
+                      'opcode' => '00040382',
                       'param1' => 'address',
                       'size' => 8,
                       'terse' => 1
                     },
           'catch' => {
-                       'instr' => 263138,
+                       'instr' => 263059,
                        'mnem' => 'catch',
-                       'opcode' => '000403e2',
+                       'opcode' => '00040393',
                        'param1' => 'address',
                        'size' => 8,
                        'terse' => 1
                      },
           'char' => {
-                      'instr' => 263133,
+                      'instr' => 263127,
                       'mnem' => 'char',
-                      'opcode' => '000403dd',
+                      'opcode' => '000403d7',
                       'param1' => 'char',
                       'size' => 8
                     },
           'closecapture' => {
-                              'instr' => 263017,
+                              'instr' => 262912,
                               'mnem' => 'closecapture',
-                              'opcode' => '00040369',
+                              'opcode' => '00040300',
                               'param1' => 'slot',
                               'size' => 8,
                               'terse' => 1
                             },
           'commit' => {
-                        'instr' => 263128,
+                        'instr' => 262966,
                         'mnem' => 'commit',
-                        'opcode' => '000403d8',
+                        'opcode' => '00040336',
                         'param1' => 'address',
                         'size' => 8,
                         'terse' => 1
                       },
           'condjump' => {
-                          'instr' => 525128,
+                          'instr' => 525089,
                           'mnem' => 'condjump',
-                          'opcode' => '00080348',
+                          'opcode' => '00080321',
                           'param1' => 'register',
                           'param2' => 'address',
                           'size' => 12
                         },
           'counter' => {
-                         'instr' => 525263,
+                         'instr' => 525142,
                          'mnem' => 'counter',
-                         'opcode' => '000803cf',
+                         'opcode' => '00080356',
                          'param1' => 'register',
                          'param2' => 'value',
                          'size' => 12
                        },
           'end' => {
-                     'instr' => 262309,
+                     'instr' => 262360,
                      'mnem' => 'end',
-                     'opcode' => '000400a5',
+                     'opcode' => '000400d8',
                      'param1' => 'code',
                      'size' => 8,
                      'terse' => 1
                    },
+          'endisolate' => {
+                            'instr' => 1013,
+                            'mnem' => 'endisolate',
+                            'opcode' => '000003f5',
+                            'size' => 4
+                          },
           'endreplace' => {
-                            'instr' => 969,
+                            'instr' => 921,
                             'mnem' => 'endreplace',
-                            'opcode' => '000003c9',
+                            'opcode' => '00000399',
                             'size' => 4,
                             'terse' => 1
                           },
           'fail' => {
-                      'instr' => 802,
+                      'instr' => 843,
                       'mnem' => 'fail',
-                      'opcode' => '00000322',
+                      'opcode' => '0000034b',
                       'size' => 4,
                       'terse' => 1
                     },
           'failtwice' => {
-                           'instr' => 813,
+                           'instr' => 912,
                            'mnem' => 'failtwice',
-                           'opcode' => '0000032d',
+                           'opcode' => '00000390',
                            'size' => 4
                          },
+          'isolate' => {
+                         'instr' => 994,
+                         'mnem' => 'isolate',
+                         'opcode' => '000003e2',
+                         'size' => 4
+                       },
           'jump' => {
-                      'instr' => 262965,
+                      'instr' => 262963,
                       'mnem' => 'jump',
-                      'opcode' => '00040335',
+                      'opcode' => '00040333',
                       'param1' => 'address',
                       'size' => 8,
                       'terse' => 1
                     },
           'maskedchar' => {
-                            'instr' => 525275,
+                            'instr' => 525157,
                             'mnem' => 'maskedchar',
-                            'opcode' => '000803db',
+                            'opcode' => '00080365',
                             'param1' => 'char',
                             'param2' => 'mask',
                             'size' => 12,
@@ -120,311 +132,311 @@ $VAR1 = {
                       'size' => 4
                     },
           'opencapture' => {
-                             'instr' => 263092,
+                             'instr' => 263068,
                              'mnem' => 'opencapture',
-                             'opcode' => '000403b4',
+                             'opcode' => '0004039c',
                              'param1' => 'slot',
                              'size' => 8,
                              'terse' => 1
                            },
           'partialcommit' => {
-                               'instr' => 263013,
+                               'instr' => 263092,
                                'mnem' => 'partialcommit',
-                               'opcode' => '00040365',
+                               'opcode' => '000403b4',
                                'param1' => 'address',
                                'size' => 8
                              },
           'quad' => {
-                      'instr' => 263075,
+                      'instr' => 263038,
                       'mnem' => 'quad',
-                      'opcode' => '000403a3',
+                      'opcode' => '0004037e',
                       'param1' => 'quad',
                       'size' => 8
                     },
           'range' => {
-                       'instr' => 525203,
+                       'instr' => 525245,
                        'mnem' => 'range',
-                       'opcode' => '00080393',
+                       'opcode' => '000803bd',
                        'param1' => 'from',
                        'param2' => 'until',
                        'size' => 12,
                        'terse' => 1
                      },
           'replace' => {
-                         'instr' => 525179,
+                         'instr' => 525128,
                          'mnem' => 'replace',
-                         'opcode' => '0008037b',
+                         'opcode' => '00080348',
                          'param1' => 'slot',
                          'param2' => 'address',
                          'size' => 12,
                          'terse' => 1
                        },
           'ret' => {
-                     'instr' => 828,
+                     'instr' => 928,
                      'mnem' => 'ret',
-                     'opcode' => '0000033c',
+                     'opcode' => '000003a0',
                      'size' => 4,
                      'terse' => 1
                    },
           'scr_add' => {
-                         'instr' => 1319,
+                         'instr' => 1292,
                          'mnem' => 'scr_add',
-                         'opcode' => '00000527',
+                         'opcode' => '0000050c',
                          'size' => 4
                        },
           'scr_assign' => {
-                            'instr' => 1440,
+                            'instr' => 1481,
                             'mnem' => 'scr_assign',
-                            'opcode' => '000005a0',
+                            'opcode' => '000005c9',
                             'size' => 4
                           },
           'scr_bitand' => {
-                            'instr' => 1396,
+                            'instr' => 1319,
                             'mnem' => 'scr_bitand',
-                            'opcode' => '00000574',
+                            'opcode' => '00000527',
                             'size' => 4
                           },
           'scr_bitandis' => {
-                              'instr' => 1430,
+                              'instr' => 1316,
                               'mnem' => 'scr_bitandis',
-                              'opcode' => '00000596',
+                              'opcode' => '00000524',
                               'size' => 4
                             },
           'scr_bitnot' => {
-                            'instr' => 1446,
+                            'instr' => 1396,
                             'mnem' => 'scr_bitnot',
-                            'opcode' => '000005a6',
+                            'opcode' => '00000574',
                             'size' => 4
                           },
           'scr_bitnotis' => {
-                              'instr' => 1370,
+                              'instr' => 1489,
                               'mnem' => 'scr_bitnotis',
-                              'opcode' => '0000055a',
+                              'opcode' => '000005d1',
                               'size' => 4
                             },
           'scr_bitor' => {
-                           'instr' => 1489,
+                           'instr' => 1340,
                            'mnem' => 'scr_bitor',
-                           'opcode' => '000005d1',
+                           'opcode' => '0000053c',
                            'size' => 4
                          },
           'scr_bitoris' => {
-                             'instr' => 1532,
+                             'instr' => 1375,
                              'mnem' => 'scr_bitoris',
-                             'opcode' => '000005fc',
+                             'opcode' => '0000055f',
                              'size' => 4
                            },
           'scr_bitxor' => {
-                            'instr' => 1280,
+                            'instr' => 1325,
                             'mnem' => 'scr_bitxor',
-                            'opcode' => '00000500',
+                            'opcode' => '0000052d',
                             'size' => 4
                           },
           'scr_bitxoris' => {
-                              'instr' => 1525,
+                              'instr' => 1487,
                               'mnem' => 'scr_bitxoris',
-                              'opcode' => '000005f5',
+                              'opcode' => '000005cf',
                               'size' => 4
                             },
           'scr_call' => {
-                          'instr' => 263447,
+                          'instr' => 263427,
                           'mnem' => 'scr_call',
-                          'opcode' => '00040517',
+                          'opcode' => '00040503',
                           'size' => 8
                         },
           'scr_condjump' => {
-                              'instr' => 525660,
+                              'instr' => 525799,
                               'mnem' => 'scr_condjump',
-                              'opcode' => '0008055c',
+                              'opcode' => '000805e7',
                               'size' => 12
                             },
           'scr_dec' => {
-                         'instr' => 1376,
+                         'instr' => 1338,
                          'mnem' => 'scr_dec',
-                         'opcode' => '00000560',
+                         'opcode' => '0000053a',
                          'size' => 4
                        },
           'scr_div' => {
-                         'instr' => 1422,
+                         'instr' => 1409,
                          'mnem' => 'scr_div',
-                         'opcode' => '0000058e',
+                         'opcode' => '00000581',
                          'size' => 4
                        },
           'scr_equals' => {
-                            'instr' => 1304,
+                            'instr' => 1388,
                             'mnem' => 'scr_equals',
-                            'opcode' => '00000518',
+                            'opcode' => '0000056c',
                             'size' => 4
                           },
           'scr_gt' => {
-                        'instr' => 1419,
+                        'instr' => 1391,
                         'mnem' => 'scr_gt',
-                        'opcode' => '0000058b',
+                        'opcode' => '0000056f',
                         'size' => 4
                       },
           'scr_gteq' => {
-                          'instr' => 1463,
+                          'instr' => 1357,
                           'mnem' => 'scr_gteq',
-                          'opcode' => '000005b7',
+                          'opcode' => '0000054d',
                           'size' => 4
                         },
           'scr_inc' => {
-                         'instr' => 1502,
+                         'instr' => 1526,
                          'mnem' => 'scr_inc',
-                         'opcode' => '000005de',
+                         'opcode' => '000005f6',
                          'size' => 4
                        },
           'scr_jump' => {
-                          'instr' => 263580,
+                          'instr' => 263664,
                           'mnem' => 'scr_jump',
-                          'opcode' => '0004059c',
+                          'opcode' => '000405f0',
                           'size' => 8
                         },
           'scr_logand' => {
-                            'instr' => 1357,
+                            'instr' => 1326,
                             'mnem' => 'scr_logand',
-                            'opcode' => '0000054d',
+                            'opcode' => '0000052e',
                             'size' => 4
                           },
           'scr_lognot' => {
-                            'instr' => 1505,
+                            'instr' => 1529,
                             'mnem' => 'scr_lognot',
-                            'opcode' => '000005e1',
+                            'opcode' => '000005f9',
                             'size' => 4
                           },
           'scr_logor' => {
-                           'instr' => 1365,
+                           'instr' => 1449,
                            'mnem' => 'scr_logor',
-                           'opcode' => '00000555',
+                           'opcode' => '000005a9',
                            'size' => 4
                          },
           'scr_lt' => {
-                        'instr' => 1523,
+                        'instr' => 1429,
                         'mnem' => 'scr_lt',
-                        'opcode' => '000005f3',
+                        'opcode' => '00000595',
                         'size' => 4
                       },
           'scr_lteq' => {
-                          'instr' => 1323,
+                          'instr' => 1314,
                           'mnem' => 'scr_lteq',
-                          'opcode' => '0000052b',
+                          'opcode' => '00000522',
                           'size' => 4
                         },
           'scr_mul' => {
-                         'instr' => 1517,
+                         'instr' => 1419,
                          'mnem' => 'scr_mul',
-                         'opcode' => '000005ed',
+                         'opcode' => '0000058b',
                          'size' => 4
                        },
           'scr_nequals' => {
-                             'instr' => 1450,
+                             'instr' => 1394,
                              'mnem' => 'scr_nequals',
-                             'opcode' => '000005aa',
+                             'opcode' => '00000572',
                              'size' => 4
                            },
           'scr_pop' => {
-                         'instr' => 1346,
+                         'instr' => 1484,
                          'mnem' => 'scr_pop',
-                         'opcode' => '00000542',
+                         'opcode' => '000005cc',
                          'size' => 4
                        },
           'scr_pow' => {
-                         'instr' => 1475,
+                         'instr' => 1346,
                          'mnem' => 'scr_pow',
-                         'opcode' => '000005c3',
+                         'opcode' => '00000542',
                          'size' => 4
                        },
           'scr_push' => {
-                          'instr' => 1345,
+                          'instr' => 1517,
                           'mnem' => 'scr_push',
-                          'opcode' => '00000541',
+                          'opcode' => '000005ed',
                           'size' => 4
                         },
           'scr_ret' => {
-                         'instr' => 1530,
+                         'instr' => 1365,
                          'mnem' => 'scr_ret',
-                         'opcode' => '000005fa',
+                         'opcode' => '00000555',
                          'size' => 4
                        },
           'scr_shiftin' => {
-                             'instr' => 1391,
+                             'instr' => 1405,
                              'mnem' => 'scr_shiftin',
-                             'opcode' => '0000056f',
+                             'opcode' => '0000057d',
                              'size' => 4
                            },
           'scr_shiftinis' => {
-                               'instr' => 1375,
+                               'instr' => 1399,
                                'mnem' => 'scr_shiftinis',
-                               'opcode' => '0000055f',
+                               'opcode' => '00000577',
                                'size' => 4
                              },
           'scr_shiftout' => {
-                              'instr' => 1379,
+                              'instr' => 1303,
                               'mnem' => 'scr_shiftout',
-                              'opcode' => '00000563',
+                              'opcode' => '00000517',
                               'size' => 4
                             },
           'scr_shiftoutis' => {
-                                'instr' => 1482,
+                                'instr' => 1502,
                                 'mnem' => 'scr_shiftoutis',
-                                'opcode' => '000005ca',
+                                'opcode' => '000005de',
                                 'size' => 4
                               },
           'scr_sub' => {
-                         'instr' => 1429,
+                         'instr' => 1467,
                          'mnem' => 'scr_sub',
-                         'opcode' => '00000595',
+                         'opcode' => '000005bb',
                          'size' => 4
                        },
           'set' => {
-                     'instr' => 2098169,
+                     'instr' => 2098122,
                      'mnem' => 'set',
-                     'opcode' => '002003f9',
+                     'opcode' => '002003ca',
                      'param1' => 'set',
                      'size' => 36,
                      'terse' => 1
                    },
           'skip' => {
-                      'instr' => 263102,
+                      'instr' => 262960,
                       'mnem' => 'skip',
-                      'opcode' => '000403be',
+                      'opcode' => '00040330',
                       'param1' => 'number',
                       'size' => 8
                     },
           'span' => {
-                      'instr' => 2098052,
+                      'instr' => 2098145,
                       'mnem' => 'span',
-                      'opcode' => '00200384',
+                      'opcode' => '002003e1',
                       'param1' => 'set',
                       'size' => 36
                     },
           'testany' => {
-                         'instr' => 262932,
+                         'instr' => 262918,
                          'mnem' => 'testany',
-                         'opcode' => '00040314',
+                         'opcode' => '00040306',
                          'param1' => 'address',
                          'size' => 8
                        },
           'testchar' => {
-                          'instr' => 525185,
+                          'instr' => 525210,
                           'mnem' => 'testchar',
-                          'opcode' => '00080381',
+                          'opcode' => '0008039a',
                           'param1' => 'address',
                           'param2' => 'char',
                           'size' => 12
                         },
           'testquad' => {
-                          'instr' => 525142,
+                          'instr' => 525275,
                           'mnem' => 'testquad',
-                          'opcode' => '00080356',
+                          'opcode' => '000803db',
                           'param1' => 'address',
                           'param2' => 'quad',
                           'size' => 12
                         },
           'testset' => {
-                         'instr' => 2360153,
+                         'instr' => 2360163,
                          'mnem' => 'testset',
-                         'opcode' => '00240359',
+                         'opcode' => '00240363',
                          'param1' => 'address',
                          'param2' => 'set',
                          'size' => 40
@@ -436,9 +448,9 @@ $VAR1 = {
                       'size' => 4
                     },
           'var' => {
-                     'instr' => 263038,
+                     'instr' => 263150,
                      'mnem' => 'var',
-                     'opcode' => '0004037e',
+                     'opcode' => '000403ee',
                      'param1' => 'slot',
                      'size' => 8,
                      'terse' => 1

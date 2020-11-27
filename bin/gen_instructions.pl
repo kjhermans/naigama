@@ -63,6 +63,8 @@ my $parser_instructions = {
   var           => { size => 8,  param1 => 'slot', terse => 1 },
   replace       => { size => 12, param1 => 'slot', param2 => 'address', terse => 1 },
   endreplace    => { size => 4, terse => 1 },
+  isolate       => { size => 4, },
+  endisolate    => { size => 4, },
 };
 
 my $script_instructions = {

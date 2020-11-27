@@ -44,7 +44,7 @@ NAIG_ERR_T naic_compile_expr_literal
     NAIC_WRITE("  __s:push %s\n" , lit->children[ 0 ]->string);
     break;
   case SLOT_STRINGLITERAL_NRTV:
-    NAIC_WRITE("  __s:string '%s'\n", lit->children[ 0 ]->string);
+    NAIC_WRITE("  __s:push '%s'\n", lit->children[ 0 ]->string);
     break;
   }
   return NAIG_OK;

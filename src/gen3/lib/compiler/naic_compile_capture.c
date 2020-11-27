@@ -39,8 +39,33 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 NAIG_ERR_T naic_compile_capture
   (naic_t* naic, naie_resobj_t* group)
 {
+  char label[ 64 ];
+
+
+
   NAIC_WRITE("  opencapture %u\n", *((unsigned*)(group->auxptr)));
   CHECK(naic_compile_alts(naic, group, 0));
   NAIC_WRITE("  closecapture %u\n", *((unsigned*)(group->auxptr)));
+  if (group->nchildren == 2
+      && group->children[ 1 ]->type == SLOT_CAPTUREEND_REPLACERECYCLE)
+  {
+    switch (group->children[ 1 ]->children[ 0 ]->type) {
+    case SLOT_RECYCLE_IDENT:
+      NAIC_WRITE("  isolate\n");
+      NAIC_WRITE(
+        "  call %s\n",
+        group->children[ 1 ]->children[ 0 ]->children[ 0 ]->string
+      );
+      NAIC_WRITE("  endisolate\n");
+      break;
+    case SLOT_REPLACE_REPLACETERMS:
+      snprintf(label, sizeof(label), "__REPLACE_%u", ++(naic->labelcount));
+      NAIC_WRITE("  replace %s\n", label);
+      //..
+      NAIC_WRITE("  endreplace\n");
+      NAIC_WRITE("%s:\n", label);
+      break;
+    }
+  }
   return NAIG_OK;
 }

@@ -1,6 +1,6 @@
 -- Naigama Grammar Grammar
 
-GRAMMAR            <- ( DEFINITION+ / SINGLE_EXPRESSION ) END
+GRAMMAR            <- { DEFINITION+ / SINGLE_EXPRESSION } => compile END
 
 S                  <- %s+
 
@@ -12,7 +12,7 @@ __prefix           <- ( MULTILINECOMMENT / COMMENT / S )*
 
 END                <- !.
 
-DEFINITION         <- { GLOBALVARDECL } / { FUNCDECL } / { RULE }
+DEFINITION         <- { FUNCDECL } / { RULE }
 
 SINGLE_EXPRESSION  <- EXPRESSION
 
@@ -61,11 +61,11 @@ CAPTURETYPE        <- SEMICOLON TYPE
 
 TYPE               <- { 'uint32' / 'int32' }
 
-CAPTURE            <- CBOPEN EXPRESSION CBCLOSE CAPTUREEND
+CAPTURE            <- CBOPEN EXPRESSION { CBCLOSE } CAPTUREEND
 
 GROUP              <- BOPEN EXPRESSION BCLOSE
 
-CAPTUREEND         <- { REPLACE / RECYCLE }?
+CAPTUREEND         <- ( REPLACE / RECYCLE )?
 
 SET                <- ABOPEN { SETNOT? } (
                         { '\\' ([nrtv\\\]\-] / [0-9]^3) / [^\\\]] } '-' 
@@ -76,7 +76,7 @@ SET                <- ABOPEN { SETNOT? } (
 
 VARREFERENCE       <- '$' ( { IDENT } / { NUMBER } )
 
-REFERENCE          <- !( KW_FUNCTION / KW_VAR ) { IDENT } !LEFTARROW
+REFERENCE          <- !KW_FUNCTION { IDENT } !LEFTARROW
 
 REPLACE            <- RIGHTARROW { REPLACETERMS }
 
@@ -107,15 +107,12 @@ FUNCDECL       <- KW_FUNCTION S { IDENT } { FUNCPARAMDECL } { FUNCBODY }
 
 FUNCPARAMDECL  <- BOPEN ( { PARAMDECL } ( COMMA { PARAMDECL } )* )? BCLOSE
 
-PARAMDECL      <- { SCR_TYPE } { IDENT } / { IDENT }
+PARAMDECL      <- { IDENT } { IDENT } / { IDENT }
 
 FUNCBODY       <- CBOPEN { LOWSTMT }* CBCLOSE
 
-GLOBALVARDECL  <- VARDECL
-
 LOWSTMT        <- { ST_IF } /
                   { ST_WHILE } /
-                  { ST_CATCH } /
                   { ST_RETURN } /
                   { ST_OTHER } /
                   { VARDECL } /
@@ -135,18 +132,13 @@ IF_ELSE        <- KW_ELSE CBOPEN { LOWSTMT* } CBCLOSE
 ST_WHILE       <- KW_WHILE BOPEN { SCR_EXPRESSION } BCLOSE
                     CBOPEN { LOWSTMT* } CBCLOSE
 
-ST_CATCH       <- KW_CATCH CBOPEN { LOWSTMT* } CBCLOSE
-
 ST_RETURN      <- KW_RETURN { SCR_EXPRESSION? } SEMICOLON
 
 ST_OTHER       <- ( KW_BREAK / KW_CONTINUE ) SEMICOLON
 
-VARDECL        <- KW_VAR S ( { SCR_TYPE } { IDENT } / { IDENT } )
-                    ( ASSIGN { SCR_EXPRESSION } )? SEMICOLON
+VARDECL        <- KW_VAR S IDENT ( ASSIGN { SCR_EXPRESSION } )? SEMICOLON
 
 ASSIGNMENT     <- IDENT ASSIGNS SCR_EXPRESSION SEMICOLON
-
-SCR_TYPE       <- IDENT
 
 ASSIGNS        <- { ASSIGN / PLUSIS / MINIS / MULIS / DIVIS /
                     BITANDIS / BITORIS / BITXORIS / BITNOTIS /
@@ -209,16 +201,15 @@ KW_ELSEIF      <- 'elseif'
 KW_ELSE        <- 'else'
 KW_BREAK       <- 'break'
 KW_CONTINUE    <- 'continue'
-KW_CATCH       <- 'catch'
 
-IDENT          <- { [a-zA-Z_][a-zA-Z0-9_]^0-63 }
+IDENT          <- [a-zA-Z_][a-zA-Z0-9_]^0-63
 BOPEN          <- '('
 BCLOSE         <- ')'
 CBOPEN         <- '{'
 CBCLOSE        <- '}'
 ABOPEN         <- '['
 ABCLOSE        <- ']'
-ASSIGN         <- '='
+ASSIGN         <- { '=' }
 PLUSIS         <- { '+=' }
 MINIS          <- { '-=' }
 MULIS          <- { '*=' }
@@ -255,3 +246,14 @@ LSHIFT         <- { '<<' } !'='
 RSHIFT         <- { '>>' } !'='
 LSHIFTIS       <- { '<<=' }
 RSHIFTIS       <- { '>>=' }
+
+-- functions
+
+function compile
+  (capture)
+{
+  var i = 0;
+
+  while (i < capture.length) {
+  }
+}

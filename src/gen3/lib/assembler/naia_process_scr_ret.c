@@ -31,24 +31,17 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \brief
  */
 
-#include "naic_private.h"
+#include "naia_private.h"
 
 /**
  *
  */
-NAIG_ERR_T naic_compile_expr_reference
-  (naic_t* naic, naie_resobj_t* ref)
+NAIG_ERR_T naia_process_scr_ret
+  (naia_t* naia, unsigned i)
 {
-  unsigned i;
+  uint32_t opcode = SET_32BIT_VALUE(OPCODE_SCR_RET);
+  (void)i;
 
-  for (i=0; i < ref->nchildren; i++) {
-    if (ref->children[ i ]->type == SLOT_SCR_REFERENCE_IDENT) {
-      char* name = ref->children[ i ]->children[ 0 ]->string;
-      char* type;
-      unsigned reg;
-      CHECK(naic_scope_get(naic->currentscope, name, &type, &reg));
-      NAIC_WRITE("  __s:push { %u }\n", reg);
-    }
-  }
+  CHECK(naia->write(&opcode, sizeof(opcode), naia->write_arg));
   return NAIG_OK;
 }

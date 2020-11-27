@@ -44,6 +44,6 @@ NAIG_ERR_T naic_compile_expr_call
   for (i=1; i < stmt->nchildren; i++) {
     CHECK(naic_compile_expr(naic, stmt->children[ i ]));
   }
-  NAIC_WRITE("  __s:call __FUNC_%s\n" , stmt->children[0]->string)
+  NAIC_WRITE("  __s:call %s\n" , stmt->children[0]->string)
   return NAIG_OK;
 }

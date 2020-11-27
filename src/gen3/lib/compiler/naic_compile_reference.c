@@ -39,6 +39,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 NAIG_ERR_T naic_compile_reference
   (naic_t* naic, naie_resobj_t* ref)
 {
-  NAIC_WRITE("  call RULE_%s\n", ref->string);
+  NAIC_WRITE("  call %s\n", ref->string);
   return NAIG_OK;
 }

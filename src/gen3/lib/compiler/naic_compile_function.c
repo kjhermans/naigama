@@ -40,6 +40,7 @@ NAIG_ERR_T naic_compile_function
   (naic_t* naic, naie_resobj_t* func)
 {
   NAIC_WRITE("\n__FUNC_%s:\n", func->children[0]->string);
+  NAIC_WRITE("  __s:push __function\n");
   CHECK(naic_scope_new(naic, 0));
   CHECK(naic_compile_function_params(naic, func->children[1]));
   CHECK(naic_compile_function_body(naic, func->children[2]));

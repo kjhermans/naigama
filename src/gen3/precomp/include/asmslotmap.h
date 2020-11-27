@@ -31,16 +31,24 @@
   case 29: return "VARINSTR_VAR"; break; \
   case 30: return "COUNTERINSTR_COUNTER"; break; \
   case 31: return "CONDJUMPINSTR_CONDJUMP"; break; \
-  case 32: return "LABELDEF_LABEL"; break; \
-  case 33: return "SCR_ADD_SADD"; break; \
-  case 34: return "SCR_CALL_SCALL"; break; \
-  case 35: return "SCR_PUSH_SPUSH"; break; \
-  case 36: return "SCR_RET_SRET"; break; \
-  case 37: return "HEXBYTE_AFAF"; break; \
-  case 38: return "LABEL_AZAZ"; break; \
-  case 39: return "NUMBER"; break; \
-  case 40: return "QUAD_AFAF"; break; \
-  case 41: return "SET_AFAF"; break; \
+  case 32: return "ISOLATEINSTR_ISOLATE"; break; \
+  case 33: return "ENDISOLATEINSTR_ENDISOLATE"; break; \
+  case 34: return "LABELDEF_LABEL"; break; \
+  case 35: return "SCR_ADD_SADD"; break; \
+  case 36: return "SCR_CALL_SCALL"; break; \
+  case 37: return "SCR_PUSH_SPUSH"; break; \
+  case 38: return "SCR_PUSH_LITERALFUNCTIONBARRIER"; break; \
+  case 39: return "SCR_RET_SRET"; break; \
+  case 40: return "HEXBYTE_AFAF"; break; \
+  case 41: return "LABEL_AZAZ"; break; \
+  case 42: return "NUMBER"; break; \
+  case 43: return "QUAD_AFAF"; break; \
+  case 44: return "SET_AFAF"; break; \
+  case 45: return "STRINGLITERAL_NRTV"; break; \
+  case 46: return "REGISTERREF_NUMBER"; break; \
+  case 47: return "FLOATLITERAL"; break; \
+  case 48: return "INTLITERAL"; break; \
+  case 49: return "BOOLEANLITERAL_TRUEFALSE"; break; \
 
 
 #define ASMSLOT_INSTRUCTION_ANYINSTRBACKCOMMITIN 0
@@ -75,13 +83,21 @@
 #define ASMSLOT_VARINSTR_VAR 29
 #define ASMSLOT_COUNTERINSTR_COUNTER 30
 #define ASMSLOT_CONDJUMPINSTR_CONDJUMP 31
-#define ASMSLOT_LABELDEF_LABEL 32
-#define ASMSLOT_SCR_ADD_SADD 33
-#define ASMSLOT_SCR_CALL_SCALL 34
-#define ASMSLOT_SCR_PUSH_SPUSH 35
-#define ASMSLOT_SCR_RET_SRET 36
-#define ASMSLOT_HEXBYTE_AFAF 37
-#define ASMSLOT_LABEL_AZAZ 38
-#define ASMSLOT_NUMBER 39
-#define ASMSLOT_QUAD_AFAF 40
-#define ASMSLOT_SET_AFAF 41
+#define ASMSLOT_ISOLATEINSTR_ISOLATE 32
+#define ASMSLOT_ENDISOLATEINSTR_ENDISOLATE 33
+#define ASMSLOT_LABELDEF_LABEL 34
+#define ASMSLOT_SCR_ADD_SADD 35
+#define ASMSLOT_SCR_CALL_SCALL 36
+#define ASMSLOT_SCR_PUSH_SPUSH 37
+#define ASMSLOT_SCR_PUSH_LITERALFUNCTIONBARRIER 38
+#define ASMSLOT_SCR_RET_SRET 39
+#define ASMSLOT_HEXBYTE_AFAF 40
+#define ASMSLOT_LABEL_AZAZ 41
+#define ASMSLOT_NUMBER 42
+#define ASMSLOT_QUAD_AFAF 43
+#define ASMSLOT_SET_AFAF 44
+#define ASMSLOT_STRINGLITERAL_NRTV 45
+#define ASMSLOT_REGISTERREF_NUMBER 46
+#define ASMSLOT_FLOATLITERAL 47
+#define ASMSLOT_INTLITERAL 48
+#define ASMSLOT_BOOLEANLITERAL_TRUEFALSE 49

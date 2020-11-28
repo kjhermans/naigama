@@ -46,7 +46,7 @@ NAIG_ERR_T naia_process_call
   snprintf(
     label,
     sizeof(label),
-    "RULE_%-.*s",
+    "__RULE_%-.*s",
     naia->captures->actions[ i+1 ].length,
     naia->assembly + naia->captures->actions[ i+1 ].start
   );
@@ -58,7 +58,7 @@ NAIG_ERR_T naia_process_call
     snprintf(
       label,
       sizeof(label),
-      "FUNC_%-.*s",
+      "__FUNC_%-.*s",
       naia->captures->actions[ i+1 ].length,
       naia->assembly + naia->captures->actions[ i+1 ].start
     );

@@ -66,5 +66,9 @@ NAIG_ERR_T naic_compile_top
       break;
     }
   }
+  if (naic->postfix.fill) {
+    NAIC_WRITE("\n  end -- postfix\n");
+    NAIC_WRITE("%s", naic->postfix.string);
+  }
   return NAIG_OK;
 }

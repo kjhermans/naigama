@@ -72,6 +72,7 @@ my $script_instructions = {
   scr_condjump   => { gen => 3, size => 12 },
   scr_jump       => { gen => 3, size => 8 },
   scr_call       => { gen => 3, size => 8 },
+  scr_builtin    => { gen => 3, size => 8 },
   scr_ret        => { gen => 3, size => 4 },
   scr_push       => { gen => 3, size => 4 },
   scr_pop        => { gen => 3, size => 4 },

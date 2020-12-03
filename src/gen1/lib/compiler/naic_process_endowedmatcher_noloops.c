@@ -128,7 +128,7 @@ NAIG_ERR_T naic_process_endowedmatcher_noloops
                           , l2
     ));
   }
-  for (i = naic->capindex; i < naic->captures->count; i++) {
+  for (i = naic->capindex; (unsigned)i < naic->captures->count; i++) {
     if (naic->captures->actions[ i ].start >= end) {
       break;
     }

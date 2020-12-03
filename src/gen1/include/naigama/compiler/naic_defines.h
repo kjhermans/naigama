@@ -25,5 +25,6 @@
 #define NAIC_FLG_TRADITIONAL    (1<<6)
 
 #define NAIC_WRITE(...) CHECK(naic->write(naic->write_arg, __VA_ARGS__))
+#define NAIC_RESERVE(...) CHECK(naic_reserve(naic, __VA_ARGS__))
 
 #endif

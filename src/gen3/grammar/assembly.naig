@@ -67,12 +67,16 @@ LABELDEF           <- { LABEL } COLON
 SCR_INSTRUCTION    <- SCR_ADD /
                       SCR_CALL /
                       SCR_PUSH /
-                      SCR_RET
+                      SCR_RET /
+                      SCR_BUILTIN /
+                      SCR_STRING
 
 SCR_ADD            <- { '__s:add' }
 SCR_CALL           <- { '__s:call' } S LABEL
-SCR_PUSH           <- { '__s:push' } S { LITERAL / FUNCTIONBARRIER }
+SCR_PUSH           <- { '__s:push' } S ( LITERAL / FUNCTIONBARRIER )
 SCR_RET            <- { '__s:ret' } S?
+SCR_BUILTIN        <- { '__s:builtin' } S NUMBER
+SCR_STRING         <- { '__s:string' } S STRINGLITERAL
 
 -- terminals
 
@@ -88,19 +92,20 @@ TYPE               <- NUMBER
 COLON              <- ':'
 AMPERSAND          <- '&'
 
-LITERAL            <- STRINGLITERAL /
-                      REGISTERREF /
+LITERAL            <- REGISTERREF /
+                      STRINGREF /
                       FLOATLITERAL /
                       INTLITERAL /
                       BOOLEANLITERAL /
                       VOIDLITERAL
 
-FUNCTIONBARRIER    <- '__function'
+FUNCTIONBARRIER    <- { '__function' }
 
+STRINGREF          <- { '__string' } S? LABEL
 STRINGLITERAL      <- '\'' { ( '\\' ([nrtv\\'] / [0-9]^3) / [^'\\] )* } '\''
 REGISTERREF        <- '{' S? { NUMBER } S? '}'
 FLOATLITERAL       <- { [0-9]* '.' [0-9]+ }
 INTLITERAL         <- { [0-9]+ }
 BOOLEANLITERAL     <- { 'true' / 'false' }
-VOIDLITERAL        <- '__void'
+VOIDLITERAL        <- { '__void' }
 

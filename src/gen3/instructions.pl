@@ -226,6 +226,12 @@ $VAR1 = {
                               'opcode' => '000005cf',
                               'size' => 4
                             },
+          'scr_builtin' => {
+                              'instr' => 264143,
+                              'mnem' => 'scr_builtin',
+                              'opcode' => '000407cf',
+                              'size' => 8
+                            },
           'scr_call' => {
                           'instr' => 263427,
                           'mnem' => 'scr_call',
@@ -335,10 +341,10 @@ $VAR1 = {
                          'size' => 4
                        },
           'scr_push' => {
-                          'instr' => 1517,
+                          'instr' => 1050093,
                           'mnem' => 'scr_push',
-                          'opcode' => '000005ed',
-                          'size' => 4
+                          'opcode' => '001005ed',
+                          'size' => 20
                         },
           'scr_ret' => {
                          'instr' => 1365,
@@ -375,6 +381,12 @@ $VAR1 = {
                          'mnem' => 'scr_sub',
                          'opcode' => '000005bb',
                          'size' => 4
+                        },
+          'scr_string' => {
+                         'instr' => 6075,
+                         'mnem' => 'scr_sub',
+                         'opcode' => '000017bb',
+                         'size' => 0
                        },
           'set' => {
                      'instr' => 2098122,

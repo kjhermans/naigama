@@ -46,12 +46,15 @@ struct edbfstruct
   char* path;
 };
 
-static struct edbfstruct edbf = { 0 };
+//static struct edbfstruct edbf = { 0 };
 
 static
 NAIG_ERR_T engine_debug_fuzz_alt_char
   (int fail, uint32_t chr)
 {
+  (void)fail;
+  (void)chr;
+
   return NAIG_OK;
 }
 
@@ -69,6 +72,7 @@ NAIG_ERR_T engine_debug_fuzz
   (naie_engine_t* engine, uint32_t opcode, void* arg)
 {
   uint32_t param1;
+  (void)arg;
 
   switch (opcode) {
   case OPCODE_ANY:
@@ -123,4 +127,5 @@ NAIG_ERR_T engine_debug_fuzz
   case OPCODE_VAR:
     break;
   }
+  return NAIG_OK;
 }

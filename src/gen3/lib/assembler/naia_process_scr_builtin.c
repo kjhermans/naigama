@@ -36,51 +36,18 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /**
  *
  */
-NAIG_ERR_T naia_process_scr_push
+NAIG_ERR_T naia_process_scr_builtin
   (naia_t* naia, unsigned i)
 {
-  uint32_t instruction[ 5 ];
-  uint32_t tmp;
-  uint32_t offset;
+  uint32_t opcode[ 2 ] = { SET_32BIT_VALUE(OPCODE_SCR_BUILTIN) };
+  uint32_t fncindex;
 
-  instruction[ 0 ] = SET_32BIT_VALUE(OPCODE_SCR_PUSH);
-  switch (naia->captures->actions[ i+1 ].slot) {
-  case ASMSLOT_FUNCTIONBARRIER_FUNCTION:
-    instruction[ 1 ] = SET_32BIT_VALUE(NAIE_SCALAR_TYPE_STACKRETURN);
-    break;
-  case ASMSLOT_STRINGREF_STRING:
-    instruction[ 1 ] = SET_32BIT_VALUE(NAIE_SCALAR_TYPE_STRING);
-    CHECK(
-      naia_label_get(
-        naia,
-        naia->assembly + naia->captures->actions[ i+2 ].start,
-        naia->captures->actions[ i+2 ].length,
-        &offset
-      )
-    );
-    instruction[ 2 ] = SET_32BIT_VALUE(offset);
-    break;
-  case ASMSLOT_REGISTERREF_NUMBER:
-    instruction[ 1 ] = SET_32BIT_VALUE(NAIE_SCALAR_TYPE_REGISTER);
-    tmp = atoi_substr(
-      naia->assembly,
-      naia->captures->actions[ i+2 ].start,
-      naia->captures->actions[ i+2 ].length
-    );
-    instruction[ 2 ] = SET_32BIT_VALUE(tmp);
-    break;
-  case ASMSLOT_FLOATLITERAL:
-    break;
-  case ASMSLOT_INTLITERAL:
-    break;
-  case ASMSLOT_BOOLEANLITERAL_TRUEFALSE:
-    break;
-  case ASMSLOT_VOIDLITERAL_VOID:
-    instruction[ 1 ] = SET_32BIT_VALUE(NAIE_SCALAR_TYPE_VOID);
-    break;
-  default:
-fprintf(stderr, "FOUND TYPE %u\n", naia->captures->actions[ i+1 ].slot);
-  }
-  CHECK(naia->write(&instruction, sizeof(instruction), naia->write_arg));
+  fncindex = atoi_substr(
+    naia->assembly,
+    naia->captures->actions[ i+1 ].start,
+    naia->captures->actions[ i+1 ].length
+  );
+  opcode[ 1 ] = SET_32BIT_VALUE(fncindex);
+  CHECK(naia->write(opcode, sizeof(opcode), naia->write_arg));
   return NAIG_OK;
 }

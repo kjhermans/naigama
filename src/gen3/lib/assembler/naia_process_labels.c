@@ -132,6 +132,17 @@ NAIG_ERR_T naia_process_labels
     case ASMSLOT_SCR_RET_SRET:
       offset += NAIG_INSTR_LENGTH(OPCODE_SCR_RET);
       break;
+    case ASMSLOT_SCR_BUILTIN_SBUILTIN:
+      offset += NAIG_INSTR_LENGTH(OPCODE_SCR_BUILTIN);
+      break;
+    case ASMSLOT_SCR_STRING_SSTRING:
+fprintf(stderr, "Skipping %u\n", (2 * sizeof(uint32_t)) +
+        ROUNDUP(sizeof(uint32_t), naia->captures->actions[ i+1 ].length)
+);
+      offset +=
+        (2 * sizeof(uint32_t)) +
+        ROUNDUP(sizeof(uint32_t), naia->captures->actions[ i+1 ].length);
+      break;
 
     case ASMSLOT_LABELDEF_LABEL:
       CHECK(

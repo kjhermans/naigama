@@ -83,6 +83,10 @@ NAIG_ERR_T naia_process_instructions
       CHECK(naia_process_counter(naia, i)); break;
     case ASMSLOT_CONDJUMPINSTR_CONDJUMP:
       CHECK(naia_process_condjump(naia, i)); break;
+    case ASMSLOT_ISOLATEINSTR_ISOLATE:
+      CHECK(naia_process_isolate(naia, i)); break;
+    case ASMSLOT_ENDISOLATEINSTR_ENDISOLATE:
+      CHECK(naia_process_endisolate(naia, i)); break;
 
     case ASMSLOT_SCR_ADD_SADD:
       CHECK(naia_process_scr_add(naia, i)); break;
@@ -92,6 +96,12 @@ NAIG_ERR_T naia_process_instructions
       CHECK(naia_process_scr_push(naia, i)); break;
     case ASMSLOT_SCR_RET_SRET:
       CHECK(naia_process_scr_ret(naia, i)); break;
+    case ASMSLOT_SCR_BUILTIN_SBUILTIN:
+      CHECK(naia_process_scr_builtin(naia, i)); break;
+    case ASMSLOT_SCR_STRING_SSTRING:
+      CHECK(naia_process_scr_string(naia, i)); break;
+      break;
+
     }
   }
   return NAIG_OK;

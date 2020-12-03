@@ -36,51 +36,27 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /**
  *
  */
-NAIG_ERR_T naia_process_scr_push
+NAIG_ERR_T naia_process_scr_string
   (naia_t* naia, unsigned i)
 {
-  uint32_t instruction[ 5 ];
-  uint32_t tmp;
-  uint32_t offset;
+  uint32_t opcode = SET_32BIT_VALUE(OPCODE_SCR_STRING);
+  uint32_t length = SET_32BIT_VALUE(naia->captures->actions[ i ].length);
+  (void)i;
+  uint8_t fill = 0;
+  unsigned fill_length = 
+    ROUNDUP(sizeof(uint32_t), naia->captures->actions[ i+1 ].length) -
+    naia->captures->actions[ i+1 ].length;
 
-  instruction[ 0 ] = SET_32BIT_VALUE(OPCODE_SCR_PUSH);
-  switch (naia->captures->actions[ i+1 ].slot) {
-  case ASMSLOT_FUNCTIONBARRIER_FUNCTION:
-    instruction[ 1 ] = SET_32BIT_VALUE(NAIE_SCALAR_TYPE_STACKRETURN);
-    break;
-  case ASMSLOT_STRINGREF_STRING:
-    instruction[ 1 ] = SET_32BIT_VALUE(NAIE_SCALAR_TYPE_STRING);
-    CHECK(
-      naia_label_get(
-        naia,
-        naia->assembly + naia->captures->actions[ i+2 ].start,
-        naia->captures->actions[ i+2 ].length,
-        &offset
-      )
-    );
-    instruction[ 2 ] = SET_32BIT_VALUE(offset);
-    break;
-  case ASMSLOT_REGISTERREF_NUMBER:
-    instruction[ 1 ] = SET_32BIT_VALUE(NAIE_SCALAR_TYPE_REGISTER);
-    tmp = atoi_substr(
-      naia->assembly,
-      naia->captures->actions[ i+2 ].start,
-      naia->captures->actions[ i+2 ].length
-    );
-    instruction[ 2 ] = SET_32BIT_VALUE(tmp);
-    break;
-  case ASMSLOT_FLOATLITERAL:
-    break;
-  case ASMSLOT_INTLITERAL:
-    break;
-  case ASMSLOT_BOOLEANLITERAL_TRUEFALSE:
-    break;
-  case ASMSLOT_VOIDLITERAL_VOID:
-    instruction[ 1 ] = SET_32BIT_VALUE(NAIE_SCALAR_TYPE_VOID);
-    break;
-  default:
-fprintf(stderr, "FOUND TYPE %u\n", naia->captures->actions[ i+1 ].slot);
+  CHECK(naia->write(&opcode, sizeof(opcode), naia->write_arg));
+  CHECK(naia->write(&length, sizeof(length), naia->write_arg));
+  CHECK(naia->write(
+    naia->assembly + naia->captures->actions[ i+1 ].start,
+    naia->captures->actions[ i+1 ].length,
+    naia->write_arg
+  ));
+  while (fill_length) {
+    CHECK(naia->write(&fill, 1, naia->write_arg));
+    --fill_length;
   }
-  CHECK(naia->write(&instruction, sizeof(instruction), naia->write_arg));
   return NAIG_OK;
 }

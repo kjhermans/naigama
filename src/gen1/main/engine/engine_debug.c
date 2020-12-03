@@ -93,10 +93,14 @@ NAIG_ERR_T engine_debug_handler
 {
   char* cmdstr;
   naig_result_t cmd;
+  (void)arg;
 
   if (!debug_commands_init) {
     memset(&debug_commands, 0, sizeof(debug_commands));
-    naig_compile(&debug_commands, debug_commands_grammar, 0);
+    CHECK_LOG(
+      naig_compile(&debug_commands, debug_commands_grammar, 0),
+      "Compilation of debug commands grammar failed.\n"
+    );
     debug_commands_init = 1;
   }
 

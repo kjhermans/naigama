@@ -39,12 +39,16 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 NAIG_ERR_T naic_compile_expr_literal
   (naic_t* naic, naie_resobj_t* lit)
 {
+  char stringlabel[ 64 ];
+
   switch (lit->children[ 0 ]->type) {
   case SLOT_INTLITERAL:
     NAIC_WRITE("  __s:push %s\n" , lit->children[ 0 ]->string);
     break;
   case SLOT_STRINGLITERAL_NRTV:
-    NAIC_WRITE("  __s:push '%s'\n", lit->children[ 0 ]->string);
+    snprintf(stringlabel, sizeof(stringlabel), "__STRING_%u", ++(naic->labelcount));
+    NAIC_WRITE("  __s:push __string %s\n", stringlabel);
+    NAIC_RESERVE("%s:\n  __s:string '%s'\n", stringlabel, lit->children[ 0 ]->string);
     break;
   }
   return NAIG_OK;

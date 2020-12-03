@@ -255,6 +255,12 @@ NAIG_ERR_T naic_nsp_rule_var_get
   (naic_t* naic, char* key, unsigned* slot)
   __attribute__ ((warn_unused_result));
 
+/* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_reserve.c */
+extern
+NAIG_ERR_T naic_reserve
+  (naic_t* naic, char* fmt, ...)
+  __attribute__ ((warn_unused_result));
+
 /* declared in /home/work/work/naigama/src/gen3/lib/compiler//naic_scope_add.c */
 extern
 NAIG_ERR_T naic_scope_add

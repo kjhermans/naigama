@@ -97,6 +97,11 @@ typedef struct
   NAIG_ERR_T      (*write)(void* ptr, char* fmt, ...);
   void*             write_arg;
   char              error[ 256 ];
+  struct {
+    char*             string;
+    unsigned          fill;
+    unsigned          size;
+  }                 postfix;
 }
 naic_t;
 

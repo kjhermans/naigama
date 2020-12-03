@@ -99,6 +99,12 @@ NAIG_ERR_T naia_process_end
   (naia_t* naia, unsigned i)
   __attribute__ ((warn_unused_result));
 
+/* declared in /home/work/work/naigama/src/gen3/lib/assembler//naia_process_endisolate.c */
+extern
+NAIG_ERR_T naia_process_endisolate
+  (naia_t* naia, unsigned i)
+  __attribute__ ((warn_unused_result));
+
 /* declared in /home/work/work/naigama/src/gen3/lib/assembler//naia_process_endreplace.c */
 extern
 NAIG_ERR_T naia_process_endreplace
@@ -121,6 +127,12 @@ NAIG_ERR_T naia_process_failtwice
 extern
 NAIG_ERR_T naia_process_instructions
   (naia_t* naia)
+  __attribute__ ((warn_unused_result));
+
+/* declared in /home/work/work/naigama/src/gen3/lib/assembler//naia_process_isolate.c */
+extern
+NAIG_ERR_T naia_process_isolate
+  (naia_t* naia, unsigned i)
   __attribute__ ((warn_unused_result));
 
 /* declared in /home/work/work/naigama/src/gen3/lib/assembler//naia_process_jump.c */
@@ -183,6 +195,12 @@ NAIG_ERR_T naia_process_scr_add
   (naia_t* naia, unsigned i)
   __attribute__ ((warn_unused_result));
 
+/* declared in /home/work/work/naigama/src/gen3/lib/assembler//naia_process_scr_builtin.c */
+extern
+NAIG_ERR_T naia_process_scr_builtin
+  (naia_t* naia, unsigned i)
+  __attribute__ ((warn_unused_result));
+
 /* declared in /home/work/work/naigama/src/gen3/lib/assembler//naia_process_scr_call.c */
 extern
 NAIG_ERR_T naia_process_scr_call
@@ -198,6 +216,12 @@ NAIG_ERR_T naia_process_scr_push
 /* declared in /home/work/work/naigama/src/gen3/lib/assembler//naia_process_scr_ret.c */
 extern
 NAIG_ERR_T naia_process_scr_ret
+  (naia_t* naia, unsigned i)
+  __attribute__ ((warn_unused_result));
+
+/* declared in /home/work/work/naigama/src/gen3/lib/assembler//naia_process_scr_string.c */
+extern
+NAIG_ERR_T naia_process_scr_string
   (naia_t* naia, unsigned i)
   __attribute__ ((warn_unused_result));
 

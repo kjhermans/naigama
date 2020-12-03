@@ -98,5 +98,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define NAIG_ACTION_REPLACE_CHAR        0x01002702
 #define NAIG_ACTION_REPLACE_QUAD        0x920f00e7
 
+#define ROUNDUP(bound, number) ((number % bound)?(number + (bound - (number % bound))):(number + (number % bound)))
+
 
 #endif // ~_NAIG_DEFINES_H_

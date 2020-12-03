@@ -62,8 +62,6 @@ NAIG_ERR_T naic_process_set
   if (a->slot == SLOT_SET_SETNOT) {
     invert = a->length;
     ++a;
-  } else {
-    abort();
   }
   while (a->start + a->length <= end) {
     switch (a->slot) {

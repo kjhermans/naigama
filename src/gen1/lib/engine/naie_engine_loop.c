@@ -60,7 +60,7 @@ NAIG_ERR_T naie_engine_loop
   unsigned char* value;
   unsigned valuesize;
 
-  memset(result, 0, sizeof(naie_result_t));
+//  memset(result, 0, sizeof(naie_result_t));
   while (1) {
     if (engine->bytecode_pos > engine->bytecode_length - 4) {
       RETURNERR(NAIE_ERR_CODEOVERFLOW);

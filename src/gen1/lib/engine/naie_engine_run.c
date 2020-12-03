@@ -54,6 +54,7 @@ NAIG_ERR_T naie_engine_run
 {
   engine->bytecode_pos = 0;
   engine->input_pos = 0;
+  memset(result, 0, sizeof(naie_result_t));
   CHECK(naie_engine_loop(engine, result));
   return NAIG_OK;
 }

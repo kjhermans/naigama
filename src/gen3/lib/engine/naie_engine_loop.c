@@ -60,7 +60,7 @@ NAIG_ERR_T naie_engine_loop
   unsigned char* value;
   unsigned valuesize;
 
-  memset(result, 0, sizeof(naie_result_t));
+//  memset(result, 0, sizeof(naie_result_t));
   while (1) {
     if (engine->bytecode_pos > engine->bytecode_length - 4) {
       RETURNERR(NAIE_ERR_CODEOVERFLOW);
@@ -399,7 +399,6 @@ NAIG_ERR_T naie_engine_loop
                     engine->input_pos = 0;
                     engine->input_length = (stop - start);
                     engine->bytecode_pos += instruction_size;
-fprintf(stderr, "Going into isolation for piece '%-.*s'\n", engine->input_length, engine->input);
                     if (NAIG_ISOK(naie_engine_loop(engine, result))) {
                       engine->input_pos = origpos;
                       engine->input = originput;
@@ -409,6 +408,7 @@ fprintf(stderr, "Going into isolation for piece '%-.*s'\n", engine->input_length
                   }
                 }
               }
+              RETURNERR(NAIE_ERR_ACTIONLIST);
             }
           }
         }
@@ -418,6 +418,14 @@ fprintf(stderr, "Going into isolation for piece '%-.*s'\n", engine->input_length
     case OPCODE_ENDISOLATE:
       engine->bytecode_pos += instruction_size;
       return NAIG_OK;
+
+    case OPCODE_SCR_CALL:
+      param1 = GET_32BIT_VALUE(engine->bytecode, engine->bytecode_pos + 4);
+      param2 = engine->bytecode_pos;
+      engine->bytecode_pos = param1;
+      CHECK(naie_engine_loop_function(engine));
+      engine->bytecode_pos = param2 + instruction_size;
+      goto NEXT;
 
     case OPCODE_TRAP:
       RETURNERR(NAIE_ERR_TRAP);

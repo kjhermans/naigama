@@ -80,6 +80,7 @@ naie_action_t;
 typedef struct
 {
   unsigned      type;
+#define NAIE_SCALAR_TYPE_VOID           0
 #define NAIE_SCALAR_TYPE_BOOLEAN        1
 #define NAIE_SCALAR_TYPE_UNSIGNED       2
 #define NAIE_SCALAR_TYPE_INT            3

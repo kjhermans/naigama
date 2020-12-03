@@ -5,6 +5,7 @@ stage_11:
 	@cd assembler && make -j 4
 	@cd util && make -j 4
 	@cd naigama && make -j 4
+	@cd disassembler && make -j 4
 
 clean:
 #	@cd processor && make clean
@@ -13,6 +14,7 @@ clean:
 	@cd assembler && make clean
 	@cd util && make clean
 	@cd naigama && make clean
+	@cd disassembler && make clean
 
 superclean: clean
 

@@ -71,6 +71,20 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif
 #define CHECK NAIG_CHECK
 
+#define NAIG_CHECK_LOG(fnc, ...) { \
+  NAIG_ERR_T __e = (fnc); \
+  if (__e.code) { \
+fprintf(stderr, "ERRORORORORORO!\n"); \
+    fprintf(stderr, __VA_ARGS__); \
+    DEBUG(__e); \
+    return __e; \
+  } \
+}
+#ifdef CHECK_LOG
+#undef CHECK_LOG
+#endif
+#define CHECK_LOG NAIG_CHECK_LOG
+
 #define NAIG_CHECK_NODEBUG(fnc) { \
   NAIG_ERR_T __e = (fnc); \
   if (__e.code) { \

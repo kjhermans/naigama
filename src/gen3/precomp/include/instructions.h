@@ -66,6 +66,8 @@
 #define INSTR_SCR_BITXOR "scr_bitxor"
 #define OPCODE_SCR_BITXORIS 0x000005cf
 #define INSTR_SCR_BITXORIS "scr_bitxoris"
+#define OPCODE_SCR_BUILTIN 0x000407cf
+#define INSTR_SCR_BUILTIN "scr_builtin"
 #define OPCODE_SCR_CALL 0x00040503
 #define INSTR_SCR_CALL "scr_call"
 #define OPCODE_SCR_CONDJUMP 0x000805e7
@@ -102,7 +104,7 @@
 #define INSTR_SCR_POP "scr_pop"
 #define OPCODE_SCR_POW 0x00000542
 #define INSTR_SCR_POW "scr_pow"
-#define OPCODE_SCR_PUSH 0x000005ed
+#define OPCODE_SCR_PUSH 0x001005ed
 #define INSTR_SCR_PUSH "scr_push"
 #define OPCODE_SCR_RET 0x00000555
 #define INSTR_SCR_RET "scr_ret"
@@ -114,6 +116,8 @@
 #define INSTR_SCR_SHIFTOUT "scr_shiftout"
 #define OPCODE_SCR_SHIFTOUTIS 0x000005de
 #define INSTR_SCR_SHIFTOUTIS "scr_shiftoutis"
+#define OPCODE_SCR_STRING 0x000017bb
+#define INSTR_SCR_STRING "scr_string"
 #define OPCODE_SCR_SUB 0x000005bb
 #define INSTR_SCR_SUB "scr_sub"
 #define OPCODE_SET 0x002003ca
@@ -134,4 +138,4 @@
 #define INSTR_TRAP "trap"
 #define OPCODE_VAR 0x000403ee
 #define INSTR_VAR "var"
-#define DIGEST_INSTR 0xaf484aa6057e20cf
+#define DIGEST_INSTR 0xdb0cdc9b85506005

@@ -40,7 +40,7 @@ NAIG_ERR_T naie_engine_loop_function
   (naie_engine_t* engine)
 {
   naie_scalar_t scalar1, scalar2, scalar3;
-  uint32_t param1, param2, param3;
+  uint32_t param1; //, param2, param3;
   unsigned instruction_size;
   uint32_t opcode;
 

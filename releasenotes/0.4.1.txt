@@ -1,0 +1,10 @@
+This release marks the beginning of a major restructuring of code;
+I want the idea of generations being independent, to be completely
+implemented at all possible levels. It should be possible to run all
+generations with completely different instruction sets, yet use
+a previous generation parser for the parser generation of the current
+generation parser.
+
+Tests will become specific to a generation, and tests failing will halt
+all building. Documentation will be generation specific as well, probably
+resulting in many duplications of text.

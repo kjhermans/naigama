@@ -1,140 +1,16 @@
-all:
-	@make stages 2>&1 | tee /tmp/make.log
+all: gen0 gen1 gen2 gen3
 
-debug:
-	@export DEBUG=-D_DEBUG && make stages 2>&1 | tee /tmp/make.log
+gen0:
+	@cd src/gen0 && make
 
-stages: \
-  stage_00 \
-  stage_01 stage_2 stage_3 stage_4 \
-  stage_5 stage_6 stage_7 stage_8 \
-  stage_9 stage_10 stage_11 stage_12
+gen1: gen0
+	@cd src/gen1 && make
 
-arm_bare_metal:
-	@export ARCH=arm-none-eabi- && make
+gen2: gen1
+	@cd src/gen2 && make
 
-instructions: superclean
-	@perl ./bin/gen_instructions.pl ./src/instructions.pl > /tmp/instr \
-	  && mv /tmp/instr ./src/instructions.pl
-
-## stage_00: library functions.h generation
-## stage_01: gen1 grammar.byc etc generation (using gen0 compiler)
-## stage_2: gen1 bytecode.h etc generation
-## stage_3: gen1 library building
-## stage_4: gen1 mains building
-## stage_5: gen2 grammar.byc etc generation (using gen1 compiler)
-## stage_6: gen2 bytecode.h etc generation
-## stage_7: gen2 library building
-## stage_8: gen2 mains building
-
-stage_00:
-	@echo "---- Building stage 0"
-	@MFS=`find src/ -name Makefile | xargs grep -l stage_00`; \
-		for MF in $$MFS; do \
-			DIR=`dirname $$MF`; \
-			BUILDROOT=`pwd` make -C $$DIR stage_00; \
-		done
-
-stage_01:
-	@echo "---- Building stage 1"
-	@MFS=`find src/ -name Makefile | xargs grep -l stage_01`; \
-		for MF in $$MFS; do \
-			DIR=`dirname $$MF`; \
-			BUILDROOT=`pwd` make -C $$DIR stage_01; \
-		done
-
-stage_2:
-	@echo "---- Building stage 2"
-	@MFS=`find src/ -name Makefile | xargs grep -l stage_2`; \
-		for MF in $$MFS; do \
-			DIR=`dirname $$MF`; \
-			BUILDROOT=`pwd` make -C $$DIR stage_2; \
-		done
-
-stage_3:
-	@echo "---- Building stage 3"
-	@MFS=`find src/ -name Makefile | xargs grep -l stage_3`; \
-		for MF in $$MFS; do \
-			DIR=`dirname $$MF`; \
-			BUILDROOT=`pwd` make -C $$DIR stage_3; \
-		done
-
-stage_4:
-	@echo "---- Building stage 4"
-	@MFS=`find src/ -name Makefile | xargs grep -l stage_4`; \
-		for MF in $$MFS; do \
-			DIR=`dirname $$MF`; \
-			BUILDROOT=`pwd` make -C $$DIR stage_4; \
-		done
-
-stage_5:
-	@echo "---- Building stage 5"
-	@MFS=`find src/ -name Makefile | xargs grep -l stage_5`; \
-		for MF in $$MFS; do \
-			DIR=`dirname $$MF`; \
-			BUILDROOT=`pwd` make -C $$DIR stage_5; \
-		done
-
-stage_6:
-	@echo "---- Building stage 6"
-	@MFS=`find src/ -name Makefile | xargs grep -l stage_6`; \
-		for MF in $$MFS; do \
-			DIR=`dirname $$MF`; \
-			BUILDROOT=`pwd` make -C $$DIR stage_6; \
-		done
-
-stage_7:
-	@echo "---- Building stage 7"
-	@MFS=`find src/ -name Makefile | xargs grep -l stage_7`; \
-		for MF in $$MFS; do \
-			DIR=`dirname $$MF`; \
-			BUILDROOT=`pwd` make -C $$DIR stage_7; \
-		done
-
-stage_8:
-	@echo "---- Building stage 8"
-	@MFS=`find src/ -name Makefile | xargs grep -l stage_8`; \
-		for MF in $$MFS; do \
-			DIR=`dirname $$MF`; \
-			BUILDROOT=`pwd` make -C $$DIR stage_8; \
-		done
-
-stage_9:
-	@echo "---- Building stage 9"
-	@MFS=`find src/ -name Makefile | xargs grep -l stage_9`; \
-		for MF in $$MFS; do \
-			DIR=`dirname $$MF`; \
-			BUILDROOT=`pwd` make -C $$DIR stage_9; \
-		done
-
-stage_10:
-	@echo "---- Building stage 10"
-	@MFS=`find src/ -name Makefile | xargs grep -l stage_10`; \
-		for MF in $$MFS; do \
-			DIR=`dirname $$MF`; \
-			BUILDROOT=`pwd` make -C $$DIR stage_10; \
-		done
-
-stage_11:
-	@echo "---- Building stage 11"
-	@MFS=`find src/ -name Makefile | xargs grep -l stage_11`; \
-		for MF in $$MFS; do \
-			DIR=`dirname $$MF`; \
-			BUILDROOT=`pwd` make -C $$DIR stage_11; \
-		done
-
-stage_12:
-	@echo "---- Building stage 12"
-	@MFS=`find src/ -name Makefile | xargs grep -l stage_12`; \
-		for MF in $$MFS; do \
-			DIR=`dirname $$MF`; \
-			BUILDROOT=`pwd` make -C $$DIR stage_12; \
-		done
-
-archive: clean
-	RELEASE=$$(cat release); \
-	/bin/echo "  [TAR] ~/naigama-src-$$RELEASE.tar.gz"; \
-	cd .. && tar czf ~/naigama-src-$$RELEASE.tar.gz --exclude=\.git naigama/
+gen3: gen2
+	@cd src/gen3 && make
 
 clean:
 	@MFS=`find src/ d/ -name Makefile | xargs grep -l 'clean:'`; \
@@ -143,25 +19,15 @@ clean:
 			make -C $$DIR clean; \
 		done
 
-superclean:
-	@MFS=`find src -name Makefile`; \
+superclean: clean
+	@MFS=`find src/ d/ -name Makefile | xargs grep -l 'superclean:'`; \
 		for MF in $$MFS; do \
 			DIR=`dirname $$MF`; \
 			make -C $$DIR superclean; \
 		done
 
-test: all
-	@BUILDROOT=`pwd` make -C t/ all
-	@BUILDROOT=`pwd` make -C src/gen3/t/ all
-
-doc:
-	@BUILDROOT=`pwd` make -C d/ all
-
-install:
-	@sudo cp src/main/engine/naie \
-		src/main/compiler/naic \
-		src/main/assembler/naia \
-		/usr/local/bin/
-
-java:
-	@cd src/java && make
+archive: clean
+	RELEASE=$$(cat release); \
+	/bin/echo "  [TAR] ~/naigama-src-$$RELEASE.tar.gz"; \
+	cd .. && \
+	  tar czf ~/naigama-src-$$RELEASE.tar.gz --exclude=\.git naigama/

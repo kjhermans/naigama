@@ -1,0 +1,13 @@
+CMD <- ( 
+         { 'next' / 'n' } /
+         { 'quit' / 'q' } /
+         { 'cont' / 'c' } /
+         { 'over' / 'o' } /
+         { 'help' / 'h' / '?' } /
+         { 'verbose' / 'v' } /
+         { 'state' } /
+         { 'input' %s+ ( 'offset' %s+ { [0-9]+ } /
+                         'text' %s+ { .+ } ) } /
+         { 'instr' %s+ { [a-z]^-63 } } /
+         { 'label' %s+ { [a-zA-Z_][0-9a-zA-Z_]^-63 } }
+       ) !.

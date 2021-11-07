@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XML Spy v4.3 U (http://www.xmlspy.com) by Abraham Merom (ELBIT SYSTEMS LTD.) -->
+<!-- edited with XMLSpy v2005 rel. 3 U (http://www.altova.com) by Marco van der Meijden (DTO Maasland) -->
+<schema xmlns:jdssdmSVExt="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xmlns:jc3iedm="urn:int:nato:standard:mip:jc3iedm:3.0.2:oo:2.2" xmlns:jdssdm="urn:int:nato:standard:mip:jdssdm:1.1" xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:int:nato:standard:mip:jdssdm:1.1.NLD" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<annotation>
+		<documentation xml:lang="en">XML schema defined by NLD/DMO, Marco van der Meijden, marco@integrationbydesign.nl, Integration By Design</documentation>
+	</annotation>
+	<annotation>
+		<documentation>v0.1 14-10-2015</documentation>
+	</annotation>
+	<annotation>
+		<documentation>v0.2 30-11-2015  Replaced GeoGraphicPointLocation with GeoGraphicPoint, , added IsCyclic, Isreverse back that were lost in in 0.1</documentation>
+	</annotation>
+	<import namespace="urn:int:nato:standard:mip:jc3iedm:3.0.2:oo:2.2" schemaLocation="JC3IEDM-3.0.2-MergeSchemas.xsd"/>
+	<import namespace="urn:int:nato:standard:mip:jdssdm:1.1" schemaLocation="JDSSDM-1.1-EntityTypes.xsd"/>
+	<complexType name="RouteType">
+		<complexContent>
+			<extension base="jdssdm:OVL-AbstractObjectItem">
+				<sequence>
+					<element name="RouteWPs" type="jdssdmSVExt:RouteWPType" minOccurs="2" maxOccurs="unbounded"/>
+					<element name="IsReverse" type="boolean"/>
+					<element name="IsCyclic" type="boolean"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="RouteWPType">
+		<complexContent>
+			<extension base="jdssdm:GeographicPoint">
+				<sequence>
+					<element name="WPOperation" type="jdssdmSVExt:WPOperationsType"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="WPOperationsType">
+		<sequence>
+			<element name="NameText" type="jc3iedm:TextTypeVar100">
+				<annotation>
+					<documentation xml:lang="en">The character string assigned to represent a specific OBJECT-ITEM.</documentation>
+				</annotation>
+			</element>
+		</sequence>
+	</complexType>
+	<simpleType name="ONOffStatusCode">
+		<restriction base="string">
+			<enumeration value="On"/>
+			<enumeration value="Off"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="Frequency">
+		<restriction base="float"/>
+	</simpleType>
+	<complexType name="RouteMsgType">
+		<complexContent>
+			<extension base="jdssdm:AbstractMessage">
+				<sequence>
+					<element name="RouteOverlay" type="jdssdmSVExt:RouteOverlayType"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="RouteOverlayType">
+		<complexContent>
+			<extension base="jdssdm:AbstractObjectItem">
+				<sequence>
+					<element name="Route" type="jdssdmSVExt:RouteType" maxOccurs="unbounded"/>
+				</sequence>
+				<attribute name="IsUpdate" type="boolean">
+					<annotation>
+						<documentation>Indicates that this is not the full overlay but an update</documentation>
+					</annotation>
+				</attribute>
+			</extension>
+		</complexContent>
+	</complexType>
+</schema>

@@ -1,0 +1,42 @@
+<JDSSDMMessage xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:int:nato:standard:mip:jdssdm:1.1">
+  <Id OIDType="UUID">ad454e2e-f9a8-4009-b568-5898da4a9b62</Id>
+  <Datetime>20180724120114.882</Datetime>
+  <Originator OIDType="UUID">a9b23d4f-ea52-8816-40cc-fe31138e85d9</Originator>
+  <OriginatorCountryCode>NLD</OriginatorCountryCode>
+  <Recipient OIDType="UUID">1596fa9e-a6b5-db70-9d4d-2068e4d2dbbb</Recipient>
+  <Recipient OIDType="UUID">04c097b8-4b9e-6dee-5a56-6031ede3d0db</Recipient>
+  <Recipient OIDType="UUID">928bf658-1b82-56b3-0d67-5c645a1b93f4</Recipient>
+  <ExtensionMsg xmlns:q1="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q1:ReportMessageType">
+    <q1:Report>
+      <OID OIDType="UUID">ae5a7e82-34d1-4021-f8e0-49577c35c200</OID>
+      <MessageSubject>32U LD 51240 69403 User01 3: THROWN ...</MessageSubject>
+      <MessageBody>IED/UXO Report
+L01: DTG Object Found = 241200Z JUL 18
+L02: Reporting Unit Call
+	Call sign = User01
+	Location = 32U LD 51240 69403
+L03: Ordnance = 3: THROWN, UNDEFINED 
+L04: Location UXO / IED = 32U LD 51240 69403
+L05: Location Rendez Vous = 
+L06: Contact Method
+	Call sign = User01
+	Frequency/Channel = 
+L07: Tactical Situation = HOT
+L08: Collateral Damage Potential = LOW
+L09: Protective Measures = -
+L10: Recommended Priority = -
+[Footer]:
+	Confirm = 
+	Clear = 
+	Cordon = 
+	Control = 
+	Classification = Unclassified</MessageBody>
+      <q1:ReportHeader>
+        <q1:Sender>User01</q1:Sender>
+        <q1:DateTime>20180724120114.000</q1:DateTime>
+        <q1:ReportType>IEDUXO</q1:ReportType>
+        <q1:SecurityClassification>Unclassified</q1:SecurityClassification>
+      </q1:ReportHeader>
+    </q1:Report>
+  </ExtensionMsg>
+</JDSSDMMessage>

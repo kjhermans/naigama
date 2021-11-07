@@ -1,0 +1,155 @@
+<JDSSDMMessage xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:int:nato:standard:mip:jdssdm:1.1">
+  <Id OIDType="UUID">bfa1bfb1-7545-4e7b-8b46-2a766c7e5f68</Id>
+  <Datetime>20180724115256.632</Datetime>
+  <Originator OIDType="UUID">a9b23d4f-ea52-8816-40cc-fe31138e85d9</Originator>
+  <OriginatorCountryCode>NLD</OriginatorCountryCode>
+  <PresenceMsg>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">953b9612-31c3-dfc6-5105-5950461bb120</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>51.989594</LatitudeCoordinate>
+        <LongitudeCoordinate>4.977585</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Unit>
+      <OID OIDType="UUID">41c58a80-1a38-3eaf-b224-8d15acd0ee90</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>51.989311</LatitudeCoordinate>
+        <LongitudeCoordinate>4.977833</LongitudeCoordinate>
+      </GeographicPoint>
+    </Unit>
+    <Materiel>
+      <OID OIDType="UUID">3b7d71c9-14dc-a279-95f4-94f508d5a113</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>51.990007</LatitudeCoordinate>
+        <LongitudeCoordinate>4.977792</LongitudeCoordinate>
+      </GeographicPoint>
+    </Materiel>
+    <Materiel>
+      <OID OIDType="UUID">932a12f7-ab6d-12b2-03d9-1c14b65bf134</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>51.989344</LatitudeCoordinate>
+        <LongitudeCoordinate>4.976947</LongitudeCoordinate>
+      </GeographicPoint>
+    </Materiel>
+    <Materiel>
+      <OID OIDType="UUID">db189ffc-6f90-3363-ad2a-a65002e401b4</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>51.989192</LatitudeCoordinate>
+        <LongitudeCoordinate>4.977472</LongitudeCoordinate>
+      </GeographicPoint>
+    </Materiel>
+    <Materiel>
+      <OID OIDType="UUID">646ff6fb-72f3-c11c-0e41-be4ca8950e0e</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>51.989454</LatitudeCoordinate>
+        <LongitudeCoordinate>4.977628</LongitudeCoordinate>
+      </GeographicPoint>
+    </Materiel>
+    <Materiel>
+      <OID OIDType="UUID">cc517fb2-d8f6-cdfd-e10f-dd2b37ab3be3</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>51.989448</LatitudeCoordinate>
+        <LongitudeCoordinate>4.977608</LongitudeCoordinate>
+      </GeographicPoint>
+    </Materiel>
+    <Materiel>
+      <OID OIDType="UUID">e7d7c1b0-5ec2-4fa4-6cd7-ca6141c500d9</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>51.981437</LatitudeCoordinate>
+        <LongitudeCoordinate>5.023803</LongitudeCoordinate>
+      </GeographicPoint>
+    </Materiel>
+    <Materiel>
+      <OID OIDType="UUID">f6ae3c79-0f70-e17e-2d32-674eb62be587</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>51.981055</LatitudeCoordinate>
+        <LongitudeCoordinate>5.024175</LongitudeCoordinate>
+      </GeographicPoint>
+    </Materiel>
+    <Materiel>
+      <OID OIDType="UUID">a30a608e-2e84-eb61-1343-31b007098b6b</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>51.981428</LatitudeCoordinate>
+        <LongitudeCoordinate>5.024462</LongitudeCoordinate>
+      </GeographicPoint>
+    </Materiel>
+    <Materiel>
+      <OID OIDType="UUID">f4a92dce-2cf2-2662-8e7b-bfd761de43d8</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>51.981137</LatitudeCoordinate>
+        <LongitudeCoordinate>5.024188</LongitudeCoordinate>
+      </GeographicPoint>
+    </Materiel>
+    <Materiel>
+      <OID OIDType="UUID">5a67305f-fc26-17fd-79aa-046411dc1138</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>51.981229</LatitudeCoordinate>
+        <LongitudeCoordinate>5.023909</LongitudeCoordinate>
+      </GeographicPoint>
+    </Materiel>
+    <Materiel>
+      <OID OIDType="UUID">77174d99-9643-51a6-900c-e21a9ceab7b5</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>51.981110</LatitudeCoordinate>
+        <LongitudeCoordinate>5.024473</LongitudeCoordinate>
+      </GeographicPoint>
+    </Materiel>
+    <Materiel>
+      <OID OIDType="UUID">d2ff8936-d3a2-9616-58ab-725e59531250</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>51.981440</LatitudeCoordinate>
+        <LongitudeCoordinate>5.024471</LongitudeCoordinate>
+      </GeographicPoint>
+    </Materiel>
+    <Materiel>
+      <OID OIDType="UUID">4bdc1288-6790-c42d-08ee-c50206ae78b5</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>51.979481</LatitudeCoordinate>
+        <LongitudeCoordinate>5.027279</LongitudeCoordinate>
+      </GeographicPoint>
+    </Materiel>
+    <Materiel>
+      <OID OIDType="UUID">df7b7b0a-dfc5-32c5-1dcf-0d0c84ca75a7</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>51.979759</LatitudeCoordinate>
+        <LongitudeCoordinate>5.026963</LongitudeCoordinate>
+      </GeographicPoint>
+    </Materiel>
+    <Materiel>
+      <OID OIDType="UUID">ce3b1725-5f55-6727-70c8-5a9bf24244f9</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>51.979640</LatitudeCoordinate>
+        <LongitudeCoordinate>5.026323</LongitudeCoordinate>
+      </GeographicPoint>
+    </Materiel>
+    <Materiel>
+      <OID OIDType="UUID">2ea62617-448a-3608-6189-48930ad4e3e2</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>51.979169</LatitudeCoordinate>
+        <LongitudeCoordinate>5.027008</LongitudeCoordinate>
+      </GeographicPoint>
+    </Materiel>
+    <Materiel>
+      <OID OIDType="UUID">7f185513-6025-7f66-282e-cb51f22d5f2e</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>51.979506</LatitudeCoordinate>
+        <LongitudeCoordinate>5.027234</LongitudeCoordinate>
+      </GeographicPoint>
+    </Materiel>
+    <Materiel>
+      <OID OIDType="UUID">51f302c9-4421-43b4-10ca-396304210f08</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>51.979091</LatitudeCoordinate>
+        <LongitudeCoordinate>5.026656</LongitudeCoordinate>
+      </GeographicPoint>
+    </Materiel>
+    <Materiel>
+      <OID OIDType="UUID">32cc695b-2b70-d357-85e4-07f050ed2420</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>51.989294</LatitudeCoordinate>
+        <LongitudeCoordinate>4.977041</LongitudeCoordinate>
+      </GeographicPoint>
+    </Materiel>
+  </PresenceMsg>
+</JDSSDMMessage>

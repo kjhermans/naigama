@@ -1,0 +1,684 @@
+<JDSSDMMessage xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:int:nato:standard:mip:jdssdm:1.1">
+  <Id OIDType="UUID">8ae56361-bb5a-4f31-98cf-9bf3dd5b8496</Id>
+  <Datetime>20200821125440.570</Datetime>
+  <Originator OIDType="UUID">eb0ac4fa-a0c1-3bbd-7fe4-dc47dc79ef0f</Originator>
+  <OriginatorCountryCode>NLD</OriginatorCountryCode>
+  <OverlayMsg>
+    <Overlay IsUpdate="true">
+      <OID OIDType="UUID">702dd375-92c1-da15-0250-6402caab66ce</OID>
+      <NameText>Friendly Actors</NameText>
+      <Organisation-MilitaryPost>
+        <OID OIDType="UUID">a6f556a0-e33e-0afc-0000-000000000000</OID>
+        <NameText>Soldier0001</NameText>
+        <Comment>
+          <CommentText>GUNRRF
+Rifle
+S*Y*EWR---
+Rifle
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <MilitaryPostType>
+          <OID OIDType="UUID">a6f556a0-e33e-0afc-0000-000000000000</OID>
+          <NameText>Soldier0001</NameText>
+          <CategoryCode>RFLEMN</CategoryCode>
+        </MilitaryPostType>
+        <OperationalStatusCode>NKN</OperationalStatusCode>
+        <GeographicPoint>
+          <LatitudeCoordinate>52.265354</LatitudeCoordinate>
+          <LongitudeCoordinate>5.517288</LongitudeCoordinate>
+          <BearingAngle>0</BearingAngle>
+        </GeographicPoint>
+      </Organisation-MilitaryPost>
+      <Organisation-MilitaryPost>
+        <OID OIDType="UUID">a6f556a0-e33e-0afd-0000-000000000000</OID>
+        <NameText>Soldier0002</NameText>
+        <Comment>
+          <CommentText>GUNRFL
+Rifle
+S*Y*EWRR--
+Single Shot Rifle
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <MilitaryPostType>
+          <OID OIDType="UUID">a6f556a0-e33e-0afd-0000-000000000000</OID>
+          <NameText>Soldier0002</NameText>
+          <CategoryCode>RFLEMN</CategoryCode>
+        </MilitaryPostType>
+        <OperationalStatusCode>NKN</OperationalStatusCode>
+        <GeographicPoint>
+          <LatitudeCoordinate>52.265354</LatitudeCoordinate>
+          <LongitudeCoordinate>5.524779</LongitudeCoordinate>
+          <BearingAngle>0</BearingAngle>
+        </GeographicPoint>
+      </Organisation-MilitaryPost>
+      <Organisation-MilitaryPost>
+        <OID OIDType="UUID">a6f556a0-e33e-0afe-0000-000000000000</OID>
+        <NameText>Soldier0003</NameText>
+        <Comment>
+          <CommentText>GUNSAR
+Rifle
+S*Y*EWRL--
+Semi Automated Rifle
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <MilitaryPostType>
+          <OID OIDType="UUID">a6f556a0-e33e-0afe-0000-000000000000</OID>
+          <NameText>Soldier0003</NameText>
+          <CategoryCode>RFLEMN</CategoryCode>
+        </MilitaryPostType>
+        <OperationalStatusCode>NKN</OperationalStatusCode>
+        <GeographicPoint>
+          <LatitudeCoordinate>52.265354</LatitudeCoordinate>
+          <LongitudeCoordinate>5.532273</LongitudeCoordinate>
+          <BearingAngle>0</BearingAngle>
+        </GeographicPoint>
+      </Organisation-MilitaryPost>
+      <Organisation-MilitaryPost>
+        <OID OIDType="UUID">a6f556a0-e33e-0aff-0000-000000000000</OID>
+        <NameText>Soldier0004</NameText>
+        <Comment>
+          <CommentText>GUNARF
+Rifle
+S*Y*EWRH--
+Automatic Rifle
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <MilitaryPostType>
+          <OID OIDType="UUID">a6f556a0-e33e-0aff-0000-000000000000</OID>
+          <NameText>Soldier0004</NameText>
+          <CategoryCode>RFLEMN</CategoryCode>
+        </MilitaryPostType>
+        <OperationalStatusCode>NKN</OperationalStatusCode>
+        <GeographicPoint>
+          <LatitudeCoordinate>52.265354</LatitudeCoordinate>
+          <LongitudeCoordinate>5.539767</LongitudeCoordinate>
+          <BearingAngle>0</BearingAngle>
+        </GeographicPoint>
+      </Organisation-MilitaryPost>
+      <Organisation-MilitaryPost>
+        <OID OIDType="UUID">a6f556a0-e33e-0b00-0000-000000000000</OID>
+        <NameText>Soldier0005</NameText>
+        <Comment>
+          <CommentText>MG
+Machine Gun
+A*Y*G33---
+Not Specified
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <MilitaryPostType>
+          <OID OIDType="UUID">a6f556a0-e33e-0b00-0000-000000000000</OID>
+          <NameText>Soldier0005</NameText>
+          <CategoryCode>MCHGUN</CategoryCode>
+        </MilitaryPostType>
+        <OperationalStatusCode>NKN</OperationalStatusCode>
+        <GeographicPoint>
+          <LatitudeCoordinate>52.265354</LatitudeCoordinate>
+          <LongitudeCoordinate>5.547259</LongitudeCoordinate>
+          <BearingAngle>0</BearingAngle>
+        </GeographicPoint>
+      </Organisation-MilitaryPost>
+      <Organisation-MilitaryPost>
+        <OID OIDType="UUID">a6f556a0-e33e-0b01-0000-000000000000</OID>
+        <NameText>Soldier0006</NameText>
+        <Comment>
+          <CommentText>GUNMGL
+Machine Gun
+A*Y*G34---
+Light Machine Gun
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <MilitaryPostType>
+          <OID OIDType="UUID">a6f556a0-e33e-0b01-0000-000000000000</OID>
+          <NameText>Soldier0006</NameText>
+          <CategoryCode>MCHGUN</CategoryCode>
+        </MilitaryPostType>
+        <OperationalStatusCode>NKN</OperationalStatusCode>
+        <GeographicPoint>
+          <LatitudeCoordinate>52.265354</LatitudeCoordinate>
+          <LongitudeCoordinate>5.554753</LongitudeCoordinate>
+          <BearingAngle>0</BearingAngle>
+        </GeographicPoint>
+      </Organisation-MilitaryPost>
+      <Organisation-MilitaryPost>
+        <OID OIDType="UUID">a6f556a0-e33e-0b02-0000-000000000000</OID>
+        <NameText>Soldier0007</NameText>
+        <Comment>
+          <CommentText>GUNMGM
+Machine Gun
+A*Y*G35---
+Medium Machine Gun
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <MilitaryPostType>
+          <OID OIDType="UUID">a6f556a0-e33e-0b02-0000-000000000000</OID>
+          <NameText>Soldier0007</NameText>
+          <CategoryCode>MCHGUN</CategoryCode>
+        </MilitaryPostType>
+        <OperationalStatusCode>NKN</OperationalStatusCode>
+        <GeographicPoint>
+          <LatitudeCoordinate>52.260768</LatitudeCoordinate>
+          <LongitudeCoordinate>5.517288</LongitudeCoordinate>
+          <BearingAngle>0</BearingAngle>
+        </GeographicPoint>
+      </Organisation-MilitaryPost>
+      <Organisation-MilitaryPost>
+        <OID OIDType="UUID">a6f556a0-e33e-0b03-0000-000000000000</OID>
+        <NameText>Soldier0008</NameText>
+        <Comment>
+          <CommentText>GUNMGH
+Machine Gun
+A*Y*G36---
+Heavy Machine Gun
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <MilitaryPostType>
+          <OID OIDType="UUID">a6f556a0-e33e-0b03-0000-000000000000</OID>
+          <NameText>Soldier0008</NameText>
+          <CategoryCode>MCHGUN</CategoryCode>
+        </MilitaryPostType>
+        <OperationalStatusCode>NKN</OperationalStatusCode>
+        <GeographicPoint>
+          <LatitudeCoordinate>52.260768</LatitudeCoordinate>
+          <LongitudeCoordinate>5.524779</LongitudeCoordinate>
+          <BearingAngle>0</BearingAngle>
+        </GeographicPoint>
+      </Organisation-MilitaryPost>
+      <Organisation-MilitaryPost>
+        <OID OIDType="UUID">a6f556a0-e33e-0b04-0000-000000000000</OID>
+        <NameText>Soldier0009</NameText>
+        <Comment>
+          <CommentText>GRLLGT
+Grenade Launcher
+S*Y*EWZL--
+Light
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <MilitaryPostType>
+          <OID OIDType="UUID">a6f556a0-e33e-0b04-0000-000000000000</OID>
+          <NameText>Soldier0009</NameText>
+          <CategoryCode>GRENDR</CategoryCode>
+        </MilitaryPostType>
+        <OperationalStatusCode>NKN</OperationalStatusCode>
+        <GeographicPoint>
+          <LatitudeCoordinate>52.260768</LatitudeCoordinate>
+          <LongitudeCoordinate>5.532273</LongitudeCoordinate>
+          <BearingAngle>0</BearingAngle>
+        </GeographicPoint>
+      </Organisation-MilitaryPost>
+      <Organisation-MilitaryPost>
+        <OID OIDType="UUID">a6f556a0-e33e-0b05-0000-000000000000</OID>
+        <NameText>Soldier0010</NameText>
+        <Comment>
+          <CommentText>GRLMED
+Grenade Launcher
+S*Y*EWZM--
+Medium
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <MilitaryPostType>
+          <OID OIDType="UUID">a6f556a0-e33e-0b05-0000-000000000000</OID>
+          <NameText>Soldier0010</NameText>
+          <CategoryCode>GRENDR</CategoryCode>
+        </MilitaryPostType>
+        <OperationalStatusCode>NKN</OperationalStatusCode>
+        <GeographicPoint>
+          <LatitudeCoordinate>52.260768</LatitudeCoordinate>
+          <LongitudeCoordinate>5.539767</LongitudeCoordinate>
+          <BearingAngle>0</BearingAngle>
+        </GeographicPoint>
+      </Organisation-MilitaryPost>
+      <Organisation-MilitaryPost>
+        <OID OIDType="UUID">a6f556a0-e33e-0b06-0000-000000000000</OID>
+        <NameText>Soldier0011</NameText>
+        <Comment>
+          <CommentText>GRLHVY
+Grenade Launcher
+S*Y*EWZH--
+Heavy
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <MilitaryPostType>
+          <OID OIDType="UUID">a6f556a0-e33e-0b06-0000-000000000000</OID>
+          <NameText>Soldier0011</NameText>
+          <CategoryCode>GRENDR</CategoryCode>
+        </MilitaryPostType>
+        <OperationalStatusCode>NKN</OperationalStatusCode>
+        <GeographicPoint>
+          <LatitudeCoordinate>52.260768</LatitudeCoordinate>
+          <LongitudeCoordinate>5.547259</LongitudeCoordinate>
+          <BearingAngle>0</BearingAngle>
+        </GeographicPoint>
+      </Organisation-MilitaryPost>
+      <Organisation-MilitaryPost>
+        <OID OIDType="UUID">a6f556a0-e33e-0b07-0000-000000000000</OID>
+        <NameText>Soldier0012</NameText>
+        <Comment>
+          <CommentText>GL
+Grenade Launcher
+S*Y*EWZ---
+Not Specified
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <MilitaryPostType>
+          <OID OIDType="UUID">a6f556a0-e33e-0b07-0000-000000000000</OID>
+          <NameText>Soldier0012</NameText>
+          <CategoryCode>GRENDR</CategoryCode>
+        </MilitaryPostType>
+        <OperationalStatusCode>NKN</OperationalStatusCode>
+        <GeographicPoint>
+          <LatitudeCoordinate>52.260768</LatitudeCoordinate>
+          <LongitudeCoordinate>5.554753</LongitudeCoordinate>
+          <BearingAngle>0</BearingAngle>
+        </GeographicPoint>
+      </Organisation-MilitaryPost>
+      <Organisation-MilitaryPost>
+        <OID OIDType="UUID">a6f556a0-e33e-0b08-0000-000000000000</OID>
+        <NameText>Soldier0013</NameText>
+        <Comment>
+          <CommentText>MOR
+Mortar
+S*Y*EWO---
+Not Specified
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <MilitaryPostType>
+          <OID OIDType="UUID">a6f556a0-e33e-0b08-0000-000000000000</OID>
+          <NameText>Soldier0013</NameText>
+          <CategoryCode>NOS</CategoryCode>
+        </MilitaryPostType>
+        <OperationalStatusCode>NKN</OperationalStatusCode>
+        <GeographicPoint>
+          <LatitudeCoordinate>52.256183</LatitudeCoordinate>
+          <LongitudeCoordinate>5.517288</LongitudeCoordinate>
+          <BearingAngle>0</BearingAngle>
+        </GeographicPoint>
+      </Organisation-MilitaryPost>
+      <Organisation-MilitaryPost>
+        <OID OIDType="UUID">a6f556a0-e33e-0b09-0000-000000000000</OID>
+        <NameText>Soldier0014</NameText>
+        <Comment>
+          <CommentText>MORLGT
+Mortar
+S*Y*EWOL--
+Light
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <MilitaryPostType>
+          <OID OIDType="UUID">a6f556a0-e33e-0b09-0000-000000000000</OID>
+          <NameText>Soldier0014</NameText>
+          <CategoryCode>NOS</CategoryCode>
+        </MilitaryPostType>
+        <OperationalStatusCode>NKN</OperationalStatusCode>
+        <GeographicPoint>
+          <LatitudeCoordinate>52.256183</LatitudeCoordinate>
+          <LongitudeCoordinate>5.524779</LongitudeCoordinate>
+          <BearingAngle>0</BearingAngle>
+        </GeographicPoint>
+      </Organisation-MilitaryPost>
+      <Organisation-MilitaryPost>
+        <OID OIDType="UUID">a6f556a0-e33e-0b0a-0000-000000000000</OID>
+        <NameText>Soldier0015</NameText>
+        <Comment>
+          <CommentText>MORMED
+Mortar
+S*Y*EWOM--
+Medium
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <MilitaryPostType>
+          <OID OIDType="UUID">a6f556a0-e33e-0b0a-0000-000000000000</OID>
+          <NameText>Soldier0015</NameText>
+          <CategoryCode>NOS</CategoryCode>
+        </MilitaryPostType>
+        <OperationalStatusCode>NKN</OperationalStatusCode>
+        <GeographicPoint>
+          <LatitudeCoordinate>52.256183</LatitudeCoordinate>
+          <LongitudeCoordinate>5.532273</LongitudeCoordinate>
+          <BearingAngle>0</BearingAngle>
+        </GeographicPoint>
+      </Organisation-MilitaryPost>
+      <Organisation-MilitaryPost>
+        <OID OIDType="UUID">a6f556a0-e33e-0b0b-0000-000000000000</OID>
+        <NameText>Soldier0016</NameText>
+        <Comment>
+          <CommentText>MORHVY
+Mortar
+S*Y*EWOH--
+Heavy
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <MilitaryPostType>
+          <OID OIDType="UUID">a6f556a0-e33e-0b0b-0000-000000000000</OID>
+          <NameText>Soldier0016</NameText>
+          <CategoryCode>NOS</CategoryCode>
+        </MilitaryPostType>
+        <OperationalStatusCode>NKN</OperationalStatusCode>
+        <GeographicPoint>
+          <LatitudeCoordinate>52.256183</LatitudeCoordinate>
+          <LongitudeCoordinate>5.539767</LongitudeCoordinate>
+          <BearingAngle>0</BearingAngle>
+        </GeographicPoint>
+      </Organisation-MilitaryPost>
+      <Organisation-MilitaryPost>
+        <OID OIDType="UUID">a6f556a0-e33e-0b0c-0000-000000000000</OID>
+        <NameText>Soldier0017</NameText>
+        <Comment>
+          <CommentText>ADML
+Missile Launcher
+S*Y*EWMA--
+Air Defense
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <MilitaryPostType>
+          <OID OIDType="UUID">a6f556a0-e33e-0b0c-0000-000000000000</OID>
+          <NameText>Soldier0017</NameText>
+          <CategoryCode>NOS</CategoryCode>
+        </MilitaryPostType>
+        <OperationalStatusCode>NKN</OperationalStatusCode>
+        <GeographicPoint>
+          <LatitudeCoordinate>52.256183</LatitudeCoordinate>
+          <LongitudeCoordinate>5.547259</LongitudeCoordinate>
+          <BearingAngle>0</BearingAngle>
+        </GeographicPoint>
+      </Organisation-MilitaryPost>
+      <Organisation-MilitaryPost>
+        <OID OIDType="UUID">a6f556a0-e33e-0b0d-0000-000000000000</OID>
+        <NameText>Soldier0018</NameText>
+        <Comment>
+          <CommentText>ADMLSR
+Missile Launcher
+S*Y*EWMAS-
+Air Defense, Short Range
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <MilitaryPostType>
+          <OID OIDType="UUID">a6f556a0-e33e-0b0d-0000-000000000000</OID>
+          <NameText>Soldier0018</NameText>
+          <CategoryCode>NOS</CategoryCode>
+        </MilitaryPostType>
+        <OperationalStatusCode>NKN</OperationalStatusCode>
+        <GeographicPoint>
+          <LatitudeCoordinate>52.256183</LatitudeCoordinate>
+          <LongitudeCoordinate>5.554753</LongitudeCoordinate>
+          <BearingAngle>0</BearingAngle>
+        </GeographicPoint>
+      </Organisation-MilitaryPost>
+      <Organisation-MilitaryPost>
+        <OID OIDType="UUID">a6f556a0-e33e-0b0e-0000-000000000000</OID>
+        <NameText>Soldier0019</NameText>
+        <Comment>
+          <CommentText>ATM
+Missile Launcher
+S*Y*EWMT--
+AntiTank
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <MilitaryPostType>
+          <OID OIDType="UUID">a6f556a0-e33e-0b0e-0000-000000000000</OID>
+          <NameText>Soldier0019</NameText>
+          <CategoryCode>NOS</CategoryCode>
+        </MilitaryPostType>
+        <OperationalStatusCode>NKN</OperationalStatusCode>
+        <GeographicPoint>
+          <LatitudeCoordinate>52.251595</LatitudeCoordinate>
+          <LongitudeCoordinate>5.517288</LongitudeCoordinate>
+          <BearingAngle>0</BearingAngle>
+        </GeographicPoint>
+      </Organisation-MilitaryPost>
+      <Organisation-MilitaryPost>
+        <OID OIDType="UUID">a6f556a0-e33e-0b0f-0000-000000000000</OID>
+        <NameText>Soldier0020</NameText>
+        <Comment>
+          <CommentText>ATMLLT
+Missile Launcher
+S*Y*EWMTL-
+AntiTank, Light
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <MilitaryPostType>
+          <OID OIDType="UUID">a6f556a0-e33e-0b0f-0000-000000000000</OID>
+          <NameText>Soldier0020</NameText>
+          <CategoryCode>NOS</CategoryCode>
+        </MilitaryPostType>
+        <OperationalStatusCode>NKN</OperationalStatusCode>
+        <GeographicPoint>
+          <LatitudeCoordinate>52.251595</LatitudeCoordinate>
+          <LongitudeCoordinate>5.524779</LongitudeCoordinate>
+          <BearingAngle>0</BearingAngle>
+        </GeographicPoint>
+      </Organisation-MilitaryPost>
+      <Organisation-MilitaryPost>
+        <OID OIDType="UUID">a6f556a0-e33e-0b10-0000-000000000000</OID>
+        <NameText>Soldier0021</NameText>
+        <Comment>
+          <CommentText>ATMLMD
+Missile Launcher
+S*Y*EWMTM-
+AntiTank, Medium
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <MilitaryPostType>
+          <OID OIDType="UUID">a6f556a0-e33e-0b10-0000-000000000000</OID>
+          <NameText>Soldier0021</NameText>
+          <CategoryCode>NOS</CategoryCode>
+        </MilitaryPostType>
+        <OperationalStatusCode>NKN</OperationalStatusCode>
+        <GeographicPoint>
+          <LatitudeCoordinate>52.251595</LatitudeCoordinate>
+          <LongitudeCoordinate>5.532273</LongitudeCoordinate>
+          <BearingAngle>0</BearingAngle>
+        </GeographicPoint>
+      </Organisation-MilitaryPost>
+      <Organisation-MilitaryPost>
+        <OID OIDType="UUID">a6f556a0-e33e-0b11-0000-000000000000</OID>
+        <NameText>Soldier0022</NameText>
+        <Comment>
+          <CommentText>ATMLHV
+Missile Launcher
+S*Y*EWMTH-
+AntiTank, Heavy
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <MilitaryPostType>
+          <OID OIDType="UUID">a6f556a0-e33e-0b11-0000-000000000000</OID>
+          <NameText>Soldier0022</NameText>
+          <CategoryCode>NOS</CategoryCode>
+        </MilitaryPostType>
+        <OperationalStatusCode>NKN</OperationalStatusCode>
+        <GeographicPoint>
+          <LatitudeCoordinate>52.251595</LatitudeCoordinate>
+          <LongitudeCoordinate>5.539767</LongitudeCoordinate>
+          <BearingAngle>0</BearingAngle>
+        </GeographicPoint>
+      </Organisation-MilitaryPost>
+      <Organisation-MilitaryPost>
+        <OID OIDType="UUID">a6f556a0-e33e-0b12-0000-000000000000</OID>
+        <NameText>Soldier0023</NameText>
+        <Comment>
+          <CommentText>MEDIC
+
+S*Y*EW1---
+Medic
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <MilitaryPostType>
+          <OID OIDType="UUID">a6f556a0-e33e-0b12-0000-000000000000</OID>
+          <NameText>Soldier0023</NameText>
+          <CategoryCode>NOS</CategoryCode>
+        </MilitaryPostType>
+        <OperationalStatusCode>NKN</OperationalStatusCode>
+        <GeographicPoint>
+          <LatitudeCoordinate>52.251595</LatitudeCoordinate>
+          <LongitudeCoordinate>5.547259</LongitudeCoordinate>
+          <BearingAngle>0</BearingAngle>
+        </GeographicPoint>
+      </Organisation-MilitaryPost>
+      <Organisation-MilitaryPost>
+        <OID OIDType="UUID">a6f556a0-e33e-0b13-0000-000000000000</OID>
+        <NameText>Soldier0024</NameText>
+        <Comment>
+          <CommentText>SIGN
+
+S*Y*EW2---
+Signaler
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <MilitaryPostType>
+          <OID OIDType="UUID">a6f556a0-e33e-0b13-0000-000000000000</OID>
+          <NameText>Soldier0024</NameText>
+          <CategoryCode>SIGNAL</CategoryCode>
+        </MilitaryPostType>
+        <OperationalStatusCode>NKN</OperationalStatusCode>
+        <GeographicPoint>
+          <LatitudeCoordinate>52.251595</LatitudeCoordinate>
+          <LongitudeCoordinate>5.554753</LongitudeCoordinate>
+          <BearingAngle>0</BearingAngle>
+        </GeographicPoint>
+      </Organisation-MilitaryPost>
+      <Organisation-MilitaryPost>
+        <OID OIDType="UUID">a6f556a0-e33e-0b14-0000-000000000000</OID>
+        <NameText>Soldier0025</NameText>
+        <Comment>
+          <CommentText>DRIVER
+
+S*Y*EW3---
+Driver
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <MilitaryPostType>
+          <OID OIDType="UUID">a6f556a0-e33e-0b14-0000-000000000000</OID>
+          <NameText>Soldier0025</NameText>
+          <CategoryCode>DRIVER</CategoryCode>
+        </MilitaryPostType>
+        <OperationalStatusCode>NKN</OperationalStatusCode>
+        <GeographicPoint>
+          <LatitudeCoordinate>52.247008</LatitudeCoordinate>
+          <LongitudeCoordinate>5.517288</LongitudeCoordinate>
+          <BearingAngle>0</BearingAngle>
+        </GeographicPoint>
+      </Organisation-MilitaryPost>
+      <Organisation-MilitaryPost>
+        <OID OIDType="UUID">a6f556a0-e33e-0b15-0000-000000000000</OID>
+        <NameText>Soldier0026</NameText>
+        <Comment>
+          <CommentText>SNIPER
+
+S*Y*EW4---
+Sniper
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <MilitaryPostType>
+          <OID OIDType="UUID">a6f556a0-e33e-0b15-0000-000000000000</OID>
+          <NameText>Soldier0026</NameText>
+          <CategoryCode>SNIPER</CategoryCode>
+        </MilitaryPostType>
+        <OperationalStatusCode>NKN</OperationalStatusCode>
+        <GeographicPoint>
+          <LatitudeCoordinate>52.247008</LatitudeCoordinate>
+          <LongitudeCoordinate>5.524779</LongitudeCoordinate>
+          <BearingAngle>0</BearingAngle>
+        </GeographicPoint>
+      </Organisation-MilitaryPost>
+      <Organisation-MilitaryPost>
+        <OID OIDType="UUID">a6f556a0-e33e-0b16-0000-000000000000</OID>
+        <NameText>Soldier0027</NameText>
+        <Comment>
+          <CommentText>MARKSM
+
+S*Y*EW5---
+Marksman
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <MilitaryPostType>
+          <OID OIDType="UUID">a6f556a0-e33e-0b16-0000-000000000000</OID>
+          <NameText>Soldier0027</NameText>
+          <CategoryCode>MARKSM</CategoryCode>
+        </MilitaryPostType>
+        <OperationalStatusCode>NKN</OperationalStatusCode>
+        <GeographicPoint>
+          <LatitudeCoordinate>52.247008</LatitudeCoordinate>
+          <LongitudeCoordinate>5.532273</LongitudeCoordinate>
+          <BearingAngle>0</BearingAngle>
+        </GeographicPoint>
+      </Organisation-MilitaryPost>
+      <Organisation-MilitaryPost>
+        <OID OIDType="UUID">a6f556a0-e33e-0b17-0000-000000000000</OID>
+        <NameText>Soldier0028</NameText>
+        <Comment>
+          <CommentText>NSP
+
+S*Y*EW----
+Not Specified
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <MilitaryPostType>
+          <OID OIDType="UUID">a6f556a0-e33e-0b17-0000-000000000000</OID>
+          <NameText>Soldier0028</NameText>
+          <CategoryCode>NOS</CategoryCode>
+        </MilitaryPostType>
+        <OperationalStatusCode>NKN</OperationalStatusCode>
+        <GeographicPoint>
+          <LatitudeCoordinate>52.247008</LatitudeCoordinate>
+          <LongitudeCoordinate>5.539767</LongitudeCoordinate>
+          <BearingAngle>0</BearingAngle>
+        </GeographicPoint>
+      </Organisation-MilitaryPost>
+    </Overlay>
+  </OverlayMsg>
+</JDSSDMMessage>

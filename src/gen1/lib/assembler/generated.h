@@ -1,0 +1,4 @@
+#ifndef _NAIG_ASSEMBLER_GENERATED_H_
+#define _NAIG_ASSEMBLER_GENERATED_H_
+
+#endif

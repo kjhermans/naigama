@@ -1,0 +1,874 @@
+<JDSSDMMessage xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:int:nato:standard:mip:jdssdm:1.1">
+  <Id OIDType="UUID">ee7a0c39-82c4-4b0b-b82a-3ba4e182559a</Id>
+  <Datetime>20200821125713.887</Datetime>
+  <Originator OIDType="UUID">eb0ac4fa-a0c1-3bbd-7fe4-dc47dc79ef0f</Originator>
+  <OriginatorCountryCode>NLD</OriginatorCountryCode>
+  <OverlayMsg>
+    <Overlay IsUpdate="true">
+      <OID OIDType="UUID">d4e76f62-56d8-d36b-bb27-27397681fced</OID>
+      <NameText>FSCM</NameText>
+      <ExtendedObject xmlns:q1="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q1:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0c04-0000-000000000000</OID>
+        <NameText>Control0009</NameText>
+        <Comment>
+          <CommentText>RSOPZN
+Aviation
+G*G*AAR---
+Restricted Operations Zone (ROZ)
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q1:SIDC>app6a:G*C*MAVR--*****</q1:SIDC>
+        <q1:Location>
+          <q1:Anchorpoints>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.118343</LatitudeCoordinate>
+              <LongitudeCoordinate>5.373170</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.114508</LatitudeCoordinate>
+              <LongitudeCoordinate>5.373170</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.114508</LatitudeCoordinate>
+              <LongitudeCoordinate>5.379414</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.118343</LatitudeCoordinate>
+              <LongitudeCoordinate>5.379414</LongitudeCoordinate>
+            </GeographicPoint>
+          </q1:Anchorpoints>
+        </q1:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q2="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q2:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0c19-0000-000000000000</OID>
+        <NameText>Control0030</NameText>
+        <Comment>
+          <CommentText>AIRCOAC
+Fire Support
+G*F*ACAC--
+Airspace Coordination Area (ACA), Circular
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q2:SIDC>app6a:G*C*FAC---*****</q2:SIDC>
+        <q2:Modifiers>AM=500</q2:Modifiers>
+        <q2:Location>
+          <q2:Anchorpoints>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.116325</LatitudeCoordinate>
+              <LongitudeCoordinate>5.398769</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.116238</LatitudeCoordinate>
+              <LongitudeCoordinate>5.400199</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.115982</LatitudeCoordinate>
+              <LongitudeCoordinate>5.401573</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.115566</LatitudeCoordinate>
+              <LongitudeCoordinate>5.402840</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.115007</LatitudeCoordinate>
+              <LongitudeCoordinate>5.403950</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.114325</LatitudeCoordinate>
+              <LongitudeCoordinate>5.404861</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.113547</LatitudeCoordinate>
+              <LongitudeCoordinate>5.405538</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.112703</LatitudeCoordinate>
+              <LongitudeCoordinate>5.405955</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.111825</LatitudeCoordinate>
+              <LongitudeCoordinate>5.406096</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.110947</LatitudeCoordinate>
+              <LongitudeCoordinate>5.405955</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.110103</LatitudeCoordinate>
+              <LongitudeCoordinate>5.405538</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.109325</LatitudeCoordinate>
+              <LongitudeCoordinate>5.404861</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.108643</LatitudeCoordinate>
+              <LongitudeCoordinate>5.403950</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.108084</LatitudeCoordinate>
+              <LongitudeCoordinate>5.402840</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.107668</LatitudeCoordinate>
+              <LongitudeCoordinate>5.401573</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.107412</LatitudeCoordinate>
+              <LongitudeCoordinate>5.400199</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.107325</LatitudeCoordinate>
+              <LongitudeCoordinate>5.398769</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.107412</LatitudeCoordinate>
+              <LongitudeCoordinate>5.397340</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.107668</LatitudeCoordinate>
+              <LongitudeCoordinate>5.395965</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.108084</LatitudeCoordinate>
+              <LongitudeCoordinate>5.394698</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.108643</LatitudeCoordinate>
+              <LongitudeCoordinate>5.393588</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.109325</LatitudeCoordinate>
+              <LongitudeCoordinate>5.392677</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.110103</LatitudeCoordinate>
+              <LongitudeCoordinate>5.392000</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.110947</LatitudeCoordinate>
+              <LongitudeCoordinate>5.391583</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.111825</LatitudeCoordinate>
+              <LongitudeCoordinate>5.391442</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.112703</LatitudeCoordinate>
+              <LongitudeCoordinate>5.391583</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.113547</LatitudeCoordinate>
+              <LongitudeCoordinate>5.392000</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.114325</LatitudeCoordinate>
+              <LongitudeCoordinate>5.392677</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.115007</LatitudeCoordinate>
+              <LongitudeCoordinate>5.393588</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.115566</LatitudeCoordinate>
+              <LongitudeCoordinate>5.394698</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.115982</LatitudeCoordinate>
+              <LongitudeCoordinate>5.395965</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.116238</LatitudeCoordinate>
+              <LongitudeCoordinate>5.397340</LongitudeCoordinate>
+            </GeographicPoint>
+          </q2:Anchorpoints>
+        </q2:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q3="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q3:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0c1a-0000-000000000000</OID>
+        <NameText>Control0031</NameText>
+        <Comment>
+          <CommentText>AIRCOAI
+Fire Support
+G*F*ACAI--
+Airspace Coordination Area (ACA), Irregular
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q3:SIDC>app6a:G*C*FAC---*****</q3:SIDC>
+        <q3:Location>
+          <q3:Anchorpoints>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.113741</LatitudeCoordinate>
+              <LongitudeCoordinate>5.403141</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.109907</LatitudeCoordinate>
+              <LongitudeCoordinate>5.403141</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.109907</LatitudeCoordinate>
+              <LongitudeCoordinate>5.409385</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.113741</LatitudeCoordinate>
+              <LongitudeCoordinate>5.409385</LongitudeCoordinate>
+            </GeographicPoint>
+          </q3:Anchorpoints>
+        </q3:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q4="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q4:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0c1b-0000-000000000000</OID>
+        <NameText>Control0032</NameText>
+        <Comment>
+          <CommentText>AIRCOAR
+Fire Support
+G*F*ACAR--
+Airspace Coordination Area (ACA), Rectangular
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q4:SIDC>app6a:G*C*FAC---*****</q4:SIDC>
+        <q4:Location>
+          <q4:Anchorpoints>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.111825</LatitudeCoordinate>
+              <LongitudeCoordinate>5.410635</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.111825</LatitudeCoordinate>
+              <LongitudeCoordinate>5.410635</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.111825</LatitudeCoordinate>
+              <LongitudeCoordinate>5.416877</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.111825</LatitudeCoordinate>
+              <LongitudeCoordinate>5.416877</LongitudeCoordinate>
+            </GeographicPoint>
+          </q4:Anchorpoints>
+        </q4:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q5="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q5:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0c2e-0000-000000000000</OID>
+        <NameText>Control0051</NameText>
+        <Comment>
+          <CommentText>NFRARER
+Fire Support
+G*F*ACNR--
+No-Fire Area (NFA)
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q5:SIDC>app6a:G*C*FAN---*****</q5:SIDC>
+        <q5:Location>
+          <q5:Anchorpoints>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.107222</LatitudeCoordinate>
+              <LongitudeCoordinate>5.418127</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.107222</LatitudeCoordinate>
+              <LongitudeCoordinate>5.418127</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.107222</LatitudeCoordinate>
+              <LongitudeCoordinate>5.424371</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.107222</LatitudeCoordinate>
+              <LongitudeCoordinate>5.424371</LongitudeCoordinate>
+            </GeographicPoint>
+          </q5:Anchorpoints>
+        </q5:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q6="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q6:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0c2f-0000-000000000000</OID>
+        <NameText>Control0052</NameText>
+        <Comment>
+          <CommentText>NFRAREC
+Fire Support
+G*F*ACNC--
+No-Fire Area (NFA), Circular
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q6:SIDC>app6a:G*C*FAN---*****</q6:SIDC>
+        <q6:Modifiers>AM=500</q6:Modifiers>
+        <q6:Location>
+          <q6:Anchorpoints>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.111722</LatitudeCoordinate>
+              <LongitudeCoordinate>5.428743</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.111635</LatitudeCoordinate>
+              <LongitudeCoordinate>5.430172</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.111379</LatitudeCoordinate>
+              <LongitudeCoordinate>5.431546</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.110963</LatitudeCoordinate>
+              <LongitudeCoordinate>5.432813</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.110404</LatitudeCoordinate>
+              <LongitudeCoordinate>5.433923</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.109722</LatitudeCoordinate>
+              <LongitudeCoordinate>5.434834</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.108944</LatitudeCoordinate>
+              <LongitudeCoordinate>5.435511</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.108100</LatitudeCoordinate>
+              <LongitudeCoordinate>5.435928</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.107222</LatitudeCoordinate>
+              <LongitudeCoordinate>5.436069</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.106344</LatitudeCoordinate>
+              <LongitudeCoordinate>5.435928</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.105500</LatitudeCoordinate>
+              <LongitudeCoordinate>5.435511</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.104722</LatitudeCoordinate>
+              <LongitudeCoordinate>5.434834</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.104040</LatitudeCoordinate>
+              <LongitudeCoordinate>5.433923</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.103481</LatitudeCoordinate>
+              <LongitudeCoordinate>5.432813</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.103065</LatitudeCoordinate>
+              <LongitudeCoordinate>5.431546</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.102809</LatitudeCoordinate>
+              <LongitudeCoordinate>5.430172</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.102723</LatitudeCoordinate>
+              <LongitudeCoordinate>5.428743</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.102809</LatitudeCoordinate>
+              <LongitudeCoordinate>5.427314</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.103065</LatitudeCoordinate>
+              <LongitudeCoordinate>5.425939</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.103481</LatitudeCoordinate>
+              <LongitudeCoordinate>5.424673</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.104040</LatitudeCoordinate>
+              <LongitudeCoordinate>5.423562</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.104722</LatitudeCoordinate>
+              <LongitudeCoordinate>5.422651</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.105500</LatitudeCoordinate>
+              <LongitudeCoordinate>5.421974</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.106344</LatitudeCoordinate>
+              <LongitudeCoordinate>5.421557</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.107222</LatitudeCoordinate>
+              <LongitudeCoordinate>5.421417</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.108100</LatitudeCoordinate>
+              <LongitudeCoordinate>5.421557</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.108944</LatitudeCoordinate>
+              <LongitudeCoordinate>5.421974</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.109722</LatitudeCoordinate>
+              <LongitudeCoordinate>5.422651</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.110404</LatitudeCoordinate>
+              <LongitudeCoordinate>5.423562</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.110963</LatitudeCoordinate>
+              <LongitudeCoordinate>5.424673</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.111379</LatitudeCoordinate>
+              <LongitudeCoordinate>5.425939</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.111635</LatitudeCoordinate>
+              <LongitudeCoordinate>5.427314</LongitudeCoordinate>
+            </GeographicPoint>
+          </q6:Anchorpoints>
+        </q6:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q7="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q7:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0c30-0000-000000000000</OID>
+        <NameText>Control0053</NameText>
+        <Comment>
+          <CommentText>NFRAREI
+Fire Support
+G*F*ACNI--
+No-Fire Area (NFA), Irregular
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q7:SIDC>app6a:G*C*FAN---*****</q7:SIDC>
+        <q7:Location>
+          <q7:Anchorpoints>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.10914</LatitudeCoordinate>
+              <LongitudeCoordinate>5.433112</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.105304</LatitudeCoordinate>
+              <LongitudeCoordinate>5.433112</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.105304</LatitudeCoordinate>
+              <LongitudeCoordinate>5.439356</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.10914</LatitudeCoordinate>
+              <LongitudeCoordinate>5.439356</LongitudeCoordinate>
+            </GeographicPoint>
+          </q7:Anchorpoints>
+        </q7:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q8="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q8:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0c35-0000-000000000000</OID>
+        <NameText>Control0058</NameText>
+        <Comment>
+          <CommentText>RSFAREC
+Fire Support
+G*F*ACRC--
+Restrictive Fire Area (RFA), Circular
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q8:SIDC>app6a:G*C*FAD---*****</q8:SIDC>
+        <q8:Modifiers>AM=500</q8:Modifiers>
+        <q8:Location>
+          <q8:Anchorpoints>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.107121</LatitudeCoordinate>
+              <LongitudeCoordinate>5.338827</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.107034</LatitudeCoordinate>
+              <LongitudeCoordinate>5.340256</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.106778</LatitudeCoordinate>
+              <LongitudeCoordinate>5.341630</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.106362</LatitudeCoordinate>
+              <LongitudeCoordinate>5.342897</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.105803</LatitudeCoordinate>
+              <LongitudeCoordinate>5.344007</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.105121</LatitudeCoordinate>
+              <LongitudeCoordinate>5.344918</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.104343</LatitudeCoordinate>
+              <LongitudeCoordinate>5.345595</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.103499</LatitudeCoordinate>
+              <LongitudeCoordinate>5.346012</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.102621</LatitudeCoordinate>
+              <LongitudeCoordinate>5.346153</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.101743</LatitudeCoordinate>
+              <LongitudeCoordinate>5.346012</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.100899</LatitudeCoordinate>
+              <LongitudeCoordinate>5.345595</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.100121</LatitudeCoordinate>
+              <LongitudeCoordinate>5.344918</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.099439</LatitudeCoordinate>
+              <LongitudeCoordinate>5.344007</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.098880</LatitudeCoordinate>
+              <LongitudeCoordinate>5.342897</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.098464</LatitudeCoordinate>
+              <LongitudeCoordinate>5.341630</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.098208</LatitudeCoordinate>
+              <LongitudeCoordinate>5.340256</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.098121</LatitudeCoordinate>
+              <LongitudeCoordinate>5.338827</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.098208</LatitudeCoordinate>
+              <LongitudeCoordinate>5.337398</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.098464</LatitudeCoordinate>
+              <LongitudeCoordinate>5.336024</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.098880</LatitudeCoordinate>
+              <LongitudeCoordinate>5.334757</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.099439</LatitudeCoordinate>
+              <LongitudeCoordinate>5.333647</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.100121</LatitudeCoordinate>
+              <LongitudeCoordinate>5.332736</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.100899</LatitudeCoordinate>
+              <LongitudeCoordinate>5.332059</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.101743</LatitudeCoordinate>
+              <LongitudeCoordinate>5.331642</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.102621</LatitudeCoordinate>
+              <LongitudeCoordinate>5.331502</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.103499</LatitudeCoordinate>
+              <LongitudeCoordinate>5.331642</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.104343</LatitudeCoordinate>
+              <LongitudeCoordinate>5.332059</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.105121</LatitudeCoordinate>
+              <LongitudeCoordinate>5.332736</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.105803</LatitudeCoordinate>
+              <LongitudeCoordinate>5.333647</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.106362</LatitudeCoordinate>
+              <LongitudeCoordinate>5.334757</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.106778</LatitudeCoordinate>
+              <LongitudeCoordinate>5.336024</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.107034</LatitudeCoordinate>
+              <LongitudeCoordinate>5.337398</LongitudeCoordinate>
+            </GeographicPoint>
+          </q8:Anchorpoints>
+        </q8:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q9="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q9:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0c36-0000-000000000000</OID>
+        <NameText>Control0059</NameText>
+        <Comment>
+          <CommentText>RSFAREI
+Fire Support
+G*F*ACRI--
+Restrictive Fire Area (RFA), Irregular
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q9:SIDC>app6a:G*C*FAD---*****</q9:SIDC>
+        <q9:Location>
+          <q9:Anchorpoints>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.104539</LatitudeCoordinate>
+              <LongitudeCoordinate>5.343199</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.100703</LatitudeCoordinate>
+              <LongitudeCoordinate>5.343199</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.100703</LatitudeCoordinate>
+              <LongitudeCoordinate>5.349443</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.104539</LatitudeCoordinate>
+              <LongitudeCoordinate>5.349443</LongitudeCoordinate>
+            </GeographicPoint>
+          </q9:Anchorpoints>
+        </q9:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q10="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q10:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0c37-0000-000000000000</OID>
+        <NameText>Control0060</NameText>
+        <Comment>
+          <CommentText>RSFARER
+Fire Support
+G*F*ACRR--
+Restrictive Fire Area (RFA), Rectangular
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q10:SIDC>app6a:G*C*FAD---*****</q10:SIDC>
+        <q10:Location>
+          <q10:Anchorpoints>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.102621</LatitudeCoordinate>
+              <LongitudeCoordinate>5.350690</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.102621</LatitudeCoordinate>
+              <LongitudeCoordinate>5.350690</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.102621</LatitudeCoordinate>
+              <LongitudeCoordinate>5.356935</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.102621</LatitudeCoordinate>
+              <LongitudeCoordinate>5.356935</LongitudeCoordinate>
+            </GeographicPoint>
+          </q10:Anchorpoints>
+        </q10:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q11="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q11:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0cf7-0000-000000000000</OID>
+        <NameText>Control0252</NameText>
+        <Comment>
+          <CommentText>AIRCOR
+Aviation
+G*G*ALC---
+Air Corridor
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q11:SIDC>app6a:G*C*MALC--*****</q11:SIDC>
+        <q11:Location>
+          <q11:Anchorpoints>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.056571</LatitudeCoordinate>
+              <LongitudeCoordinate>5.440606</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.056571</LatitudeCoordinate>
+              <LongitudeCoordinate>5.446850</LongitudeCoordinate>
+            </GeographicPoint>
+          </q11:Anchorpoints>
+        </q11:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q12="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q12:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0d07-0000-000000000000</OID>
+        <NameText>Control0268</NameText>
+        <Comment>
+          <CommentText>CFL
+Fire Support
+G*F*LCC---
+Coordinated Fire Line (CFL)
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q12:SIDC>app6a:G*C*FLF---*****</q12:SIDC>
+        <q12:Location>
+          <q12:Anchorpoints>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.051965</LatitudeCoordinate>
+              <LongitudeCoordinate>5.425621</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.051965</LatitudeCoordinate>
+              <LongitudeCoordinate>5.431865</LongitudeCoordinate>
+            </GeographicPoint>
+          </q12:Anchorpoints>
+        </q12:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q13="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q13:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0d09-0000-000000000000</OID>
+        <NameText>Control0270</NameText>
+        <Comment>
+          <CommentText>FSCL
+Fire Support
+G*F*LCF---
+Fire Support Coordination Line (FSCL)
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q13:SIDC>app6a:G*C*FLC---*****</q13:SIDC>
+        <q13:Location>
+          <q13:Anchorpoints>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.051965</LatitudeCoordinate>
+              <LongitudeCoordinate>5.440606</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.051965</LatitudeCoordinate>
+              <LongitudeCoordinate>5.446850</LongitudeCoordinate>
+            </GeographicPoint>
+          </q13:Anchorpoints>
+        </q13:Location>
+      </ExtendedObject>
+      <SketchObject>
+        <OID OIDType="UUID">a6f556a0-e33e-0d0a-0000-000000000000</OID>
+        <NameText>Control0271</NameText>
+        <Comment>
+          <CommentText>Object, Control, Fire Support, Fire Support, Safety Line (FSSL)
+FSSL
+Fire Support
+A*C*L07---
+Fire Support Safety Line (FSSL)
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <Line>
+          <GeographicPoint>
+            <LatitudeCoordinate>52.047357</LatitudeCoordinate>
+            <LongitudeCoordinate>5.313228</LongitudeCoordinate>
+          </GeographicPoint>
+          <GeographicPoint>
+            <LatitudeCoordinate>52.047357</LatitudeCoordinate>
+            <LongitudeCoordinate>5.319470</LongitudeCoordinate>
+          </GeographicPoint>
+        </Line>
+      </SketchObject>
+      <ExtendedObject xmlns:q14="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q14:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0d0d-0000-000000000000</OID>
+        <NameText>Control0274</NameText>
+        <Comment>
+          <CommentText>NFL
+Fire Support
+G*F*LCN---
+No-Fire Line (NFL)
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q14:SIDC>app6a:G*C*FLN---*****</q14:SIDC>
+        <q14:Location>
+          <q14:Anchorpoints>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.047357</LatitudeCoordinate>
+              <LongitudeCoordinate>5.335705</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.047357</LatitudeCoordinate>
+              <LongitudeCoordinate>5.341949</LongitudeCoordinate>
+            </GeographicPoint>
+          </q14:Anchorpoints>
+        </q14:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q15="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q15:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0d0e-0000-000000000000</OID>
+        <NameText>Control0275</NameText>
+        <Comment>
+          <CommentText>RFL
+Fire Support
+G*F*LCR---
+Restrictive Fire Line (RFL)
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q15:SIDC>app6a:G*C*FLR---*****</q15:SIDC>
+        <q15:Location>
+          <q15:Anchorpoints>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.047357</LatitudeCoordinate>
+              <LongitudeCoordinate>5.343199</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.047357</LatitudeCoordinate>
+              <LongitudeCoordinate>5.349443</LongitudeCoordinate>
+            </GeographicPoint>
+          </q15:Anchorpoints>
+        </q15:Location>
+      </ExtendedObject>
+      <ControlFeature-Boundary>
+        <OID OIDType="UUID">a6f556a0-e33e-0d0f-0000-000000000000</OID>
+        <NameText>Control0276</NameText>
+        <Comment>
+          <CommentText>BDYOR
+General
+G*G*GLB---
+Boundary, Unit Sector
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <Line>
+          <GeographicPoint>
+            <LatitudeCoordinate>52.047357</LatitudeCoordinate>
+            <LongitudeCoordinate>5.350690</LongitudeCoordinate>
+          </GeographicPoint>
+          <GeographicPoint>
+            <LatitudeCoordinate>52.047357</LatitudeCoordinate>
+            <LongitudeCoordinate>5.356935</LongitudeCoordinate>
+          </GeographicPoint>
+        </Line>
+        <ControlFeatureType>
+          <OID OIDType="UUID">a6f556a0-e33e-0d0f-0000-000000000000</OID>
+          <NameText>Control0276</NameText>
+          <EchelonCode>NKN</EchelonCode>
+          <CategoryCode>BDYOR</CategoryCode>
+        </ControlFeatureType>
+      </ControlFeature-Boundary>
+    </Overlay>
+  </OverlayMsg>
+</JDSSDMMessage>

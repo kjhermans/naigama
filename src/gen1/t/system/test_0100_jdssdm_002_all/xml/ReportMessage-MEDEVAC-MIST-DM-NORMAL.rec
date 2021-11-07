@@ -1,0 +1,71 @@
+JDSSIEMPAYLOAD
+ReportMessageType|<JDSSDMMessage xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:int:nato:standard:mip:jdssdm:1.1">
+  <Id OIDType="UUID">b9963835-138a-4d58-9215-b73871153e4a</Id>
+  <Datetime>20180724123137.674</Datetime>
+  <Originator OIDType="UUID">a9b23d4f-ea52-8816-40cc-fe31138e85d9</Originator>
+  <OriginatorCountryCode>NLD</OriginatorCountryCode>
+  <Recipient OIDType="UUID">1596fa9e-a6b5-db70-9d4d-2068e4d2dbbb</Recipient>
+  <Recipient OIDType="UUID">04c097b8-4b9e-6dee-5a56-6031ede3d0db</Recipient>
+  <Recipient OIDType="UUID">928bf658-1b82-56b3-0d67-5c645a1b93f4</Recipient>
+  <ExtensionMsg xmlns:q1="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q1:ReportMessageType">
+    <q1:Report>
+      <OID OIDType="UUID">0ac6d9da-52e1-003f-0000-000000000000</OID>
+      <MessageSubject>User01 31U FU 89864 30513</MessageSubject>
+      <MessageBody>MEDEVAC MIST Report
+1: Reporting Unit
+	Call sign = User01
+2: Pick-Up Location = 31U FU 89864 30513
+3: Number of Patients / Priority
+	P1: Immediate = 2
+	P2: Urgent = 3
+	P3: Priority = 4
+	P4: Routine = 5
+4: Special Equipment Required
+	Hoist/Winch = NO
+	Extraction = YES
+	Ventilator = NO
+	Other = help
+5: Patients / Type
+	S (Stretcher) = 6
+	W (Walking) = 7
+	E (Escort) = 8
+6: Security at Pick-Up Zone
+	Security Pick-Up Zone = S-SECURED BY FF
+7: Pick-Up Zone Marking Method / Type
+	Pick-Up Zone Marking Method = B-PYRO
+8: Patients by Nationality / Status
+	1: NATO/Coalition military = 1
+	2: NATO/Coalition civilians = 2
+	3: NON NATO/Coalition military = 3
+	4: NON NATO/Coalition civilians = 4
+	5: Detainee / Prisoners = 5
+	6: Embedded Interpreter = 6
+	7: CIVCAS caused by NATO = 7
+	8: Child = 8
+9: Tactical Considerations and other
+	Comment = comment
+MIST-AT 0:
+	M: Mechanism of Injury = DESEASE/NON BATTLE INJURY
+	I: Injury or Illness Sustained = SICK
+	I: Body part = ABDOMEN / PELVIS
+	S: Symptoms
+		Airway = GURGLING
+		Consiousness = PAIN
+	T: Treatment
+		Tourniquet = YES [Time = 241231Z JUL 18]
+		Morfine = NO
+		IV = YES
+		Splint = NO
+	A: Age of Casualty = Child
+	T: Time of injury = 241231Z JUL 18
+[Footer]:
+	Classification = Unclassified</MessageBody>
+      <q1:ReportHeader>
+        <q1:Sender>User01</q1:Sender>
+        <q1:DateTime>20180724123137.000</q1:DateTime>
+        <q1:ReportType>MedevacMist</q1:ReportType>
+        <q1:SecurityClassification>Unclassified</q1:SecurityClassification>
+      </q1:ReportHeader>
+    </q1:Report>
+  </ExtensionMsg>
+</JDSSDMMessage>

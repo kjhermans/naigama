@@ -1,0 +1,1 @@
+#define NAIGAMA_RELEASE "0.2.1"

@@ -1,0 +1,116 @@
+<JDSSDMMessage xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:int:nato:standard:mip:jdssdm:1.1">
+  <Id OIDType="UUID">2f2cbe64-8111-4cea-ac1b-d93798daa974</Id>
+  <Datetime>20180724112422.941</Datetime>
+  <Originator OIDType="UUID">a9b23d4f-ea52-8816-40cc-fe31138e85d9</Originator>
+  <OriginatorCountryCode>NLD</OriginatorCountryCode>
+  <ContactSightingMsg ReportingDatetime="20180724112422.000">
+    <Materiel>
+      <OID OIDType="UUID">ee5d7934-3600-8021-92f7-ff557c354200</OID>
+      <NameText>SALTA 180724-1124</NameText>
+      <Comment>
+        <CommentText>Enemy Spot Report (SALTA)
+Strength:
+	5 ARMOURED VEHICLES, TANK (BATTLE)
+Activity (Enemy):
+	Enemy Activity = NOT MOVING
+	Direction = 0 (degrees)
+Location:
+	Enemy Location = 32U LD 53878 98472
+	Reporting Unit Location = 32U LD 53878 98473
+Time:
+	Time of Incident/Sighting = 241123Z JUL 18
+Action:
+	Own Action = DETOUR
+[Footer]:
+	Classification = Unclassified</CommentText>
+      </Comment>
+      <HostilityStatusCode>HO</HostilityStatusCode>
+      <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+      <WeaponType>
+        <OID OIDType="UUID">ee5d7934-3600-8021-92f7-ff557c354200</OID>
+        <NameText />
+        <SubcategoryCode>BTNKME</SubcategoryCode>
+      </WeaponType>
+      <OperationalStatusCode>NKN</OperationalStatusCode>
+      <GeographicPoint>
+        <LatitudeCoordinate>53.215441</LatitudeCoordinate>
+        <LongitudeCoordinate>6.811601</LongitudeCoordinate>
+      </GeographicPoint>
+    </Materiel>
+	<Unit>
+      <OID OIDType="UUID">d64aa279-a1ef-8020-1c6d-23ec7c354200</OID>
+      <NameText>SALTA 180727-1103</NameText>
+      <Comment>
+        <CommentText>Enemy Spot Report (SALTA)
+Strength:
+	20 TROUPS / PERSONNEL, MILITARY (REGULAR)
+	2 NON ARMOURED VEHICLES, ROAD CAR / AUTOMOBILE
+	2 WEAPONS, MACHINE GUN
+Activity (Enemy):
+	Weapons Used = YES
+	Enemy Activity = MOVING
+	Speed = 20 (km/h)
+	Direction = 5.0625 (degrees)
+Location:
+	Enemy Location = 31U ET 38694 12215
+	Reporting Unit Location = 31U ET 38694 12216
+Time:
+	Time of Incident/Sighting = 271100Z JUL 18
+Action:
+	Spotted by Enemy = YES
+	Own Action = ENGAGING
+[Footer]:
+	Agencies Required = Required Agencies
+	Incident Control Point (ICP) = Here
+	ICP Safe Route = There
+	Classification = Unclassified</CommentText>
+      </Comment>
+      <HostilityStatusCode>HO</HostilityStatusCode>
+      <UnitType>
+        <OID OIDType="UUID">d64aa279-a1ef-8020-1c6d-23ec7c354200</OID>
+        <NameText>31U ET 38694 12215 TROUPS / PERSONNE...</NameText>
+        <CommandFunctionIndicatorCode>NO</CommandFunctionIndicatorCode>
+        <ServiceCode>NOS</ServiceCode>
+        <CategoryCode>NKN</CategoryCode>
+        <ArmCategoryCode>NKN</ArmCategoryCode>
+        <SizeCode>NOS</SizeCode>
+      </UnitType>
+      <FormalAbbreviatedNameText />
+      <GeographicPoint>
+        <LatitudeCoordinate>51.559687</LatitudeCoordinate>
+        <LongitudeCoordinate>3.558181</LongitudeCoordinate>
+      </GeographicPoint>
+    </Unit>
+	<Organisation-MilitaryPost>
+      <OID OIDType="UUID">b64a87f5-a60b-e020-b135-c4ec7c354200</OID>
+      <NameText>SALTA 180727-1121</NameText>
+      <Comment>
+        <CommentText>Enemy Spot Report (SALTA)
+Strength:
+	4 TROUPS / PERSONNEL, MILITARY (REGULAR)
+Activity (Enemy):
+Location:
+	Enemy Location = 31U ET 44962 11254
+	Reporting Unit Location = 31U EU 90104 32609
+Time:
+	Time of Incident/Sighting = 271120Z JUL 18
+Action:
+[Footer]:
+	Classification = Unclassified</CommentText>
+      </Comment>
+      <HostilityStatusCode>HO</HostilityStatusCode>
+      <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+      <MilitaryPostType>
+        <OID OIDType="UUID">b64a87f5-a60b-e020-b135-c4ec7c354200</OID>
+        <NameText>EnemySpotReport</NameText>
+        <CategoryCode>NOS</CategoryCode>
+      </MilitaryPostType>
+      <OperationalStatusCode>NKN</OperationalStatusCode>
+      <GeographicPoint>
+        <LatitudeCoordinate>51.550585</LatitudeCoordinate>
+        <LongitudeCoordinate>3.648464</LongitudeCoordinate>
+        <BearingAngle>0</BearingAngle>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+  </ContactSightingMsg>
+</JDSSDMMessage>

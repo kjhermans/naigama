@@ -1,0 +1,13 @@
+Database btree structure
+
+D               => 'SQLDB'         /* database */
+U               => [uid.]          /* uid counter */
+
+A '...'         => [uid.] [type]   /* namespace */
+A [uid.] '...'  => [uid.] [type]   /* (hierarchical) namespace */
+
+S [uid.]        => [val.]          /* sequence */
+T [uid.]        => [nrws]          /* table */
+F [uid.]        => [type]          /* field */
+
+N [uid.] [rw..] => [value]         /* data node; uid = fielduid and rw = rownumber */

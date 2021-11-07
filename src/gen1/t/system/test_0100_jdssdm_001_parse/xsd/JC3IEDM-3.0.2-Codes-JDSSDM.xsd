@@ -1,0 +1,5336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2005 rel. 3 U (http://www.altova.com) by DTO Maasland (DTO Maasland) -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:jc3iedm="urn:int:nato:standard:mip:jc3iedm:3.0.2:oo:2.2" targetNamespace="urn:int:nato:standard:mip:jc3iedm:3.0.2:oo:2.2" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<annotation>
+		<documentation xml:lang="en">Restricted version of code used by JDSSDM. XML schema defined by the Multilateral Interoperability Programme (MIP) - Editor: Dr. Michael Gerz, gerz@fgan.de, FGAN FKIE, Germany</documentation>
+	</annotation>
+	<simpleType name="ActionObjectiveItemMarkingMethodCode">
+		<annotation>
+			<documentation xml:lang="en">The specific value that represents the method of marking a position.</documentation>
+		</annotation>
+		<restriction base="token">
+			<enumeration value="FLR">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The marking of an object by a pyrotechnic munition producing illumination or identification.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Flare</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="ILLUMN">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The act or process of marking of an object by visible or near visible light.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Illumination</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="LAS">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The marking of an object by a device that produces an electromagnetic beam for illumination or identification.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Laser</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="LIGHT">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The marking of an object by a device that places visible light for illumination or identification.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Light</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="MPL">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A sheet of material that is used as a reference point for object marking.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Marker panel</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="NKN">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">It is not possible to determine which value is most applicable.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Not known</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="NOS">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The appropriate value is not in the set of specified values.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Not otherwise specified</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="RBE">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The reference point of an object by a radio transmitter that emits a distinctive, or characteristic, signal used for the determination of bearings, courses or location.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Radio beacon</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SMOKE">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The marking of an object by a munition producing smoke.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Smoke</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="STRBBN">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The marking of an object by use of a strobe beacon for illumination or identification.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Strobe beacon</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="STRBLT">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The marking of an object by use of strobe lights for illumination or identification.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Strobe lights</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="STRCLS">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The marking of an object by use of a star cluster for illumination or identification.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Star cluster</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="TORCH">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The marking of an object by use of a torch for illumination or identification.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Torch</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="VHCLLT">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The marking of an object by lights from a vehicle for illumination or identification.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Vehicle lights</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<simpleType name="ActionObjectiveItemMarkingPanelShapeCode">
+		<annotation>
+			<documentation xml:lang="en">The specific value that represents the shape of the marking panel.</documentation>
+		</annotation>
+		<restriction base="token">
+			<enumeration value="HSHAPE">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The panel is in the shape of the letter H.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">H shape</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="ISHAPE">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The panel is in the shape of the letter I.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">I shape</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="NKN">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">It is not possible to determine which value is most applicable.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Not known</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="NOS">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The appropriate value is not in the set of specified values.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Not otherwise specified</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="TSHAPE">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The panel is in the shape of the letter T.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">T shape</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="XSHAPE">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The panel is in the shape of the letter X.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">X shape</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<simpleType name="ActionObjectiveItemMarkingRecognitionSignalColourCode">
+		<annotation>
+			<documentation xml:lang="en">The specific value that represents the coloration of the marking signal.</documentation>
+		</annotation>
+		<restriction base="token">
+			<enumeration value="BLUE">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">Self defined.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Blue</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="GREEN">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">Self defined.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Green</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="NKN">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">It is not possible to determine which value is most applicable.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Not known</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="NOS">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The appropriate value is not in the set of specified values.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Not otherwise specified</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="ORANGE">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">Self defined.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Orange</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="PURPLE">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">Self defined.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Purple</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="RED">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">Self defined.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Red</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="WHITE">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">Self defined.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">White</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="YELLOW">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">Self defined.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Yellow</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<simpleType name="AffiliationGeopoliticalCode">
+		<annotation>
+			<documentation xml:lang="en">The specific value that represents the identification of the independent first-level geographic-political area and its dependencies, areas of quasi-independence, and areas with special unrecognised sovereignty, including outlying and disputed areas.</documentation>
+		</annotation>
+		<restriction base="token">
+			<enumeration value="ABW">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Aruba</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="AFG">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Afghanistan</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="AGO">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Angola</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="AIA">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Anguilla</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="ALA">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">Self governing part of Finland (added in 2004).</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Åland Islands</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="ALB">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Albania</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="AND">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Andorra</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="ANT">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Netherlands Antilles</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="ARE">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">United Arab Emirates</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="ARG">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Argentina</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="ARM">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Armenia</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="ASM">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">American Samoa</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="ATA">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Antarctica</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="ATF">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">French Southern Territories</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="ATG">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Antigua and Barbuda</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="AUS">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Australia</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="AUT">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Austria</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="AZE">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Azerbaijan</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="BDI">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Burundi</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="BEL">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Belgium</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="BEN">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">Formerly Dahomey (1977)</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Benin</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="BFA">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">Formerly Upper Volta (1984)</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Burkina Faso</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="BGD">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Bangladesh</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="BGR">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Bulgaria</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="BHR">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Bahrain</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="BHS">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Bahamas</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="BIH">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Bosnia and Herzegovina</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="BLR">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Belarus</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="BLZ">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Belize</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="BMU">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Bermuda</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="BOL">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Bolivia</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="BRA">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Brazil</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="BRB">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Barbados</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="BRN">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Brunei Darussalam</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="BTN">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Bhutan</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="BVT">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Bouvet Island</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="BWA">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Botswana</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="CAF">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Central African Republic</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="CAN">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Canada</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="CCK">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Cocos (Keeling) Islands</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="CHE">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Switzerland</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="CHL">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Chile</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="CHN">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">China</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="CIV">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">Formerly Ivory Coast</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Cote d'Ivoire</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="CMR">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Cameroon</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="COD">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Congo, Democratic Republic of the</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="COG">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Congo</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="COK">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Cook Islands</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="COL">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Colombia</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="COM">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Comoros</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="CPV">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Cape Verde</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="CRI">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Costa Rica</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="CSHH">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">(1993)</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Czech and Slovak Federative Republic (former)</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="CSXX">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Serbia and Montenegro (former)</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="CUB">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Cuba</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="CXR">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Christmas Island</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="CYM">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Cayman Islands</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="CYP">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Cyprus</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="CZE">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Czech Republic</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="DDDE">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">GDR (1990)</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">German Democratic Republic (former)</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="DEU">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Germany</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="DJI">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Djibouti</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="DMA">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Dominica</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="DNK">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Denmark</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="DOM">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Dominican Republic</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="DZA">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Algeria</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="ECU">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Ecuador</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="EGY">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Egypt</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="ERI">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Eritrea</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="ESH">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Western Sahara</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="ESP">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Spain</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="EST">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Estonia</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="ETH">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Ethiopia</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="FIN">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Finland</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="FJI">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Fiji</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="FLK">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Falkland Islands (Malvinas)</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="FRA">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">France</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="FRO">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Faroe Islands</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="FSM">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Micronesia Federated States of</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="FXFR">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">France, Metropolitan (former)</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="GAB">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Gabon</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="GBR">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">United Kingdom</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="GEO">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Georgia</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="GGY">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">No longer a subdivision of GBR (2006).</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Guernsey</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="GHA">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Ghana</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="GIB">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Gibraltar</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="GIN">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Guinea</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="GLP">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Guadeloupe</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="GMB">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Gambia</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="GNB">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Guinea-Bissau</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="GNQ">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Equatorial Guinea</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="GRC">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Greece</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="GRD">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Grenada</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="GRL">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Greenland</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="GTM">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Guatemala</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="GUF">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">French Guiana</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="GUM">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Guam</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="GUY">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Guyana</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="HKG">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Hong Kong</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="HMD">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Heard and Mcdonald Islands</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="HND">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Honduras</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="HRV">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Croatia</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="HTI">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Haiti</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="HUN">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Hungary</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="IDN">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Indonesia</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="IMN">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">No longer a subdivision of GBR (2006).</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Isle of Man</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="IND">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">India</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="IOT">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">British Indian Ocean Territory</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="IRL">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Ireland</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="IRN">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Iran, Islamic Republic of</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="IRQ">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Iraq</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="ISL">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Iceland</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="ISR">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Israel</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="ITA">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Italy</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="JAM">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Jamaica</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="JEY">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">No longer a subdivision of GBR (2006).</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Jersey</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="JOR">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Jordan</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="JPN">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Japan</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="KAZ">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Kazakhstan</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="KEN">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Kenya</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="KGZ">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Kyrgyzstan</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="KHM">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">Formerly Kampuchea</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Cambodia</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="KIR">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Kiribati</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="KNA">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Saint Kitts and Nevis</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="KOR">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Korea, Republic of</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="KWT">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Kuwait</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="LAO">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Lao People's Democratic Republic</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="LBN">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Lebanon</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="LBR">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Liberia</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="LBY">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Libyan Arab Jamahiriya</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="LCA">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Saint Lucia</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="LIE">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Liechtenstein</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="LKA">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Sri Lanka</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="LSO">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Lesotho</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="LTU">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Lithuania</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="LUX">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Luxembourg</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="LVA">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Latvia</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="MAC">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Macao</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="MAR">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Morocco</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="MCO">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Monaco</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="MDA">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Moldova, Republic of</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="MDG">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Madagascar</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="MDV">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Maldives</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="MEX">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Mexico</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="MHL">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Marshall Islands</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="MKD">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Macedonia, the former Yugoslav Republic of</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="MLI">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Mali</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="MLT">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Malta</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="MMR">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">Formerly Burma (1989)</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Myanmar</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="MNE">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">New entry after split of Serbia and Montenegro.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Montenegro</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="MNG">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Mongolia</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="MNP">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Northern Mariana Islands</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="MOZ">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Mozambique</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="MRT">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Mauritania</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="MSR">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Montserrat</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="MTQ">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Martinique</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="MUS">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Mauritius</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="MWI">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Malawi</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="MYS">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Malaysia</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="MYT">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Mayotte</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="NAM">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Namibia</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="NCL">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">New Caledonia</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="NER">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Niger</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="NFK">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Norfolk Island</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="NGA">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Nigeria</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="NIC">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Nicaragua</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="NIU">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Niue</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="NLD">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Netherlands</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="NOR">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Norway</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="NOS">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The appropriate value is not in the set of specified values.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Not otherwise specified</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="NPL">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Nepal</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="NRU">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Nauru</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="NZL">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">New Zealand</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="OMN">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Oman</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="PAK">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Pakistan</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="PAN">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Panama</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="PCN">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Pitcairn</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="PER">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Peru</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="PHL">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Philippines</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="PLW">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Palau</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="PNG">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Papua New Guinea</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="POL">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Poland</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="PRI">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Puerto Rico</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="PRK">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Korea, Democratic People's Republic of</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="PRT">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Portugal</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="PRY">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Paraguay</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="PSE">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Palestinian Territory, Occupied</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="PYF">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">French Polynesia</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="QAT">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Qatar</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="REU">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Reunion</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="ROU">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Romania</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="RUS">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Russian Federation</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="RWA">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Rwanda</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SAU">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Saudi Arabia</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SDN">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Sudan</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SEN">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Senegal</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SGP">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Singapore</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SGS">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">South Georgia and the South Sandwich Islands</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SHN">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Saint Helena</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SJM">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Svalbard and Jan Mayen Islands</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SLB">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Solomon Islands</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SLE">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Sierra Leone</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SLV">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">El Salvador</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SMR">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">San Marino</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SOM">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Somalia</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SPM">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Saint Pierre and Miquelon</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SRB">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">New entry after split of Serbia and Montenegro.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Serbia</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="STP">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Sao Tome and Principe</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SUHH">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">USSR (1992)</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Union of Soviet Socialist Republics (former)</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SUR">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Suriname</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SVK">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Slovakia</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SVN">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Slovenia</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SWE">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Sweden</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SWZ">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Swaziland</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SYC">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Seychelles</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SYR">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Syrian Arab Republic</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="TCA">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Turks and Caicos Islands</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="TCD">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Chad</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="TGO">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Togo</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="THA">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Thailand</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="TJK">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Tajikistan</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="TKL">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Tokelau</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="TKM">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Turkmenistan</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="TLS">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">Formerly East Timor (2002)</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Timor-Leste</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="TON">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Tonga</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="TTO">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Trinidad and Tobago</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="TUN">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Tunisia</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="TUR">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Turkey</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="TUV">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Tuvalu</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="TWN">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Taiwan, Province of China</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="TZA">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Tanzania, United Republic of</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="UGA">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Uganda</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="UKR">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Ukraine</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="UMI">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">United States Minor Outlying Islands</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="URY">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Uruguay</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="USA">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">United States</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="UZB">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Uzbekistan</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="VAT">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Holy See (Vatican City State)</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="VCT">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Saint Vincent and the Grenadines</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="VEN">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Venezuela</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="VGB">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Virgin Islands, British</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="VIR">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Virgin Islands, U.S.</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="VNM">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Viet Nam</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="VUT">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">Formerly New Hebrides (1980)</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Vanuatu</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="WLF">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Wallis and Futuna Islands</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="WSM">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Samoa</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="YEM">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Yemen</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="YUCS">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">(2003)</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Yugoslavia (former)</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="ZAF">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">South Africa</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="ZMB">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Zambia</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="ZWE">
+				<annotation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Zimbabwe</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<simpleType name="EchelonSizeCode">
+		<annotation>
+			<documentation xml:lang="en">The specific value that represents the relative size of the commonly accepted configuration of military formations.</documentation>
+		</annotation>
+		<restriction base="token">
+			<enumeration value="AG">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The largest formation of land forces, normally comprising two or more armies or army corps under a designated commander.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Army group</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="ARMY">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A formation larger than an army corps but smaller than an army group. It usually consists of two or more army corps.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Army</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="BATGRP">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">An operational grouping which is based on either an infantry battalion or a tank regiment, each with at least a squadron or company of the other arm and with elements of other supporting arms and services allocated according to need.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Battle group</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="BDE">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">Unit composed of a headquarters and two or more battalions. It may be part of an army and be charged with only tactical functions, or it may be a separate unit and be charged with both administrative and tactical functions.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Brigade</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="BDEGRP">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">An operational grouping which is based on an infantry or armoured brigade and which has elements of other supporting arms and services allocated according to need.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Brigade group</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="BN">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">Unit composed of a headquarters and two or more companies or batteries. It may be part of a regiment and be charged with only tactical functions, or it may be a separate unit and be charged with both administrative and tactical functions.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Battalion</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="BNG">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">An operational grouping which is based on an infantry battalion and which has elements of other supporting arms and services allocated according to need.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Battalion group</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="CORPS">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A formation larger than a division but smaller than an army or army group. It usually consists to two or more divisions together with supporting arms and services.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Corps</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="COY">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">Basic administrative and tactical unit in most arms and services of the Army. A company is on a command level below a battalion and above a platoon.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Company</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="COYG">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">An operational grouping which is based on either an infantry company or a tank company, which has elements of other supporting arms and services allocated according to need.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Company group</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="DIV">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A tactical unit/formation that is a major administrative and tactical unit/formation that combines in itself the necessary arms and services required for sustained combat, larger than a regiment/brigade and smaller than a corps.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Division</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="FLEET">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">An organisation of ships, aircraft, Marine forces, and shore-based fleet activities all under the command of a commander or commander in chief who may exercise operational as well as administrative control.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Fleet</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="FLIGHT">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A specified group of aircraft engaged in a common mission.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Flight</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="NKN">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">It is not possible to determine which value is most applicable.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Not known</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="NOS">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The appropriate value is not in the set of specified values.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Not otherwise specified</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="NTF">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A component of a fleet organized by the commander of a task fleet or higher authority for the accomplishment of a specific task or tasks.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Task force, Navy</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="NTG">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A component of a task force organized by the commander of the task force or higher authority for accomplishing specific tasks.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Task group, Navy</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="NTU">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A component of a task group organized by the commander of a task group or higher authority for accomplishing specific tasks.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Task unit, Navy</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="PLT">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">Basic administrative and tactical unit in most arms and services of the Army.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Platoon</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="REGION">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A grouping of two or more Army groups.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Region</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="RGT">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">Administrative and tactical unit, on a command level below a division or brigade and above a battalion, the entire organisation of which is prescribed by table of organisation.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Regiment</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SECT">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A small tactical unit.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Section</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SQDRNA">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">An administrative or tactical organisation normally but not necessarily composed of aircraft of the same type.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Squadron, air</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SQDRNM">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">An administrative or tactical organisation consisting of two or more divisions of ships, plus such additional ships as may be assigned as flagships or tenders.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Squadron, maritime</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SQUAD">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A small number of men, a subdivision or section of a company, formed for drill.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Squad</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="TEAM">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">Any unit smaller than a squad that will be denoted by a vehicle or weapon symbol in a graphical representation.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Team/fire team/crew</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="TSKELN">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A component of a task unit organized by the commander of the task unit or higher authority for accomplishing a specific task.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Task element, Navy</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="WING">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">An aviation unit composed normally of one primary mission group and the necessary supporting organisations.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Wing</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<simpleType name="FacilityPrimaryConstructionMaterialCode">
+		<annotation>
+			<documentation xml:lang="en">The specific value that represents the major material used in building the specific FACILITY.</documentation>
+		</annotation>
+		<restriction base="token">
+			<enumeration value="COM">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The construction material used in the FACILITY is composite, where less than 50 percent of the FACILITY surface length is made up of permanent (hard) surface material.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Composite, soft</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="COP">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The construction material used in the FACILITY is composite, where 50 percent or more of the FACILITY surface length is made up of permanent (hard) surface material.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Composite, permanent</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="REINCN">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The primary construction material used in the FACILITY is reinforced concrete.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Reinforced concrete</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<simpleType name="FacilityStatusOperationalStatusCode">
+		<annotation>
+			<documentation xml:lang="en">The specific value that represents the operational status of a specific FACILITY.</documentation>
+		</annotation>
+		<restriction base="token">
+			<enumeration value="MOPS">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">Subjectively judged by the reporting organisation to be marginally capable of performing the missions or functions for which it is organised or designed.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Marginally operational</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="NKN">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">It is not possible to determine which value is most applicable.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Not known</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="NOP">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">Subjectively judged by the reporting organisation to be permanently not capable of performing the missions or functions for which it is organised or designed.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Not operational</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="OPR">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">Subjectively judged by the reporting organisation to be capable of performing the missions or functions for which it is organised or designed.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Operational</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SOPS">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">Subjectively judged by the reporting organisation to have minor deficiencies that limit its capability to perform the missions or functions for which it is organised or designed.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Substantially operational</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="TNOPS">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">Subjectively judged by the reporting organisation to be temporarily not capable of performing the missions or functions for which it is organised or designed.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Temporarily not operational</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<simpleType name="MaterielStatusOperationalStatusCode">
+		<annotation>
+			<documentation xml:lang="en">The specific value that represents the operational status of a specific MATERIEL.</documentation>
+		</annotation>
+		<restriction base="token">
+			<enumeration value="MOPS">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">Subjectively judged by the reporting organisation to be marginally capable of performing the functions for which it is designed.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Marginally operational</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="NKN">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">It is not possible to determine which value is most applicable.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Not known</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="NOP">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">Subjectively judged by the reporting organisation to be permanently not capable of performing functions for which it is designed.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Not operational</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="OPR">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">Subjectively judged by the reporting organisation to be capable of performing or functions for which it is designed.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Operational</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SOPS">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">Subjectively judged by the reporting organisation to have minor deficiencies that limit its capability to perform functions for which it is designed.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Substantially operational</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="TNOPS">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">Subjectively judged by the reporting organisation to be temporarily not capable of performing functions for which it is designed.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Temporarily not operational</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<simpleType name="MilitaryOrganisationTypeServiceCode">
+		<annotation>
+			<documentation xml:lang="en">The specific value that represents a military, paramilitary, irregular force, force or group, capable of functioning as an offensive or defensive combat or support organisation.</documentation>
+		</annotation>
+		<restriction base="token">
+			<enumeration value="AIRFRC">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The MILITARY-ORGANISATION-TYPE in question belongs to the Air Force (includes reserves and mobilised air national guard).</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Air Force</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="ARMY">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The MILITARY-ORGANISATION-TYPE in question belongs to the Army (includes territorial army, reserves, and mobilised national guard).</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Army</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="BRDRGD">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A paramilitary MILITARY-ORGANISATION-TYPE whose primary task is to maintain the security of national borders.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Border guard</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="COASTG">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The MILITARY-ORGANISATION-TYPE that may be responsible for one or more of the following: coastal defence, protection of life and property at sea, and enforcement of customs, immigration, and navigation laws.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Coast guard</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="COMBND">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The MILITARY-ORGANISATION-TYPE contains two or more forces or agencies of two or more allies.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Combined</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="CVLSVC">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The MILITARY-ORGANISATION-TYPE that is staffed solely by civilian personnel.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Civil service</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="GUERLL">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The MILITARY-ORGANISATION-TYPE in question is an irregular military force.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Guerrilla</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="JOINT">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The MILITARY-ORGANISATION-TYPE contains elements of more than one Service from the same nation.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Joint</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="LCLDFF">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A military MILITARY-ORGANISATION-TYPE whose primary task is defence of a specific region (before mobilisation, a national guard is a local defence force).</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Local defence force</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="LCLMLT">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A civilian MILITARY-ORGANISATION-TYPE that has a defence and possibly also a police role (may include irregular civilian MILITARY-ORGANISATION-TYPEs).</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Local militia</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="MARINE">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The MILITARY-ORGANISATION-TYPE in question belongs to the Marines (includes reserves).</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Marines</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="NAVY">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The MILITARY-ORGANISATION-TYPE in question belongs to the Navy (includes reserves).</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Navy</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="NKN">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">It is not possible to determine which value is most applicable.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Not known</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="NOS">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The appropriate value is not in the set of specified values.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Not otherwise specified</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="PAR">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">Forces or groups distinct from the regular armed forces of any country, but resembling them in organization, equipment, training, or mission.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Paramilitary</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SPFRC">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The MILITARY-ORGANISATION-TYPE in question is trained and equipped for special purposes.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Special force</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="TERFRC">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The MILITARY-ORGANISATION-TYPE of a nation's armed forces that is responsible for regional defence.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Territorial force</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<simpleType name="ObjectItemHostilityStatusCode">
+		<annotation>
+			<documentation xml:lang="en">The specific value that represents the perceived hostility status of a specific OBJECT-ITEM.</documentation>
+		</annotation>
+		<restriction base="token">
+			<enumeration value="AFR">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">An OBJECT-ITEM that is assumed to be a friend because of its characteristics, behaviour or origin.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Assumed friend</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="AHO">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">An indication that the OBJECT-ITEM in question is likely to belong to enemy forces.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Assumed hostile</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="AIV">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">An indication that the OBJECT-ITEM in question is likely to belong to involved forces different from own, allied and enemy forces.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Assumed involved</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="ANT">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">An indication that the OBJECT-ITEM in question is likely to belong to neither own, allied, enemy or otherwise involved forces.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Assumed neutral</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="FAKER">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">An OBJECT-ITEM that is a friendly aircraft simulating a hostile aircraft in an air defence exercise.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Faker</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="FR">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">An OBJECT-ITEM that belongs to a declared friendly nation.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Friend</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="HO">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">An OBJECT-ITEM that is positively identified as enemy.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Hostile</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="IV">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">An indication that the OBJECT-ITEM in question belongs to involved forces different from own, allied and enemy forces.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Involved</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="JOKER">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">An OBJECT-ITEM that is acting as a suspect track for exercise purposes only.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Joker</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="NEUTRL">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">An OBJECT-ITEM whose characteristics, behaviour, origin or nationality indicate that it is neither supporting friendly nor opposing forces.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Neutral</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="PENDNG">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">An OBJECT-ITEM for which identification is to be determined.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Pending</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SUSPCT">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">An OBJECT-ITEM that is potentially hostile because of its characteristics, behaviour or origin.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Suspect</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="UNK">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">An OBJECT-ITEM for which its hostility status information is not available.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Unknown</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<simpleType name="OrganisationStatusOperationalStatusCode">
+		<annotation>
+			<documentation xml:lang="en">The specific value that represents the operational status of a specific ORGANISATION.</documentation>
+		</annotation>
+		<restriction base="token">
+			<enumeration value="MOPS">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">Subjectively judged by the reporting organisation to be marginally capable of performing the missions or functions for which it is created.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Marginally operational</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="NKN">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">It is not possible to determine which value is most applicable.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Not known</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="NOP">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">Subjectively judged by the reporting organisation to be permanently not capable of performing the missions or functions for which it is created.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Not operational</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="OPR">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">Subjectively judged by the reporting organisation to be fully capable of performing the missions or functions for which it is created.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Operational</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SOPS">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">Subjectively judged by the reporting organisation to have minor deficiencies which limit its capability to perform the missions or functions for which it is created.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Substantially operational</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="TNOPS">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">Subjectively judged by the reporting organisation to be temporarily not capable of performing the missions or functions for which it is created.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Temporarily not operational</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<simpleType name="OrganisationTypeCommandFunctionIndicatorCode">
+		<annotation>
+			<documentation xml:lang="en">The specific value that denotes whether an ORGANISATION-TYPE has a command function.</documentation>
+		</annotation>
+		<restriction base="token">
+			<enumeration value=""/>
+			<enumeration value="NO">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The ORGANISATION-TYPE does not have a command function.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">No</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="YES">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The ORGANISATION-TYPE does have a command function.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Yes</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<simpleType name="ReportingDataReliabilityCode">
+		<annotation>
+			<documentation xml:lang="en">The specific value that represents, for intelligence purpose, the general appraisal of the source in graded terms to indicate the extent to which it has been proven it can be counted on or trusted in to do as expected.</documentation>
+		</annotation>
+		<restriction base="token">
+			<enumeration value="A">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The source of the reported data can be considered as completely reliable, i.e. erroneous information cannot be produced.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Completely reliable</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="B">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The source of the reported data can be considered as usually reliable, i.e. erroneous information can be produced, but the probability of such events can be neglected.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Usually reliable</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="C">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The source of the reported data can be considered as fairly reliable, i.e. erroneous information can be produced, with a probability that cannot be neglected.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Fairly reliable</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="D">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The source of the reported data is not usually reliable, i.e. the probability of producing erroneous information is high (&gt;30%).</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Not usually reliable</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="E">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The source of the reported data is not reliable, i.e. the produced reported data can generally be considered as erroneous.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Unreliable</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="F">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The reliability of the source of the reported data cannot be estimated.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Reliability cannot be judged</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<simpleType name="ReportingDataCredibilityCode">
+		<annotation>
+			<documentation xml:lang="en">The specific value that represents, for normal operational use, the degree of trustworthiness of the data referenced by a specific REPORTING-DATA.</documentation>
+		</annotation>
+		<restriction base="token">
+			<enumeration value="IND">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">Basis for the estimate cannot be ascertained.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Indeterminate</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="RPTFCT">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">Data is reported by different sources whose integrity is not in question.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Reported as a fact</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="RPTPLA">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">Reported data is considered as possible or probable.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Reported as plausible</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="RPTUNC">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">Reported data is open to or can be viewed with suspicion.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Reported as uncertain</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<simpleType name="UnitTypeArmCategoryCode">
+		<annotation>
+			<documentation xml:lang="en">The specific value that represents the designation of a military branch for a particular UNIT-TYPE.</documentation>
+		</annotation>
+		<restriction base="token">
+			<enumeration value="AARMOR">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose principal designation is the employment of direct fire weapon systems against armoured vehicles.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Anti-armour</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="ADMIN">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose principal designation the management and execution of all military matters not included in strategy or tactics.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Administrative</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="AIRDEF">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose principal designation is the employment of weapon systems against hostile air assets.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Air defence</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="ARMANT">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE equipped with armoured vehicles whose principal designation is the employment of direct fire weapon systems against armoured vehicles.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Armoured anti armour</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="ARMOUR">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose principal designation is the employment of tanks or other armoured direct fire weapon systems.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Armour</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="ARTLRY">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose principal designation is the employment of large guns, cannon or ordnance in support of manoeuvre units.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Artillery</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="AV">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose principal designation is the employment of aircraft capable of performing a variety of battlespace functions, including reconnaissance, air operations, and tactical lift.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Aviation</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="AVACOM">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose designation indicates employment of a mix of fixed wing, rotary wing and/or VSTOL aircraft.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Aviation, composite</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="AVAFW">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose designation indicates employment of fixed-wing assets in the air regime.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Aviation, fixed wing</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="AVARW">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose designation indicates employment of rotary-wing assets in the air regime.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Aviation, rotary wing</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="AVAVST">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose designation indicates employment of vertical/short takeoff and landing assets in the air regime.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Aviation, VSTOL</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="CBRN">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose principal designation is chemical, biological, radiological, or nuclear materiel defence.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">NBC</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="ENG">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose principal designation is major construction, demolition, and extensive camouflage projects.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Engineer</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="EOD">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose principal designation is the detection, identification, field evaluation, rendering-safe, recovery and final disposal of unexploded explosive ordnance.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Explosive ordnance disposal</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="FA">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose principal designation is the employment of tube artillery in support of manoeuvre units.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Field artillery</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="FIRSPT">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose principal designation is the employment of fire, coordinated with the manoeuvre of forces, to destroy neutralize or suppress the enemy.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Fire support</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="HQSIGS">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose principal designation is to provide staff and communication equipment to set up a command and control element.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Headquarters and signals</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="HQSTF">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose principal designation is to provide staff to man a command and control element.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Headquarters staff</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="INF">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose principal designation is the employment of non-mechanised or lorry-(truck-)borne infantry.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Infantry</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="INFWAR">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose principal designation is to achieve information superiority by affecting a hostile's information, information-based processes and information systems, while defending one's own information, information-based processes and information systems.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Information warfare</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="ISFRCE">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose principal designation is maintenance of a state of law and order prevailing within a nation.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Internal security forces</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="LAWENF">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose principal designation is the provision of law enforcement services.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Law enforcement</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="LNDSPT">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose principal designation is the provision of landing support services.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Landing support</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="LOG">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose principal designation is the planning and support of the movement and maintenance of forces.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Logistics</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="MAINT">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose principal designation is the repair and maintenance of equipment.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Maintenance</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="MANOV">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose principal designation is the employment of forces in the battlespace through movement in combination with fire, or fire potential, to achieve a position of advantage in respect to the enemy in order to accomplish the mission.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Manoeuvre</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="MEDCL">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose principal designation is the provision of medical and dental services and the evacuation of casualties.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Medical</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="MILINT">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose principal designation is the processing of information concerning foreign nations, hostile or potentially hostile forces or elements, or areas of actual or potential operations.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Military intelligence</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="MSL">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose principal designation is the employment of surface-based missiles to fire at surface targets.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Missile, surface-to-surface</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="MSLSTA">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose principal designation is the employment of surface-based missiles to fire at air targets.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Missile, surface-to-air</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="NKN">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">It is not possible to determine which value is most applicable.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Not known</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="NOS">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The appropriate value is not in the set of specified values.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Not otherwise specified</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="RECCE">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose principal designation is to obtain, by visual observation or other detection methods, information about the activities and resources of an enemy or potential enemy; or to secure data concerning the meteorological, hydrographic, or geographic characteristics of a particular area.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Reconnaissance</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="ROCKET">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose principal designation is the employment of rockets in support of manoeuvre units.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Rocket</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SIG">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose principal designation is the provision of communications bearer systems.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Signal</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SUPPLY">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose principal designation is the provision of all material and items used in the equipping, supporting and maintaining of military forces.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Supply</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="TRNPTN">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose principal designation is the provision of transport for assets.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Transportation</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="TRSSUP">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose principal designation is the provision of transport for assets and the distribution of supplies.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Transportation and supply</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<simpleType name="UnitTypeCategoryCode">
+		<annotation>
+			<documentation xml:lang="en">The specific value that represents the class of UNIT-TYPE.</documentation>
+		</annotation>
+		<restriction base="token">
+			<enumeration value="COMBAT">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE who closes with and destroys enemy forces or provides firepower and destructive capabilities in the battlespace.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Combat</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="COMSER">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE tasked to provide support to combat forces, primarily in the fields of administration and logistics.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Combat service support</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="COMSPT">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE that provides critical combat functions in conjunction with combat arms units and soldiers.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Combat support</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="NKN">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">It is not possible to determine which value is most applicable.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Not known</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SOF">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE that provides unique capabilities of special reconnaissance, direct action and military assistance in order to undertake difficult, dangerous and sometimes politically sensitive missions for the theatre commander.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Special operations forces</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<simpleType name="UnitTypeArmSpecialisationCode">
+		<annotation>
+			<documentation xml:lang="en">The specific value that qualifies the functional specialisation of a particular UNIT-TYPE.</documentation>
+		</annotation>
+		<restriction base="token">
+			<enumeration value="ADCOMP">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">An air-defence UNIT-TYPE whose primary function is to combat aircraft by the means of both guns and missiles.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Air defence, composite weapons</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="ADGUN">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">An air-defence UNIT-TYPE whose primary function is to combat aircraft by the means of guns.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Air defence, gun</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="ADMSL">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">An air-defence UNIT-TYPE whose primary function is to combat aircraft by the means of missiles.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Air defence, missile</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="AIREXP">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to take full advantage of any information that was obtained from aerial sources.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Aerial exploitation</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="ANTSUB">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to combat submarines by the means of air assets.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Antisubmarine warfare aviation</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="APOD">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to provide transportation services at aerial ports where cargo or personnel arrive or depart.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">APOD/APOE</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="ARMREC">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to recover armoured vehicles unable to move by their own means.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Armour recovery</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="ARTSVY">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to calculate the coordinates and altitude of object/point and from which the bearings/azimuths to a number of reference objects are also known.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Artillery survey</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="ATTACK">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">An aviation UNIT-TYPE whose primary function is to perform an offensive mission.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Attack aviation</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="AVASEC">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to maintain a state of law and order within air facilities or assets.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Aviation security forces</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="BIOLOG">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to employ biological agents to produce casualties in man or animals and damage to plants or materiel; or defend against such employment.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Biological</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="BIOREC">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to obtain information about the presence, nature and concentration of biological agents in the environment.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Biological reconnaissance</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="BRDGG">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">An engineer UNIT-TYPE whose primary function is to build bridges or to provide means to cross dry cuts or water courses.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Bridging</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="BRDRPT">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to provide patrol along the borders.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Border patrol</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="C2AVA">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to serve as a command and control element.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">C2 aviation</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="CAVLRY">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to fight in armoured vehicles.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Cavalry</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="CBRNRC">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to obtain information about the presence, nature and concentration of CBRN agents in the environment.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">NBC reconnaissance</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="CHMCAL">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to employ chemical agents to kill, injure, or incapacitate for a significant period of time, man or animals, and deny or hinder the use of areas, facilities or materiel; or defend against such employment.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Chemical</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="CHMREC">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to obtain information about the presence, nature and concentration of chemical agents in the environment.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Chemical, reconnaissance</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="CHMSMD">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to make any person, object, or area safe by absorbing, destroying, neutralizing, making harmless, or removing, chemical agents.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Chemical, smoke/decontamination</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="CHMSMK">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to employ chemical agents released as a cloud of smoke or defend against such employment.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Chemical, smoke</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="CIVAFR">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is either to facilitate the relationships between the forces engaged on a theatre of operations and the civilian authorities of the countries in the theatre, the international organisations and the local populations, or to coordinate the actions led for the benefit of the concerned countries in order to preserve or restore the functioning of the institutions and public services as well as that of those services essential for the life of the populations of that country.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Civil affairs</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="CIVLWE">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to conduct civilian law enforcement operations.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Civilian law enforcement</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="CNTINT">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">No definition provided in APP-6A.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Central intelligence</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="CNTRIN">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to conduct activities that are concerned with identifying and counteracting the threat to security posed by hostile intelligence services or organisations, or by individuals engaged in espionage, sabotage, subversion or terrorism.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Counter intelligence</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="CSAR">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to search for and rescue personnel in distress on land or sea in enemy-controlled territory.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Combat search and rescue aviation</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="DECONT">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to make any person, object, or area safe by absorbing, destroying, neutralizing, making harmless, or removing, chemical or biological agents, or by removing radioactive material clinging to or around it.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Decontamination</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="DENTAL">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to provide dental care.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Dental</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="DISSEC">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to maintain a state of law and order and whose primary mode of operation is on foot.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Dismounted security forces</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="ENCNST">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to build various facilities in direct support of military operations.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Engineer, construction</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="ENGREC">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to obtain, by visual observation or other detection methods, information required for site surveys prior to construction or demolition.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Engineer, reconnaissance</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="ENGRRW">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary functions includes construction or demolition of roads and railways in support of military operations.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Engineer, road/railways</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="EW">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to use electromagnetic energy to determine, exploit, reduce, or prevent hostile use of the electromagnetic spectrum and to perform actions in order to retain its effective use by friendly forces.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Electronic warfare</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="EWDF">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to obtain bearings of radio frequency emitters by using a directional antenna and a display unit on an intercept receiver or ancillary equipment.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Electronic warfare, direction finding</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="EWINTC">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to intercept intentional or unintentional radiated electromagnetic energy for the purpose of immediate threat recognition.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Electronic warfare, intercept</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="EWJAM">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to deliver radiation, re-radiation or reflection of electromagnetic energy with the object of impairing the use of electronic devices, equipment or systems being used by an enemy.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Electronic warfare, jamming</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="FAHOW">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose principal designation is the employment of howitzers or artillery guns in support of manoeuvre units.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Field artillery, howitzer/gun</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="FAMLRS">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose principal designation is the employment of multi rocket launchers in support of manoeuvre units.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Field artillery, multi rocket launcher</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="FAMORT">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose principal designation is the employment of mortars in support of manoeuvre units.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Field artillery, mortar</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="FARCKL">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose principal designation is the employment of rocket launchers in support of manoeuvre units.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Field artillery, rocket launcher</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="FASLRS">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose principal designation is the employment of single rocket launchers in support of manoeuvre units.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Field artillery, single rocket launcher</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="FINANC">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to provide financial services.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Finance</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="HNDLDG">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to transfer materiel in or out of transportation means such as trains, ships or planes.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Handling, loading/unloading</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="INTERO">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to procure information by direct questioning of a person under the control of a questioner.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Interrogation</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="JNTINT">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to produce intelligence from elements of more than one Service.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Joint intelligence</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="LABOUR">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to provide labour services.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Labour</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="LEGAL">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to provide legal services.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Legal services</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="MCMAVA">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to prevent or reduce damage or danger from mines by using airborne means.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Mine countermeasure aviation</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="MEDEVC">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">An aviation UNIT-TYPE whose primary function is to move patients by air means in a timely and efficient manner while providing en route medical care to and between medical treatment facilities.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Medical evacuation aviation</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="MEDTRS">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to move patients between medical treatment facilities while providing en route medical care.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Medical transport</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="MEDTRT">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to perform interventions or treatment under supervision of a physician.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Medical treatment</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="METEO">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to perform systematic observation of meteorological conditions and/or forecast future meteorological conditions.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Meteorological</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="MILPOL">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to provide police services.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Military police</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="MIOPS">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A military intelligence UNIT-TYPE whose primary function is to provide information required for the planning and conducting campaigns and major operations to accomplish strategic objectives within theatres or areas of operations.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Military intelligence, operations</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="MNTELC">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to maintain electronics and armament (materiel) in or to restore it to operational condition.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Maintenance, electronics/armament</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="MNTELO">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to maintain electro-optical materiel in or to restore it to operational condition.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Maintenance, electro-optical</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="MNTHVY">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to accomplish supply and repair actions necessary to keep the heavy equipment of a force in condition to carry out its mission.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Maintenance, heavy</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="MNTMSL">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to maintain ordnance missile (materiel) in or to restore it to operational condition.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Maintenance, missile</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="MNTORD">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to maintain ordnance (ammunition) in or to restore it to operational condition.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Maintenance, ordnance</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="MRTGRR">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to provide care and disposition of deceased personnel.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Mortuary/graves registry</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="MVTCNT">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to provide planning, routing, scheduling and control of personnel and freight movements over lines of communication.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Movement control</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="MWR">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to provide morale, welfare and recreation services in support of military personnel.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Morale/welfare/recreation</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="NUCRAD">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to defend or protect against radiological or nuclear materiel dangers.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Nuclear</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="PERSVC">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to provide services related to personnel administration.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Personnel services</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="PIPELN">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to construct, maintain or operate pipelines.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Pipeline</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="POSTAL">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to provide postal services.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Postal</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="PSYCH">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to provide treatment dealing with the mental and emotional state of a person.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Psychological</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="PSYOP">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to provide convey selected information and indicators to foreign audiences to influence their emotions, motives, objective reasoning, and ultimately the behaviour of foreign governments, organisations, groups, and individuals.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Psychological operations</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="PUBAF">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to provide public information, command information, and community relations activities directed towards the general public.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Public affairs</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="PUBAFB">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to provide public information, command information, and community relation activities over a broadcast medium, such as radio or TV, directed towards the general public.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Public affairs, broadcast</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="PUBAFJ">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to provide public information, command information, and community relations activities directed towards the general public in a joint services environment.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Public affairs, joint information</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="QM">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to provide lodging and rations for the troops.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Quartermaster</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="RAILSE">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to maintain a state of law and order within railway facilities or assets.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Railway security forces</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="RANGER">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE of rapidly deployable airborne light infantry organized and trained to conduct highly complex joint direct action operations in coordination with or in support of other special operations units of all services.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Ranger</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="RECAVA">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to obtain, by airborne means and through visual observation or other detection methods, information about the activities and resources of an enemy or potential enemy, or to secure data concerning the meteorological, hydrographical, or geographic characteristics of a particular area.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Reconnaissance aviation</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="RECOVR">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to recover vehicles unable to move by their own means.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Recovery</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="REFAVA">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to deliver fuel to other aircraft while in flight.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Refuel aviation</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="RELCHP">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to provide religious services.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Religious/chaplain</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="REPLHO">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to provide personnel to take the place of other personnel who depart a unit.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Replacement holding</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="RIVSEC">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to maintain a state of law and order and that operates on or along a river.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Riverine security forces</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SARAVA">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">An aviation UNIT-TYPE whose primary function is to search for and rescue personnel in distress on land or sea.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Search and rescue aviation</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SCOUT">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to patrol an area.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Scout</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SEAL">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is Sea Air Land operations.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">SEAL</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SECPOL">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to provide security police services for air-related facilities or assets.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Security police, air</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SGCMDO">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">No definition provided in APP-6A.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Signal, command operations</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SGELCR">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to establish target distance electronically.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Signal, electronic ranging</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SGNC">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to manage, operate and control a communications node centre.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Signal, node centre</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SGNLE">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to manage, operate and control a communications large extension node.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Signal, node, large extension</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SGNSE">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to manage, operate and control a communications small extension node.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Signal, node, small extension</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SGRAD">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to manage, operate and control radio communications.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Signal, radio</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SGRDRL">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to manage, operate and control a communications radio relay.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Signal, radio relay</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SGSPT">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to provide personnel and equipment from other forces for the establishment of a special or supplementary communications system.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Signal support</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SGTACS">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to manage, operate and control a tactical satellite terminal.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Signal, tactical satellite</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SGTELC">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to manage, operate and control radio-teletype communications.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Signal, teletype centre</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SGTELS">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to manage, operate and control a tactical telephone switch.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Signal, telephone switch</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SHRPAT">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to provide shore patrol services.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Shore patrol</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SIGINT">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to provide intelligence derived from communications, electronics, and instrumentation signals.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Signals intelligence</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SPBOAT">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">No definition provided in APP-6A.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Special boat</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SPCFOR">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE, selected, trained and organised to special levels, whose primary function is to be employed in pursuit of strategic objectives.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Special forces</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SPLC1">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to provide combat/fresh rations, water and personal, health and welfare items.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Supply, class I</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SPLC2">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to provide materiel.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Supply, class II</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SPLC3">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to provide fuel and lubricants.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Supply, class III</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SPLC3A">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to provide aviation fuel and lubricants.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Supply, class III aviation</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SPLC4">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to provide construction materials.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Supply, class IV</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SPLC5">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to provide ammunition, explosives and chemical agents.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Supply, class V</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SPLLDB">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to provide laundry and/or bath services.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Supply, laundry/bath</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SPLWAT">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to provide drinking water.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Supply, water</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SPOD">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to provide transportation services at sea ports where cargo or personnel arrive or depart.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">SPOD/SPOE</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SPOPSP">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to support special operations forces.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Special operations support</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SPSSNR">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">No definition provided in APP-6A.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Special SSNR</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SRSNSC">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">No definition provided in APP-6A.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Surveillance, sensor, SCM</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SRV">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to perform systematic observation of aerospace, surface or subsurface areas, places, persons, or things by visual, aural, electronic, photographic, or other means.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Surveillance</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SRVGSM">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to manage and operate a ground module for a surveillance system.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Surveillance, ground station module</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SRVGSR">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to manage and operate a ground radar for a surveillance system.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Surveillance, ground surveillance radar</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SRVLR">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to perform, from long range, systematic observation of aerospace, surface or subsurface areas, places, persons, or things by visual, aural, electronic, photographic, or other means from a ground station.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Surveillance, long range</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SRVSEN">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to manage and operate sensor surveillance assets.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Surveillance, sensor</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SURG">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to provide surgical services.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Surgical</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="TACEXP">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A military intelligence UNIT-TYPE whose primary function is to use information required for the planning and conducting tactical operations.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Tactical exploitation</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="TGTACQ">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to manage and operate target acquisition assets.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Target acquisition</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="TGTAOP">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to manage and operate optical target acquisition assets.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Target acquisition, optical</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="TGTARD">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to manage and operate radar target acquisition assets.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Target acquisition, radar</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="TGTASD">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to manage and operate sound target acquisition assets.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Target acquisition, sound</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="TGTNG">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to provide targeting services.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Targeting</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="TOPO">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to produce maps and other topographical information.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Topographical survey</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="TRNMSL">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to provide equipment for transportation of missiles.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Transportation, missile</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="TRNRLY">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to provide transportation by means of railways.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Transportation, railways</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="UAV">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to utilise unmanned air assets.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Unmanned aerial vehicle</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="UDT">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to damage or destroy equipment or facilities laying totally or partially in water and that moves under the water surface to achieve this.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Underwater demolition</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="UTLAVA">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">An aviation UNIT-TYPE whose primary function is to transport equipment or personnel.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Utility aviation</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="VET">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to provide medical or surgical treatment for animals.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Veterinary</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="WATER">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE whose primary function is to provide clean potable drinking/bathing water.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Water purification</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<simpleType name="UnitTypeGeneralMobilityCode">
+		<annotation>
+			<documentation xml:lang="en">The specific value that represents the general mobility of a unit, seen as a whole.</documentation>
+		</annotation>
+		<restriction base="token">
+			<enumeration value="AIR">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The specified UNIT-TYPE moves generally through the air.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Air</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="AIRCMP">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The specified UNIT-TYPE moves generally through the air by means that combine deriving lift from fixed wings or from airfoils that rotate.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Air, composite</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="AIRFW">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The specified UNIT-TYPE moves generally through the air by deriving lift from fixed wings.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Air, fixed wing</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="AIRRW">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The specified UNIT-TYPE moves generally through the air by deriving lift from airfoils that rotate.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Air, rotary wing</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="AIRVST">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The specified UNIT-TYPE moves generally through the air by using aircraft able to take off and land on very short distances.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Air, VSTOL</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="AMPH">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The specified UNIT-TYPE moves generally both on land and in water.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Amphibious</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="DSMNTD">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The specified UNIT-TYPE moves generally on foot.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Dismounted</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="HORSE">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The specified UNIT-TYPE moves generally while carried by horses.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Horse</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="LAND">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The specified UNIT-TYPE moves generally on the ground.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Land</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="LNDRAI">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The specified UNIT-TYPE moves generally on the ground, along rails.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Land, railed</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="LNDTRC">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The specified UNIT-TYPE moves generally on the ground by means of vehicles using caterpillar treads.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Land, tracked</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="LNDTWD">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The main equipment of the specified UNIT-TYPE moves generally on the ground by means of external propulsion (mechanical or animal).</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Land, towed</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="LNDWHL">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The specified UNIT-TYPE moves generally on the ground by means of vehicles using wheels.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Land, wheeled</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<simpleType name="UnitTypeSupplementarySpecialisationCode">
+		<annotation>
+			<documentation xml:lang="en">The specific value that supplements the designation of a particular UNIT-TYPE.</documentation>
+		</annotation>
+		<restriction base="token">
+			<enumeration value="AIR">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE that, whatever its primary function is, employs principally air assets.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Air</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="AIRBRN">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE that, whatever its primary function is, is specially trained to carry out operations, either by paradrop or air landing, following an air movement.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Airborne</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="AMPH">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE that, whatever its primary function is, is able to conduct an operation launched from the sea by military forces against a hostile or potentially hostile shore.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Amphibious</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="ARASLT">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE that, whatever its primary function is, employs helicopter assets as an integral element of its assault operations.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Air assault</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="ARCTIC">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE that, whatever its primary function is, is able to perform a mission in arctic environment.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Arctic</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="ARMORD">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE that, whatever its primary function is, employs principally armoured assets.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Armoured</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="GROUND">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE that, whatever its primary function is, employs principally ground assets.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Ground</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="LIGHT">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE that, whatever its primary function is, is equipped with materiel of small weight.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Light unit</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="MARINE">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE that is capable of performing marine operations in addition to its primary function.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Marine</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="MECH">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE that, whatever its primary function is, employs principally mechanised assets.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Mechanised</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="MOUNTN">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE that, whatever its primary function is, is dedicated to conduct military operations in mountainous areas.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Mountain</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="MTRSD">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE that, whatever its primary function is, employs principally motorised assets.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Motorised</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="NAVAL">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A UNIT-TYPE that, whatever its primary function is, is dedicated to conduct operations in a maritime environment.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Naval</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<simpleType name="UnitTypeQualifierCode">
+		<annotation>
+			<documentation xml:lang="en">The specific value that conveys additional information on the specified UNIT-TYPE.</documentation>
+		</annotation>
+		<restriction base="token">
+			<enumeration value="CORPS">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The specified UNIT-TYPE supports a force of Corps level.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Corps</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="DIV">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The specified UNIT-TYPE operates at Division level.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Division</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="FORCE">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The specified UNIT-TYPE operates at Force level.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Force</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="HEAVY">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">No definition provided in APP-6A.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Heavy</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="HMAD">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The specified UNIT-TYPE major equipment is able to intercept threats flying at high or medium altitude.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">High/medium altitude air defence</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="LIGHT">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">No definition provided in APP-6A.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Light</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="LR">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">No definition provided in APP-6A.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Long range</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="MEDIUM">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">No definition provided in APP-6A.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Medium</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="MR">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">No definition provided in APP-6A.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Medium range</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SR">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">No definition provided in APP-6A.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Short range</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="STRTGC">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The specified UNIT-TYPE operates at a strategic level of command.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Strategic</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="TACTCL">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The specified UNIT-TYPE operates at a tactical level of command.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Tactical</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="THTRE">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The specified UNIT-TYPE supports a force at Theatre level.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Theatre</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="TMD">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">No definition provided in APP-6A.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Theatre missile defence</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="VSR">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">No definition provided in APP-6A.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Very short range</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<simpleType name="ActionTaskStatusApprovalIndicatorCode">
+		<annotation>
+			<documentation xml:lang="en">The specific value that denotes at the reporting time whether an ACTION-TASK is approved for execution.</documentation>
+		</annotation>
+		<restriction base="token">
+			<enumeration value="NO">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The associated ACTION-TASK is disapproved.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">No</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="YES">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The associated ACTION-TASK is approved for execution.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Yes</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+</schema>

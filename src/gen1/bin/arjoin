@@ -1,0 +1,31 @@
+#!/usr/bin/perl
+
+
+my $dir = "/tmp/arjoin$$";
+my $pwd = `pwd`; $pwd =~ s/\r?\n$//;
+
+`rm -rf $dir`;
+mkdir $dir;
+
+chdir $dir;
+
+my $output = shift;
+
+print "  [AJ] $output .. ";
+
+if ($output !~ /^\//) {
+  $output = $pwd . '/' . $output;
+}
+
+foreach my $arg (@ARGV) {
+  if ($arg !~ /^\//) {
+    $arg = $pwd . '/' . $arg;
+  }
+  `ar -x $arg`;
+}
+
+`ar -rcs $output *.o`;
+
+`rm -rf $dir`;
+
+print "Ok\n";

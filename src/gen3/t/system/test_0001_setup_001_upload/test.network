@@ -1,0 +1,47 @@
+{
+  prepare => './prepare.sh',
+  finish  => './finish.sh',
+  success => './success.sh',
+
+  duration => 10,
+
+  nodes => {
+
+    leftclient => {
+      interfaces => {
+        eth0 => {
+          connection => { node => 'leftproxy', interface => 'eth0' },
+          ip => '192.168.1.20/24',
+        },
+      },
+      tests => [
+
+        {
+          exe => 'head -c 1024 /dev/urandom | xxd -p > /tmp/sample.txt',
+          start => 1
+        },
+
+        {
+          exe => 'curl -F file=@/tmp/sample.txt http://192.168.1.1:9090/upload',
+          start => 4
+        },
+      ],
+    },
+
+    leftproxy => {
+      interfaces => {
+        eth0 => {
+          connection => { node => 'leftclient', interface => 'eth0' },
+          ip => '192.168.1.1/24',
+        },
+      },
+      tests => [
+
+        {
+          exe => '[SYSTEMTESTROOT]/bin/httpd.pl',
+          start => 1
+        },
+      ],
+    },
+  }
+};

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2005 rel. 3 U (http://www.altova.com) by DTO Maasland (DTO Maasland) -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:jc3iedm="urn:int:nato:standard:mip:jc3iedm:3.0.2:oo:2.2" targetNamespace="urn:int:nato:standard:mip:jc3iedm:3.0.2:oo:2.2" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<annotation>
+		<documentation xml:lang="en">Restricted version of types used by JDSSDM. XML schema defined by the Multilateral Interoperability Programme (MIP) - Editor: Dr. Michael Gerz, gerz@fgan.de, FGAN FKIE, Germany</documentation>
+	</annotation>
+	<simpleType name="AngleTypeRangeAngle7_4">
+		<annotation>
+			<documentation xml:lang="en">The rotational measurement between two lines and/or planes diverging from a common point and/or line. This measurement will be expressed in units of degrees.</documentation>
+		</annotation>
+		<restriction base="decimal">
+			<totalDigits value="7"/>
+			<fractionDigits value="4"/>
+			<minInclusive value="0.0000" fixed="false"/>
+			<maxInclusive value="359.9999"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="DatetimeTypeFix18">
+		<annotation>
+			<documentation xml:lang="en">A designation of a specified chronological point measured using Coordinated Universal Time (UTC) ISO 8601:2000 as a standard of reference, constrained to "zero meridian" i.e. ‘Zulu’ time zone only. This is expressed as a composite field using a compacted ISO notation YYYYMMDDHHMMSS.SSS where YYYY represents a year, MM represents a month in values from 00 to 12, and DD represents a day in values from 00 to 31, HH represents an hour, MM represents a minute, and SS.SSS represents the number of seconds and milliseconds.</documentation>
+		</annotation>
+		<restriction base="string">
+			<minLength value="18"/>
+			<maxLength value="18"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="DimensionType12_3">
+		<annotation>
+			<documentation xml:lang="en">A one-dimensional linear distance measure. This will be expressed in metres.</documentation>
+		</annotation>
+		<restriction base="decimal">
+			<totalDigits value="12"/>
+			<fractionDigits value="3"/>
+			<minInclusive value="-999999999.999"/>
+			<maxInclusive value="999999999.999"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="DurationType19">
+		<annotation>
+			<documentation xml:lang="en">A numeric value that represents a quantity of time expressed as milliseconds. An optional preceding minus sign ('-') is allowed, to indicate a negative duration. If the sign is omitted a positive duration is indicated.</documentation>
+		</annotation>
+		<restriction base="integer">
+			<minInclusive value="-9999999999999999999"/>
+			<maxInclusive value="9999999999999999999"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="LatitudeCoordinateTypeRangeLatitude9_6">
+		<annotation>
+			<documentation xml:lang="en">The geodetic latitude of the location of a line or plane, expressed in degrees, with positive values measured northward and negative values southward from the equator.</documentation>
+		</annotation>
+		<restriction base="decimal">
+			<totalDigits value="9"/>
+			<fractionDigits value="6"/>
+			<minInclusive value="-90.000000"/>
+			<maxInclusive value="90.000000"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="LongitudeCoordinateTypeRangeLongitude10_6">
+		<annotation>
+			<documentation xml:lang="en">The geodetic longitude of the location of a line or plane, expressed in degrees, with positive values measured eastward and negative values westward from the zero meridian.</documentation>
+		</annotation>
+		<restriction base="decimal">
+			<totalDigits value="10"/>
+			<fractionDigits value="6"/>
+			<minInclusive value="-180.000000"/>
+			<maxInclusive value="180.000000"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="OIDType">
+		<annotation>
+			<documentation xml:lang="en">A globally unique object identifier.</documentation>
+		</annotation>
+		<restriction base="token"/>
+	</simpleType>
+	<simpleType name="MIPKeyType">
+		<annotation>
+			<documentation xml:lang="en">An object identifier that is a MIP-compliant, 20-digit identifier</documentation>
+		</annotation>
+		<restriction base="jc3iedm:OIDType">
+			<pattern value="[0-9]{20}"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="QuantityType12_3">
+		<annotation>
+			<documentation xml:lang="en">A numeric value that denotes a measure of the physical property of an object. Class word quantity has a fixed unit of measure that must be specified on an attribute-by-attribute basis. Class word quantity is not to be used where class words angle, coordinate, count, dimension, and rate apply.</documentation>
+		</annotation>
+		<restriction base="decimal">
+			<totalDigits value="12"/>
+			<fractionDigits value="3"/>
+			<minInclusive value="-999999999.999"/>
+			<maxInclusive value="999999999.999"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="RateType8_4">
+		<annotation>
+			<documentation xml:lang="en">A numeric value that denotes a physical property of an object expressed as a proportion of a physical property with respect to a unit of time. The unit of measure for class word rate must be specified on an attribute-by-attribute basis.</documentation>
+		</annotation>
+		<restriction base="decimal">
+			<totalDigits value="8"/>
+			<fractionDigits value="4"/>
+			<minInclusive value="-9999.9999"/>
+			<maxInclusive value="9999.9999"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="TextTypeVar15">
+		<annotation>
+			<documentation xml:lang="en">A character string (i.e. a finite set of characters) generally in the form of words of a language. This embraces notions such as description, name, comment etc.</documentation>
+		</annotation>
+		<restriction base="string">
+			<minLength value="0"/>
+			<maxLength value="15"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="TextTypeVar20">
+		<annotation>
+			<documentation xml:lang="en">A character string (i.e. a finite set of characters) generally in the form of words of a language. This embraces notions such as description, name, comment etc.</documentation>
+		</annotation>
+		<restriction base="string">
+			<minLength value="0"/>
+			<maxLength value="20"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="TextTypeVar50">
+		<annotation>
+			<documentation xml:lang="en">A character string (i.e. a finite set of characters) generally in the form of words of a language. This embraces notions such as description, name, comment etc.</documentation>
+		</annotation>
+		<restriction base="string">
+			<minLength value="0"/>
+			<maxLength value="50"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="TextTypeVar100">
+		<annotation>
+			<documentation xml:lang="en">A character string (i.e. a finite set of characters) generally in the form of words of a language. This embraces notions such as description, name, comment etc.</documentation>
+		</annotation>
+		<restriction base="string">
+			<minLength value="0"/>
+			<maxLength value="100"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="TextTypeVar2000">
+		<annotation>
+			<documentation xml:lang="en">A character string (i.e. a finite set of characters) generally in the form of words of a language. This embraces notions such as description, name, comment etc.</documentation>
+		</annotation>
+		<restriction base="string">
+			<minLength value="0"/>
+			<maxLength value="2000"/>
+		</restriction>
+	</simpleType>
+</schema>

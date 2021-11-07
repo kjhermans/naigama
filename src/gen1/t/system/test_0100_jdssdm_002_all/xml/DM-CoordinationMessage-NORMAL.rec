@@ -1,0 +1,16 @@
+<JDSSDMMessage xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:int:nato:standard:mip:jdssdm:1.1">
+  <Id>5aa6f5d8-1928-4f9c-9b9e-0fd175cd8426</Id>
+  <Datetime>20170710101248.743</Datetime>
+  <Originator>96441fbe-4d4c-49e1-9bae-ccac987ac259</Originator>
+  <OriginatorCountryCode>NLD</OriginatorCountryCode>
+  <CoordinationMsg>
+    <ActionTask>
+      <OID>ccd1830c-8c88-4bc2-b72c-c2b7c35879df</OID>
+      <GeographicPoint>
+          <LatitudeCoordinate>51.940065</LatitudeCoordinate>
+          <LongitudeCoordinate>5.454733</LongitudeCoordinate>
+      </GeographicPoint>
+      <ActivityCode>DESTRY</ActivityCode>
+    </ActionTask>
+  </CoordinationMsg>
+</JDSSDMMessage>

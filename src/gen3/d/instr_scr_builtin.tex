@@ -1,0 +1,80 @@
+\subsection{Instruction: scr\_builtin}
+
+\subsubsection{Mode}
+This instruction is available in mode 1 (script interpreter).
+\subsubsection{Summary}
+
+\InputIfFileExists{instr_scr_builtin_summary.tex}{}{}
+
+\subsubsection{Grammar and Compiling}
+
+\InputIfFileExists{instr_scr_builtin_compiling.tex}{}{}
+
+\subsubsection{Assembly Syntax}
+
+\begin{myquote}
+\begin{verbatim}
+SCR_BUILTIN <- { 'scr_builtin' S UNSIGNED }
+S <- %s+
+UNSIGNED <- { [0-9]+ }
+\end{verbatim}
+\end{myquote}
+
+\subsubsection{Bytecode Encoding}
+
+This instruction has a size of 8 bytes and is structured in bytecode as follows:
+
+%DEADBEEF
+$_{00}$\ 
+\fbox{%
+  \parbox{20pt}{%
+00
+  }%
+}
+\fbox{%
+  \parbox{20pt}{%
+04
+  }%
+}
+\fbox{%
+  \parbox{20pt}{%
+07
+  }%
+}
+\fbox{%
+  \parbox{20pt}{%
+cf
+  }%
+}
+
+
+
+$_{04}$\ 
+\fbox{%
+  \parbox{20pt}{%
+00
+  }%
+}
+\fbox{%
+  \parbox{20pt}{%
+00
+  }%
+}
+\fbox{%
+  \parbox{20pt}{%
+00
+  }%
+}
+\fbox{%
+  \parbox{20pt}{%
+00
+  }%
+}
+
+%DEADBEEF
+\subsubsection{Execution State Change}
+
+.
+
+\InputIfFileExists{instr_scr_builtin_state.tex}{}{}
+

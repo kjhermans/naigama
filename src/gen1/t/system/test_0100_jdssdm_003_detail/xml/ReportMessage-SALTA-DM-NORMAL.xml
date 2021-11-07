@@ -1,0 +1,48 @@
+<JDSSDMMessage xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:int:nato:standard:mip:jdssdm:1.1">
+  <Id OIDType="UUID">fe4e15c2-a625-41c6-ade5-c56b54e8c383</Id>
+  <Datetime>20180724112422.951</Datetime>
+  <Originator OIDType="UUID">a9b23d4f-ea52-8816-40cc-fe31138e85d9</Originator>
+  <OriginatorCountryCode>NLD</OriginatorCountryCode>
+  <Recipient OIDType="UUID">1596fa9e-a6b5-db70-9d4d-2068e4d2dbbb</Recipient>
+  <Recipient OIDType="UUID">04c097b8-4b9e-6dee-5a56-6031ede3d0db</Recipient>
+  <Recipient OIDType="UUID">928bf658-1b82-56b3-0d67-5c645a1b93f4</Recipient>
+  <ExtensionMsg xmlns:q1="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q1:ReportMessageType">
+    <q1:Report>
+      <OID OIDType="UUID">ee5d7934-3600-8021-92f7-ff557c354200</OID>
+      <MessageSubject>32U LD 53878 98472 ARMOURED VEHICLES...</MessageSubject>
+      <MessageBody>Enemy Spot Report (SALTA)
+Strength:
+	5 ARMOURED VEHICLES, TANK (BATTLE)
+Activity (Enemy):
+	Enemy Activity = NOT MOVING
+	Direction = 0 (degrees)
+Location:
+	Enemy Location = 32U LD 53878 98472
+	Reporting Unit Location = 32U LD 53878 98473
+Time:
+	Time of Incident/Sighting = 241123Z JUL 18
+Action:
+	Own Action = DETOUR
+[Footer]:
+	Classification = Unclassified</MessageBody>
+      <q1:ReportHeader>
+        <q1:Sender>User01</q1:Sender>
+        <q1:DateTime>20180724112420.000</q1:DateTime>
+        <q1:ReportType>EnemySpot</q1:ReportType>
+        <q1:SecurityClassification>Unclassified</q1:SecurityClassification>
+      </q1:ReportHeader>
+      <q1:APP6Object>
+        <OID OIDType="UUID">ee5d7934-3600-8021-92f7-ff557c354200</OID>
+        <NameText>EnemySpotReport</NameText>
+        <HostilityStatusCode>HO</HostilityStatusCode>
+        <q1:SIDC>app6a:S*G*EVAT--*****</q1:SIDC>
+        <q1:Location>
+          <q1:GeographicPoint>
+            <LatitudeCoordinate>53.215441</LatitudeCoordinate>
+            <LongitudeCoordinate>6.811601</LongitudeCoordinate>
+          </q1:GeographicPoint>
+        </q1:Location>
+      </q1:APP6Object>
+    </q1:Report>
+  </ExtensionMsg>
+</JDSSDMMessage>

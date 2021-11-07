@@ -1,0 +1,54 @@
+JDSSIEMPAYLOAD
+ReportMessageType|<JDSSDMMessage xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:int:nato:standard:mip:jdssdm:1.1">
+  <Id OIDType="UUID">b214d9e2-7e12-4aa2-94df-613814173ef0</Id>
+  <Datetime>20180724122227.706</Datetime>
+  <Originator OIDType="UUID">a9b23d4f-ea52-8816-40cc-fe31138e85d9</Originator>
+  <OriginatorCountryCode>NLD</OriginatorCountryCode>
+  <Recipient OIDType="UUID">1596fa9e-a6b5-db70-9d4d-2068e4d2dbbb</Recipient>
+  <Recipient OIDType="UUID">04c097b8-4b9e-6dee-5a56-6031ede3d0db</Recipient>
+  <Recipient OIDType="UUID">928bf658-1b82-56b3-0d67-5c645a1b93f4</Recipient>
+  <ExtensionMsg xmlns:q1="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q1:ReportMessageType">
+    <q1:Report>
+      <OID OIDType="UUID">a657b897-2229-4021-eb6b-07587c350201</OID>
+      <MessageSubject>User01 32U LD 22716 43227 CRIMINAL A...</MessageSubject>
+      <MessageBody>METHANE Report
+[Header]:
+	My Call sign/Freq = User01
+	Exact Location = 32U LD 22716 43227
+	Type of Incident = CRIMINAL ACTIVITY, SNIPING
+Hazard(s) on Scene:
+	SMOKE
+Access to Scene:
+	Landing Site Terrain: SAND / DUST
+Number of Casualties:
+	A (Immediate): 23
+	B (Urgent): -
+	C (Priority): -
+	D (Routine): -
+Emergency Services:
+	Police: PRESENT
+	Medical: COMING
+	Casualty Evacuation (CasEvac): REQUIRED
+[Footer]:
+	Classification = Unclassified</MessageBody>
+      <q1:ReportHeader>
+        <q1:Sender>User01</q1:Sender>
+        <q1:DateTime>20180724122226.000</q1:DateTime>
+        <q1:ReportType>Methane</q1:ReportType>
+        <q1:SecurityClassification>Unclassified</q1:SecurityClassification>
+      </q1:ReportHeader>
+      <q1:APP6Object>
+        <OID OIDType="UUID">a657b897-2229-4021-eb6b-07587c350201</OID>
+        <NameText>MethaneReport</NameText>
+        <HostilityStatusCode>HO</HostilityStatusCode>
+        <q1:SIDC>app6a:GHO*VS----*****</q1:SIDC>
+        <q1:Location>
+          <q1:GeographicPoint>
+            <LatitudeCoordinate>52.709858</LatitudeCoordinate>
+            <LongitudeCoordinate>6.375643</LongitudeCoordinate>
+          </q1:GeographicPoint>
+        </q1:Location>
+      </q1:APP6Object>
+    </q1:Report>
+  </ExtensionMsg>
+</JDSSDMMessage>

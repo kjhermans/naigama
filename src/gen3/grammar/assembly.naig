@@ -1,0 +1,129 @@
+-- Naigama Assembly Grammar
+
+TOP                <- INSTRUCTIONS
+S                  <- %s+
+__prefix           <- ( '--' [^\n]* '\n' / %s+ )*
+
+INSTRUCTIONS       <- INSTRUCTION+ END
+INSTRUCTION        <- { RULEINSTR } /
+                      { SCR_INSTRUCTION } /
+                      { LABELDEF }
+
+RULEINSTR          <- ANYINSTR / BACKCOMMITINSTR / CALLINSTR /
+                      CATCHINSTR / CHARINSTR / MASKEDCHARINSTR /
+                      CLOSECAPTUREINSTR / COMMITINSTR /
+                      ENDREPLACEINSTR / REPLACEINSTR /
+                      INTRPCAPTUREINSTR /
+                      ISOLATEINSTR / ENDISOLATEINSTR /
+                      ENDINSTR / FAILTWICEINSTR / FAILINSTR /
+                      JUMPINSTR / NOOPINSTR / TRAPINSTR /
+                      OPENCAPTUREINSTR / PARTIALCOMMITINSTR /
+                      QUADINSTR /
+                      RETINSTR / SETINSTR / RANGEINSTR /
+                      SKIPINSTR / SPANINSTR / TESTANYINSTR /
+                      TESTCHARINSTR / TESTQUADINSTR /
+                      TESTSETINSTR / VARINSTR /
+                      COUNTERINSTR / CONDJUMPINSTR /
+                      MODEINSTR
+
+END                <- !.
+
+ANYINSTR           <- { 'any' }
+BACKCOMMITINSTR    <- { 'backcommit' } S LABEL
+CALLINSTR          <- { 'call' } S LABEL
+CATCHINSTR         <- { 'catch' } S LABEL
+CHARINSTR          <- { 'char' } S HEXBYTE
+MASKEDCHARINSTR    <- { 'maskedchar' } S HEXBYTE S HEXBYTE
+CLOSECAPTUREINSTR  <- { 'closecapture' } S SLOT
+COMMITINSTR        <- { 'commit' } S LABEL
+ENDINSTR           <- { 'end' } S CODE
+FAILINSTR          <- { 'fail' }
+FAILTWICEINSTR     <- { 'failtwice' }
+INTRPCAPTUREINSTR  <- { 'intrpcapture' } S INTRPCAPTURETYPES
+                                         S ( SLOT / { 'default' } )
+JUMPINSTR          <- { 'jump' } S LABEL
+NOOPINSTR          <- { 'noop' }
+TRAPINSTR          <- { 'trap' }
+OPENCAPTUREINSTR   <- { 'opencapture' } S SLOT
+PARTIALCOMMITINSTR <- { 'partialcommit' } S LABEL
+QUADINSTR          <- { 'quad' } S QUAD
+REPLACEINSTR       <- { 'replace' } S LABEL S LABEL
+ENDREPLACEINSTR    <- { 'endreplace' }
+RETINSTR           <- { 'ret' }
+SETINSTR           <- { 'set' } S SET
+RANGEINSTR         <- { 'range' } S UNSIGNED S UNSIGNED
+SKIPINSTR          <- { 'skip' } S UNSIGNED
+SPANINSTR          <- { 'span' } S SET
+TESTANYINSTR       <- { 'testany' } S LABEL
+TESTCHARINSTR      <- { 'testchar' } S HEXBYTE S LABEL
+TESTQUADINSTR      <- { 'testquad' } S QUAD S LABEL
+TESTSETINSTR       <- { 'testset' } S SET S LABEL
+VARINSTR           <- { 'var' } S SLOT
+COUNTERINSTR       <- { 'counter' } S REGISTER S UNSIGNED
+CONDJUMPINSTR      <- { 'condjump' } S REGISTER S LABEL
+ISOLATEINSTR       <- { 'isolate' } S SLOT
+ENDISOLATEINSTR    <- { 'endisolate' }
+MODEINSTR          <- { 'mode' } S NUMBER
+
+LABELDEF           <- LABEL COLON
+
+-- script related instructions
+
+SCR_INSTRUCTION    <-
+                      SCR_CALL / SCR_BUILTIN / SCR_RET /
+                      SCR_CONDJUMP /
+                      SCR_SHIFT / SCR_PUSH / SCR_POP /
+                      SCR_ARRAY / SCR_INDEX /
+                      SCR_ADD / SCR_MUL / SCR_LT / SCR_EQUALS /
+                      SCR_ASSIGN /
+                      SCR_STRING
+
+SCR_ADD            <- { 'scr_add' }
+SCR_CALL           <- { 'scr_call' } S LABEL
+SCR_SHIFT          <- { 'scr_shift' } S UNSIGNED
+SCR_PUSH           <- { 'scr_push' } S LITERAL
+SCR_POP            <- { 'scr_pop' }
+SCR_RET            <- { 'scr_ret' }
+SCR_CONDJUMP       <- { 'scr_condjump' } S LABEL
+SCR_BUILTIN        <- { 'scr_builtin' } S UNSIGNED
+SCR_STRING         <- { 'scr_string' } S STRINGLITERAL
+SCR_ARRAY          <- { 'scr_array' } S UNSIGNED
+SCR_INDEX          <- { 'scr_index' }
+SCR_MUL            <- { 'scr_mul' }
+SCR_ASSIGN         <- { 'scr_assign' }
+SCR_EQUALS         <- { 'scr_equals' }
+SCR_LT             <- { 'scr_lt' }
+
+-- terminals
+
+CODE               <- UNSIGNED
+HEXBYTE            <- { [0-9a-fA-F]^2 }
+LABEL              <- { [a-zA-Z0-9_]^1-64 }
+UNSIGNED           <- { [0-9]+ }
+NUMBER             <- { '-'? [0-9]+ }
+QUAD               <- { [0-9a-fA-F]^8 }
+SET                <- { [0-9a-fA-F]^64 }
+SLOT               <- UNSIGNED
+REGISTER           <- UNSIGNED
+TYPE               <- UNSIGNED
+COLON              <- ':'
+AMPERSAND          <- '&'
+
+LITERAL            <- REGISTERREF /
+                      STRINGREF /
+                      FLOATLITERAL /
+                      INTLITERAL /
+                      BOOLEANLITERAL /
+                      VOIDLITERAL /
+                      CAPTURELITERAL
+
+STRINGLITERAL      <- '\'' { ( '\\' ([nrtv\\'] / [0-9]^3) / [^'\\] )* } '\''
+REGISTERREF        <- '{' S? { NUMBER } S? '}'
+FLOATLITERAL       <- { '-'? [0-9]* '.' [0-9]+ }
+INTLITERAL         <- { '-'? [0-9]+ }
+BOOLEANLITERAL     <- { 'true' / 'false' }
+VOIDLITERAL        <- { 'void' }
+STRINGREF          <- { 'string' S LABEL }
+CAPTURELITERAL     <- { 'capture' S UNSIGNED }
+
+INTRPCAPTURETYPES  <- { 'ruint32' }

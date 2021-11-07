@@ -1,0 +1,582 @@
+<JDSSDMMessage xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:int:nato:standard:mip:jdssdm:1.1">
+  <Id OIDType="UUID">e6c9b017-04a3-43ac-a6b4-4450d796c002</Id>
+  <Datetime>20190917071851.451</Datetime>
+  <Originator OIDType="UUID">009941ff-b243-11db-8460-ffff3f766789</Originator>
+  <OriginatorCountryCode>NLD</OriginatorCountryCode>
+  <PresenceMsg>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8461-ef123f766777</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.118453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.265860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8462-ef123f766777</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.126453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.266860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8463-ef123f766777</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.124453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.268860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8464-ef123f766777</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.123453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.257860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8465-ef123f766777</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.123853</LatitudeCoordinate>
+        <LongitudeCoordinate>5.260860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8461-ef123f766778</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.121453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.265860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8462-ef123f766778</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.124453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.263860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8463-ef123f766778</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.122453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.264860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8464-ef123f766778</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.121453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.258860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8465-ef123f766778</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.120853</LatitudeCoordinate>
+        <LongitudeCoordinate>5.257860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8461-ef123f766779</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.118453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.265860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8462-ef123f766779</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.126453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.266860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8463-ef123f766779</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.124453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.268860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8464-ef123f766779</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.123453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.257860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8465-ef123f766779</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.123853</LatitudeCoordinate>
+        <LongitudeCoordinate>5.260860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+	  <OID OIDType="UUID">009941ff-b243-11db-8461-ef123f766781</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.118453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.265860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8462-ef123f766781</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.126453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.266860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8463-ef123f766781</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.124453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.268860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8464-ef123f766781</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.123453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.257860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8465-ef123f766781</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.123853</LatitudeCoordinate>
+        <LongitudeCoordinate>5.260860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+	  <OID OIDType="UUID">009941ff-b243-11db-8461-ef123f766782</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.118453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.265860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8462-ef123f766782</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.126453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.266860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8463-ef123f766782</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.124453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.268860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8464-ef123f766782</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.123453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.257860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8465-ef123f766782</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.123853</LatitudeCoordinate>
+        <LongitudeCoordinate>5.260860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+	<Organisation-MilitaryPost>
+    <OID OIDType="UUID">009941ff-b243-11db-8463-ef123f766783</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.124453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.268860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8464-ef123f766783</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.123453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.257860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8465-ef123f766783</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.123853</LatitudeCoordinate>
+        <LongitudeCoordinate>5.260860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+	<Organisation-MilitaryPost>
+	<OID OIDType="UUID">009941ff-b243-11db-8463-ef123f766784</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.124453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.268860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8464-ef123f766784</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.123453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.257860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8465-ef123f766784</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.123853</LatitudeCoordinate>
+        <LongitudeCoordinate>5.260860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8464-ef123f766785</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.123453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.257860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8465-ef123f766785</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.123853</LatitudeCoordinate>
+        <LongitudeCoordinate>5.260860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+	<Organisation-MilitaryPost>
+	<OID OIDType="UUID">009941ff-b243-11db-8463-ef123f766785</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.124453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.268860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8464-ef123f766785</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.123453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.257860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8465-ef123f766785</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.123853</LatitudeCoordinate>
+        <LongitudeCoordinate>5.260860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+	<Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8464-ef123f766786</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.123453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.257860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8465-ef123f766786</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.123853</LatitudeCoordinate>
+        <LongitudeCoordinate>5.260860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+	<Organisation-MilitaryPost>
+	<OID OIDType="UUID">009941ff-b243-11db-8463-ef123f766786</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.124453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.268860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8464-ef123f766786</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.123453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.257860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8465-ef123f766786</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.123853</LatitudeCoordinate>
+        <LongitudeCoordinate>5.260860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8461-ef123f766787</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.118453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.265860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8462-ef123f766787</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.126453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.266860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8463-ef123f766787</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.124453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.268860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8464-ef123f766787</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.123453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.257860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8465-ef123f766787</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.123853</LatitudeCoordinate>
+        <LongitudeCoordinate>5.260860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8461-ef123f766788</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.121453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.265860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8462-ef123f766788</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.124453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.263860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8463-ef123f766788</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.122453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.264860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8464-ef123f766788</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.121453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.258860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8465-ef123f766788</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.120853</LatitudeCoordinate>
+        <LongitudeCoordinate>5.257860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8461-ef123f766789</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.118453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.265860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8462-ef123f766789</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.126453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.266860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8463-ef123f766789</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.124453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.268860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8464-ef123f766789</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.123453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.257860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8465-ef123f766789</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.123853</LatitudeCoordinate>
+        <LongitudeCoordinate>5.260860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+	  <OID OIDType="UUID">009941ff-b243-11db-8461-ef123f766790</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.118453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.265860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8462-ef123f766790</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.126453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.266860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8463-ef123f766790</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.124453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.268860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8464-ef123f766790</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.123453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.257860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8465-ef123f766790</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.123853</LatitudeCoordinate>
+        <LongitudeCoordinate>5.260860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+	  <OID OIDType="UUID">009941ff-b243-11db-8461-ef123f766791</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.118453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.265860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8462-ef123f766791</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.126453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.266860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8463-ef123f766791</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.124453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.268860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8464-ef123f766791</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.123453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.257860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8465-ef123f766791</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.123853</LatitudeCoordinate>
+        <LongitudeCoordinate>5.260860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+	<Organisation-MilitaryPost>
+    <OID OIDType="UUID">009941ff-b243-11db-8463-ef123f766792</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.124453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.268860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8464-ef123f766792</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.123453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.257860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8465-ef123f766792</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.123853</LatitudeCoordinate>
+        <LongitudeCoordinate>5.260860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+	<Organisation-MilitaryPost>
+	<OID OIDType="UUID">009941ff-b243-11db-8463-ef123f766793</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.124453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.268860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8464-ef123f766793</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.123453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.257860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8465-ef123f766793</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.123853</LatitudeCoordinate>
+        <LongitudeCoordinate>5.260860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8464-ef123f766794</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.123453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.257860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8465-ef123f766794</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.123853</LatitudeCoordinate>
+        <LongitudeCoordinate>5.260860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+	<OID OIDType="UUID">009941ff-b243-11db-8463-ef123f766794</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.124453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.268860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8464-ef123f766794</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.123453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.257860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8465-ef123f766794</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.123853</LatitudeCoordinate>
+        <LongitudeCoordinate>5.260860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+	<Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8464-ef123f76695</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.123453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.257860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8465-ef123f766795</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.123853</LatitudeCoordinate>
+        <LongitudeCoordinate>5.260860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+	<OID OIDType="UUID">009941ff-b243-11db-8463-ef123f766795</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.124453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.268860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8464-ef123f766795</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.123453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.257860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-8465-ef123f766795</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.123853</LatitudeCoordinate>
+        <LongitudeCoordinate>5.260860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+	</PresenceMsg>	
+</JDSSDMMessage>

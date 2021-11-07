@@ -1,0 +1,490 @@
+<JDSSDMMessage xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:int:nato:standard:mip:jdssdm:1.1">
+  <Id OIDType="UUID">bd3470db-7ffd-4ab6-be92-b71b35627f47</Id>
+  <Datetime>20180724115255.618</Datetime>
+  <Originator OIDType="UUID">009941ff-b243-11db-8460-ffff3f766789</Originator>
+  <OriginatorCountryCode>NLD</OriginatorCountryCode>
+  <IdentificationMsg>
+    <Unit>
+      <OID>009941ff-b243-11db-8460-ffff3f766789</OID>
+      <NameText>DAU</NameText>
+      <HostilityStatusCode>FR</HostilityStatusCode>
+      <UnitType>
+        <OID>009941ff-b243-11db-8460-ffff3f766789</OID>
+        <NameText>DAU</NameText>
+        <CommandFunctionIndicatorCode>NO</CommandFunctionIndicatorCode>
+        <ServiceCode>NOS</ServiceCode>
+        <CategoryCode>COMSPT</CategoryCode>
+        <ArmCategoryCode>HQSTF</ArmCategoryCode>
+        <SizeCode>NOS</SizeCode>
+      </UnitType>
+      <FormalAbbreviatedNameText>DAU</FormalAbbreviatedNameText>
+      <OperationalStatusCode>OPR</OperationalStatusCode>
+      <IsAddressable>true</IsAddressable>
+    </Unit>
+    <Organisation-MilitaryPost>
+      <OID>009941ff-b243-11db-8460-ef123f766789</OID>
+      <NameText>SOLDIER0</NameText>
+      <HostilityStatusCode>FR</HostilityStatusCode>
+      <AffiliationGeopolitical-Code>NLD</AffiliationGeopolitical-Code>
+      <MilitaryPostType>
+        <OID>009941ff-b243-11db-8460-ef123f766789</OID>
+        <NameText>SOLDIER0</NameText>
+        <CategoryCode>NOS</CategoryCode>
+      </MilitaryPostType>
+      <OperationalStatusCode>OPR</OperationalStatusCode>
+      <GeographicPoint>
+        <LatitudeCoordinate>51.752671</LatitudeCoordinate>
+        <LongitudeCoordinate>14.093253</LongitudeCoordinate>
+        <BearingAngle>0</BearingAngle>
+        <SpeedRate>121</SpeedRate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Materiel>
+      <OID OIDType="UUID">953b9612-31c3-dfc6-5105-5950461bb120</OID>
+      <NameText />
+      <HostilityStatusCode>FR</HostilityStatusCode>
+      <AffiliationGeopolitical-Code>NLD</AffiliationGeopolitical-Code>
+      <VehicleType>
+        <OID OIDType="UUID">00000002-0000-0000-0000-000000000000</OID>
+        <NameText />
+        <CategoryCode>APC</CategoryCode>
+      </VehicleType>
+      <GeographicPoint>
+        <LatitudeCoordinate>51.989629</LatitudeCoordinate>
+        <LongitudeCoordinate>4.977450</LongitudeCoordinate>
+      </GeographicPoint>
+    </Materiel>
+    <Materiel>
+      <OID OIDType="UUID">41c58a80-1a38-3eaf-b224-8d15acd0ee90</OID>
+      <NameText />
+      <HostilityStatusCode>FR</HostilityStatusCode>
+      <AffiliationGeopolitical-Code>NLD</AffiliationGeopolitical-Code>
+      <VehicleType>
+        <OID OIDType="UUID">00000003-0000-0000-0000-000000000000</OID>
+        <NameText />
+        <CategoryCode>NOS</CategoryCode>
+      </VehicleType>
+      <GeographicPoint>
+        <LatitudeCoordinate>51.989346</LatitudeCoordinate>
+        <LongitudeCoordinate>4.977698</LongitudeCoordinate>
+      </GeographicPoint>
+    </Materiel>
+    <Materiel>
+      <OID OIDType="UUID">3b7d71c9-14dc-a279-95f4-94f508d5a113</OID>
+      <NameText />
+      <HostilityStatusCode>FR</HostilityStatusCode>
+      <AffiliationGeopolitical-Code>NLD</AffiliationGeopolitical-Code>
+      <VehicleType>
+        <OID OIDType="UUID">00000004-0000-0000-0000-000000000000</OID>
+        <NameText />
+        <CategoryCode>NOS</CategoryCode>
+      </VehicleType>
+      <GeographicPoint>
+        <LatitudeCoordinate>51.990042</LatitudeCoordinate>
+        <LongitudeCoordinate>4.977657</LongitudeCoordinate>
+      </GeographicPoint>
+    </Materiel>
+    <Materiel>
+      <OID OIDType="UUID">932a12f7-ab6d-12b2-03d9-1c14b65bf134</OID>
+      <NameText />
+      <HostilityStatusCode>FR</HostilityStatusCode>
+      <AffiliationGeopolitical-Code>NLD</AffiliationGeopolitical-Code>
+      <VehicleType>
+        <OID OIDType="UUID">00000005-0000-0000-0000-000000000000</OID>
+        <NameText />
+        <CategoryCode>APC</CategoryCode>
+      </VehicleType>
+      <GeographicPoint>
+        <LatitudeCoordinate>51.989379</LatitudeCoordinate>
+        <LongitudeCoordinate>4.976812</LongitudeCoordinate>
+      </GeographicPoint>
+    </Materiel>
+    <Materiel>
+      <OID OIDType="UUID">db189ffc-6f90-3363-ad2a-a65002e401b4</OID>
+      <NameText />
+      <HostilityStatusCode>FR</HostilityStatusCode>
+      <AffiliationGeopolitical-Code>NLD</AffiliationGeopolitical-Code>
+      <VehicleType>
+        <OID OIDType="UUID">00000006-0000-0000-0000-000000000000</OID>
+        <NameText />
+        <CategoryCode>APC</CategoryCode>
+      </VehicleType>
+      <GeographicPoint>
+        <LatitudeCoordinate>51.989227</LatitudeCoordinate>
+        <LongitudeCoordinate>4.977337</LongitudeCoordinate>
+      </GeographicPoint>
+    </Materiel>
+    <Materiel>
+      <OID OIDType="UUID">646ff6fb-72f3-c11c-0e41-be4ca8950e0e</OID>
+      <NameText />
+      <HostilityStatusCode>FR</HostilityStatusCode>
+      <AffiliationGeopolitical-Code>NLD</AffiliationGeopolitical-Code>
+      <VehicleType>
+        <OID OIDType="UUID">00000007-0000-0000-0000-000000000000</OID>
+        <NameText />
+        <CategoryCode>APC</CategoryCode>
+      </VehicleType>
+      <GeographicPoint>
+        <LatitudeCoordinate>51.989489</LatitudeCoordinate>
+        <LongitudeCoordinate>4.977493</LongitudeCoordinate>
+      </GeographicPoint>
+    </Materiel>
+    <Materiel>
+      <OID OIDType="UUID">cc517fb2-d8f6-cdfd-e10f-dd2b37ab3be3</OID>
+      <NameText />
+      <HostilityStatusCode>FR</HostilityStatusCode>
+      <AffiliationGeopolitical-Code>NLD</AffiliationGeopolitical-Code>
+      <VehicleType>
+        <OID OIDType="UUID">00000008-0000-0000-0000-000000000000</OID>
+        <NameText />
+        <CategoryCode>NOS</CategoryCode>
+      </VehicleType>
+      <GeographicPoint>
+        <LatitudeCoordinate>51.989483</LatitudeCoordinate>
+        <LongitudeCoordinate>4.977473</LongitudeCoordinate>
+      </GeographicPoint>
+    </Materiel>
+    <Materiel>
+      <OID OIDType="UUID">e7d7c1b0-5ec2-4fa4-6cd7-ca6141c500d9</OID>
+      <NameText />
+      <HostilityStatusCode>FR</HostilityStatusCode>
+      <AffiliationGeopolitical-Code>NLD</AffiliationGeopolitical-Code>
+      <VehicleType>
+        <OID OIDType="UUID">00000009-0000-0000-0000-000000000000</OID>
+        <NameText />
+        <CategoryCode>NOS</CategoryCode>
+      </VehicleType>
+      <GeographicPoint>
+        <LatitudeCoordinate>51.981406</LatitudeCoordinate>
+        <LongitudeCoordinate>5.023939</LongitudeCoordinate>
+      </GeographicPoint>
+    </Materiel>
+    <Materiel>
+      <OID OIDType="UUID">f6ae3c79-0f70-e17e-2d32-674eb62be587</OID>
+      <NameText />
+      <HostilityStatusCode>FR</HostilityStatusCode>
+      <AffiliationGeopolitical-Code>NLD</AffiliationGeopolitical-Code>
+      <VehicleType>
+        <OID OIDType="UUID">0000000a-0000-0000-0000-000000000000</OID>
+        <NameText />
+        <CategoryCode>NOS</CategoryCode>
+      </VehicleType>
+      <GeographicPoint>
+        <LatitudeCoordinate>51.981024</LatitudeCoordinate>
+        <LongitudeCoordinate>5.024311</LongitudeCoordinate>
+      </GeographicPoint>
+    </Materiel>
+    <Materiel>
+      <OID OIDType="UUID">a30a608e-2e84-eb61-1343-31b007098b6b</OID>
+      <NameText />
+      <HostilityStatusCode>FR</HostilityStatusCode>
+      <AffiliationGeopolitical-Code>NLD</AffiliationGeopolitical-Code>
+      <VehicleType>
+        <OID OIDType="UUID">0000000b-0000-0000-0000-000000000000</OID>
+        <NameText />
+        <CategoryCode>NOS</CategoryCode>
+      </VehicleType>
+      <GeographicPoint>
+        <LatitudeCoordinate>51.981397</LatitudeCoordinate>
+        <LongitudeCoordinate>5.024598</LongitudeCoordinate>
+      </GeographicPoint>
+    </Materiel>
+    <Materiel>
+      <OID OIDType="UUID">f4a92dce-2cf2-2662-8e7b-bfd761de43d8</OID>
+      <NameText />
+      <HostilityStatusCode>FR</HostilityStatusCode>
+      <AffiliationGeopolitical-Code>NLD</AffiliationGeopolitical-Code>
+      <VehicleType>
+        <OID OIDType="UUID">0000000c-0000-0000-0000-000000000000</OID>
+        <NameText />
+        <CategoryCode>APC</CategoryCode>
+      </VehicleType>
+      <GeographicPoint>
+        <LatitudeCoordinate>51.981105</LatitudeCoordinate>
+        <LongitudeCoordinate>5.024323</LongitudeCoordinate>
+      </GeographicPoint>
+    </Materiel>
+    <Materiel>
+      <OID OIDType="UUID">5a67305f-fc26-17fd-79aa-046411dc1138</OID>
+      <NameText />
+      <HostilityStatusCode>FR</HostilityStatusCode>
+      <AffiliationGeopolitical-Code>NLD</AffiliationGeopolitical-Code>
+      <VehicleType>
+        <OID OIDType="UUID">0000000d-0000-0000-0000-000000000000</OID>
+        <NameText />
+        <CategoryCode>ACVACV</CategoryCode>
+      </VehicleType>
+      <GeographicPoint>
+        <LatitudeCoordinate>51.981198</LatitudeCoordinate>
+        <LongitudeCoordinate>5.024044</LongitudeCoordinate>
+      </GeographicPoint>
+    </Materiel>
+    <Materiel>
+      <OID OIDType="UUID">77174d99-9643-51a6-900c-e21a9ceab7b5</OID>
+      <NameText />
+      <HostilityStatusCode>FR</HostilityStatusCode>
+      <AffiliationGeopolitical-Code>NLD</AffiliationGeopolitical-Code>
+      <VehicleType>
+        <OID OIDType="UUID">0000000e-0000-0000-0000-000000000000</OID>
+        <NameText />
+        <CategoryCode>NOS</CategoryCode>
+      </VehicleType>
+      <GeographicPoint>
+        <LatitudeCoordinate>51.981079</LatitudeCoordinate>
+        <LongitudeCoordinate>5.024609</LongitudeCoordinate>
+      </GeographicPoint>
+    </Materiel>
+    <Materiel>
+      <OID OIDType="UUID">d2ff8936-d3a2-9616-58ab-725e59531250</OID>
+      <NameText />
+      <HostilityStatusCode>FR</HostilityStatusCode>
+      <AffiliationGeopolitical-Code>NLD</AffiliationGeopolitical-Code>
+      <VehicleType>
+        <OID OIDType="UUID">0000000f-0000-0000-0000-000000000000</OID>
+        <NameText />
+        <CategoryCode>NOS</CategoryCode>
+      </VehicleType>
+      <GeographicPoint>
+        <LatitudeCoordinate>51.981409</LatitudeCoordinate>
+        <LongitudeCoordinate>5.024607</LongitudeCoordinate>
+      </GeographicPoint>
+    </Materiel>
+    <Materiel>
+      <OID OIDType="UUID">b436dab4-469d-f610-aefe-be5467a6cf58</OID>
+      <NameText />
+      <HostilityStatusCode>FR</HostilityStatusCode>
+      <AffiliationGeopolitical-Code>NLD</AffiliationGeopolitical-Code>
+      <WeaponType>
+        <OID OIDType="UUID">00000010-0000-0000-0000-000000000000</OID>
+        <NameText />
+        <SubcategoryCode>BTNKHE</SubcategoryCode>
+      </WeaponType>
+      <OperationalStatusCode>NKN</OperationalStatusCode>
+    </Materiel>
+    <Materiel>
+      <OID OIDType="UUID">df4476fb-df7c-7e5b-3358-3d09be5b1c70</OID>
+      <NameText />
+      <HostilityStatusCode>FR</HostilityStatusCode>
+      <AffiliationGeopolitical-Code>NLD</AffiliationGeopolitical-Code>
+      <WeaponType>
+        <OID OIDType="UUID">00000011-0000-0000-0000-000000000000</OID>
+        <NameText />
+        <SubcategoryCode>BTNKHE</SubcategoryCode>
+      </WeaponType>
+      <OperationalStatusCode>NKN</OperationalStatusCode>
+    </Materiel>
+    <Materiel>
+      <OID OIDType="UUID">ff96b85b-13eb-af7a-3376-7089ccbc3856</OID>
+      <NameText />
+      <HostilityStatusCode>FR</HostilityStatusCode>
+      <AffiliationGeopolitical-Code>NLD</AffiliationGeopolitical-Code>
+      <WeaponType>
+        <OID OIDType="UUID">00000012-0000-0000-0000-000000000000</OID>
+        <NameText />
+        <SubcategoryCode>BTNKHE</SubcategoryCode>
+      </WeaponType>
+      <OperationalStatusCode>NKN</OperationalStatusCode>
+    </Materiel>
+    <Materiel>
+      <OID OIDType="UUID">2278b420-43fa-5ee7-8628-b69fdd84feb1</OID>
+      <NameText />
+      <HostilityStatusCode>FR</HostilityStatusCode>
+      <AffiliationGeopolitical-Code>NLD</AffiliationGeopolitical-Code>
+      <WeaponType>
+        <OID OIDType="UUID">00000013-0000-0000-0000-000000000000</OID>
+        <NameText />
+        <SubcategoryCode>BTNKHE</SubcategoryCode>
+      </WeaponType>
+      <OperationalStatusCode>NKN</OperationalStatusCode>
+    </Materiel>
+    <Materiel>
+      <OID OIDType="UUID">37a1a80c-a613-aef0-0e5a-c66510c0640c</OID>
+      <NameText />
+      <HostilityStatusCode>FR</HostilityStatusCode>
+      <AffiliationGeopolitical-Code>NLD</AffiliationGeopolitical-Code>
+      <WeaponType>
+        <OID OIDType="UUID">00000014-0000-0000-0000-000000000000</OID>
+        <NameText />
+        <SubcategoryCode>BTNKHE</SubcategoryCode>
+      </WeaponType>
+      <OperationalStatusCode>NKN</OperationalStatusCode>
+    </Materiel>
+    <Materiel>
+      <OID OIDType="UUID">49cb51f7-fdfe-528b-934f-e05b7fc1757c</OID>
+      <NameText />
+      <HostilityStatusCode>FR</HostilityStatusCode>
+      <AffiliationGeopolitical-Code>NLD</AffiliationGeopolitical-Code>
+      <WeaponType>
+        <OID OIDType="UUID">00000015-0000-0000-0000-000000000000</OID>
+        <NameText />
+        <SubcategoryCode>BTNKHE</SubcategoryCode>
+      </WeaponType>
+      <OperationalStatusCode>NKN</OperationalStatusCode>
+    </Materiel>
+    <Materiel>
+      <OID OIDType="UUID">c9d3ee4f-72cd-7f65-1297-0816d9c9ad69</OID>
+      <NameText />
+      <HostilityStatusCode>FR</HostilityStatusCode>
+      <AffiliationGeopolitical-Code>NLD</AffiliationGeopolitical-Code>
+      <WeaponType>
+        <OID OIDType="UUID">00000016-0000-0000-0000-000000000000</OID>
+        <NameText />
+        <SubcategoryCode>BTNKHE</SubcategoryCode>
+      </WeaponType>
+      <OperationalStatusCode>NKN</OperationalStatusCode>
+    </Materiel>
+    <Materiel>
+      <OID OIDType="UUID">220c14d3-3dc0-c36c-16dd-d5c5bdd9338a</OID>
+      <NameText />
+      <HostilityStatusCode>FR</HostilityStatusCode>
+      <AffiliationGeopolitical-Code>NLD</AffiliationGeopolitical-Code>
+      <WeaponType>
+        <OID OIDType="UUID">00000017-0000-0000-0000-000000000000</OID>
+        <NameText />
+        <SubcategoryCode>BTNKLI</SubcategoryCode>
+      </WeaponType>
+      <OperationalStatusCode>NKN</OperationalStatusCode>
+    </Materiel>
+    <Materiel>
+      <OID OIDType="UUID">1f863e99-066b-d3c9-0e95-2f8b8c741b3d</OID>
+      <NameText />
+      <HostilityStatusCode>FR</HostilityStatusCode>
+      <AffiliationGeopolitical-Code>NLD</AffiliationGeopolitical-Code>
+      <WeaponType>
+        <OID OIDType="UUID">00000018-0000-0000-0000-000000000000</OID>
+        <NameText />
+        <SubcategoryCode>BTNKLI</SubcategoryCode>
+      </WeaponType>
+      <OperationalStatusCode>NKN</OperationalStatusCode>
+    </Materiel>
+    <Materiel>
+      <OID OIDType="UUID">57672b6d-0433-5060-ba59-5773eef8d82e</OID>
+      <NameText />
+      <HostilityStatusCode>FR</HostilityStatusCode>
+      <AffiliationGeopolitical-Code>NLD</AffiliationGeopolitical-Code>
+      <WeaponType>
+        <OID OIDType="UUID">00000019-0000-0000-0000-000000000000</OID>
+        <NameText />
+        <SubcategoryCode>BTNKME</SubcategoryCode>
+      </WeaponType>
+      <OperationalStatusCode>NKN</OperationalStatusCode>
+    </Materiel>
+    <Materiel>
+      <OID OIDType="UUID">98fcd673-d8d8-87de-7bf7-5482b590de22</OID>
+      <NameText />
+      <HostilityStatusCode>FR</HostilityStatusCode>
+      <AffiliationGeopolitical-Code>NLD</AffiliationGeopolitical-Code>
+      <WeaponType>
+        <OID OIDType="UUID">0000001a-0000-0000-0000-000000000000</OID>
+        <NameText />
+        <SubcategoryCode>BTNKME</SubcategoryCode>
+      </WeaponType>
+      <OperationalStatusCode>NKN</OperationalStatusCode>
+    </Materiel>
+    <Materiel>
+      <OID OIDType="UUID">4bdc1288-6790-c42d-08ee-c50206ae78b5</OID>
+      <NameText />
+      <HostilityStatusCode>FR</HostilityStatusCode>
+      <AffiliationGeopolitical-Code>NLD</AffiliationGeopolitical-Code>
+      <VehicleType>
+        <OID OIDType="UUID">0000001b-0000-0000-0000-000000000000</OID>
+        <NameText />
+        <CategoryCode>NOS</CategoryCode>
+      </VehicleType>
+      <GeographicPoint>
+        <LatitudeCoordinate>51.979444</LatitudeCoordinate>
+        <LongitudeCoordinate>5.027414</LongitudeCoordinate>
+      </GeographicPoint>
+    </Materiel>
+    <Materiel>
+      <OID OIDType="UUID">df7b7b0a-dfc5-32c5-1dcf-0d0c84ca75a7</OID>
+      <NameText />
+      <HostilityStatusCode>FR</HostilityStatusCode>
+      <AffiliationGeopolitical-Code>NLD</AffiliationGeopolitical-Code>
+      <VehicleType>
+        <OID OIDType="UUID">0000001c-0000-0000-0000-000000000000</OID>
+        <NameText />
+        <CategoryCode>NOS</CategoryCode>
+      </VehicleType>
+      <GeographicPoint>
+        <LatitudeCoordinate>51.979723</LatitudeCoordinate>
+        <LongitudeCoordinate>5.027098</LongitudeCoordinate>
+      </GeographicPoint>
+    </Materiel>
+    <Materiel>
+      <OID OIDType="UUID">ce3b1725-5f55-6727-70c8-5a9bf24244f9</OID>
+      <NameText />
+      <HostilityStatusCode>FR</HostilityStatusCode>
+      <AffiliationGeopolitical-Code>NLD</AffiliationGeopolitical-Code>
+      <VehicleType>
+        <OID OIDType="UUID">0000001d-0000-0000-0000-000000000000</OID>
+        <NameText />
+        <CategoryCode>NOS</CategoryCode>
+      </VehicleType>
+      <GeographicPoint>
+        <LatitudeCoordinate>51.979603</LatitudeCoordinate>
+        <LongitudeCoordinate>5.026457</LongitudeCoordinate>
+      </GeographicPoint>
+    </Materiel>
+    <Materiel>
+      <OID OIDType="UUID">2ea62617-448a-3608-6189-48930ad4e3e2</OID>
+      <NameText />
+      <HostilityStatusCode>FR</HostilityStatusCode>
+      <AffiliationGeopolitical-Code>NLD</AffiliationGeopolitical-Code>
+      <VehicleType>
+        <OID OIDType="UUID">0000001e-0000-0000-0000-000000000000</OID>
+        <NameText />
+        <CategoryCode>NOS</CategoryCode>
+      </VehicleType>
+      <GeographicPoint>
+        <LatitudeCoordinate>51.979132</LatitudeCoordinate>
+        <LongitudeCoordinate>5.027143</LongitudeCoordinate>
+      </GeographicPoint>
+    </Materiel>
+    <Materiel>
+      <OID OIDType="UUID">7f185513-6025-7f66-282e-cb51f22d5f2e</OID>
+      <NameText />
+      <HostilityStatusCode>FR</HostilityStatusCode>
+      <AffiliationGeopolitical-Code>NLD</AffiliationGeopolitical-Code>
+      <VehicleType>
+        <OID OIDType="UUID">0000001f-0000-0000-0000-000000000000</OID>
+        <NameText />
+        <CategoryCode>NOS</CategoryCode>
+      </VehicleType>
+      <GeographicPoint>
+        <LatitudeCoordinate>51.979469</LatitudeCoordinate>
+        <LongitudeCoordinate>5.027368</LongitudeCoordinate>
+      </GeographicPoint>
+    </Materiel>
+    <Materiel>
+      <OID OIDType="UUID">51f302c9-4421-43b4-10ca-396304210f08</OID>
+      <NameText />
+      <HostilityStatusCode>FR</HostilityStatusCode>
+      <AffiliationGeopolitical-Code>NLD</AffiliationGeopolitical-Code>
+      <VehicleType>
+        <OID OIDType="UUID">00000020-0000-0000-0000-000000000000</OID>
+        <NameText />
+        <CategoryCode>NOS</CategoryCode>
+      </VehicleType>
+      <GeographicPoint>
+        <LatitudeCoordinate>51.979054</LatitudeCoordinate>
+        <LongitudeCoordinate>5.026790</LongitudeCoordinate>
+      </GeographicPoint>
+    </Materiel>
+    <Materiel>
+      <OID OIDType="UUID">32cc695b-2b70-d357-85e4-07f050ed2420</OID>
+      <NameText />
+      <HostilityStatusCode>FR</HostilityStatusCode>
+      <AffiliationGeopolitical-Code>NLD</AffiliationGeopolitical-Code>
+      <VehicleType>
+        <OID OIDType="UUID">00000001-0000-0000-0000-000000000000</OID>
+        <NameText />
+        <CategoryCode>NOS</CategoryCode>
+      </VehicleType>
+      <GeographicPoint>
+        <LatitudeCoordinate>51.989329</LatitudeCoordinate>
+        <LongitudeCoordinate>4.976906</LongitudeCoordinate>
+      </GeographicPoint>
+    </Materiel>
+  </IdentificationMsg>
+</JDSSDMMessage>

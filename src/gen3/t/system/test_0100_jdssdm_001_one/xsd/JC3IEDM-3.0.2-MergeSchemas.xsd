@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2005 rel. 3 U (http://www.altova.com) by DTO Maasland (DTO Maasland) -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:jc3iedm="urn:int:nato:standard:mip:jc3iedm:3.0.2:oo:2.2" targetNamespace="urn:int:nato:standard:mip:jc3iedm:3.0.2:oo:2.2" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<!--This schema is used to merge others schemas from the same namespace because a bug in Exificient prevent to import more than one schema from another namespace -->
+	<!-- In main schema, import this Merge schema instead of importing every types schema -->
+	<include schemaLocation="JC3IEDM-3.0.2-Codes-JDSSDM.xsd"/>
+	<include schemaLocation="JC3IEDM-3.0.2-Codes-JDSSDM-subset.xsd"/>
+	<include schemaLocation="JC3IEDM-3.0.2-SimpleTypes-JDSSDM.xsd"/>
+</schema>

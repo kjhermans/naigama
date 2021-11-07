@@ -1,0 +1,196 @@
+  call CMD
+  end
+-- Rule
+CMD:
+  catch __RIGHTHAND_6
+  opencapture 0
+  catch __RIGHTHAND_14
+  quad 6e657874
+  commit __LEFTHAND_15
+__RIGHTHAND_14:
+  char 6e
+__LEFTHAND_15:
+  closecapture 0 0
+  commit __LEFTHAND_7
+__RIGHTHAND_6:
+  catch __RIGHTHAND_28
+  opencapture 1
+  catch __RIGHTHAND_36
+  quad 71756974
+  commit __LEFTHAND_37
+__RIGHTHAND_36:
+  char 71
+__LEFTHAND_37:
+  closecapture 1 0
+  commit __LEFTHAND_29
+__RIGHTHAND_28:
+  catch __RIGHTHAND_50
+  opencapture 2
+  catch __RIGHTHAND_58
+  quad 636f6e74
+  commit __LEFTHAND_59
+__RIGHTHAND_58:
+  char 63
+__LEFTHAND_59:
+  closecapture 2 0
+  commit __LEFTHAND_51
+__RIGHTHAND_50:
+  catch __RIGHTHAND_72
+  opencapture 3
+  catch __RIGHTHAND_80
+  quad 6f766572
+  commit __LEFTHAND_81
+__RIGHTHAND_80:
+  char 6f
+__LEFTHAND_81:
+  closecapture 3 0
+  commit __LEFTHAND_73
+__RIGHTHAND_72:
+  catch __RIGHTHAND_94
+  opencapture 4
+  catch __RIGHTHAND_102
+  quad 68656c70
+  commit __LEFTHAND_103
+__RIGHTHAND_102:
+  catch __RIGHTHAND_110
+  char 68
+  commit __LEFTHAND_111
+__RIGHTHAND_110:
+  char 3f
+__LEFTHAND_111:
+__LEFTHAND_103:
+  closecapture 4 0
+  commit __LEFTHAND_95
+__RIGHTHAND_94:
+  catch __RIGHTHAND_124
+  opencapture 5
+  catch __RIGHTHAND_132
+  quad 76657262
+  char 6f
+  char 73
+  char 65
+  commit __LEFTHAND_133
+__RIGHTHAND_132:
+  char 76
+__LEFTHAND_133:
+  closecapture 5 0
+  commit __LEFTHAND_125
+__RIGHTHAND_124:
+  catch __RIGHTHAND_146
+  opencapture 6
+  quad 73746174
+  char 65
+  closecapture 6 0
+  commit __LEFTHAND_147
+__RIGHTHAND_146:
+  catch __RIGHTHAND_160
+  opencapture 7
+  quad 696e7075
+  char 74
+  set 002e000001000000000000000000000000000000000000000000000000000000
+  catch __TERM_178
+__TERM_177:
+  set 002e000001000000000000000000000000000000000000000000000000000000
+  partialcommit __TERM_177
+__TERM_178:
+  catch __RIGHTHAND_186
+  quad 6f666673
+  char 65
+  char 74
+  set 002e000001000000000000000000000000000000000000000000000000000000
+  catch __TERM_198
+__TERM_197:
+  set 002e000001000000000000000000000000000000000000000000000000000000
+  partialcommit __TERM_197
+__TERM_198:
+  opencapture 8
+  set 000000000000ff03000000000000000000000000000000000000000000000000
+  catch __TERM_210
+__TERM_209:
+  set 000000000000ff03000000000000000000000000000000000000000000000000
+  partialcommit __TERM_209
+__TERM_210:
+  closecapture 8 0
+  commit __LEFTHAND_187
+__RIGHTHAND_186:
+  quad 74657874
+  set 002e000001000000000000000000000000000000000000000000000000000000
+  catch __TERM_222
+__TERM_221:
+  set 002e000001000000000000000000000000000000000000000000000000000000
+  partialcommit __TERM_221
+__TERM_222:
+  opencapture 9
+  any
+  catch __TERM_234
+__TERM_233:
+  any
+  partialcommit __TERM_233
+__TERM_234:
+  closecapture 9 0
+__LEFTHAND_187:
+  closecapture 7 0
+  commit __LEFTHAND_161
+__RIGHTHAND_160:
+  catch __RIGHTHAND_236
+  opencapture 10
+  quad 696e7374
+  char 72
+  set 002e000001000000000000000000000000000000000000000000000000000000
+  catch __TERM_254
+__TERM_253:
+  set 002e000001000000000000000000000000000000000000000000000000000000
+  partialcommit __TERM_253
+__TERM_254:
+  opencapture 11
+  catch __TERM_265
+  counter 0 63
+__TERM_266:
+  set 000000000000000000000000feffff0700000000000000000000000000000000
+  partialcommit __TERM_267
+__TERM_267:
+  condjump 0 __TERM_266
+  commit __TERM_265
+__TERM_265:
+  closecapture 11 0
+  closecapture 10 0
+  commit __LEFTHAND_237
+__RIGHTHAND_236:
+  opencapture 12
+  quad 6c616265
+  char 6c
+  set 002e000001000000000000000000000000000000000000000000000000000000
+  catch __TERM_284
+__TERM_283:
+  set 002e000001000000000000000000000000000000000000000000000000000000
+  partialcommit __TERM_283
+__TERM_284:
+  opencapture 13
+  set 0000000000000000feffff87feffff0700000000000000000000000000000000
+  catch __TERM_301
+  counter 0 63
+__TERM_302:
+  set 000000000000ff03feffff87feffff0700000000000000000000000000000000
+  partialcommit __TERM_303
+__TERM_303:
+  condjump 0 __TERM_302
+  commit __TERM_301
+__TERM_301:
+  closecapture 13 0
+  closecapture 12 0
+__LEFTHAND_237:
+__LEFTHAND_161:
+__LEFTHAND_147:
+__LEFTHAND_125:
+__LEFTHAND_95:
+__LEFTHAND_73:
+__LEFTHAND_51:
+__LEFTHAND_29:
+__LEFTHAND_7:
+  catch __TERM_304
+  any
+  failtwice
+__TERM_304:
+  ret
+
+  end 0

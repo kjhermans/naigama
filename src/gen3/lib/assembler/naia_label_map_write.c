@@ -1,1 +1,0 @@
-../../../gen1/lib/assembler/naia_label_map_write.c

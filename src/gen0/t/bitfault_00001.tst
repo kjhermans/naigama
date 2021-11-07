@@ -1,7 +1,0 @@
--- Grammar:
-
-DATA <- .+
-
--- Input:
-
-foooooo

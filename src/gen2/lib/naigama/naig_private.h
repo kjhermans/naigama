@@ -1,1 +1,0 @@
-../../../gen1/lib/naigama/naig_private.h

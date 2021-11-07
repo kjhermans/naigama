@@ -1,9 +1,0 @@
-\section{Calling 'end' from Grammar}
-
-The Naigama assembly has the possibility to call 'end' with a specific
-code as a parameter. I see this as a handy feature wrt for example
-packet handling; several packet matching rules are concatenated and the
-end code determines what needs to happen to the packet (discard, forward,
-encrypt, etc) - similar to how iptables handles things.
-
-However, the Naigama grammar doesn't support this.

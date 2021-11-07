@@ -1,2 +1,0 @@
-all:
-	@./bin/execute.sh

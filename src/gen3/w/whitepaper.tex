@@ -1,0 +1,1433 @@
+\section{Research Goal}
+
+\subsection{Problem Statement}
+
+Underlying the process of parsing certain message formats, most notably 
+SNMP \cite{bib:snmp}
+(which is typically used for managing network devices) and PKI 
+related messages (X.509 certificates, CRL’s, etc \cite{bib:x509})
+is a grammar 
+specification (Abstract Syntax Notation (ASN.1) \cite{bib:asn1})
+and its binary 
+encodings (Basic Encoding Rules (BER), Canonical Encoding Rules (CER), and 
+Distinguished Encoding Rules (DER) \cite{bib:ber},
+etc, from now on collectively 
+referred to as ‘BER’).
+
+Because these messages are Internet-exchanged, BER encoded messages must 
+be parseable by a recipient that cannot establish their origin, 
+potentially exposing itself to mistakes and malice. To have a BER parser 
+that does not fail, is crucial for the security of logic that depends on 
+it. Ideally therefore, one would like to have a parser that a) is correct, 
+b) retains logical integrity (ie preferably is hardware-based), and c) can 
+traverse deeply into the message (ie may not just perform a ‘well 
+formedness’ check).
+
+BER formatting and the standards that use it, pose a problem to hardware 
+parsing execution for several reasons: the fact that BER is a nested 
+binary Type-Length-Value (TLV) format, and that it has several different 
+compression schemes, most notably of numbers. Also often, at least in the 
+case of SNMP and X.509, the messages may contain a cryptographic signature 
+(which would allow you to verify the integrity of the message and the 
+authenticity of the sender), but these are positioned in the format in a 
+place that already requires parsing, defying the purpose of the security 
+measure. Lastly, the ASN.1 grammar and standards texts describing these 
+formats are sometimes less than formal (ie they require human 
+interpretation). This paper proposes several methods to address these 
+issues.
+
+\subsubsection{Assumptions}
+
+This paper assumes that the reader is familiar with ASN.1 and its binary 
+encodings BER and DER, message formats that use this encoding such as SNMP 
+and X.509, and parsing concepts enabled by grammars, both of the more 
+general kind (eg Backus-Naur \cite{bib:backusnaur},
+regular expressions \cite{bib:regex}, Lex and Yacc \cite{bib:yacc}) and the 
+more specific – in this case: Parsing Expression Grammar, or PEG
+\cite{bib:peg}, or, 
+even more specific: its Lua implementation: LPEG \cite{bib:lpeg}.
+
+\subsubsection{High Level Goals}
+
+Aside from proving that BER can be made parseable using PEG-like parsers, 
+the following high level goals are also kept in mind:
+
+\textit{Minimal extension footprint}. The amount of bugs in code is directly 
+proportional to its size \cite{bib:bugs}.
+To extend any platform with more code 
+therefore, one always needs a thorough rationale. Most notably the PEG 
+bytecode Engine would theoretically suffer the most from any extension of 
+its code base, both from a security and an efficiency standpoint. 
+Therefore, extensions to the Engine must be kept to a minimum.
+
+\textit{Retaining grammar readability}.
+The weakness of any programmable system is 
+mostly contained in the human doing the programming. Readable grammar is 
+an important step in between the intention of the user, and the bytecode 
+execution. Extensions to the existing grammar structure must be kept 
+minimal and, where they occur, must fall within the existing language 
+paradigm.
+
+\subsection{BER Parsing Aspects}
+
+\subsubsection{Nesting}
+
+Like many object serialization formats (such as XML, JSON, YAML, etc), BER 
+seldom encodes just a single scalar: instead it usually requires you to 
+start off with a compound type, containing multiple members which in turn 
+can be compound types etc, effectively serializing a complex tree of data, 
+the end nodes of which are scalars. Certainly the more specific examples 
+of SNMP payloads or X.509 objects all abide by this rule.
+
+The difference between BER and text-based serialization formats such as 
+XML, lies in the way nested sections are delimited by the embedding 
+element: BER tells the parser beforehand, which section of the input, 
+delimited by a byte offset, is nested. XML and the like, on the other 
+hand, leave the parser in the dark about the length of the nested section, 
+until a closing token is encountered.
+
+Below is an example of a BER encoded pair of scalars
+(the bottom row hexadecimal string): an
+OID (type 0x06), and an IPv4 address (type 0x40), nested inside of
+a SEQUENCE (type 0x30).
+
+\begin{changemargin}{-60mm}{0mm}
+\begin{myquote}
+\begin{verbatim}
+Type
+|  Length
+|  |  Value (0x18, runs until here-----------------------------------------|)
+|  |  |                                                                    |
+|  |  Subtype                                               Subtype2       |
+|  |  |  Sublength                                          |  Sublength2  |
+|  |  |  |  Subvalue (0x10 runs until here---------------|) |  |  Subvalue2|
+|  |  |  |  |                                            |  |  |  |        |
+30 18 06 10 2B 06 01 04 01 81 E0 6B 02 02 06 01 06 03 01 01 40 04 C0 A8 50 01
+\end{verbatim}
+\end{myquote}
+\end{changemargin}
+
+Whereas, for example, in JSON \cite{bib:json},
+such a message might be encoded as follows:
+
+\begin{changemargin}{-60mm}{0mm}
+\begin{myquote}
+\begin{verbatim}
+[ "1.3.6.1.4.1.28777.2.2.6.1.6.3.1.1", "192.168.80.1" ]
+\end{verbatim}
+\end{myquote}
+\end{changemargin}
+
+(You can have a discussion about the semantics here, as the intention of
+the BER encoding is to format a name/value pair).
+
+\subsubsection{BER Length Encoding}
+BER is encoded as a binary Type-Length-Value (TLV) (and, in nested 
+compound values, as sequences of TLV’s – as in the Subvalues above).
+The Type or (‘Tag’) field of the TLV is a single byte that poses no 
+parsing problems whatsoever, it can simply be matched and used as a 
+discriminant for any further parsing action.
+
+The Value field of the TLV is simply as long (in bytes) as the Length 
+field denotes (so the lengths of the Type and Length fields of the TLV are 
+considered implicit (Type is always one byte long) or self-descriptive 
+(Length) and therefore ignored.
+
+The Length field of the TLV is the problematic one, from a parsing 
+perspective. To encode it, there are two forms: short (for lengths between 
+0 and 127), and long definite (for lengths between 0 and 21008 -1).
+ 
+Short form. One octet. Bit 8 has value "0" and bits 7-1 give the length. 
+Long form. Two to 127 octets. Bit 8 of first octet has value "1" and bits 
+7-1 give the number of additional length octets. Second and following 
+octets give the length, base 256, most significant digit first.
+\cite{bib:x690}
+Note that lengths 0-127 bytes are implicit in both forms (ie a length of 
+decimal 32 can be encoded as 0x20 and as 0x81 0x20) and that the second 
+form has many, many other possibilities of encoding the same (for example 
+as 0x84 0x00 0x00 0x00 0x20)). Also note that certain derivatives of BER, 
+most notably DER, constrain this behavior (X.690 §10.1 \cite{bib:x690}):
+
+\textit{“The definite form of 
+length encoding shall be used, encoded in the minimum number of octets”}
+
+\subsubsection{OID Encoding}
+
+OIDs (object identifiers) are crucial to the whole idea of SNMP and X.509. 
+The function as the globally unique identifiers, whose values we’re 
+interested in. They can be thought of as a leaf node from a global tree of 
+numbers. Their unique description is formed by the string of numbers 
+(called ‘subidentifiers’) that represents the path one must traverse 
+from the top of the tree, through this tree, to reach this node.
+To be able to present OIDs, safely, to a user, from this parser, is 
+probably desirable. How this is done, whether in binary or in human 
+readable form, is depends on the situation. In human readable form, OIDs 
+are denoted in as a string of subidentifiers with dots in between,
+for example:
+
+\begin{changemargin}{-60mm}{0mm}
+\begin{myquote}
+\begin{verbatim}
+1.3.6.1.4.1.2681.1.2.102
+\end{verbatim}
+\end{myquote}
+\end{changemargin}
+
+BER encodes OIDs as follows:
+\begin{itemize}
+    \item The first two subidentifiers are absorbed in the first octet, as 
+follows:
+    \begin{itemize}
+        \item The first subidentifier is multiplied by forty (decimal 40).
+        \item The second subidentifier is added up to this number.
+        \item The resultant number is encoded as a single byte (note the 
+implication that the first subidentifier cannot be $>$5 and the second 
+cannot be $>$39).
+    \end{itemize}
+    \item Any following subidentifier $<$127 is encoded as a single byte (most 
+relevant bit set to zero).
+    \item Any following subidentifier $>$=127 is encoded ‘a bit like 
+UTF-8’, that is: the minimal length of encoding the number in seven-bit 
+portions is calculated, and for those numbers, minus one, the amount of 
+bytes is produced, with the most relevant bit set to one, plus the 
+remaining portion of seven bits, with the most relevant bit set to zero.
+\end{itemize}
+
+Note that OIDs are always encoded in a fashion that is as sparse as 
+possible (and therefore deterministic). X.690 \cite{bib:x690} stipulates (in 
+§8.19.2) that
+
+\textit{“The subidentifier shall be encoded in the fewest 
+possible octets, that is, the leading octet of the subidentifier shall not 
+have the value }80_{16}\textit{.”}
+
+Below is an example of the OID above, BER encoded and represented as
+a hexadecimal string:
+
+\begin{changemargin}{-60mm}{0mm}
+\begin{myquote}
+\begin{verbatim}
+2B 06 01 04 01 94 79 01 02 66
+\end{verbatim}
+\end{myquote}
+\end{changemargin}
+
+\subsubsection{INTEGER Encoding}
+
+The ASN.1 INTEGER type is encoded in BER by foregoing any leading zeroes, 
+but keeping the signed minus bit:
+Contents octets give the value of the integer, base 256, in two's 
+complement form, most significant digit first, with the minimum number of 
+octets. The value 0 is encoded as a single 00 octet. 
+Some example BER encodings (which also happen to be DER encodings) are 
+given in the table below (from \cite{bib:ber}):
+
+\begin{center}
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Integer value} & \textbf{BER encoding} \\
+\hline
+0 & 02 01 00 \\
+\hline
+127 & 02 01 7F \\
+\hline
+128 & 02 02 00 80 \\
+\hline
+256 & 02 02 01 00 \\
+\hline
+-128 & 02 01 80 \\
+\hline
+-129 & 02 02 FF 7F \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsubsection{Binary Encoding Containing Parseable Text}
+
+In certain cases ‘normal’ text is embedded inside a binary structure. 
+The text in question may even have a structure that must be parsed 
+further. The premise of this paper is, that this can still be done using 
+normal grammar constructs (ie grammar rule definitions). An email address 
+value of an X.509 certificate for example, can still fail a certificate 
+policy or, on success, be served up in its individual parts in the capture 
+list.
+
+\subsubsection{Digital Signatures}
+The topmost structure of an X.509 certificate (RFC 5280 \cite{bib:cert}),
+which is a cryptographically signed DER encoded structure,
+is defined as follows:
+
+\begin{changemargin}{-60mm}{0mm}
+\begin{myquote}
+\begin{verbatim}
+Certificate  ::=  SEQUENCE  {
+        tbsCertificate       TBSCertificate,
+        signatureAlgorithm   AlgorithmIdentifier,
+        signatureValue       BIT STRING  }
+
+TBSCertificate  ::=  SEQUENCE  {
+        version         [0]  EXPLICIT Version DEFAULT v1,
+        serialNumber         CertificateSerialNumber,
+        signature            AlgorithmIdentifier,
+        issuer               Name,
+        validity             Validity,
+        subject              Name,
+        subjectPublicKeyInfo SubjectPublicKeyInfo,
+        issuerUniqueID  [1]  IMPLICIT UniqueIdentifier OPTIONAL,
+                             -- If present, version MUST be v2 or v3
+}
+\end{verbatim}
+\end{myquote}
+\end{changemargin}
+
+This would require, of a parser, to get to the signature and therefore at 
+least determine that the integrity of the message and the authenticity of 
+the sender, the following, namely to parse:
+\begin{itemize}
+    \item A SEQUENCE, containing
+    \begin{itemize}
+        \item A SEQUENCE, followed by
+        \item A SEQUENCE, containing
+        \begin{itemize}
+            \item An OID that must be understood, since it contains the 
+signature algorithm, followed by
+            \item Potentially, a parameter (of type ANY) to that OID 
+(however, in practice, always NULL), followed by
+        \end{itemize}
+        \item A BIT STRING containing the signature value (also depending on 
+convention).
+For further elaboration on this subject, see [\ref{sec:app:b}].
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{ASN.1 Compilation}
+
+\thesubsubsection{.1  ‘Your Blob Goes Here’}
+
+In many places in standardized ASN.1 definitions, the definition of a type 
+is not formal, but instead has be interpreted by humans. Examples are 
+RFC5280 \cite{bib:cert}, line 976:
+
+\begin{changemargin}{-60mm}{0mm}
+\begin{myquote}
+\begin{verbatim}
+AlgorithmIdentifier  ::=  SEQUENCE  {
+        algorithm               OBJECT IDENTIFIER,
+        parameters              ANY DEFINED BY algorithm OPTIONAL  }
+\end{verbatim}
+\end{myquote}
+\end{changemargin}
+
+Line 1097:
+
+\begin{changemargin}{-60mm}{0mm}
+\begin{myquote}
+\begin{verbatim}
+AttributeValue ::= ANY -- DEFINED BY AttributeType
+\end{verbatim}
+\end{myquote}
+\end{changemargin}
+
+Line 2104:
+
+\begin{changemargin}{-60mm}{0mm}
+\begin{myquote}
+\begin{verbatim}
+OtherName ::= SEQUENCE {
+        type-id    OBJECT IDENTIFIER,
+        value      [0] EXPLICIT ANY DEFINED BY type-id }
+\end{verbatim}
+\end{myquote}
+\end{changemargin}
+
+The ‘DEFINED BY’ clause in ASN.1 does not have any formal meaning 
+[???] (as can be seen from the comment ‘--’ introduction in the 
+definition, which can leave it in or out without consequence).
+
+\thesubsubsection{.2  Type Ambiguity}
+
+To have the ASN.1 definition of a structure, however informal it is in 
+certain places, always remains necessary. The BER encoding of ASN.1 only 
+carries over with it the base type of the value (a SEQUENCE, an INTEGER, a 
+BIT STRING, etc). It’s not possible to derive a value’s proper type 
+(and therefore, its meaning) merely from the BER encoding.
+
+\subsubsection{In Summary / Sub Goals}
+A usable BER parser, one that is described in this paper, provides:
+
+\begin{itemize}
+    \item Acceptable security of the parsing process, ie including the 
+intrinsic problems of the format (TLV Length fields etc).
+    \item Fine grained access to captured binary fields (eg OIDs, numbers, 
+etc). Preferably in form that is natural to the parsing mechanism user (ie 
+a form that does not require further processing).
+    \item Fine grained access to captured embedded text fields (eg the 
+components of X.509 DN elements, such as email addresses).
+    \item The possibility of descending into otherwise undefined fields (sub 
+parsing of ASN.1 field definitions that have been made in human readable 
+standards text only).
+    \item The possibility of applying digital signatures checks correctly 
+and securely.
+\end{itemize}
+
+\subsection{Existing / Preceding Work}
+The work in this paper is based upon the following existing and preceding 
+work: LPEG and Naigama. This paper assumes that the reader is familiar 
+with the former, but will expand on any details that stem from the latter 
+(since it’s a project by the author).
+
+\subsubsection{LPEG}
+LPEG, or Lua Parsing Expression Grammars, is a PEG implementation within 
+the scripting language Lua \cite{bib:lua} \cite{bib:lpeg}.
+It defines a grammar for specifying 
+grammar rules, and an engine that processes bytecode, which is produced by 
+the grammar compiler. On successfully processing an input, the LPEG user 
+can use a capture list for further processing.
+
+\subsubsection{Naigama}
+Naigama \cite{bib:naigama}
+implements the LPEG idea functionally, in a way that’s 
+modular and not associated with Lua. It has both grammar, bytecode and an 
+execution engine. Just like LPEG, it allows the user to extract capture 
+regions on success. It is a project maintained by the author, and can be 
+found here: https://github.com/kjhermans/naigama.
+
+Naigama extends LPEG (in a non-compatible manner), and implements among 
+others the following relevant, extra functionality:
+    \item It provides an assembly language as an extra programming artifact 
+in between the grammar and bytecode stages. It allows you to program this 
+assembly directly and feed it to the assembler without the need to use the 
+grammar compiler.
+    \item It provides bitwise matching.
+Note: This paper will use Naigama when grammar and assembly examples are 
+given, and provide the reader with explanation when this is different from 
+LPEG.
+
+\thesubsubsection{.1  Bitwise Matching}
+
+Naigama introduces bitwise matching. This is much like character matching, 
+but then only for a portion of the byte. A mask, which is applied in a 
+logical ‘and’-fashion, and the expected resultant octet value, are 
+given. On success, just like with the ‘char’ instruction, the input 
+pointer is increased by one, and the next instruction is executed. 
+Grammatically, it is defined as follows:
+
+\begin{changemargin}{-60mm}{0mm}
+\begin{myquote}
+\begin{verbatim}
+IPv4 <- |40|f0|
+\end{verbatim}
+\end{myquote}
+\end{changemargin}
+
+(This would match the first four bits of a byte, when they contain the 
+value 4, or binary 0100).
+Assembly instruction definition:
+
+\begin{changemargin}{-60mm}{0mm}
+\begin{myquote}
+\begin{verbatim}
+MASKEDCHARINSTR    <- { 'maskedchar' } S HEXBYTE S HEXBYTE
+S                  <- %s+
+HEXBYTE            <- [a-fA-F0-9]^2
+\end{verbatim}
+\end{myquote}
+\end{changemargin}
+
+A rule such as the one above, would be compiled as follows:
+
+\begin{changemargin}{-60mm}{0mm}
+\begin{myquote}
+\begin{verbatim}
+IPv4:
+  maskedchar 40 f0
+  ret
+\end{verbatim}
+\end{myquote}
+\end{changemargin}
+
+\subsection{Work Approach}
+The work described in this paper has the following build-up:
+
+\begin{itemize}
+    \item Analysis of missing function. The gap between the existing 
+technologies and the problem we’re trying to solve with them, must be 
+made clear in detail.
+    \item The proposal will be run ‘bottom-up’, that is to say: any 
+changes are first weighed in terms of the impact they may have on the 
+functioning and the size of the code base of the Engine.
+    \item These changes then have their consequences worked out in the 
+assembly and grammar spec.
+    \item An implementation is made, the changes are tested against a small 
+set, and finally the results are reported on, and any conclusions are 
+drawn.
+\end{itemize}
+
+\subsection{Expected Results}
+When all the issues can be addressed, then ideally, will be achieved the 
+following:
+
+\textit{A minimal extension to existing specification.} That is to say:
+\begin{itemize}
+    \item The amount of (bytecode / assembly) instructions must remain small.
+    \item The amount of Engine implementation changes should be minimal.
+    \item The amount of added Engine execution primitives and artifacts 
+should remain small.
+\end{itemize}
+
+\textit{Capture relevant fields in relevant representation.} Binary and human 
+readable representation are opposite concepts in many types such as 
+integers, where in strings, they are the same (save for discussions about 
+terminating zeroes). The expected result of this research is to see how 
+far the concept of acceptable representation of all types to all users can 
+be taken.
+
+\textit{Allow deep parsing, also of embedded text.} So that, for example,
+domain name or email address parsing can be incorporated into the machine 
+language.
+
+\textit{Allow (partial) ASN.1 compilation.} A complete treatment of the ASN.1 
+compilation (ie to PEG grammar), is beyond the scope of this document 
+(although it is probably a lot of, but not very difficult, work). However, 
+I will touch on the following: 1) ASN.1 compilation patterns, 2) the 
+conversion of OIDs (in human readable representation) and INTEGERs to 
+their binary representation for matching purposes in grammar (as it would 
+be a necessary utility for the proposition in this paper to work), and 3) 
+the less formal parts of ASN.1, and how to deal with them generically.
+
+\newpage
+\section{Work}
+
+\subsection{Analysis of Missing Function}
+Parsers, more precisely tokenizers, can do many things that are required 
+for binary parsing already. For example, LPEG can split up (most of) the 
+IPv4 header just fine:
+
+\begin{changemargin}{-60mm}{0mm}
+\begin{myquote}
+\begin{verbatim}
+IPV4HDR  <- VRSIHL TOS TOTLEN ID FRAGWORD TTL PROTO CHK SRC DST
+VRSIHL   <- { . }
+TOS      <- { . }
+TOTLEN   <- { .. }
+ID       <- { .. }
+FRAGWORD <- { .. }
+TTL      <- { . }
+PROTO    <- { . }
+CHK      <- { .. }
+SRC      <- { .... }
+DST      <- { .... }
+\end{verbatim}
+\end{myquote}
+\end{changemargin}
+
+Note that in this example LPEG already comes up short where fields are 
+split up bitwise, which is the case for the VRSIHL, TOS, and FRAGWORD 
+field. However also note that, using binary but whole-byte matching, one 
+could replace the VRSIHL rule with the following rule (and capture 99% of 
+IPv4 packets, where options aren’t defined):
+
+\begin{changemargin}{-60mm}{0mm}
+\begin{myquote}
+\begin{verbatim}
+VRSIHL <- { 0x45 }
+\end{verbatim}
+\end{myquote}
+\end{changemargin}
+
+Giving you a discriminant on your input (‘you are indeed parsing an IPv4 
+header’). One could even list all the options for the first byte of an 
+IPv4 header (and capture all packet headers), like so:
+
+\begin{changemargin}{-60mm}{0mm}
+\begin{myquote}
+\begin{verbatim}
+VRSIHL <- { 0x45 / 0x46 / 0x47 / 0x48 / 0x49 / 0x4a /
+            0x4b / 0x4c / 0x4d / 0x4e / 0x4f }
+\end{verbatim}
+\end{myquote}
+\end{changemargin}
+
+You can even go so far as to have each discriminant fetch its own header 
+size, like so:
+
+\begin{changemargin}{-60mm}{0mm}
+\begin{myquote}
+\begin{verbatim}
+IPV4HDR <- 0x45 HDRFIELDS / 0x46 HDRFIELDS { .... } /
+           0x47 HDRFIELDS { ........ } / -- etc
+\end{verbatim}
+\end{myquote}
+\end{changemargin}
+
+Defining these 'discriminant-vs-length' rules provides you with
+rudimentary 'if-then' functionality in a grammar.
+However, a normal, text-token based tokenizer/parser (like Lex/Yacc, LPEG) 
+cannot go any further and therefore cannot parse BER. For the following 
+reasons:
+
+\begin{itemize}
+    \item It cannot perform less-than-a-byte (bitwise) matching. To be able 
+to do this is necessary, because different (groups of) bits of single byte 
+can convey a different meaning in BER. This problem is most prevalent in 
+TLV Length values, but also resurfaces in the representation of captured 
+ASN.1 INTEGER types and OIDs.
+    \item Text parsing tools generally look for delimiters in tokens in the 
+text itself. It has to encounter tokens, not bits or lengths as a way of 
+moving on (to the next token or fail).
+    \item Once the parsing process has started, it runs formally along the 
+lines of the structure definition: it cannot interpret data from the input 
+itself to use in, or steer, the parsing process. 
+\end{itemize}
+
+All of these issues pertain to compression done at the bit level when 
+representing numbers, most notably in parsing TLV Lengths. What follows is 
+a discussion of this topic, and the other number compression schemes in 
+BER.
+
+\subsection{Parsing TLV Lengths}
+
+A TLV Length field delimits the length of input of a nested section (the 
+Value field) to be parsed. This is very different from text parsing, where 
+the delimitation comes in the form of tokens (that are only encountered 
+when the nested part has already been processed). What is needed is the 
+possibility to isolate areas of input for nested parsing, based beforehand 
+on the amount of bytes that this area is supposed to be in size. The 
+problem breaks down into the following underlying ones: to read the Length 
+field, to redirect this information into a context usable by the Engine, 
+and to have the Engine features to support this and finally, the assembly 
+instructions and the grammar syntax to describe this process.
+
+\subsubsection{Limiting the End-of-Input Temporarily}
+
+To accommodate length values being given before the to-be-parsed input is 
+encountered, and as its only delimiter (ie without a closing token), we 
+need to introduce a method to limit the input, so that grammar !. means 
+end-of-input at a point in the input that lies at the end of the 
+sub-section, ie before the real end-of-input (and also, for example, 
+grammar .* runs to this point and no further).
+
+The proposal is to do this in a calling context. So, any grammar FOO <- 
+BAR rule will, when BAR is called, limit the input for the context in 
+which BAR is executed: either to the current end-of-input (the default 
+situation), or to a point before the current end-of-input. Returning from 
+this calling context, through RET or FAIL will restore the original 
+end-of-input.
+
+\subsubsection{Parsing the End-of-Input Value from the Engine}
+\label{sec:work:tlv:eoi}
+
+The end-of-input value is given, in BER, as the Length field in the TLV 
+currently under scrutiny by the Engine. Naigama is capable of parsing the 
+BER TLV Length part (because it has bitwise matching; LPEG does not), both 
+in grammar and in assembly. As follows (a bit like the extensive IPv4 
+header example), using the following grammar:
+
+\begin{changemargin}{-60mm}{0mm}
+\begin{myquote}
+\begin{verbatim}
+BERLENGTH <- & |00|80| { . } /
+             0x81 { . } / 0x82 { .. } / 0x83 { ... } / 0x84 { .... }
+\end{verbatim}
+\end{myquote}
+\end{changemargin}
+
+Note that, in this example, we’re only willing to accept four-byte 
+length encodings. When you’re operating on a 64-bit platform (and you 
+think it’s reasonable to be processing values with lengths of over 4 
+gigabyte), then you can simple extend the above pattern to include 0x85 
+and beyond.
+
+The assembly of the grammar above (generated by the Naigama compiler):
+
+\begin{changemargin}{-60mm}{0mm}
+\begin{myquote}
+\begin{verbatim}
+__RULE_BERLENGTH:
+  catch __ALT_2
+  catch __SCANNER_3
+  maskedchar 00 80
+  backcommit __SCANNER_3_OUT
+__SCANNER_3:
+  fail
+__SCANNER_3_OUT:
+  opencapture 0
+  any
+__SUCCESS_4:
+  closecapture 0
+  commit __SUCCESS_1
+__ALT_2:
+  catch __ALT_5
+  char 81
+  opencapture 1
+  any
+__SUCCESS_6:
+  closecapture 1
+  commit __SUCCESS_1
+__ALT_5:
+  catch __ALT_7
+  char 82
+  opencapture 2
+  any
+  any
+__SUCCESS_8:
+  closecapture 2
+  commit __SUCCESS_1
+__ALT_7:
+  catch __ALT_9
+  char 83
+  opencapture 3
+  any
+  any
+  any
+__SUCCESS_10:
+  closecapture 3
+  commit __SUCCESS_1
+__ALT_9:
+  char 84
+  opencapture 4
+  any
+  any
+  any
+  any
+__SUCCESS_11:
+  closecapture 4
+__SUCCESS_1:
+  ret -- BERLENGTH
+\end{verbatim}
+\end{myquote}
+\end{changemargin}
+
+
+The alternative to this approach, is to create engine-intrinsic methods to 
+parse, consume and interpret the BER TLV Length field (not considered, but 
+perhaps necessary if one were to choose to extend LPEG instead). This is 
+not the approach taken in this paper.
+
+\subsubsection{Changes to the Engine}
+
+\thesubsubsection{.1  To Implement Temporary Input Length Delimitation}
+
+The following are the required changes to the Engine, in order for it to 
+implement temporary input length delimitation:
+
+\begin{itemize}
+    \item The Engine shall contain, next to its normal, ultimately 
+delimiting input length value (\textit{li})
+(this value is now used to verify the 
+validity of the current input offset value), one more register: the new 
+limit to input (\textit{li’}), and also a bit, indication whether or
+not \textit{li’} is set (\textit{sli’}).
+    \item Each existing instruction may set \textit{sli’} to zero.
+This is a safety 
+feature; any instruction that sets \textit{sli’} must be followed by a ‘call’ 
+instruction. An alternative to this approach is code inspection (to 
+verfify that, indeed, every instruction setting \textit{xli’} is indeed
+directly followed by a ‘call’ instruction).
+    \item The ‘call’ instruction however, shall first check to see if 
+\textit{sli’} is set, and if it is, push li into the calling context on the 
+stack, and assign \textit{li’} to \textit{li}.
+    \item The ‘ret’ instruction shall restore its calling context’s 
+copy of \textit{li}.
+    \item The FAIL condition, cleaning up a calling context from the stack, 
+shall also restores its copy of \textit{li}.
+\end{itemize}
+The following conditions then shall be applied:
+\begin{itemize}
+    \item Given input offset oi, each matching instruction shall check that 
+\textit{oi $<$ li}.
+    \item At each setting of \textit{li’} an instruction shall check that
+\textit{li’ $<$= li}.
+\end{itemize}
+
+\thesubsubsection{.2  To Fill the Limiting Register}
+
+This leaves the question of how the \textit{li’} register is filled (and the 
+\textit{sli’} bit is set). This paper proposes the introduction of a new 
+instruction. As follows:
+
+\begin{itemize}
+    \item The ‘intrpcapture’ (‘interpret capture’) instruction shall 
+be introduced, which translates the contents of a capture region to the 
+\textit{li’} register, and sets \textit{sli’}:
+    \begin{itemize}
+        \item Has defined as its first parameter, a ‘mode’ which, for 
+now, only has one possible value: to interpret the capture as a 
+right-aligned, 32-bit, unsigned integer.
+        \item Has optionally defined as its second parameter, the slot value 
+of the capture region. When this is set, the capture list will be 
+examined, top to bottom, for the first occurrence of a capture region with 
+the matching slot number. If unset, the topmost capture will be taken.
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Changes to the Assembly}
+
+The assembly only has to be changed by introducing the ‘intrpcapture’ 
+instruction.
+\thesubsubsection{.1  The ‘intrpcapture’ Instruction}
+Grammatically, this addition to the assembly shall be defined as follows:
+
+\begin{changemargin}{-60mm}{0mm}
+\begin{myquote}
+\begin{verbatim}
+INTRPCAPTUREINSTR <- ‘intrpcapture’ S MODE S SLOTNUMBER
+MODE              <- ‘ruint32’
+SLOTNUMBER        <- UNSIGNED / ‘default’
+\end{verbatim}
+\end{myquote}
+\end{changemargin}
+
+Which, in practice, will probably look like this in assembly:
+
+\begin{changemargin}{-60mm}{0mm}
+\begin{myquote}
+\begin{verbatim}
+intrpcapture ruint32 default
+\end{verbatim}
+\end{myquote}
+\end{changemargin}
+
+\subsubsection{Changes to the Grammar}
+
+In order for the compiler to correctly emit the ‘intrpcapture’ 
+instruction mnemonic and parameters, it must have the semantic tools to do 
+so. To this purpose, a special calling context is created: normally in 
+PEG, what is compiled as a rule-call is in grammar simply denoted as the 
+identifier of the rule. For this purpose however, the rule identifier is 
+dressed up a little, and is bound together with the capture and the type 
+conversion of the capture required, using opening and closing double angle 
+brackets.
+
+Grammatically, the grammar syntax involved, is defined as follows:
+
+\begin{changemargin}{-60mm}{0mm}
+\begin{myquote}
+\begin{verbatim}
+LIMITEDCALL <- LCALLOPEN METHOD COLON VARREF COLON IDENTIFIER LCALLCLOSE
+LCALLOPEN   <- ‘<<’
+LCALLCLOSE  <- ‘>>’
+METHOD      <- ‘ruint32’
+-- existing definitions of COLON, VARREF and IDENTIFIER
+\end{verbatim}
+\end{myquote}
+\end{changemargin}
+
+Resulting in the following example grammar; note the special denotation of 
+the LISTCONTENT rule call:
+
+\begin{changemargin}{-60mm}{0mm}
+\begin{myquote}
+\begin{verbatim}
+LIST        <- 0x30 DERLENGTH <<ruint32:$_:LISTCONTENT>>
+DERLENGTH   <- & |00|80| { . } /
+               0x81 { . } / 0x82 { .. } / 0x83 { ... } / 0x84 { .... }
+LISTCONTENT <- .*
+\end{verbatim}
+\end{myquote}
+\end{changemargin}
+
+This introduces another concept: the default capture. In Naigama, 
+references (‘variables’) can be made to items in the capture list, to 
+use those for matching input (this is also true for LPEG, which uses 
+another grammar convention (with ‘=’)). This is extremely convenient, 
+for example, for matching closing tag names to opening ones in XML. 
+Variables can be named, and in Naigama, also numbered (referring to slot 
+number). The ‘\_’ variable refers to the topmost capture of the capture 
+list.
+
+\subsection{OIDs}
+
+\subsubsection{Matching any OID}
+
+This section treats BER capture completely, using the concepts from the 
+preceding sections. An implementation of these were made in Naigama, and 
+subsequently executed. 
+\thesubsubsection{.1  Input}
+Example of an OID encoded as DER TLV:
+
+\begin{changemargin}{-60mm}{0mm}
+\begin{myquote}
+\begin{verbatim}
+06 10 2B 06 01 04 01 81 E0 6B 02 02 06 01 06 03 01 01
+\end{verbatim}
+\end{myquote}
+\end{changemargin}
+
+The above example input can be broken down as follows:
+
+\begin{itemize}
+    \item Type (0x06), followed by:
+    \item Length (single byte encoding 0x10 / decimal 16), followed by:
+    \item 16 bytes of value payload, consisting both of capturable single 
+byte subidentifiers, as well as those that have been encoded using 
+multiple bytes.
+\end{itemize}
+
+\thesubsubsection{.2  Grammar}
+
+\begin{changemargin}{-60mm}{0mm}
+\begin{myquote}
+\begin{verbatim}
+OID        <- 0x06 BERLENGTH <<ruint32:$_:OIDVALUE>>
+OIDVALUE   <- { { . } { |80|80|* |00|80| }* }
+BERLENGTH  <- & |00|80| { . } /
+              0x81 { . } / 0x82 { .. } / 0x83 { ... } / 0x84 { .... }
+\end{verbatim}
+\end{myquote}
+\end{changemargin}
+
+Note that the BERLENGTH rule has been treated in [\ref{sec:work:tlv:eoi}].
+
+\thesubsubsection{.2.1  An Alternative Grammar}
+
+When using an indiscriminate-length quantifier, such as in the example
+above, is problematic from a resource perspective (\textit{ie} you
+want the parser to fail when an OID contains too many elements, not
+the parser-using logic), then, in Naigama, you can also formulate the
+grammar as follows (note the '\^{}-\textit{n}' quantifiers, that specify
+that an OID subidentifer cannot exceed 4 bytes in denotation length
+(protecting your CPU from integer overflow) and the an OID cannot have
+more than 16 subidentifiers):
+
+\begin{changemargin}{-60mm}{0mm}
+\begin{myquote}
+\begin{verbatim}
+OID        <- 0x06 BERLENGTH <<ruint32:$_:OIDVALUE>>
+OIDVALUE   <- { { . } { |80|80|^-4 |00|80| }^-16 }
+BERLENGTH  <- ...
+\end{verbatim}
+\end{myquote}
+\end{changemargin}
+
+\thesubsubsection{.3 Assembly}
+
+The grammar (the quantifier-less variety) produces the following assembly
+(note the 'intrpcapture' instruction).
+
+\begin{changemargin}{-60mm}{0mm} 
+\begin{myquote}
+\begin{verbatim}
+  call OID
+  end 0
+
+__RULE_OID:
+  char 06
+  call BERLENGTH
+  intrpcapture ruint32 default
+  call OIDVALUE
+__SUCCESS_1:
+  ret -- OID
+
+__RULE_OIDVALUE:
+  opencapture 0
+  opencapture 1
+  any
+__SUCCESS_4:
+  closecapture 1
+  catch __FORGIVE_5
+__FOREVER_6:
+  opencapture 2
+  catch __FORGIVE_8
+__FOREVER_9:
+  maskedchar 80 80
+  partialcommit __FOREVER_9
+__FORGIVE_8:
+  maskedchar 00 80
+__SUCCESS_7:
+  closecapture 2
+  partialcommit __FOREVER_6
+__FORGIVE_5:
+__SUCCESS_3:
+  closecapture 0
+__SUCCESS_2:
+  ret -- OIDVALUE
+
+__RULE_BERLENGTH:
+  catch __ALT_11
+  catch __SCANNER_12
+  maskedchar 00 80
+  backcommit __SCANNER_12_OUT
+__SCANNER_12:
+  fail
+__SCANNER_12_OUT:
+  opencapture 3
+  any
+__SUCCESS_13:
+  closecapture 3
+  commit __SUCCESS_10
+__ALT_11:
+  catch __ALT_14
+  char 81
+  opencapture 4
+  any
+__SUCCESS_15:
+  closecapture 4
+  commit __SUCCESS_10
+__ALT_14:
+  catch __ALT_16
+  char 82
+  opencapture 5
+  any
+  any
+__SUCCESS_17:
+  closecapture 5
+  commit __SUCCESS_10
+__ALT_16:
+  catch __ALT_18
+  char 83
+  opencapture 6
+  any
+  any
+  any
+__SUCCESS_19:
+  closecapture 6
+  commit __SUCCESS_10
+__ALT_18:
+  char 84
+  opencapture 7
+  any
+  any
+  any
+  any
+__SUCCESS_20:
+  closecapture 7
+__SUCCESS_10:
+  ret -- BERLENGTH
+
+  end 0
+\end{verbatim}
+\end{myquote}
+\end{changemargin}
+
+\thesubsubsection{.4 Engine Execution}
+
+For complete engine execution output and states, refer to [\ref{sec:app:d}].
+The abbreviated output of the engine, based on the quantifier-less grammar:
+
+\begin{changemargin}{-60mm}{0mm} 
+\begin{myquote}
+\begin{verbatim}
+End code: 0
+16 actions total
+Action #0: capture slot 3, 1->1 "\x10"
+Action #1: capture slot 0, 2->16 
+"+\x06\x01\x04\x01\x81\xe0k\x02\x02\x06\x01\x06\x03\x01\x01"
+Action #2: capture slot 1, 2->1 "+"
+Action #3: capture slot 2, 3->1 "\x06"
+Action #4: capture slot 2, 4->1 "\x01"
+Action #5: capture slot 2, 5->1 "\x04"
+Action #6: capture slot 2, 6->1 "\x01"
+Action #7: capture slot 2, 7->3 "\x81\xe0k"
+Action #8: capture slot 2, 10->1 "\x02"
+Action #9: capture slot 2, 11->1 "\x02"
+Action #10: capture slot 2, 12->1 "\x06"
+Action #11: capture slot 2, 13->1 "\x01"
+Action #12: capture slot 2, 14->1 "\x06"
+Action #13: capture slot 2, 15->1 "\x03"
+Action #14: capture slot 2, 16->1 "\x01"
+Action #15: capture slot 2, 17->1 "\x01"
+Number of instructions: 109
+Max stack depth: 4
+\end{verbatim}
+\end{myquote}
+\end{changemargin}
+
+Conclusion: Naigama is capable of parsing BER encoded OID TLV formatting, 
+as well as splitting up the input in its subidentifier parts. It does not 
+however split up the first capture (Action \#1) which, semantically, 
+consists of two OID subidentifiers, and it does also not bitshift a 
+capture (Action \#7) which has a value $>$ 127.
+
+\subsubsection{Matching a Known OID}
+\label{sec:work:oids:known}
+
+Since OID encoding is deterministic, known OID parsing does not require 
+any special tricks, only that your grammar can define non-text (binary) 
+character matching rules. For example, as follows:
+
+\begin{changemargin}{-60mm}{0mm}
+\begin{myquote}
+\begin{verbatim}
+DN_EMAIL <- 0x06 0x09 0x2a 0x86 0x48 0x86 0xf7 0x0d 0x01 0x09 0x01
+\end{verbatim}
+\end{myquote}
+\end{changemargin}
+
+\subsubsection{Presenting any OID}
+Although OIDs cannot be represented textually from a capture to a user in 
+a simple manner (for reasons given above: the fact that the first two OID 
+subidentifiers are joined in one binary octet, and that subidentifiers $>$ 
+127 require a different encoding, including bits that are not usable in 
+binary number representation), the reverse should be relatively easy. An 
+ASN.1-to-PEG compiler can precompile OIDs to their binary representation 
+and, as such, use them for matching.
+
+Admittedly, this solves only half the problem. The ‘here in the input 
+should be any OID and I would like to know what it is’ problem isn’t 
+addressed by this method; that still has to be parsed out of the capture 
+by the user.
+
+\subsection{INTEGERs}
+
+\subsubsection{Matching any INTEGER}
+It makes sense to protect your machine intrinsic types by not allowing 
+infinitely long integers (much like the BERLENGTH rule does not allow for 
+infinitely long TLV length definitions). For example, by creating the 
+following grammar definition (0x02 is the BER INTEGER type specific tag):
+
+\begin{changemargin}{-60mm}{0mm}
+\begin{myquote}
+\begin{verbatim}
+ACCEPTABLEINTEGER <- 0x02 (
+                       0x00 / 0x01 { . } / 0x02 { .. } / 0x03 { ... } / 0x04 { .... }
+                     )
+\end{verbatim}
+\end{myquote}
+\end{changemargin}
+
+This definition should take care that no integer encoded as BER will ever 
+overflow your 32-bit system (and, on top of that, is vanilla LPEG).
+Because if it does, the Engine will FAIL.
+The problem with this is that, for example, X.509 defines the second field 
+of the TBSCertificate compound type, the ‘serialNumber’ field, as a 
+20-byte integer. Of course, no one will ever do arithmetic with this 
+number, so it makes more sense to treat it as a string. In this specific 
+case, presumably, one could make a specific definition for it, like thus:
+
+\begin{changemargin}{-60mm}{0mm}
+\begin{myquote}
+\begin{verbatim}
+SERIALNUMBER <- 0x02 BERLENGTH <<ruint32:$_:SERNUMCONTENT>>
+SERNUMCONTENT <- { .* }
+\end{verbatim}
+\end{myquote}
+\end{changemargin}
+
+However, now you may end up with problems when you do a more generic check 
+of your X.509 certificate (a ‘well formedness’ check, which tells you 
+that the input is properly encoded BER). You can now no longer distinguish 
+between integers that you want to use intrinsically as integers, and those 
+that are actually strings.
+
+Then again, a pure well-formedness check is not supposed to yield a usable 
+capture list, just a binary answer to the question ‘is my input well 
+formed?’.
+
+\subsubsection{Matching a Known INTEGER}
+\label{sec:work:ints:known}
+
+BER and DER are required to encode INTEGERs in the shortest way possible. 
+X.690 \cite{bib:x690} (in §8.3.2) states:
+
+{\itshape
+If the contents octets of an integer value encoding consist of more than 
+one octet, then the bits of the first octet and bit 8 of the second octet:
+
+a) shall not all be ones; and
+
+b) shall not all be zero.
+
+NOTE – These rules ensure that an integer value is always encoded in the 
+smallest possible number of octets.
+}
+
+The above makes INTEGER encoding deterministic and therefore, matching a 
+known INTEGER is as simple as formatting it in your grammar as byte 
+literals.
+
+\subsubsection{Presenting any INTEGER}
+\label{sec:work:ints:presenting}
+
+Presenting any captured INTEGER is problematic in the same way, more or 
+less, OID subidentifiers are: INTEGER captures will be in binary, but may 
+not be intrinsically usable on your machine. For that, the capture needs 
+to be right shifted to fill up the machine intrinsic integer type, 
+interpreted as network ordered and, if the most significant bit of the 
+capture is set, be interpreted as a negative value. This paper provides no 
+further solution should this be an issue.
+
+\subsection{Sub Parsing of Text}
+
+Limiting the end-of-input temporarily, has the effect that any sub-rule 
+can simply switch to text parsing from that point onwards. The following 
+(for email parsing purposes extremely simplified) grammar illustrates this
+(notice that, for clarity, the capture regions of the individual OID
+subidentifiers have been removed in this example):
+
+\begin{changemargin}{-60mm}{0mm}
+\begin{myquote}
+\begin{verbatim}
+SEQUENCE       <- SEQUENCETYPE BERLENGTH <<ruint32:$_:SEQUENCEVALUE>>
+SEQUENCEVALUE  <- OID EMAIL
+BERLENGTH      <- & |00|80| { . } /
+                  0x81 { . } / 0x82 { .. } / 0x83 { ... } / 0x84 { .... }
+
+OID            <- OIDTYPE BERLENGTH <<ruint32:$_:OIDVALUE>>
+OIDVALUE       <- { ( . ) ( |80|80|* |00|80| )* }
+
+EMAIL          <- IASTRING BERLENGTH <<ruint32:$_:EMAILVALUE>>
+EMAILVALUE     <- { USERNAME '@' FQDN }
+USERNAME       <- { [a-zA-Z0-9.]+ }
+FQDN           <- { [a-zA-Z0-9.]+ }
+
+SEQUENCETYPE   <- 0x30
+OIDTYPE        <- 0x06
+IASTRING       <- 0x16
+\end{verbatim}
+\end{myquote}
+\end{changemargin}
+
+This is fed by the following piece of DER (a list containing an OID and an 
+IA5STRING – taken from a certificate):
+
+\begin{changemargin}{-60mm}{0mm}
+\begin{myquote}
+\begin{verbatim}
+30 27
+   06 09 2a 86 48 86 f7 0d 01 09 01
+   16 1a 6b 65 65 73 2e 6a 61 6e 2e 68 65 72 6d 61 6e 73 40 67 6d 61 69 6c 2e 63 6f 6d
+\end{verbatim}
+\end{myquote}
+\end{changemargin}
+
+The code then executes, and captures the email address, as well as its 
+composing portions, as can be seen in the resultant capture list below:
+
+\begin{changemargin}{-60mm}{0mm}
+\begin{myquote}
+\begin{verbatim}
+End code: 0
+7 actions total
+Action #0: capture slot 0, 1->1 "'"
+Action #1: capture slot 0, 3->1 "\x09"
+Action #2: capture slot 5, 4->9 "*\x86H\x86\xf7\x0d\x01\x09\x01"
+Action #3: capture slot 0, 14->1 "\x1a"
+Action #4: capture slot 6, 15->26 "kees.jan.hermans@gmail.com"
+Action #5: capture slot 7, 15->16 "kees.jan.hermans"
+Action #6: capture slot 8, 32->9 "gmail.com"
+Number of instructions: 155
+Max stack depth: 6
+\end{verbatim}
+\end{myquote}
+\end{changemargin}
+
+\subsection{ASN.1 Compilation}
+
+ASN.1 compilation (to PEG grammar) is mostly out of scope for this paper, 
+but for the following aspects:
+\begin{itemize}
+    \item The similarity between the definitions / resulting grammar 
+patterns.
+    \item Pre compiling literals.
+    \item The ‘human interpretation’ aspect.
+\end{itemize}
+
+\subsubsection{ASN.1 Compilation Patterns}
+
+PEG grammar patterns can be made pretty similar to the ASN.1 definitions 
+they represent. Given the following ASN.1 example definition:
+
+\begin{changemargin}{-60mm}{0mm}
+\begin{myquote}
+\begin{verbatim}
+SomeType ::= SEQUENCE {
+        member1 SomeSubType,
+        member2 SomeOtherSubType
+}
+\end{verbatim}
+\end{myquote}
+\end{changemargin}
+
+One can create a PEG grammar that follows it, namespace-wise, as well as 
+structurally, like so (using an imaginary TLV Tag number 0xaa):
+
+\begin{changemargin}{-60mm}{0mm}
+\begin{myquote}
+\begin{verbatim}
+SOMETYPE_TLV         <- SOMETYPE_TYPE BERLENGTH <<ruint32:$_:SOMETYPE_VALUE>>
+SOMETYPE_TYPE        <- 0x30
+SOMETYPE_VALUE       <- SOMESUBTYPE_TLV SOMEOTHERSUBTYPE_TLV
+
+SOMESUBTYPE_TLV      <- SOMESUBTYPE_TYPE BERLENGTH <<ruint32:$_:SOMESUBTYPE_VALUE>>
+SOMESUBTYPE_TYPE     <- 0xaa
+SOMESUBTYPE_VALUE    <- ... 
+
+SOMEOTHERSUBTYPE_TLV <- ... 
+\end{verbatim}
+\end{myquote}
+\end{changemargin}
+
+It should be easy enough to write a compiler that makes this 
+transformation a generic feature.
+
+\subsubsection{Pre Compiling Literals}
+As noted, when one specifically searches for INTEGERs or OIDs to match – 
+they are encoded deterministically, and can therefore be pre-compiled into 
+their binary form. See [\ref{sec:work:oids:known}]
+and [\ref{sec:work:ints:known}].
+
+\subsubsection{Interpreting less-then-Formal Definitions }
+Where ASN.1 specifies an ‘ANY’ type, or where a Tag (TLV type) has 
+been specified for example as a ‘context specific class’ (0xa0 or 
+0xa3), and one has no immediate idea what these contain and/or one wants 
+to leave it to the capture processing code to deal with this region (ie 
+the region’s layout can have a different structure depending on some 
+condition elsewhere in the input), it’s possible to define a ‘generic 
+BER grammar’ to descend into this region. This is more or less the same 
+as a well-formedness check, but then with captures. For example, like so 
+(obviously incomplete, just note the ‘ANY’ definition):
+
+\begin{changemargin}{-60mm}{0mm}
+\begin{myquote}
+\begin{verbatim}
+ANY            <- GENERICLIST / OID / INTEGER / IPV4 / NULL /
+                  BSTRING / PSTRING / ISTRING / USTRING / OSTRING /
+                  GENERICSET / GCTXSPCLASS / TIMESTAMP /
+                  BOOLEAN
+
+GENERICLIST    <- SEQUENCE BERLENGTH <<ruint32:$_:LISTCONTENT>>
+GENERICSET     <- SET BERLENGTH <<ruint32:$_:LISTCONTENT>>
+GCTXSPCLASS    <- CTXSPCLASS BERLENGTH <<ruint32:$_:LISTCONTENT>>
+LISTCONTENT    <- { ANY }* !.
+
+SEQUENCE       <- 0x30
+SET            <- 0x31
+CTXSPCLASS     <- 0xa3
+INTEGER        <- INTEGERTYPE BERLENGTH <<ruint32:$_:INTEGERVALUE>>
+INTEGERTYPE    <- 0x02 / 0xa0
+INTEGERVALUE   <- { .* }
+IPV4           <- 0x40 0x04 { .... }
+NULL           <- 0x05 0x00
+BITSTRING      <- 0x03
+TIMESTAMP      <- 0x17 BERLENGTH <<ruint32:$_:TIMECONTENT>>
+TIMECONTENT    <- { .* }
+BOOLEAN        <- 0x01 0x01 { . }
+
+PRINTABLESTRING <- 0x13
+IASTRING        <- 0x16
+UTF8STRING      <- 0x0c
+OCTETSTRING     <- 0x04
+
+BSTRING         <- BITSTRING BERLENGTH <<ruint32:$_:STRINGCNT>>
+PSTRING         <- PRINTABLESTRING BERLENGTH <<ruint32:$_:STRINGCNT>>
+ISTRING         <- IASTRING BERLENGTH <<ruint32:$_:STRINGCNT>>
+USTRING         <- UTF8STRING BERLENGTH <<ruint32:$_:STRINGCNT>>
+OSTRING         <- OCTETSTRING BERLENGTH <<ruint32:$_:STRINGCNT>>
+STRINGCNT       <- { .* }
+
+OID            <- 0x06 BERLENGTH <<ruint32:$_:OIDVALUE>>
+OIDVALUE       <- { { . } { |80|80|* |00|80| }* }
+\end{verbatim}
+\end{myquote}
+\end{changemargin}
+
+Bear in mind that using generic parsing as exemplified above, does expose 
+one to the risks of captures that exceed machine intrinsic type sizes (as 
+in the case of INTEGERs, for example, see [\ref{sec:work:ints:presenting}]).
+
+\newpage
+\section{Overview of Changes}
+
+\subsection{Engine}
+
+\subsubsection{Bytecode}
+
+The proposed bytecode contains one more instruction: the binary 
+representation of ‘intrpcapture’, plus its two parameters: mode and 
+capture slot.
+
+\subsubsection{Input}
+
+The input is allowed to be BER.
+
+\subsubsection{Stack}
+
+The stack ‘call’ elements will contain an extra, restorable input 
+length field.
+
+\subsubsection{Capture List}
+
+The capture list may contain extra entries to hold the length field 
+captures.
+
+\subsubsection{Input Length Delimitation Register}
+A register is introduced, that contains the temporarily delimited input 
+length value.
+
+\subsection{Assembly}
+
+\subsubsection{Maskedchar}
+
+The ‘maskedchar’ instruction functions like the ‘char’ 
+instruction, but only for a part of the byte.
+
+\subsubsection{Intrpcapture}
+
+The ‘intrpcapture’ instruction is introduced. It takes two parameters: 
+mode (only ‘ruint32’ for now) and capture slot (only ‘\$\_’) for now.
+
+\subsection{Grammar}
+
+\subsubsection{Bitwise Matching}
+
+Naigama introduces the concept of bitwise matching, using a special 
+instruction that is parameterized by both the mask and the result of the 
+masking operation.
+
+\subsubsection{Scoped Calling}
+
+This paper proposes a grammatical grammar construct that parameterizes a 
+call to a rule symbol using a method for converting a capture into an 
+input length limit.
+
+\newpage
+\section{Conclusions}
+
+Parsing BER formats and presenting the resulting captures to the user 
+requires relatively little effort, namely:
+
+\begin{itemize}
+    \item Addition of bitwise matching by introducing a superset to the 
+normal ‘char’ instruction, one that has been extended with a bitmask.
+    \item The construction of BER TLV Length field interpretation and 
+consumption as a discrete Engine function.
+    \item Input buffer isolation (‘temporary input shortening’) of PEG 
+calling contexts, both in assembly instructions (through the addition of 
+the reg\_derlength instruction), in grammar definitions (through the 
+introduction of scoped calling), and stack use by the Engine.
+    \item For extra safety, the addition (to PEG) of capture range 
+definitions (optional).
+\end{itemize}
+What this provides:
+\begin{itemize}
+    \item A way to establish the well-formedness of a BER formatted input.
+    \item A way to capture relevant regions from said input, especially if 
+they can be interpreted as-is (strings, signatures).
+    \item A way to do text sub-parsing in isolated regions of the input.
+\end{itemize}
+What we’re missing / is confined to further study:
+\begin{itemize}
+    \item OID subidentifiers and INTEGER values are represented in captures 
+as they are found in the input, requiring bitshifting functions and 
+conditionals to present these as intrinsic or human readable to the user.
+    \item Whether or not these changes can be implemented with as much ease 
+in a real hardware Engine, as they are in software.
+\end{itemize}
+
+\newpage
+\textbf{References}
+
+\begin{changemargin}{-60mm}{0mm}
+\input{bib.tex}
+\end{changemargin}
+
+\newpage
+\begin{appendices}
+
+\input{appendix_d.tex}
+\input{appendix_a.tex}
+\input{appendix_b.tex}
+\input{appendix_c.tex}
+
+\end{appendices}

@@ -1,0 +1,427 @@
+\section{Matching an OID Name Value Pair}
+\label{sec:app:d}
+
+This section gives a complete overview of the compilation and running of
+grammar on inputs using the methods described in this paper.
+The following grammar is defined to match the example in the first
+chapter of this paper: a SEQUENCE containing an OID and an IPV4ADDRESS:
+
+\begin{changemargin}{-60mm}{0mm}
+\begin{myquote}
+\begin{verbatim}
+TOP        <- LIST
+BERLENGTH  <- & |00|80| { . } /
+              0x81 { . } / 0x82 { .. } / 0x83 { ... } / 0x84 { .... }
+LIST       <- 0x30 BERLENGTH <<ruint32:$_:OBJECTS>>
+OBJECTS    <- OID IPV4
+OID        <- 0x06 BERLENGTH <<ruint32:$_:OIDVALUE>>
+IPV4       <- 0x40 0x04 { .... }
+OIDVALUE   <- { { . } { |80|80|* |00|80| }* }
+\end{verbatim}
+\end{myquote}
+\end{changemargin}
+
+This results in the following assembly:
+
+\begin{changemargin}{-60mm}{0mm}
+\begin{myquote}
+\begin{verbatim}
+  call TOP
+  end 0
+
+__RULE_TOP:
+  call LIST
+__SUCCESS_1:
+  ret -- TOP
+
+__RULE_BERLENGTH:
+  catch __ALT_3
+  catch __SCANNER_4
+  maskedchar 00 80
+  backcommit __SCANNER_4_OUT
+__SCANNER_4:
+  fail
+__SCANNER_4_OUT:
+  opencapture 0
+  any
+__SUCCESS_5:
+  closecapture 0
+  commit __SUCCESS_2
+__ALT_3:
+  catch __ALT_6
+  char 81
+  opencapture 1
+  any
+__SUCCESS_7:
+  closecapture 1
+  commit __SUCCESS_2
+__ALT_6:
+  catch __ALT_8
+  char 82
+  opencapture 2
+  any
+  any
+__SUCCESS_9:
+  closecapture 2
+  commit __SUCCESS_2
+__ALT_8:
+  catch __ALT_10
+  char 83
+  opencapture 3
+  any
+  any
+  any
+__SUCCESS_11:
+  closecapture 3
+  commit __SUCCESS_2
+__ALT_10:
+  char 84
+  opencapture 4
+  any
+  any
+  any
+  any
+__SUCCESS_12:
+  closecapture 4
+__SUCCESS_2:
+  ret -- BERLENGTH
+
+__RULE_LIST:
+  char 30
+  call BERLENGTH
+  intrpcapture ruint32 default
+  call OBJECTS
+__SUCCESS_13:
+  ret -- LIST
+
+__RULE_OBJECTS:
+  call OID
+  call IPV4
+__SUCCESS_14:
+  ret -- OBJECTS
+
+__RULE_OID:
+  char 06
+  call BERLENGTH
+  intrpcapture ruint32 default
+  call OIDVALUE
+__SUCCESS_15:
+  ret -- OID
+
+__RULE_IPV4:
+  char 40
+  char 04
+  opencapture 5
+  any
+  any
+  any
+  any
+__SUCCESS_17:
+  closecapture 5
+__SUCCESS_16:
+  ret -- IPV4
+
+__RULE_OIDVALUE:
+  opencapture 6
+  opencapture 7
+  any
+__SUCCESS_20:
+  closecapture 7
+  catch __FORGIVE_21
+__FOREVER_22:
+  opencapture 8
+  catch __FORGIVE_24
+__FOREVER_25:
+  maskedchar 80 80
+  partialcommit __FOREVER_25
+__FORGIVE_24:
+  maskedchar 00 80
+__SUCCESS_23:
+  closecapture 8
+  partialcommit __FOREVER_22
+__FORGIVE_21:
+__SUCCESS_19:
+  closecapture 6
+__SUCCESS_18:
+  ret -- OIDVALUE
+
+  end 0
+\end{verbatim}
+\end{myquote}
+\end{changemargin}
+
+Given the following input (in hexadecimal):
+
+\begin{changemargin}{-60mm}{0mm} 
+\begin{myquote}
+\begin{verbatim}
+30 18 06 10 2B 06 01 04 01 81 E0 6B 02 02 06 01 06 03 01 01 40 04 C0 A8 50 01
+\end{verbatim}
+\end{myquote}
+\end{changemargin}
+
+The following is the output of the engine in debug mode
+(reduced font size to fit page horizontally):
+
+\begin{changemargin}{-60mm}{0mm} 
+\begin{myquote}
+\begin{Verbatim}[fontsize=\scriptsize]
+Processing 26 bytes of input
+000001          CALL bc 000 in 00 301806102b060104 st (000 prec.) 
+            __RULE_TOP:
+000002          CALL bc 016 in 00 301806102b060104 st (000 prec.) CLL:8 
+            __RULE_LIST:
+000003          CHAR bc 284 in 00 301806102b060104 st (000 prec.) CLL:8 CLL:24 
+000004          CALL bc 292 in 01 1806102b06010401 st (000 prec.) CLL:8 CLL:24 
+            __RULE_BERLENGTH:
+000005         CATCH bc 028 in 01 1806102b06010401 st (000 prec.) CLL:8 CLL:24 CLL:300 
+000006         CATCH bc 036 in 01 1806102b06010401 st (003 prec.) ALT:96 
+000007    MASKEDCHAR bc 044 in 01 1806102b06010401 st (004 prec.) ALT:64 
+000008    BACKCOMMIT bc 056 in 02 06102b0601040181 st (004 prec.) ALT:64 
+            __SCANNER_4_OUT:
+000009   OPENCAPTURE bc 068 in 01 1806102b06010401 st (003 prec.) ALT:96 
+000010           ANY bc 076 in 01 1806102b06010401 st (003 prec.) ALT:96 
+            __SUCCESS_5:
+000011  CLOSECAPTURE bc 080 in 02 06102b0601040181 st (003 prec.) ALT:96 
+000012        COMMIT bc 088 in 02 06102b0601040181 st (003 prec.) ALT:96 
+            __SUCCESS_2:
+000013           RET bc 280 in 02 06102b0601040181 st (000 prec.) CLL:8 CLL:24 CLL:300 
+000014  INTRPCAPTURE bc 300 in 02 06102b0601040181 st (000 prec.) CLL:8 CLL:24 
+000015          CALL bc 312 in 02 06102b0601040181 st (000 prec.) CLL:8 CLL:24 
+            __RULE_OBJECTS:
+000016          CALL bc 324 in 02 06102b0601040181 st (000 prec.) CLL:8 CLL:24 CLL:320 
+            __RULE_OID:
+000017          CHAR bc 344 in 02 06102b0601040181 st (000 prec.) CLL:8 CLL:24 CLL:320 CLL:332 
+000018          CALL bc 352 in 03 102b0601040181e0 st (000 prec.) CLL:8 CLL:24 CLL:320 CLL:332 
+            __RULE_BERLENGTH:
+000019         CATCH bc 028 in 03 102b0601040181e0 st (000 prec.) CLL:8 CLL:24 CLL:320 CLL:332 CLL:360 
+000020         CATCH bc 036 in 03 102b0601040181e0 st (005 prec.) ALT:96 
+000021    MASKEDCHAR bc 044 in 03 102b0601040181e0 st (006 prec.) ALT:64 
+000022    BACKCOMMIT bc 056 in 04 2b0601040181e06b st (006 prec.) ALT:64 
+            __SCANNER_4_OUT:
+000023   OPENCAPTURE bc 068 in 03 102b0601040181e0 st (005 prec.) ALT:96 
+000024           ANY bc 076 in 03 102b0601040181e0 st (005 prec.) ALT:96 
+            __SUCCESS_5:
+000025  CLOSECAPTURE bc 080 in 04 2b0601040181e06b st (005 prec.) ALT:96 
+000026        COMMIT bc 088 in 04 2b0601040181e06b st (005 prec.) ALT:96 
+            __SUCCESS_2:
+000027           RET bc 280 in 04 2b0601040181e06b st (000 prec.) CLL:8 CLL:24 CLL:320 CLL:332 CLL:360 
+000028  INTRPCAPTURE bc 360 in 04 2b0601040181e06b st (000 prec.) CLL:8 CLL:24 CLL:320 CLL:332 
+000029          CALL bc 372 in 04 2b0601040181e06b st (000 prec.) CLL:8 CLL:24 CLL:320 CLL:332 
+            __RULE_OIDVALUE:
+000030   OPENCAPTURE bc 436 in 04 2b0601040181e06b st (000 prec.) CLL:8 CLL:24 CLL:320 CLL:332 CLL:380 
+000031   OPENCAPTURE bc 444 in 04 2b0601040181e06b st (000 prec.) CLL:8 CLL:24 CLL:320 CLL:332 CLL:380 
+000032           ANY bc 452 in 04 2b0601040181e06b st (000 prec.) CLL:8 CLL:24 CLL:320 CLL:332 CLL:380 
+            __SUCCESS_20:
+000033  CLOSECAPTURE bc 456 in 05 0601040181e06b02 st (000 prec.) CLL:8 CLL:24 CLL:320 CLL:332 CLL:380 
+000034         CATCH bc 464 in 05 0601040181e06b02 st (000 prec.) CLL:8 CLL:24 CLL:320 CLL:332 CLL:380 
+            __FOREVER_22:
+000035   OPENCAPTURE bc 472 in 05 0601040181e06b02 st (005 prec.) ALT:536 
+000036         CATCH bc 480 in 05 0601040181e06b02 st (005 prec.) ALT:536 
+            __FOREVER_25:
+000037    MASKEDCHAR bc 488 in 05 0601040181e06b02 st (006 prec.) ALT:508 
+======== FAIL
+            __FORGIVE_24:
+000038    MASKEDCHAR bc 508 in 05 0601040181e06b02 st (005 prec.) ALT:536 
+            __SUCCESS_23:
+000039  CLOSECAPTURE bc 520 in 06 01040181e06b0202 st (005 prec.) ALT:536 
+000040 PARTIALCOMMIT bc 528 in 06 01040181e06b0202 st (005 prec.) ALT:536 
+            __FOREVER_22:
+000041   OPENCAPTURE bc 472 in 06 01040181e06b0202 st (005 prec.) ALT:536 
+000042         CATCH bc 480 in 06 01040181e06b0202 st (005 prec.) ALT:536 
+            __FOREVER_25:
+000043    MASKEDCHAR bc 488 in 06 01040181e06b0202 st (006 prec.) ALT:508 
+======== FAIL
+            __FORGIVE_24:
+000044    MASKEDCHAR bc 508 in 06 01040181e06b0202 st (005 prec.) ALT:536 
+            __SUCCESS_23:
+000045  CLOSECAPTURE bc 520 in 07 040181e06b020206 st (005 prec.) ALT:536 
+000046 PARTIALCOMMIT bc 528 in 07 040181e06b020206 st (005 prec.) ALT:536 
+            __FOREVER_22:
+000047   OPENCAPTURE bc 472 in 07 040181e06b020206 st (005 prec.) ALT:536 
+000048         CATCH bc 480 in 07 040181e06b020206 st (005 prec.) ALT:536 
+            __FOREVER_25:
+000049    MASKEDCHAR bc 488 in 07 040181e06b020206 st (006 prec.) ALT:508 
+======== FAIL
+            __FORGIVE_24:
+000050    MASKEDCHAR bc 508 in 07 040181e06b020206 st (005 prec.) ALT:536 
+            __SUCCESS_23:
+000051  CLOSECAPTURE bc 520 in 08 0181e06b02020601 st (005 prec.) ALT:536 
+000052 PARTIALCOMMIT bc 528 in 08 0181e06b02020601 st (005 prec.) ALT:536 
+            __FOREVER_22:
+000053   OPENCAPTURE bc 472 in 08 0181e06b02020601 st (005 prec.) ALT:536 
+000054         CATCH bc 480 in 08 0181e06b02020601 st (005 prec.) ALT:536 
+            __FOREVER_25:
+000055    MASKEDCHAR bc 488 in 08 0181e06b02020601 st (006 prec.) ALT:508 
+======== FAIL
+            __FORGIVE_24:
+000056    MASKEDCHAR bc 508 in 08 0181e06b02020601 st (005 prec.) ALT:536 
+            __SUCCESS_23:
+000057  CLOSECAPTURE bc 520 in 09 81e06b0202060106 st (005 prec.) ALT:536 
+000058 PARTIALCOMMIT bc 528 in 09 81e06b0202060106 st (005 prec.) ALT:536 
+            __FOREVER_22:
+000059   OPENCAPTURE bc 472 in 09 81e06b0202060106 st (005 prec.) ALT:536 
+000060         CATCH bc 480 in 09 81e06b0202060106 st (005 prec.) ALT:536 
+            __FOREVER_25:
+000061    MASKEDCHAR bc 488 in 09 81e06b0202060106 st (006 prec.) ALT:508 
+000062 PARTIALCOMMIT bc 500 in 10 e06b020206010603 st (006 prec.) ALT:508 
+            __FOREVER_25:
+000063    MASKEDCHAR bc 488 in 10 e06b020206010603 st (006 prec.) ALT:508 
+000064 PARTIALCOMMIT bc 500 in 11 6b02020601060301 st (006 prec.) ALT:508 
+            __FOREVER_25:
+000065    MASKEDCHAR bc 488 in 11 6b02020601060301 st (006 prec.) ALT:508 
+======== FAIL
+            __FORGIVE_24:
+000066    MASKEDCHAR bc 508 in 11 6b02020601060301 st (005 prec.) ALT:536 
+            __SUCCESS_23:
+000067  CLOSECAPTURE bc 520 in 12 0202060106030101 st (005 prec.) ALT:536 
+000068 PARTIALCOMMIT bc 528 in 12 0202060106030101 st (005 prec.) ALT:536 
+            __FOREVER_22:
+000069   OPENCAPTURE bc 472 in 12 0202060106030101 st (005 prec.) ALT:536 
+000070         CATCH bc 480 in 12 0202060106030101 st (005 prec.) ALT:536 
+            __FOREVER_25:
+000071    MASKEDCHAR bc 488 in 12 0202060106030101 st (006 prec.) ALT:508 
+======== FAIL
+            __FORGIVE_24:
+000072    MASKEDCHAR bc 508 in 12 0202060106030101 st (005 prec.) ALT:536 
+            __SUCCESS_23:
+000073  CLOSECAPTURE bc 520 in 13 02060106030101__ st (005 prec.) ALT:536 
+000074 PARTIALCOMMIT bc 528 in 13 02060106030101__ st (005 prec.) ALT:536 
+            __FOREVER_22:
+000075   OPENCAPTURE bc 472 in 13 02060106030101__ st (005 prec.) ALT:536 
+000076         CATCH bc 480 in 13 02060106030101__ st (005 prec.) ALT:536 
+            __FOREVER_25:
+000077    MASKEDCHAR bc 488 in 13 02060106030101__ st (006 prec.) ALT:508 
+======== FAIL
+            __FORGIVE_24:
+000078    MASKEDCHAR bc 508 in 13 02060106030101__ st (005 prec.) ALT:536 
+            __SUCCESS_23:
+000079  CLOSECAPTURE bc 520 in 14 060106030101____ st (005 prec.) ALT:536 
+000080 PARTIALCOMMIT bc 528 in 14 060106030101____ st (005 prec.) ALT:536 
+            __FOREVER_22:
+000081   OPENCAPTURE bc 472 in 14 060106030101____ st (005 prec.) ALT:536 
+000082         CATCH bc 480 in 14 060106030101____ st (005 prec.) ALT:536 
+            __FOREVER_25:
+000083    MASKEDCHAR bc 488 in 14 060106030101____ st (006 prec.) ALT:508 
+======== FAIL
+            __FORGIVE_24:
+000084    MASKEDCHAR bc 508 in 14 060106030101____ st (005 prec.) ALT:536 
+            __SUCCESS_23:
+000085  CLOSECAPTURE bc 520 in 15 0106030101______ st (005 prec.) ALT:536 
+000086 PARTIALCOMMIT bc 528 in 15 0106030101______ st (005 prec.) ALT:536 
+            __FOREVER_22:
+000087   OPENCAPTURE bc 472 in 15 0106030101______ st (005 prec.) ALT:536 
+000088         CATCH bc 480 in 15 0106030101______ st (005 prec.) ALT:536 
+            __FOREVER_25:
+000089    MASKEDCHAR bc 488 in 15 0106030101______ st (006 prec.) ALT:508 
+======== FAIL
+            __FORGIVE_24:
+000090    MASKEDCHAR bc 508 in 15 0106030101______ st (005 prec.) ALT:536 
+            __SUCCESS_23:
+000091  CLOSECAPTURE bc 520 in 16 06030101________ st (005 prec.) ALT:536 
+000092 PARTIALCOMMIT bc 528 in 16 06030101________ st (005 prec.) ALT:536 
+            __FOREVER_22:
+000093   OPENCAPTURE bc 472 in 16 06030101________ st (005 prec.) ALT:536 
+000094         CATCH bc 480 in 16 06030101________ st (005 prec.) ALT:536 
+            __FOREVER_25:
+000095    MASKEDCHAR bc 488 in 16 06030101________ st (006 prec.) ALT:508 
+======== FAIL
+            __FORGIVE_24:
+000096    MASKEDCHAR bc 508 in 16 06030101________ st (005 prec.) ALT:536 
+            __SUCCESS_23:
+000097  CLOSECAPTURE bc 520 in 17 030101__________ st (005 prec.) ALT:536 
+000098 PARTIALCOMMIT bc 528 in 17 030101__________ st (005 prec.) ALT:536 
+            __FOREVER_22:
+000099   OPENCAPTURE bc 472 in 17 030101__________ st (005 prec.) ALT:536 
+000100         CATCH bc 480 in 17 030101__________ st (005 prec.) ALT:536 
+            __FOREVER_25:
+000101    MASKEDCHAR bc 488 in 17 030101__________ st (006 prec.) ALT:508 
+======== FAIL
+            __FORGIVE_24:
+000102    MASKEDCHAR bc 508 in 17 030101__________ st (005 prec.) ALT:536 
+            __SUCCESS_23:
+000103  CLOSECAPTURE bc 520 in 18 0101____________ st (005 prec.) ALT:536 
+000104 PARTIALCOMMIT bc 528 in 18 0101____________ st (005 prec.) ALT:536 
+            __FOREVER_22:
+000105   OPENCAPTURE bc 472 in 18 0101____________ st (005 prec.) ALT:536 
+000106         CATCH bc 480 in 18 0101____________ st (005 prec.) ALT:536 
+            __FOREVER_25:
+000107    MASKEDCHAR bc 488 in 18 0101____________ st (006 prec.) ALT:508 
+======== FAIL
+            __FORGIVE_24:
+000108    MASKEDCHAR bc 508 in 18 0101____________ st (005 prec.) ALT:536 
+            __SUCCESS_23:
+000109  CLOSECAPTURE bc 520 in 19 01______________ st (005 prec.) ALT:536 
+000110 PARTIALCOMMIT bc 528 in 19 01______________ st (005 prec.) ALT:536 
+            __FOREVER_22:
+000111   OPENCAPTURE bc 472 in 19 01______________ st (005 prec.) ALT:536 
+000112         CATCH bc 480 in 19 01______________ st (005 prec.) ALT:536 
+            __FOREVER_25:
+000113    MASKEDCHAR bc 488 in 19 01______________ st (006 prec.) ALT:508 
+======== FAIL
+            __FORGIVE_24:
+000114    MASKEDCHAR bc 508 in 19 01______________ st (005 prec.) ALT:536 
+            __SUCCESS_23:
+000115  CLOSECAPTURE bc 520 in 20 ________________ st (005 prec.) ALT:536 
+000116 PARTIALCOMMIT bc 528 in 20 ________________ st (005 prec.) ALT:536 
+            __FOREVER_22:
+000117   OPENCAPTURE bc 472 in 20 ________________ st (005 prec.) ALT:536 
+000118         CATCH bc 480 in 20 ________________ st (005 prec.) ALT:536 
+            __FOREVER_25:
+000119    MASKEDCHAR bc 488 in 20 ________________ st (006 prec.) ALT:508 
+======== FAIL
+            __FORGIVE_24:
+000120    MASKEDCHAR bc 508 in 20 ________________ st (005 prec.) ALT:536 
+======== FAIL
+            __FORGIVE_21:
+            __SUCCESS_19:
+000121  CLOSECAPTURE bc 536 in 20 ________________ st (000 prec.) CLL:8 CLL:24 CLL:320 CLL:332 CLL:380 
+            __SUCCESS_18:
+000122           RET bc 544 in 20 ________________ st (000 prec.) CLL:8 CLL:24 CLL:320 CLL:332 CLL:380 
+            __SUCCESS_15:
+000123           RET bc 380 in 20 4004c0a85001____ st (000 prec.) CLL:8 CLL:24 CLL:320 CLL:332 
+000124          CALL bc 332 in 20 4004c0a85001____ st (000 prec.) CLL:8 CLL:24 CLL:320 
+            __RULE_IPV4:
+000125          CHAR bc 384 in 20 4004c0a85001____ st (000 prec.) CLL:8 CLL:24 CLL:320 CLL:340 
+000126          CHAR bc 392 in 21 04c0a85001______ st (000 prec.) CLL:8 CLL:24 CLL:320 CLL:340 
+000127   OPENCAPTURE bc 400 in 22 c0a85001________ st (000 prec.) CLL:8 CLL:24 CLL:320 CLL:340 
+000128           ANY bc 408 in 22 c0a85001________ st (000 prec.) CLL:8 CLL:24 CLL:320 CLL:340 
+000129           ANY bc 412 in 23 a85001__________ st (000 prec.) CLL:8 CLL:24 CLL:320 CLL:340 
+000130           ANY bc 416 in 24 5001____________ st (000 prec.) CLL:8 CLL:24 CLL:320 CLL:340 
+000131           ANY bc 420 in 25 01______________ st (000 prec.) CLL:8 CLL:24 CLL:320 CLL:340 
+            __SUCCESS_17:
+000132  CLOSECAPTURE bc 424 in 26 ________________ st (000 prec.) CLL:8 CLL:24 CLL:320 CLL:340 
+            __SUCCESS_16:
+000133           RET bc 432 in 26 ________________ st (000 prec.) CLL:8 CLL:24 CLL:320 CLL:340 
+            __SUCCESS_14:
+000134           RET bc 340 in 26 ________________ st (000 prec.) CLL:8 CLL:24 CLL:320 
+            __SUCCESS_13:
+000135           RET bc 320 in 26 ________________ st (000 prec.) CLL:8 CLL:24 
+            __SUCCESS_1:
+000136           RET bc 024 in 26 ________________ st (000 prec.) CLL:8 
+000137           END bc 008 in 26 ________________ st (000 prec.) 
+End code: 0
+18 actions total
+Action #0: capture slot 0, 1->1 "\x18"
+Action #1: capture slot 0, 3->1 "\x10"
+Action #2: capture slot 6, 4->16 "+\x06\x01\x04\x01\x81\xe0k\x02\x02\x06\x01\x06\x03\x01\x01"
+Action #3: capture slot 7, 4->1 "+"
+Action #4: capture slot 8, 5->1 "\x06"
+Action #5: capture slot 8, 6->1 "\x01"
+Action #6: capture slot 8, 7->1 "\x04"
+Action #7: capture slot 8, 8->1 "\x01"
+Action #8: capture slot 8, 9->3 "\x81\xe0k"
+Action #9: capture slot 8, 12->1 "\x02"
+Action #10: capture slot 8, 13->1 "\x02"
+Action #11: capture slot 8, 14->1 "\x06"
+Action #12: capture slot 8, 15->1 "\x01"
+Action #13: capture slot 8, 16->1 "\x06"
+Action #14: capture slot 8, 17->1 "\x03"
+Action #15: capture slot 8, 18->1 "\x01"
+Action #16: capture slot 8, 19->1 "\x01"
+Action #17: capture slot 5, 22->4 "\xc0\xa8P\x01"
+Number of instructions: 137
+Max stack depth: 7
+\end{Verbatim}
+\end{myquote}
+\end{changemargin}

@@ -14,7 +14,7 @@ This instruction is available in mode 1 (script interpreter).
 
 \begin{myquote}
 \begin{verbatim}
-SCR_CALL <- { 'scr_call' S LABEL }
+SCR_CALL <- { 'scr_call' } S LABEL
 S <- %s+
 LABEL <- { [a-zA-Z0-9_]^1-64 }
 \end{verbatim}

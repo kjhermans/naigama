@@ -10,11 +10,12 @@ open FILE, '> table_instr.tex';
 
 print FILE '
 %\\begin{table}[]
-\\centering
+\\begin{center}
 \\caption{Naigama Assembly Instructions}
 \\label{tab:naig_assembly}
 \\begin{longtable}{lll}
 \\textbf{Mnemonic} & \\textbf{Param1} & \\textbf{Param2} \\\\
+\\endhead
 ';
 
 foreach my $i (sort(keys(%{$instructions}))) {
@@ -30,30 +31,35 @@ foreach my $i (sort(keys(%{$instructions}))) {
   print FILE "'$key' \& $p1 \& $p2 \\\\\n";
 }
 
-print FILE '\\end{tabular}
-\\end{table}
+print FILE '\\end{longtable}
+\\end{center}
+%\\end{table}
 ';
 close FILE;
 
 open FILE, '> table_bytecode.tex';
 
 print FILE '
-\\begin{table}[]
-\\centering
+%\\begin{table}[]
+\\begin{center}
 \\caption{Naigama Bytecode Instructions}
 \\label{tab:naig_bytecode}
-\\begin{tabular}{lllll}
+\\begin{longtable}{lllll}
 \\textbf{Mnemonic} & \\textbf{Opcode} & \\textbf{Param1} & \\textbf{Param2} & \\textbf{Length} \\\\
+\\endhead
 ';
 
 foreach my $i (sort(keys(%{$instructions}))) {
-  print FILE $i . ' & ' . sprintf("%.8x", $instructions->{$i}{instr}) .
+  my $instr = $i;
+  $instr =~ s/([_])/\\$1/g;
+  print FILE $instr . ' & ' . sprintf("%.8x", $instructions->{$i}{instr}) .
     " \& $instructions->{$i}{param1} \& $instructions->{$i}{param2} " .
     " \& $instructions->{$i}{size} " .
     "\\\\\n";
 }
 
 print FILE '\\end{longtable}
+\\end{center}
 %\\end{table}
 ';
 close FILE;

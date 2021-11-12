@@ -14,11 +14,10 @@ This instruction is available in mode 0 (parser).
 
 \begin{myquote}
 \begin{verbatim}
-TESTCHARINSTR <- { 'testchar' } S HEXBYTE S LABEL ( S AMPERSAND HEXBYTE )?
+TESTCHARINSTR <- { 'testchar' } S HEXBYTE S LABEL
 S <- %s+
 HEXBYTE <- { [0-9a-fA-F]^2 }
 LABEL <- { [a-zA-Z0-9_]^1-64 }
-AMPERSAND <- '&'
 \end{verbatim}
 \end{myquote}
 

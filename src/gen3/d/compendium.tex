@@ -12,6 +12,9 @@
 \usepackage{epstopdf}
 \usepackage{longtable}
 
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+
 \usepackage[most]{tcolorbox}
 \definecolor{block-gray}{gray}{0.85}
 \newtcolorbox{myquote}{colback=block-gray,grow to right by=+0mm,grow to left by=-10mm, boxrule=0pt,boxsep=0pt,breakable}
@@ -67,11 +70,36 @@ Generated on & \today \\
 \setlength{\parskip}{1em}
 
 \newpage
-\section{Colofon}
-
-\listoftables
+\input{naig_intro.tex}
 
 \newpage
+\input{naig_overview.tex}
+
+\newpage
+\input{naig_generations.tex}
+
+\newpage
+\input{naig_grammar.tex}
+
+\newpage
+\input{naig_assembly.tex}
+
+\newpage
+\input{naig_bytecode.tex}
+
+\newpage
+\input{naig_output.tex}
+
+\newpage
+\input{naig_executables.tex}
+
+\newpage
+\input{naig_formats.tex}
+
+\newpage
+\section{Colofon}
+\listoftables
+\input{bib.tex}
 
 \newpage
 \begin{appendices}
@@ -120,6 +148,9 @@ Generated on & \today \\
 
 \newpage
 \input{instr_failtwice.tex}
+
+\newpage
+\input{instr_intrpcapture.tex}
 
 \newpage
 \input{instr_isolate.tex}
@@ -200,10 +231,10 @@ Generated on & \today \\
 \input{instr_scr_gteq.tex}
 
 \newpage
-\input{instr_scr_hash.tex}
+\input{instr_scr_inc.tex}
 
 \newpage
-\input{instr_scr_inc.tex}
+\input{instr_scr_index.tex}
 
 \newpage
 \input{instr_scr_logand.tex}

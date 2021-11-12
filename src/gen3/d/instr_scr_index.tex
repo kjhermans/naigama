@@ -1,22 +1,18 @@
-\subsection{Instruction: scr\_string}
+\subsection{Instruction: scr\_index}
 
-\subsubsection{Mode}
-This instruction is available in mode 1 (script interpreter).
 \subsubsection{Summary}
 
-\InputIfFileExists{instr_scr_string_summary.tex}{}{}
+\InputIfFileExists{instr_scr_index_summary.tex}{}{}
 
 \subsubsection{Grammar and Compiling}
 
-\InputIfFileExists{instr_scr_string_compiling.tex}{}{}
+\InputIfFileExists{instr_scr_index_compiling.tex}{}{}
 
 \subsubsection{Assembly Syntax}
 
 \begin{myquote}
 \begin{verbatim}
-SCR_STRING <- { 'scr_string' } S STRINGLITERAL
-S <- %s+
-STRINGLITERAL <- '\'' { ( '\\' ([nrtv\\'] / [0-9]^3) / [^'\\] )* } '\''
+SCR_INDEX <- { 'scr_index' }
 \end{verbatim}
 \end{myquote}
 
@@ -38,12 +34,12 @@ $_{00}$\
 }
 \fbox{%
   \parbox{20pt}{%
-17
+00
   }%
 }
 \fbox{%
   \parbox{20pt}{%
-bb
+09
   }%
 }
 
@@ -52,5 +48,5 @@ bb
 
 .
 
-\InputIfFileExists{instr_scr_string_state.tex}{}{}
+\InputIfFileExists{instr_scr_index_state.tex}{}{}
 

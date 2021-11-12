@@ -14,10 +14,9 @@ This instruction is available in mode 0 (parser).
 
 \begin{myquote}
 \begin{verbatim}
-CLOSECAPTUREINSTR <- { 'closecapture' } S SLOT ( S TYPE )?
+CLOSECAPTUREINSTR <- { 'closecapture' } S SLOT
 S <- %s+
 SLOT <- UNSIGNED
-TYPE <- UNSIGNED
 \end{verbatim}
 \end{myquote}
 

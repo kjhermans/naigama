@@ -1,10 +1,11 @@
 
 %\begin{table}[]
-\centering
+\begin{center}
 \caption{Naigama Assembly Instructions}
 \label{tab:naig_assembly}
 \begin{longtable}{lll}
 \textbf{Mnemonic} & \textbf{Param1} & \textbf{Param2} \\
+\endhead
 'any' &  &  \\
 'backcommit' &  & LABEL \\
 'call' &  & LABEL \\
@@ -19,6 +20,7 @@
 'endreplace' &  &  \\
 'fail' &  &  \\
 'failtwice' &  &  \\
+'intrpcapture' &  &  \\
 'isolate' & slot &  \\
 'jump' &  & LABEL \\
 'maskedchar' & char & mask \\
@@ -45,9 +47,8 @@
 'scr\_equals' &  &  \\
 'scr\_gt' &  &  \\
 'scr\_gteq' &  &  \\
-'scr\_hash' &  &  \\
 'scr\_inc' &  &  \\
-'scr\_jump' &  &  \\
+'scr\_index' &  &  \\
 'scr\_logand' &  &  \\
 'scr\_lognot' &  &  \\
 'scr\_logor' &  &  \\
@@ -73,5 +74,6 @@
 'testset' & set & LABEL \\
 'trap' &  &  \\
 'var' & slot &  \\
-\end{tabular}
-\end{table}
+\end{longtable}
+\end{center}
+%\end{table}

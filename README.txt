@@ -1,3 +1,14 @@
+Naigama is a collection of specifications, libraries and executables
+implementing a Packrat parser modeled, by now loosely, on
+Parsing Expression Grammars.
+
+It allows you to specify a set of parsing rules, which can be
+compiled into a bytecode, which can be fed to an execution engine
+together with a data input, in order to qualify said input,
+and / or capture regions from it, and / or modify it.
+
+<hr/>
+
 This project requires shell script and perl.
 
 It creates the building tooling for PEGs, in n generations compilers.

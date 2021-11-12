@@ -1,13 +1,13 @@
 -- Grammar:
 
-LIST      <- 0x30 derlength <<ruint32:$_:OBJECTS>>
+TOP       <- LIST
+BERLENGTH <- & |00|80| { . } /
+             0x81 { . } / 0x82 { .. } / 0x83 { ... } / 0x84 { .... }
+LIST      <- 0x30 BERLENGTH <<ruint32:$_:OBJECTS>>
 OBJECTS   <- OID IPV4
-OID       <- 0x06 derlength <<ruint32:$_:oidvalue>>
+OID       <- 0x06 BERLENGTH <<ruint32:$_:OIDVALUE>>
 IPV4      <- 0x40 0x04 { .... }
-
-oidvalue <- { { . } { |80|80|* |00|80| }* }
-
-derlength <- & |00|80| { . } / 0x81 { . } / 0x82 { .. } / 0x83 { ... } / 0x84 { .... }
+OIDVALUE <- { { . } { |80|80|* |00|80| }* }
 
 -- Hexinput:
 

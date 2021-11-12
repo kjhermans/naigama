@@ -2,12 +2,13 @@
 
 SEQUENCE       <- SEQUENCETYPE BERLENGTH <<ruint32:$_:SEQUENCEVALUE>>
 SEQUENCEVALUE  <- OID EMAIL
+BERLENGTH      <- & |00|80| { . } /
+                  0x81 { . } / 0x82 { .. } / 0x83 { ... } / 0x84 { .... }
+
 OID            <- OIDTYPE BERLENGTH <<ruint32:$_:OIDVALUE>>
-OIDVALUE       <- { { . } { |80|80|* |00|80| }* }
-BERLENGTH      <- & |00|80| { . } / 0x81 { . } / 0x82 { .. } / 0x83 { ... } / 0x84 { .... }
+OIDVALUE       <- { ( . ) ( |80|80|* |00|80| )* }
 
 EMAIL          <- IASTRING BERLENGTH <<ruint32:$_:EMAILVALUE>>
-
 EMAILVALUE     <- { USERNAME '@' FQDN }
 USERNAME       <- { [a-zA-Z0-9.]+ }
 FQDN           <- { [a-zA-Z0-9.]+ }

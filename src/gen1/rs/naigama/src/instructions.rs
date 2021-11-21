@@ -78,7 +78,81 @@ impl NaigInstruction {
       0x00240363 => { return Ok(NaigInstruction::INSTR_TESTSET); },
       0xff00ffff => { return Ok(NaigInstruction::INSTR_TRAP); },
       0x000403ee => { return Ok(NaigInstruction::INSTR_VAR); },
-      _ => { return Err(crate::errors::NaigError::BadOpcode); }
+      _ => { return Err(crate::errors::NaigError::ErrBadOpcode); }
+    };
+  }
+
+  pub fn get_size
+    (n: usize)
+    -> Result<u32, NaigError>
+  {
+    match n {
+      0x000003e4 => { return Ok(4); },
+      0x000403c0 => { return Ok(8); },
+      0x00040382 => { return Ok(8); },
+      0x00040393 => { return Ok(8); },
+      0x000403d7 => { return Ok(8); },
+      0x00040300 => { return Ok(8); },
+      0x00040336 => { return Ok(8); },
+      0x00080321 => { return Ok(12); },
+      0x00080356 => { return Ok(12); },
+      0x000400d8 => { return Ok(8); },
+      0x00000399 => { return Ok(4); },
+      0x0000034b => { return Ok(4); },
+      0x00000390 => { return Ok(4); },
+      0x00040333 => { return Ok(8); },
+      0x00080365 => { return Ok(12); },
+      0x00000000 => { return Ok(4); },
+      0x0004039c => { return Ok(8); },
+      0x000403b4 => { return Ok(8); },
+      0x0004037e => { return Ok(8); },
+      0x000803bd => { return Ok(12); },
+      0x00080348 => { return Ok(12); },
+      0x000003a0 => { return Ok(4); },
+      0x002003ca => { return Ok(36); },
+      0x00040330 => { return Ok(8); },
+      0x002003e1 => { return Ok(36); },
+      0x00040306 => { return Ok(8); },
+      0x0008039a => { return Ok(12); },
+      0x000803db => { return Ok(12); },
+      0x00240363 => { return Ok(40); },
+      0xff00ffff => { return Ok(4); },
+      0x000403ee => { return Ok(8); },
+      _ => { return Err(crate::errors::NaigError::ErrBadOpcode); }
     };
   }
 }
+
+pub const _INSTR_SIZE_ANY: usize = 4;
+pub const _INSTR_SIZE_BACKCOMMIT: usize = 8;
+pub const _INSTR_SIZE_CALL: usize = 8;
+pub const _INSTR_SIZE_CATCH: usize = 8;
+pub const _INSTR_SIZE_CHAR: usize = 8;
+pub const _INSTR_SIZE_CLOSECAPTURE: usize = 8;
+pub const _INSTR_SIZE_COMMIT: usize = 8;
+pub const _INSTR_SIZE_CONDJUMP: usize = 12;
+pub const _INSTR_SIZE_COUNTER: usize = 12;
+pub const _INSTR_SIZE_END: usize = 8;
+pub const _INSTR_SIZE_ENDREPLACE: usize = 4;
+pub const _INSTR_SIZE_FAIL: usize = 4;
+pub const _INSTR_SIZE_FAILTWICE: usize = 4;
+pub const _INSTR_SIZE_JUMP: usize = 8;
+pub const _INSTR_SIZE_MASKEDCHAR: usize = 12;
+pub const _INSTR_SIZE_NOOP: usize = 4;
+pub const _INSTR_SIZE_OPENCAPTURE: usize = 8;
+pub const _INSTR_SIZE_PARTIALCOMMIT: usize = 8;
+pub const _INSTR_SIZE_QUAD: usize = 8;
+pub const _INSTR_SIZE_RANGE: usize = 12;
+pub const _INSTR_SIZE_REPLACE: usize = 12;
+pub const _INSTR_SIZE_RET: usize = 4;
+pub const _INSTR_SIZE_SET: usize = 36;
+pub const _INSTR_SIZE_SKIP: usize = 8;
+pub const _INSTR_SIZE_SPAN: usize = 36;
+pub const _INSTR_SIZE_TESTANY: usize = 8;
+pub const _INSTR_SIZE_TESTCHAR: usize = 12;
+pub const _INSTR_SIZE_TESTQUAD: usize = 12;
+pub const _INSTR_SIZE_TESTSET: usize = 40;
+pub const _INSTR_SIZE_TRAP: usize = 4;
+pub const _INSTR_SIZE_VAR: usize = 8;
+
+

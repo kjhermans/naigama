@@ -1,5 +1,10 @@
 pub enum NaigError
 {
   ErrOutOfRange = 1,
-  BadOpcode
+  ErrFailure,
+  ErrBadOpcode,
+  ErrState,
+  ErrStack,
+  ErrTrapped,
+  ErrBytecode,
 }

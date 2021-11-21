@@ -73,7 +73,7 @@ impl NaigEngine {
     (&self, input: & Vec< u8 >)
     -> Result<NaigOutcome, NaigError>
   {
-    let instrcounter = 0;
+    let mut instrcounter = 0;
     let mut outcome = NaigOutcome {
       exitcode : 0,
       captures : Vec::new()

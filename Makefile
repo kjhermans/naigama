@@ -1,4 +1,5 @@
 NAIGROOT=$(shell pwd)
+NAIGRELEASE=$(shell cat release | tr -d '\n')
 
 all: makerelease gen0 gen1 gen2 gen3
 
@@ -36,7 +37,7 @@ armbm:
 	@make all ARCH=arm-linux-gnueabi-
 
 rust: gen0
-	@cd src/gen1 && make rust
+	@cd src/gen1 && make rust NAIGRELEASE=$(NAIGRELEASE)
 
 doc:
 	@MFS=`find src/ -name Makefile | xargs grep -l 'doc:'`; \

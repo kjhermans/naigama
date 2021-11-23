@@ -19,16 +19,23 @@ pub struct NaigEngine
 
 pub struct NaigCapture
 {
-  captype         : u32,
+  pub captype         : u32,
+  pub slot            : u32,
+  pub offset          : usize,
+  pub length          : usize
+}
+
+pub struct NaigPinpoint
+{
+  pintype         : u32,
   slot            : u32,
-  offset          : usize,
-  length          : usize
+  offset          : usize
 }
 
 pub struct NaigOutcome
 {
-  exitcode        : i32,
-  captures        : Vec< NaigCapture >
+  pub exitcode        : i32,
+  pub captures        : Vec< NaigCapture >
 }
 
 struct NaigStackElt
@@ -36,6 +43,7 @@ struct NaigStackElt
   elttype         : u32,
   offset          : usize,
   ioffset         : usize,
+  plength         : usize,
 }
 
 struct NaigCounter
@@ -53,9 +61,10 @@ struct NaigEngineState
   input_offset    : usize,
   stack           : Vec< NaigStackElt >,
   counters        : Vec< NaigCounter >,
-  outcome         : &'a mut NaigOutcome,
+  pinpoints       : Vec< NaigPinpoint >,
   fail            : bool,
-  done            : bool
+  done            : bool,
+  exitcode        : i32,
 }
 
 impl NaigEngine {
@@ -85,13 +94,15 @@ impl NaigEngine {
       input_offset    : 0,
       stack           : Vec::new(),
       counters        : Vec::new(),
-      outcome         : & mut outcome,
+      pinpoints       : Vec::new(),
       fail            : false,
-      done            : false
+      done            : false,
+      exitcode        : 0,
     };
     eprintln!("Running loop");
     while (!(state.done)) {
       instrcounter += 1;
+eprint!("Instr #{} @{}: ", instrcounter, state.bytecode_offset);
       let r = NaigEngine::decode_opcode(
         & self.bytecode,
         state.bytecode_offset
@@ -137,9 +148,9 @@ impl NaigEngine {
           NaigInstruction::INSTR_PARTIALCOMMIT
             => NaigEngine::handle_partialcommit(& mut state),
           NaigInstruction::INSTR_QUAD
-            => NaigEngine::handle_quad(& state),
+            => NaigEngine::handle_quad(& mut state),
           NaigInstruction::INSTR_RANGE
-            => NaigEngine::handle_range(& state),
+            => NaigEngine::handle_range(& mut state),
           NaigInstruction::INSTR_REPLACE
             => NaigEngine::handle_replace(& state),
           NaigInstruction::INSTR_RET
@@ -176,7 +187,7 @@ eprintln!("FAIL!");
               state.bytecode_offset = e.offset;
               state.input_offset = e.ioffset;
               state.fail = false;
-              //.. todo: restore capture list length
+              while state.pinpoints.len() > e.plength { state.pinpoints.pop(); }
               break;
             }
           }
@@ -186,7 +197,42 @@ eprintln!("FAIL!");
         }
       }
     }
+    outcome.exitcode = state.exitcode;
+    NaigEngine::pins_to_captures(& state.pinpoints, & mut outcome.captures);
     return Ok(outcome);
+  }
+
+  fn pins_to_captures
+    (pins: & Vec< NaigPinpoint >, caps: & mut Vec< NaigCapture >)
+  {
+    let mut i = 0;
+eprintln!("Number of pinpoints: {}", pins.len());
+    while (i < pins.len()) {
+      if (pins[ i ].pintype == NAIG_CAPTURE_OPEN) {
+        let mut j = i + 1;
+        let mut l = 1;
+        while (j < pins.len()) {
+          if (pins[ j ].pintype == NAIG_CAPTURE_OPEN) {
+            l += 1;
+          } else if (pins[ j ].pintype == NAIG_CAPTURE_CLOSE) {
+            l -= 1;
+            if (l == 0) {
+              caps.push(
+                NaigCapture{
+                  captype : NAIG_CAPTURE_OPEN,
+                  slot    : pins[ i ].slot,
+                  offset  : pins[ i ].offset,
+                  length  : pins[ j ].offset - pins[ i ].offset,
+                }
+              );
+              break;
+            }
+          }
+          j += 1;
+        }
+      }
+      i += 1;
+    }
   }
 
   fn decode_opcode
@@ -257,11 +303,11 @@ eprintln!("FAIL!");
     -> Result<bool, NaigError>
   {
 eprintln!("ANY");
-    if (state.input_offset >= state.input.len()) {
-      state.fail = true;
-    } else {
+    if (state.input_offset < state.input.len()) {
       state.input_offset += 1;
       state.bytecode_offset += instructions::_INSTR_SIZE_ANY;
+    } else {
+      state.fail = true;
     }
     return Ok(true);
   }
@@ -282,7 +328,7 @@ eprintln!("BACKCOMMIT");
           if (e.elttype == STACKELT_TYPE_ALT) {
             state.input_offset = e.ioffset;
             state.bytecode_offset = offset;
-            //.. todo process action list size
+            while state.pinpoints.len() > e.plength { state.pinpoints.pop(); }
           } else {
             return Err(NaigError::ErrStack);
           }
@@ -307,12 +353,12 @@ eprintln!("CALL");
     match n
     {
       Ok(offset) => {
-eprintln!("Calling {}", offset);
         state.stack.push(
           NaigStackElt{
             elttype : STACKELT_TYPE_CLL,
             offset  : state.bytecode_offset + instructions::_INSTR_SIZE_CALL,
             ioffset : 0,
+            plength : state.pinpoints.len(),
           }
         );
         state.bytecode_offset = offset;
@@ -339,6 +385,7 @@ eprintln!("CATCH");
             elttype : STACKELT_TYPE_ALT,
             offset  : offset,
             ioffset : state.input_offset,
+            plength : state.pinpoints.len(),
           }
         );
         state.bytecode_offset += instructions::_INSTR_SIZE_CATCH;
@@ -388,12 +435,11 @@ eprintln!("CLOSECAPTURE");
     match n
     {
       Ok(slot) => {
-        state.outcome.captures.push(
-          NaigCapture {
-            captype : NAIG_CAPTURE_CLOSE,
+        state.pinpoints.push(
+          NaigPinpoint {
+            pintype : NAIG_CAPTURE_CLOSE,
             slot    : slot as u32,
-            offset  : state.input_offset,
-            length  : 0
+            offset  : state.input_offset
           }
         );
       },
@@ -514,7 +560,7 @@ eprintln!("END");
     match n
     {
       Ok(code) => {
-        state.outcome.exitcode = code as i32;
+        state.exitcode = code as i32;
         state.done = true;
       },
       Err(error) => { return Err(error); }
@@ -602,12 +648,11 @@ eprintln!("OPENCAPTURE");
     match n
     {
       Ok(slot) => {
-        state.outcome.captures.push(
-          NaigCapture {
-            captype : NAIG_CAPTURE_OPEN,
+        state.pinpoints.push(
+          NaigPinpoint {
+            pintype : NAIG_CAPTURE_OPEN,
             slot    : slot as u32,
-            offset  : state.input_offset,
-            length  : 0
+            offset  : state.input_offset
           }
         );
       },
@@ -634,6 +679,7 @@ eprintln!("PARTIALCOMMIT");
           return Err(NaigError::ErrStack);
         }
         lastelt.ioffset = state.input_offset;
+        lastelt.plength = state.pinpoints.len();
         state.bytecode_offset = offset;
       },
       Err(error) => { return Err(error); }
@@ -642,18 +688,59 @@ eprintln!("PARTIALCOMMIT");
   }
 
   fn handle_quad
-    (state: & NaigEngineState)
+    (state: & mut NaigEngineState)
     -> Result<bool, NaigError>
   {
 eprintln!("QUAD");
+    if (state.bytecode_offset + instructions::_INSTR_SIZE_QUAD
+        > state.engine.bytecode.len())
+    {
+      return Err(NaigError::ErrBytecode);
+    }
+    if (state.input_offset >= state.input.len() - 3) {
+      state.fail = true;
+    } else {
+      for i in 0..3 {
+        if state.input[ state.input_offset + i ]
+           != state.engine.bytecode[ state.bytecode_offset + 4 + i ]
+        {
+          state.fail = true;
+          break;
+        }
+      }
+      if !state.fail {
+        state.input_offset += 4;
+        state.bytecode_offset += instructions::_INSTR_SIZE_QUAD;
+      }
+    }
     return Ok(true);
   }
 
   fn handle_range
-    (state: & NaigEngineState)
+    (state: & mut NaigEngineState)
     -> Result<bool, NaigError>
   {
 eprintln!("RANGE");
+    let n = NaigEngine::decode_quads(
+              & state.engine.bytecode,
+              state.bytecode_offset + 4,
+              2
+            );
+    match n
+    {
+      Ok(params) => {
+        if state.input_offset < state.input.len()
+           && state.input[ state.input_offset ] >= params[ 0 ] as u8
+           && state.input[ state.input_offset ] <= params[ 1 ] as u8
+        {
+          state.input_offset += 1;
+          state.bytecode_offset += instructions::_INSTR_SIZE_RANGE;
+        } else {
+          state.fail = true;
+        }
+      },
+      Err(error) => { return Err(error); }
+    };
     return Ok(true);
   }
 

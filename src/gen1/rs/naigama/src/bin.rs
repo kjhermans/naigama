@@ -5,6 +5,8 @@ use std::io::Read;
 
 use naigama::NaigEngine;
 
+mod naig;
+
 fn get_file_as_byte_vec
   (filename: &String)
   -> Vec<u8>
@@ -17,6 +19,23 @@ fn get_file_as_byte_vec
   buffer
 }
 
+fn capture_string
+  (inp : & Vec< u8 >, offset : usize, length : usize)
+  -> String
+{
+  let mut result = "".to_owned();
+
+  for i in offset .. offset + length {
+    if inp[ i ] > 32 && inp[ i ] < 127 {
+      result.push(inp[ i ] as char);
+    } else {
+      result.push('.');
+    }
+  }
+
+  result
+}
+
 pub fn main
   ()
 {
@@ -25,7 +44,10 @@ pub fn main
   let args: Vec< String > = env::args().collect();
   let mut skip = false;
 
-  eprintln!("This is naie, Rust version");
+  eprintln!(
+    "This is naie, the Naigama bytecode execution engine, Rust version {}",
+    naig::RELEASE
+  );
   for i in 0..args.len() {
     if skip {
       skip = false;
@@ -45,10 +67,25 @@ pub fn main
     }
   }
   eprintln!("Bytecode {} bytes, input {} bytes.", bytecode.len(), input.len());
-  if (bytecode.len() > 0) {
-    let engine = NaigEngine::new(bytecode);
-    let result = engine.run(& input);
-  } else {
+  if bytecode.len() == 0 {
     eprintln!("No bytecode. Not executing.");
+  }
+  let engine = NaigEngine::new(bytecode);
+  let result = engine.run(& input);
+  match result {
+    Ok(r) => {
+      eprintln!("Exit code {}", r.exitcode);
+      for i in 0 .. r.captures.len() {
+        eprintln!(
+          "Action #{}: slt={}, off={}->{}: \"{}\""
+          , i
+          , r.captures[ i ].slot
+          , r.captures[ i ].offset
+          , r.captures[ i ].length
+          , capture_string(& input, r.captures[i].offset, r.captures[i].length)
+        );
+      }
+    },
+    Err(r) => { eprintln!("Error"); }
   }
 }

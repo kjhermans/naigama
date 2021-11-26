@@ -132,7 +132,7 @@ eprint!("Instr #{} @{}: ", instrcounter, state.bytecode_offset);
           NaigInstruction::INSTR_END
             => NaigEngine::handle_end(& mut state),
           NaigInstruction::INSTR_ENDREPLACE
-            => NaigEngine::handle_endreplace(& state),
+            => NaigEngine::handle_endreplace(& mut state),
           NaigInstruction::INSTR_FAIL
             => NaigEngine::handle_fail(& mut state),
           NaigInstruction::INSTR_FAILTWICE
@@ -152,7 +152,7 @@ eprint!("Instr #{} @{}: ", instrcounter, state.bytecode_offset);
           NaigInstruction::INSTR_RANGE
             => NaigEngine::handle_range(& mut state),
           NaigInstruction::INSTR_REPLACE
-            => NaigEngine::handle_replace(& state),
+            => NaigEngine::handle_replace(& mut state),
           NaigInstruction::INSTR_RET
             => NaigEngine::handle_ret(& mut state),
           NaigInstruction::INSTR_SET
@@ -162,17 +162,17 @@ eprint!("Instr #{} @{}: ", instrcounter, state.bytecode_offset);
           NaigInstruction::INSTR_SPAN
             => NaigEngine::handle_span(& mut state),
           NaigInstruction::INSTR_TESTANY
-            => NaigEngine::handle_testany(& state),
+            => NaigEngine::handle_testany(& mut state),
           NaigInstruction::INSTR_TESTCHAR
-            => NaigEngine::handle_testchar(& state),
+            => NaigEngine::handle_testchar(& mut state),
           NaigInstruction::INSTR_TESTQUAD
-            => NaigEngine::handle_testquad(& state),
+            => NaigEngine::handle_testquad(& mut state),
           NaigInstruction::INSTR_TESTSET
-            => NaigEngine::handle_testset(& state),
+            => NaigEngine::handle_testset(& mut state),
           NaigInstruction::INSTR_TRAP
             => NaigEngine::handle_trap(& state),
           NaigInstruction::INSTR_VAR
-            => NaigEngine::handle_var(& state)
+            => NaigEngine::handle_var(& mut state)
         },
         Err(error) => {
           eprintln!("Error decoding opcode quad at {}", state.bytecode_offset);
@@ -569,10 +569,11 @@ eprintln!("END");
   }
 
   fn handle_endreplace
-    (state: & NaigEngineState)
+    (state: & mut NaigEngineState)
     -> Result<bool, NaigError>
   {
 eprintln!("ENDREPLACE");
+    state.bytecode_offset += instructions::_INSTR_SIZE_ENDREPLACE;
     return Ok(true);
   }
 
@@ -745,10 +746,11 @@ eprintln!("RANGE");
   }
 
   fn handle_replace
-    (state: & NaigEngineState)
+    (state: & mut NaigEngineState)
     -> Result<bool, NaigError>
   {
 eprintln!("REPLACE");
+    state.bytecode_offset += instructions::_INSTR_SIZE_REPLACE;
     return Ok(true);
   }
 
@@ -844,31 +846,34 @@ eprintln!("SPAN");
   }
 
   fn handle_testany
-    (state: & NaigEngineState)
+    (state: & mut NaigEngineState)
     -> Result<bool, NaigError>
   {
 eprintln!("TESTANY");
+    state.bytecode_offset += instructions::_INSTR_SIZE_TESTANY;
     return Ok(true);
   }
 
   fn handle_testchar
-    (state: & NaigEngineState)
+    (state: & mut NaigEngineState)
     -> Result<bool, NaigError>
   {
 eprintln!("TESTCHAR");
+    state.bytecode_offset += instructions::_INSTR_SIZE_TESTCHAR;
     return Ok(true);
   }
 
   fn handle_testquad
-    (state: & NaigEngineState)
+    (state: & mut NaigEngineState)
     -> Result<bool, NaigError>
   {
 eprintln!("TESTQUAD");
+    state.bytecode_offset += instructions::_INSTR_SIZE_TESTQUAD;
     return Ok(true);
   }
 
   fn handle_testset
-    (state: & NaigEngineState)
+    (state: & mut NaigEngineState)
     -> Result<bool, NaigError>
   {
 eprintln!("TESTSET");
@@ -877,6 +882,7 @@ eprintln!("TESTSET");
     {
       return Err(NaigError::ErrBytecode);
     }
+    state.bytecode_offset += instructions::_INSTR_SIZE_TESTSET;
     return Ok(true);
   }
 
@@ -888,10 +894,11 @@ eprintln!("TESTSET");
   }
 
   fn handle_var
-    (state: & NaigEngineState)
+    (state: & mut NaigEngineState)
     -> Result<bool, NaigError>
   {
 eprintln!("VAR");
+    state.bytecode_offset += instructions::_INSTR_SIZE_VAR;
     return Ok(true);
   }
 }

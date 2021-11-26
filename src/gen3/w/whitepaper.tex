@@ -526,7 +526,7 @@ DST      <- { .... }
 Note that in this example LPEG already comes up short where fields are 
 split up bitwise, which is the case for the VRSIHL, TOS, and FRAGWORD 
 field. However also note that, using binary but whole-byte matching, one 
-could replace the VRSIHL rule with the following rule (and capture 99% of 
+could replace the VRSIHL rule with the following rule (and capture 99\% of 
 IPv4 packets, where options aren’t defined):
 
 \begin{changemargin}{-60mm}{0mm}
@@ -604,13 +604,13 @@ instructions and the grammar syntax to describe this process.
 
 To accommodate length values being given before the to-be-parsed input is 
 encountered, and as its only delimiter (ie without a closing token), we 
-need to introduce a method to limit the input, so that grammar !. means 
+need to introduce a method to limit the input, so that grammar '!.' means 
 end-of-input at a point in the input that lies at the end of the 
 sub-section, ie before the real end-of-input (and also, for example, 
-grammar .* runs to this point and no further).
+grammar '.*' runs to this point and no further).
 
-The proposal is to do this in a calling context. So, any grammar FOO $<$- 
-BAR rule will, when BAR is called, limit the input for the context in 
+The proposal is to do this in a calling context. So, any grammar 'FOO $<$- 
+BAR' rule will, when BAR is called, limit the input for the context in 
 which BAR is executed: either to the current end-of-input (the default 
 situation), or to a point before the current end-of-input. Returning from 
 this calling context, through RET or FAIL will restore the original 

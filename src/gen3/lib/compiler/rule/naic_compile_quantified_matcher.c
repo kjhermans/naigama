@@ -72,7 +72,7 @@ NAIG_ERR_T naic_compile_quantified_matcher
       snprintf(counterlabel, sizeof(counterlabel),
         "__COUNTER_%u", ++(naic->labelcount));
       NAIC_WRITE("  catch %s\n", forgivelabel);
-      NAIC_WRITE("  counter %u %d\n", counter, range[ 1 ]);
+      NAIC_WRITE("  counter %u %d\n", counter, diff);
       NAIC_WRITE("%s:\n", counterlabel);
       CHECK(naic_compile_matcher(naic, matcher));
       NAIC_WRITE("  partialcommit __NEXT__\n");

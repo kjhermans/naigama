@@ -26,10 +26,13 @@ fn capture_string
   let mut result = "".to_owned();
 
   for i in offset .. offset + length {
-    if inp[ i ] > 32 && inp[ i ] < 127 {
+    if inp[ i ] >= 32 && inp[ i ] < 127 {
+      if inp[ i ] == 34 || inp[ i ] == 92 {
+        result.push('\\');
+      }
       result.push(inp[ i ] as char);
     } else {
-      result.push('.');
+      result.push_str(& format!("\\x{}", inp[ i ]));
     }
   }
 

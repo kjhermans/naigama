@@ -86,7 +86,11 @@ sub decompile
       if ($rules[ $i ]->{instr}[ $j ] =~ /^char\s+([0-9a-fA-F]{2})/) {
         my $asc = hex($1);
         if ($asc >= 32 & $asc < 127) {
-          $rules[ $i ]->{instr}[ $j ] = { grammar => '\'' . chr($asc) . '\'' };
+          if (chr($asc) == '\\' || chr($asc) == '\'') {
+            $rules[ $i ]->{instr}[ $j ] = { grammar => '\'\\' . chr($asc) . '\'' };
+          } else {
+            $rules[ $i ]->{instr}[ $j ] = { grammar => '\'' . chr($asc) . '\'' };
+          }
         } else {
           $rules[ $i ]->{instr}[ $j ] = { grammar => '0x'.$1 };
         }

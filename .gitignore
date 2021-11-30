@@ -25,3 +25,16 @@ src/gen2/main/compiler/naic
 src/gen2/main/engine/naie
 src/gen2/main/naigama/naig
 src/gen2/main/disassembler/naid
+
+src/gen3/d/compendium.aux
+src/gen3/d/compendium.log
+src/gen3/d/compendium.lot
+src/gen3/d/compendium.toc
+src/gen3/main/assembler/naia
+src/gen3/main/engine/naie
+src/gen3/main/service/nais
+src/gen3/w/document.aux
+src/gen3/w/document.idx
+src/gen3/w/document.log
+src/gen3/w/document.toc
+

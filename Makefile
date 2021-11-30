@@ -39,6 +39,9 @@ armbm:
 rust: gen0
 	@cd src/gen1 && make rust NAIGRELEASE=$(NAIGRELEASE)
 
+java: gen0 gen1
+	@cd src/gen1 && make java
+
 doc:
 	@MFS=`find src/ -name Makefile | xargs grep -l 'doc:'`; \
 		for MF in $$MFS; do \

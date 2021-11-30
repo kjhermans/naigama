@@ -248,6 +248,10 @@ $VAR1 = {
 my $instructions = $VAR1;
 my %labelmap;
 my ($inputfile, $outputfile) = ( '-', '-' );
+my ($in, $out);
+
+sub do_assemble { return assemble(@_); }
+if (caller) { return 1; }
 
 while (my $arg = shift @ARGV) {
   if ($arg =~ s/^-//) {
@@ -283,8 +287,6 @@ if (!scalar(keys(%{$instructions}))) {
 } else {
   print STDERR scalar(keys(%{$instructions}))." instructions loaded.\n";
 }
-
-my ($in, $out);
 
 if ($inputfile eq '-') {
   $in = *STDIN;

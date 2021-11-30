@@ -98,7 +98,13 @@ executables:
 	@cd main && make
 
 rust:
-	@cd rs && make
+	@cd other/rust && make
+
+java:
+	@cd other/java && make
+
+perl:
+	@cd other/perl && make
 
 test:
 	@cd t/ && make

@@ -8,7 +8,7 @@ compiled into a bytecode, which can be fed to an execution engine
 together with a data input, in order to qualify said input,
 and / or capture regions from it, and / or modify it.
 
-<hr/>
+====
 
 This project requires shell script and perl. It is best compiled
 on Linux. I have no MacOS or Windows targets in mind. Feel free.
@@ -33,3 +33,10 @@ This repo contains all the precompiled and generated code
 change when the underlying collateral doesn't). For those with perl and
 an appetite for adventure, 'make superclean' removes all those files as
 well.
+
+====
+
+This project also contains implementations of the library and executables
+int Java, Rust and Perl. Although I don't shy away from it, I'm not
+super fond of Python, but - again - feel free. For now, this support
+is a) immature, and b) beholden to gen1.

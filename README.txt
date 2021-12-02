@@ -1,6 +1,7 @@
 Naigama is a collection of specifications, libraries and executables
 implementing a Packrat parser modeled, by now loosely, on
-Parsing Expression Grammars.
+Parsing Expression Grammars (more precisely Lua PEG or LPEG, see:
+http://www.inf.puc-rio.br/~roberto/lpeg/).
 
 It allows you to specify a set of parsing rules, which can be
 compiled into a bytecode, which can be fed to an execution engine
@@ -18,7 +19,8 @@ To compile for any specific generation <n>, do 'make gen<n>'.
 
 To compile libraries and executables, do 'make'.
 
-To compile everything (demo's, documentation, tests, etc), do 'make world'.
+To compile everything (demo's, documentation, tests, etc),
+do 'make world'.
 
 To get a debug version, do 'make debug'.
 When switching between 'production' and 'debug' builds, it's probably
@@ -27,7 +29,7 @@ macroes inside typedefs, but there may be some things that go wrong
 when you link both debug and non-debug objects).
 
 This repo contains all the precompiled and generated code
-(because it is generated in a deterministic fashion, the code shouldn't change
-when the underlying collateral doesn't).
-For those with perl and an appetite for adventure, 'make superclean'
-removes all those files as well.
+(because it is generated in a deterministic fashion, the code shouldn't
+change when the underlying collateral doesn't). For those with perl and
+an appetite for adventure, 'make superclean' removes all those files as
+well.

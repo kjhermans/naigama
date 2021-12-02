@@ -7,7 +7,7 @@ TARGET=naigama.jar
 all: $(TARGET)
 
 $(TARGET): $(CLASSFILES)
-	$(JAR) -cvf $(TARGET) $(CLASSFILES)
+	$(JAR) cvfe $(TARGET) lib.naigama.engine.Main $(CLASSFILES)
 
 clean:
 	rm -f $(CLASSFILES) $(TARGET)

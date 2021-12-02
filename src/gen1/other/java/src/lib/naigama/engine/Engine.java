@@ -1,8 +1,12 @@
-package lib.naigama;
+package lib.naigama.engine;
+
+import lib.naigama.Instructions;
+import java.util.Vector;
 
 public class Engine
 {
   byte[] bytecode = null;
+  boolean debug = false;
 
   public Engine
     (byte[] bc)
@@ -13,6 +17,12 @@ public class Engine
     bytecode = bc;
   }
 
+  public void setDebug
+    (boolean d)
+  {
+    debug = d;
+  }
+
   public Outcome run
     (byte[] in)
     throws NaigamaException
@@ -21,6 +31,7 @@ public class Engine
       throw new NullPointerException("Bytecode must not be null");
     }
     EngineState state = new EngineState(in);
+    int instrctr = 0;
     while (!(state.end)) {
       if (state.bytecode_offset > bytecode.length - 4) {
         throw new NaigamaBytecodeException("Ran out of bytecode.");
@@ -30,6 +41,15 @@ public class Engine
       if (state.bytecode_offset > bytecode.length - state.instrsize) {
         throw new NaigamaBytecodeException(
           "Bytecode length does not support instruction size."
+        );
+      }
+      if (debug) {
+        System.err.println(
+          instrctr++ +
+          "; byc=" + state.bytecode_offset +
+          "; inp=" + state.input_offset + 
+          "; " + Instructions.getString(state.opcode) +
+          "; stk=" + stack_string(state)
         );
       }
       switch (state.opcode) {
@@ -47,38 +67,46 @@ public class Engine
       case Instructions.INSTR_FAIL: state.fail = true; break;
       case Instructions.INSTR_FAILTWICE: process_failtwice(state); break;
       case Instructions.INSTR_JUMP: process_jump(state); break;
-      case Instructions.INSTR_MASKEDCHAR:
+      case Instructions.INSTR_MASKEDCHAR: process_maskedchar(state); break;
       case Instructions.INSTR_NOOP: state.bytecode_offset += state.instrsize; break;
       case Instructions.INSTR_OPENCAPTURE: process_opencapture(state); break;
       case Instructions.INSTR_PARTIALCOMMIT: process_partialcommit(state); break;
-      case Instructions.INSTR_QUAD:
-      case Instructions.INSTR_RANGE:
+      case Instructions.INSTR_QUAD: process_quad(state); break;
+      case Instructions.INSTR_RANGE: process_range(state); break;
       case Instructions.INSTR_REPLACE:
       case Instructions.INSTR_RET: process_ret(state); break;
-      case Instructions.INSTR_SET:
-      case Instructions.INSTR_SKIP:
-      case Instructions.INSTR_SPAN:
-      case Instructions.INSTR_TESTANY:
-      case Instructions.INSTR_TESTCHAR:
-      case Instructions.INSTR_TESTQUAD:
-      case Instructions.INSTR_TESTSET:
-      case Instructions.INSTR_TRAP:
-      case Instructions.INSTR_VAR:
+      case Instructions.INSTR_SET: process_set(state); break;
+      case Instructions.INSTR_SKIP: process_skip(state); break;
+      case Instructions.INSTR_SPAN: process_span(state); break;
+      case Instructions.INSTR_TESTANY: process_testany(state); break;
+      case Instructions.INSTR_TESTCHAR: process_testchar(state); break;
+      case Instructions.INSTR_TESTQUAD: process_testquad(state); break;
+      case Instructions.INSTR_TESTSET: process_testset(state); break;
+      case Instructions.INSTR_TRAP: throw new NaigamaTrap("At byc=" + state.bytecode_offset + "; inp=" + state.input_offset);
+      case Instructions.INSTR_VAR: process_var(state);
         break;
+      default:
+        throw new NaigamaBytecodeException("Unknown instruction opcode " + state.opcode);
       }
       if (state.fail) {
         fail(state);
       }
     }
-    return null;
+    Outcome o = new Outcome();
+    o.input    = state.input;
+    o.exitcode = state.exitcode;
+    o.captures = pins_to_captures(state);
+    return o;
   }
 
   private int get_protected_quad
     (int off)
   {
-    return bytecode[ off+1 ] << 16 |
-           bytecode[ off+2 ] << 8 |
-           bytecode[ off+3 ];
+    int result =
+      (bytecode[ off+1 ] << 16) |
+      (bytecode[ off+2 ] << 8) |
+      (bytecode[ off+3 ] & 0xff);
+    return result;
   }
 
   private void fail
@@ -92,6 +120,7 @@ public class Engine
         state.input_offset = e.input_offset;
         state.pinpoints.setSize(e.pp_size);
         state.fail = false;
+        break;
       }
     }
     if (state.stack.size() == 0) {
@@ -102,10 +131,14 @@ public class Engine
   private int counter_resolve
     (EngineState state, int counter)
   {
-    Integer value = state.counters.get(new Integer(counter));
+    long key = (state.stack.size()) << 32 | counter;
+    Integer value = state.counters.get(new Long(key));
     if (value != null) {
-      value--;
-      state.counters.put(new Integer(counter), new Integer(value));
+      if (--value == 0) {
+        state.counters.remove(new Long(key));
+      } else {
+        state.counters.put(new Long(key), new Integer(value));
+      }
       return value;
     }
     return 0;
@@ -114,7 +147,8 @@ public class Engine
   private void counter_push
     (EngineState state, int counter, int value)
   {
-    state.counters.put(new Integer(counter), new Integer(value));
+    long key = (state.stack.size()) << 32 | counter;
+    state.counters.put(new Long(key), new Integer(value));
   }
 
   private void process_any
@@ -130,6 +164,7 @@ public class Engine
 
   private void process_backcommit
     (EngineState state)
+    throws NaigamaException
   {
     StackElt e = state.stack.pop();
     if (e.type == StackElt.TYPE_ALT) {
@@ -137,7 +172,7 @@ public class Engine
       state.input_offset = e.input_offset;
       state.pinpoints.setSize(e.pp_size);
     } else { 
-      //.. throw new NaigamaStackCompositionException();
+      throw new NaigamaStackException("Expected ALT type in backcommit");
     }
   }
 
@@ -161,6 +196,7 @@ public class Engine
     e.offset = offset;
     e.input_offset = state.input_offset;
     e.pp_size = state.pinpoints.size();
+    state.stack.push(e);
     state.bytecode_offset += state.instrsize;
   }
 
@@ -188,18 +224,20 @@ public class Engine
     p.type = Pinpoint.TYPE_CAPTURE_CLOSE;
     p.slot = slot;
     p.offset = state.input_offset;
+    state.pinpoints.push(p);
     state.bytecode_offset += state.instrsize;
   }
 
   private void process_commit
     (EngineState state)
+    throws NaigamaException
   {
     int offset = get_protected_quad(state.bytecode_offset + 4);
     StackElt e = state.stack.pop();
     if (e.type == StackElt.TYPE_ALT) {
       state.bytecode_offset = offset;
     } else {
-      //.. stack corrupt
+      throw new NaigamaStackException("Expected ALT type in commit");
     }
   }
 
@@ -235,12 +273,13 @@ public class Engine
 
   private void process_failtwice
     (EngineState state)
+    throws NaigamaException
   {
     StackElt e = state.stack.pop();
     if (e.type == StackElt.TYPE_ALT) {
       state.fail = true;
     } else {
-      //.. stack corrupt
+      throw new NaigamaStackException("Expected ALT type in failtwice");
     }
   }
 
@@ -251,6 +290,12 @@ public class Engine
     state.bytecode_offset = offset;
   }
 
+  private void process_maskedchar
+    (EngineState state)
+  {
+    System.err.println("Implement maskedchar");
+  }
+
   private void process_opencapture
     (EngineState state)
   {
@@ -259,25 +304,214 @@ public class Engine
     p.type = Pinpoint.TYPE_CAPTURE_OPEN;
     p.slot = slot;
     p.offset = state.input_offset;
+    state.pinpoints.push(p);
     state.bytecode_offset += state.instrsize;
   }
 
   private void process_partialcommit
     (EngineState state)
+    throws NaigamaException
   {
     int offset = get_protected_quad(state.bytecode_offset + 4);
     StackElt e = state.stack.peek();
-    e.input_offset = state.input_offset;
-    e.pp_size = state.pinpoints.size();
-    state.bytecode_offset = offset;
+    if (e.type == StackElt.TYPE_ALT) {
+      e.input_offset = state.input_offset;
+      e.pp_size = state.pinpoints.size();
+      state.bytecode_offset = offset;
+    } else {
+      throw new NaigamaStackException("Expected ALT type in partialcommit");
+    }
+  }
+
+  private void process_quad
+    (EngineState state)
+  {
+    if (state.input_offset > state.input.length - 4) {
+      state.fail = true;
+    } else {
+      if (state.input[ state.input_offset ] == bytecode[ state.bytecode_offset + 4 ]
+          && state.input[ state.input_offset + 1 ] == bytecode[ state.bytecode_offset + 5 ]
+          && state.input[ state.input_offset + 2 ] == bytecode[ state.bytecode_offset + 6 ]
+          && state.input[ state.input_offset + 3 ] == bytecode[ state.bytecode_offset + 7 ])
+      {
+        state.input_offset += 4;
+        state.bytecode_offset += state.instrsize;
+      } else {
+        state.fail = true;
+      }
+    }
+  }
+
+  private void process_range
+    (EngineState state)
+  {
+    System.err.println("Implement range");
   }
 
   private void process_ret
     (EngineState state)
+    throws NaigamaException
   {
     StackElt e = state.stack.pop();
     if (e.type == StackElt.TYPE_CLL) {
       state.bytecode_offset = e.offset;
+    } else {
+      throw new NaigamaStackException("Expected CLL type in ret");
     }
+  }
+
+  private void process_set
+    (EngineState state)
+  {
+    if (state.input_offset == state.input.length) {
+      state.fail = true;
+    } else {
+      int setoff = state.bytecode_offset + 4;
+      int bitoff = state.input[ state.input_offset ];
+      if (((bytecode[ setoff + (bitoff / 8) ] >> (bitoff % 8)) & 0x01) == 0x01)
+      {
+        ++(state.input_offset);
+        state.bytecode_offset += state.instrsize;
+      } else {
+        state.fail = true;
+      }
+    }
+  }
+
+  private void process_skip
+    (EngineState state)
+  {
+    int steps = get_protected_quad(state.bytecode_offset + 4);
+    if (state.input_offset >= state.input.length - steps) {
+      state.fail = true;
+    } else {
+      state.input_offset += steps;
+      state.bytecode_offset += state.instrsize;
+    }
+  }
+
+  private void process_span
+    (EngineState state)
+  {
+    System.err.println("Implement span");
+  }
+
+  private void process_testany
+    (EngineState state)
+  {
+    System.err.println("Implement testany");
+  }
+
+  private void process_testchar
+    (EngineState state)
+  {
+    System.err.println("Implement testchar");
+  }
+
+  private void process_testquad
+    (EngineState state)
+  {
+    System.err.println("Implement testquad");
+  }
+
+  private void process_testset
+    (EngineState state)
+  {
+    System.err.println("Implement testset");
+  }
+
+  private void process_var
+    (EngineState state)
+  {
+    System.err.println("Implement var");
+  }
+
+  private static String stack_string
+    (EngineState state)
+  {
+    String result = "";
+    for (int i=0; i < state.stack.size(); i++) {
+      StackElt e = state.stack.elementAt(i);
+      if (e.type == StackElt.TYPE_CLL) {
+        result += "CLL; off=" + e.offset + "; ";
+      } else if (e.type == StackElt.TYPE_ALT) {
+        result += "ALT; off=" + e.offset + "; ";
+      }
+    }
+    return result;
+  }
+
+  private static Vector<Capture> pins_to_captures
+    (EngineState state)
+  {
+    Vector<Capture> result = new Vector<Capture>();
+    for (int i=0; i < state.pinpoints.size(); i++) {
+      Pinpoint p0 = state.pinpoints.elementAt(i);
+      if (p0.type == Pinpoint.TYPE_CAPTURE_OPEN) {
+        int level = 1;
+        for (int j=i+1; j < state.pinpoints.size(); j++) {
+          Pinpoint p1 = state.pinpoints.elementAt(j);
+          if (p1.type == Pinpoint.TYPE_CAPTURE_OPEN) {
+            ++level;
+          } else if (p1.type == Pinpoint.TYPE_CAPTURE_CLOSE) {
+            if (--level == 0) {
+              result.addElement(
+                new Capture(
+                  Capture.TYPE_CAPTURE,
+                  p0.offset,
+                  p1.offset - p0.offset,
+                  p0.slot
+                )
+              );
+              break;
+            }
+          }
+        }
+      }
+    }
+    return result;
+  }
+
+  public TreeNode getCaptureTree
+    (Outcome outcome)
+  {
+    return captures_to_tree(outcome.input, outcome.captures);
+  }
+
+  private static TreeNode captures_to_tree
+    (byte[] input, Vector<Capture> captures)
+  {
+    TreeNode top = new TreeNode();
+    top.slot = -1;
+    top.offset = 0;
+    top.content = new byte[ input.length ];
+    System.arraycopy(input, 0, top.content, 0, input.length);
+    _captures_to_tree(input, top, captures, 0);
+    return top;
+  }
+
+  private static int _captures_to_tree
+    (byte[] input, TreeNode parent, Vector<Capture> captures, int i)
+  {
+    for (; i < captures.size(); i++) {
+      Capture c0 = captures.elementAt(i);
+      if (c0.offset >= parent.offset + parent.content.length) { return i; }
+      if (c0.type != Capture.TYPE_CAPTURE) { continue; }
+      if (c0.offset >= parent.offset && c0.length <= parent.content.length) {
+        TreeNode child = new TreeNode();
+        child.parent = parent;
+        child.slot = c0.slot;
+        child.offset = c0.offset;
+        child.content = new byte[ c0.length ];
+        System.arraycopy(input, c0.offset, child.content, 0, c0.length);
+        if (parent.children == null) {
+          parent.children = new Vector<TreeNode>();
+        }
+        parent.children.addElement(child);
+        i = _captures_to_tree(input, child, captures, ++i);
+        --i;
+      }
+    }
+    return i;
   }
 }

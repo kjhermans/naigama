@@ -1,4 +1,4 @@
-package lib.naigama;
+package lib.naigama.engine;
 
 class StackElt
 {

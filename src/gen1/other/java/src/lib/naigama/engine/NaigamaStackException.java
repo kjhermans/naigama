@@ -1,9 +1,9 @@
 package lib.naigama.engine;
 
-public class NaigamaBytecodeException
+public class NaigamaStackException
   extends NaigamaException
 {
-  public NaigamaBytecodeException
+  public NaigamaStackException
     (String e)
   {
     super(e);

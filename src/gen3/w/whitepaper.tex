@@ -76,7 +76,8 @@ Like many object serialization formats (such as XML, JSON, YAML, etc), BER
 seldom encodes just a single scalar: instead it usually requires you to 
 start off with a compound type, containing multiple members which in turn 
 can be compound types etc, effectively serializing a complex tree of data, 
-the end nodes of which are scalars. Certainly the more specific examples 
+the end nodes of which are scalars (or empty compound types).
+Certainly the more specific examples 
 of SNMP payloads or X.509 objects all abide by this rule.
 
 The difference between BER and text-based serialization formats such as 
@@ -84,7 +85,11 @@ XML, lies in the way nested sections are delimited by the embedding
 element: BER tells the parser beforehand, which section of the input, 
 delimited by a byte offset, is nested. XML and the like, on the other 
 hand, leave the parser in the dark about the length of the nested section, 
-until a closing token is encountered.
+until a closing token is encountered. There is a nuance here, as BER
+also has indefinite-length encoding (using a Length signifier 0x80 and
+a closing token in the form of 0x00 0x00). This case would be easily
+handled by existing tokenizing parsers, and is therefore not in scope of
+this paper.
 
 Below is an example of a BER encoded pair of scalars
 (the bottom row hexadecimal string): an
@@ -621,7 +626,8 @@ end-of-input.
 
 The end-of-input value is given, in BER, as the Length field in the TLV 
 currently under scrutiny by the Engine. Naigama is capable of parsing the 
-BER TLV Length part (because it has bitwise matching; LPEG does not), both 
+BER TLV Length part through bitwise matching or a range (LPEG would have
+to stick to a range), both 
 in grammar and in assembly. As follows (a bit like the extensive IPv4 
 header example), using the following grammar:
 
@@ -724,7 +730,7 @@ not \textit{li’} is set (\textit{sli’}).
 This is a safety 
 feature; any instruction that sets \textit{sli’} must be followed by a ‘call’ 
 instruction. An alternative to this approach is code inspection (to 
-verfify that, indeed, every instruction setting \textit{xli’} is indeed
+verfify that, indeed, every instruction setting \textit{sli’} is indeed
 directly followed by a ‘call’ instruction).
     \item The ‘call’ instruction however, shall first check to see if 
 \textit{sli’} is set, and if it is, push li into the calling context on the 
@@ -845,6 +851,7 @@ list.
 This section treats BER capture completely, using the concepts from the 
 preceding sections. An implementation of these were made in Naigama, and 
 subsequently executed. 
+
 \thesubsubsection{.1  Input}
 Example of an OID encoded as DER TLV:
 
@@ -1089,8 +1096,8 @@ ACCEPTABLEINTEGER <- 0x02 (
 This definition (which, btw is vanilla LPEG)
 should take care that no integer encoded as BER will ever 
 overflow your 32-bit system.
-Because if it does, the Engine will FAIL.
-Which is how it should be.
+Because if it does, the Engine will not match the input pattern
+(\textit{ie} raise the FAIL condition). Which is how it should be.
 
 The problem is with the people who create standards.
 X.509, for example, defines the second field 
@@ -1416,8 +1423,6 @@ What is missing / is confined to further study:
     \item OID subidentifiers and INTEGER values are represented in captures 
 as they are found in the input, requiring bitshifting functions and 
 conditionals to present these as intrinsic or human readable to the user.
-    \item Whether or not these changes can be implemented with as much ease 
-in a real hardware Engine, as they are in software.
 \end{itemize}
 
 \newpage

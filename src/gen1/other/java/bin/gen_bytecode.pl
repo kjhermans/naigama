@@ -1,13 +1,13 @@
 #!/usr/bin/perl
 
 my $bcfile = shift;
-my $ident = shift;
+my $package = shift;
 
 my $bc = absorb_binary($bcfile) || die "No bytecode given.";
 
-print "package lib.naigama;
+print "package $package;
 
-public class $ident
+public class Grammar
 {
   public static byte[] bytecode = {";
 

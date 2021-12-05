@@ -4,6 +4,8 @@ import java.io.File;
 import java.nio.file.Files;
 import java.io.IOException;
 
+import lib.naigama.NaigamaException;
+
 public class Main
 {
   private static byte[] load_file
@@ -46,9 +48,7 @@ public class Main
     engine = new Engine(bytecode);
     try {
       outcome = engine.run(input);
-      //System.out.println(outcome);
-      TreeNode tree = engine.getCaptureTree(outcome);
-      System.out.println(tree);
+      System.out.println(outcome);
     } catch (NaigamaException naige) {
       System.err.println("Exception: " + naige);
     }

@@ -16,6 +16,21 @@ public class TreeNode
   public int getChildCount() { return children.size(); }
   public TreeNode getChild(int i) { return children.elementAt(i); }
 
+  public void eviscerate
+    (int slot)
+  {
+    if (children == null) { return; }
+    for (int i=0; i < children.size(); i++) {
+      TreeNode child = children.elementAt(i);
+      if (child.slot == slot && child.children == null) {
+        children.removeElementAt(i);
+        --i;
+      } else {
+        child.eviscerate(slot);
+      }
+    }
+  }
+
   public String toString
     ()
   {

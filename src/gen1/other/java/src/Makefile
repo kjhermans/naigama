@@ -3,14 +3,23 @@ CLASSFILES:=$(shell find . -type f | grep '\.java$$' | sort | sed -e 's/\.java$$
 JAVAC=javac
 JAR=jar
 TARGET=naigama.jar
+NAIE=naie.jar
+NAIC=naic.jar
+TARGETS=$(TARGET) $(NAIE) $(NAIC)
 
-all: $(TARGET)
+all: $(TARGETS)
 
 $(TARGET): $(CLASSFILES)
-	$(JAR) cvfe $(TARGET) lib.naigama.engine.Main $(CLASSFILES)
+	$(JAR) cf $(TARGET) $(CLASSFILES)
+
+$(NAIE): $(CLASSFILES)
+	$(JAR) cfe $(NAIE) lib.naigama.engine.Main $(CLASSFILES)
+
+$(NAIC): $(CLASSFILES)
+	$(JAR) cfe $(NAIC) lib.naigama.compiler.Main $(CLASSFILES)
 
 clean:
-	rm -f $(CLASSFILES) $(TARGET)
+	rm -f $(CLASSFILES) $(TARGETS)
 
 %.class: %.java
 	$(JAVAC) -classpath . $<

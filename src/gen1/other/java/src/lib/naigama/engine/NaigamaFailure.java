@@ -1,5 +1,7 @@
 package lib.naigama.engine;
 
+import lib.naigama.NaigamaException;
+
 public class NaigamaFailure
   extends NaigamaException
 {

@@ -1,4 +1,4 @@
-package lib.naigama.engine;
+package lib.naigama;
 
 public class NaigamaException
   extends Exception

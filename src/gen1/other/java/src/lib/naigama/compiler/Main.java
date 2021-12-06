@@ -46,6 +46,10 @@ public class Main
             System.err.println(ioe);
             System.exit(-1);
           }
+        } else if (args[ i ].equals("-t")) {
+          options.generate_traps = true;
+        } else if (args[ i ].equals("-C")) {
+          options.generate_captureperrule = true;
         }
       }
     }
@@ -64,8 +68,12 @@ public class Main
     Compiler compiler;
     try {
       compiler = new Compiler(grammar, assembly, options);
+      assemblyfile.write(assembly.toString().getBytes());
     } catch (NaigamaException naige) {
       System.err.println(naige);
+      System.exit(-1);
+    } catch (IOException ioe) {
+      System.err.println(ioe);
       System.exit(-1);
     }
   }

@@ -38,13 +38,16 @@ gen3: gen2
 armbm:
 	@make all ARCH=arm-linux-gnueabi-
 
-other: rust java
+other: rust java perl
 
 rust: gen1
 	@cd src/gen1 && make rust NAIGRELEASE=$(NAIGRELEASE)
 
 java: gen1
 	@cd src/gen1 && make java
+
+perl: gen1
+	@cd src/gen1 && make perl
 
 doc:
 	@MFS=`find src/ -name Makefile | xargs grep -l 'doc:'`; \

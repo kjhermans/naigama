@@ -45,6 +45,8 @@ sub run
   my $self = shift;
   my $input = shift;
   my $engine = Naigama::Engine->new($self->{bytecode});
+$engine->{debug} = 1;
+print STDERR "ASSEMBLY:\n" . $self->{assembly} . "\n";
   my $output = $engine->run($input);
   return $output;
 }

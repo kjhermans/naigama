@@ -19,6 +19,7 @@ public class Compiler
     t.eviscerate(Slotmap.SLOT_COMMENT);
     t.eviscerate(Slotmap.SLOT_END);
     t.eviscerate(Slotmap.SLOT_LEFTARROW);
+    t.eviscerate(Slotmap.SLOT_OR);
     compile(t, assembly, options);
   }
 

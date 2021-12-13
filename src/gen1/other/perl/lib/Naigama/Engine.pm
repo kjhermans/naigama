@@ -69,7 +69,7 @@ sub run
     } elsif ($state->{opcode} == $Naigama::Instructions::INSTR_END) {
       $self->process_end($state);
     } elsif ($state->{opcode} == $Naigama::Instructions::INSTR_ENDREPLACE) {
-##..
+      ##..
     } elsif ($state->{opcode} == $Naigama::Instructions::INSTR_FAIL) {
       $state->{fail} = 1;
     } elsif ($state->{opcode} == $Naigama::Instructions::INSTR_FAILTWICE) {
@@ -89,7 +89,7 @@ sub run
     } elsif ($state->{opcode} == $Naigama::Instructions::INSTR_RANGE) {
       $self->process_range($state);
     } elsif ($state->{opcode} == $Naigama::Instructions::INSTR_REPLACE) {
-##..
+      ##..
     } elsif ($state->{opcode} == $Naigama::Instructions::INSTR_RET) {
       $self->process_ret($state);
     } elsif ($state->{opcode} == $Naigama::Instructions::INSTR_SET) {
@@ -107,18 +107,22 @@ sub run
     } elsif ($state->{opcode} == $Naigama::Instructions::INSTR_TESTSET) {
       $self->process_testset($state);
     } elsif ($state->{opcode} == $Naigama::Instructions::INSTR_TRAP) {
-      die "Trapped at byc=" . $state->{bytecode_offset} . " and inp=" . $state->{input_offset};
+      die "Trapped at byc=" . $state->{bytecode_offset} .
+          " and inp=" . $state->{input_offset};
     } elsif ($state->{opcode} == $Naigama::Instructions::INSTR_VAR) {
       $self->process_var($state);
     } else {
-      die "Bytecode corrupt or instruction pointer misaligned at $state->{bytecode_offset}";
+      die "Bytecode corrupt or instruction pointer misaligned at " .
+          $state->{bytecode_offset};
     }
     if ($state->{fail}) {
-      fail($state);
+      $self->fail($state);
     }
   }
+  $output->{exitcode} = $state->{exitcode};
   $output->{pinpoints} = $state->{pinpoints};
   $output->{captures} = pins_to_captures($state->{input}, $state->{pinpoints});
+  $output->{tree} = captures_to_tree($output->{captures});
   return $output;
 }
 
@@ -144,7 +148,10 @@ sub pins_to_captures
               offset => $p0->{offset},
               length => $p1->{offset} - $p0->{offset},
               slot => $p0->{slot},
-              string => substr($input, $p0->{offset}, $p1->{offset} - $p0->{offset}),
+              string => substr(
+                          $input,
+                          $p0->{offset},
+                          $p1->{offset} - $p0->{offset}),
             };
             last;
           }
@@ -153,6 +160,44 @@ sub pins_to_captures
     }
   }
   return $result;
+}
+
+sub captures_to_tree
+{
+  my ($captures) = @_;
+  my $length = 0;
+  foreach my $cap (@{$captures}) {
+    if ($cap->{offset} + $cap->{length} > $length) {
+      $length = $cap->{offset} + $cap->{length};
+    }
+  }
+  my $result = { offset => 0, length => $length, children => [] };
+  _captures_to_tree($captures, 0, $result);
+  return $result;
+}
+
+sub _captures_to_tree
+{
+  my ($captures, $i, $parent) = @_;
+  for (; $i < scalar(@{$captures}); $i++) {
+    my $cap = $captures->[ $i ];
+    if ($cap->{offset} >= $parent->{offset}
+        && $cap->{offset} + $cap->{length}
+           <= $parent->{offset} + $parent->{length}) {
+      my $node = {
+        offset => $cap->{offset},
+        length => $cap->{length},
+        string => $cap->{string},
+        slot => $cap->{slot},
+        children => [],
+      };
+      push @{$parent->{children}}, $node;
+      $i = _captures_to_tree($captures, $i+1, $node) - 1;
+    } else {
+      return $i;
+    }
+  }
+  return $i;
 }
 
 sub get_protected_quad
@@ -167,8 +212,10 @@ sub get_protected_quad
 
 sub fail
 {
-print STDERR "FAIL\n";
-  my ($state) = @_;
+  my ($self, $state) = @_;
+  if ($self->{debug}) {
+    print STDERR "FAIL\n";
+  }
   while (scalar(@{$state->{stack}})) {
     my $stackelt = pop(@{$state->{stack}});
     if ($stackelt->{type} eq 'ALT') {
@@ -369,7 +416,19 @@ sub process_quad
 sub process_range
 {
   my ($self, $state) = @_;
-  die "Implement";
+  my $from = get_protected_quad($self->{bytecode}, $state->{bytecode_offset} + 4);
+  my $to = get_protected_quad($self->{bytecode}, $state->{bytecode_offset} + 8);
+  if ($state->{input_offset} <= length(@{$state->{input}})) {
+    my $chr = ord(substr($state->{input}, $state->{input_offset}, 1));
+    if ($chr >= $from && $chr <= $to) {
+      ++($state->{input_offset});
+      $state->{bytecode_offset} += $state->{instrsize};
+    } else {
+      $state->{fail} = 1;
+    }
+  } else {
+    $state->{fail} = 1;
+  }
 }
 
 sub process_ret
@@ -405,31 +464,93 @@ sub process_set
 sub process_skip
 {
   my ($self, $state) = @_;
+  my $steps = get_protected_quad($self->{bytecode}, $state->{bytecode_offset} + 4);
+  if ($state->{input_offset} + $steps > length(@{$state->{input}})) {
+    $state->{fail} = 1;
+  } else {
+    $state->{input_offset} += $steps;
+    $state->{bytecode_offset} += $state->{instrsize};
+  }
 }
 
 sub process_span
 {
   my ($self, $state) = @_;
+  while ($state->{input_offset} < length($state->{input})) {
+    my $setoff = $state->{bytecode_offset} + 4;
+    my $bitoff = ord(substr($state->{input}, $state->{input_offset}, 1));
+    my $setbyte = ord(substr($self->{bytecode}, $setoff + ($bitoff / 8)));
+    my $setbit = (($setbyte >> ($bitoff % 8)) & 0x01);
+    if ($setbit) {
+      ++($state->{input_offset});
+    } else {
+      last;
+    }
+  }
+  $state->{bytecode_offset} += $state->{instrsize};
 }
 
 sub process_testany
 {
   my ($self, $state) = @_;
+  my $offset = get_protected_quad($self->{bytecode}, $state->{bytecode_offset} + 4);
+  if ($state->{input_offset} == length($state->{input})) {
+    $state->{bytecode_offset} = $offset;
+  } else {
+    ++($state->{input_offset});
+    $state->{bytecode_offset} += $state->{instrsize};
+  }
 }
 
 sub process_testchar
 {
   my ($self, $state) = @_;
+  my $offset = get_protected_quad($self->{bytecode}, $state->{bytecode_offset} + 4);
+  my $chr = get_protected_quad($self->{bytecode}, $state->{bytecode_offset} + 8);
+  if ($state->{input_offset} == length($state->{input})) {
+    $state->{bytecode_offset} = $offset;
+  } elsif (ord(substr($state->{input}, $state->{input_offset}, 1)) eq $chr) {
+    ++($state->{input_offset});
+    $state->{bytecode_offset} += $state->{instrsize};
+  } else {
+    $state->{bytecode_offset} = $offset;
+  }
 }
 
 sub process_testquad
 {
   my ($self, $state) = @_;
+  my $offset = get_protected_quad($self->{bytecode}, $state->{bytecode_offset} + 4);
+  if ($state->{input_offset} + 4 > length(@{$state->{input}})) {
+    $state->{bytecode_offset} = $offset;
+  } elsif (substr($state->{input}, $state->{input_offset}, 4) ne
+           substr($self->{bytecode}, $state->{bytecode_offset} + 8, 4))
+  {
+    $state->{bytecode_offset} = $offset;
+  } else {
+    $state->{input_offset} += 4;
+    $state->{bytecode_offset} += $state->{instrsize};
+  }
 }
 
 sub process_testset
 {
   my ($self, $state) = @_;
+  my $offset = get_protected_quad($self->{bytecode}, $state->{bytecode_offset} + 4);
+  if ($state->{input_offset} == length($state->{input})) {
+    $state->{bytecode_offset} = $offset;
+  } else {
+    my $setoff = $state->{bytecode_offset} + 8;
+    my $bitoff = ord(substr($state->{input}, $state->{input_offset}, 1));
+    my $setbyte = ord(substr($self->{bytecode}, $setoff + ($bitoff / 8)));
+    my $setbit = (($setbyte >> ($bitoff % 8)) & 0x01);
+    if ($setbit) {
+      $state->{bytecode_offset} += $state->{instrsize};
+      ++($state->{input_offset});
+    } else {
+      $state->{bytecode_offset} = $offset;
+    }
+  }
 }
 
 sub process_var

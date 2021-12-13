@@ -1,6 +1,7 @@
 #!/usr/bin/perl
 
 use IO::Socket::INET;
+use threads;
 
 my $root=$ENV{NAIS_ROOT} || die "Need NAIS_ROOT set";
 -d $root || die "NAIS_ROOT must be an accessible directory";
@@ -8,11 +9,20 @@ my $root=$ENV{NAIS_ROOT} || die "Need NAIS_ROOT set";
 my $exec = "$root/bin/naig";
 -x $exec || die "NAIS_ROOT/bin/naig must exist and be executable";
 
-my $config = "$root/etc/nais.conf";
--f $config || die "NAIS_ROOT/etc/nais.conf must exist";
+my $config;
+{
+  my $configfile = "$root/etc/nais.conf";
+  -f $configfile || die "NAIS_ROOT/etc/nais.conf must exist";
+  my $configtext = `cat $configfile`;
+  $config = eval($configtext);
+}
 
-async \&service, '192.168.1.1', 7000;
-async \&service, '192.168.2.1', 7000;
+if ($config->{iface0}) {
+  threads->create(\&service, $config->{iface0}{address}, $config->{iface0}{port});
+}
+if ($config->{iface1}) {
+  threads->create(\&service, $config->{iface1}{address}, $config->{iface1}{port});
+}
 scheduler();
 
 exit 0;
@@ -21,12 +31,12 @@ exit 0;
 
 sub service
 {
-  my ($host, $port) = @:
+  my ($host, $port) = @_;
 
-  my $sock = new IO::Socket::INET 
+  my $sock = new IO::Socket::INET;
   {
-    LocalHost => $host, // defined earlier in code
-    LocalPort => $port, // defined earlier in code
+    LocalHost => $host,
+    LocalPort => $port,
     Proto => 'tcp',
     Listen => SOMAXCONN,
     Reuse => 1,
@@ -48,7 +58,7 @@ sub service
     if ($chunk = <$new_sock> && $chunk =~ /<data>/) {
       while ($chunk = <$new_sock>) {
         if ($chunk =~ /<\/data>/) {
-          push @threads, async \&Execute, $data;
+          threads->create(\&Execute, $data);
           last;
         } else {
           $data .= $chunk;
@@ -58,15 +68,16 @@ sub service
   }
   
   sub Execute {
-    my ($command) = @_;
-  
-    print "Executing command: $command\n";
-    system($command);
+    my $data = shift;
   }
 }
 
 sub scheduler
 {
+  while (1) {
+    fprint STDERR, "Scheduler @" . time() . "\n";
+    sleep(1);
+  }
 }
 
 1;

@@ -2,8 +2,6 @@
 
 use Data::Dumper;
 
-print STDERR "This is Naigama assembler Generation 0.\n";
-
 #DEADBEEF
 $VAR1 = {
           'any' => {
@@ -253,6 +251,8 @@ my ($in, $out);
 sub do_assemble { return assemble(@_); }
 if (caller) { return 1; }
 
+print STDERR "This is Naigama assembler Generation 0.\n";
+
 while (my $arg = shift @ARGV) {
   if ($arg =~ s/^-//) {
     while ($arg =~ s/^(.)//) {
@@ -325,7 +325,7 @@ sub assemble
 {
   my $assembly = shift;
   my @input = split(/\n/, $assembly);
-  print STDERR scalar(@input) . " lines of input assembly.\n";
+  #print STDERR scalar(@input) . " lines of input assembly.\n";
   
   zeroth_pass(\@input);
   first_pass(\@input);

@@ -2,8 +2,6 @@
 
 use Data::Dumper;
 
-print STDERR "This is Naigama compiler Generation 0.\n";
-
 my ($inputfile, $outputfile) = ( '-', '-' );
 
 my $labelcount = 0;
@@ -20,6 +18,8 @@ my ($in, $out);
 
 sub do_compile { my $string; open($out, "+>", \$string); compile(@_); return $string; }
 if (caller) { return 1; }
+
+print STDERR "This is Naigama compiler Generation 0.\n";
 
 while (my $arg = shift @ARGV) {
   if ($arg =~ s/^-//) {

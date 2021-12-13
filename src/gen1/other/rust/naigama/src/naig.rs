@@ -1,4 +1,4 @@
 
 
-pub static RELEASE: &str = "0.2.2";
+pub static RELEASE: &str = "0.2.3";
 

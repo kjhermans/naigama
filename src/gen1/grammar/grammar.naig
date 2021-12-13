@@ -85,8 +85,3 @@ BCLOSE             <- ')'
 ABOPEN             <- '['
 ABCLOSE            <- ']'
 SETNOT             <- '^'
--- SEMICOLON          <- ';'
--- COMMA              <- ','
--- LT                 <- '<'
--- GT                 <- '>'
-

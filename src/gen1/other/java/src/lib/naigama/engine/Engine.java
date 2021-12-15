@@ -65,7 +65,7 @@ public class Engine
       case Instructions.INSTR_CONDJUMP: process_condjump(state); break;
       case Instructions.INSTR_COUNTER: process_counter(state); break;
       case Instructions.INSTR_END: process_end(state); break;
-      case Instructions.INSTR_ENDREPLACE:
+      case Instructions.INSTR_ENDREPLACE: process_endreplace(state); break;
       case Instructions.INSTR_FAIL: state.fail = true; break;
       case Instructions.INSTR_FAILTWICE: process_failtwice(state); break;
       case Instructions.INSTR_JUMP: process_jump(state); break;
@@ -75,7 +75,7 @@ public class Engine
       case Instructions.INSTR_PARTIALCOMMIT: process_partialcommit(state); break;
       case Instructions.INSTR_QUAD: process_quad(state); break;
       case Instructions.INSTR_RANGE: process_range(state); break;
-      case Instructions.INSTR_REPLACE:
+      case Instructions.INSTR_REPLACE: process_replace(state); break;
       case Instructions.INSTR_RET: process_ret(state); break;
       case Instructions.INSTR_SET: process_set(state); break;
       case Instructions.INSTR_SKIP: process_skip(state); break;
@@ -273,6 +273,12 @@ public class Engine
     state.exitcode = exitcode;
   }
 
+  private void process_endreplace
+    (EngineState state)
+  {
+    
+  }
+
   private void process_failtwice
     (EngineState state)
     throws NaigamaException
@@ -296,6 +302,7 @@ public class Engine
     (EngineState state)
   {
     System.err.println("Implement maskedchar");
+    state.bytecode_offset += state.instrsize;
   }
 
   private void process_opencapture
@@ -347,7 +354,26 @@ public class Engine
   private void process_range
     (EngineState state)
   {
-    System.err.println("Implement range");
+    int from = get_protected_quad(state.bytecode_offset + 4);
+    int until = get_protected_quad(state.bytecode_offset + 8);
+    if (state.input_offset == state.input.length) {
+      state.fail = true;
+    } else {
+      if (state.input[ state.input_offset ] >= (byte)from
+          && state.input[ state.input_offset ] <= (byte)until)
+      {
+        ++(state.input_offset);
+        state.bytecode_offset += state.instrsize;
+      } else {
+        state.fail = true;
+      }
+    }
+  }
+
+  private void process_replace
+    (EngineState state)
+  {
+    
   }
 
   private void process_ret
@@ -395,37 +421,130 @@ public class Engine
   private void process_span
     (EngineState state)
   {
-    System.err.println("Implement span");
+    while (state.input_offset < state.input.length) {
+      int setoff = state.bytecode_offset + 4;
+      int bitoff = state.input[ state.input_offset ];
+      if (((bytecode[ setoff + (bitoff / 8) ] >> (bitoff % 8)) & 0x01) == 0x01)
+      {
+        ++(state.input_offset);
+      } else {
+        break;
+      }
+    }
+    state.bytecode_offset += state.instrsize;
   }
 
   private void process_testany
     (EngineState state)
   {
-    System.err.println("Implement testany");
+    int offset = get_protected_quad(state.bytecode_offset + 4);
+    if (state.input_offset == state.input.length) {
+      state.bytecode_offset = offset;
+    } else {
+      ++(state.input_offset);
+      state.bytecode_offset += state.instrsize;
+    }
   }
 
   private void process_testchar
     (EngineState state)
   {
-    System.err.println("Implement testchar");
+    int offset = get_protected_quad(state.bytecode_offset + 4);
+    int chr = get_protected_quad(state.bytecode_offset + 8);
+    if (state.input_offset == state.input.length) {
+      state.bytecode_offset = offset;
+    } else {
+      if (state.input[ state.input_offset ] == (byte)chr) {
+        ++(state.input_offset);
+        state.bytecode_offset += state.instrsize;
+      } else {
+        state.bytecode_offset = offset;
+      }
+    }
   }
 
   private void process_testquad
     (EngineState state)
   {
-    System.err.println("Implement testquad");
+    int offset = get_protected_quad(state.bytecode_offset + 4);
+    if (state.input_offset > state.input.length - 4) {
+      state.bytecode_offset = offset;
+    } else {
+      if (state.input[ state.input_offset ] == bytecode[ state.bytecode_offset + 8 ]
+          && state.input[ state.input_offset + 1 ] == bytecode[ state.bytecode_offset + 9 ]
+          && state.input[ state.input_offset + 2 ] == bytecode[ state.bytecode_offset + 10 ]
+          && state.input[ state.input_offset + 3 ] == bytecode[ state.bytecode_offset + 11 ])
+      {
+        state.input_offset += 4;
+        state.bytecode_offset += state.instrsize;
+      } else {
+        state.bytecode_offset = offset;
+      }
+    }
   }
 
   private void process_testset
     (EngineState state)
   {
-    System.err.println("Implement testset");
+    int offset = get_protected_quad(state.bytecode_offset + 4);
+    if (state.input_offset == state.input.length) {
+      state.bytecode_offset = offset;
+    } else {
+      int setoff = state.bytecode_offset + 8;
+      int bitoff = state.input[ state.input_offset ];
+      if (((bytecode[ setoff + (bitoff / 8) ] >> (bitoff % 8)) & 0x01) == 0x01)
+      {
+        ++(state.input_offset);
+        state.bytecode_offset += state.instrsize;
+      } else {
+        state.bytecode_offset = offset;
+      }
+    }
+  }
+
+  private byte[] get_variable
+    (EngineState state, int slot)
+  {
+    for (int i = state.pinpoints.size(); i > 0; i--) {
+      Pinpoint p1 = state.pinpoints.elementAt(i-1);
+      if (p1.type == Pinpoint.TYPE_CAPTURE_CLOSE && p1.slot == slot) {
+        int end = p1.offset;
+        for (--i; i > 0; i--) {
+          Pinpoint p0 = state.pinpoints.elementAt(i-1);
+          if (p0.type == Pinpoint.TYPE_CAPTURE_OPEN && p0.slot == slot) {
+            int begin = p0.offset;
+            int length = end - begin;
+            byte[] result = new byte[ length ];
+            System.arraycopy(state.input, begin, result, 0, length);
+            return result;
+          }
+        }
+      }
+    }
+    return null;
   }
 
   private void process_var
     (EngineState state)
+    throws NaigamaException
   {
-    System.err.println("Implement var");
+    int slot = get_protected_quad(state.bytecode_offset + 4);
+    byte[] var = get_variable(state, slot);
+    if (var == null) {
+      throw new NaigamaBytecodeException("Unreferenceable variable (" + slot + ") in var");
+    }
+    if (var.length == 0) {
+      state.fail = true;
+    } else if (state.input_offset + var.length <= state.input.length) {
+      for (int i=0; i < var.length; i++) {
+        if (var[ i ] != state.input[ state.input_offset + i ]) {
+          state.fail = true;
+          return;
+        }
+      }
+      state.input_offset += var.length;
+      state.bytecode_offset += state.instrsize;
+    }
   }
 
   private static String stack_string

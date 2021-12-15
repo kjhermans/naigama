@@ -17,7 +17,7 @@
       tests => [
         {
           exe => 
-            'curl -F file=@/tmp/test.xml http://192.168.1.1:9090/upload_xml',
+            'curl -F file=@/tmp/test.xml http://192.168.1.1:9090/upload',
           start => 4
         },
       ],
@@ -36,11 +36,15 @@
       },
       tests => [
         {
-          exe => '[SYSTEMTESTROOT]/bin/httpd.pl',
+          exe => '[SYSTEMTESTROOT]/bin/httpd.pl /tmp/leftspool',
           start => 1
         },
         {
-          exe => '[SYSTEMTESTROOT]/bin/pipe.pl /tmp/leftspool',
+          exe => '[SYSTEMTESTROOT]/bin/pusher.pl /tmp/leftspool/in http://169.254.1.2:9090/upload 2>/tmp/log3',
+          start => 1
+        },
+        {
+          exe => '[SYSTEMTESTROOT]/bin/fetcher.pl http://169.254.1.2:9090 /tmp/leftspool/out 2>/tmp/log3a',
           start => 1
         },
       ],

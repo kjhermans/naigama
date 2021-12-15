@@ -12,3 +12,4 @@ echo $SEP
 
 cat /tmp/test.xml; echo $SEP
 cat /tmp/filterupload_1.result; echo $SEP
+cat /tmp/error.log

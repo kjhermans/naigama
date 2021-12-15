@@ -38,7 +38,7 @@
       tests => [
 
         {
-          exe => '[SYSTEMTESTROOT]/bin/httpd.pl',
+          exe => '[SYSTEMTESTROOT]/bin/httpd.pl /tmp/leftspool',
           start => 1
         },
       ],

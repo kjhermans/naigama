@@ -2,7 +2,8 @@
 
 set -e
 
-rm -f /tmp/filterupload_*_1.result
+rm -rf /tmp/left /tmp/leftspool /tmp/right /tmp/rightspool
+mkdir -p /tmp/left /tmp/leftspool /tmp/right /tmp/rightspool
 
 echo "
 <message>
@@ -23,6 +24,7 @@ naic -i filter.naig -o /tmp/filter.byc -a /tmp/filter.asm
 mkdir -p /tmp/leftspool/in
 
 cp $SYSTEMTESTROOT/bin/filterpush.sh /tmp/leftspool/handler
+cp $SYSTEMTESTROOT/bin/fetcher.pl /tmp/leftspool/fetcher
 
 perl $SYSTEMTESTROOT/bin/network.pl ./test.network off
 

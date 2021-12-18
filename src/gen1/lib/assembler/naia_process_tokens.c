@@ -19,6 +19,7 @@
 NAIG_ERR_T naia_process_tokens
   (naia_t* naia)
 {
+/*
 #ifdef _DEBUG
   unsigned i;
   for (i=0; i < naia->captures->count; i++) {
@@ -32,6 +33,7 @@ NAIG_ERR_T naia_process_tokens
     );
   }
 #endif
+*/
 
   CHECK(naia_process_labels(naia));
   CHECK(naia_process_instructions(naia));

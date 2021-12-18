@@ -8,21 +8,30 @@ import lib.naigama.NaigamaException;
 public class Engine
 {
   byte[] bytecode = null;
-  boolean debug = false;
+  EngineOptions options = new EngineOptions();
 
   public Engine
     (byte[] bc)
+  {
+    this(bc, null);
+  }
+
+  public Engine
+    (byte[] bc, EngineOptions op)
   {
     if (bc == null) {
       throw new NullPointerException("Bytecode must not be null");
     }
     bytecode = bc;
+    if (op != null) {
+      options = op;
+    }
   }
 
   public void setDebug
     (boolean d)
   {
-    debug = d;
+    options.debug = d;
   }
 
   public Outcome run
@@ -45,7 +54,7 @@ public class Engine
           "Bytecode length does not support instruction size."
         );
       }
-      if (debug) {
+      if (options.debug) {
         System.err.println(
           instrctr++ +
           "; byc=" + state.bytecode_offset +
@@ -276,7 +285,7 @@ public class Engine
   private void process_endreplace
     (EngineState state)
   {
-    
+    state.bytecode_offset += state.instrsize;
   }
 
   private void process_failtwice
@@ -301,8 +310,18 @@ public class Engine
   private void process_maskedchar
     (EngineState state)
   {
-    System.err.println("Implement maskedchar");
-    state.bytecode_offset += state.instrsize;
+    int result = get_protected_quad(state.bytecode_offset + 4);
+    int mask = get_protected_quad(state.bytecode_offset + 8);
+    if (state.input_offset == state.input.length) {
+      state.fail = true;
+    } else {
+      if ((state.input[ state.input_offset ] & (byte)mask) == (byte)result) {
+        ++(state.input_offset);
+        state.bytecode_offset += state.instrsize;
+      } else {
+        state.fail = true;
+      }
+    }
   }
 
   private void process_opencapture
@@ -372,8 +391,43 @@ public class Engine
 
   private void process_replace
     (EngineState state)
+    throws NaigamaException
   {
-    
+    int slot = get_protected_quad(state.bytecode_offset + 4);
+    int offset = get_protected_quad(state.bytecode_offset + 8);
+    if (options.replace) {
+      state.bytecode_offset += state.instrsize;
+      boolean endreplace = false;
+      while (!endreplace) {
+        if (state.bytecode_offset > bytecode.length - 4) {
+          throw new NaigamaBytecodeException("Ran out of bytecode.");
+        }
+        state.opcode = get_protected_quad(state.bytecode_offset);
+        state.instrsize = Instructions.getSize(state.opcode);
+        if (state.bytecode_offset > bytecode.length - state.instrsize) {
+          throw new NaigamaBytecodeException(
+            "Bytecode length does not support instruction size."
+          );
+        }
+        switch (state.opcode) {
+        case Instructions.INSTR_NOOP:
+          state.bytecode_offset += state.instrsize;
+          break;
+        case Instructions.INSTR_CHAR:
+          int chr = get_protected_quad(state.bytecode_offset + 4);
+          break;
+        case Instructions.INSTR_QUAD:
+          break;
+        case Instructions.INSTR_VAR:
+          break;
+        case Instructions.INSTR_ENDREPLACE:
+          endreplace = true;
+          break;
+        }
+      }
+    } else {
+      state.bytecode_offset = offset;
+    }
   }
 
   private void process_ret

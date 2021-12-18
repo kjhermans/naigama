@@ -6,7 +6,7 @@ import java.util.Hashtable;
 class EngineState
 {
   Stack<StackElt>             stack;
-  Stack<Pinpoint>             pinpoints;
+  Stack<Action>               actions;
   byte[]                      input;
   Hashtable<Long,Integer>     counters;
   int                         bytecode_offset  = 0;
@@ -21,7 +21,7 @@ class EngineState
     (byte[] in)
   {
     stack = new Stack<StackElt>();
-    pinpoints = new Stack<Pinpoint>();
+    actions = new Stack<Action>();
     counters = new Hashtable<Long,Integer>();
     input = in;
     end = false;

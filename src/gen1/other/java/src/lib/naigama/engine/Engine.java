@@ -129,7 +129,7 @@ public class Engine
       if (e.type == StackElt.TYPE_ALT) {
         state.bytecode_offset = e.offset;
         state.input_offset = e.input_offset;
-        state.pinpoints.setSize(e.pp_size);
+        state.actions.setSize(e.pp_size);
         state.fail = false;
         break;
       }
@@ -181,7 +181,7 @@ public class Engine
     if (e.type == StackElt.TYPE_ALT) {
       state.bytecode_offset = e.offset;
       state.input_offset = e.input_offset;
-      state.pinpoints.setSize(e.pp_size);
+      state.actions.setSize(e.pp_size);
     } else { 
       throw new NaigamaStackException("Expected ALT type in backcommit");
     }
@@ -206,7 +206,7 @@ public class Engine
     e.type = StackElt.TYPE_ALT;
     e.offset = offset;
     e.input_offset = state.input_offset;
-    e.pp_size = state.pinpoints.size();
+    e.pp_size = state.actions.size();
     state.stack.push(e);
     state.bytecode_offset += state.instrsize;
   }
@@ -231,11 +231,11 @@ public class Engine
     (EngineState state)
   {
     int slot = get_protected_quad(state.bytecode_offset + 4);
-    Pinpoint p = new Pinpoint();
-    p.type = Pinpoint.TYPE_CAPTURE_CLOSE;
+    Action p = new Action();
+    p.type = Action.TYPE_CAPTURE_CLOSE;
     p.slot = slot;
     p.offset = state.input_offset;
-    state.pinpoints.push(p);
+    state.actions.push(p);
     state.bytecode_offset += state.instrsize;
   }
 
@@ -328,11 +328,11 @@ public class Engine
     (EngineState state)
   {
     int slot = get_protected_quad(state.bytecode_offset + 4);
-    Pinpoint p = new Pinpoint();
-    p.type = Pinpoint.TYPE_CAPTURE_OPEN;
+    Action p = new Action();
+    p.type = Action.TYPE_CAPTURE_OPEN;
     p.slot = slot;
     p.offset = state.input_offset;
-    state.pinpoints.push(p);
+    state.actions.push(p);
     state.bytecode_offset += state.instrsize;
   }
 
@@ -344,7 +344,7 @@ public class Engine
     StackElt e = state.stack.peek();
     if (e.type == StackElt.TYPE_ALT) {
       e.input_offset = state.input_offset;
-      e.pp_size = state.pinpoints.size();
+      e.pp_size = state.actions.size();
       state.bytecode_offset = offset;
     } else {
       throw new NaigamaStackException("Expected ALT type in partialcommit");
@@ -559,13 +559,13 @@ public class Engine
   private byte[] get_variable
     (EngineState state, int slot)
   {
-    for (int i = state.pinpoints.size(); i > 0; i--) {
-      Pinpoint p1 = state.pinpoints.elementAt(i-1);
-      if (p1.type == Pinpoint.TYPE_CAPTURE_CLOSE && p1.slot == slot) {
+    for (int i = state.actions.size(); i > 0; i--) {
+      Action p1 = state.actions.elementAt(i-1);
+      if (p1.type == Action.TYPE_CAPTURE_CLOSE && p1.slot == slot) {
         int end = p1.offset;
         for (--i; i > 0; i--) {
-          Pinpoint p0 = state.pinpoints.elementAt(i-1);
-          if (p0.type == Pinpoint.TYPE_CAPTURE_OPEN && p0.slot == slot) {
+          Action p0 = state.actions.elementAt(i-1);
+          if (p0.type == Action.TYPE_CAPTURE_OPEN && p0.slot == slot) {
             int begin = p0.offset;
             int length = end - begin;
             byte[] result = new byte[ length ];
@@ -620,15 +620,15 @@ public class Engine
     (EngineState state)
   {
     Vector<Capture> result = new Vector<Capture>();
-    for (int i=0; i < state.pinpoints.size(); i++) {
-      Pinpoint p0 = state.pinpoints.elementAt(i);
-      if (p0.type == Pinpoint.TYPE_CAPTURE_OPEN) {
+    for (int i=0; i < state.actions.size(); i++) {
+      Action p0 = state.actions.elementAt(i);
+      if (p0.type == Action.TYPE_CAPTURE_OPEN) {
         int level = 1;
-        for (int j=i+1; j < state.pinpoints.size(); j++) {
-          Pinpoint p1 = state.pinpoints.elementAt(j);
-          if (p1.type == Pinpoint.TYPE_CAPTURE_OPEN) {
+        for (int j=i+1; j < state.actions.size(); j++) {
+          Action p1 = state.actions.elementAt(j);
+          if (p1.type == Action.TYPE_CAPTURE_OPEN) {
             ++level;
-          } else if (p1.type == Pinpoint.TYPE_CAPTURE_CLOSE) {
+          } else if (p1.type == Action.TYPE_CAPTURE_CLOSE) {
             if (--level == 0) {
               result.addElement(
                 new Capture(

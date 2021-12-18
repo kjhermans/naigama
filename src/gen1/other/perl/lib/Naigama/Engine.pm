@@ -368,7 +368,16 @@ sub process_jump
 sub process_maskedchar
 {
   my ($self, $state) = @_;
-  die "Implement";
+  my $outcome = get_protected_quad($self->{bytecode}, $state->{bytecode_offset} + 4);
+  my $mask = get_protected_quad($self->{bytecode}, $state->{bytecode_offset} + 8);
+  if ($state->{input_offset} == length($state->{input})) {
+    $state->{fail} = 1;
+  } elsif ((ord(substr($state->{input}, $state->{input_offset}, 1)) & $mask) == $outcome) {
+    ++($state->{input_offset});
+    $state->{bytecode_offset} += $state->{instrsize};
+  } else {
+    $state->{fail} = 1;
+  }
 }
 
 sub process_opencapture

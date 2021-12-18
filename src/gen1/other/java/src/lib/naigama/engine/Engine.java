@@ -420,8 +420,8 @@ public class Engine
             p.type = Action.TYPE_REPLACE_CHAR;
             p.chr = chr;
             state.actions.push(p);
-            state.bytecode_offset += state.instrsize;
           }
+          state.bytecode_offset += state.instrsize;
           break;
         case Instructions.INSTR_QUAD:
           for (int i=0; i < 4; i++) {
@@ -431,6 +431,7 @@ public class Engine
             p.chr = chr;
             state.actions.push(p);
           }
+          state.bytecode_offset += state.instrsize;
           break;
         case Instructions.INSTR_VAR:
           int varslot = get_protected_quad(state.bytecode_offset + 4);

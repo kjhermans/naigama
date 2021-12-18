@@ -414,14 +414,42 @@ public class Engine
           state.bytecode_offset += state.instrsize;
           break;
         case Instructions.INSTR_CHAR:
-          int chr = get_protected_quad(state.bytecode_offset + 4);
+          {
+            int chr = get_protected_quad(state.bytecode_offset + 4);
+            Action p = new Action();
+            p.type = Action.TYPE_REPLACE_CHAR;
+            p.chr = chr;
+            state.actions.push(p);
+            state.bytecode_offset += state.instrsize;
+          }
           break;
         case Instructions.INSTR_QUAD:
+          for (int i=0; i < 4; i++) {
+            int chr = (int)(bytecode[ state.bytecode_offset + 4 + i ]);
+            Action p = new Action();
+            p.type = Action.TYPE_REPLACE_CHAR;
+            p.chr = chr;
+            state.actions.push(p);
+          }
           break;
         case Instructions.INSTR_VAR:
+          int varslot = get_protected_quad(state.bytecode_offset + 4);
+          byte[] var = get_variable(state, varslot);
+          if (var == null) {
+            throw new NaigamaBytecodeException("Unreferenceable variable (" + slot + ") in var");
+          }
+          for (int i=0; i < var.length; i++) {
+            int chr = (int)var[ i ];
+            Action p = new Action();
+            p.type = Action.TYPE_REPLACE_CHAR;
+            p.chr = chr;
+            state.actions.push(p);
+          }
+          state.bytecode_offset += state.instrsize;
           break;
         case Instructions.INSTR_ENDREPLACE:
           endreplace = true;
+          state.bytecode_offset += state.instrsize;
           break;
         }
       }

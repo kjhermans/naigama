@@ -10,4 +10,5 @@ class Action
   int type;
   int slot;
   int offset;
+  int chr;
 }

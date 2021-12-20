@@ -418,6 +418,7 @@ public class Engine
             int chr = get_protected_quad(state.bytecode_offset + 4);
             Action p = new Action();
             p.type = Action.TYPE_REPLACE_CHAR;
+            p.offset = state.input_offset;
             p.chr = chr;
             state.actions.push(p);
           }
@@ -428,6 +429,7 @@ public class Engine
             int chr = (int)(bytecode[ state.bytecode_offset + 4 + i ]);
             Action p = new Action();
             p.type = Action.TYPE_REPLACE_CHAR;
+            p.offset = state.input_offset;
             p.chr = chr;
             state.actions.push(p);
           }
@@ -443,6 +445,7 @@ public class Engine
             int chr = (int)var[ i ];
             Action p = new Action();
             p.type = Action.TYPE_REPLACE_CHAR;
+            p.offset = state.input_offset;
             p.chr = chr;
             state.actions.push(p);
           }

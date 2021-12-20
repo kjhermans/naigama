@@ -20,6 +20,9 @@ public class Compiler
     t.eviscerate(Slotmap.SLOT_END);
     t.eviscerate(Slotmap.SLOT_LEFTARROW);
     t.eviscerate(Slotmap.SLOT_OR);
+    t.eviscerate(Slotmap.SLOT_BOPEN);
+    t.eviscerate(Slotmap.SLOT_BCLOSE);
+    t.eviscerate(Slotmap.SLOT_GROUP_BCLOSE);
     compile(t, assembly, options);
   }
 
@@ -111,6 +114,79 @@ public class Compiler
   private void sp_expression
     (TreeNode t, CompilerState state, StringBuffer out)
   {
-out.append(t.toString());
+    if (t.getChildCount() == 2 && t.getChild(0).getSlot() == Slotmap.SLOT_EXPRESSION_TERMS_1) {
+      String label1 = "__" + state.currentrule.getChild(0).getContent() + "_catch_" + (++(state.counter));
+      String label2 = "__" + state.currentrule.getChild(0).getContent() + "_out_" + (++(state.counter));
+      out.append("  catch " + label1 + "\n");
+      sp_terms(t.getChild(0).getChild(0), state, out);
+      out.append("  commit " + label2 + "\n");
+      out.append(label1 + "\n");
+      sp_expression(t.getChild(1), state, out);
+      out.append(label2 + "\n");
+    } else if (t.getChildCount() == 1 && t.getChild(0).getSlot() == Slotmap.SLOT_EXPRESSION_TERMS_2) {
+      sp_terms(t.getChild(0).getChild(0), state, out);
+    } else {
+      System.err.println("Unexpected token in sp_expression " + t);
+    }
+  }
+
+  private void sp_terms
+    (TreeNode t, CompilerState state, StringBuffer out)
+  {
+    for (int i=0; i < t.getChildCount(); i++) {
+      sp_term(t.getChild(i), state, out);
+    }
+  }
+
+  private void sp_term
+    (TreeNode t, CompilerState state, StringBuffer out)
+  {
+    t = t.getChild(0).getChild(0).getChild(0);
+    if (t.getChildCount() == 2) {
+      if (t.getChild(0).getSlot() == Slotmap.SLOT_ENDOWEDMATCHER_NOTAND) {
+        sp_matcher(t.getChild(1), state, out);
+      } else if (t.getChild(1).getSlot() == Slotmap.SLOT_ENDOWEDMATCHER_QUANTIFIER) {
+        sp_matcher(t.getChild(0), state, out);
+      }
+    } else {
+      sp_matcher(t.getChild(0), state, out);
+    }
+  }
+
+  private void sp_matcher
+    (TreeNode t, CompilerState state, StringBuffer out)
+  {
+    switch (t.getChild(0).getSlot()) {
+    case Slotmap.SLOT_MATCHER_ANY:
+      out.append("  any\n");
+      break;
+    case Slotmap.SLOT_MATCHER_SET:
+      break;
+    case Slotmap.SLOT_MATCHER_STRING:
+      byte[] b = t.getChild(0).getContent().getBytes();
+      //.. todo: unescape the string
+      for (int i=1; i < b.length - 1; i++) {
+        out.append("  char " + String.format("%02x ", b[i]) + "\n");
+      }
+      break;
+    case Slotmap.SLOT_MATCHER_BITMASK:
+      break;
+    case Slotmap.SLOT_MATCHER_HEXLITERAL:
+      break;
+    case Slotmap.SLOT_MATCHER_VARCAPTURE:
+      break;
+    case Slotmap.SLOT_MATCHER_CAPTURE:
+      break;
+    case Slotmap.SLOT_MATCHER_GROUP:
+      sp_expression(t.getChild(0).getChild(0).getChild(0), state, out);
+      break;
+    case Slotmap.SLOT_MATCHER_MACRO:
+      break;
+    case Slotmap.SLOT_MATCHER_VARREFERENCE:
+      break;
+    case Slotmap.SLOT_MATCHER_REFERENCE:
+      out.append("  " + t.getChild(0).getContent() + "\n");
+      break;
+    }
   }
 }

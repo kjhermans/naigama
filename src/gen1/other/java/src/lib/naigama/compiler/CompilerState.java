@@ -7,6 +7,7 @@ import lib.naigama.engine.TreeNode;
 class CompilerState
 {
   CompilerOptions               options;
+  int                           counter = 0;
   TreeNode                      currentrule;
   int                           currentcapture = 0;
   Hashtable<TreeNode,Integer>   capturemap = new Hashtable<TreeNode,Integer>();

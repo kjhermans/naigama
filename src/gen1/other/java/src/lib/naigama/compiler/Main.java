@@ -56,7 +56,6 @@ public class Main
 "-b         Incorporate the assembler and output bytecode at -o\n" +
 "-a <path>  Emit bytecode at -o, and assembly at -a\n" +
 "-m <path>  Output slotmap file (optional)\n" +
-"-M <path>  Output slotmap.h file (optional)\n" +
 "-l <path>  Labelmap path (only works when -a or -b is given).\n" +
 "-D         Debug (prepare for a lot of data on stderr)\n" +
 "-t         Generate traps\n" +
@@ -70,6 +69,8 @@ public class Main
           options.generate_traps = true;
         } else if (args[ i ].equals("-w")) {
           options.writeloops = true;
+        } else if (args[ i ].equals("-D")) {
+          options.debug = true;
         } else if (args[ i ].equals("-C")) {
           options.generate_captureperrule = true;
         }

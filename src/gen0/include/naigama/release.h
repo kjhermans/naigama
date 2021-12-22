@@ -1,1 +1,1 @@
-#define NAIGAMA_RELEASE "0.2.3"
+#define NAIGAMA_RELEASE "0.2.4"

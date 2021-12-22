@@ -14,16 +14,14 @@ class CompilerState
   int                           currentcapture = 0;
   Hashtable<TreeNode,Integer>   capturemap = new Hashtable<TreeNode,Integer>();
 
-  void addCapture
-    (TreeNode t)
-  {
-    capturemap.put(t, new Integer(currentcapture));
-    ++currentcapture;
-  }
-
   int getCapture
     (TreeNode t)
   {
-    return capturemap.get(t).intValue();
+    Integer i = capturemap.get(t);
+    if (i == null) {
+      i = new Integer(currentcapture++);
+      capturemap.put(t, i);
+    }
+    return i.intValue();
   }
 }

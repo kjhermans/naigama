@@ -46,8 +46,30 @@ public class Main
             System.err.println(ioe);
             System.exit(-1);
           }
+        } else if (args[ i ].equals("-?") || args[ i ].equals("-h")) {
+          System.err.println(
+"Usage: <INVOCATION> [options]\n" +
+"Options:\n" +
+"-? / -h    Display this message\n" +
+"-i <path>  Input grammar file (- for stdin)\n" +
+"-o <path>  Output assembly file (- for, or otherwise stdout)\n" +
+"-b         Incorporate the assembler and output bytecode at -o\n" +
+"-a <path>  Emit bytecode at -o, and assembly at -a\n" +
+"-m <path>  Output slotmap file (optional)\n" +
+"-M <path>  Output slotmap.h file (optional)\n" +
+"-l <path>  Labelmap path (only works when -a or -b is given).\n" +
+"-D         Debug (prepare for a lot of data on stderr)\n" +
+"-t         Generate traps\n" +
+"-T         'Traditional' output (LPEG compatible)\n" +
+"-s         Generate reduced instruction set\n" +
+"-w         Write out loops instead of using counters\n" +
+"-C         Produce a default capture for every rule\n"
+);
+          System.exit(0);
         } else if (args[ i ].equals("-t")) {
           options.generate_traps = true;
+        } else if (args[ i ].equals("-w")) {
+          options.writeloops = true;
         } else if (args[ i ].equals("-C")) {
           options.generate_captureperrule = true;
         }

@@ -9,6 +9,7 @@ public class TreeNode
   byte[]            content = null;
   TreeNode          parent = null;
   Vector<TreeNode>  children = null;
+  public String     assoc = null;
 
   public int getSlot() { return slot; }
   public int getOffset() { return offset; }

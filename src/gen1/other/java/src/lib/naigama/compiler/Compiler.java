@@ -269,8 +269,10 @@ public class Compiler
     byte[] map = new byte[ 32 ];
 
     if (t.getChild(0).getSlot() == Slotmap.SLOT_SET_SETNOT) {
-      invert = true;
-      ++i;
+      if (t.getChild(0).getContent().equals("^")) {
+        invert = true;
+        ++i;
+      }
     }
     for (; i < t.getChildCount(); i++) {
       if (t.getChild(i).getSlot() == Slotmap.SLOT_SET_NRTV) {
@@ -280,6 +282,11 @@ public class Compiler
       } else if (t.getChild(i).getSlot() == Slotmap.SLOT_SET_NRTV_2) {
         String chr = t.getChild(i).getContent();
         bitmap_set(map, (int)(chr.charAt(0)), (int)(chr.charAt(0)));
+      }
+    }
+    if (invert) {
+      for (i=0; i < map.length; i++) {
+        map[ i ] = (byte)((~map[ i ]) & 0xff);
       }
     }
     for (i=0; i < map.length; i++) {

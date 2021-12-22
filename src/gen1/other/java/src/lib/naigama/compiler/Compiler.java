@@ -272,12 +272,10 @@ public class Compiler
       break;
     case Slotmap.SLOT_MATCHER_CAPTURE:
       {
-        if (t.assoc == null) {
-          t.assoc = new Integer((state.slot)++).toString();
-        }
-        out.append("  opencapture " + t.assoc + "\n");
+        int slot = state.getCapture(t);
+        out.append("  opencapture " + slot + "\n");
         sp_expression(t.getChild(0).getChild(0), state, out);
-        out.append("  closecapture " + t.assoc + "\n");
+        out.append("  closecapture " + slot + "\n");
       }
       break;
     case Slotmap.SLOT_MATCHER_GROUP:

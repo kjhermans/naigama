@@ -22,7 +22,7 @@ public class TreeNode
     if (children == null) { return; }
     for (int i=0; i < children.size(); i++) {
       TreeNode child = children.elementAt(i);
-      if (child.slot == slot && child.children == null) {
+      if (child.slot == slot && (child.children == null || child.children.size() == 0)) {
         children.removeElementAt(i);
         --i;
       } else {

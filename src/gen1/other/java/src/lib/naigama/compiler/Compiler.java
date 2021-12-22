@@ -26,6 +26,9 @@ public class Compiler
     t.eviscerate(Slotmap.SLOT_CBOPEN);
     t.eviscerate(Slotmap.SLOT_CBCLOSE);
     t.eviscerate(Slotmap.SLOT_CAPTURE_CBCLOSE);
+    t.eviscerate(Slotmap.SLOT_ABOPEN);
+    t.eviscerate(Slotmap.SLOT_ABCLOSE);
+    t.eviscerate(Slotmap.SLOT_SET_ABCLOSE);
     compile(t, assembly, options);
   }
 
@@ -65,6 +68,7 @@ public class Compiler
     }
   }
 
+/*
   private void fp_definition
     (TreeNode t, CompilerState state)
   {
@@ -81,6 +85,7 @@ public class Compiler
       state.addCapture(t);
     }
   }
+*/
 
   private void sp_definition
     (TreeNode t, CompilerState state, StringBuffer out)
@@ -213,6 +218,7 @@ public class Compiler
           sp_matcher(t.getChild(0), state, out);
           out.append("  partialcommit __loop_" + lab + "\n");
           out.append("__forgive_" + fgv + ":\n");
+          out.append("  commit __NEXT\n");
         } else {
           int diff = quant[ 1 ] - quant[ 0 ];
           if (diff < 0) {
@@ -247,6 +253,40 @@ public class Compiler
     }
   }
 
+  private void bitmap_set
+    (byte[] map, int from, int until)
+  {
+    for (; from < until+1; from++) {
+      map[ from/8 ] |= (byte)(1<<(from%8));
+    }
+  }
+
+  private void sp_set
+    (TreeNode t, CompilerState state, StringBuffer out)
+  {
+    int i=0;
+    boolean invert = false;
+    byte[] map = new byte[ 32 ];
+
+    if (t.getChild(0).getSlot() == Slotmap.SLOT_SET_SETNOT) {
+      invert = true;
+      ++i;
+    }
+    for (; i < t.getChildCount(); i++) {
+      if (t.getChild(i).getSlot() == Slotmap.SLOT_SET_NRTV) {
+        String from = t.getChild(i++).getContent();
+        String until = t.getChild(i).getContent();
+        bitmap_set(map, (int)(from.charAt(0)), (int)(until.charAt(0)));
+      } else if (t.getChild(i).getSlot() == Slotmap.SLOT_SET_NRTV_2) {
+        String chr = t.getChild(i).getContent();
+        bitmap_set(map, (int)(chr.charAt(0)), (int)(chr.charAt(0)));
+      }
+    }
+    for (i=0; i < map.length; i++) {
+      out.append(String.format("%02x", map[i]));
+    }
+  }
+
   private void sp_matcher
     (TreeNode t, CompilerState state, StringBuffer out)
   {
@@ -256,6 +296,9 @@ public class Compiler
       out.append("  any\n");
       break;
     case Slotmap.SLOT_MATCHER_SET:
+      out.append("  set ");
+      sp_set(t.getChild(0), state, out);
+      out.append("\n");
       break;
     case Slotmap.SLOT_MATCHER_STRING:
       byte[] b = t.getContent().getBytes();

@@ -2,6 +2,7 @@ package lib.naigama.compiler;
 
 import lib.naigama.NaigamaException;
 import lib.naigama.compiler.Grammar;
+import lib.naigama.compiler.NaigamaCompilerError;
 import lib.naigama.engine.Engine;
 import lib.naigama.engine.Outcome;
 import lib.naigama.engine.TreeNode;
@@ -29,74 +30,46 @@ public class Compiler
     t.eviscerate(Slotmap.SLOT_ABOPEN);
     t.eviscerate(Slotmap.SLOT_ABCLOSE);
     t.eviscerate(Slotmap.SLOT_SET_ABCLOSE);
+    t.eviscerate(Slotmap.SLOT_COLON);
     compile(t, assembly, options);
   }
 
   private void compile
     (TreeNode t, StringBuffer out, CompilerOptions options)
+    throws NaigamaException
   {
     CompilerState state = new CompilerState();
     state.options = options;
     if (t.getChildCount() == 1 && t.getChild(0).getSlot() == Slotmap.SLOT_GRAMMAR) {
       t = t.getChild(0);
     }
-    //fp(t, state);
-    sp(t, state, out);
+    top(t, state, out);
   }
 
-/*
-  private void fp
-    (TreeNode t, CompilerState state)
+  private void top
+    (TreeNode t, CompilerState state, StringBuffer out)
+    throws NaigamaException
   {
     for (int i=0; i < t.getChildCount(); i++) {
       TreeNode child = t.getChild(i);
       if (child.getSlot() == Slotmap.SLOT_DEFINITION) {
-        fp_definition(child, state);
-      }
-    }
-  }
-*/
-
-  private void sp
-    (TreeNode t, CompilerState state, StringBuffer out)
-  {
-    for (int i=0; i < t.getChildCount(); i++) {
-      TreeNode child = t.getChild(i);
-      if (child.getSlot() == Slotmap.SLOT_DEFINITION) {
-        sp_definition(child, state, out);
+        definition(child, state, out);
       }
     }
   }
 
-/*
-  private void fp_definition
-    (TreeNode t, CompilerState state)
+  private void definition
+    (TreeNode t, CompilerState state, StringBuffer out)
+    throws NaigamaException
   {
     if (t.getChildCount() == 1 && t.getChild(0).getSlot() == Slotmap.SLOT_RULE) {
-      fp_rule(t.getChild(0), state);
+      rule(t.getChild(0), state, out);
     }
   }
 
-  private void fp_rule
-    (TreeNode t, CompilerState state)
-  {
-    String rulename = t.getChild(0).getContent();
-    if (state.options.generate_captureperrule) {
-      state.addCapture(t);
-    }
-  }
-*/
-
-  private void sp_definition
+  private void rule
     (TreeNode t, CompilerState state, StringBuffer out)
-  {
-    if (t.getChildCount() == 1 && t.getChild(0).getSlot() == Slotmap.SLOT_RULE) {
-      sp_rule(t.getChild(0), state, out);
-    }
-  }
-
-  private void sp_rule
-    (TreeNode t, CompilerState state, StringBuffer out)
+    throws NaigamaException
   {
     int rulecapture = -1;
     String rulename = t.getChild(0).getContent();
@@ -110,7 +83,7 @@ public class Compiler
       out.append("  opencapture " + rulecapture + "\n");
     }
     state.currentrule = t;
-    sp_expression(expression, state, out);
+    expression(expression, state, out);
     if (state.options.generate_captureperrule) {
       out.append("  closecapture " + rulecapture + "\n");
     }
@@ -121,32 +94,36 @@ public class Compiler
     out.append("\n");
   }
 
-  private void sp_expression
+  private void expression
     (TreeNode t, CompilerState state, StringBuffer out)
+    throws NaigamaException
   {
-//System.err.println("EXPRESSION\n" + t);
+    if (state.options.debug) {
+      System.err.println("EXPRESSION\n" + t);
+    }
     if (t.getChildCount() == 2 && t.getChild(0).getSlot() == Slotmap.SLOT_EXPRESSION_TERMS_1) {
       String label1 = "__" + state.currentrule.getChild(0).getContent() + "_catch_" + (++(state.counter));
       String label2 = "__" + state.currentrule.getChild(0).getContent() + "_out_" + (++(state.counter));
       out.append("  catch " + label1 + "\n");
-      sp_terms(t.getChild(0).getChild(0), state, out);
+      terms(t.getChild(0).getChild(0), state, out);
       out.append("  commit " + label2 + "\n");
       out.append(label1 + "\n");
-      sp_expression(t.getChild(1), state, out);
+      expression(t.getChild(1), state, out);
       out.append(label2 + "\n");
     } else if (t.getChildCount() == 1 && t.getChild(0).getSlot() == Slotmap.SLOT_EXPRESSION_TERMS_2) {
-      sp_terms(t.getChild(0).getChild(0), state, out);
+      terms(t.getChild(0).getChild(0), state, out);
     } else {
-      System.err.println("Unexpected token in sp_expression " + t);
+      System.err.println("Unexpected token in expression " + t);
     }
   }
 
-  private void sp_terms
+  private void terms
     (TreeNode t, CompilerState state, StringBuffer out)
+    throws NaigamaException
   {
     for (int i=0; i < t.getChildCount(); i++) {
       if (t.getChild(i).getSlot() == Slotmap.SLOT_TERMS_TERM) {
-        sp_term(t.getChild(i), state, out);
+        term(t.getChild(i), state, out);
       }
     }
   }
@@ -183,30 +160,33 @@ public class Compiler
     }
   }
 
-  private void sp_term
+  private void term
     (TreeNode t, CompilerState state, StringBuffer out)
+    throws NaigamaException
   {
-//System.err.println("TERM\n" + t);
+    if (state.options.debug) {
+      System.err.println("TERM\n" + t);
+    }
     t = t.getChild(0).getChild(0).getChild(0);
-    if (t.getChildCount() == 2) {
+    if (t.getChildCount() > 1) {
       if (t.getChild(0).getSlot() == Slotmap.SLOT_ENDOWEDMATCHER_NOTAND) {
-        sp_matcher(t.getChild(1), state, out);
-      } else if (t.getChild(1).getSlot() == Slotmap.SLOT_ENDOWEDMATCHER_QUANTIFIER) {
-        int[] quant = resolve_quantifier(t.getChild(1));
+        matcher(t.getChild(1), state, out);
+      } else if (t.lastChild().getSlot() == Slotmap.SLOT_ENDOWEDMATCHER_QUANTIFIER) {
+        int[] quant = resolve_quantifier(t.lastChild());
         switch (quant[ 0 ]) {
         case 0: break;
-        case 1: sp_matcher(t.getChild(0), state, out); break;
+        case 1: matcher(t.getChild(0), state, out); break;
         default:
           if (state.options.writeloops) {
             for (int i=0; i < quant[ 0 ]; i++) {
-              sp_matcher(t.getChild(0), state, out);
+              matcher(t.getChild(0), state, out);
             }
           } else {
             int reg = state.reg++;
             int lab = state.counter++;
             out.append("  counter " + reg + " " + quant[ 0 ] + "\n");
             out.append("__loop_" + lab + ":\n");
-            sp_matcher(t.getChild(0), state, out);
+            matcher(t.getChild(0), state, out);
             out.append("  condjump " + reg + " __loop_" + lab + "\n");
           }
         }
@@ -215,31 +195,32 @@ public class Compiler
           int lab = state.counter++;
           out.append("  catch __forgive_" + fgv + "\n");
           out.append("__loop_" + lab + ":\n");
-          sp_matcher(t.getChild(0), state, out);
+          matcher(t.getChild(0), state, out);
           out.append("  partialcommit __loop_" + lab + "\n");
           out.append("__forgive_" + fgv + ":\n");
           out.append("  commit __NEXT\n");
         } else {
           int diff = quant[ 1 ] - quant[ 0 ];
           if (diff < 0) {
-            //.. error
+            throw new NaigamaCompilerError("Quantifier range invalid");
           }
           if (diff > 0) {
             int fgv = state.counter++;
             out.append("  catch __forgive_" + fgv + "\n");
             if (diff == 1) {
-              sp_matcher(t.getChild(0), state, out);
+              matcher(t.getChild(0), state, out);
             } else {
               if (state.options.writeloops) {
                 for (int i=0; i < diff; i++) {
-                  sp_matcher(t.getChild(0), state, out);
+                  matcher(t.getChild(0), state, out);
                 }
               } else {
                 int reg = state.reg++;
                 int lab = state.counter++;
                 out.append("  counter " + reg + " " + diff + "\n");
                 out.append("__loop_" + lab + ":\n");
-                sp_matcher(t.getChild(0), state, out);
+                matcher(t.getChild(0), state, out);
+                out.append("  partialcommit __NEXT\n");
                 out.append("  condjump " + reg + " __loop_" + lab + "\n");
               }
             }
@@ -249,7 +230,7 @@ public class Compiler
         }
       }
     } else {
-      sp_matcher(t.getChild(0), state, out);
+      matcher(t.getChild(0), state, out);
     }
   }
 
@@ -261,7 +242,7 @@ public class Compiler
     }
   }
 
-  private void sp_set
+  private void set
     (TreeNode t, CompilerState state, StringBuffer out)
   {
     int i=0;
@@ -294,8 +275,9 @@ public class Compiler
     }
   }
 
-  private void sp_matcher
+  private void matcher
     (TreeNode t, CompilerState state, StringBuffer out)
+    throws NaigamaException
   {
     t = t.getChild(0);
     switch (t.getSlot()) {
@@ -304,7 +286,7 @@ public class Compiler
       break;
     case Slotmap.SLOT_MATCHER_SET:
       out.append("  set ");
-      sp_set(t.getChild(0), state, out);
+      set(t.getChild(0), state, out);
       out.append("\n");
       break;
     case Slotmap.SLOT_MATCHER_STRING:
@@ -315,25 +297,40 @@ public class Compiler
       }
       break;
     case Slotmap.SLOT_MATCHER_BITMASK:
+      out.append("  maskedchar " + t.getContent().substring(1, 3) + " " + t.getContent().substring(4, 6) + "\n");
       break;
     case Slotmap.SLOT_MATCHER_HEXLITERAL:
+      out.append("  char " + t.getContent().substring(2, 4) + "\n");
       break;
     case Slotmap.SLOT_MATCHER_VARCAPTURE:
+      {
+        String var = t.getChild(0).getChild(0).getContent();
+        int slot = state.getCapture(t);
+        state.varPut(var, slot);
+        out.append("  opencapture " + slot + "\n");
+        expression(t.getChild(0).getChild(1), state, out);
+        out.append("  closecapture " + slot + "\n");
+      }
       break;
     case Slotmap.SLOT_MATCHER_CAPTURE:
       {
         int slot = state.getCapture(t);
         out.append("  opencapture " + slot + "\n");
-        sp_expression(t.getChild(0).getChild(0), state, out);
+        expression(t.getChild(0).getChild(0), state, out);
         out.append("  closecapture " + slot + "\n");
       }
       break;
     case Slotmap.SLOT_MATCHER_GROUP:
-      sp_expression(t.getChild(0).getChild(0), state, out);
+      expression(t.getChild(0).getChild(0), state, out);
       break;
     case Slotmap.SLOT_MATCHER_MACRO:
       break;
     case Slotmap.SLOT_MATCHER_VARREFERENCE:
+      {
+        String var = t.getChild(0).getChild(0).getContent();
+        int slot = state.varGet(var);
+        out.append("  var " + slot + "\n");
+      }
       break;
     case Slotmap.SLOT_MATCHER_REFERENCE:
       out.append("  " + t.getContent() + "\n");

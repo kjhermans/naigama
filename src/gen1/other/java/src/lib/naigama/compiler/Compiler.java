@@ -357,7 +357,7 @@ public class Compiler
       }
       break;
     case Slotmap.SLOT_MATCHER_REFERENCE:
-      out.append("  " + t.getContent() + "\n");
+      out.append("  call " + t.getContent() + "\n");
       break;
     }
   }

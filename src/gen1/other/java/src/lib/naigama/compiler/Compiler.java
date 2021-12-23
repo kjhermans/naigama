@@ -170,6 +170,18 @@ public class Compiler
     t = t.getChild(0).getChild(0).getChild(0);
     if (t.getChildCount() > 1) {
       if (t.getChild(0).getSlot() == Slotmap.SLOT_ENDOWEDMATCHER_NOTAND) {
+        int lab = (state.counter++);
+        out.append("  catch __scan_" + lab + "\n");
+        matcher(t.getChild(1), state, out);
+        if (t.getChild(0).getContent().equals("&")) {
+          out.append("  backcommit __scan_out_" + lab + "\n");
+          out.append("__scan_" + lab + ":\n");
+          out.append("  fail\n");
+          out.append("__scan_out_" + lab + ":\n");
+        } else {
+          out.append("  failtwice\n");
+          out.append("__scan_" + lab + ":\n");
+        }
         matcher(t.getChild(1), state, out);
       } else if (t.lastChild().getSlot() == Slotmap.SLOT_ENDOWEDMATCHER_QUANTIFIER) {
         int[] quant = resolve_quantifier(t.lastChild());

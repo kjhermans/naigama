@@ -15,6 +15,8 @@ public class TreeNode
   public String getContent() { try { return new String(content, "ISO-8859-1"); } catch (Exception e) { return ""; } }
   public int getChildCount() { return children.size(); }
   public TreeNode getChild(int i) { return children.elementAt(i); }
+  public TreeNode firstChild() { return children.elementAt(0); }
+  public TreeNode lastChild() { return children.size() > 0 ? children.elementAt(children.size()-1) : null; }
 
   public void eviscerate
     (int slot)

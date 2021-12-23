@@ -324,6 +324,30 @@ public class Compiler
       expression(t.getChild(0).getChild(0), state, out);
       break;
     case Slotmap.SLOT_MATCHER_MACRO:
+      {
+        String macro = t.getChild(0).getContent();
+        byte[] set = new byte[ 32 ];
+        if (macro.equals("%s")) {
+          bitmap_set(set, 9, 13);
+          bitmap_set(set, 32, 32);
+        } else if (macro.equals("%w")) {
+          bitmap_set(set, 65, 90);
+          bitmap_set(set, 97, 122);
+        } else if (macro.equals("%n")) {
+          bitmap_set(set, 48, 57);
+        } else if (macro.equals("%a")) {
+          bitmap_set(set, 48, 57);
+          bitmap_set(set, 65, 90);
+          bitmap_set(set, 97, 122);
+        } else {
+          throw new NaigamaCompilerError("Unknown macro '" + macro + "'");
+        }
+        out.append("  set ");
+        for (int i=0; i < set.length; i++) {
+          out.append(String.format("%02x", set[i]));
+        }
+        out.append("\n");
+      }
       break;
     case Slotmap.SLOT_MATCHER_VARREFERENCE:
       {

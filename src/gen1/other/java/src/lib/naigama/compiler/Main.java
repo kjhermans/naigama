@@ -93,7 +93,7 @@ public class Main
       compiler = new Compiler(grammar, assembly, options);
       assemblyfile.write(assembly.toString().getBytes());
     } catch (NaigamaException naige) {
-      System.err.println(naige);
+      System.err.println("Compiler error: " + naige);
       System.exit(-1);
     } catch (IOException ioe) {
       System.err.println(ioe);

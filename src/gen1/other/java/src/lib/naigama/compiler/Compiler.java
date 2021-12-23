@@ -291,9 +291,21 @@ public class Compiler
       break;
     case Slotmap.SLOT_MATCHER_STRING:
       byte[] b = t.getContent().getBytes();
-      //.. todo: unescape the string
       for (int i=1; i < b.length - 1; i++) {
-        out.append("  char " + String.format("%02x ", b[i]) + "\n");
+        if ((char)(b[ i ]) == '\\') { /* escape */
+          switch ((char)(b[ i+1 ])) {
+          case 'n': out.append("  char 0a\n"); break;
+          case 'r': out.append("  char 0d\n"); break;
+          case 't': out.append("  char 09\n"); break;
+          case 'v': out.append("  char 0b\n"); break;
+          case '\'': out.append("  char 27\n"); break;
+          case '\\': out.append("  char 5c\n"); break;
+          default:
+            throw new NaigamaCompilerError("Unknown escape \\" + (char)(b[ i+1 ]));
+          }
+        } else {
+          out.append("  char " + String.format("%02x ", b[ i ]) + "\n");
+        }
       }
       break;
     case Slotmap.SLOT_MATCHER_BITMASK:

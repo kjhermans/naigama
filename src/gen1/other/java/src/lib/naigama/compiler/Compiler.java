@@ -77,7 +77,7 @@ public class Compiler
     if (state.options.generate_traps) {
       out.append("  trap\n");
     }
-    out.append("__RULE_" + rulename.toUpperCase() + ":\n");
+    out.append("__RULE_" + rulename + ":\n");
     if (state.options.generate_captureperrule) {
       rulecapture = state.getCapture(t);
       out.append("  opencapture " + rulecapture + "\n");
@@ -210,7 +210,7 @@ public class Compiler
           matcher(t.getChild(0), state, out);
           out.append("  partialcommit __loop_" + lab + "\n");
           out.append("__forgive_" + fgv + ":\n");
-          out.append("  commit __NEXT\n");
+          out.append("  commit __NEXT__\n");
         } else {
           int diff = quant[ 1 ] - quant[ 0 ];
           if (diff < 0) {
@@ -232,7 +232,7 @@ public class Compiler
                 out.append("  counter " + reg + " " + diff + "\n");
                 out.append("__loop_" + lab + ":\n");
                 matcher(t.getChild(0), state, out);
-                out.append("  partialcommit __NEXT\n");
+                out.append("  partialcommit __NEXT__\n");
                 out.append("  condjump " + reg + " __loop_" + lab + "\n");
               }
             }
@@ -381,7 +381,7 @@ public class Compiler
       }
       break;
     case Slotmap.SLOT_MATCHER_REFERENCE:
-      out.append("  call " + t.getContent() + "\n");
+      out.append("  call __RULE_" + t.getContent() + "\n");
       break;
     }
   }

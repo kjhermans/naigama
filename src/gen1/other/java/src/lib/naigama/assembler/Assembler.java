@@ -162,7 +162,7 @@ public class Assembler
         state.output_add_instr(Instructions.INSTR_BACKCOMMIT);
         {
           String label = t.getChild(i).getChild(1).getContent();
-          int offset = label.equals("__NEXT__") ? state.output.length + Instructions.getSize(Instructions.INSTR_CALL) : state.labelGet(label);
+          int offset = label.equals("__NEXT__") ? state.output.length + Instructions.getSize(Instructions.INSTR_BACKCOMMIT) : state.labelGet(label);
           state.output_add_int(offset);
         }
         break;
@@ -200,7 +200,7 @@ public class Assembler
         state.output_add_instr(Instructions.INSTR_COMMIT);
         {
           String label = t.getChild(i).getChild(1).getContent();
-          int offset = label.equals("__NEXT__") ? state.output.length + Instructions.getSize(Instructions.INSTR_CALL) : state.labelGet(label);
+          int offset = label.equals("__NEXT__") ? state.output.length + Instructions.getSize(Instructions.INSTR_COMMIT) : state.labelGet(label);
           state.output_add_int(offset);
         }
         break;
@@ -219,7 +219,7 @@ public class Assembler
           int reg = Integer.valueOf(t.getChild(i).getChild(1).getContent());
           state.output_add_int(reg);
           String label = t.getChild(i).getChild(1).getContent();
-          int offset = label.equals("__NEXT__") ? state.output.length + Instructions.getSize(Instructions.INSTR_CALL) : state.labelGet(label);
+          int offset = label.equals("__NEXT__") ? state.output.length + Instructions.getSize(Instructions.INSTR_COUNTER) : state.labelGet(label);
           state.output_add_int(offset);
         }
         break;
@@ -270,7 +270,7 @@ public class Assembler
         state.output_add_instr(Instructions.INSTR_PARTIALCOMMIT);
         {
           String label = t.getChild(i).getChild(1).getContent();
-          int offset = label.equals("__NEXT__") ? state.output.length + Instructions.getSize(Instructions.INSTR_CALL) : state.labelGet(label);
+          int offset = label.equals("__NEXT__") ? state.output.length + Instructions.getSize(Instructions.INSTR_PARTIALCOMMIT) : state.labelGet(label);
           state.output_add_int(offset);
         }
         break;
@@ -293,8 +293,15 @@ public class Assembler
           state.output_add_int(until);
         }
         break;
-      case Slotmap.SLOT_REPLACEINSTR_REPLACE: /* TODO */
+      case Slotmap.SLOT_REPLACEINSTR_REPLACE:
         state.output_add_instr(Instructions.INSTR_REPLACE);
+        {
+          int slot = Integer.parseInt(t.getChild(i).getChild(1).getContent());
+          state.output_add_int(slot);
+          String label = t.getChild(i).getChild(2).getContent();
+          int offset = state.labelGet(label);
+          state.output_add_int(offset);
+        }
         break;
       case Slotmap.SLOT_RETINSTR_RET:
         state.output_add_instr(Instructions.INSTR_RET);
@@ -316,20 +323,59 @@ public class Assembler
           state.output_add_int(steps);
         }
         break;
-      case Slotmap.SLOT_SPANINSTR_SPAN: /* TODO */
+      case Slotmap.SLOT_SPANINSTR_SPAN:
         state.output_add_instr(Instructions.INSTR_SPAN);
+        {
+          byte[] set = new byte[ 32 ];
+          for (int j=0; j < set.length; j++) {
+            set[ j ] = (byte)(Integer.valueOf(t.getChild(i).getChild(1).getContent().substring(i*2, i*2+1), 16).intValue());
+          }
+          state.output_add_bytes(set);
+        }
         break;
-      case Slotmap.SLOT_TESTANYINSTR_TESTANY: /* TODO */
+      case Slotmap.SLOT_TESTANYINSTR_TESTANY:
         state.output_add_instr(Instructions.INSTR_TESTANY);
+        {
+          String label = t.getChild(i).getChild(1).getContent();
+          int offset = label.equals("__NEXT__") ? state.output.length + Instructions.getSize(Instructions.INSTR_TESTANY) : state.labelGet(label);
+          state.output_add_int(offset);
+        }
         break;
-      case Slotmap.SLOT_TESTCHARINSTR_TESTCHAR: /* TODO */
+      case Slotmap.SLOT_TESTCHARINSTR_TESTCHAR:
         state.output_add_instr(Instructions.INSTR_TESTCHAR);
+        {
+          String label = t.getChild(i).getChild(2).getContent();
+          int offset = label.equals("__NEXT__") ? state.output.length + Instructions.getSize(Instructions.INSTR_TESTCHAR) : state.labelGet(label);
+          state.output_add_int(offset);
+          int value = Integer.valueOf(t.getChild(i).getChild(1).getContent(), 16);
+          state.output_add_int(value);
+        }
         break;
-      case Slotmap.SLOT_TESTQUADINSTR_TESTQUAD: /* TODO */
+      case Slotmap.SLOT_TESTQUADINSTR_TESTQUAD:
         state.output_add_instr(Instructions.INSTR_TESTQUAD);
+        {
+          String label = t.getChild(i).getChild(2).getContent();
+          int offset = label.equals("__NEXT__") ? state.output.length + Instructions.getSize(Instructions.INSTR_TESTQUAD) : state.labelGet(label);
+          state.output_add_int(offset);
+          byte[] set = new byte[ 4 ];
+          for (int j=0; j < set.length; j++) {
+            set[ j ] = (byte)(Integer.valueOf(t.getChild(i).getChild(1).getContent().substring(i*2, i*2+1), 16).intValue());
+          }
+          state.output_add_bytes(set);
+        }
         break;
-      case Slotmap.SLOT_TESTSETINSTR_TESTSET: /* TODO */
+      case Slotmap.SLOT_TESTSETINSTR_TESTSET:
         state.output_add_instr(Instructions.INSTR_TESTSET);
+        {
+          String label = t.getChild(i).getChild(2).getContent();
+          int offset = label.equals("__NEXT__") ? state.output.length + Instructions.getSize(Instructions.INSTR_TESTSET) : state.labelGet(label);
+          state.output_add_int(offset);
+          byte[] set = new byte[ 32 ];
+          for (int j=0; j < set.length; j++) {
+            set[ j ] = (byte)(Integer.valueOf(t.getChild(i).getChild(1).getContent().substring(i*2, i*2+1), 16).intValue());
+          }
+          state.output_add_bytes(set);
+        }
         break;
       case Slotmap.SLOT_TRAPINSTR_TRAP:
         state.output_add_instr(Instructions.INSTR_TRAP);

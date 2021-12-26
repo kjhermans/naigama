@@ -1,6 +1,6 @@
 --
--- Naigama compiler library; gen 3; release 0.2.2
--- At Tue, 30 Nov 2021 12:56:54 +0100
+-- Naigama compiler library; gen 3; release 0.3.1
+-- At Sun, 26 Dec 2021 09:50:14 +0100
 --
 
   call TOP

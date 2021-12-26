@@ -45,6 +45,7 @@ int sqldb_select
   ASSERT(stmt->nchildren >= 4)
   ASSERT(stmt->children[ 1 ]->type == SLOTMAP_SELECTFIELDLIST_)
   ASSERT(stmt->children[ 3 ]->type == SLOTMAP_SET_)
+
   what = stmt->children[ 1 ];
   from = stmt->children[ 3 ];
   if (stmt->nchildren >= 6 && stmt->children[ 5 ]->type == SLOTMAP_CONDITION_) {

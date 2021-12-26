@@ -25,7 +25,7 @@ class AssemblerState
   {
     Integer i = labels.get(key);
     if (i == null) {
-      throw new NaigamaAssemblerError("Label refereneced but not found '" + key + "'");
+      throw new NaigamaAssemblerError("Label referenced but not found '" + key + "'");
     }
     return i.intValue();
   }

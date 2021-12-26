@@ -44,6 +44,8 @@ public class Compiler
       t = t.getChild(0);
     }
     top(t, state, out);
+    out.insert(0, "  call __RULE_" + state.firstrule + "\n  end 0\n\n");
+    out.append("  end 0\n");
   }
 
   private void top
@@ -73,6 +75,9 @@ public class Compiler
   {
     int rulecapture = -1;
     String rulename = t.getChild(0).getContent();
+    if (state.firstrule == null) {
+      state.firstrule = rulename;
+    }
     TreeNode expression = t.getChild(1);
     if (state.options.generate_traps) {
       out.append("  trap\n");

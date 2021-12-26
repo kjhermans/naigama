@@ -29,7 +29,6 @@ public class Main
   {
     String assembly = null;
     OutputStream bytecodefile = System.out;
-    StringBuffer bytecode = new StringBuffer();
     AssemblerOptions options = new AssemblerOptions();
 
     {
@@ -71,8 +70,9 @@ public class Main
     }
     Assembler assembler;
     try {
-      assembler = new Assembler(assembly, bytecode, options);
-      bytecodefile.write(bytecode.toString().getBytes());
+      assembler = new Assembler(assembly, options);
+      byte[] bytecode = assembler.assemble();
+      bytecodefile.write(bytecode);
     } catch (NaigamaException naige) {
       System.err.println("Assembler error: " + naige);
       System.exit(-1);

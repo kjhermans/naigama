@@ -23,9 +23,6 @@ class AssemblerState
     (String key)
     throws NaigamaException
   {
-    if (key.equals("__NEXT__")) {
-//..
-    }
     Integer i = labels.get(key);
     if (i == null) {
       throw new NaigamaAssemblerError("Label refereneced but not found '" + key + "'");
@@ -33,18 +30,31 @@ class AssemblerState
     return i.intValue();
   }
 
-  void output
+  void output_add_bytes
     (byte[] add)
   {
+    byte[] newarray = new byte[ output.length + add.length ];
+    System.arraycopy(output, 0, newarray, 0, output.length);
+    System.arraycopy(add, 0, newarray, output.length, add.length);
+    output = newarray;
   }
 
-  void output_int
+  void output_add_int
     (int add)
   {
+    output_add_bytes(
+      new byte[]{
+        (byte)((add >> 24) & 0xff),
+        (byte)((add >> 16) & 0xff),
+        (byte)((add >> 8) & 0xff),
+        (byte)(add & 0xff)
+      }
+    );
   }
 
-  void output_instr
+  void output_add_instr
     (int instr)
   {
+    output_add_int(instr);
   }
 }

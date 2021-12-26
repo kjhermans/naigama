@@ -8,35 +8,39 @@ import lib.naigama.engine.TreeNode;
 
 public class Assembler
 {
+  private TreeNode treenode;
+  private AssemblerOptions options;
+
   public Assembler
-    (String assembly, StringBuffer bytecode, AssemblerOptions options)
+    (String assembly, AssemblerOptions op)
     throws NaigamaException
   {
     Engine e = new Engine(Grammar.bytecode);
     Outcome o = e.run(assembly.getBytes());
-    TreeNode t = o.getCaptureTree();
-    assemble(t, bytecode, options);
+    treenode = o.getCaptureTree();
+    options = op;
   }
 
-  private void assemble
-    (TreeNode t, StringBuffer out, AssemblerOptions options)
+  public byte[] assemble
+    ()
     throws NaigamaException
   {
     AssemblerState state = new AssemblerState();
     state.options = options;
-    top(t, state, out);
+    top(treenode, state);
+    return state.output;
   }
 
   private void top
-    (TreeNode t, AssemblerState state, StringBuffer out)
+    (TreeNode t, AssemblerState state)
     throws NaigamaException
   {
-    fp(t, state, out);
-    sp(t, state, out);
+    fp(t, state);
+    sp(t, state);
   }
 
   private void fp
-    (TreeNode t, AssemblerState state, StringBuffer out)
+    (TreeNode t, AssemblerState state)
     throws NaigamaException
   {
     int offset = 0;

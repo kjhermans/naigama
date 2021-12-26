@@ -162,7 +162,7 @@ public class Assembler
         state.output_add_instr(Instructions.INSTR_BACKCOMMIT);
         {
           String label = t.getChild(i).getChild(1).getContent();
-          int offset = label.equals("__NEXT__") ? state.output.length + Instructions.getSize(Instructions.INSTR_BACKCOMMIT) : state.labelGet(label);
+          int offset = label.equals("__NEXT__") ? state.output.length + Instructions.getSize(Instructions.INSTR_BACKCOMMIT) - 4 : state.labelGet(label);
           state.output_add_int(offset);
         }
         break;
@@ -200,7 +200,7 @@ public class Assembler
         state.output_add_instr(Instructions.INSTR_COMMIT);
         {
           String label = t.getChild(i).getChild(1).getContent();
-          int offset = label.equals("__NEXT__") ? state.output.length + Instructions.getSize(Instructions.INSTR_COMMIT) : state.labelGet(label);
+          int offset = label.equals("__NEXT__") ? state.output.length + Instructions.getSize(Instructions.INSTR_COMMIT) - 4 : state.labelGet(label);
           state.output_add_int(offset);
         }
         break;
@@ -209,8 +209,9 @@ public class Assembler
         {
           int reg = Integer.valueOf(t.getChild(i).getChild(1).getContent());
           state.output_add_int(reg);
-          int value = Integer.valueOf(t.getChild(i).getChild(2).getContent());
-          state.output_add_int(value);
+          String label = t.getChild(i).getChild(2).getContent();
+          int offset = label.equals("__NEXT__") ? state.output.length + Instructions.getSize(Instructions.INSTR_CONDJUMP) - 4 : state.labelGet(label);
+          state.output_add_int(offset);
         }
         break;
       case Slotmap.SLOT_COUNTERINSTR_COUNTER:
@@ -218,9 +219,8 @@ public class Assembler
         {
           int reg = Integer.valueOf(t.getChild(i).getChild(1).getContent());
           state.output_add_int(reg);
-          String label = t.getChild(i).getChild(1).getContent();
-          int offset = label.equals("__NEXT__") ? state.output.length + Instructions.getSize(Instructions.INSTR_COUNTER) : state.labelGet(label);
-          state.output_add_int(offset);
+          int value = Integer.valueOf(t.getChild(i).getChild(2).getContent());
+          state.output_add_int(value);
         }
         break;
       case Slotmap.SLOT_ENDINSTR_END:
@@ -270,7 +270,7 @@ public class Assembler
         state.output_add_instr(Instructions.INSTR_PARTIALCOMMIT);
         {
           String label = t.getChild(i).getChild(1).getContent();
-          int offset = label.equals("__NEXT__") ? state.output.length + Instructions.getSize(Instructions.INSTR_PARTIALCOMMIT) : state.labelGet(label);
+          int offset = label.equals("__NEXT__") ? state.output.length + Instructions.getSize(Instructions.INSTR_PARTIALCOMMIT) - 4 : state.labelGet(label);
           state.output_add_int(offset);
         }
         break;
@@ -337,7 +337,7 @@ public class Assembler
         state.output_add_instr(Instructions.INSTR_TESTANY);
         {
           String label = t.getChild(i).getChild(1).getContent();
-          int offset = label.equals("__NEXT__") ? state.output.length + Instructions.getSize(Instructions.INSTR_TESTANY) : state.labelGet(label);
+          int offset = label.equals("__NEXT__") ? state.output.length + Instructions.getSize(Instructions.INSTR_TESTANY) - 4 : state.labelGet(label);
           state.output_add_int(offset);
         }
         break;
@@ -345,7 +345,7 @@ public class Assembler
         state.output_add_instr(Instructions.INSTR_TESTCHAR);
         {
           String label = t.getChild(i).getChild(2).getContent();
-          int offset = label.equals("__NEXT__") ? state.output.length + Instructions.getSize(Instructions.INSTR_TESTCHAR) : state.labelGet(label);
+          int offset = label.equals("__NEXT__") ? state.output.length + Instructions.getSize(Instructions.INSTR_TESTCHAR) - 4 : state.labelGet(label);
           state.output_add_int(offset);
           int value = Integer.valueOf(t.getChild(i).getChild(1).getContent(), 16);
           state.output_add_int(value);
@@ -355,7 +355,7 @@ public class Assembler
         state.output_add_instr(Instructions.INSTR_TESTQUAD);
         {
           String label = t.getChild(i).getChild(2).getContent();
-          int offset = label.equals("__NEXT__") ? state.output.length + Instructions.getSize(Instructions.INSTR_TESTQUAD) : state.labelGet(label);
+          int offset = label.equals("__NEXT__") ? state.output.length + Instructions.getSize(Instructions.INSTR_TESTQUAD) - 4 : state.labelGet(label);
           state.output_add_int(offset);
           byte[] set = new byte[ 4 ];
           for (int j=0; j < set.length; j++) {
@@ -368,7 +368,7 @@ public class Assembler
         state.output_add_instr(Instructions.INSTR_TESTSET);
         {
           String label = t.getChild(i).getChild(2).getContent();
-          int offset = label.equals("__NEXT__") ? state.output.length + Instructions.getSize(Instructions.INSTR_TESTSET) : state.labelGet(label);
+          int offset = label.equals("__NEXT__") ? state.output.length + Instructions.getSize(Instructions.INSTR_TESTSET) - 4 : state.labelGet(label);
           state.output_add_int(offset);
           byte[] set = new byte[ 32 ];
           for (int j=0; j < set.length; j++) {

@@ -48,6 +48,7 @@ NAIG_ERR_T naid_do_disassemble
     opcode = GET_32BIT_VALUE(naid->bytecode, bytecode_offset);
     instrlength = naid->bytecode[ bytecode_offset + 1 ] + 4;
     if (bytecode_offset + instrlength > naid->bytecode_length) {
+      CHECK(naid->write(naid->write_arg, "-- ERROR: Bytecode offset out of bounds.\n"));
       RETURNERR(NAID_ERR_OVERFLOW);
     }
     switch (opcode) {

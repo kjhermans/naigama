@@ -100,6 +100,9 @@ public class Engine
         throw new NaigamaBytecodeException("Unknown instruction opcode " + state.opcode);
       }
       if (state.fail) {
+        if (options.debug) {
+          System.err.println("FAIL");
+        }
         fail(state);
       }
     }

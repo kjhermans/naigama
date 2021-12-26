@@ -150,108 +150,196 @@ public class Assembler
   }
 
   private void sp
-    (TreeNode t, AssemblerState state, StringBuffer out)
+    (TreeNode t, AssemblerState state)
     throws NaigamaException
   {
     for (int i=0; i < t.getChildCount(); i++) {
       switch(t.getChild(i).getChild(0).getSlot()) {
       case Slotmap.SLOT_ANYINSTR_ANY:
-        state.output_instr(Instructions.INSTR_ANY);
+        state.output_add_instr(Instructions.INSTR_ANY);
         break;
       case Slotmap.SLOT_BACKCOMMITINSTR_BACKCOMMIT:
-        state.output_instr(Instructions.INSTR_BACKCOMMIT);
+        state.output_add_instr(Instructions.INSTR_BACKCOMMIT);
+        {
+          String label = t.getChild(i).getChild(1).getContent();
+          int offset = label.equals("__NEXT__") ? state.output.length + Instructions.getSize(Instructions.INSTR_CALL) : state.labelGet(label);
+          state.output_add_int(offset);
+        }
         break;
       case Slotmap.SLOT_CALLINSTR_CALL:
-        state.output_instr(Instructions.INSTR_CALL);
+        state.output_add_instr(Instructions.INSTR_CALL);
         {
           String label = t.getChild(i).getChild(1).getContent();
           int offset = state.labelGet(label);
-          state.output_int(offset);
+          state.output_add_int(offset);
         }
         break;
       case Slotmap.SLOT_CATCHINSTR_CATCH:
-        state.output_instr(Instructions.INSTR_CATCH);
+        state.output_add_instr(Instructions.INSTR_CATCH);
+        {
+          String label = t.getChild(i).getChild(1).getContent();
+          int offset = state.labelGet(label);
+          state.output_add_int(offset);
+        }
         break;
       case Slotmap.SLOT_CHARINSTR_CHAR:
-        state.output_instr(Instructions.INSTR_CHAR);
+        state.output_add_instr(Instructions.INSTR_CHAR);
+        {
+          int value = Integer.valueOf(t.getChild(i).getChild(1).getContent(), 16);
+          state.output_add_int(value);
+        }
         break;
       case Slotmap.SLOT_CLOSECAPTUREINSTR_CLOSECAPTURE:
-        state.output_instr(Instructions.INSTR_CLOSECAPTURE);
+        state.output_add_instr(Instructions.INSTR_CLOSECAPTURE);
+        {
+          int slot = Integer.parseInt(t.getChild(i).getChild(1).getContent());
+          state.output_add_int(slot);
+        }
         break;
       case Slotmap.SLOT_COMMITINSTR_COMMIT:
-        state.output_instr(Instructions.INSTR_COMMIT);
+        state.output_add_instr(Instructions.INSTR_COMMIT);
+        {
+          String label = t.getChild(i).getChild(1).getContent();
+          int offset = label.equals("__NEXT__") ? state.output.length + Instructions.getSize(Instructions.INSTR_CALL) : state.labelGet(label);
+          state.output_add_int(offset);
+        }
         break;
       case Slotmap.SLOT_CONDJUMPINSTR_CONDJUMP:
-        state.output_instr(Instructions.INSTR_CONDJUMP);
+        state.output_add_instr(Instructions.INSTR_CONDJUMP);
+        {
+          int reg = Integer.valueOf(t.getChild(i).getChild(1).getContent());
+          state.output_add_int(reg);
+          int value = Integer.valueOf(t.getChild(i).getChild(2).getContent());
+          state.output_add_int(value);
+        }
         break;
       case Slotmap.SLOT_COUNTERINSTR_COUNTER:
-        state.output_instr(Instructions.INSTR_COUNTER);
+        state.output_add_instr(Instructions.INSTR_COUNTER);
+        {
+          int reg = Integer.valueOf(t.getChild(i).getChild(1).getContent());
+          state.output_add_int(reg);
+          String label = t.getChild(i).getChild(1).getContent();
+          int offset = label.equals("__NEXT__") ? state.output.length + Instructions.getSize(Instructions.INSTR_CALL) : state.labelGet(label);
+          state.output_add_int(offset);
+        }
         break;
       case Slotmap.SLOT_ENDINSTR_END:
-        state.output_instr(Instructions.INSTR_END);
+        state.output_add_instr(Instructions.INSTR_END);
+        {
+          int code = Integer.parseInt(t.getChild(i).getChild(1).getContent());
+          state.output_add_int(code);
+        }
         break;
       case Slotmap.SLOT_ENDREPLACEINSTR_ENDREPLACE:
-        state.output_instr(Instructions.INSTR_ENDREPLACE);
+        state.output_add_instr(Instructions.INSTR_ENDREPLACE);
         break;
       case Slotmap.SLOT_FAILINSTR_FAIL:
-        state.output_instr(Instructions.INSTR_FAIL);
+        state.output_add_instr(Instructions.INSTR_FAIL);
         break;
       case Slotmap.SLOT_FAILTWICEINSTR_FAILTWICE:
-        state.output_instr(Instructions.INSTR_FAILTWICE);
+        state.output_add_instr(Instructions.INSTR_FAILTWICE);
         break;
       case Slotmap.SLOT_JUMPINSTR_JUMP:
-        state.output_instr(Instructions.INSTR_JUMP);
+        state.output_add_instr(Instructions.INSTR_JUMP);
+        {
+          String label = t.getChild(i).getChild(1).getContent();
+          int offset = state.labelGet(label);
+          state.output_add_int(offset);
+        }
         break;
       case Slotmap.SLOT_MASKEDCHARINSTR_MASKEDCHAR:
-        state.output_instr(Instructions.INSTR_MASKEDCHAR);
+        state.output_add_instr(Instructions.INSTR_MASKEDCHAR);
+        {
+          int mask = Integer.valueOf(t.getChild(i).getChild(1).getContent(), 16);
+          state.output_add_int(mask);
+          int value = Integer.valueOf(t.getChild(i).getChild(2).getContent(), 16);
+          state.output_add_int(value);
+        }
         break;
       case Slotmap.SLOT_NOOPINSTR_NOOP:
-        state.output_instr(Instructions.INSTR_NOOP);
+        state.output_add_instr(Instructions.INSTR_NOOP);
         break;
       case Slotmap.SLOT_OPENCAPTUREINSTR_OPENCAPTURE:
-        state.output_instr(Instructions.INSTR_OPENCAPTURE);
+        state.output_add_instr(Instructions.INSTR_OPENCAPTURE);
+        {
+          int slot = Integer.parseInt(t.getChild(i).getChild(1).getContent());
+          state.output_add_int(slot);
+        }
         break;
       case Slotmap.SLOT_PARTIALCOMMITINSTR_PARTIALCOMMIT:
-        state.output_instr(Instructions.INSTR_PARTIALCOMMIT);
+        state.output_add_instr(Instructions.INSTR_PARTIALCOMMIT);
+        {
+          String label = t.getChild(i).getChild(1).getContent();
+          int offset = label.equals("__NEXT__") ? state.output.length + Instructions.getSize(Instructions.INSTR_CALL) : state.labelGet(label);
+          state.output_add_int(offset);
+        }
         break;
       case Slotmap.SLOT_QUADINSTR_QUAD:
-        state.output_instr(Instructions.INSTR_QUAD);
+        state.output_add_instr(Instructions.INSTR_QUAD);
+        {
+          byte[] set = new byte[ 4 ];
+          for (int j=0; j < set.length; j++) {
+            set[ j ] = (byte)(Integer.valueOf(t.getChild(i).getChild(1).getContent().substring(i*2, i*2+1), 16).intValue());
+          }
+          state.output_add_bytes(set);
+        }
         break;
       case Slotmap.SLOT_RANGEINSTR_RANGE:
-        state.output_instr(Instructions.INSTR_RANGE);
+        state.output_add_instr(Instructions.INSTR_RANGE);
+        {
+          int from = Integer.parseInt(t.getChild(i).getChild(1).getContent());
+          int until = Integer.parseInt(t.getChild(i).getChild(2).getContent());
+          state.output_add_int(from);
+          state.output_add_int(until);
+        }
         break;
-      case Slotmap.SLOT_REPLACEINSTR_REPLACE:
-        state.output_instr(Instructions.INSTR_REPLACE);
+      case Slotmap.SLOT_REPLACEINSTR_REPLACE: /* TODO */
+        state.output_add_instr(Instructions.INSTR_REPLACE);
         break;
       case Slotmap.SLOT_RETINSTR_RET:
-        state.output_instr(Instructions.INSTR_RET);
+        state.output_add_instr(Instructions.INSTR_RET);
         break;
       case Slotmap.SLOT_SETINSTR_SET:
-        state.output_instr(Instructions.INSTR_SET);
+        state.output_add_instr(Instructions.INSTR_SET);
+        {
+          byte[] set = new byte[ 32 ];
+          for (int j=0; j < set.length; j++) {
+            set[ j ] = (byte)(Integer.valueOf(t.getChild(i).getChild(1).getContent().substring(i*2, i*2+1), 16).intValue());
+          }
+          state.output_add_bytes(set);
+        }
         break;
       case Slotmap.SLOT_SKIPINSTR_SKIP:
-        state.output_instr(Instructions.INSTR_SKIP);
+        state.output_add_instr(Instructions.INSTR_SKIP);
+        {
+          int steps = Integer.parseInt(t.getChild(i).getChild(1).getContent());
+          state.output_add_int(steps);
+        }
         break;
-      case Slotmap.SLOT_SPANINSTR_SPAN:
-        state.output_instr(Instructions.INSTR_SPAN);
+      case Slotmap.SLOT_SPANINSTR_SPAN: /* TODO */
+        state.output_add_instr(Instructions.INSTR_SPAN);
         break;
-      case Slotmap.SLOT_TESTANYINSTR_TESTANY:
-        state.output_instr(Instructions.INSTR_TESTANY);
+      case Slotmap.SLOT_TESTANYINSTR_TESTANY: /* TODO */
+        state.output_add_instr(Instructions.INSTR_TESTANY);
         break;
-      case Slotmap.SLOT_TESTCHARINSTR_TESTCHAR:
-        state.output_instr(Instructions.INSTR_TESTCHAR);
+      case Slotmap.SLOT_TESTCHARINSTR_TESTCHAR: /* TODO */
+        state.output_add_instr(Instructions.INSTR_TESTCHAR);
         break;
-      case Slotmap.SLOT_TESTQUADINSTR_TESTQUAD:
-        state.output_instr(Instructions.INSTR_TESTQUAD);
+      case Slotmap.SLOT_TESTQUADINSTR_TESTQUAD: /* TODO */
+        state.output_add_instr(Instructions.INSTR_TESTQUAD);
         break;
-      case Slotmap.SLOT_TESTSETINSTR_TESTSET:
-        state.output_instr(Instructions.INSTR_TESTSET);
+      case Slotmap.SLOT_TESTSETINSTR_TESTSET: /* TODO */
+        state.output_add_instr(Instructions.INSTR_TESTSET);
         break;
       case Slotmap.SLOT_TRAPINSTR_TRAP:
-        state.output_instr(Instructions.INSTR_TRAP);
+        state.output_add_instr(Instructions.INSTR_TRAP);
         break;
       case Slotmap.SLOT_VARINSTR_VAR:
-        state.output_instr(Instructions.INSTR_VAR);
+        state.output_add_instr(Instructions.INSTR_VAR);
+        {
+          int slot = Integer.parseInt(t.getChild(i).getChild(1).getContent());
+          state.output_add_int(slot);
+        }
         break;
       }
     }

@@ -574,7 +574,8 @@ sub enc32bit
   my $byte1 = ($value >> 16) & 0xff;
   my $byte2 = ($value >> 8) & 0xff;
   my $byte3 = $value & 0xff;
-  my $byte0 = $byte1 ^ $byte2 ^ $byte3;
+#  my $byte0 = $byte1 ^ $byte2 ^ $byte3;
+  my $byte0 = ($value >> 24) & 0xff;
   return chr($byte0) . chr($byte1) . chr($byte2) . chr($byte3);
 }
 

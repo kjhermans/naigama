@@ -66,41 +66,26 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #define GET_32BIT_VALUE(mem,off) \
 ({ \
-  const unsigned char* _mem = (const unsigned char*)mem; \
-  unsigned char chk = (_mem[ off+1 ] ^ _mem[ off+2 ] ^ _mem[ off+ 3 ]); \
-  if (chk != _mem[ off ]) { \
-    return NAIG_ERR_CHECKSUM; \
-  } \
+  const unsigned char* _mem = mem; \
   uint32_t _vl = \
+    (_mem[ off   ] << 24) | \
     (_mem[ off+1 ] << 16) | \
     (_mem[ off+2 ] << 8) | \
      _mem[ off+3 ]; \
   _vl; \
 })
 
-/*
-static inline
-void SET_32BIT_VALUE
-  (void* mem, unsigned off, uint32_t val)
-{
-  unsigned char* _mem = mem;
-  _mem[ off+1 ] = ( val >>16 ) & 0xff;
-  _mem[ off+2 ] = ( val >>8 ) & 0xff;
-  _mem[ off+3 ] = val & 0xff;
-  _mem[ off ] = _mem[ off+1 ] ^ _mem[ off+2 ] ^ _mem[ off+ 3 ];
-}
-*/
-
 #define SET_32BIT_VALUE(val) \
 ({ \
   uint32_t _vl, _og = val; \
   unsigned char* _mem = (unsigned char*)(&_vl); \
+  _mem[ 0 ] = ( _og >>24 ) & 0xff; \
   _mem[ 1 ] = ( _og >>16 ) & 0xff; \
   _mem[ 2 ] = ( _og >>8 ) & 0xff; \
   _mem[ 3 ] = _og & 0xff; \
-  _mem[ 0 ] = (_mem[ 1 ] ^ _mem[ 2 ] ^ _mem[ 3 ]); \
   _vl; \
 })
+
 
 #ifdef GET_32BIT_NWO
 #undef GET_32BIT_NWO

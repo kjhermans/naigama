@@ -106,19 +106,19 @@ public class Compiler
     if (state.options.debug) {
       System.err.println("EXPRESSION\n" + t);
     }
-    if (t.getChildCount() == 2 && t.getChild(0).getSlot() == Slotmap.SLOT_EXPRESSION_TERMS_1) {
+    if (t.getChildCount() > 1 && t.firstChild().getSlot() == Slotmap.SLOT_EXPRESSION_TERMS_1) {
       String label1 = "__" + state.currentrule.getChild(0).getContent() + "_catch_" + (++(state.counter));
       String label2 = "__" + state.currentrule.getChild(0).getContent() + "_out_" + (++(state.counter));
       out.append("  catch " + label1 + "\n");
-      terms(t.getChild(0).getChild(0), state, out);
+      terms(t.firstChild().getChild(0), state, out);
       out.append("  commit " + label2 + "\n");
       out.append(label1 + ":\n");
-      expression(t.getChild(1), state, out);
+      expression(t.lastChild(), state, out);
       out.append(label2 + ":\n");
     } else if (t.getChildCount() == 1 && t.getChild(0).getSlot() == Slotmap.SLOT_EXPRESSION_TERMS_2) {
       terms(t.getChild(0).getChild(0), state, out);
     } else {
-      System.err.println("Unexpected token in expression " + t);
+      System.err.println("Unexpected token in expression (" + t.getChild(0).getSlot() + ")" + t);
     }
   }
 

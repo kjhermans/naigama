@@ -112,9 +112,9 @@ public class Compiler
       out.append("  catch " + label1 + "\n");
       terms(t.getChild(0).getChild(0), state, out);
       out.append("  commit " + label2 + "\n");
-      out.append(label1 + "\n");
+      out.append(label1 + ":\n");
       expression(t.getChild(1), state, out);
-      out.append(label2 + "\n");
+      out.append(label2 + ":\n");
     } else if (t.getChildCount() == 1 && t.getChild(0).getSlot() == Slotmap.SLOT_EXPRESSION_TERMS_2) {
       terms(t.getChild(0).getChild(0), state, out);
     } else {

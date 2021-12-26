@@ -3,11 +3,7 @@
 use IO::Socket::INET;
 use threads;
 
-my $root=$ENV{NAIS_ROOT} || die "Need NAIS_ROOT set";
--d $root || die "NAIS_ROOT must be an accessible directory";
-
-my $exec = "$root/bin/naig";
--x $exec || die "NAIS_ROOT/bin/naig must exist and be executable";
+use Naigama;
 
 my $config;
 {
@@ -17,6 +13,10 @@ my $config;
   $config = eval($configtext);
 }
 
+my $naigama;
+if ($config->{grammar}) {
+  $naigama = Naigama->new($config->{grammar});
+}
 if ($config->{iface0}) {
   threads->create(\&service, $config->{iface0}{address}, $config->{iface0}{port});
 }
@@ -58,7 +58,7 @@ sub service
     if ($chunk = <$new_sock> && $chunk =~ /<data>/) {
       while ($chunk = <$new_sock>) {
         if ($chunk =~ /<\/data>/) {
-          threads->create(\&Execute, $data);
+          threads->create(\&handler, $data);
           last;
         } else {
           $data .= $chunk;
@@ -67,8 +67,11 @@ sub service
     }
   }
   
-  sub Execute {
+  sub handler {
     my $data = shift;
+    if ($naigama) {
+      my $outcome = $naigama->run($data);
+    }
   }
 }
 

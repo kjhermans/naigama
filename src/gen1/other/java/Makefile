@@ -13,6 +13,9 @@ all:
 		> ./src/lib/naigama/assembler/Slotmap.java
 	cd src && make
 
+test: all
+	cd t/ && make
+
 clean:
 	cd src && make clean
 

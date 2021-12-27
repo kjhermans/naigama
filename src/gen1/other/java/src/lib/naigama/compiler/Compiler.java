@@ -259,8 +259,35 @@ public class Compiler
     }
   }
 
+  private int set_unescape
+    (String atom)
+    throws NaigamaException
+  {
+    if (atom.length() == 1) {
+      return (int)(atom.charAt(0));
+    } else if (atom.charAt(0) == '\\') {
+      if (atom.equals("\\\\")) {
+        return 92;
+      } else if (atom.equals("\\]")) {
+        return 93;
+      } else if (atom.equals("\\n")) {
+        return 10;
+      } else if (atom.equals("\\r")) {
+        return 13;
+      } else if (atom.equals("\\t")) {
+        return 9;
+      } else if (atom.equals("\\v")) {
+        return 11;
+      } else {
+//.. TODO The numeric escapes
+      }
+    }
+    throw new NaigamaCompilerError("Unknown escape sequence in set atom '" + atom + "'");
+  }
+
   private void set
     (TreeNode t, CompilerState state, StringBuffer out)
+    throws NaigamaException
   {
     int i=0;
     boolean invert = false;
@@ -274,12 +301,12 @@ public class Compiler
     }
     for (; i < t.getChildCount(); i++) {
       if (t.getChild(i).getSlot() == Slotmap.SLOT_SET_NRTV) {
-        String from = t.getChild(i++).getContent();
-        String until = t.getChild(i).getContent();
-        bitmap_set(map, (int)(from.charAt(0)), (int)(until.charAt(0)));
+        int from = set_unescape(t.getChild(i++).getContent());
+        int until = set_unescape(t.getChild(i).getContent());
+        bitmap_set(map, from, until);
       } else if (t.getChild(i).getSlot() == Slotmap.SLOT_SET_NRTV_2) {
-        String chr = t.getChild(i).getContent();
-        bitmap_set(map, (int)(chr.charAt(0)), (int)(chr.charAt(0)));
+        int chr = set_unescape(t.getChild(i).getContent());
+        bitmap_set(map, chr, chr);
       }
     }
     if (invert) {
@@ -320,6 +347,7 @@ public class Compiler
           default:
             throw new NaigamaCompilerError("Unknown escape \\" + (char)(b[ i+1 ]));
           }
+          ++i;
         } else {
           out.append("  char " + String.format("%02x ", b[ i ]) + "\n");
         }

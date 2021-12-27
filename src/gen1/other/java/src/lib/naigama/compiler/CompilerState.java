@@ -10,7 +10,7 @@ class CompilerState
   CompilerOptions                     options;
   int                                 counter = 0;
   int                                 reg = 0;
-  TreeNode                            currentrule;
+  String                              currentrule = null;
   String                              firstrule = null;
 
   private int                         currentcapture = 0;

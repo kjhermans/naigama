@@ -44,7 +44,9 @@ public class Compiler
       t = t.getChild(0);
     }
     top(t, state, out);
-    out.insert(0, "  call __RULE_" + state.firstrule + "\n  end 0\n\n");
+    if (state.firstrule != null) {
+      out.insert(0, "  call __RULE_" + state.firstrule + "\n  end 0\n\n");
+    }
     out.append("  end 0\n");
   }
 
@@ -56,6 +58,9 @@ public class Compiler
       TreeNode child = t.getChild(i);
       if (child.getSlot() == Slotmap.SLOT_DEFINITION) {
         definition(child, state, out);
+      } else if (child.getSlot() == Slotmap.SLOT_SINGLE_EXPRESSION) {
+        state.currentrule = "DEFAULT";
+        expression(child.firstChild(), state, out);
       }
     }
   }
@@ -87,7 +92,7 @@ public class Compiler
       rulecapture = state.getCapture(t);
       out.append("  opencapture " + rulecapture + "\n");
     }
-    state.currentrule = t;
+    state.currentrule = t.firstChild().getContent();
     expression(expression, state, out);
     if (state.options.generate_captureperrule) {
       out.append("  closecapture " + rulecapture + "\n");
@@ -107,8 +112,8 @@ public class Compiler
       System.err.println("EXPRESSION\n" + t);
     }
     if (t.getChildCount() > 1 && t.firstChild().getSlot() == Slotmap.SLOT_EXPRESSION_TERMS_1) {
-      String label1 = "__" + state.currentrule.getChild(0).getContent() + "_catch_" + (++(state.counter));
-      String label2 = "__" + state.currentrule.getChild(0).getContent() + "_out_" + (++(state.counter));
+      String label1 = "__" + state.currentrule + "_catch_" + (++(state.counter));
+      String label2 = "__" + state.currentrule + "_out_" + (++(state.counter));
       out.append("  catch " + label1 + "\n");
       terms(t.firstChild().getChild(0), state, out);
       out.append("  commit " + label2 + "\n");

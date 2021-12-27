@@ -219,7 +219,6 @@ public class Compiler
           matcher(t.getChild(0), state, out);
           out.append("  partialcommit __loop_" + lab + "\n");
           out.append("__forgive_" + fgv + ":\n");
-//          out.append("  commit __NEXT__\n");
         } else {
           int diff = quant[ 1 ] - quant[ 0 ];
           if (diff < 0) {

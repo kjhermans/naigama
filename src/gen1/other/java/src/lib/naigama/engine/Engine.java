@@ -178,9 +178,10 @@ public class Engine
     (EngineState state)
     throws NaigamaException
   {
+    int offset = get_protected_quad(state.bytecode_offset + 4);
     StackElt e = state.stack.pop();
     if (e.type == StackElt.TYPE_ALT) {
-      state.bytecode_offset = e.offset;
+      state.bytecode_offset = offset;
       state.input_offset = e.input_offset;
       state.actions.setSize(e.pp_size);
     } else { 

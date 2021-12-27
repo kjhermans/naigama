@@ -192,7 +192,6 @@ public class Compiler
           out.append("  failtwice\n");
           out.append("__scan_" + lab + ":\n");
         }
-        matcher(t.getChild(1), state, out);
       } else if (t.lastChild().getSlot() == Slotmap.SLOT_ENDOWEDMATCHER_QUANTIFIER) {
         int[] quant = resolve_quantifier(t.lastChild());
         switch (quant[ 0 ]) {

@@ -328,6 +328,49 @@ public class Compiler
     }
   }
 
+  private void string
+    (byte[] str, int len, StringBuffer out, boolean caseinsensitive)
+    throws NaigamaException
+  {
+    for (int i=1; i < len; i++) {
+      if ((char)(str[ i ]) == '\\') { /* escape */
+        switch ((char)(str[ i+1 ])) {
+        case 'n': out.append("  char 0a\n"); break;
+        case 'r': out.append("  char 0d\n"); break;
+        case 't': out.append("  char 09\n"); break;
+        case 'v': out.append("  char 0b\n"); break;
+        case '\'': out.append("  char 27\n"); break;
+        case '\\': out.append("  char 5c\n"); break;
+        default:
+          throw new NaigamaCompilerError("Unknown escape \\" + (char)(str[ i+1 ]));
+        }
+        ++i;
+      } else {
+        if (caseinsensitive && str[ i ] >= 65 && str[ i ] <= 90) {
+          byte[] map = new byte[ 32 ];
+          bitmap_set(map, str[ i ]);
+          bitmap_set(map, str[ i ] + 32);
+          out.append("  set ");
+          for (i=0; i < map.length; i++) {
+            out.append(String.format("%02x", map[i]));
+          }
+          out.append("\n");
+        } else if (caseinsensitive && str[ i ] >= 97 && str[ i ] <= 122) {
+          byte[] map = new byte[ 32 ];
+          bitmap_set(map, str[ i ]);
+          bitmap_set(map, str[ i ] - 32);
+          out.append("  set ");
+          for (i=0; i < map.length; i++) {
+            out.append(String.format("%02x", map[i]));
+          }
+          out.append("\n");
+        } else {
+          out.append("  char " + String.format("%02x ", str[ i ]) + "\n");
+        }
+      }
+    }
+  }
+
   private void matcher
     (TreeNode t, CompilerState state, StringBuffer out)
     throws NaigamaException
@@ -344,22 +387,10 @@ public class Compiler
       break;
     case Slotmap.SLOT_MATCHER_STRING:
       byte[] b = t.getContent().getBytes();
-      for (int i=1; i < b.length - 1; i++) {
-        if ((char)(b[ i ]) == '\\') { /* escape */
-          switch ((char)(b[ i+1 ])) {
-          case 'n': out.append("  char 0a\n"); break;
-          case 'r': out.append("  char 0d\n"); break;
-          case 't': out.append("  char 09\n"); break;
-          case 'v': out.append("  char 0b\n"); break;
-          case '\'': out.append("  char 27\n"); break;
-          case '\\': out.append("  char 5c\n"); break;
-          default:
-            throw new NaigamaCompilerError("Unknown escape \\" + (char)(b[ i+1 ]));
-          }
-          ++i;
-        } else {
-          out.append("  char " + String.format("%02x ", b[ i ]) + "\n");
-        }
+      if (b[ b.length - 1 ] == (byte)'i') {
+        string(b, b.length-2, out, true);
+      } else {
+        string(b, b.length-1, out, false);
       }
       break;
     case Slotmap.SLOT_MATCHER_BITMASK:

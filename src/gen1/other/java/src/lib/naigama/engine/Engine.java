@@ -134,12 +134,10 @@ public class Engine
         state.input_offset = e.input_offset;
         state.actions.setSize(e.pp_size);
         state.fail = false;
-        break;
+        return;
       }
     }
-    if (state.stack.size() == 0) {
-      throw new NaigamaFailure();
-    }
+    throw new NaigamaFailure();
   }
 
   private int counter_resolve

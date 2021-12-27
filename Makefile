@@ -93,3 +93,18 @@ archive: clean
 	cd .. && \
 	  tar czf archive/oroszlan-src-$$RELEASE.tar.gz \
 	  --exclude=\.git oroszlan/
+
+gen0_test:
+	cd gen0 && make test
+
+gen1_test:
+	cd gen1 && make test
+
+gen2_test:
+	cd gen2 && make test
+
+gen3_test:
+	cd gen3 && make test
+
+gen0_other_java:
+	cd gen0/other/java && make

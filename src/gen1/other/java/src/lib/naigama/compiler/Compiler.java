@@ -262,6 +262,12 @@ public class Compiler
     }
   }
 
+  private void bitmap_set
+    (byte[] map, int from)
+  {
+    bitmap_set(map, from, from);
+  }
+
   private int set_unescape
     (String atom)
     throws NaigamaException

@@ -633,6 +633,8 @@ public class Engine
       }
       state.input_offset += var.length;
       state.bytecode_offset += state.instrsize;
+    } else {
+      state.fail = true;
     }
   }
 

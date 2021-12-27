@@ -11,6 +11,7 @@ my @tests = split(/\n/, $table);
 my $tmpfile="/tmp/test$$";
 
 print "Multitest $file\n";
+my $m = $file; $m =~ s/[^0-9]//g; $m = int($m);
 my $n = 0;
 foreach my $test (@tests) {
   $test =~ s/--.*^//;
@@ -30,10 +31,10 @@ foreach my $test (@tests) {
       print "Compile NOK - ";
       if ($fields[2] eq 'ERR_COMP') {
         print "Test Ok\n";
-        system("mv $tmpfile.$n.log /tmp/success.$n.log");
+        system("mv $tmpfile.$n.log /tmp/success.$m.$n.log");
       } else {
         print "Test NOK\n";
-        system("mv $tmpfile.$n.log /tmp/failure.$n.log");
+        system("mv $tmpfile.$n.log /tmp/failure.$m.$n.log");
       }
       next;
     } else {
@@ -51,10 +52,10 @@ foreach my $test (@tests) {
       print "Assembly NOK - ";
       if ($fields[2] eq 'ERR_ASM') {
         print "Test Ok\n";
-        system("mv $tmpfile.$n.log /tmp/success.$n.log");
+        system("mv $tmpfile.$n.log /tmp/success.$m.$n.log");
       } else {
         print "Test NOK\n";
-        system("mv $tmpfile.$n.log /tmp/failure.$n.log");
+        system("mv $tmpfile.$n.log /tmp/failure.$m.$n.log");
       }
       next;
     } else {
@@ -69,20 +70,20 @@ foreach my $test (@tests) {
       print "Engine NOK - ";
       if ($fields[2] eq 'NOK') {
         print "Test Ok\n";
-        system("mv $tmpfile.$n.log /tmp/success.$n.log");
+        system("mv $tmpfile.$n.log /tmp/success.$m.$n.log");
       } else {
         print "Test NOK\n";
-        system("mv $tmpfile.$n.log /tmp/failure.$n.log");
+        system("mv $tmpfile.$n.log /tmp/failure.$m.$n.log");
       }
       next;
     } else {
       print "Engine Ok  - ";
       if ($fields[2] eq 'OK') {
         print "Test Ok\n";
-        system("mv $tmpfile.$n.log /tmp/success.$n.log");
+        system("mv $tmpfile.$n.log /tmp/success.$m.$n.log");
       } else {
         print "Test NOK\n";
-        system("mv $tmpfile.$n.log /tmp/failure.$n.log");
+        system("mv $tmpfile.$n.log /tmp/failure.$m.$n.log");
       }
     }
   }

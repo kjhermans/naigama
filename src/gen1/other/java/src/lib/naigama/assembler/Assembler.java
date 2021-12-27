@@ -309,9 +309,8 @@ public class Assembler
       case Slotmap.SLOT_SETINSTR_SET:
         state.output_add_instr(Instructions.INSTR_SET);
         {
-String setstring = t.getChild(i).getChild(1).getContent();
-System.err.println("SETSTRING " + setstring);
           byte[] set = new byte[ 32 ];
+          String setstring = t.getChild(i).getChild(1).getContent();
           for (int j=0; j < set.length; j++) {
             set[ j ] = (byte)(Integer.valueOf(setstring.substring(j*2, j*2+2), 16).intValue());
           }

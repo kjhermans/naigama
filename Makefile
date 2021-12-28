@@ -95,16 +95,19 @@ archive: clean
 	  --exclude=\.git oroszlan/
 
 gen0_test:
-	cd gen0 && make test
+	cd src/gen0 && make test
 
 gen1_test:
-	cd gen1 && make test
+	cd src/gen1 && make test
 
 gen2_test:
-	cd gen2 && make test
+	cd src/gen2 && make test
 
 gen3_test:
-	cd gen3 && make test
+	cd src/gen3 && make test
 
-gen0_other_java:
-	cd gen0/other/java && make
+gen1_other_java:
+	cd src/gen1/other/java && make
+
+gen1_other_java_test: gen1_other_java
+	cd src/gen1/other/java/t/ && make

@@ -1,0 +1,19 @@
+[package]
+name = "naigama_compiler"
+version = "0.1.0"
+authors = ["kees"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+
+"naigama_engine" = { path = "../engine" }
+
+[lib]
+name = "libnaic"
+path = "src/lib.rs"
+
+[[bin]]
+name = "naic"
+path = "src/bin.rs"

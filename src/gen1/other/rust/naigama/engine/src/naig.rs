@@ -1,0 +1,4 @@
+
+
+pub static RELEASE: &str = "";
+

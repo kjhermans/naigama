@@ -72,6 +72,7 @@ $rule
       " bytes and is structured in bytecode as follows:\n\n" .
       "\%DEADBEEF\n" .
       "\%DEADBEEF\n" .
+      "\\InputIfFileExists{instr_$key" . "_bytecode.tex}{}{}\n\n" .
       "\\subsubsection{Execution State Change}\n\n" .
       ".\n" .
       "\n" .

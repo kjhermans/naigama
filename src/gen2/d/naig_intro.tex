@@ -1,0 +1,40 @@
+\section{Introduction}
+
+\subsection{Parsing Expression Grammars}
+
+This is the documentation describing Naigama, which is a collection of
+specifications, libraries and tools enabling data parsing. It is based, by
+now loosely, on Lua Parsing Expression Grammars, or LPEG [REF], which
+implements a Packrat [REF] parsing algorithm.
+
+\subsection{Naigama}
+
+Naigama adds to Lua PEG the following features:
+
+\begin{itemize}
+\item Discoverability features:
+
+  \begin{itemize}
+  \item A fully fledges assembler step in between grammar and bytecode.
+  \item A capable engine debugger.
+  \end{itemize}
+
+\item Extra tools:
+
+  \begin{itemize}
+  \item A disassembler.
+  \item A decompiler.
+  \end{itemize}
+
+\item Security features:
+
+  \begin{itemize}
+  \item Bit upset event detection and traps.
+  \item Endless loop detection.
+  \end{itemize}
+
+\item Interoperability with C (library, header files).
+\item Added instructions for counters.
+\item Added instructions for parsing binary inputs.
+\item A scripting language.
+\end{itemize}

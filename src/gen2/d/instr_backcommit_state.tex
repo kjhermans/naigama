@@ -1,0 +1,17 @@
+Original state: \textit{(p, i, e, c)}
+  
+Operation: \textbf{backcommit}
+
+Resultant state: \textit{(p + 1, i + 1, e, c)}
+
+\subsubsection{Pseudo Code}
+
+\begin{myquote}
+\textit{let s = stack\_pop()}                          \newline
+\textit{let p = instruction\_param(1)}                 \newline
+\textit{bytecode\_offset = p}                          \newline
+\textit{input\_offset = s.input\_offset}               \newline
+\textit{while (actions.length $>$ s.actions\_length)}  \newline
+\hspace*{10mm} \textit{actions\_pop()}                 \newline
+\textit{endwhile}
+\end{myquote}

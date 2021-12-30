@@ -35,6 +35,13 @@ well.
 
 To compile everything (demo's, documentation, tests, etc), do 'make world'.
 
+==== Generations
+
+The idea behind the generational setup is that every subsequent generation
+gets its own parsing needs served by the previous one. The grammar, for
+example, has its own syntax specified by a grammar file.  The same goes
+for the assembly. 'Naigama can parse itself'.
+
 ==== Is there documentation?
 
 Yes. Ongoing effort, but check ./src/gen3/d/compendium.pdf 

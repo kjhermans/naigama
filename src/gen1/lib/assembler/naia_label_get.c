@@ -49,8 +49,6 @@ NAIG_ERR_T naia_label_get
       return NAIG_OK;
     }
   }
-#ifdef _DEBUG
   fprintf(stderr, "Label '%-.*s' not found\n", len, str);
-#endif
   RETURNERR(NAIA_ERR_LABEL);
 }

@@ -1,0 +1,56 @@
+\subsection{Instruction: scr\_assign}
+
+\subsubsection{Mode}
+This instruction is available in mode 1 (script interpreter).
+\subsubsection{Summary}
+
+\InputIfFileExists{instr_scr_assign_summary.tex}{}{}
+
+\subsubsection{Grammar and Compiling}
+
+\InputIfFileExists{instr_scr_assign_compiling.tex}{}{}
+
+\subsubsection{Assembly Syntax}
+
+\begin{myquote}
+\begin{verbatim}
+SCR_ASSIGN <- { 'scr_assign' }
+\end{verbatim}
+\end{myquote}
+
+\subsubsection{Bytecode Encoding}
+
+This instruction has a size of 4 bytes and is structured in bytecode as follows:
+
+%DEADBEEF
+$_{00}$\ 
+\fbox{%
+  \parbox{20pt}{%
+00
+  }%
+}
+\fbox{%
+  \parbox{20pt}{%
+00
+  }%
+}
+\fbox{%
+  \parbox{20pt}{%
+05
+  }%
+}
+\fbox{%
+  \parbox{20pt}{%
+c9
+  }%
+}
+
+%DEADBEEF
+\InputIfFileExists{instr_scr_assign_bytecode.tex}{}{}
+
+\subsubsection{Execution State Change}
+
+.
+
+\InputIfFileExists{instr_scr_assign_state.tex}{}{}
+

@@ -1,0 +1,1717 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2005 rel. 3 U (http://www.altova.com) by Marco van der Meijden (DTO Maasland) -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:jdssdm="urn:int:nato:standard:mip:jdssdm:1.1" xmlns:jc3iedm="urn:int:nato:standard:mip:jc3iedm:3.0.2:oo:2.2" targetNamespace="urn:int:nato:standard:mip:jdssdm:1.1" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<annotation>
+		<documentation xml:lang="en">XML schema defined by AC/255 Land Capability Group 1 (LCG/1), C4I and Systems Architecture WG  - Editors: Jean Demers, jdemers@rheinmetall.ca, Rheinmetall Canada , Marco van der Meijden, marco@integrationbydesign.nl, Integration By Design</documentation>
+	</annotation>
+	<annotation>
+		<documentation>ECP-4677-4: Added optional style attribute to SktechObjectType 15-10-1025</documentation>
+	</annotation>
+	<annotation>
+		<documentation>ECP-4677-1.1: Removed optional OID attribute from ConceptualState in IEDType 30-11-2015</documentation>
+	</annotation>
+	<annotation>
+		<documentation>ECP-4677-3: Added optional IsUpdate attribute to OverlayType 15-10-2015</documentation>
+	</annotation>
+		<annotation>
+		<documentation>ECP-4677-6: Made all elements named ExtendedObject xsd:anyType 10-3-2016</documentation>
+	</annotation>
+	<import namespace="urn:int:nato:standard:mip:jc3iedm:3.0.2:oo:2.2" schemaLocation="JC3IEDM-3.0.2-MergeSchemas.xsd"/>
+	<complexType name="AbstractMessage">
+		<annotation>
+			<documentation xml:lang="en">Provides common attributes for the message </documentation>
+		</annotation>
+		<attribute name="ReportingDatetime" type="jc3iedm:DatetimeTypeFix18">
+			<annotation>
+				<documentation>The reporting date time that is to be used for any ReportingDateTime attribute inside the message that is not specified.</documentation>
+			</annotation>
+		</attribute>
+	</complexType>
+	<complexType name="ReceiptMsgType">
+		<annotation>
+			<documentation xml:lang="en">Used to inform about the message reception.</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="jdssdm:AbstractMessage">
+				<sequence>
+					<element name="ReceiptMsg">
+						<simpleType>
+							<restriction base="token">
+								<enumeration value="RECEIPT_NOTIFICATION"/>
+								<enumeration value="RECIPIENT_BUSY"/>
+							</restriction>
+						</simpleType>
+					</element>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="IdentificationMsgType">
+		<annotation>
+			<documentation xml:lang="en">Complete identification of friendly Unit. used as reference for Presence messages.</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="jdssdm:AbstractMessage">
+				<sequence>
+					<element name="Unit" type="jdssdm:UnitIdentificationType" minOccurs="0" maxOccurs="unbounded">
+						<annotation>
+							<documentation>Squad / section.</documentation>
+						</annotation>
+					</element>
+					<element name="Organisation-MilitaryPost" type="jdssdm:Organisation-MilitaryPostIdentificationType" minOccurs="0" maxOccurs="unbounded">
+						<annotation>
+							<documentation>Soldier and role</documentation>
+						</annotation>
+					</element>
+					<element name="Materiel" type="jdssdm:MaterielIdentificationType" minOccurs="0" maxOccurs="unbounded">
+						<annotation>
+							<documentation>Vehicle and weapon</documentation>
+						</annotation>
+					</element>
+					<element name="OrganisationStructure" type="jdssdm:OrganisationStructureType" minOccurs="0">
+						<annotation>
+							<documentation>The hierarchical configuration of a specific root ORGANISATION where the configuration is specified by reference to a set of associations between instances of OBJECT-ITEM.</documentation>
+						</annotation>
+					</element>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="PresenceMsgType">
+		<annotation>
+			<documentation xml:lang="en">Used to keep a commander informed on the deployment of all military units/formations /installations within his area of responsibility which both are and are not under his command (APP-11 definition).</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="jdssdm:AbstractMessage">
+				<sequence>
+					<element name="Unit" type="jdssdm:LOC-ObjectItemRef" minOccurs="0" maxOccurs="unbounded"/>
+					<element name="Organisation-MilitaryPost" type="jdssdm:LOC-ObjectItemRef" minOccurs="0" maxOccurs="unbounded"/>
+					<element name="Materiel" type="jdssdm:LOC-ObjectItemRef" minOccurs="0" maxOccurs="unbounded"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="ContactSightingMsgType">
+		<annotation>
+			<documentation xml:lang="en">To standardise the method used to report contact with the enemy (enemy aware) or sighting of the enemy (enemy unaware).</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="jdssdm:AbstractMessage">
+				<choice maxOccurs="unbounded">
+					<element name="Unit" type="jdssdm:UnitType"/>
+					<element name="Organisation-MilitaryPost" type="jdssdm:Organisation-MilitaryPostType">
+						<annotation>
+							<documentation>Soldier and role</documentation>
+						</annotation>
+					</element>
+					<element name="Materiel" type="jdssdm:MaterielType">
+						<annotation>
+							<documentation>Vehicle or weapon</documentation>
+						</annotation>
+					</element>
+					<element name="IED" type="jdssdm:IEDType">
+						<annotation>
+							<documentation>IED (Improvised explosive device).</documentation>
+						</annotation>
+					</element>
+					<element name="IEDCache" type="jdssdm:IEDCacheType">
+						<annotation>
+							<documentation>IED Cache</documentation>
+						</annotation>
+					</element>
+					<element name="Facility" type="jdssdm:FacilityType">
+						<annotation>
+							<documentation>Building. FoxHole.</documentation>
+						</annotation>
+					</element>
+					<element name="MilitaryObstacle" type="jdssdm:MilitaryObstacleType">
+						<annotation>
+							<documentation> Road block.</documentation>
+						</annotation>
+					</element>
+					<element name="MineFieldLand" type="jdssdm:MineFieldLandType">
+						<annotation>
+							<documentation>Minefield</documentation>
+						</annotation>
+					</element>
+					<element name="ActionEvent" type="jdssdm:ActionEventType">
+						<annotation>
+							<documentation>Axis Of Attack - Enemy Confirmed   Ambush, Assassination, Murder, Execution, Bombing, Sniping, Demonstration, Refugees</documentation>
+						</annotation>
+					</element>
+					<element name="ExtendedObject" type="xsd:anyType"/>
+				</choice>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="OverlayMsgType">
+		<annotation>
+			<documentation xml:lang="en">Used to exchange a Graphic overlay.</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="jdssdm:AbstractMessage">
+				<sequence>
+					<element name="Overlay" type="jdssdm:OverlayType"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="GenInfoMsgType">
+		<annotation>
+			<documentation xml:lang="en">Used to exchange general text messages</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="jdssdm:AbstractMessage">
+				<sequence>
+					<element name="TextItem" type="jdssdm:TextItemType"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="CasevacMsgType">
+		<annotation>
+			<documentation>Used to request medical casualty evacuation support for single and multiple evacuation and by whatever means.</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="jdssdm:AbstractMessage">
+				<choice>
+					<element name="ActionTask-MEDEVC" type="jdssdm:ActionTask-MEDEVCType">
+						<annotation>
+							<documentation>The capability for timely and efficient movement of patients while providing en route medical care to and between medical treatment facilities.</documentation>
+						</annotation>
+						<!-- Fixed ActivityCode: MEDEVC -->
+					</element>
+					<element name="Reply">
+						<complexType>
+							<sequence>
+								<element name="ActionTaskStatus">
+									<complexType>
+										<sequence>
+											<element name="ApprovalIndicatorCode" type="jc3iedm:ActionTaskStatusApprovalIndicatorCode">
+												<annotation>
+													<documentation>Values YES, NO</documentation>
+												</annotation>
+											</element>
+										</sequence>
+									</complexType>
+								</element>
+								<element name="Comments" type="jdssdm:Comment" minOccurs="0"/>
+							</sequence>
+							<attribute name="OID" use="required">
+								<annotation>
+									<documentation>The OID of the ActionTask-MEDEVC that the reply refers to</documentation>
+								</annotation>
+							</attribute>
+						</complexType>
+					</element>
+				</choice>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="SketchMsgType">
+		<annotation>
+			<documentation>Used to exchange generic graphics such as poinys, lines and areas.</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="jdssdm:AbstractMessage">
+				<sequence maxOccurs="unbounded">
+					<element name="SketchObject" type="jdssdm:SketchObjectType"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="CoordinationMsgType">
+		<annotation>
+			<documentation>Used to exchange ActionTasks, ControlFeatures and Boundary Lines</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="jdssdm:AbstractMessage">
+				<choice maxOccurs="unbounded">
+					<element name="ControlFeature" type="jdssdm:ControlFeatureType">
+						<annotation>
+							<documentation>Points: Waypoint, Point of interest, Single Target, Aim Point, Entry Point, Contact point, Coordination Point, Linkup Point    Line:  FLOT, Final Coordination Line,  Limt of Advance, Line of Departure, Line of Contact, Phase Line                                    Area: Landing Zone, Pickup Zone, Assault Position, Objective, Named Area of Interest, Unexploded Ordnance Area  Corridor2Pt: Assault By Fire pos     Fan: Support By Fire pos</documentation>
+						</annotation>
+					</element>
+					<element name="ActionTask" type="jdssdm:ActionTaskType">
+						<annotation>
+							<documentation>Point: Destroy, Interdict, Neutralized.               FanArea: Secure, Seize.      Line2PT: Fix.                   Corridor2PT:  Block, Clear, Contain, Conter attack, Direction of Supporting Attack, Friendly Direction of Main Attack.</documentation>
+						</annotation>
+					</element>
+					<element name="ControlFeature-Boundary" type="jdssdm:ControlFeature-BoundaryType">
+						<annotation>
+							<documentation>Lateral Boundary, Forward Boundary</documentation>
+						</annotation>
+					</element>
+					<element name="ExtendedObject" type="xsd:anyType"/>
+				</choice>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="NBCMsgType">
+		<annotation>
+			<documentation>Used to provide the observer's initial report giving basic data on a single biological, chemical or nuclear attack.
+</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="jdssdm:AbstractMessage">
+				<sequence>
+					<element name="CbrnEvent" type="jdssdm:CBRNEventType">
+						<annotation>
+							<documentation>An ACTION-EVENT that involves chemical, biological, radiological or nuclear materiel individually or in combination.</documentation>
+						</annotation>
+					</element>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="EntityAttributes" abstract="true">
+		<annotation>
+			<documentation>Superclass that defines a set of common attributes for objects</documentation>
+		</annotation>
+		<sequence>
+			<element name="OID" type="jdssdm:EntityOID"/>
+			<element name="CreatorId" type="jdssdm:EntityReference" minOccurs="0">
+				<annotation>
+					<documentation>The globally unique object identifier of the organisation which created that object.</documentation>
+				</annotation>
+			</element>
+		</sequence>
+		<attribute name="EndDateTime" type="jc3iedm:DatetimeTypeFix18">
+			<annotation>
+				<documentation>The period of effectiveness of the object is terminated at the specifed DateTime.</documentation>
+			</annotation>
+		</attribute>
+		<attribute name="Deleted" type="boolean">
+			<annotation>
+				<documentation>The perid of effectiveness of the object is terminated.</documentation>
+			</annotation>
+		</attribute>
+	</complexType>
+	<complexType name="EntityOID" abstract="false">
+		<simpleContent>
+			<extension base="jdssdm:JDSSDMKeyType">
+				<attribute name="OIDType">
+					<annotation>
+						<documentation>Indicate the use of other identifier types than the default MIP key as OID</documentation>
+					</annotation>
+					<simpleType>
+						<restriction base="string">
+							<maxLength value="30"/>
+						</restriction>
+					</simpleType>
+				</attribute>
+			</extension>
+		</simpleContent>
+	</complexType>
+	<complexType name="AbstractObjectItem" abstract="true">
+		<annotation>
+			<documentation>Abstract class introduced to capture common definitons.</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="jdssdm:EntityAttributes">
+				<sequence>
+					<element name="NameText" type="jc3iedm:TextTypeVar100">
+						<annotation>
+							<documentation xml:lang="en">The character string assigned to represent a specific OBJECT-ITEM.</documentation>
+						</annotation>
+					</element>
+					<!--element name="AffiliationGeopolitical-Code" type="jc3iedm:AffiliationGeopoliticalCode" default="NOS">
+				<annotation>
+					<documentation xml:lang="en">The specific value that represents the identification of the independent first-level geographic-political area and its dependencies, areas of quasi-independence, and areas with special unrecognised sovereignty, including outlying and disputed areas.</documentation>
+				</annotation>
+			</element-->
+					<element name="Comment" type="jdssdm:Comment" minOccurs="0">
+						<annotation>
+							<documentation>Remarks added.</documentation>
+						</annotation>
+					</element>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="AbstractObjectType" abstract="true">
+		<annotation>
+			<documentation>Superclass of types that are part of an object(item)</documentation>
+		</annotation>
+		<sequence>
+			<element name="OID" type="jdssdm:EntityOID">
+				<annotation>
+					<documentation>The globally unique object identifier.</documentation>
+				</annotation>
+			</element>
+			<element name="CreatorId" type="jdssdm:EntityReference" minOccurs="0">
+				<annotation>
+					<documentation>The globally unique object identifier of the organisation which created that object.</documentation>
+				</annotation>
+			</element>
+			<element name="NameText" type="jc3iedm:TextTypeVar100">
+				<annotation>
+					<documentation xml:lang="en">The character string assigned to represent a specific OBJECT-TYPE.</documentation>
+				</annotation>
+			</element>
+		</sequence>
+		<attribute name="ReportingDatetime" type="jc3iedm:DatetimeTypeFix18"/>
+	</complexType>
+	<complexType name="AbstractAction" abstract="true">
+		<annotation>
+			<documentation>Abstract class introduced to capture common definitons.</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="jdssdm:EntityAttributes">
+				<sequence>
+					<element name="NameText" type="jc3iedm:TextTypeVar50" minOccurs="0">
+						<annotation>
+							<documentation xml:lang="en">The character string assigned to represent a specific ACTION.</documentation>
+						</annotation>
+					</element>
+					<element name="Comment" type="jdssdm:Comment" minOccurs="0">
+						<annotation>
+							<documentation>Remarks added.</documentation>
+						</annotation>
+					</element>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="OrganisationStructureType">
+		<complexContent>
+			<extension base="jdssdm:EntityAttributes">
+				<sequence>
+					<element name="NameText" type="jc3iedm:TextTypeVar100">
+						<annotation>
+							<documentation xml:lang="en">The character string assigned to represent a specific OBJECT-ITEM.</documentation>
+						</annotation>
+					</element>
+					<element name="Unit" type="jdssdm:OrgStrucObjectItemAssociationUnit">
+						<annotation>
+							<documentation>Root organisation.</documentation>
+						</annotation>
+					</element>
+				</sequence>
+				<attribute name="ReportingDatetime" type="jc3iedm:DatetimeTypeFix18"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="Comment">
+		<annotation>
+			<documentation>Used to provide additional textual comments on objects.</documentation>
+		</annotation>
+		<sequence>
+			<element name="CommentText" type="jdssdm:TextTypeVarInf">
+				<annotation>
+					<documentation xml:lang="en">The character string assigned to represent a general remark about a specific OBJECT-ITEM or ACTION</documentation>
+				</annotation>
+			</element>
+		</sequence>
+		<attribute name="ReportingDatetime" type="jc3iedm:DatetimeTypeFix18"/>
+	</complexType>
+	<complexType name="OrgStrucObjectItemAssociationUnit">
+		<sequence>
+			<element name="OID" type="jdssdm:EntityReference"/>
+			<element name="Subordinates" type="jdssdm:OrgStrucObjectItemAssociation" minOccurs="0"/>
+		</sequence>
+	</complexType>
+	<complexType name="OrgStrucObjectItemAssociation">
+		<annotation>
+			<documentation>When child is Unit or OtherOrg, cat = CMDCTL. When child is Materiel, cat = ISOWNR.</documentation>
+		</annotation>
+		<choice maxOccurs="unbounded">
+			<element name="Unit" type="jdssdm:OrgStrucObjectItemAssociationUnit"/>
+			<element name="Organisation-MilitaryPost">
+				<complexType>
+					<sequence>
+						<element name="OID" type="jdssdm:EntityReference"/>
+					</sequence>
+				</complexType>
+			</element>
+			<element name="Materiel">
+				<complexType>
+					<sequence>
+						<element name="OID" type="jdssdm:EntityReference"/>
+					</sequence>
+				</complexType>
+			</element>
+		</choice>
+	</complexType>
+	<complexType name="CBRNEventType">
+		<annotation>
+			<documentation>Simplied representation of a CBRN Event.</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="jdssdm:OVL-AbstractAction">
+				<sequence>
+					<choice>
+						<element name="GeographicPoint" type="jdssdm:GeographicPointLocation">
+							<annotation>
+								<documentation>An ABSOLUTE-POINT that has its position specified with respect to the surface of the World Geodetic System 1984 (WGS 84) ellipsoid.</documentation>
+							</annotation>
+						</element>
+						<element name="PolygonArea" type="jdssdm:PolygonAreaLocation"/>
+					</choice>
+					<element name="CategoryCode" type="jdssdm:CBRNEventConceptualCategoryCode">
+						<annotation>
+							<documentation xml:lang="en">The specific value that represents the class of CBRN-EVENT. It contains the following values: NKN, BIO, CHEM, NUC</documentation>
+						</annotation>
+					</element>
+					<element name="SubCategoryCode" type="jdssdm:CBRNEventConceptualSubCategoryCode">
+						<annotation>
+							<documentation>The specifci value that represents a further catgeorisation of the CBRN Event. It contains the following values: NKN, ALARM, ATTACK, ROTA</documentation>
+						</annotation>
+					</element>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="Marking">
+		<annotation>
+			<documentation xml:lang="en">The technique of indicating the position of an ACTION-OBJECTIVE-ITEM at a given time for the benefit of a using ORGANISATION.</documentation>
+		</annotation>
+		<sequence>
+			<element name="MethodCode" type="jc3iedm:ActionObjectiveItemMarkingMethodCode" minOccurs="0">
+				<annotation>
+					<documentation xml:lang="en">The specific value that represents the method of marking a position.</documentation>
+				</annotation>
+			</element>
+			<element name="PanelShapeCode" type="jc3iedm:ActionObjectiveItemMarkingPanelShapeCode" minOccurs="0">
+				<annotation>
+					<documentation xml:lang="en">The specific value that represents the shape of the marking panel.</documentation>
+				</annotation>
+			</element>
+			<element name="RecognitionSignalColourCode" type="jc3iedm:ActionObjectiveItemMarkingRecognitionSignalColourCode" minOccurs="0">
+				<annotation>
+					<documentation xml:lang="en">The specific value that represents the coloration of the marking signal.</documentation>
+				</annotation>
+			</element>
+		</sequence>
+	</complexType>
+	<complexType name="OVL-AbstractObjectItem">
+		<annotation>
+			<documentation>Abstract class introduced to capture common definitons.</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="jdssdm:AbstractObjectItem">
+				<sequence>
+					<element name="HostilityStatusCode" type="jdssdm:HostilityStatusCode">
+						<annotation>
+							<documentation>A record of the perceived hostility classification of a specific OBJECT-ITEM.</documentation>
+						</annotation>
+					</element>
+					<element name="AffiliationGeopolitical-Code" type="jdssdm:AffiliationGeopolitical-Code" minOccurs="0">
+						<annotation>
+							<documentation xml:lang="en">The specific value that represents the identification of the independent first-level geographic-political area and its dependencies, areas of quasi-independence, and areas with special unrecognised sovereignty, including outlying and disputed areas.</documentation>
+						</annotation>
+					</element>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="OVL-AbstractAction" abstract="true">
+		<annotation>
+			<documentation>Abstract class introduced to capture common definitons.</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="jdssdm:AbstractAction"/>
+		</complexContent>
+	</complexType>
+	<complexType name="LOC-ObjectItemRef">
+		<annotation>
+			<documentation>Represents a reference to an ObjectItem. Used in the presence message.</documentation>
+		</annotation>
+		<sequence>
+			<element name="OID" type="jdssdm:EntityReference"/>
+			<element name="GeographicPoint" type="jdssdm:GeographicPointLocation">
+				<annotation>
+					<documentation>An ABSOLUTE-POINT that has its position specified with respect to the surface of the World Geodetic System 1984 (WGS 84) ellipsoid.</documentation>
+				</annotation>
+			</element>
+		</sequence>
+	</complexType>
+	<complexType name="HostilityStatusCode">
+		<annotation>
+			<documentation>ObjectIemHostilityStatusCode with ReportingDateTime.</documentation>
+		</annotation>
+		<simpleContent>
+			<extension base="jc3iedm:ObjectItemHostilityStatusCode">
+				<attribute name="ReportingDatetime" type="jc3iedm:DatetimeTypeFix18"/>
+			</extension>
+		</simpleContent>
+	</complexType>
+	<complexType name="AffiliationGeopolitical-Code">
+		<annotation>
+			<documentation>AffiliationGeopoliticalCode with ReportingDateTime.</documentation>
+		</annotation>
+		<simpleContent>
+			<extension base="jc3iedm:AffiliationGeopoliticalCode">
+				<attribute name="ReportingDatetime" type="jc3iedm:DatetimeTypeFix18"/>
+			</extension>
+		</simpleContent>
+	</complexType>
+	<complexType name="LocationType">
+		<annotation>
+			<documentation>Represents all possible location types that are supported by the JDSSDM</documentation>
+		</annotation>
+		<choice>
+			<element name="GeographicPoint" type="jdssdm:GeographicPointLocation">
+				<annotation>
+					<documentation>An ABSOLUTE-POINT that has its position specified with respect to the surface of the World Geodetic System 1984 (WGS 84) ellipsoid.</documentation>
+				</annotation>
+			</element>
+			<element name="Line" type="jdssdm:LineLocation"/>
+			<element name="Line2PT" type="jdssdm:Line2PTLocation"/>
+			<element name="PolygonArea" type="jdssdm:PolygonAreaLocation"/>
+			<element name="FanArea" type="jdssdm:FanAreaLocation"/>
+			<element name="Corridor2PT" type="jdssdm:CorridorArea2PtLocation"/>
+		</choice>
+	</complexType>
+	<complexType name="FacilityType">
+		<annotation>
+			<documentation>XML Complex type used to define a Facility.</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="jdssdm:OVL-AbstractObjectItem">
+				<sequence>
+					<element name="GeographicPoint" type="jdssdm:GeographicPointLocation">
+						<annotation>
+							<documentation>An ABSOLUTE-POINT that has its position specified with respect to the surface of the World Geodetic System 1984 (WGS 84) ellipsoid.</documentation>
+						</annotation>
+					</element>
+					<element name="PrimaryConstructionMaterialCode" type="jc3iedm:FacilityPrimaryConstructionMaterialCode" minOccurs="0">
+						<annotation>
+							<documentation xml:lang="en">The specific value that represents the major material used in building the specific FACILITY.</documentation>
+						</annotation>
+					</element>
+					<element name="HeightDimension" type="jc3iedm:DimensionType12_3" minOccurs="0">
+						<annotation>
+							<documentation xml:lang="en">The one-dimensional linear distance representing the height of a specific FACILITY.</documentation>
+						</annotation>
+					</element>
+					<element name="FacilityType">
+						<complexType>
+							<complexContent>
+								<extension base="jdssdm:AbstractObjectType">
+									<sequence>
+										<element name="CategoryCode" type="jc3iedm:FacilityTypeCategoryCode">
+											<annotation>
+												<documentation xml:lang="en">The specific value that represents the class of FACILITY-TYPE. It serves as a discriminator that partitions FACILITY-TYPE into subtypes.</documentation>
+											</annotation>
+										</element>
+									</sequence>
+								</extension>
+							</complexContent>
+						</complexType>
+					</element>
+					<element name="OperationalStatusCode" type="jc3iedm:FacilityStatusOperationalStatusCode">
+						<annotation>
+							<documentation xml:lang="en">The specific value that represents the operational status of a specific FACILITY.</documentation>
+						</annotation>
+					</element>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="MilitaryObstacleType">
+		<annotation>
+			<documentation>XML Complex type used to define a MilitaryObstacle.</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="jdssdm:OVL-AbstractObjectItem">
+				<sequence>
+					<element name="CorridorArea2Pt" type="jdssdm:CorridorArea2PtLocation"/>
+					<element name="MilitaryObstacleType">
+						<complexType>
+							<complexContent>
+								<extension base="jdssdm:AbstractObjectType">
+									<sequence>
+										<element name="CategoryCode" type="jc3iedm:MilitaryObstacleTypeCategoryCode">
+											<annotation>
+												<documentation xml:lang="en">The specific value that represents the class of MILITARY-OBSTACLE-TYPE.</documentation>
+											</annotation>
+										</element>
+									</sequence>
+								</extension>
+							</complexContent>
+						</complexType>
+					</element>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="MineFieldLandType">
+		<annotation>
+			<documentation>XML Complex type used to define a MineFieldLand.</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="jdssdm:OVL-AbstractObjectItem">
+				<sequence>
+					<element name="PolygonArea" type="jdssdm:PolygonAreaLocation"/>
+					<element name="MilitaryObstacleType">
+						<complexType>
+							<complexContent>
+								<extension base="jdssdm:AbstractObjectType">
+									<sequence>
+										<element name="CategoryCode" type="jc3iedm:MinefieldLandMilitaryObstacleTypeCategoryCode">
+											<annotation>
+												<documentation xml:lang="en">The specific value that represents the class of MILITARY-OBSTACLE-TYPE.</documentation>
+											</annotation>
+										</element>
+									</sequence>
+								</extension>
+							</complexContent>
+						</complexType>
+					</element>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="ControlFeatureType">
+		<annotation>
+			<documentation>XML Complex type used to define a ControlFeature.</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="jdssdm:OVL-AbstractObjectItem">
+				<sequence>
+					<choice>
+						<element name="GeographicPoint" type="jdssdm:GeographicPointLocation">
+							<annotation>
+								<documentation>An ABSOLUTE-POINT that has its position specified with respect to the surface of the World Geodetic System 1984 (WGS 84) ellipsoid.</documentation>
+							</annotation>
+						</element>
+						<element name="Line" type="jdssdm:LineLocation"/>
+						<element name="PolygonArea" type="jdssdm:PolygonAreaLocation"/>
+						<element name="FanArea" type="jdssdm:FanAreaLocation"/>
+						<element name="CorridorArea2Pt" type="jdssdm:CorridorArea2PtLocation"/>
+					</choice>
+					<element name="ControlFeatureType">
+						<complexType>
+							<complexContent>
+								<extension base="jdssdm:AbstractObjectType">
+									<sequence>
+										<element name="CategoryCode" type="jc3iedm:ControlFeatureTypeCategoryCode"/>
+									</sequence>
+								</extension>
+							</complexContent>
+						</complexType>
+					</element>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="ControlFeature-BoundaryType">
+		<annotation>
+			<documentation>XML Complex type used to define a Boundary ControlFeature.</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="jdssdm:OVL-AbstractObjectItem">
+				<sequence>
+					<element name="Line" type="jdssdm:LineLocation"/>
+					<element name="ControlFeatureType">
+						<complexType>
+							<complexContent>
+								<extension base="jdssdm:AbstractObjectType">
+									<sequence>
+										<element name="EchelonCode" type="jc3iedm:EchelonSizeCode" minOccurs="0">
+											<annotation>
+												<documentation xml:lang="en">The specific value that represents the echelon level of an organisation that is to be associated with a specific CONTROL-FEATURE-TYPE.</documentation>
+											</annotation>
+										</element>
+										<element name="CategoryCode" type="jc3iedm:ControlFeatureBoundaryTypeCategoryCode">
+											<annotation>
+												<documentation xml:lang="en">The specific value that represents the class of CONTROL-FEATURE-TYPE. It serves as a discriminator that partitions CONTROL-FEATURE-TYPE into subtypes.</documentation>
+											</annotation>
+										</element>
+									</sequence>
+								</extension>
+							</complexContent>
+						</complexType>
+					</element>
+					<element name="LeftBoundingUnitNameText" type="jc3iedm:TextTypeVar100" minOccurs="0">
+						<annotation>
+							<documentation>Name of the unit left of the boundary</documentation>
+						</annotation>
+					</element>
+					<element name="RightBoundingUnitNameText" type="jc3iedm:TextTypeVar100" minOccurs="0">
+						<annotation>
+							<documentation>Name of the unit right of the boundary line</documentation>
+						</annotation>
+					</element>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="IEDType">
+		<annotation>
+			<documentation>XML Complex type used to define an IED</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="jdssdm:OVL-AbstractObjectItem">
+				<sequence>
+					<element name="GeographicPoint" type="jdssdm:GeographicPointLocation">
+						<annotation>
+							<documentation>An ABSOLUTE-POINT that has its position specified with respect to the surface of the World Geodetic System 1984 (WGS 84) ellipsoid.</documentation>
+						</annotation>
+					</element>
+					<element name="ConceptualState">
+						<annotation>
+							<documentation>Conceptual state of the IED</documentation>
+						</annotation>
+						<complexType>
+							<simpleContent>
+								<extension base="jdssdm:IED-ConceptualStateCode">
+									<attribute name="ReportingDatetime" type="jc3iedm:DatetimeTypeFix18"/>
+								</extension>
+							</simpleContent>
+						</complexType>
+					</element>
+					<element name="ConsumeableMaterielTypeIED">
+						<complexType>
+							<complexContent>
+								<extension base="jdssdm:AbstractObjectType">
+									<sequence/>
+								</extension>
+							</complexContent>
+						</complexType>
+					</element>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="IEDCacheType">
+		<annotation>
+			<documentation>XML Complex type used to define an IED Cache</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="jdssdm:OVL-AbstractObjectItem">
+				<sequence>
+					<element name="GeographicPoint" type="jdssdm:GeographicPointLocation">
+						<annotation>
+							<documentation>An ABSOLUTE-POINT that has its position specified with respect to the surface of the World Geodetic System 1984 (WGS 84) ellipsoid.</documentation>
+						</annotation>
+					</element>
+					<element name="FacilityTypeIEDCache">
+						<complexType>
+							<complexContent>
+								<extension base="jdssdm:AbstractObjectType">
+									<sequence/>
+								</extension>
+							</complexContent>
+						</complexType>
+					</element>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="MaterielIdentificationType">
+		<annotation>
+			<documentation>XML Complex type used to define Materiel in a Identification Message.</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="jdssdm:MaterielBaseType">
+				<sequence>
+					<element name="GeographicPoint" type="jdssdm:GeographicPointLocation" minOccurs="0">
+						<annotation>
+							<documentation>An ABSOLUTE-POINT that has its position specified with respect to the surface of the World Geodetic System 1984 (WGS 84) ellipsoid.</documentation>
+						</annotation>
+					</element>
+					<element name="IsAddressable" type="boolean" minOccurs="0">
+						<annotation>
+							<documentation>Indicates if the units may be adressed with a message directly</documentation>
+						</annotation>
+					</element>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="MaterielType">
+		<annotation>
+			<documentation>XML Complex type used to define Materiel in all messages except Identification.</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="jdssdm:MaterielBaseType">
+				<sequence>
+					<element name="GeographicPoint" type="jdssdm:GeographicPointLocation">
+						<annotation>
+							<documentation>An ABSOLUTE-POINT that has its position specified with respect to the surface of the World Geodetic System 1984 (WGS 84) ellipsoid.</documentation>
+						</annotation>
+					</element>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="MaterielBaseType">
+		<annotation>
+			<documentation>Base type for Materiel, used to derive different unit definitions for Identification and other messages.</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="jdssdm:OVL-AbstractObjectItem">
+				<sequence>
+					<choice>
+						<element name="VehicleType">
+							<complexType>
+								<complexContent>
+									<extension base="jdssdm:AbstractObjectType">
+										<sequence>
+											<element name="CategoryCode" type="jc3iedm:VehicleTypeCategoryCode">
+												<annotation>
+													<documentation xml:lang="en">The specific value that represents the class of VEHICLE-TYPE.</documentation>
+												</annotation>
+											</element>
+										</sequence>
+									</extension>
+								</complexContent>
+							</complexType>
+						</element>
+						<element name="WeaponType">
+							<complexType>
+								<complexContent>
+									<extension base="jdssdm:AbstractObjectType">
+										<sequence>
+											<element name="SubcategoryCode" type="jc3iedm:WeaponTypeSubcategoryCode">
+												<annotation>
+													<documentation xml:lang="en">The specific value that represents the detailed class of WEAPON-TYPE.</documentation>
+												</annotation>
+											</element>
+										</sequence>
+									</extension>
+								</complexContent>
+							</complexType>
+						</element>
+					</choice>
+					<element name="OperationalStatusCode" minOccurs="0">
+						<annotation>
+							<documentation xml:lang="en">The specific value that represents the operational status of a specific MATERIEL.</documentation>
+						</annotation>
+						<complexType>
+							<simpleContent>
+								<extension base="jc3iedm:MaterielStatusOperationalStatusCode">
+									<attribute name="ReportingDatetime" type="jc3iedm:DatetimeTypeFix18"/>
+								</extension>
+							</simpleContent>
+						</complexType>
+					</element>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="Organisation-MilitaryPostBaseType">
+		<annotation>
+			<documentation>Base type for MilitaryPost, used to derive different unit definitions for Identification and other messages.</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="jdssdm:OVL-AbstractObjectItem">
+				<sequence>
+					<element name="MilitaryPostType">
+						<complexType>
+							<complexContent>
+								<extension base="jdssdm:AbstractObjectType">
+									<sequence>
+										<element name="CategoryCode" type="jdssdm:RoleCode">
+											<annotation>
+												<documentation xml:lang="en">The specific value that represents the type classification of a MILITARY-POST-TYPE.</documentation>
+											</annotation>
+										</element>
+										<element name="RankCode" type="jc3iedm:MilitaryPostTypeRankCode" minOccurs="0">
+											<annotation>
+												<documentation xml:lang="en">The specific value that represents a designation for a military or naval grade that establishes the relative position or status of a specific MILITARY-POST-TYPE.</documentation>
+											</annotation>
+										</element>
+									</sequence>
+								</extension>
+							</complexContent>
+						</complexType>
+					</element>
+					<element name="OperationalStatusCode" minOccurs="0">
+						<annotation>
+							<documentation xml:lang="en">The specific value that represents the operational status of a specific ORGANISATION.</documentation>
+						</annotation>
+						<complexType>
+							<simpleContent>
+								<extension base="jc3iedm:OrganisationStatusOperationalStatusCode">
+									<attribute name="ReportingDatetime" type="jc3iedm:DatetimeTypeFix18"/>
+								</extension>
+							</simpleContent>
+						</complexType>
+					</element>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="Organisation-MilitaryPostIdentificationType">
+		<annotation>
+			<documentation>XML Complex type used to define a MiltaryPost in a Identification Message.</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="jdssdm:Organisation-MilitaryPostBaseType">
+				<sequence>
+					<element name="GeographicPoint" type="jdssdm:GeographicPointLocation" minOccurs="0">
+						<annotation>
+							<documentation>An ABSOLUTE-POINT that has its position specified with respect to the surface of the World Geodetic System 1984 (WGS 84) ellipsoid.</documentation>
+						</annotation>
+					</element>
+					<element name="IsAddressable" type="boolean" minOccurs="0">
+						<annotation>
+							<documentation>Indicates if the units may be adressed with a message directly</documentation>
+						</annotation>
+					</element>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="Organisation-MilitaryPostType">
+		<annotation>
+			<documentation>XML Complex type used to define a MilitaryPost in all messages except Identification.</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="jdssdm:Organisation-MilitaryPostBaseType">
+				<sequence>
+					<element name="GeographicPoint" type="jdssdm:GeographicPointLocation">
+						<annotation>
+							<documentation>An ABSOLUTE-POINT that has its position specified with respect to the surface of the World Geodetic System 1984 (WGS 84) ellipsoid.</documentation>
+						</annotation>
+					</element>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="UnitBaseType">
+		<annotation>
+			<documentation>Base type for unit, used to derive different unit definitions for Identification and other messages.</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="jdssdm:OVL-AbstractObjectItem">
+				<sequence>
+					<element name="UnitType">
+						<complexType>
+							<complexContent>
+								<extension base="jdssdm:AbstractObjectType">
+									<sequence>
+										<element name="CommandFunctionIndicatorCode" type="jc3iedm:OrganisationTypeCommandFunctionIndicatorCode">
+											<annotation>
+												<documentation xml:lang="en">The specific value that denotes whether an ORGANISATION-TYPE has a command function.</documentation>
+											</annotation>
+										</element>
+										<element name="ServiceCode" type="jc3iedm:MilitaryOrganisationTypeServiceCode">
+											<annotation>
+												<documentation xml:lang="en">The specific value that represents a military, paramilitary, irregular force, force or group, capable of functioning as an offensive or defensive combat or support organisation.</documentation>
+											</annotation>
+										</element>
+										<element name="CategoryCode" type="jc3iedm:UnitTypeCategoryCode">
+											<annotation>
+												<documentation xml:lang="en">The specific value that represents the class of UNIT-TYPE.</documentation>
+											</annotation>
+										</element>
+										<element name="ArmCategoryCode" type="jc3iedm:UnitTypeArmCategoryCode">
+											<annotation>
+												<documentation xml:lang="en">The specific value that represents the designation of a military branch for a particular UNIT-TYPE.</documentation>
+											</annotation>
+										</element>
+										<element name="ArmSpecialisationCode" type="jc3iedm:UnitTypeArmSpecialisationCode" minOccurs="0">
+											<annotation>
+												<documentation xml:lang="en">The specific value that qualifies the functional specialisation of a particular UNIT-TYPE.</documentation>
+											</annotation>
+										</element>
+										<element name="SupplementarySpecialisationCode" type="jc3iedm:UnitTypeSupplementarySpecialisationCode" minOccurs="0">
+											<annotation>
+												<documentation xml:lang="en">The specific value that supplements the designation of a particular UNIT-TYPE.</documentation>
+											</annotation>
+										</element>
+										<element name="GeneralMobilityCode" type="jc3iedm:UnitTypeGeneralMobilityCode" minOccurs="0">
+											<annotation>
+												<documentation xml:lang="en">The specific value that represents the general mobility of a unit, seen as a whole.</documentation>
+											</annotation>
+										</element>
+										<element name="QualifierCode" type="jc3iedm:UnitTypeQualifierCode" minOccurs="0">
+											<annotation>
+												<documentation xml:lang="en">The specific value that conveys additional information on the specified UNIT-TYPE.</documentation>
+											</annotation>
+										</element>
+										<element name="SizeCode" type="jc3iedm:EchelonSizeCode">
+											<annotation>
+												<documentation xml:lang="en">The specific value that represents the relative size of the commonly accepted configuration of military formations.</documentation>
+											</annotation>
+										</element>
+									</sequence>
+								</extension>
+							</complexContent>
+						</complexType>
+					</element>
+					<element name="FormalAbbreviatedNameText" type="jc3iedm:TextTypeVar100">
+						<annotation>
+							<documentation xml:lang="en">The character string specifying the common formal abbreviation used to designate a specific UNIT.</documentation>
+						</annotation>
+					</element>
+					<element name="OperationalStatusCode" minOccurs="0">
+						<annotation>
+							<documentation xml:lang="en">The specific value that represents the operational status of a specific ORGANISATION.</documentation>
+						</annotation>
+						<complexType>
+							<simpleContent>
+								<extension base="jc3iedm:OrganisationStatusOperationalStatusCode">
+									<attribute name="ReportingDatetime" type="jc3iedm:DatetimeTypeFix18"/>
+								</extension>
+							</simpleContent>
+						</complexType>
+					</element>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="UnitIdentificationType">
+		<annotation>
+			<documentation>XML Complex type used to define a Unit in an Identification Message.</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="jdssdm:UnitBaseType">
+				<sequence>
+					<element name="GeographicPoint" type="jdssdm:GeographicPointLocation" minOccurs="0">
+						<annotation>
+							<documentation>An ABSOLUTE-POINT that has its position specified with respect to the surface of the World Geodetic System 1984 (WGS 84) ellipsoid.</documentation>
+						</annotation>
+					</element>
+					<element name="IsAddressable" type="boolean" minOccurs="0">
+						<annotation>
+							<documentation>Indicates if the units may be adressed with a message directly</documentation>
+						</annotation>
+					</element>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="UnitType">
+		<annotation>
+			<documentation>XML Complex type used to define a Unit in all messages except in an  Identification Message.</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="jdssdm:UnitBaseType">
+				<sequence>
+					<element name="GeographicPoint" type="jdssdm:GeographicPointLocation">
+						<annotation>
+							<documentation>An ABSOLUTE-POINT that has its position specified with respect to the surface of the World Geodetic System 1984 (WGS 84) ellipsoid.</documentation>
+						</annotation>
+					</element>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="ActionTaskType">
+		<annotation>
+			<documentation>XML Complex type used to define an ActionTask</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="jdssdm:OVL-AbstractAction">
+				<sequence>
+					<choice>
+						<element name="GeographicPoint" type="jdssdm:GeographicPointLocation">
+							<annotation>
+								<documentation>An ABSOLUTE-POINT that has its position specified with respect to the surface of the World Geodetic System 1984 (WGS 84) ellipsoid.</documentation>
+							</annotation>
+						</element>
+						<element name="CorridorArea2Pt" type="jdssdm:CorridorArea2PtLocation"/>
+						<element name="Line" type="jdssdm:Line2PTLocation"/>
+						<element name="FanArea" type="jdssdm:FanAreaLocation"/>
+					</choice>
+					<element name="ActivityCode" type="jc3iedm:ActionTaskActivityCode"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="ActionEventType">
+		<annotation>
+			<documentation>XML Complex type used to define an ActionEvent.</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="jdssdm:OVL-AbstractAction">
+				<sequence>
+					<choice>
+						<element name="GeographicPoint" type="jdssdm:GeographicPointLocation">
+							<annotation>
+								<documentation>An ABSOLUTE-POINT that has its position specified with respect to the surface of the World Geodetic System 1984 (WGS 84) ellipsoid.</documentation>
+							</annotation>
+						</element>
+						<element name="CorridorArea2Pt" type="jdssdm:CorridorArea2PtLocation"/>
+					</choice>
+					<sequence>
+						<element name="CategoryCode" type="jc3iedm:ActionEventCategoryCode"/>
+						<element name="HostilityStatusCode" type="jdssdm:HostilityStatusCode" minOccurs="0">
+							<annotation>
+								<documentation>A record of the perceived hostility classification of a specific ActionEvent</documentation>
+							</annotation>
+						</element>
+					</sequence>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="SketchObjectType">
+		<annotation>
+			<documentation>XML Complex type used to define a  SketchObject.</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="jdssdm:OVL-AbstractObjectItem">
+				<choice>
+					<element name="GeographicPoint" type="jdssdm:GeographicPoint"/>
+					<element name="Line" type="jdssdm:Line"/>
+					<element name="PolygonArea" type="jdssdm:PolygonArea"/>
+				</choice>
+				<attribute name="style" type="jc3iedm:TextTypeVar100">
+					<annotation>
+						<documentation>CSS style definition</documentation>
+					</annotation>
+				</attribute>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="OverlayType">
+		<annotation>
+			<documentation>XML Complex type used to define an Overlay.</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="jdssdm:AbstractObjectItem">
+				<sequence>
+					<choice minOccurs="0" maxOccurs="unbounded">
+						<element name="Unit" type="jdssdm:UnitType"/>
+						<element name="Organisation-MilitaryPost" type="jdssdm:Organisation-MilitaryPostType">
+							<annotation>
+								<documentation>Role (Military Post).</documentation>
+							</annotation>
+						</element>
+						<element name="Materiel" type="jdssdm:MaterielType">
+							<annotation>
+								<documentation>Vehicle, Weapon.</documentation>
+							</annotation>
+						</element>
+						<element name="IED" type="jdssdm:IEDType">
+							<annotation>
+								<documentation>IED (Improvised explosive device).</documentation>
+							</annotation>
+						</element>
+						<element name="IEDCache" type="jdssdm:IEDCacheType">
+							<annotation>
+								<documentation>IED Cache</documentation>
+							</annotation>
+						</element>
+						<element name="MineFieldLand" type="jdssdm:MineFieldLandType">
+							<annotation>
+								<documentation>Minefield</documentation>
+							</annotation>
+						</element>
+						<element name="MilitaryObstacle" type="jdssdm:MilitaryObstacleType">
+							<annotation>
+								<documentation> Road block.</documentation>
+							</annotation>
+						</element>
+						<element name="Facility" type="jdssdm:FacilityType">
+							<annotation>
+								<documentation>Building. FoxHole.</documentation>
+							</annotation>
+						</element>
+						<element name="ActionEvent" type="jdssdm:ActionEventType">
+							<annotation>
+								<documentation>Point: Ambush, Assassination, Murder, Execution, Bombing, Sniping, Demonstration, Refugees           CorridorArea:  Axis Of Attack - Enemy Confirmed</documentation>
+							</annotation>
+						</element>
+						<element name="ExtendedObject" type="xsd:anyType"/>
+						<element name="ControlFeature" type="jdssdm:ControlFeatureType">
+							<annotation>
+								<documentation>Points: Waypoint, Point of interest, Single Target, Aim Point, Entry Point, Contact point, Coordination Point, Linkup Point    Line:  FLOT, Final Coordination Line,  Limt of Advance, Line of Departure, Line of Contact, Phase Line                                    Area: Landing Zone, Pickup Zone, Assault Position, Objective, Named Area of Interest, Unexploded Ordnance Area  Corridor2Pt: Assault By Fire pos     Fan: Support By Fire pos</documentation>
+							</annotation>
+						</element>
+						<element name="ActionTask" type="jdssdm:ActionTaskType">
+							<annotation>
+								<documentation>Point: Destroy, Interdict, Neutralized.               FanArea: Secure, Seize.      Line2PT: Fix.                   Corridor2PT:  Block, Clear, Contain, Conter attack, Direction of Supporting Attack, Friendly Direction of Main Attack.</documentation>
+							</annotation>
+						</element>
+						<element name="ControlFeature-Boundary" type="jdssdm:ControlFeature-BoundaryType">
+							<annotation>
+								<documentation>Lateral Boundary, Forward Boundary</documentation>
+							</annotation>
+						</element>
+						<element name="SketchObject" type="jdssdm:SketchObjectType"/>
+						<element name="CBRNEvent" type="jdssdm:CBRNEventType"/>
+						<element name="ActionTask-MEDEVC" type="jdssdm:ActionTask-MEDEVCType"/>
+					</choice>
+				</sequence>
+				<attribute name="IsUpdate" type="boolean">
+					<annotation>
+						<documentation>Indicates that this is not the full overlay but an update</documentation>
+					</annotation>
+				</attribute>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="TextItemType">
+		<annotation>
+			<documentation>XML Complex type used to define a TextItem.</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="jdssdm:EntityAttributes">
+				<sequence>
+					<element name="MessageSubject" type="jc3iedm:TextTypeVar100">
+						<annotation>
+							<documentation>Maps to the ObjectItem.NameText</documentation>
+						</annotation>
+					</element>
+					<element name="MessageBody" type="jdssdm:TextTypeVarInf">
+						<annotation>
+							<documentation>Maps to the CommentText of an Object Item comment.</documentation>
+						</annotation>
+					</element>
+					<element name="ReplyTo" type="jdssdm:EntityReference" minOccurs="0">
+						<annotation>
+							<documentation>Reference to a TextItem that this message is a reply-to.</documentation>
+						</annotation>
+					</element>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="CorridorArea2PtLocation">
+		<annotation>
+			<documentation>CorriorArea2Pt with ReportingDatetime</documentation>
+		</annotation>
+		<sequence>
+			<element name="WidthDimension" type="jc3iedm:DimensionType12_3"/>
+			<element name="CenterLine" type="jdssdm:Line2PT"/>
+		</sequence>
+		<attribute name="ReportingDatetime" type="jc3iedm:DatetimeTypeFix18"/>
+	</complexType>
+	<complexType name="FanArea">
+		<sequence>
+			<element name="MinimumRangeDimension" type="jc3iedm:DimensionType12_3">
+				<annotation>
+					<documentation xml:lang="en">The one-dimensional linear distance representing the distance from the vertex to the inner ring of the ring sector used to specify the FAN-AREA.</documentation>
+				</annotation>
+			</element>
+			<element name="MaximumRangeDimension" type="jc3iedm:DimensionType12_3" minOccurs="0">
+				<annotation>
+					<documentation xml:lang="en">The one-dimensional linear distance representing distance from the vertex to the outer ring of the ring sector used to specify the FAN-AREA.</documentation>
+				</annotation>
+			</element>
+			<element name="OrientationAngle" type="jc3iedm:AngleTypeRangeAngle7_4">
+				<annotation>
+					<documentation xml:lang="en">The rotational measurement clockwise between the line of true north and the left side of the sector for a specific FAN-AREA.</documentation>
+				</annotation>
+			</element>
+			<element name="SectorSizeAngle" type="jc3iedm:AngleTypeRangeAngle7_4">
+				<annotation>
+					<documentation xml:lang="en">The rotational measurement clockwise between the left and right sides of the sector for a specific FAN-AREA.</documentation>
+				</annotation>
+			</element>
+			<element name="VertexPoint" type="jdssdm:GeographicPoint">
+				<annotation>
+					<documentation>The POINT that defines the vertex for the specific FAN-AREA.</documentation>
+				</annotation>
+			</element>
+		</sequence>
+	</complexType>
+	<complexType name="FanAreaLocation">
+		<annotation>
+			<documentation>FanArea with ReportingDatetime</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="jdssdm:FanArea">
+				<attribute name="ReportingDatetime" type="jc3iedm:DatetimeTypeFix18"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="GeographicPoint">
+		<sequence>
+			<element name="VerticalDistanceDimension" type="jc3iedm:DimensionType12_3" minOccurs="0">
+				<annotation>
+					<documentation xml:lang="en">The vertical distance for a specific ABSOLUTE-POINT. The vertical reference established as the average level of the ocean surface measured over a full metonic tidal cycle of 18.6 years.</documentation>
+				</annotation>
+			</element>
+			<element name="LatitudeCoordinate" type="jc3iedm:LatitudeCoordinateTypeRangeLatitude9_6">
+				<annotation>
+					<documentation xml:lang="en">The numeric value that represents the angle between the plane of the equator and a line perpendicular to the ellipsoid surface and passing through the GEOGRAPHIC-POINT.</documentation>
+				</annotation>
+			</element>
+			<element name="LongitudeCoordinate" type="jc3iedm:LongitudeCoordinateTypeRangeLongitude10_6">
+				<annotation>
+					<documentation xml:lang="en">The numeric value that represents the angle between the initial (zero or Greenwich) meridian and the meridian of the GEOGRAPHIC-POINT measured in the plane of the Equator.</documentation>
+				</annotation>
+			</element>
+		</sequence>
+	</complexType>
+	<complexType name="GeographicPointLocation">
+		<annotation>
+			<documentation>GeographicPoint with ReportingDatetime</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="jdssdm:GeographicPoint">
+				<sequence>
+					<element name="VerticalAccuracyDimension" type="jc3iedm:DimensionType12_3" minOccurs="0">
+						<annotation>
+							<documentation xml:lang="en">The one-dimensional linear distance representing the uncertainty in terms of probable error range for the vertical axis of a specific OBJECT-ITEM-LOCATION.</documentation>
+						</annotation>
+					</element>
+					<element name="HorizontalAccuracyDimension" type="jc3iedm:DimensionType12_3" minOccurs="0">
+						<annotation>
+							<documentation xml:lang="en">The one-dimensional linear distance representing the uncertainty in the horizontal plane in terms of probable circular error for a specific OBJECT-ITEM-LOCATION.</documentation>
+						</annotation>
+					</element>
+					<element name="BearingAngle" type="jc3iedm:AngleTypeRangeAngle7_4" minOccurs="0">
+						<annotation>
+							<documentation xml:lang="en">The rotational measurement clockwise from the line of true North to the direction of motion in the horizontal plane of a specific OBJECT-ITEM at a specific LOCATION.</documentation>
+						</annotation>
+					</element>
+					<element name="InclinationAngle" type="jc3iedm:AngleTypeRangeAngle7_4" minOccurs="0">
+						<annotation>
+							<documentation xml:lang="en">The rotational measurement from the horizontal plane to the direction of motion of a specific OBJECT-ITEM at a specific LOCATION (point or shape), where the positive angle is vertically upward.</documentation>
+						</annotation>
+					</element>
+					<element name="SpeedRate" type="jc3iedm:RateType8_4" minOccurs="0">
+						<annotation>
+							<documentation xml:lang="en">The numeric value that denotes the motion of a specific OBJECT-ITEM at a specific LOCATION in terms of distance per unit time. The unit of measure is kilometres per hour. The specified value must be greater than or equal to 0 (zero).</documentation>
+						</annotation>
+					</element>
+				</sequence>
+				<attribute name="ReportingDatetime" type="jc3iedm:DatetimeTypeFix18"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="Line">
+		<annotation>
+			<documentation>A LOCATION that is defined by two or more POINTs connected by one-dimensional line segments in an ordered sequence.</documentation>
+		</annotation>
+		<sequence>
+			<element name="GeographicPoint" type="jdssdm:GeographicPoint" minOccurs="2" maxOccurs="unbounded">
+				<annotation>
+					<documentation>An ABSOLUTE-POINT that has its position specified with respect to the surface of the World Geodetic System 1984 (WGS 84) ellipsoid.</documentation>
+				</annotation>
+			</element>
+		</sequence>
+	</complexType>
+	<complexType name="LineLocation">
+		<annotation>
+			<documentation>Line with ReportingDatetime</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="jdssdm:Line">
+				<attribute name="ReportingDatetime" type="jc3iedm:DatetimeTypeFix18"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="Line2PT">
+		<annotation>
+			<documentation>A LOCATION that is defined by two or more POINTs connected by one-dimensional line segments in an ordered sequence.</documentation>
+		</annotation>
+		<sequence>
+			<element name="GeographicPoint" type="jdssdm:GeographicPoint" minOccurs="2" maxOccurs="2">
+				<annotation>
+					<documentation>An ABSOLUTE-POINT that has its position specified with respect to the surface of the World Geodetic System 1984 (WGS 84) ellipsoid.</documentation>
+				</annotation>
+			</element>
+		</sequence>
+	</complexType>
+	<complexType name="Line2PTLocation">
+		<annotation>
+			<documentation>Line2PT with ReportingDatetime</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="jdssdm:Line2PT">
+				<attribute name="ReportingDatetime" type="jc3iedm:DatetimeTypeFix18"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="Line3PTMin">
+		<annotation>
+			<documentation>A LOCATION that is defined by two or more POINTs connected by one-dimensional line segments in an ordered sequence.</documentation>
+		</annotation>
+		<sequence>
+			<element name="GeographicPoint" type="jdssdm:GeographicPoint" minOccurs="3" maxOccurs="unbounded">
+				<annotation>
+					<documentation>An ABSOLUTE-POINT that has its position specified with respect to the surface of the World Geodetic System 1984 (WGS 84) ellipsoid.</documentation>
+				</annotation>
+			</element>
+		</sequence>
+	</complexType>
+	<complexType name="PolygonArea">
+		<annotation>
+			<documentation>A SURFACE that has its boundaries defined by a specific LINE.</documentation>
+		</annotation>
+		<sequence>
+			<element name="BoundingLine" type="jdssdm:Line3PTMin"/>
+		</sequence>
+	</complexType>
+	<complexType name="PolygonAreaLocation">
+		<annotation>
+			<documentation>PolygonArea with ReportingDatetime</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="jdssdm:PolygonArea">
+				<attribute name="ReportingDatetime" type="jc3iedm:DatetimeTypeFix18"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="ActionTask-MEDEVCType">
+		<complexContent>
+			<extension base="jdssdm:OVL-AbstractAction">
+				<sequence>
+					<element name="GeographicPoint" type="jdssdm:GeographicPointLocation">
+						<annotation>
+							<documentation>An ABSOLUTE-POINT that has its position specified with respect to the surface of the World Geodetic System 1984 (WGS 84) ellipsoid.</documentation>
+						</annotation>
+					</element>
+					<element name="CasualitiesNumber" type="jc3iedm:QuantityType12_3"/>
+					<element name="Marking" type="jdssdm:Marking">
+						<annotation>
+							<documentation xml:lang="en">The technique of indicating the position of an ACTION-OBJECTIVE-ITEM at a given time for the benefit of a using ORGANISATION.</documentation>
+						</annotation>
+					</element>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<simpleType name="CBRNEventConceptualCategoryCode">
+		<annotation>
+			<documentation xml:lang="en">The specific value that represents the type classification of a CBRNEvent. This category code doesn't exist in the JC3IEDM and maps to several category codes on the CBRN submodel of the JC3IEDM</documentation>
+		</annotation>
+		<restriction base="token">
+			<enumeration value="NKN"/>
+			<enumeration value="BIO">
+				<annotation>
+					<documentation xml:lang="en">Indicates the use of biological materiel(s) [agent(s)].</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="CHEM">
+				<annotation>
+					<documentation xml:lang="en">Indicates the use of chemical materiel(s) [agent(s)]</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="NUC">
+				<annotation>
+					<documentation xml:lang="en">Indicates the use of radioactive materiel(s) [agent(s)].</documentation>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<simpleType name="CBRNEventConceptualSubCategoryCode">
+		<annotation>
+			<documentation xml:lang="en">The specific value that represents a further type classification of a CBRNEvent. This category code doesn't exist in the JC3IEDM and maps to several category codes on the CBRN submodel of the JC3IEDM</documentation>
+		</annotation>
+		<restriction base="token">
+			<enumeration value="NKN"/>
+			<enumeration value="ATTACK">
+				<annotation>
+					<documentation xml:lang="en">The use CBRN agents to produce casualties in man or animals and damage to plants or materiel; or defence against such employment.</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="ALARM">
+				<annotation>
+					<documentation xml:lang="en">An action by which a CBRN detector is triggered or a group is warned.</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="ROTA">
+				<annotation>
+					<documentation>The release of CBRN agents into the environment intentionally or accidentally but not for the intended purpose of conducting an attack.</documentation>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<simpleType name="IED-ConceptualStateCode">
+		<annotation>
+			<documentation xml:lang="en">The specific value that represents the concept of IED</documentation>
+		</annotation>
+		<restriction base="token">
+			<enumeration value="ARMED">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">OperationalStatusCode=OPR, SafetyStatusCode=ARMED, UsageStatusCode=ACTIVE.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Armed</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="EXPLOSION">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">OperationalStatusCode=NOP, OperationalStatusQualifierCode=DSTRYD.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Exploded</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SAFE">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">DemolitionStatusCode=EXECTD, OperationalStatusCode=NOP, SafetyStatusCode=SAFE.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Rendered safe, Disarmed.</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="HOAX">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">DemolitionStatusCode=EXECTD, OperationalStatusCode=NOP, OperationalStatusQualifierCode=DSTRYD, SafetyStatusCode=NUTRLD.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Rendered safe, Demolished.</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="FALSE">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">OperationalStatusCode=NOP, SafetyStatusCode=ARMED.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Failed.</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<simpleType name="RoleCode">
+		<annotation>
+			<documentation xml:lang="en">The specific value that represents the type classification of a MILITARY-POST-TYPE.</documentation>
+			<documentation xml:lang="en">IMPORTANT: If this type is modiefied, please also alter the list of code in JDSSDM_To_JC3IEDM.xslt</documentation>
+		</annotation>
+		<restriction base="token">
+			<enumeration value="AUTCDR">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A MILITARY-POST-TYPE that is identified as the duly appointed officer in charge of a unit, post, camp, or operation.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Authorised commander</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SecIC">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">JDSSDM-TYPE: Second in Command.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Second in Command</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="GRENDR">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">JDSSDM-TYPE: Grenadier.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Grenadier</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="MCHGUN">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">JDSSDM-TYPE: Machine-gunner.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Machine-gunner</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SIGNAL">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">JDSSDM-TYPE: Signaler.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Signaler</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="DRIVER">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">JDSSDM-TYPE: Driver.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Driver</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="GUNNER">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A MILITARY-POST-TYPE that is identified as one who operates a gun.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Gunner</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="MARKSM">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">JDSSDM-TYPE: Marksman/Sharpshooter.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Marksman</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="LIAISN">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A MILITARY-POST-TYPE responsible for liaison duties.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Liaison officer</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="NOS">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The appropriate value is not in the set of specified values.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Not otherwise specified</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="RFLEMN">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A MILITARY-POST-TYPE that is identified as a soldier armed with a rifle.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Rifleman</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SNIPER">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A MILITARY-POST-TYPE that is identified as one who snipes, or shoots from concealment.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Sniper</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<simpleType name="TextTypeVarInf">
+		<annotation>
+			<documentation xml:lang="en">A character string (i.e. a finite set of characters) generally in the form of words of a language. This embraces notions such as description, name, comment etc.</documentation>
+		</annotation>
+		<restriction base="string">
+			<minLength value="0"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="JDSSDMKeyType">
+		<restriction base="string"/>
+	</simpleType>
+	<complexType name="EntityReference">
+		<simpleContent>
+			<extension base="jdssdm:EntityOID"/>
+		</simpleContent>
+	</complexType>
+	<complexType name="JDSDDMMessageIDType">
+		<simpleContent>
+			<extension base="jdssdm:EntityOID"/>
+		</simpleContent>
+	</complexType>
+</schema>

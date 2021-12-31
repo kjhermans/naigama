@@ -1,0 +1,309 @@
+\newpage
+\section{Parsing a Certificate}
+\label{sec:app:b}
+
+I created a small self-signed certificate, by issueing:
+
+\begin{changemargin}{-60mm}{0mm}
+\begin{myquote}
+\begin{verbatim}
+$ openssl genrsa  -out myCA.key 1024
+$ openssl req -x509 -new -nodes -key myCA.key -sha256 -days 1825 -out 
+myCA.pem
+\end{verbatim}
+\end{myquote}
+\end{changemargin}
+
+It contained the following ASCII text:
+
+\begin{changemargin}{-60mm}{0mm}
+\begin{myquote}
+\begin{verbatim}
+-----BEGIN CERTIFICATE-----
+MIIDDDCCAnWgAwIBAgIUKn7OCa82Nnjj0fp4iah8zHtxxpgwDQYJKoZIhvcNAQEL
+BQAwgZcxCzAJBgNVBAYTAk5MMQswCQYDVQQIDAJVVDEQMA4GA1UEBwwHTGVlcmRh
+bTEOMAwGA1UECgwFTXlvcmcxEzARBgNVBAsMClRoZXNlY3Rpb24xGTAXBgNVBAMM
+EEtlZXMtSmFuIEhlcm1hbnMxKTAnBgkqhkiG9w0BCQEWGmtlZXMuamFuLmhlcm1h
+bnNAZ21haWwuY29tMB4XDTIxMDkwNTA5MDIwMVoXDTI2MDkwNDA5MDIwMVowgZcx
+CzAJBgNVBAYTAk5MMQswCQYDVQQIDAJVVDEQMA4GA1UEBwwHTGVlcmRhbTEOMAwG
+A1UECgwFTXlvcmcxEzARBgNVBAsMClRoZXNlY3Rpb24xGTAXBgNVBAMMEEtlZXMt
+SmFuIEhlcm1hbnMxKTAnBgkqhkiG9w0BCQEWGmtlZXMuamFuLmhlcm1hbnNAZ21h
+aWwuY29tMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC28xfleEOTI3grHidy
+Jm1054Oa8fNCP6FnhCHVTn+Z7fQSaD2KAJj7w6hGIsFN9F0pPxAQWf3qwQfWjzHO
+HnHfgJlQ2tFdqTNrTZM+jKtEaDQonSNKfG73qIoji0BrgxrivkrVidd8/hI5WLL+
+NZ53hqvzrvJfUxcMIk49PXeLfwIDAQABo1MwUTAdBgNVHQ4EFgQUEFQ9hHX7QGyp
++azLvXfpqc/9PH4wHwYDVR0jBBgwFoAUEFQ9hHX7QGyp+azLvXfpqc/9PH4wDwYD
+VR0TAQH/BAUwAwEB/zANBgkqhkiG9w0BAQsFAAOBgQBFg9sfb6POW+ecQEE7JoUx
+4njchahJf+5ofRHHQusiIz3/Omb3lcHJUsOVa1VzbFwKyYN5iTQ/Doa8FDhSuel+
+trPg3HASgvqHzjgpQKL7IaUQdYqhbWcI2trqX4OnNyl7m1G+PGgvrjJ3ZmdlMPY2
+KUmgO3iaaX1JNRh96N87bg==
+-----END CERTIFICATE-----
+\end{verbatim}
+\end{myquote}
+\end{changemargin}
+
+To get the hexadecimal content of the file, I issued:
+
+\begin{changemargin}{-60mm}{0mm}
+\begin{myquote}
+\begin{verbatim}
+$ cat myCA.pem | tail -n +2 | head -n -1 | base64 --decode | xxd -p
+\end{verbatim}
+\end{myquote}
+\end{changemargin}
+
+This results in hexadecimal:
+
+\begin{changemargin}{-60mm}{0mm}
+\begin{myquote}
+\begin{verbatim}
+3082030c30820275a00302010202142a7ece09af363678e3d1fa7889a87c
+cc7b71c698300d06092a864886f70d01010b0500308197310b3009060355
+040613024e4c310b300906035504080c0255543110300e06035504070c07
+4c65657264616d310e300c060355040a0c054d796f726731133011060355
+040b0c0a54686573656374696f6e3119301706035504030c104b6565732d
+4a616e204865726d616e733129302706092a864886f70d010901161a6b65
+65732e6a616e2e6865726d616e7340676d61696c2e636f6d301e170d3231
+303930353039303230315a170d3236303930343039303230315a30819731
+0b3009060355040613024e4c310b300906035504080c0255543110300e06
+035504070c074c65657264616d310e300c060355040a0c054d796f726731
+133011060355040b0c0a54686573656374696f6e3119301706035504030c
+104b6565732d4a616e204865726d616e733129302706092a864886f70d01
+0901161a6b6565732e6a616e2e6865726d616e7340676d61696c2e636f6d
+30819f300d06092a864886f70d010101050003818d0030818902818100b6
+f317e578439323782b1e2772266d74e7839af1f3423fa1678421d54e7f99
+edf412683d8a0098fbc3a84622c14df45d293f101059fdeac107d68f31ce
+1e71df809950dad15da9336b4d933e8cab446834289d234a7c6ef7a88a23
+8b406b831ae2be4ad589d77cfe123958b2fe359e7786abf3aef25f53170c
+224e3d3d778b7f0203010001a3533051301d0603551d0e0416041410543d
+8475fb406ca9f9accbbd77e9a9cffd3c7e301f0603551d23041830168014
+10543d8475fb406ca9f9accbbd77e9a9cffd3c7e300f0603551d130101ff
+040530030101ff300d06092a864886f70d01010b0500038181004583db1f
+6fa3ce5be79c40413b268531e278dc85a8497fee687d11c742eb22233dff
+3a66f795c1c952c3956b55736c5c0ac9837989343f0e86bc143852b9e97e
+b6b3e0dc701282fa87ce382940a2fb21a510758aa16d6708dadaea5f83a7
+37297b9b51be3c682fae327766676530f6362949a03b789a697d4935187d
+e8df3b6e
+\end{verbatim}
+\end{myquote}
+\end{changemargin}
+Which can be split out as follows:
+\begin{changemargin}{-60mm}{0mm}
+\begin{myquote}
+\begin{verbatim}
+30 82 03 0c -- Certificate ::= SEQUENCE
+  30 82 02 75 -- tbsCertificate TBSCertificate ::= SEQUENCE
+    a0 03 02 01 02 -- version
+    02 14 2a 7e ce 09 af 36 36 78 e3 d1 fa 78 89 a8 7c cc 7b 71 c6 98 -- serial#
+    30 0d -- signature
+      06 09 2a 86 48 86 f7 0d 01 01 0b
+      05 00
+    30 81 97 -- issuer
+      31 0b
+        30 09
+          06 03 55 04 06
+          13 02 4e 4c
+      31 0b
+        30 09
+          06 03 55 04 08
+          0c 02 55 54
+      31 10
+        30 0e
+          06 03 55 04 07
+          0c 07 4c 65 65 72 64 61 6d
+      31 0e
+        30 0c
+          06 03 55 04 0a
+          0c 05 4d 79 6f 72 67
+      31 13
+        30 11
+          06 03 55 04 0b
+          0c 0a 54 68 65 73 65 63 74 69 6f 6e 
+      31 19
+        30 17
+          06 03 55 04 03
+          0c 10 4b 65 65 73 2d 4a 61 6e 20 48 65 72 6d 61 6e 73
+      31 29
+        30 27
+          06 09 2a 86 48 86 f7 0d 01 09 01
+          16 1a 6b 65 65 73 2e 6a 61 6e 2e 68 65 72 6d 61 6e 73 40 67 6d 61
+                69 6c 2e 63 6f 6d
+    30 1e -- validity
+      17 0d 32 31 30 39 30 35 30 39 30 32 30 31 5a
+      17 0d 32 36 30 39 30 34 30 39 30 32 30 31 5a
+    30 81 97 -- subject
+      31 0b
+        30 09
+          06 03 55 04 06
+          13 02 4e 4c
+      31 0b
+        30 09
+          06 03 55 04 08
+          0c 02 55 54
+      31 10
+        30 0e
+          06 03 55 04 07
+          0c 07 4c 65 65 72 64 61 6d
+      31 0e
+        30 0c
+          06 03 55 04 0a
+          0c 05 4d 79 6f 72 67
+      31 13
+        30 11
+          06 03 55 04 0b
+          0c 0a 54 68 65 73 65 63 74 69 6f 6e
+      31 19
+        30 17
+          06 03 55 04 03
+          0c 10 4b 65 65 73 2d 4a 61 6e 20 48 65 72 6d 61 6e 73
+      31 29
+        30 27
+          06 09 2a 86 48 86 f7 0d 01 09 01
+          16 1a 6b 65 65 73 2e 6a 61 6e 2e 68 65 72 6d 61 6e 73 40 67 6d 61
+                69 6c 2e 63 6f 6d
+    30 81 9f -- subjectPublicKeyInfo
+      30 0d
+        06 09 2a 86 48 86 f7 0d 01 01 01
+        05 00
+      03 81 8d -- bit string BER encoding two INTEGERs
+            0030818902818100b6f317e578439323
+            782b1e2772266d74e7839af1f3423fa1
+            678421d54e7f99edf412683d8a0098fb
+            c3a84622c14df45d293f101059fdeac1
+            07d68f31ce1e71df809950dad15da933
+            6b4d933e8cab446834289d234a7c6ef7
+            a88a238b406b831ae2be4ad589d77cfe
+            123958b2fe359e7786abf3aef25f5317
+            0c224e3d3d778b7f0203010001
+    a3 53 -- context specific class / issuerUniqueID
+      30 51
+        30 1d
+          06 03 55 1d 0e
+          04 16 04 14 10 54 3d 84 75 fb 40 6c a9 f9 ac cb bd 77 e9 a9 cf
+                fd 3c 7e 
+        30 1f
+          06 03 55 1d 23
+          04 18 30 16 80 14 10 54 3d 84 75 fb 40 6c a9 f9 ac cb bd 77 e9
+                a9 cf fd 3c 7e 
+        30 0f
+          06 03 55 1d 13
+          01 01 ff
+          04 05 30 03 01 01 ff
+  30 0d -- signatureAlgorithm
+    06 09 2a 86 48 86 f7 0d 01 01 0b
+    05 00
+  03 81 81 -- signatureValue (bit string)
+        004583db1f6fa3ce5be79c40413b2685
+        31e278dc85a8497fee687d11c742eb22
+        233dff3a66f795c1c952c3956b55736c
+        5c0ac9837989343f0e86bc143852b9e9
+        7eb6b3e0dc701282fa87ce382940a2fb
+        21a510758aa16d6708dadaea5f83a737
+        297b9b51be3c682fae327766676530f6
+        362949a03b789a697d4935187de8df3b
+        6e
+\end{verbatim}
+\end{myquote}
+\end{changemargin}
+I then created the following Naigama PEG grammar:
+
+\begin{changemargin}{-60mm}{0mm}
+\begin{myquote}
+\begin{verbatim}
+CERTIFICATE    <- SEQUENCE BERLENGTH <<ruint32:$_:CERTCONTENT>>
+
+BERLENGTH      <- & |00|80| { . } /
+                  0x81 { . } / 0x82 { .. } / 0x83 { ...  } / 0x84 { .... }
+
+CERTCONTENT    <- TBSCERTIFICATE
+                  SIGNATUREALGORITHM
+                  SIGNATUREVALUE
+TBSCERTIFICATE <- SEQUENCE BERLENGTH <<ruint32:$_:TBSCERTCONTENT>>
+TBSCERTCONTENT <- VERSION
+                  SERIALNUMBER
+                  SIGNATURE
+                  ISSUER
+                  VALIDITY
+                  SUBJECT
+                  SUBJECTPUBKEYINFO
+                  ISSUERUNIQUEID ?
+VERSION        <- INTEGER
+SERIALNUMBER   <- INTEGER
+SIGNATURE      <- SEQUENCE BERLENGTH <<ruint32:$_:ALGIDENTCONT>>
+ALGIDENTCONT   <- ALGORITHM
+                  PARAMETERS ?
+ALGORITHM      <- { OID }
+PARAMETERS     <- ANY
+ISSUER         <- SEQUENCE BERLENGTH <<ruint32:$_:ISSUERCONTENT>>
+ISSUERCONTENT  <- { ISSUERNV }*
+ISSUERNV       <- SET BERLENGTH <<ruint32:$_:ISSUERNV_>>
+ISSUERNV_      <- SEQUENCE BERLENGTH <<ruint32:$_:ISSUERNV__>>
+ISSUERNV__     <- ISSUERNAME ISSUERVALUE
+ISSUERNAME     <- { OID }
+ISSUERVALUE    <- { ANY }
+SIGNATUREALGORITHM <- SEQUENCE BERLENGTH <<ruint32:$_:SIGALGCONTENT>>
+SIGALGCONTENT  <- OID ANY ?
+SIGNATUREVALUE <- BITSTRING BERLENGTH <<ruint32:$_:SIGVALCONTENT>>
+SIGVALCONTENT  <- { .* }
+VALIDITY       <- SEQUENCE BERLENGTH <<ruint32:$_:VALIDITYCONTENT>>
+VALIDITYCONTENT <- VALIDFROM VALIDUNTIL
+VALIDFROM      <- TIMESTAMP
+VALIDUNTIL     <- TIMESTAMP
+SUBJECT        <- SEQUENCE BERLENGTH <<ruint32:$_:SUBJECTCONTENT>>
+SUBJECTCONTENT <- SUBJENTRY*
+SUBJENTRY      <- SET BERLENGTH <<ruint32:$_:SUBJENTRYNV_>>
+SUBJENTRYNV_   <- SEQUENCE BERLENGTH <<ruint32:$_:SUBJENTRYNV__>>
+SUBJENTRYNV__  <- SUBJENTRYNAME SUBJENTRYVALUE
+SUBJENTRYNAME  <- { OID }
+SUBJENTRYVALUE <- { ANY }
+SUBJECTPUBKEYINFO <- SEQUENCE BERLENGTH <<ruint32:$_:SPKICONTENT>>
+SPKICONTENT    <- { ANY }*
+ISSUERUNIQUEID <- CTXSPCLASS BERLENGTH <<ruint32:$_:ISSUERUIDCONTENT>>
+ISSUERUIDCONTENT <- { ANY }*
+
+ANY            <- GENERICLIST / OID / INTEGER / IPV4 / NULL /
+                  BSTRING / PSTRING / ISTRING / USTRING / OSTRING /
+                  GENERICSET / GCTXSPCLASS / TIMESTAMP /
+                  BOOLEAN
+
+GENERICLIST    <- SEQUENCE BERLENGTH <<ruint32:$_:LISTCONTENT>>
+GENERICSET     <- SET BERLENGTH <<ruint32:$_:LISTCONTENT>>
+GCTXSPCLASS    <- CTXSPCLASS BERLENGTH <<ruint32:$_:LISTCONTENT>>
+LISTCONTENT    <- { ANY }*
+
+SEQUENCE       <- 0x30
+SET            <- 0x31
+CTXSPCLASS     <- 0xa3
+INTEGER        <- INTEGERTYPE BERLENGTH <<ruint32:$_:INTEGERVALUE>>
+INTEGERTYPE    <- 0x02 / 0xa0
+INTEGERVALUE   <- { .* }
+IPV4           <- 0x40 0x04 { .... }
+NULL           <- 0x05 0x00
+BITSTRING      <- 0x03
+TIMESTAMP      <- 0x17 BERLENGTH <<ruint32:$_:TIMECONTENT>>
+TIMECONTENT    <- { .* }
+BOOLEAN        <- 0x01 0x01 { . }
+
+PRINTABLESTRING <- 0x13
+IASTRING        <- 0x16
+UTF8STRING      <- 0x0c
+OCTETSTRING     <- 0x04
+
+BSTRING         <- BITSTRING BERLENGTH <<ruint32:$_:STRINGCNT>>
+PSTRING         <- PRINTABLESTRING BERLENGTH <<ruint32:$_:STRINGCNT>>
+ISTRING         <- IASTRING BERLENGTH <<ruint32:$_:STRINGCNT>>
+USTRING         <- UTF8STRING BERLENGTH <<ruint32:$_:STRINGCNT>>
+OSTRING         <- OCTETSTRING BERLENGTH <<ruint32:$_:STRINGCNT>>
+STRINGCNT       <- { .* }
+
+OID            <- 0x06 BERLENGTH <<ruint32:$_:OIDVALUE>>
+OIDVALUE       <- { { . } { |80|80|* |00|80| }* }
+\end{verbatim}
+\end{myquote}
+\end{changemargin}
+
+This is, other than the SNMPv3 example, which used a generic BER ‘well 
+formedness’ check including captures, a specific, ASN.1 definition 
+mirroring grammar. The result, in Naigama, is a successful match, having 
+executed 4533 instructions and resulting in 255 capture regions in 23 
+uniquely typed slots.

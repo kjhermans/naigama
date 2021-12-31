@@ -1,0 +1,54 @@
+JDSSIEMPAYLOAD
+ReportMessageType|<JDSSDMMessage xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:int:nato:standard:mip:jdssdm:1.1">
+  <Id OIDType="UUID">9c3e6981-885d-49ee-8ab9-6d32fc207c85</Id>
+  <Datetime>20180724120436.707</Datetime>
+  <Originator OIDType="UUID">a9b23d4f-ea52-8816-40cc-fe31138e85d9</Originator>
+  <OriginatorCountryCode>NLD</OriginatorCountryCode>
+  <Recipient OIDType="UUID">1596fa9e-a6b5-db70-9d4d-2068e4d2dbbb</Recipient>
+  <Recipient OIDType="UUID">04c097b8-4b9e-6dee-5a56-6031ede3d0db</Recipient>
+  <Recipient OIDType="UUID">928bf658-1b82-56b3-0d67-5c645a1b93f4</Recipient>
+  <ExtensionMsg xmlns:q1="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q1:ReportMessageType">
+    <q1:Report>
+      <OID OIDType="UUID">b65a9557-1ee7-e021-82d4-67577c354201</OID>
+      <MessageSubject>R: Radiological incidents</MessageSubject>
+      <MessageBody>CBRN REPORT
+CBRN Type = R: Radiological incidents
+Alfa:
+	Incident Sequence Number = x-51
+Bravo:
+	Location of Observer: 31U EU 90104 32609
+	Direction of Incident = 5.0625 (degrees)
+Delta:
+	DTG Start of Incident = 241202Z JUL 18
+	DTG End of Incident = 241202Z JUL 18
+Foxtrot:
+	Report Location = 32U LD 18932 71381
+	Location = 31U EU 90104 32608
+	Location Qualifier = EE: Estimated Location
+Golf:
+	Qualification of Incident = SUS: Suspected
+	Type and Means of Delivery = AIR: Aircraft
+	Number of Delivery Systems: 1
+	Type of Substance Container = BOM: Bomb
+	Release Size = LRGRAD: Large (Fire/Exposed Source)
+India:
+	Substance Release Height (m): 2
+	Type of Substance Release Height = AIR: Air
+	Substance Category = BL: Blister Agent
+	Type of Persistency = T: Thickened
+	Type of Detection = OTHER
+	Type of Detection (Other) = direct contact
+	Detection Confidence Level = EVI: Evidential
+Lima:
+	Nuclear Burst Angular Cloud Width = 0 (degrees)
+[Footer]:
+	Classification = Unclassified</MessageBody>
+      <q1:ReportHeader>
+        <q1:Sender>User01</q1:Sender>
+        <q1:DateTime>20180724120435.000</q1:DateTime>
+        <q1:ReportType>CBRN</q1:ReportType>
+        <q1:SecurityClassification>Unclassified</q1:SecurityClassification>
+      </q1:ReportHeader>
+    </q1:Report>
+  </ExtensionMsg>
+</JDSSDMMessage>

@@ -1,0 +1,17 @@
+TOP <- XML
+S <- %s*
+XML <- complexitem
+
+item        <- S complexitem / S simpleitem
+simpleitem  <- S '<' { W } optattrs S '/>'
+complexitem <- S '<' {:tag: W } optattrs S '>'
+                 complexbody S
+                 '</' $tag '>'
+complexbody <- S (item / { (!(S '<') .)+ })*
+optattrs    <- S ( { attrname1 / attrname2 } EQUALS attrvalue )*
+attrname1   <- S {:nbrace: ['"] } { W } $nbrace
+attrname2   <- S { W }
+attrvalue   <- S {:vbrace: ['"] } { ( ! $vbrace . )* } $vbrace
+text        <- S { ( !'<' .)* } &'<'
+EQUALS      <- S '='
+W           <- S [a-zA-Z0-9:_-]+

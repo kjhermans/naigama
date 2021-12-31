@@ -1,0 +1,18 @@
+<JDSSDMMessage xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:int:nato:standard:mip:jdssdm:1.1">
+  <Id>11114e47-9999-4ed3-b17d-1444dc80b003</Id>
+  <Datetime>20150630124757.449</Datetime>
+  <Originator>dd4a4e47-88e0-4ed3-b17d-1444dc80b657</Originator>
+  <OriginatorCountryCode>DEU</OriginatorCountryCode>
+  <CasevacreqMsg>
+	<ActionTask-MEDEVC>
+	  <OID>104a4e47-88e0-4ed3-b17d-1444dc987654</OID>
+	  <NameText>CASEVAC request</NameText>
+	  <GeographicPoint>
+		<LatitudeCoordinate>50.956006</LatitudeCoordinate>
+		<LongitudeCoordinate>4.462064</LongitudeCoordinate>
+	  </GeographicPoint>
+	  <CasualitiesNumber>100</CasualitiesNumber>
+	  <Marking />
+	</ActionTask-MEDEVC>
+  </CasevacreqMsg>
+</JDSSDMMessage>

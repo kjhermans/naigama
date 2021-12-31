@@ -1,0 +1,13 @@
+JSON           <- %s* HASH %s* !.
+HASH           <- '{' %s* HASHELTS? %s* '}'
+HASHELTS       <- HASHELT %s* ',' %s* HASHELTS / HASHELT
+HASHELT        <- STRING %s* ':' %s* VALUE
+ARRAY          <- '[' %s* ARRAYELTS? %s* ']'
+ARRAYELTS      <- VALUE %s* ',' %s* ARRAYELTS / VALUE
+VALUE          <- STRING / FLOAT / INT / BOOL / NULL / HASH / ARRAY
+STRING         <- {:quote: ['" ] } STRINGCONTENT $quote
+STRINGCONTENT  <- ( '\\' ([nrtv\\'"] / [0-9]^3) / [^"'\\] )*
+INT            <- [0-9]+
+FLOAT          <- [0-9]* '.' [0-9]+
+BOOL           <- 'true' / 'false'
+NULL           <- 'null'

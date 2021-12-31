@@ -1,0 +1,29 @@
+#!/bin/sh
+
+set -e
+
+XSD=$1
+PEG=$2
+
+echo "Finding the xsdcompile executable .."
+XSDCOMPILE=`find . -type f | egrep '(^|/)xsdcompile$'`
+
+echo "Finding the perl2xmlpeg executable .."
+PERL2XMLPEG=`find . -type f | egrep '(^|/)perl2xmlpeg$'`
+
+echo "Checking that the xsdcompile executable is perl .."
+perl -c $XSDCOMPILE
+
+echo "Checking that the perl2xmlpeg executable is perl .."
+perl -c $PERL2XMLPEG
+
+echo "Executing the xsdcompile script, from $XSD .."
+perl $XSDCOMPILE $XSD > /tmp/$$.pl
+
+echo "Executing the perl2xmlpeg script, into $PEG .."
+perl $PERL2XMLPEG /tmp/$$.pl > $PEG
+
+echo "Removing the tmpfile .."
+rm -f /tmp/$$.pl
+
+echo "Done :-)"

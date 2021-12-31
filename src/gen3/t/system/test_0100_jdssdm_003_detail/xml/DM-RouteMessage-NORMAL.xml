@@ -1,0 +1,54 @@
+<JDSSDMMessage xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:int:nato:standard:mip:jdssdm:1.1">
+  <Id>9c97452c-6e44-458a-b431-e8b0bfe0efcd</Id>
+  <Datetime>20170710101248.744</Datetime>
+  <Originator>caca4de9-8131-4ea9-ab23-8a1acff562a1</Originator>
+  <OriginatorCountryCode>NLD</OriginatorCountryCode>
+  <ExtensionMsg xmlns:q1="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q1:RouteMsgType" ReportingDatetime="20150626110002.599">
+    <q1:RouteOverlay>
+      <OID>4123acff-88e0-4ed3-b17d-1444dc666670</OID>
+      <NameText>RouteOverlay1</NameText>
+      <q1:Route>
+        <OID>4123acff-88e0-4ed3-b17d-1444dc666671</OID>
+		<NameText>First route</NameText>
+		<HostilityStatusCode>FAKER</HostilityStatusCode>
+        <q1:RouteWPs>
+          <LatitudeCoordinate>50.940065</LatitudeCoordinate>
+          <LongitudeCoordinate>4.454733</LongitudeCoordinate>
+          <q1:WPOperation>
+			<q1:NameText>NoName</q1:NameText>
+          </q1:WPOperation>
+        </q1:RouteWPs>
+        <q1:RouteWPs>
+          <LatitudeCoordinate>50.969053</LatitudeCoordinate>
+          <LongitudeCoordinate>4.458059</LongitudeCoordinate>
+          <q1:WPOperation>
+			<q1:NameText>NoName</q1:NameText>
+          </q1:WPOperation>
+        </q1:RouteWPs>
+        <q1:RouteWPs>
+          <LatitudeCoordinate>50.931852</LatitudeCoordinate>
+          <LongitudeCoordinate>4.450647</LongitudeCoordinate>
+          <q1:WPOperation>
+			<q1:NameText>NoName</q1:NameText>
+          </q1:WPOperation>
+        </q1:RouteWPs>
+        <q1:RouteWPs>
+          <LatitudeCoordinate>50.962918</LatitudeCoordinate>
+          <LongitudeCoordinate>4.460215</LongitudeCoordinate>
+          <q1:WPOperation>
+			<q1:NameText>NoName</q1:NameText>
+          </q1:WPOperation>
+        </q1:RouteWPs>
+        <q1:RouteWPs>
+          <LatitudeCoordinate>50.948089</LatitudeCoordinate>
+          <LongitudeCoordinate>4.464292</LongitudeCoordinate>
+          <q1:WPOperation>
+			<q1:NameText>NoName</q1:NameText>
+          </q1:WPOperation>
+        </q1:RouteWPs>
+        <q1:IsReverse>false</q1:IsReverse>
+        <q1:IsCyclic>false</q1:IsCyclic>
+      </q1:Route>
+    </q1:RouteOverlay>
+  </ExtensionMsg>
+</JDSSDMMessage>

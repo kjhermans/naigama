@@ -1,0 +1,74 @@
+\newpage
+\section{Parsing a Certificate for its Signature}
+
+The grammar below will extract the signature value, along with the OID 
+that specifies the signature type (including its parameter) from a 
+certificate.
+
+\begin{changemargin}{-60mm}{0mm}
+\begin{myquote}
+\begin{verbatim}
+CERTIFICATE    <- SEQUENCE BERLENGTH <<ruint32:$_:CERTCONTENT>>
+
+BERLENGTH      <- & |00|80| { . } /
+                  0x81 { . } / 0x82 { .. } / 0x83 { ...  } / 0x84 { .... }
+
+CERTCONTENT    <- TBSCERTIFICATE
+                  SIGNATUREALGORITHM
+                  SIGNATUREVALUE
+TBSCERTIFICATE <- SEQUENCE BERLENGTH <<ruint32:$_:TBSCERTCONTENT>>
+TBSCERTCONTENT <- .*
+
+SIGNATUREALGORITHM <- SEQUENCE BERLENGTH <<ruint32:$_:SIGALGCONTENT>>
+SIGALGCONTENT  <- OID ANY?
+
+ANY            <- . BERLENGTH <<ruint32:$_:ANYCONTENT>>
+ANYCONTENT     <- { .* }
+
+SEQUENCE       <- 0x30
+BITSTRING      <- 0x03
+
+OID            <- 0x06 BERLENGTH <<ruint32:$_:OIDVALUE>>
+OIDVALUE       <- { . ( |80|80|* |00|80| )* }
+
+SIGNATUREVALUE <- BITSTRING BERLENGTH <<ruint32:$_:SIGVALCONTENT>>
+SIGVALCONTENT  <- { .* }
+\end{verbatim}
+\end{myquote}
+\end{changemargin}
+
+This grammar skips all the content, allowing you to quickly perform a 
+cryptographic verification on the certificate. The output of the parsing 
+process:
+
+\begin{changemargin}{-60mm}{0mm}
+\begin{myquote}
+\begin{verbatim}
+End code: 0
+9 actions total
+Action #0: capture slot 2, 2->2 "\x03^L"
+Action #1: capture slot 2, 6->2 "\x02u"
+Action #2: capture slot 0, 638->1 "^M"
+Action #3: capture slot 0, 640->1 "     "
+Action #4: capture slot 6, 641->9 "*\x86H\x86\xf7^M\x01\x01^K"
+Action #5: capture slot 0, 651->1 "\x00"
+Action #6: capture slot 5, 652->0 ""
+Action #7: capture slot 1, 654->1 "\x81"
+Action #8: capture slot 7, 655->129 
+"\x00E\x83\xdb\x1fo\xa3\xce[\xe7\x9c@A;&\x851\xe2x\xdc\x85\xa8I\x7f\xeeh}
+\x11\xc7B\xeb\"#=\xff:f\xf7\x95\xc1\xc9R\xc3\x95kUsl\\\xc9\x83y\x894?\x0e
+\x86\xbc\x148R\xb9\xe9~\xb6\xb3\xe0\xdcp\x12\x82\xfa\x87\xce8)@\xa2\xfb!
+\xa5\x10u\x8a\xa1mg\x08\xda\xda\xea\_\x83\xa77){\x9bQ\xbe<h/\xae2wfge0\xf6
+6)I\xa0;x\x9ai}I5\x18}\xe8\xdf;n"
+Number of instructions: 1676
+Max stack depth: 8
+\end{verbatim}
+\end{myquote}
+\end{changemargin}
+
+The artifacts from this process are also few in number. The slots 0-4 can 
+be ignored, as they are used by the BERLENGTH rule only, and consumed for 
+the purpose of limiting the input during certain rule calls. Slot 5, 6 and 
+7 will contain the capture regions you’re interested in.
+
+\end{appendices}

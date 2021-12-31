@@ -1,0 +1,79 @@
+
+%\begin{table}[]
+\begin{center}
+\caption{Naigama Bytecode Instructions}
+\label{tab:naig_bytecode}
+\begin{longtable}{lllll}
+\textbf{Mnemonic} & \textbf{Opcode} & \textbf{Param1} & \textbf{Param2} & \textbf{Length} \\
+\endhead
+any & 000003e4 &  &   & 4 \\
+backcommit & 000403c0 & address &   & 8 \\
+call & 00040382 & address &   & 8 \\
+catch & 00040393 & address &   & 8 \\
+char & 000403d7 & char &   & 8 \\
+closecapture & 00040300 & slot &   & 8 \\
+commit & 00040336 & address &   & 8 \\
+condjump & 00080321 & register & address  & 12 \\
+counter & 00080356 & register & value  & 12 \\
+end & 000400d8 & code &   & 8 \\
+endisolate & 00003005 &  &   & 4 \\
+endreplace & 00000399 &  &   & 4 \\
+fail & 0000034b &  &   & 4 \\
+failtwice & 00000390 &  &   & 4 \\
+intrpcapture & 0008000f &  &   & 12 \\
+isolate & 00043003 & slot &   & 8 \\
+jump & 00040333 & address &   & 8 \\
+maskedchar & 00080365 & char & mask  & 12 \\
+mode & 0004000a &  &   & 8 \\
+noop & 00000000 &  &   & 4 \\
+opencapture & 0004039c & slot &   & 8 \\
+partialcommit & 000403b4 & address &   & 8 \\
+quad & 0004037e & quad &   & 8 \\
+range & 000803bd & from & until  & 12 \\
+replace & 00080348 & slot & address  & 12 \\
+ret & 000003a0 &  &   & 4 \\
+scr\_add & 0000050c &  &   & 4 \\
+scr\_array & 00040006 &  &   & 8 \\
+scr\_assign & 000005c9 &  &   & 4 \\
+scr\_bitand & 00000527 &  &   & 4 \\
+scr\_bitnot & 00000574 &  &   & 4 \\
+scr\_bitor & 0000053c &  &   & 4 \\
+scr\_bitxor & 0000052d &  &   & 4 \\
+scr\_builtin & 000407cf &  &   & 8 \\
+scr\_call & 00040503 &  &   & 8 \\
+scr\_condjump & 0004000c &  &   & 8 \\
+scr\_dec & 0000053a &  &   & 4 \\
+scr\_div & 00000581 &  &   & 4 \\
+scr\_equals & 0000056c &  &   & 4 \\
+scr\_gt & 0000056f &  &   & 4 \\
+scr\_gteq & 0000054d &  &   & 4 \\
+scr\_inc & 000005f6 &  &   & 4 \\
+scr\_index & 00000009 &  &   & 4 \\
+scr\_logand & 0000052e &  &   & 4 \\
+scr\_lognot & 000005f9 &  &   & 4 \\
+scr\_logor & 000005a9 &  &   & 4 \\
+scr\_lt & 00000595 &  &   & 4 \\
+scr\_lteq & 00000522 &  &   & 4 \\
+scr\_mul & 0000058b &  &   & 4 \\
+scr\_nequals & 00000572 &  &   & 4 \\
+scr\_pop & 000005cc &  &   & 4 \\
+scr\_pow & 00000542 &  &   & 4 \\
+scr\_push & 000c0003 &  &   & 16 \\
+scr\_ret & 00000555 &  &   & 4 \\
+scr\_shift & 00040005 &  &   & 8 \\
+scr\_shiftin & 0000057d &  &   & 4 \\
+scr\_shiftout & 00000517 &  &   & 4 \\
+scr\_string & 000017bb &  &   & 4 \\
+scr\_sub & 000005bb &  &   & 4 \\
+set & 002003ca & set &   & 36 \\
+skip & 00040330 & number &   & 8 \\
+span & 002003e1 & set &   & 36 \\
+testany & 00040306 & address &   & 8 \\
+testchar & 0008039a & address & char  & 12 \\
+testquad & 000803db & address & quad  & 12 \\
+testset & 00240363 & address & set  & 40 \\
+trap & ff00ffff &  &   & 4 \\
+var & 000403ee & slot &   & 8 \\
+\end{longtable}
+\end{center}
+%\end{table}

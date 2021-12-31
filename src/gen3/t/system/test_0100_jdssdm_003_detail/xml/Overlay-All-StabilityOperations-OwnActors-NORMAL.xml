@@ -1,0 +1,489 @@
+<JDSSDMMessage xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:int:nato:standard:mip:jdssdm:1.1">
+  <Id OIDType="UUID">8520324f-e8a4-48fe-9c22-f1b554f971f1</Id>
+  <Datetime>20200821125453.330</Datetime>
+  <Originator OIDType="UUID">eb0ac4fa-a0c1-3bbd-7fe4-dc47dc79ef0f</Originator>
+  <OriginatorCountryCode>NLD</OriginatorCountryCode>
+  <OverlayMsg>
+    <Overlay IsUpdate="true">
+      <OID OIDType="UUID">702dd375-92c1-da15-0250-6402caab66ce</OID>
+      <NameText>Friendly Actors</NameText>
+      <ExtendedObject xmlns:q1="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q1:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b57-0000-000000000000</OID>
+        <NameText>StabilityOperations0025</NameText>
+        <Comment>
+          <CommentText>CIMIC
+Locations
+X*S*07----
+CIMIC Center
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q1:SIDC>app6a:G*C*OX----*****</q1:SIDC>
+        <q1:Location>
+          <q1:GeographicPoint>
+            <LatitudeCoordinate>52.178613</LatitudeCoordinate>
+            <LongitudeCoordinate>5.381091</LongitudeCoordinate>
+          </q1:GeographicPoint>
+        </q1:Location>
+      </ExtendedObject>
+      <ActionEvent>
+        <OID OIDType="UUID">a6f556a0-e33e-0b72-0000-000000000000</OID>
+        <NameText>StabilityOperations0052</NameText>
+        <Comment>
+          <CommentText>REFUGE
+Items
+O*I*R-----
+Refugees
+</CommentText>
+        </Comment>
+        <GeographicPoint>
+          <LatitudeCoordinate>52.164827</LatitudeCoordinate>
+          <LongitudeCoordinate>5.358614</LongitudeCoordinate>
+        </GeographicPoint>
+        <CategoryCode>REFMVM</CategoryCode>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+      </ActionEvent>
+      <ExtendedObject xmlns:q2="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q2:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b77-0000-000000000000</OID>
+        <NameText>StabilityOperations0057</NameText>
+        <Comment>
+          <CommentText>NMGO
+Nonmilitary group or organization
+O*G*------
+Not Specified
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q2:SIDC>app6a:G*C*OX----*****</q2:SIDC>
+        <q2:Location>
+          <q2:GeographicPoint>
+            <LatitudeCoordinate>52.164827</LatitudeCoordinate>
+            <LongitudeCoordinate>5.396076</LongitudeCoordinate>
+          </q2:GeographicPoint>
+        </q2:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q3="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q3:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b78-0000-000000000000</OID>
+        <NameText>StabilityOperations0058</NameText>
+        <Comment>
+          <CommentText>NMGODISPL
+Nonmilitary group or organization
+O*G*A-----
+Displaced persons, refugees and evacuees
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q3:SIDC>app6a:G*O*IR----*****</q3:SIDC>
+        <q3:Location>
+          <q3:GeographicPoint>
+            <LatitudeCoordinate>52.164827</LatitudeCoordinate>
+            <LongitudeCoordinate>5.403570</LongitudeCoordinate>
+          </q3:GeographicPoint>
+        </q3:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q4="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q4:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b79-0000-000000000000</OID>
+        <NameText>StabilityOperations0059</NameText>
+        <Comment>
+          <CommentText>NMGONGO
+Nonmilitary group or organization
+O*G*B-----
+Nongovernamental organization (NGO)
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q4:SIDC>app6a:G*C*OX----*****</q4:SIDC>
+        <q4:Location>
+          <q4:GeographicPoint>
+            <LatitudeCoordinate>52.164827</LatitudeCoordinate>
+            <LongitudeCoordinate>5.411062</LongitudeCoordinate>
+          </q4:GeographicPoint>
+        </q4:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q5="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q5:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b7a-0000-000000000000</OID>
+        <NameText>StabilityOperations0060</NameText>
+        <Comment>
+          <CommentText>NMGOTER
+Nonmilitary group or organization
+O*G*C-----
+Terrorists
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q5:SIDC>app6a:G*C*OX----*****</q5:SIDC>
+        <q5:Location>
+          <q5:GeographicPoint>
+            <LatitudeCoordinate>52.164827</LatitudeCoordinate>
+            <LongitudeCoordinate>5.418556</LongitudeCoordinate>
+          </q5:GeographicPoint>
+        </q5:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q6="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q6:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b7b-0000-000000000000</OID>
+        <NameText>StabilityOperations0061</NameText>
+        <Comment>
+          <CommentText>NMGOREG
+Nonmilitary group or organization
+O*G*D-----
+Religious
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q6:SIDC>app6a:G*C*OX----*****</q6:SIDC>
+        <q6:Location>
+          <q6:GeographicPoint>
+            <LatitudeCoordinate>52.160231</LatitudeCoordinate>
+            <LongitudeCoordinate>5.351120</LongitudeCoordinate>
+          </q6:GeographicPoint>
+        </q6:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q7="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q7:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b7c-0000-000000000000</OID>
+        <NameText>StabilityOperations0062</NameText>
+        <Comment>
+          <CommentText>NMGOFF
+Nonmilitary group or organization
+O*G*E-----
+Foreign fighters
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q7:SIDC>app6a:G*C*OX----*****</q7:SIDC>
+        <q7:Location>
+          <q7:GeographicPoint>
+            <LatitudeCoordinate>52.160231</LatitudeCoordinate>
+            <LongitudeCoordinate>5.358614</LongitudeCoordinate>
+          </q7:GeographicPoint>
+        </q7:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q8="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q8:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b7d-0000-000000000000</OID>
+        <NameText>StabilityOperations0063</NameText>
+        <Comment>
+          <CommentText>NMGOGANG
+Nonmilitary group or organization
+O*G*F-----
+Gang
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q8:SIDC>app6a:G*C*OX----*****</q8:SIDC>
+        <q8:Location>
+          <q8:GeographicPoint>
+            <LatitudeCoordinate>52.160231</LatitudeCoordinate>
+            <LongitudeCoordinate>5.366105</LongitudeCoordinate>
+          </q8:GeographicPoint>
+        </q8:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q9="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q9:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b7e-0000-000000000000</OID>
+        <NameText>StabilityOperations0064</NameText>
+        <Comment>
+          <CommentText>NMCIVPL
+Nonmilitary group or organization
+A*S*02----
+Civilian Police
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q9:SIDC>app6a:G*C*OX----*****</q9:SIDC>
+        <q9:Location>
+          <q9:GeographicPoint>
+            <LatitudeCoordinate>52.160231</LatitudeCoordinate>
+            <LongitudeCoordinate>5.373599</LongitudeCoordinate>
+          </q9:GeographicPoint>
+        </q9:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q10="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q10:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b7f-0000-000000000000</OID>
+        <NameText>StabilityOperations0065</NameText>
+        <Comment>
+          <CommentText>NMENVPR
+Nonmilitary group or organization
+A*S*03----
+Environmental Protection
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q10:SIDC>app6a:G*C*OX----*****</q10:SIDC>
+        <q10:Location>
+          <q10:GeographicPoint>
+            <LatitudeCoordinate>52.160231</LatitudeCoordinate>
+            <LongitudeCoordinate>5.381091</LongitudeCoordinate>
+          </q10:GeographicPoint>
+        </q10:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q11="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q11:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b80-0000-000000000000</OID>
+        <NameText>StabilityOperations0066</NameText>
+        <Comment>
+          <CommentText>NMGOV
+Nonmilitary group or organization
+A*S*04----
+Governamental Organization
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q11:SIDC>app6a:G*C*OX----*****</q11:SIDC>
+        <q11:Location>
+          <q11:GeographicPoint>
+            <LatitudeCoordinate>52.160231</LatitudeCoordinate>
+            <LongitudeCoordinate>5.388585</LongitudeCoordinate>
+          </q11:GeographicPoint>
+        </q11:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q12="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q12:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b81-0000-000000000000</OID>
+        <NameText>StabilityOperations0067</NameText>
+        <Comment>
+          <CommentText>ISF
+Nonmilitary group or organization
+O*I*F-----
+Internal Security Force
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q12:SIDC>app6a:GFO*IF----*****</q12:SIDC>
+        <q12:Location>
+          <q12:GeographicPoint>
+            <LatitudeCoordinate>52.160231</LatitudeCoordinate>
+            <LongitudeCoordinate>5.396076</LongitudeCoordinate>
+          </q12:GeographicPoint>
+        </q12:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q13="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q13:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b82-0000-000000000000</OID>
+        <NameText>StabilityOperations0068</NameText>
+        <Comment>
+          <CommentText>NMOTAG
+Nonmilitary group or organization
+A*S*05----
+Targeted
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q13:SIDC>app6a:G*C*OX----*****</q13:SIDC>
+        <q13:Location>
+          <q13:GeographicPoint>
+            <LatitudeCoordinate>52.160231</LatitudeCoordinate>
+            <LongitudeCoordinate>5.403570</LongitudeCoordinate>
+          </q13:GeographicPoint>
+        </q13:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q14="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q14:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b87-0000-000000000000</OID>
+        <NameText>StabilityOperations0073</NameText>
+        <Comment>
+          <CommentText>IND
+Individual
+O*P*------
+Not Specified
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q14:SIDC>app6a:G*C*OX----*****</q14:SIDC>
+        <q14:Location>
+          <q14:GeographicPoint>
+            <LatitudeCoordinate>52.155633</LatitudeCoordinate>
+            <LongitudeCoordinate>5.366105</LongitudeCoordinate>
+          </q14:GeographicPoint>
+        </q14:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q15="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q15:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b88-0000-000000000000</OID>
+        <NameText>StabilityOperations0074</NameText>
+        <Comment>
+          <CommentText>INDDISPL
+Individual
+A*S*13----
+Displaced person, refugee or evacuee
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q15:SIDC>app6a:G*C*OX----*****</q15:SIDC>
+        <q15:Location>
+          <q15:GeographicPoint>
+            <LatitudeCoordinate>52.155633</LatitudeCoordinate>
+            <LongitudeCoordinate>5.373599</LongitudeCoordinate>
+          </q15:GeographicPoint>
+        </q15:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q16="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q16:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b89-0000-000000000000</OID>
+        <NameText>StabilityOperations0075</NameText>
+        <Comment>
+          <CommentText>INDLEAD
+Individual
+O*P*A-----
+Leader
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q16:SIDC>app6a:G*C*OX----*****</q16:SIDC>
+        <q16:Location>
+          <q16:GeographicPoint>
+            <LatitudeCoordinate>52.155633</LatitudeCoordinate>
+            <LongitudeCoordinate>5.381091</LongitudeCoordinate>
+          </q16:GeographicPoint>
+        </q16:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q17="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q17:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b8a-0000-000000000000</OID>
+        <NameText>StabilityOperations0076</NameText>
+        <Comment>
+          <CommentText>INDTAG
+Individual
+O*P*B-----
+Targeted
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q17:SIDC>app6a:G*C*OX----*****</q17:SIDC>
+        <q17:Location>
+          <q17:GeographicPoint>
+            <LatitudeCoordinate>52.155633</LatitudeCoordinate>
+            <LongitudeCoordinate>5.388585</LongitudeCoordinate>
+          </q17:GeographicPoint>
+        </q17:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q18="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q18:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b8b-0000-000000000000</OID>
+        <NameText>StabilityOperations0077</NameText>
+        <Comment>
+          <CommentText>INDTER
+Individual
+O*P*C-----
+Terrorist
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q18:SIDC>app6a:G*C*OX----*****</q18:SIDC>
+        <q18:Location>
+          <q18:GeographicPoint>
+            <LatitudeCoordinate>52.155633</LatitudeCoordinate>
+            <LongitudeCoordinate>5.396076</LongitudeCoordinate>
+          </q18:GeographicPoint>
+        </q18:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q19="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q19:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b8c-0000-000000000000</OID>
+        <NameText>StabilityOperations0078</NameText>
+        <Comment>
+          <CommentText>INDREG
+Individual
+A*S*06----
+Religious
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q19:SIDC>app6a:G*C*OX----*****</q19:SIDC>
+        <q19:Location>
+          <q19:GeographicPoint>
+            <LatitudeCoordinate>52.155633</LatitudeCoordinate>
+            <LongitudeCoordinate>5.403570</LongitudeCoordinate>
+          </q19:GeographicPoint>
+        </q19:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q20="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q20:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b8d-0000-000000000000</OID>
+        <NameText>StabilityOperations0079</NameText>
+        <Comment>
+          <CommentText>INDNGO
+Individual
+A*S*07----
+Nongovernamental organization (NGO)
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q20:SIDC>app6a:G*C*OX----*****</q20:SIDC>
+        <q20:Location>
+          <q20:GeographicPoint>
+            <LatitudeCoordinate>52.155633</LatitudeCoordinate>
+            <LongitudeCoordinate>5.411062</LongitudeCoordinate>
+          </q20:GeographicPoint>
+        </q20:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q21="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q21:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b8e-0000-000000000000</OID>
+        <NameText>StabilityOperations0080</NameText>
+        <Comment>
+          <CommentText>INDGOV
+Individual
+A*S*08----
+Governamental organization
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q21:SIDC>app6a:G*C*OX----*****</q21:SIDC>
+        <q21:Location>
+          <q21:GeographicPoint>
+            <LatitudeCoordinate>52.155633</LatitudeCoordinate>
+            <LongitudeCoordinate>5.418556</LongitudeCoordinate>
+          </q21:GeographicPoint>
+        </q21:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q22="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q22:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b8f-0000-000000000000</OID>
+        <NameText>StabilityOperations0081</NameText>
+        <Comment>
+          <CommentText>INDFF
+Individual
+A*S*09----
+Foreign fighter
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q22:SIDC>app6a:G*C*OX----*****</q22:SIDC>
+        <q22:Location>
+          <q22:GeographicPoint>
+            <LatitudeCoordinate>52.151036</LatitudeCoordinate>
+            <LongitudeCoordinate>5.351120</LongitudeCoordinate>
+          </q22:GeographicPoint>
+        </q22:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q23="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q23:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b90-0000-000000000000</OID>
+        <NameText>StabilityOperations0082</NameText>
+        <Comment>
+          <CommentText>INDGANG
+Individual
+A*S*10----
+Gang member
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q23:SIDC>app6a:G*C*OX----*****</q23:SIDC>
+        <q23:Location>
+          <q23:GeographicPoint>
+            <LatitudeCoordinate>52.151036</LatitudeCoordinate>
+            <LongitudeCoordinate>5.358614</LongitudeCoordinate>
+          </q23:GeographicPoint>
+        </q23:Location>
+      </ExtendedObject>
+    </Overlay>
+  </OverlayMsg>
+</JDSSDMMessage>

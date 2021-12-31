@@ -1,0 +1,1151 @@
+<JDSSDMMessage xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:int:nato:standard:mip:jdssdm:1.1">
+  <Id OIDType="UUID">e506f192-6faa-4e07-a2cd-200ef694c626</Id>
+  <Datetime>20200821125453.346</Datetime>
+  <Originator OIDType="UUID">eb0ac4fa-a0c1-3bbd-7fe4-dc47dc79ef0f</Originator>
+  <OriginatorCountryCode>NLD</OriginatorCountryCode>
+  <OverlayMsg>
+    <Overlay IsUpdate="true">
+      <OID OIDType="UUID">36569af9-7824-4682-fd9a-0b48c51570bd</OID>
+      <NameText>Events</NameText>
+      <ExtendedObject xmlns:q1="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q1:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b3f-0000-000000000000</OID>
+        <NameText>StabilityOperations0001</NameText>
+        <Comment>
+          <CommentText>ARSON
+Violent Activities
+O*V*A-----
+Arson/Fire
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q1:SIDC>app6a:GHO*VA----*****</q1:SIDC>
+        <q1:Location>
+          <q1:GeographicPoint>
+            <LatitudeCoordinate>52.187801</LatitudeCoordinate>
+            <LongitudeCoordinate>5.351120</LongitudeCoordinate>
+          </q1:GeographicPoint>
+        </q1:Location>
+      </ExtendedObject>
+      <ActionEvent>
+        <OID OIDType="UUID">a6f556a0-e33e-0b40-0000-000000000000</OID>
+        <NameText>StabilityOperations0002</NameText>
+        <Comment>
+          <CommentText>BOMBNG
+Violent Activities
+O*V*B-----
+Bomb/Bombing
+</CommentText>
+        </Comment>
+        <GeographicPoint>
+          <LatitudeCoordinate>52.187801</LatitudeCoordinate>
+          <LongitudeCoordinate>5.358614</LongitudeCoordinate>
+        </GeographicPoint>
+        <CategoryCode>BOMBNG</CategoryCode>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+      </ActionEvent>
+      <ExtendedObject xmlns:q2="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q2:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b41-0000-000000000000</OID>
+        <NameText>StabilityOperations0003</NameText>
+        <Comment>
+          <CommentText>BBYTRP
+Violent Activities
+O*V*Y-----
+Booby Trap
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q2:SIDC>app6a:GHO*VY----*****</q2:SIDC>
+        <q2:Location>
+          <q2:GeographicPoint>
+            <LatitudeCoordinate>52.187801</LatitudeCoordinate>
+            <LongitudeCoordinate>5.366105</LongitudeCoordinate>
+          </q2:GeographicPoint>
+        </q2:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q3="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q3:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b42-0000-000000000000</OID>
+        <NameText>StabilityOperations0004</NameText>
+        <Comment>
+          <CommentText>DRVSHT
+Violent Activities
+O*V*D-----
+Drive-By Shooting
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q3:SIDC>app6a:GHO*VD----*****</q3:SIDC>
+        <q3:Location>
+          <q3:GeographicPoint>
+            <LatitudeCoordinate>52.187801</LatitudeCoordinate>
+            <LongitudeCoordinate>5.373599</LongitudeCoordinate>
+          </q3:GeographicPoint>
+        </q3:Location>
+      </ExtendedObject>
+      <ActionEvent>
+        <OID OIDType="UUID">a6f556a0-e33e-0b43-0000-000000000000</OID>
+        <NameText>StabilityOperations0005</NameText>
+        <Comment>
+          <CommentText>SNPATK
+Violent Activities
+O*V*S-----
+Sniping
+</CommentText>
+        </Comment>
+        <GeographicPoint>
+          <LatitudeCoordinate>52.187801</LatitudeCoordinate>
+          <LongitudeCoordinate>5.381091</LongitudeCoordinate>
+        </GeographicPoint>
+        <CategoryCode>SNPATK</CategoryCode>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+      </ActionEvent>
+      <ExtendedObject xmlns:q4="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q4:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b44-0000-000000000000</OID>
+        <NameText>StabilityOperations0006</NameText>
+        <Comment>
+          <CommentText>POISON
+Violent Activities
+O*V*P-----
+Poisoning
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q4:SIDC>app6a:GHO*VP----*****</q4:SIDC>
+        <q4:Location>
+          <q4:GeographicPoint>
+            <LatitudeCoordinate>52.187801</LatitudeCoordinate>
+            <LongitudeCoordinate>5.388585</LongitudeCoordinate>
+          </q4:GeographicPoint>
+        </q4:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q5="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q5:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b45-0000-000000000000</OID>
+        <NameText>StabilityOperations0007</NameText>
+        <Comment>
+          <CommentText>VIOLACTEXPL
+Violent Activities
+O*V*E-----
+Explosion
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q5:SIDC>app6a:G*C*OX----*****</q5:SIDC>
+        <q5:Location>
+          <q5:GeographicPoint>
+            <LatitudeCoordinate>52.187801</LatitudeCoordinate>
+            <LongitudeCoordinate>5.396076</LongitudeCoordinate>
+          </q5:GeographicPoint>
+        </q5:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q6="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q6:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b46-0000-000000000000</OID>
+        <NameText>StabilityOperations0008</NameText>
+        <Comment>
+          <CommentText>VIOLACTIEDEXPL
+Violent Activities
+O*V*EI----
+IED Explosion
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q6:SIDC>app6a:GHO*VY----*****</q6:SIDC>
+        <q6:Location>
+          <q6:GeographicPoint>
+            <LatitudeCoordinate>52.187801</LatitudeCoordinate>
+            <LongitudeCoordinate>5.403570</LongitudeCoordinate>
+          </q6:GeographicPoint>
+        </q6:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q7="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q7:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b47-0000-000000000000</OID>
+        <NameText>StabilityOperations0009</NameText>
+        <Comment>
+          <CommentText>ARTFIR
+Violent Activities
+X*S*01----
+Artillery Fire
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q7:SIDC>app6a:GHO*VR----*****</q7:SIDC>
+        <q7:Location>
+          <q7:GeographicPoint>
+            <LatitudeCoordinate>52.187801</LatitudeCoordinate>
+            <LongitudeCoordinate>5.411062</LongitudeCoordinate>
+          </q7:GeographicPoint>
+        </q7:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q8="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q8:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b48-0000-000000000000</OID>
+        <NameText>StabilityOperations0010</NameText>
+        <Comment>
+          <CommentText>MRTFIR
+Violent Activities
+X*S*03----
+Mortar Fire
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q8:SIDC>app6a:GHO*VM----*****</q8:SIDC>
+        <q8:Location>
+          <q8:GeographicPoint>
+            <LatitudeCoordinate>52.187801</LatitudeCoordinate>
+            <LongitudeCoordinate>5.418556</LongitudeCoordinate>
+          </q8:GeographicPoint>
+        </q8:Location>
+      </ExtendedObject>
+      <ActionEvent>
+        <OID OIDType="UUID">a6f556a0-e33e-0b49-0000-000000000000</OID>
+        <NameText>StabilityOperations0011</NameText>
+        <Comment>
+          <CommentText>AMBUSH
+Violent Activities
+X*S*05----
+Ambush
+</CommentText>
+        </Comment>
+        <GeographicPoint>
+          <LatitudeCoordinate>52.183206</LatitudeCoordinate>
+          <LongitudeCoordinate>5.351120</LongitudeCoordinate>
+        </GeographicPoint>
+        <CategoryCode>AMBUSH</CategoryCode>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+      </ActionEvent>
+      <ExtendedObject xmlns:q9="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q9:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b4a-0000-000000000000</OID>
+        <NameText>StabilityOperations0012</NameText>
+        <Comment>
+          <CommentText>RECCE
+Violent Activities
+X*S*06----
+Reconnaissance/Surveillance
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q9:SIDC>app6a:GHO*VL----*****</q9:SIDC>
+        <q9:Location>
+          <q9:GeographicPoint>
+            <LatitudeCoordinate>52.183206</LatitudeCoordinate>
+            <LongitudeCoordinate>5.358614</LongitudeCoordinate>
+          </q9:GeographicPoint>
+        </q9:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q10="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q10:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b4b-0000-000000000000</OID>
+        <NameText>StabilityOperations0013</NameText>
+        <Comment>
+          <CommentText>ASMUEX
+Violent Activities
+O*V*M-----
+Killing
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q10:SIDC>app6a:GHO*VE----*****</q10:SIDC>
+        <q10:Location>
+          <q10:GeographicPoint>
+            <LatitudeCoordinate>52.183206</LatitudeCoordinate>
+            <LongitudeCoordinate>5.366105</LongitudeCoordinate>
+          </q10:GeographicPoint>
+        </q10:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q11="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q11:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b4c-0000-000000000000</OID>
+        <NameText>StabilityOperations0014</NameText>
+        <Comment>
+          <CommentText>KILLIN
+Violent Activities
+A*S*11----
+Killing victims
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q11:SIDC>app6a:GHO*VE----*****</q11:SIDC>
+        <q11:Location>
+          <q11:GeographicPoint>
+            <LatitudeCoordinate>52.183206</LatitudeCoordinate>
+            <LongitudeCoordinate>5.373599</LongitudeCoordinate>
+          </q11:GeographicPoint>
+        </q11:Location>
+      </ExtendedObject>
+      <ActionEvent>
+        <OID OIDType="UUID">a6f556a0-e33e-0b4d-0000-000000000000</OID>
+        <NameText>StabilityOperations0015</NameText>
+        <Comment>
+          <CommentText>VIOLACTEXC
+Violent Activities
+O*V*MB----
+Execution
+</CommentText>
+        </Comment>
+        <GeographicPoint>
+          <LatitudeCoordinate>52.183206</LatitudeCoordinate>
+          <LongitudeCoordinate>5.381091</LongitudeCoordinate>
+        </GeographicPoint>
+        <CategoryCode>EXECTN</CategoryCode>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+      </ActionEvent>
+      <ActionEvent>
+        <OID OIDType="UUID">a6f556a0-e33e-0b4e-0000-000000000000</OID>
+        <NameText>StabilityOperations0016</NameText>
+        <Comment>
+          <CommentText>VIOLACTASS
+Violent Activities
+O*V*MC----
+Assassination
+</CommentText>
+        </Comment>
+        <GeographicPoint>
+          <LatitudeCoordinate>52.183206</LatitudeCoordinate>
+          <LongitudeCoordinate>5.388585</LongitudeCoordinate>
+        </GeographicPoint>
+        <CategoryCode>ASSNTN</CategoryCode>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+      </ActionEvent>
+      <ExtendedObject xmlns:q12="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q12:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b4f-0000-000000000000</OID>
+        <NameText>StabilityOperations0017</NameText>
+        <Comment>
+          <CommentText>ASSATT
+Violent Activities
+A*S*14----
+Attempted Assassination
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q12:SIDC>app6a:GHO*VE----*****</q12:SIDC>
+        <q12:Location>
+          <q12:GeographicPoint>
+            <LatitudeCoordinate>52.183206</LatitudeCoordinate>
+            <LongitudeCoordinate>5.396076</LongitudeCoordinate>
+          </q12:GeographicPoint>
+        </q12:Location>
+      </ExtendedObject>
+      <ActionEvent>
+        <OID OIDType="UUID">a6f556a0-e33e-0b50-0000-000000000000</OID>
+        <NameText>StabilityOperations0018</NameText>
+        <Comment>
+          <CommentText>VIOLACTMUD
+Violent Activities
+O*V*MA----
+Murder
+</CommentText>
+        </Comment>
+        <GeographicPoint>
+          <LatitudeCoordinate>52.183206</LatitudeCoordinate>
+          <LongitudeCoordinate>5.403570</LongitudeCoordinate>
+        </GeographicPoint>
+        <CategoryCode>MURDER</CategoryCode>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+      </ActionEvent>
+      <ExtendedObject xmlns:q13="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q13:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b51-0000-000000000000</OID>
+        <NameText>StabilityOperations0019</NameText>
+        <Comment>
+          <CommentText>RAPE
+Violent Activities
+O*R*------
+Rape
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q13:SIDC>app6a:GHO*IV----*****</q13:SIDC>
+        <q13:Location>
+          <q13:GeographicPoint>
+            <LatitudeCoordinate>52.183206</LatitudeCoordinate>
+            <LongitudeCoordinate>5.411062</LongitudeCoordinate>
+          </q13:GeographicPoint>
+        </q13:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q14="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q14:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b52-0000-000000000000</OID>
+        <NameText>StabilityOperations0020</NameText>
+        <Comment>
+          <CommentText>RAPEATT
+Violent Activities
+O*R*A-----
+Attempted Rape
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q14:SIDC>app6a:GHO*IV----*****</q14:SIDC>
+        <q14:Location>
+          <q14:GeographicPoint>
+            <LatitudeCoordinate>52.183206</LatitudeCoordinate>
+            <LongitudeCoordinate>5.418556</LongitudeCoordinate>
+          </q14:GeographicPoint>
+        </q14:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q15="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q15:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b53-0000-000000000000</OID>
+        <NameText>StabilityOperations0021</NameText>
+        <Comment>
+          <CommentText>BLKLST
+Locations
+O*L*B-----
+Black List Location
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q15:SIDC>app6a:GHO*LB----*****</q15:SIDC>
+        <q15:Location>
+          <q15:GeographicPoint>
+            <LatitudeCoordinate>52.178613</LatitudeCoordinate>
+            <LongitudeCoordinate>5.351120</LongitudeCoordinate>
+          </q15:GeographicPoint>
+        </q15:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q16="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q16:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b54-0000-000000000000</OID>
+        <NameText>StabilityOperations0022</NameText>
+        <Comment>
+          <CommentText>GRYLST
+Locations
+O*L*G-----
+Gray List Location
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q16:SIDC>app6a:GHO*LG----*****</q16:SIDC>
+        <q16:Location>
+          <q16:GeographicPoint>
+            <LatitudeCoordinate>52.178613</LatitudeCoordinate>
+            <LongitudeCoordinate>5.358614</LongitudeCoordinate>
+          </q16:GeographicPoint>
+        </q16:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q17="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q17:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b55-0000-000000000000</OID>
+        <NameText>StabilityOperations0023</NameText>
+        <Comment>
+          <CommentText>WHTLST
+Locations
+O*L*W-----
+White List Location
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q17:SIDC>app6a:GHO*LW----*****</q17:SIDC>
+        <q17:Location>
+          <q17:GeographicPoint>
+            <LatitudeCoordinate>52.178613</LatitudeCoordinate>
+            <LongitudeCoordinate>5.366105</LongitudeCoordinate>
+          </q17:GeographicPoint>
+        </q17:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q18="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q18:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b56-0000-000000000000</OID>
+        <NameText>StabilityOperations0024</NameText>
+        <Comment>
+          <CommentText>MASGRV
+Locations
+O*L*M-----
+Mass graves
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q18:SIDC>app6a:G*C*OX----*****</q18:SIDC>
+        <q18:Location>
+          <q18:GeographicPoint>
+            <LatitudeCoordinate>52.178613</LatitudeCoordinate>
+            <LongitudeCoordinate>5.373599</LongitudeCoordinate>
+          </q18:GeographicPoint>
+        </q18:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q19="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q19:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b58-0000-000000000000</OID>
+        <NameText>StabilityOperations0026</NameText>
+        <Comment>
+          <CommentText>BUILD
+Locations
+X*S*08----
+Building of cultural importance
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q19:SIDC>app6a:G*C*OX----*****</q19:SIDC>
+        <q19:Location>
+          <q19:GeographicPoint>
+            <LatitudeCoordinate>52.178613</LatitudeCoordinate>
+            <LongitudeCoordinate>5.388585</LongitudeCoordinate>
+          </q19:GeographicPoint>
+        </q19:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q20="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q20:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b59-0000-000000000000</OID>
+        <NameText>StabilityOperations0027</NameText>
+        <Comment>
+          <CommentText>CHURCH
+Locations
+X*S*09----
+Burial ground or Church
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q20:SIDC>app6a:G*C*OX----*****</q20:SIDC>
+        <q20:Location>
+          <q20:GeographicPoint>
+            <LatitudeCoordinate>52.178613</LatitudeCoordinate>
+            <LongitudeCoordinate>5.396076</LongitudeCoordinate>
+          </q20:GeographicPoint>
+        </q20:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q21="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q21:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b5a-0000-000000000000</OID>
+        <NameText>StabilityOperations0028</NameText>
+        <Comment>
+          <CommentText>PATRL
+Operations
+O*O*P-----
+Patrolling
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q21:SIDC>app6a:GHO*PT----*****</q21:SIDC>
+        <q21:Location>
+          <q21:GeographicPoint>
+            <LatitudeCoordinate>52.178613</LatitudeCoordinate>
+            <LongitudeCoordinate>5.403570</LongitudeCoordinate>
+          </q21:GeographicPoint>
+        </q21:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q22="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q22:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b5b-0000-000000000000</OID>
+        <NameText>StabilityOperations0029</NameText>
+        <Comment>
+          <CommentText>RCRWIL
+Operations
+O*O*RW----
+Recruitment (Willing)
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q22:SIDC>app6a:GHO*PC----*****</q22:SIDC>
+        <q22:Location>
+          <q22:GeographicPoint>
+            <LatitudeCoordinate>52.178613</LatitudeCoordinate>
+            <LongitudeCoordinate>5.411062</LongitudeCoordinate>
+          </q22:GeographicPoint>
+        </q22:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q23="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q23:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b5c-0000-000000000000</OID>
+        <NameText>StabilityOperations0030</NameText>
+        <Comment>
+          <CommentText>RCRCO
+Operations
+O*O*RC----
+Recruitment (Coerced/Impressed)
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q23:SIDC>app6a:GHO*PCU---*****</q23:SIDC>
+        <q23:Location>
+          <q23:GeographicPoint>
+            <LatitudeCoordinate>52.178613</LatitudeCoordinate>
+            <LongitudeCoordinate>5.418556</LongitudeCoordinate>
+          </q23:GeographicPoint>
+        </q23:Location>
+      </ExtendedObject>
+      <ActionEvent>
+        <OID OIDType="UUID">a6f556a0-e33e-0b5d-0000-000000000000</OID>
+        <NameText>StabilityOperations0031</NameText>
+        <Comment>
+          <CommentText>DMNSTR
+Operations
+O*O*D-----
+Demonstration
+</CommentText>
+        </Comment>
+        <GeographicPoint>
+          <LatitudeCoordinate>52.174017</LatitudeCoordinate>
+          <LongitudeCoordinate>5.351120</LongitudeCoordinate>
+        </GeographicPoint>
+        <CategoryCode>DMNSTR</CategoryCode>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+      </ActionEvent>
+      <ExtendedObject xmlns:q24="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q24:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b5e-0000-000000000000</OID>
+        <NameText>StabilityOperations0032</NameText>
+        <Comment>
+          <CommentText>MINLAY
+Operations
+O*O*M-----
+Mine Laying
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q24:SIDC>app6a:GHO*PM----*****</q24:SIDC>
+        <q24:Location>
+          <q24:GeographicPoint>
+            <LatitudeCoordinate>52.174017</LatitudeCoordinate>
+            <LongitudeCoordinate>5.358614</LongitudeCoordinate>
+          </q24:GeographicPoint>
+        </q24:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q25="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q25:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b5f-0000-000000000000</OID>
+        <NameText>StabilityOperations0033</NameText>
+        <Comment>
+          <CommentText>PSYOP
+Operations
+O*O*Y-----
+PSYOP (Psychological Operations)
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q25:SIDC>app6a:GHO*PH----*****</q25:SIDC>
+        <q25:Location>
+          <q25:GeographicPoint>
+            <LatitudeCoordinate>52.174017</LatitudeCoordinate>
+            <LongitudeCoordinate>5.366105</LongitudeCoordinate>
+          </q25:GeographicPoint>
+        </q25:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q26="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q26:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b60-0000-000000000000</OID>
+        <NameText>StabilityOperations0034</NameText>
+        <Comment>
+          <CommentText>PSYOPB
+Operations
+O*O*YT----
+PSYOP, TV and Radio Propaganda
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q26:SIDC>app6a:GHO*PHY---*****</q26:SIDC>
+        <q26:Location>
+          <q26:GeographicPoint>
+            <LatitudeCoordinate>52.174017</LatitudeCoordinate>
+            <LongitudeCoordinate>5.373599</LongitudeCoordinate>
+          </q26:GeographicPoint>
+        </q26:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q27="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q27:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b61-0000-000000000000</OID>
+        <NameText>StabilityOperations0035</NameText>
+        <Comment>
+          <CommentText>PSYOPW
+Operations
+O*O*YW----
+PSYOP, Written Propaganda
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q27:SIDC>app6a:GFO*PHG---*****</q27:SIDC>
+        <q27:Location>
+          <q27:GeographicPoint>
+            <LatitudeCoordinate>52.174017</LatitudeCoordinate>
+            <LongitudeCoordinate>5.381091</LongitudeCoordinate>
+          </q27:GeographicPoint>
+        </q27:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q28="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q28:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b62-0000-000000000000</OID>
+        <NameText>StabilityOperations0036</NameText>
+        <Comment>
+          <CommentText>PSYOPH
+Operations
+O*O*YH----
+PSYOP, House-To-House Propaganda
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q28:SIDC>app6a:GFO*PHT---*****</q28:SIDC>
+        <q28:Location>
+          <q28:GeographicPoint>
+            <LatitudeCoordinate>52.174017</LatitudeCoordinate>
+            <LongitudeCoordinate>5.388585</LongitudeCoordinate>
+          </q28:GeographicPoint>
+        </q28:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q29="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q29:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b63-0000-000000000000</OID>
+        <NameText>StabilityOperations0037</NameText>
+        <Comment>
+          <CommentText>FORSE
+Operations
+O*O*F-----
+Foraging/Searching
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q29:SIDC>app6a:GHO*PG----*****</q29:SIDC>
+        <q29:Location>
+          <q29:GeographicPoint>
+            <LatitudeCoordinate>52.174017</LatitudeCoordinate>
+            <LongitudeCoordinate>5.396076</LongitudeCoordinate>
+          </q29:GeographicPoint>
+        </q29:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q30="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q30:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b64-0000-000000000000</OID>
+        <NameText>StabilityOperations0038</NameText>
+        <Comment>
+          <CommentText>SPY
+Operations
+O*O*S-----
+Spy
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q30:SIDC>app6a:GHO*PS----*****</q30:SIDC>
+        <q30:Location>
+          <q30:GeographicPoint>
+            <LatitudeCoordinate>52.174017</LatitudeCoordinate>
+            <LongitudeCoordinate>5.403570</LongitudeCoordinate>
+          </q30:GeographicPoint>
+        </q30:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q31="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q31:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b65-0000-000000000000</OID>
+        <NameText>StabilityOperations0039</NameText>
+        <Comment>
+          <CommentText>FOODDS
+Operations
+O*O*O-----
+Food Distribution
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q31:SIDC>app6a:GNO*PF----*****</q31:SIDC>
+        <q31:Location>
+          <q31:GeographicPoint>
+            <LatitudeCoordinate>52.174017</LatitudeCoordinate>
+            <LongitudeCoordinate>5.411062</LongitudeCoordinate>
+          </q31:GeographicPoint>
+        </q31:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q32="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q32:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b66-0000-000000000000</OID>
+        <NameText>StabilityOperations0040</NameText>
+        <Comment>
+          <CommentText>EXTORT
+Operations
+O*O*E-----
+Extortion
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q32:SIDC>app6a:GHO*PX----*****</q32:SIDC>
+        <q32:Location>
+          <q32:GeographicPoint>
+            <LatitudeCoordinate>52.174017</LatitudeCoordinate>
+            <LongitudeCoordinate>5.418556</LongitudeCoordinate>
+          </q32:GeographicPoint>
+        </q32:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q33="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q33:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b67-0000-000000000000</OID>
+        <NameText>StabilityOperations0041</NameText>
+        <Comment>
+          <CommentText>HIJVEH
+Operations
+O*O*HT----
+Hijacking (Vehicle)
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q33:SIDC>app6a:GHO*PJV---*****</q33:SIDC>
+        <q33:Location>
+          <q33:GeographicPoint>
+            <LatitudeCoordinate>52.169423</LatitudeCoordinate>
+            <LongitudeCoordinate>5.351120</LongitudeCoordinate>
+          </q33:GeographicPoint>
+        </q33:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q34="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q34:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b68-0000-000000000000</OID>
+        <NameText>StabilityOperations0042</NameText>
+        <Comment>
+          <CommentText>HIJAPL
+Operations
+O*O*HA----
+Hijacking (Airplane)
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q34:SIDC>app6a:GHO*PJA---*****</q34:SIDC>
+        <q34:Location>
+          <q34:GeographicPoint>
+            <LatitudeCoordinate>52.169423</LatitudeCoordinate>
+            <LongitudeCoordinate>5.358614</LongitudeCoordinate>
+          </q34:GeographicPoint>
+        </q34:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q35="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q35:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b69-0000-000000000000</OID>
+        <NameText>StabilityOperations0043</NameText>
+        <Comment>
+          <CommentText>HIJBOT
+Operations
+O*O*HV----
+Hijacking (Boat)
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q35:SIDC>app6a:GHO*PJB---*****</q35:SIDC>
+        <q35:Location>
+          <q35:GeographicPoint>
+            <LatitudeCoordinate>52.169423</LatitudeCoordinate>
+            <LongitudeCoordinate>5.366105</LongitudeCoordinate>
+          </q35:GeographicPoint>
+        </q35:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q36="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q36:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b6a-0000-000000000000</OID>
+        <NameText>StabilityOperations0044</NameText>
+        <Comment>
+          <CommentText>HIJATT
+Operations
+A*S*12----
+Attempted Hijacking
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q36:SIDC>app6a:GHO*PJ----*****</q36:SIDC>
+        <q36:Location>
+          <q36:GeographicPoint>
+            <LatitudeCoordinate>52.169423</LatitudeCoordinate>
+            <LongitudeCoordinate>5.373599</LongitudeCoordinate>
+          </q36:GeographicPoint>
+        </q36:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q37="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q37:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b6b-0000-000000000000</OID>
+        <NameText>StabilityOperations0045</NameText>
+        <Comment>
+          <CommentText>KIDNAP
+Operations
+O*O*K-----
+Kidnapping
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q37:SIDC>app6a:GHO*PK----*****</q37:SIDC>
+        <q37:Location>
+          <q37:GeographicPoint>
+            <LatitudeCoordinate>52.169423</LatitudeCoordinate>
+            <LongitudeCoordinate>5.381091</LongitudeCoordinate>
+          </q37:GeographicPoint>
+        </q37:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q38="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q38:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b6c-0000-000000000000</OID>
+        <NameText>StabilityOperations0046</NameText>
+        <Comment>
+          <CommentText>KIDATT
+Operations
+O*O*KA----
+Attempted Kidnapping
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q38:SIDC>app6a:GHO*PK----*****</q38:SIDC>
+        <q38:Location>
+          <q38:GeographicPoint>
+            <LatitudeCoordinate>52.169423</LatitudeCoordinate>
+            <LongitudeCoordinate>5.388585</LongitudeCoordinate>
+          </q38:GeographicPoint>
+        </q38:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q39="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q39:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b6d-0000-000000000000</OID>
+        <NameText>StabilityOperations0047</NameText>
+        <Comment>
+          <CommentText>ARREST
+Operations
+O*O*A-----
+Arrest
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q39:SIDC>app6a:GFO*PA----*****</q39:SIDC>
+        <q39:Location>
+          <q39:GeographicPoint>
+            <LatitudeCoordinate>52.169423</LatitudeCoordinate>
+            <LongitudeCoordinate>5.396076</LongitudeCoordinate>
+          </q39:GeographicPoint>
+        </q39:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q40="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q40:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b6e-0000-000000000000</OID>
+        <NameText>StabilityOperations0048</NameText>
+        <Comment>
+          <CommentText>DRGOPR
+Operations
+O*O*U-----
+Drug Operation
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q40:SIDC>app6a:GHO*PO----*****</q40:SIDC>
+        <q40:Location>
+          <q40:GeographicPoint>
+            <LatitudeCoordinate>52.169423</LatitudeCoordinate>
+            <LongitudeCoordinate>5.403570</LongitudeCoordinate>
+          </q40:GeographicPoint>
+        </q40:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q41="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q41:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b6f-0000-000000000000</OID>
+        <NameText>StabilityOperations0049</NameText>
+        <Comment>
+          <CommentText>PIRACY
+Operations
+A*S*01----
+Piracy
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q41:SIDC>app6a:G*C*OX----*****</q41:SIDC>
+        <q41:Location>
+          <q41:GeographicPoint>
+            <LatitudeCoordinate>52.169423</LatitudeCoordinate>
+            <LongitudeCoordinate>5.411062</LongitudeCoordinate>
+          </q41:GeographicPoint>
+        </q41:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q42="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q42:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b70-0000-000000000000</OID>
+        <NameText>StabilityOperations0050</NameText>
+        <Comment>
+          <CommentText>SUPCHE
+Items
+A*S*15----
+Ammunition Cache
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q42:SIDC>app6a:G*C*OX----*****</q42:SIDC>
+        <q42:Location>
+          <q42:GeographicPoint>
+            <LatitudeCoordinate>52.169423</LatitudeCoordinate>
+            <LongitudeCoordinate>5.418556</LongitudeCoordinate>
+          </q42:GeographicPoint>
+        </q42:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q43="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q43:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b71-0000-000000000000</OID>
+        <NameText>StabilityOperations0051</NameText>
+        <Comment>
+          <CommentText>SAFEHS
+Items
+O*I*S-----
+Safe House
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q43:SIDC>app6a:G*O*IS----*****</q43:SIDC>
+        <q43:Location>
+          <q43:GeographicPoint>
+            <LatitudeCoordinate>52.164827</LatitudeCoordinate>
+            <LongitudeCoordinate>5.351120</LongitudeCoordinate>
+          </q43:GeographicPoint>
+        </q43:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q44="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q44:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b73-0000-000000000000</OID>
+        <NameText>StabilityOperations0053</NameText>
+        <Comment>
+          <CommentText>GRAFIT
+Items
+O*I*G-----
+Grafitti
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q44:SIDC>app6a:GHO*IG----*****</q44:SIDC>
+        <q44:Location>
+          <q44:GeographicPoint>
+            <LatitudeCoordinate>52.164827</LatitudeCoordinate>
+            <LongitudeCoordinate>5.366105</LongitudeCoordinate>
+          </q44:GeographicPoint>
+        </q44:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q45="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q45:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b74-0000-000000000000</OID>
+        <NameText>StabilityOperations0054</NameText>
+        <Comment>
+          <CommentText>VANDAL
+Items
+O*I*V-----
+Vandalism/Rape/Loot/Ransack/Plunder/Sack
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q45:SIDC>app6a:GHO*IV----*****</q45:SIDC>
+        <q45:Location>
+          <q45:GeographicPoint>
+            <LatitudeCoordinate>52.164827</LatitudeCoordinate>
+            <LongitudeCoordinate>5.373599</LongitudeCoordinate>
+          </q45:GeographicPoint>
+        </q45:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q46="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q46:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b75-0000-000000000000</OID>
+        <NameText>StabilityOperations0055</NameText>
+        <Comment>
+          <CommentText>INSVEH
+Items
+O*I*I-----
+Known Insurgent Vehicle
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q46:SIDC>app6a:GHO*IK----*****</q46:SIDC>
+        <q46:Location>
+          <q46:GeographicPoint>
+            <LatitudeCoordinate>52.164827</LatitudeCoordinate>
+            <LongitudeCoordinate>5.381091</LongitudeCoordinate>
+          </q46:GeographicPoint>
+        </q46:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q47="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q47:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b76-0000-000000000000</OID>
+        <NameText>StabilityOperations0056</NameText>
+        <Comment>
+          <CommentText>DRGVEH
+Items
+O*I*D-----
+Drug Vehicle
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q47:SIDC>app6a:GHO*ID----*****</q47:SIDC>
+        <q47:Location>
+          <q47:GeographicPoint>
+            <LatitudeCoordinate>52.164827</LatitudeCoordinate>
+            <LongitudeCoordinate>5.388585</LongitudeCoordinate>
+          </q47:GeographicPoint>
+        </q47:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q48="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q48:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b83-0000-000000000000</OID>
+        <NameText>StabilityOperations0069</NameText>
+        <Comment>
+          <CommentText>COMPLOSS
+Composite Loss
+O*O*C-----
+Not Specified
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q48:SIDC>app6a:G*C*OX----*****</q48:SIDC>
+        <q48:Location>
+          <q48:GeographicPoint>
+            <LatitudeCoordinate>52.160231</LatitudeCoordinate>
+            <LongitudeCoordinate>5.411062</LongitudeCoordinate>
+          </q48:GeographicPoint>
+        </q48:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q49="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q49:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b84-0000-000000000000</OID>
+        <NameText>StabilityOperations0070</NameText>
+        <Comment>
+          <CommentText>COMPLOSSCOMB
+Composite Loss
+O*O*CA----
+Combat
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q49:SIDC>app6a:G*C*OX----*****</q49:SIDC>
+        <q49:Location>
+          <q49:GeographicPoint>
+            <LatitudeCoordinate>52.160231</LatitudeCoordinate>
+            <LongitudeCoordinate>5.418556</LongitudeCoordinate>
+          </q49:GeographicPoint>
+        </q49:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q50="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q50:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b85-0000-000000000000</OID>
+        <NameText>StabilityOperations0071</NameText>
+        <Comment>
+          <CommentText>COMPLOSSACC
+Composite Loss
+O*O*CB----
+Accident
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q50:SIDC>app6a:G*C*OX----*****</q50:SIDC>
+        <q50:Location>
+          <q50:GeographicPoint>
+            <LatitudeCoordinate>52.155633</LatitudeCoordinate>
+            <LongitudeCoordinate>5.351120</LongitudeCoordinate>
+          </q50:GeographicPoint>
+        </q50:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q51="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q51:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b86-0000-000000000000</OID>
+        <NameText>StabilityOperations0072</NameText>
+        <Comment>
+          <CommentText>COMPLOSSOTH
+Composite Loss
+O*O*CC----
+Other
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q51:SIDC>app6a:G*C*OX----*****</q51:SIDC>
+        <q51:Location>
+          <q51:GeographicPoint>
+            <LatitudeCoordinate>52.155633</LatitudeCoordinate>
+            <LongitudeCoordinate>5.358614</LongitudeCoordinate>
+          </q51:GeographicPoint>
+        </q51:Location>
+      </ExtendedObject>
+    </Overlay>
+  </OverlayMsg>
+</JDSSDMMessage>

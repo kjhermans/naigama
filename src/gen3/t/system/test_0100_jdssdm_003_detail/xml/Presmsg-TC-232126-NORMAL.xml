@@ -1,0 +1,43 @@
+<JDSSDMMessage xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:int:nato:standard:mip:jdssdm:1.1">
+  <Id OIDType="UUID">e6c8b017-04a3-43ac-a7b4-4450d796c002</Id>
+  <Datetime>20190917071851.451</Datetime>
+  <Originator OIDType="UUID">009941ff-b243-11db-8460-ffff3f766789</Originator>
+  <OriginatorCountryCode>NLD</OriginatorCountryCode>
+  <PresenceMsg>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-5061-ef123f766779</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.141453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.285860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-5162-ef123f766779</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.144453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.285860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-5263-ef123f766779</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.124153</LatitudeCoordinate>
+        <LongitudeCoordinate>5.281860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-5364-ef123f766779</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.143453</LatitudeCoordinate>
+        <LongitudeCoordinate>5.266860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+    <Organisation-MilitaryPost>
+      <OID OIDType="UUID">009941ff-b243-11db-5465-ef123f766779</OID>
+      <GeographicPoint>
+        <LatitudeCoordinate>52.140853</LatitudeCoordinate>
+        <LongitudeCoordinate>5.267860</LongitudeCoordinate>
+      </GeographicPoint>
+    </Organisation-MilitaryPost>
+ 	</PresenceMsg>
+</JDSSDMMessage>

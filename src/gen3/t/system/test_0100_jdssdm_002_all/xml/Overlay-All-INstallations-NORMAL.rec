@@ -1,0 +1,795 @@
+<JDSSDMMessage xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:int:nato:standard:mip:jdssdm:1.1">
+  <Id OIDType="UUID">303c1bb5-f6fa-444f-8ddb-0e2947f584f3</Id>
+  <Datetime>20200821125446.747</Datetime>
+  <Originator OIDType="UUID">eb0ac4fa-a0c1-3bbd-7fe4-dc47dc79ef0f</Originator>
+  <OriginatorCountryCode>NLD</OriginatorCountryCode>
+  <OverlayMsg>
+    <Overlay IsUpdate="true">
+      <OID OIDType="UUID">52025242-4a0e-77cc-3cbc-99b177bc4276</OID>
+      <NameText>Miscellaneous</NameText>
+      <ExtendedObject xmlns:q1="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q1:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b18-0000-000000000000</OID>
+        <NameText>Installation0001</NameText>
+        <Comment>
+          <CommentText>NSP
+
+S*G*I-----
+Not Specified
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q1:SIDC>app6a:S*G*I-----H****</q1:SIDC>
+        <q1:Location>
+          <q1:GeographicPoint>
+            <LatitudeCoordinate>52.183778</LatitudeCoordinate>
+            <LongitudeCoordinate>5.216272</LongitudeCoordinate>
+          </q1:GeographicPoint>
+        </q1:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q2="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q2:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b19-0000-000000000000</OID>
+        <NameText>Installation0002</NameText>
+        <Comment>
+          <CommentText>FACMIN
+Production/Storage
+S*G*IRM---
+Mine
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q2:SIDC>app6a:S*G*IRM---H****</q2:SIDC>
+        <q2:Location>
+          <q2:GeographicPoint>
+            <LatitudeCoordinate>52.183778</LatitudeCoordinate>
+            <LongitudeCoordinate>5.223763</LongitudeCoordinate>
+          </q2:GeographicPoint>
+        </q2:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q3="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q3:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b1a-0000-000000000000</OID>
+        <NameText>Installation0003</NameText>
+        <Comment>
+          <CommentText>FACCBRN
+Production/Storage
+S*G*IRN---
+CBRN
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q3:SIDC>app6a:S*G*IRN---H****</q3:SIDC>
+        <q3:Location>
+          <q3:GeographicPoint>
+            <LatitudeCoordinate>52.183778</LatitudeCoordinate>
+            <LongitudeCoordinate>5.231257</LongitudeCoordinate>
+          </q3:GeographicPoint>
+        </q3:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q4="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q4:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b1b-0000-000000000000</OID>
+        <NameText>Installation0004</NameText>
+        <Comment>
+          <CommentText>FACBIO
+Production/Storage
+S*G*IRNB--
+CBRN Biological
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q4:SIDC>app6a:S*G*IRNB--H****</q4:SIDC>
+        <q4:Location>
+          <q4:GeographicPoint>
+            <LatitudeCoordinate>52.183778</LatitudeCoordinate>
+            <LongitudeCoordinate>5.238748</LongitudeCoordinate>
+          </q4:GeographicPoint>
+        </q4:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q5="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q5:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b1c-0000-000000000000</OID>
+        <NameText>Installation0005</NameText>
+        <Comment>
+          <CommentText>FACCHM
+Production/Storage
+S*G*IRNC--
+CBRN Chemical
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q5:SIDC>app6a:S*G*IRNC--H****</q5:SIDC>
+        <q5:Location>
+          <q5:GeographicPoint>
+            <LatitudeCoordinate>52.183778</LatitudeCoordinate>
+            <LongitudeCoordinate>5.246243</LongitudeCoordinate>
+          </q5:GeographicPoint>
+        </q5:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q6="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q6:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b1d-0000-000000000000</OID>
+        <NameText>Installation0006</NameText>
+        <Comment>
+          <CommentText>FACNUC
+Production/Storage
+S*G*IRNN--
+CBRN Nuclear
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q6:SIDC>app6a:S*G*IRNN--H****</q6:SIDC>
+        <q6:Location>
+          <q6:GeographicPoint>
+            <LatitudeCoordinate>52.183778</LatitudeCoordinate>
+            <LongitudeCoordinate>5.253737</LongitudeCoordinate>
+          </q6:GeographicPoint>
+        </q6:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q7="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q7:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b1e-0000-000000000000</OID>
+        <NameText>Installation0007</NameText>
+        <Comment>
+          <CommentText>FACPOL
+Production/Storage
+S*G*IRP---
+Petroleum/Gas/Oil
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q7:SIDC>app6a:S*G*IRP---H****</q7:SIDC>
+        <q7:Location>
+          <q7:GeographicPoint>
+            <LatitudeCoordinate>52.183778</LatitudeCoordinate>
+            <LongitudeCoordinate>5.261228</LongitudeCoordinate>
+          </q7:GeographicPoint>
+        </q7:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q8="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q8:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b1f-0000-000000000000</OID>
+        <NameText>Installation0008</NameText>
+        <Comment>
+          <CommentText>FACPOW
+Electric Power Facility
+S*G*IUE---
+Not Specified
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q8:SIDC>app6a:S*G*IUE---H****</q8:SIDC>
+        <q8:Location>
+          <q8:GeographicPoint>
+            <LatitudeCoordinate>52.179183</LatitudeCoordinate>
+            <LongitudeCoordinate>5.216272</LongitudeCoordinate>
+          </q8:GeographicPoint>
+        </q8:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q9="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q9:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b20-0000-000000000000</OID>
+        <NameText>Installation0009</NameText>
+        <Comment>
+          <CommentText>FACPWH
+Electric Power Facility
+S*G*IUED--
+Dam
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q9:SIDC>app6a:S*G*IUE---H****</q9:SIDC>
+        <q9:Location>
+          <q9:GeographicPoint>
+            <LatitudeCoordinate>52.179183</LatitudeCoordinate>
+            <LongitudeCoordinate>5.223763</LongitudeCoordinate>
+          </q9:GeographicPoint>
+        </q9:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q10="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q10:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b21-0000-000000000000</OID>
+        <NameText>Installation0010</NameText>
+        <Comment>
+          <CommentText>FACPWN
+Electric Power Facility
+S*G*IUEN--
+Nuclear Plant
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q10:SIDC>app6a:S*G*IUE---H****</q10:SIDC>
+        <q10:Location>
+          <q10:GeographicPoint>
+            <LatitudeCoordinate>52.179183</LatitudeCoordinate>
+            <LongitudeCoordinate>5.231257</LongitudeCoordinate>
+          </q10:GeographicPoint>
+        </q10:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q11="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q11:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b22-0000-000000000000</OID>
+        <NameText>Installation0011</NameText>
+        <Comment>
+          <CommentText>FACPWC
+Electric Power Facility
+A*I*01----
+Coal
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q11:SIDC>app6a:S*G*IUE---H****</q11:SIDC>
+        <q11:Location>
+          <q11:GeographicPoint>
+            <LatitudeCoordinate>52.179183</LatitudeCoordinate>
+            <LongitudeCoordinate>5.238748</LongitudeCoordinate>
+          </q11:GeographicPoint>
+        </q11:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q12="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q12:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b23-0000-000000000000</OID>
+        <NameText>Installation0012</NameText>
+        <Comment>
+          <CommentText>FACPWT
+Electric Power Facility
+A*I*02----
+Geothermal
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q12:SIDC>app6a:S*G*IUE---H****</q12:SIDC>
+        <q12:Location>
+          <q12:GeographicPoint>
+            <LatitudeCoordinate>52.179183</LatitudeCoordinate>
+            <LongitudeCoordinate>5.246243</LongitudeCoordinate>
+          </q12:GeographicPoint>
+        </q12:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q13="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q13:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b24-0000-000000000000</OID>
+        <NameText>Installation0013</NameText>
+        <Comment>
+          <CommentText>FACPWG
+Electric Power Facility
+A*I*03----
+Natural Gas
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q13:SIDC>app6a:S*G*IUE---H****</q13:SIDC>
+        <q13:Location>
+          <q13:GeographicPoint>
+            <LatitudeCoordinate>52.179183</LatitudeCoordinate>
+            <LongitudeCoordinate>5.253737</LongitudeCoordinate>
+          </q13:GeographicPoint>
+        </q13:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q14="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q14:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b25-0000-000000000000</OID>
+        <NameText>Installation0014</NameText>
+        <Comment>
+          <CommentText>FACPWP
+Electric Power Facility
+A*I*04----
+Natural Petroleum
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q14:SIDC>app6a:S*G*IUE---H****</q14:SIDC>
+        <q14:Location>
+          <q14:GeographicPoint>
+            <LatitudeCoordinate>52.179183</LatitudeCoordinate>
+            <LongitudeCoordinate>5.261228</LongitudeCoordinate>
+          </q14:GeographicPoint>
+        </q14:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q15="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q15:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b26-0000-000000000000</OID>
+        <NameText>Installation0015</NameText>
+        <Comment>
+          <CommentText>FACWAT
+Service Facility
+S*G*IUP---
+Public Water Services
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q15:SIDC>app6a:S*G*IUP---H****</q15:SIDC>
+        <q15:Location>
+          <q15:GeographicPoint>
+            <LatitudeCoordinate>52.174589</LatitudeCoordinate>
+            <LongitudeCoordinate>5.216272</LongitudeCoordinate>
+          </q15:GeographicPoint>
+        </q15:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q16="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q16:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b27-0000-000000000000</OID>
+        <NameText>Installation0016</NameText>
+        <Comment>
+          <CommentText>FACWTT
+Service Facility
+A*I*10----
+Public Water Treatment
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q16:SIDC>app6a:S*G*IU----H****</q16:SIDC>
+        <q16:Location>
+          <q16:GeographicPoint>
+            <LatitudeCoordinate>52.174589</LatitudeCoordinate>
+            <LongitudeCoordinate>5.223763</LongitudeCoordinate>
+          </q16:GeographicPoint>
+        </q16:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q17="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q17:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b28-0000-000000000000</OID>
+        <NameText>Installation0017</NameText>
+        <Comment>
+          <CommentText>FACTEL
+Telecommunications Facility
+S*G*IUT---
+Not Specified
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q17:SIDC>app6a:S*G*IUT---H****</q17:SIDC>
+        <q17:Location>
+          <q17:GeographicPoint>
+            <LatitudeCoordinate>52.174589</LatitudeCoordinate>
+            <LongitudeCoordinate>5.231257</LongitudeCoordinate>
+          </q17:GeographicPoint>
+        </q17:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q18="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q18:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b29-0000-000000000000</OID>
+        <NameText>Installation0018</NameText>
+        <Comment>
+          <CommentText>FACCTV
+Telecommunications Facility
+A*I*05----
+Civilian TV
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q18:SIDC>app6a:S*G*IUT---H****</q18:SIDC>
+        <q18:Location>
+          <q18:GeographicPoint>
+            <LatitudeCoordinate>52.174589</LatitudeCoordinate>
+            <LongitudeCoordinate>5.238748</LongitudeCoordinate>
+          </q18:GeographicPoint>
+        </q18:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q19="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q19:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b2a-0000-000000000000</OID>
+        <NameText>Installation0019</NameText>
+        <Comment>
+          <CommentText>FACCRD
+Telecommunications Facility
+A*I*06----
+Civilian Radio
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q19:SIDC>app6a:S*G*IUT---H****</q19:SIDC>
+        <q19:Location>
+          <q19:GeographicPoint>
+            <LatitudeCoordinate>52.174589</LatitudeCoordinate>
+            <LongitudeCoordinate>5.246243</LongitudeCoordinate>
+          </q19:GeographicPoint>
+        </q19:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q20="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q20:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b2b-0000-000000000000</OID>
+        <NameText>Installation0020</NameText>
+        <Comment>
+          <CommentText>FACCTEL
+Telecommunications Facility
+A*I*07----
+Civilian Telephone
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q20:SIDC>app6a:S*G*IUT---H****</q20:SIDC>
+        <q20:Location>
+          <q20:GeographicPoint>
+            <LatitudeCoordinate>52.174589</LatitudeCoordinate>
+            <LongitudeCoordinate>5.253737</LongitudeCoordinate>
+          </q20:GeographicPoint>
+        </q20:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q21="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q21:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b2c-0000-000000000000</OID>
+        <NameText>Installation0021</NameText>
+        <Comment>
+          <CommentText>FACMIL
+Military
+S*G*IB----
+Military Base/Facility
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q21:SIDC>app6a:S*G*IB----H****</q21:SIDC>
+        <q21:Location>
+          <q21:GeographicPoint>
+            <LatitudeCoordinate>52.174589</LatitudeCoordinate>
+            <LongitudeCoordinate>5.261228</LongitudeCoordinate>
+          </q21:GeographicPoint>
+        </q21:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q22="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q22:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b2d-0000-000000000000</OID>
+        <NameText>Installation0022</NameText>
+        <Comment>
+          <CommentText>FACARP
+Military
+S*G*IMA---
+Aircraft Production Assembly
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q22:SIDC>app6a:S*G*IMA---H****</q22:SIDC>
+        <q22:Location>
+          <q22:GeographicPoint>
+            <LatitudeCoordinate>52.169994</LatitudeCoordinate>
+            <LongitudeCoordinate>5.216272</LongitudeCoordinate>
+          </q22:GeographicPoint>
+        </q22:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q23="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q23:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b2e-0000-000000000000</OID>
+        <NameText>Installation0023</NameText>
+        <Comment>
+          <CommentText>FACAMM
+Military
+S*G*IME---
+Ammunition Explosives Production
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q23:SIDC>app6a:S*G*IME---H****</q23:SIDC>
+        <q23:Location>
+          <q23:GeographicPoint>
+            <LatitudeCoordinate>52.169994</LatitudeCoordinate>
+            <LongitudeCoordinate>5.223763</LongitudeCoordinate>
+          </q23:GeographicPoint>
+        </q23:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q24="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q24:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b2f-0000-000000000000</OID>
+        <NameText>Installation0024</NameText>
+        <Comment>
+          <CommentText>FACVEH
+Military
+S*G*IMV---
+Military Vehicle Production
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q24:SIDC>app6a:S*G*IMV---H****</q24:SIDC>
+        <q24:Location>
+          <q24:GeographicPoint>
+            <LatitudeCoordinate>52.169994</LatitudeCoordinate>
+            <LongitudeCoordinate>5.231257</LongitudeCoordinate>
+          </q24:GeographicPoint>
+        </q24:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q25="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q25:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b30-0000-000000000000</OID>
+        <NameText>Installation0025</NameText>
+        <Comment>
+          <CommentText>FACCHB
+Military
+S*G*IMC---
+Chem Bio Warfare Production
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q25:SIDC>app6a:S*G*IMC---H****</q25:SIDC>
+        <q25:Location>
+          <q25:GeographicPoint>
+            <LatitudeCoordinate>52.169994</LatitudeCoordinate>
+            <LongitudeCoordinate>5.238748</LongitudeCoordinate>
+          </q25:GeographicPoint>
+        </q25:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q26="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q26:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b31-0000-000000000000</OID>
+        <NameText>Installation0026</NameText>
+        <Comment>
+          <CommentText>FACMSL
+Military
+S*G*IMM---
+Missile Space System Production
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q26:SIDC>app6a:S*G*IMM---H****</q26:SIDC>
+        <q26:Location>
+          <q26:GeographicPoint>
+            <LatitudeCoordinate>52.169994</LatitudeCoordinate>
+            <LongitudeCoordinate>5.246243</LongitudeCoordinate>
+          </q26:GeographicPoint>
+        </q26:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q27="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q27:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b32-0000-000000000000</OID>
+        <NameText>Installation0027</NameText>
+        <Comment>
+          <CommentText>FACNMP
+Military
+S*G*IMFP--
+Nuclear Material Production
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q27:SIDC>app6a:S*G*IRNN--H****</q27:SIDC>
+        <q27:Location>
+          <q27:GeographicPoint>
+            <LatitudeCoordinate>52.169994</LatitudeCoordinate>
+            <LongitudeCoordinate>5.253737</LongitudeCoordinate>
+          </q27:GeographicPoint>
+        </q27:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q28="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q28:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b33-0000-000000000000</OID>
+        <NameText>Installation0028</NameText>
+        <Comment>
+          <CommentText>FACNMS
+Military
+S*G*IMFS--
+Nuclear Material Storage
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q28:SIDC>app6a:S*G*IRNN--H****</q28:SIDC>
+        <q28:Location>
+          <q28:GeographicPoint>
+            <LatitudeCoordinate>52.169994</LatitudeCoordinate>
+            <LongitudeCoordinate>5.261228</LongitudeCoordinate>
+          </q28:GeographicPoint>
+        </q28:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q29="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q29:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b34-0000-000000000000</OID>
+        <NameText>Installation0029</NameText>
+        <Comment>
+          <CommentText>FACAIR
+
+S*G*IBA---
+Airport/Airbase
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q29:SIDC>app6a:S*G*IBA---H****</q29:SIDC>
+        <q29:Location>
+          <q29:GeographicPoint>
+            <LatitudeCoordinate>52.165398</LatitudeCoordinate>
+            <LongitudeCoordinate>5.216272</LongitudeCoordinate>
+          </q29:GeographicPoint>
+        </q29:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q30="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q30:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b35-0000-000000000000</OID>
+        <NameText>Installation0030</NameText>
+        <Comment>
+          <CommentText>FACNAV
+
+S*G*IBN---
+Seaport/Naval Base
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q30:SIDC>app6a:S*G*IBN---H****</q30:SIDC>
+        <q30:Location>
+          <q30:GeographicPoint>
+            <LatitudeCoordinate>52.165398</LatitudeCoordinate>
+            <LongitudeCoordinate>5.223763</LongitudeCoordinate>
+          </q30:GeographicPoint>
+        </q30:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q31="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q31:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b36-0000-000000000000</OID>
+        <NameText>Installation0031</NameText>
+        <Comment>
+          <CommentText>FACSHP
+
+S*G*IMS---
+Ship Yard/Construction
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q31:SIDC>app6a:S*G*IMS---H****</q31:SIDC>
+        <q31:Location>
+          <q31:GeographicPoint>
+            <LatitudeCoordinate>52.165398</LatitudeCoordinate>
+            <LongitudeCoordinate>5.231257</LongitudeCoordinate>
+          </q31:GeographicPoint>
+        </q31:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q32="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q32:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b37-0000-000000000000</OID>
+        <NameText>Installation0032</NameText>
+        <Comment>
+          <CommentText>FACMED
+
+S*G*IX----
+Medical Facility
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q32:SIDC>app6a:S*G*IX----H****</q32:SIDC>
+        <q32:Location>
+          <q32:GeographicPoint>
+            <LatitudeCoordinate>52.165398</LatitudeCoordinate>
+            <LongitudeCoordinate>5.238748</LongitudeCoordinate>
+          </q32:GeographicPoint>
+        </q32:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q33="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q33:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b38-0000-000000000000</OID>
+        <NameText>Installation0033</NameText>
+        <Comment>
+          <CommentText>FACHOS
+
+S*G*IXH---
+Medical Facility Hospital
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q33:SIDC>app6a:S*G*IXH---H****</q33:SIDC>
+        <q33:Location>
+          <q33:GeographicPoint>
+            <LatitudeCoordinate>52.165398</LatitudeCoordinate>
+            <LongitudeCoordinate>5.246243</LongitudeCoordinate>
+          </q33:GeographicPoint>
+        </q33:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q34="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q34:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b39-0000-000000000000</OID>
+        <NameText>Installation0034</NameText>
+        <Comment>
+          <CommentText>FACBRC
+Telecommunications Facility
+A*I*08----
+Broadcast Transmitter Antennae
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q34:SIDC>app6a:S*G*IUT---H****</q34:SIDC>
+        <q34:Location>
+          <q34:GeographicPoint>
+            <LatitudeCoordinate>52.165398</LatitudeCoordinate>
+            <LongitudeCoordinate>5.253737</LongitudeCoordinate>
+          </q34:GeographicPoint>
+        </q34:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q35="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q35:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b3a-0000-000000000000</OID>
+        <NameText>Installation0035</NameText>
+        <Comment>
+          <CommentText>FACRAIL
+
+A*I*09----
+Railroad Station
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q35:SIDC>app6a:S*G*IT----H****</q35:SIDC>
+        <q35:Location>
+          <q35:GeographicPoint>
+            <LatitudeCoordinate>52.165398</LatitudeCoordinate>
+            <LongitudeCoordinate>5.261228</LongitudeCoordinate>
+          </q35:GeographicPoint>
+        </q35:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q36="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q36:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b3b-0000-000000000000</OID>
+        <NameText>Installation0036</NameText>
+        <Comment>
+          <CommentText>FACSRU
+Service Facility
+S*G*IU----
+Utility
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q36:SIDC>app6a:S*G*IU----H****</q36:SIDC>
+        <q36:Location>
+          <q36:GeographicPoint>
+            <LatitudeCoordinate>52.160802</LatitudeCoordinate>
+            <LongitudeCoordinate>5.216272</LongitudeCoordinate>
+          </q36:GeographicPoint>
+        </q36:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q37="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q37:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b3c-0000-000000000000</OID>
+        <NameText>Installation0037</NameText>
+        <Comment>
+          <CommentText>FACTEC
+Service Facility
+S*G*IUR---
+Technological Research Facility
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q37:SIDC>app6a:S*G*IUR---H****</q37:SIDC>
+        <q37:Location>
+          <q37:GeographicPoint>
+            <LatitudeCoordinate>52.160802</LatitudeCoordinate>
+            <LongitudeCoordinate>5.223763</LongitudeCoordinate>
+          </q37:GeographicPoint>
+        </q37:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q38="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q38:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0b3d-0000-000000000000</OID>
+        <NameText>Installation0038</NameText>
+        <Comment>
+          <CommentText>FACLOG
+
+S*G*IT----
+Transport Facility
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q38:SIDC>app6a:S*G*IT----H****</q38:SIDC>
+        <q38:Location>
+          <q38:GeographicPoint>
+            <LatitudeCoordinate>52.160802</LatitudeCoordinate>
+            <LongitudeCoordinate>5.231257</LongitudeCoordinate>
+          </q38:GeographicPoint>
+        </q38:Location>
+      </ExtendedObject>
+      <Facility>
+        <OID OIDType="UUID">a6f556a0-e33e-0b3e-0000-000000000000</OID>
+        <NameText>Installation0039</NameText>
+        <Comment>
+          <CommentText>FACGOV
+
+S*G*IG----
+Governmental Building
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <GeographicPoint>
+          <LatitudeCoordinate>52.160802</LatitudeCoordinate>
+          <LongitudeCoordinate>5.238748</LongitudeCoordinate>
+        </GeographicPoint>
+        <FacilityType>
+          <OID OIDType="UUID">a6f556a0-e33e-0b3e-0000-000000000000</OID>
+          <NameText>Installation0039</NameText>
+          <CategoryCode>BLD</CategoryCode>
+        </FacilityType>
+        <OperationalStatusCode>MOPS</OperationalStatusCode>
+      </Facility>
+    </Overlay>
+  </OverlayMsg>
+</JDSSDMMessage>

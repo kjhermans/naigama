@@ -1,0 +1,14 @@
+<JDSSDMMessage xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:int:nato:standard:mip:jdssdm:1.1">
+  <Id OIDType="UUID">d58c47b0-9f00-46e5-955e-248187eaec9c</Id>
+  <Datetime>20180724114245.409</Datetime>
+  <Originator OIDType="UUID">a9b23d4f-ea52-8816-40cc-fe31138e85d9</Originator>
+  <OriginatorCountryCode>NLD</OriginatorCountryCode>
+  <Recipient OIDType="UUID">1596fa9e-a6b5-db70-9d4d-2068e4d2dbbb</Recipient>
+  <GenInfoMsg ReportingDatetime="20180724114245.257">
+    <TextItem>
+      <OID OIDType="UUID">3cdff55c-3430-4b60-945a-2e6bf376df52</OID>
+      <MessageSubject>Chat</MessageSubject>
+      <MessageBody>chaterrererererrrr</MessageBody>
+    </TextItem>
+  </GenInfoMsg>
+</JDSSDMMessage>

@@ -1,0 +1,49 @@
+<JDSSDMMessage xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:int:nato:standard:mip:jdssdm:1.1">
+  <Id OIDType="UUID">ac4dcebe-f4ba-400d-a57c-771366fe81c4</Id>
+  <Datetime>20180724132321.130</Datetime>
+  <Originator OIDType="UUID">a9b23d4f-ea52-8816-40cc-fe31138e85d9</Originator>
+  <OriginatorCountryCode>NLD</OriginatorCountryCode>
+  <Recipient OIDType="UUID">1596fa9e-a6b5-db70-9d4d-2068e4d2dbbb</Recipient>
+  <Recipient OIDType="UUID">04c097b8-4b9e-6dee-5a56-6031ede3d0db</Recipient>
+  <Recipient OIDType="UUID">928bf658-1b82-56b3-0d67-5c645a1b93f4</Recipient>
+  <ExtensionMsg xmlns:q1="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q1:ReportMessageType">
+    <q1:Report>
+      <OID OIDType="UUID">0ac6d9da-52e1-0057-0000-000000000000</OID>
+      <MessageSubject>24132107Z JUL 2018 User01 SOCIAL</MessageSubject>
+      <MessageBody>PATROL Report
+[Heading]:
+	Created By = User01
+	Created DTG = 241321Z JUL 18
+	Report Position = 31U GT 01304 88078
+	Patrol Type = SOCIAL
+Mission and Intent:
+	MissionIntent = platoon of Coffin Dodgers rollating by 
+Patrol Description:
+	Start DTG = 241321Z JUL 18
+	Start DTG = 241321Z JUL 19
+	Route = circtuitous
+Threats and Opportunities:
+	Terrain + Infrastructure = Description and Conclusions
+	Weather = thunderstorm
+	Actors + Activities = old people, shambling
+Patrol Composition [0]
+	Unit Type = INFANTRY
+	Unit Size = PLATOON
+	# Units = 1
+	Result = sooo many lost dentures
+Patrol Result:
+	Summary and Outcome = Mission and Intent received?
+	After Action Status = Personnel and Materiel
+Commanders Assessment:
+	Assessment = I don't want to be here anymore...
+[Footer]:
+	Classification = Unclassified</MessageBody>
+      <q1:ReportHeader>
+        <q1:Sender>User01</q1:Sender>
+        <q1:DateTime>20180724132320.000</q1:DateTime>
+        <q1:ReportType>PatrolReport</q1:ReportType>
+        <q1:SecurityClassification>Unclassified</q1:SecurityClassification>
+      </q1:ReportHeader>
+    </q1:Report>
+  </ExtensionMsg>
+</JDSSDMMessage>

@@ -1,0 +1,1192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2005 rel. 3 U (http://www.altova.com) by DTO Maasland (DTO Maasland) -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:jc3iedm="urn:int:nato:standard:mip:jc3iedm:3.0.2:oo:2.2" targetNamespace="urn:int:nato:standard:mip:jc3iedm:3.0.2:oo:2.2" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<annotation>
+		<documentation xml:lang="en">Subsets of Codes used  for JDSSDM (Jean Demers, jdemers@rheinmetall.ca, Rheinmetall Canada) from XML schema defined by the Multilateral Interoperability Programme (MIP) -</documentation>
+	</annotation>
+	<simpleType name="IED-ConsumableMaterielTypeSubcategoryCode">
+		<annotation>
+			<documentation xml:lang="en">The specific value that represents the detailed class of a specific CONSUMABLE-MATERIEL-TYPE.</documentation>
+		</annotation>
+		<restriction base="token">
+			<enumeration value="BBYTRP">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">An explosive or non-explosive device or other material deliberately placed to cause casualties when an apparently harmless object is disturbed or a normally safe act is performed.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Booby trap</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<simpleType name="MilitaryPostTypeRankCode">
+		<annotation>
+			<documentation xml:lang="en">The specific value that represents a designation for a military or naval grade that establishes the relative position or status of a specific MILITARY-POST-TYPE.</documentation>
+		</annotation>
+		<restriction base="token">
+			<enumeration value="EPTE">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The specification of a MILITARY-POST-TYPE as being appropriate for an individual in the armed forces without an officer's commission, warrant or other rank conferring leadership over other servicemen.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Enlisted private</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="NCO">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The specification of a MILITARY-POST-TYPE as being appropriate for an enlisted member of the armed forces appointed to a rank conferring leadership over other servicemen.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">NCO, not otherwise specified</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="NKN">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">It is not possible to determine which value is most applicable.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Not known</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="OF1">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The specification of a MILITARY-POST-TYPE as being appropriate for the officer rank of Lieutenant/Second Lieutenant/Midshipman/Sub-Lieutenant/Pilot Officer/Flying Officer.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">OF-1</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="OF10">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The specification of a MILITARY-POST-TYPE as being appropriate for the officer rank of Field Marshal/Fleet Admiral/General of the Air Force.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">OF-10</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="OF2">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The specification of a MILITARY-POST-TYPE as being appropriate for the officer rank of Captain/Lieutenant/Flight Lieutenant.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">OF-2</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="OF3">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The specification of a MILITARY-POST-TYPE as being appropriate for the officer rank of Major/Lieutenant-Commander/Squadron Leader.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">OF-3</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="OF4">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The specification of a MILITARY-POST-TYPE as being appropriate for the officer rank of Lieutenant Colonel/Commander/Wing Commander.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">OF-4</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="OF5">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The specification of a MILITARY-POST-TYPE as being appropriate for the officer rank of Colonel/Captain (under 6 years of seniority)/Group Captain.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">OF-5</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="OF6">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The specification of a MILITARY-POST-TYPE as being appropriate for the officer rank of Brigadier Captain (over 6 years seniority)/Air Commodore.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">OF-6</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="OF7">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The specification of a MILITARY-POST-TYPE as being appropriate for the officer rank of Major General/Rear Admiral/Air Vice Marshal.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">OF-7</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="OF8">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The specification of a MILITARY-POST-TYPE as being appropriate for the officer rank of Lieutenant General/Vice Admiral/Air Marshall.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">OF-8</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="OF9">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The specification of a MILITARY-POST-TYPE as being appropriate for the officer rank of General/Admiral/Air Chief Marshal.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">OF-9</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="OFFR">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The specification of a MILITARY-POST-TYPE as being appropriate for an individual who is invested with authority by means of a commission in the armed forces.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Officer, not otherwise specified</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="OR1">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The specification of a MILITARY-POST-TYPE as being appropriate for the rank of Private (Class 4)/Seaman Recruit/Basic Airman.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">OR-1</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="OR2">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The specification of a MILITARY-POST-TYPE as being appropriate for the rank of Private (Class 1-3)/Seaman Apprentice/Airman.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">OR-2</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="OR3">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The specification of a MILITARY-POST-TYPE as being appropriate for the rank of Lance Corporal/Seaman/Airman First Class.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">OR-3</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="OR4">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The specification of a MILITARY-POST-TYPE as being appropriate for the rank of Corporal/Petty Officer Third Class/Senior Airman/Sergeant.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">OR-4</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="OR5">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The specification of a MILITARY-POST-TYPE as being appropriate for the rank of Sergeant (Junior)/Petty Officer second Class/Staff Sergeant.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">OR-5</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="OR6">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The specification of a MILITARY-POST-TYPE as being appropriate for the rank of Sergeant (3 Years Seniority)/Petty Officer First Class/Technical Sergeant.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">OR-6</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="OR7">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The specification of a MILITARY-POST-TYPE as being appropriate for the rank of Staff Sergeant/Chief Petty Officer First Class/Master Sergeant.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">OR-7</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="OR8">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The specification of a MILITARY-POST-TYPE as being appropriate for the rank of Warrant Officer Class 2/Senior Chief Petty Officer/Senior Master Sergeant.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">OR-8</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="OR9">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The specification of a MILITARY-POST-TYPE as being appropriate for the rank of Warrant Officer Class 1/Master Chief Petty Officer/Chief Master Sergeant.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">OR-9</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="OTHR">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The specification of a MILITARY-POST-TYPE as being appropriate for an individual who does not hold an officer's commission in the armed forces.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Other ranks</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<simpleType name="VehicleTypeCategoryCode">
+		<annotation>
+			<documentation xml:lang="en">The specific value that represents the class of VEHICLE-TYPE.</documentation>
+		</annotation>
+		<restriction base="token">
+			<enumeration value="ACVACV">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">An Armoured Command and Control Vehicle (C2V) or an Armoured Combat Vehicle (ACV).</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Armoured C2V/ACV</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="APC">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A lightly armoured, highly mobile vehicle, amphibious and air-droppable, used primarily for transporting personnel and their individual equipment during tactical operations.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Armoured personnel carrier</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="MILUV">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A small, sturdy, four-wheel-drive army vehicle, used chiefly for reconnaissance; a similar vehicle in non-military use.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Military utility</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="NOS">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The appropriate value is not in the set of specified values.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Not otherwise specified</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<simpleType name="WeaponTypeSubcategoryCode">
+		<annotation>
+			<documentation xml:lang="en">The specific value that represents the detailed class of WEAPON-TYPE.</documentation>
+			<documentation xml:lang="en">IMPORTANT: If this type is modified, please also alter the list of code in JDSSDM_To_JC3IEDM.xslt</documentation>
+		</annotation>
+		<restriction base="token">
+			<enumeration value="ATGNHV">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A heavy gun designed to destroy tanks.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Anti-tank gun, heavy</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="ATGNLT">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A light gun designed to destroy tanks.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Anti-tank gun, light</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="ATGNMD">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A medium gun designed to destroy tanks.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Anti-tank gun, medium</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="ATRLHV">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A heavy structural device designed to support and hold an anti-tank rocket in position for firing.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Anti-tank rocket launcher, heavy</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="ATRLLT">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A light structural device designed to support and hold an anti-tank rocket in position for firing.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Anti-tank rocket launcher, light</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="ATRLMD">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A medium structural device designed to support and hold an anti-tank rocket in position for firing.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Anti-tank rocket launcher, medium</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="BTNKHE">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">An armoured fighting vehicle of more than 50 metric tons which, as its primary function, is designed to close with the enemy and engage their armour and infantry with direct fire.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Battle-tank, heavy</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="BTNKLI">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">An armoured fighting vehicle of less than 20 metric tons which, as its primary function, is designed to close with the enemy and engage their armour and infantry with direct fire.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Battle-tank, light</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="BTNKME">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">An armoured fighting vehicle of more than 20 and less than 50 metric tons which, as its primary function, is designed to close with the enemy and engage their armour and infantry with direct fire.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Battle-tank, medium</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="DFGNHV">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">No definition provided in APP-6A.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Direct fire gun, heavy</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="DFGNLT">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">No definition provided in APP-6A.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Direct fire gun, light</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="DFGNMD">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">No definition provided in APP-6A.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Direct fire gun, medium</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="GRLNHV">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A heavy structural device designed to support and hold a grenade in position for firing.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Grenade launcher, heavy</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="GRLNLT">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A light structural device designed to support and hold a grenade in position for firing.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Grenade launcher, light</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="GRLNMD">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A medium structural device designed to support and hold a grenade in position for firing.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Grenade launcher, medium</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="HOWTHV">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A heavy cannon that combines certain characteristics of guns and mortars. Normally a cannon with a tube length of 20 to 30 calibres; however, the tube length can exceed 30 calibres and still be considered a howitzer when the high angle firing zoning solution permits range overlap between charges.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Howitzer, heavy</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="HOWTLT">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A light cannon that combines certain characteristics of guns and mortars. Normally a cannon with a tube length of 20 to 30 calibres; however, the tube length can exceed 30 calibres and still be considered a howitzer when the high angle firing zoning solution permits range overlap between charges.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Howitzer, light</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="HOWTMD">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A medium cannon that combines certain characteristics of guns and mortars. Normally a cannon with a tube length of 20 to 30 calibres; however, the tube length can exceed 30 calibres and still be considered a howitzer when the high angle firing zoning solution permits range overlap between charges.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Howitzer, medium</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="MACGHV">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A heavy automatic gun giving continuous fire.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Machine gun, heavy</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="MACGLT">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A light automatic gun giving continuous fire.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Machine gun, light</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="MACGUN">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">An automatic gun giving continuous fire.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Machine gun</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="MRTLGT">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A man-portable, muzzle-loading, indirect fire weapon with either a rifled or smooth bore. It usually has a shorter range than a howitzer, employs a higher angle of fire, and its calibre is usually 60mm or smaller.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Mortar, light</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="MRTMED">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A man-portable, muzzle-loading, indirect fire weapon with either a rifled or smooth bore. It usually has a shorter range than a howitzer, employs a higher angle of fire, and its calibre is usually between 61mm and 107mm.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Mortar, medium</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="MRTHEV">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A towed or vehicle-mounted, indirect fire weapon with either a rifled or smooth bore. It usually has a shorter range than a howitzer, employs a higher angle of fire, and its calibre is usually between 108mm and 150mm.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Mortar, heavy</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="RFLASS">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A firearm used in an assault role, that has a rifled bore designed to be fired from the shoulder.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Rifle, assault</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="RIFLE">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A firearm that has a rifled bore designed to be fired from the shoulder.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Rifle</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="NOS">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The appropriate value is not in the set of specified values.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Not otherwise specified</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<simpleType name="ActionTaskActivityCode">
+		<annotation>
+			<documentation xml:lang="en">The specific value that represents the type of activity prescribed by the ACTION-TASK.</documentation>
+		</annotation>
+		<restriction base="token">
+			<enumeration value="DESTRY">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">To physically render an enemy force combat-ineffective or damaging a target so that it cannot function as intended, nor be restored to a usable condition without being entirely rebuilt.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Destroy</DisplayValue>
+						<Geometry xml:lang="en">POINT</Geometry>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="INTDCT">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">To divert, disrupt, delay, or destroy the enemy's surface military potential before it can be used effectively against friendly forces.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Interdict</DisplayValue>
+						<Geometry xml:lang="en">POINT</Geometry>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="NTRCOM">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">To render ineffective or unusable in military operations.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Neutralize, combat</DisplayValue>
+						<Geometry xml:lang="en">POINT</Geometry>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="FIX">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">To prevent the enemy from moving any part of his force from a specific location for a specific period of time.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Fix</DisplayValue>
+						<Geometry xml:lang="en">LINE2PT</Geometry>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="ATTMN">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">To conduct the principal attack or effort into which the commander throws the full weight of the offensive power at his disposal. An attack directed against the chief objective of the campaign or battle.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Attack, main</DisplayValue>
+						<Geometry xml:lang="en">CORRIDOR2PT</Geometry>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="ATTSPT">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">To conduct an offensive operation carried out in conjunction with a main attack and designed to achieve one or more of the following: a. deceive the enemy; b. destroy or pin down enemy forces which could interfere with the main attack; c. control ground whose occupation by the enemy will hinder the main attack; or d. force the enemy to commit reserves prematurely or in an indecisive area.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Attack, supporting</DisplayValue>
+						<Geometry xml:lang="en">CORRIDOR2PT</Geometry>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="BLOCK">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">To deny the enemy access to an area or to prevent his advance in a direction or along an avenue of approach.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Block</DisplayValue>
+						<Geometry xml:lang="en">CORRIDOR2PT</Geometry>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="CLRLND">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">To remove all enemy forces from a specific location, area, or zone.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Clear, land combat</DisplayValue>
+						<Geometry xml:lang="en">CORRIDOR2PT</Geometry>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="CONTAN">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">To stop, hold, or surround the forces of the enemy or to cause the enemy to centre activity on a given front and to prevent his withdrawing any part of his forces for use elsewhere. (Army)--A tactical task to restrict enemy movement.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Contain</DisplayValue>
+						<Geometry xml:lang="en">CORRIDOR2PT</Geometry>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="CTRATK">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">To mount an offensive operation in which an attack by a part or all of a defending force is made against an enemy attacking force, for such specific purposes as regaining ground lost, cutting off or destroying lead enemy units, and with the general objective of regaining the initiative and denying the enemy the attainment of his goal or purpose in attacking.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Counter attack</DisplayValue>
+						<Geometry xml:lang="en">CORRIDOR2PT</Geometry>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="PENTRT">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">To break through the enemy's defence or to disrupt the enemy's defensive systems.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Penetrate</DisplayValue>
+						<Geometry xml:lang="en">CORRIDOR2PT</Geometry>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SECURE">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">To gain possession of a position or terrain feature, with or without force, and to make such disposition as will prevent, as far as possible, its destruction or loss by enemy action.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Secure</DisplayValue>
+						<Geometry xml:lang="en">FAN</Geometry>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SEIZE">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">To clear a designated area and obtain control of it.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Seize</DisplayValue>
+						<Geometry xml:lang="en">FAN</Geometry>
+					</appinfo>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<simpleType name="FacilityTypeCategoryCode">
+		<annotation>
+			<documentation xml:lang="en">The specific value that represents the class of FACILITY-TYPE.</documentation>
+		</annotation>
+		<restriction base="token">
+			<enumeration value="BLD">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A relatively permanent structure, roofed and usually walled and designed for some particular use.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Building</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="FOXHOL">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A hole in the ground used by a soldier for protection.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Foxhole</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<simpleType name="ControlFeatureTypeCategoryCode">
+		<annotation>
+			<documentation xml:lang="en">The specific value that represents the class of CONTROL-FEATURE-TYPE.</documentation>
+		</annotation>
+		<restriction base="token">
+			<annotation>
+				<documentation>
+					<Definition xml:lang="en">A Not Otheswise Specified CONTROL-FEATURE-TYPE.</Definition>
+				</documentation>
+				<appinfo>
+					<DisplayValue xml:lang="en">NOS</DisplayValue>
+					<Geometry xml:lang="en">POINT</Geometry>
+				</appinfo>
+			</annotation>
+			<enumeration value="AIMPT">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A point associated with a target and assigned for a specific weapon impact.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Aim point</DisplayValue>
+						<Geometry xml:lang="en">POINT</Geometry>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="CNTPTL">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A CONTROL-FEATURE-TYPE with an easily identifiable point location, where two or more units are required to make contact.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Contact point, land</DisplayValue>
+						<Geometry xml:lang="en">POINT</Geometry>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="CRDPNT">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">Designated point at which, in all types of combat, adjacent units/formations must make contact for purposes of control and coordination. Army--A control measure that indicates a specific location for the coordination of fires and manoeuvre between adjacent units. They usually are indicated whenever a boundary crosses the forward battle area (FEBA), and may be indicated when a boundary crosses phase lines (PLs) used to control security forces.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Coordinating point</DisplayValue>
+						<Geometry xml:lang="en">POINT</Geometry>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="ENTPT">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A point designated for use by vehicles or personnel in entering an area, line or volume.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Entry point</DisplayValue>
+						<Geometry xml:lang="en">POINT</Geometry>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="LNKPPT">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">An easily recognisable point location on the ground where two forces conducting a linkup meet. When one force is stationary, linkup points normally are established where the moving force's routes of advance intersect the stationary force's security elements. Linkup points for two moving forces are established on boundaries where the two forces are expected to converge.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Linkup point</DisplayValue>
+						<Geometry xml:lang="en">POINT</Geometry>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="PTINT">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A CONTROL-FEATURE-TYPE with a point location that is significant for military planning or activity.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Point of interest</DisplayValue>
+						<Geometry xml:lang="en">POINT</Geometry>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="TGTRPT">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">An easily recognisable point location on the ground (either natural or man-made) used to initiate, distribute, and control fires. TRPs can also designate the centre of an area where the commander plans to distribute or converge the fires of all his weapons rapidly. They are used by task force and below, and can further delineate sectors of fire within an engagement area. TRPs are designated using the standard target symbol and numbers issued by the fire support officer. Once designated, TRPs also constitute indirect fire targets.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Target reference point</DisplayValue>
+						<Geometry xml:lang="en">POINT</Geometry>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="WAYPT">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">1. In air operations, a point or a series of points in space to which an aircraft, ship, or cruise missile may be vectored. 2. A designated point or series of points loaded and stored in a global positioning system or other electronic navigational aid system to facilitate movement.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Way point</DisplayValue>
+						<Geometry xml:lang="en">POINT</Geometry>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="FLT">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">Line indicating the most forward positions of friendly forces in any kind of military operation at a specific time.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Forward line of troops</DisplayValue>
+						<Geometry xml:lang="en">LINE</Geometry>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="LODLND">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A line designated to coordinate the departure of attack elements (commitment of attacking units or scouting elements at a specific time).</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Line of departure, land</DisplayValue>
+						<Geometry xml:lang="en">LINE</Geometry>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="FNCOLN">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A line close to the enemy position used to coordinate the lifting and/or shifting of supporting fires with the final deployment of manoeuvre elements. It should be recognisable on the ground. It is not a fire support coordination measure.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Final coordination line</DisplayValue>
+						<Geometry xml:lang="en">LINE</Geometry>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="LIMADV">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">An easily recognized terrain feature beyond which attacking elements will not advance.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Limit of advance</DisplayValue>
+						<Geometry xml:lang="en">LINE</Geometry>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="LOC">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The designation of forward friendly positions as the LD when opposing forces are in contact.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Line of contact</DisplayValue>
+						<Geometry xml:lang="en">LINE</Geometry>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="PHLINE">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A line used for control and coordination of military operations, usually a terrain feature extending across the zone of action. Army-- A line used for control and coordination of military operations. It is usually along a recognisable terrain feature extending across the sector or zone of action. Units normally report crossing PLs, but do not halt unless specifically directed.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Phase line</DisplayValue>
+						<Geometry xml:lang="en">LINE</Geometry>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="ASLTPO">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">That position between the line of departure (LD) and the objective in an attack from which forces assault the objective. Ideally, it is the last covered and concealed position before reaching the objective.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Assault position</DisplayValue>
+						<Geometry xml:lang="en">POLYGON</Geometry>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="NAMAIN">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A point or area along a particular avenue of approach through which enemy activity is expected to occur. Activity or lack of activity within an NAI will help to confirm or deny a particular enemy course of action.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Named area of interest</DisplayValue>
+						<Geometry xml:lang="en">POLYGON</Geometry>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="OBJA">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A defined geographical area within which is located an objective to be captured or reached by the military forces. This area is defined by competent authority for purposes of command and control.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Objective area</DisplayValue>
+						<Geometry xml:lang="en">POLYGON</Geometry>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="PZ">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A geographic area used to pick up troops and/or equipment by helicopter.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Pickup zone</DisplayValue>
+						<Geometry xml:lang="en">POLYGON</Geometry>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="LZ">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A specific area used used for the landing of aircraft.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Landing zone</DisplayValue>
+						<Geometry xml:lang="en">POLYGON</Geometry>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="UNEXOD">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">An area in which there are unexploded ordnance. Explosive ordnance which has been primed, fused, armed, or otherwise prepared for action, and which has been fired, dropped, launched, or placed in such a manner as to constitute a hazard to operations, installations, personnel, or material, and remains unexploded either by malfunction or for any other cause.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Unexploded ordnance area</DisplayValue>
+						<Geometry xml:lang="en">POLYGON</Geometry>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			
+<enumeration value="ATTFIR">
+        <annotation>
+          <documentation>
+            <Definition xml:lang="en">A CONTROL-FEATURE-TYPE that is an area against which fire is employed to destroy the enemy from a distance, normally used when the mission does not dictate or support occupation of the objective.</Definition>
+          </documentation>
+          <appinfo>
+            <DisplayValue xml:lang="en">Attack by fire position</DisplayValue>
+            <Geometry xml:lang="en">CORRIDOR2PT</Geometry>
+          </appinfo>
+        </annotation>
+      </enumeration>
+
+
+<enumeration value="SPTPOS">
+        <annotation>
+          <documentation>
+            <Definition xml:lang="en">A CONTROL-FEATURE-TYPE that is an area by which a manoeuvre element moves to a position in the battlespace where it can engage the enemy by direct fire. The manoeuvre element does not attempt to manoeuvre to capture enemy forces or terrain.</Definition>
+          </documentation>
+          <appinfo>
+            <DisplayValue xml:lang="en">Support by fire position</DisplayValue>
+            <Geometry xml:lang="en">FANAREA</Geometry>
+          </appinfo>
+        </annotation>
+      </enumeration>			
+			
+		</restriction>
+	</simpleType>
+	<simpleType name="ControlFeatureBoundaryTypeCategoryCode">
+		<annotation>
+			<documentation xml:lang="en">The specific value that represents the class of CONTROL-FEATURE-TYPE.</documentation>
+		</annotation>
+		<restriction base="token">
+			<enumeration value="BDYOR">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">1. A line which delineates surface areas (or airspace) for the purpose of facilitating coordination and deconfliction of operations between adjacent units, formations or areas. 2. A control measure normally drawn along identifiable terrain features and used to delineate areas of tactical responsibility between adjacent units and between higher headquarters to the rear of the subordinate units. Control measures which define the left and right limits of a unit's zone of action or sector. Together with the rear and forward boundary and a coordinating altitude, lateral boundaries define the area of operations for a commander.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Boundary, organisation</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<simpleType name="MinefieldLandMilitaryObstacleTypeCategoryCode">
+		<annotation>
+			<documentation xml:lang="en">The specific value that represents the class of MILITARY-OBSTACLE-TYPE.</documentation>
+		</annotation>
+		<restriction base="token">
+			<enumeration value="MINEFD">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">An obstacle made by laying mines of an unspecified type laid with or without pattern.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Minefield, not otherwise specified</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<simpleType name="MilitaryObstacleTypeCategoryCode">
+		<annotation>
+			<documentation xml:lang="en">The specific value that represents the class of MILITARY-OBSTACLE-TYPE.</documentation>
+		</annotation>
+		<restriction base="token">
+			<enumeration value="ROADBL">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A barrier or obstacle (usually covered by fire) used to block, or limit the movement of, hostile vehicles along a route.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Roadblock</DisplayValue>
+					</appinfo>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<simpleType name="ActionEventCategoryCode">
+		<annotation>
+			<documentation xml:lang="en">The specific value that represents the general class or nature of activity prescribed by an ACTION-EVENT.</documentation>
+		</annotation>
+		<restriction base="token">
+			<enumeration value="AMBUSH">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">A surprise attack by fire or other destructive means from concealed positions on a moving or temporarily halted force or group of personnel.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Ambush</DisplayValue>
+						<Geometry xml:lang="en">POINT</Geometry>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="ASSNTN">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">Murder of a prominent person.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Assassination</DisplayValue>
+						<Geometry xml:lang="en">POINT</Geometry>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="BOMBNG">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">Attacking, damaging or destroying through the use of bombs.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Bombing</DisplayValue>
+						<Geometry xml:lang="en">POINT</Geometry>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="DMNSTR">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">Conducting an offensive operation that is either an attack or a show of force on a front where a decision is not sought, made with the aim of deceiving the enemy. It is similar to a feint with the exception that no contact with the enemy is sought. In OOTW, an operation by military forces in sight of an actual or potential enemy to show military capabilities.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Demonstration</DisplayValue>
+						<Geometry xml:lang="en">POINT</Geometry>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="EXECTN">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">Putting a person to death, especially as a legal penalty.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Execution</DisplayValue>
+						<Geometry xml:lang="en">POINT</Geometry>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="MURDER">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The unlawful killing of one human being by another, especially with premeditated malice.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Murder</DisplayValue>
+						<Geometry xml:lang="en">POINT</Geometry>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="REFMVM">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">The movement of people who has been forced to leave their country in order to escape war, persecution, or natural disaster.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Refugee movement</DisplayValue>
+						<Geometry xml:lang="en">POINT</Geometry>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="SNPATK">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">An attack by one who shoots at others from a concealed place.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Sniper attack</DisplayValue>
+						<Geometry xml:lang="en">POINT</Geometry>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="ATTMN">
+				<annotation>
+					<documentation>
+						<Definition xml:lang="en">Main attack.</Definition>
+					</documentation>
+					<appinfo>
+						<DisplayValue xml:lang="en">Main Attack</DisplayValue>
+						<Geometry xml:lang="en">CORRIDOR2PT</Geometry>
+					</appinfo>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+</schema>

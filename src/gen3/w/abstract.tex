@@ -1,0 +1,25 @@
+\textbf{Abstract}
+
+Because of its complexity - nested binary TLV encoding and various
+compression schemes -
+parsing BER/DER formatted messages is considered problematic. To the
+knowledge of the author, formal parsing of BER/DER is not
+addressed by available parsing solutions. Instead, custom, hand
+coded solutions or generated code prevail. This is a security risk from a
+point of view of bugs or code proliferation. The changes proposed in the
+paper extend Parsing Expression Grammars
+(PEG), enabling it to parse these formats, while retaining a
+simple grammar definition, and requiring only minimal changes to the
+resulting assembly and bytecode interpreter. This paper also shows that, having
+implemented those changes, and using a grammar that closely mimics its
+ASN.1 counterpart definition, it becomes possible to split up X.509 and SNMPv3
+messages in their underlying parts. The most notable findings are that
+this method allows DER well-formedness checks, as well as formal
+structures checks, and allows formal structure content, such as digital
+signatures, to be isolated (captured) from the input. It shows how OIDs
+can be broken up in their composing parts, and the way in which text
+fields of binary formats can still be text-parsed (eg email address
+validation). However further study is required with respect to machine
+implementation of the Engine, and the representation of certain binary
+fields (eg INTEGERs, OIDs) from the input capture list.
+

@@ -1,0 +1,13 @@
+<JDSSDMMessage xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:int:nato:standard:mip:jdssdm:1.1">
+  <Id OIDType="UUID">a3d94e25-7f04-4152-8ab2-634a89885ff7</Id>
+  <Datetime>20180724114421.348</Datetime>
+  <Originator OIDType="UUID">a9b23d4f-ea52-8816-40cc-fe31138e85d9</Originator>
+  <OriginatorCountryCode>NLD</OriginatorCountryCode>
+  <GenInfoMsg ReportingDatetime="20180724114420.000">
+    <TextItem>
+      <OID OIDType="UUID">0ac6d9da-52e1-0024-0000-000000000000</OID>
+      <MessageSubject>Chat</MessageSubject>
+      <MessageBody>Free Text Message</MessageBody>
+    </TextItem>
+  </GenInfoMsg>
+</JDSSDMMessage>

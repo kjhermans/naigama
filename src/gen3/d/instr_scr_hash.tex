@@ -1,0 +1,80 @@
+\subsection{Instruction: scr\_hash}
+
+\subsubsection{Mode}
+This instruction is available in mode 1 (script interpreter).
+\subsubsection{Summary}
+
+\InputIfFileExists{instr_scr_hash_summary.tex}{}{}
+
+\subsubsection{Grammar and Compiling}
+
+\InputIfFileExists{instr_scr_hash_compiling.tex}{}{}
+
+\subsubsection{Assembly Syntax}
+
+\begin{myquote}
+\begin{verbatim}
+SCR_HASH <- { 'scr_hash' S UNSIGNED }
+S <- %s+
+UNSIGNED <- { [0-9]+ }
+\end{verbatim}
+\end{myquote}
+
+\subsubsection{Bytecode Encoding}
+
+This instruction has a size of 8 bytes and is structured in bytecode as follows:
+
+%DEADBEEF
+$_{00}$\ 
+\fbox{%
+  \parbox{20pt}{%
+00
+  }%
+}
+\fbox{%
+  \parbox{20pt}{%
+04
+  }%
+}
+\fbox{%
+  \parbox{20pt}{%
+00
+  }%
+}
+\fbox{%
+  \parbox{20pt}{%
+09
+  }%
+}
+
+
+
+$_{04}$\ 
+\fbox{%
+  \parbox{20pt}{%
+00
+  }%
+}
+\fbox{%
+  \parbox{20pt}{%
+00
+  }%
+}
+\fbox{%
+  \parbox{20pt}{%
+00
+  }%
+}
+\fbox{%
+  \parbox{20pt}{%
+00
+  }%
+}
+
+%DEADBEEF
+\subsubsection{Execution State Change}
+
+.
+
+\InputIfFileExists{instr_scr_hash_state.tex}{}{}
+

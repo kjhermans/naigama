@@ -1,0 +1,30 @@
+JDSSIEMPAYLOAD
+ReportMessageType|<JDSSDMMessage xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:int:nato:standard:mip:jdssdm:1.1">
+  <Id OIDType="UUID">34fc4f54-b2d8-47a9-ae9f-76c7ced7567a</Id>
+  <Datetime>20180724125411.905</Datetime>
+  <Originator OIDType="UUID">a9b23d4f-ea52-8816-40cc-fe31138e85d9</Originator>
+  <OriginatorCountryCode>NLD</OriginatorCountryCode>
+  <Recipient OIDType="UUID">1596fa9e-a6b5-db70-9d4d-2068e4d2dbbb</Recipient>
+  <Recipient OIDType="UUID">04c097b8-4b9e-6dee-5a56-6031ede3d0db</Recipient>
+  <Recipient OIDType="UUID">928bf658-1b82-56b3-0d67-5c645a1b93f4</Recipient>
+  <ExtensionMsg xmlns:q1="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q1:ReportMessageType">
+    <q1:Report>
+      <OID OIDType="UUID">0ac6d9da-52e1-0051-0000-000000000000</OID>
+      <MessageSubject>Something doing stuff nuggin'</MessageSubject>
+      <MessageBody>SITREP Report
+A: When = 241253Z JUL 18
+B: Own Location = 32U LC 32299 88601
+C: What is happening? = Something
+D: What is it doing? = doing stuff
+E: What are you doing about it? = nuggin'
+[Footer]:
+	Classification = Unclassified</MessageBody>
+      <q1:ReportHeader>
+        <q1:Sender>User01</q1:Sender>
+        <q1:DateTime>20180724125411.000</q1:DateTime>
+        <q1:ReportType>SitRep</q1:ReportType>
+        <q1:SecurityClassification>Unclassified</q1:SecurityClassification>
+      </q1:ReportHeader>
+    </q1:Report>
+  </ExtensionMsg>
+</JDSSDMMessage>

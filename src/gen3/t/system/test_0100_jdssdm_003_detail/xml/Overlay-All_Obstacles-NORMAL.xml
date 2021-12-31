@@ -1,0 +1,1564 @@
+<JDSSDMMessage xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:int:nato:standard:mip:jdssdm:1.1">
+  <Id OIDType="UUID">321816e0-e4f7-4f99-a3b0-c88f0fa3a543</Id>
+  <Datetime>20200821125705.665</Datetime>
+  <Originator OIDType="UUID">eb0ac4fa-a0c1-3bbd-7fe4-dc47dc79ef0f</Originator>
+  <OriginatorCountryCode>NLD</OriginatorCountryCode>
+  <OverlayMsg>
+    <Overlay IsUpdate="true">
+      <OID OIDType="UUID">f1b50f94-cb3a-29b8-be20-f2ebacfdc334</OID>
+      <NameText>Obstacles</NameText>
+      <ExtendedObject xmlns:q1="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q1:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0bc5-0000-000000000000</OID>
+        <NameText>Obstacle0001</NameText>
+        <Comment>
+          <CommentText>BOOBY
+General
+G*M*OB----
+Booby Trap
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q1:SIDC>app6a:G*C*BOAB--*****</q1:SIDC>
+        <q1:Location>
+          <q1:GeographicPoint>
+            <LatitudeCoordinate>52.096274</LatitudeCoordinate>
+            <LongitudeCoordinate>5.208018</LongitudeCoordinate>
+          </q1:GeographicPoint>
+        </q1:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q2="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q2:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0bc6-0000-000000000000</OID>
+        <NameText>Obstacle0002</NameText>
+        <Comment>
+          <CommentText>MINE
+Mine
+G*M*OMU---
+Unspecified
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q2:SIDC>app6a:G*C*BOAM--*****</q2:SIDC>
+        <q2:Location>
+          <q2:GeographicPoint>
+            <LatitudeCoordinate>52.096274</LatitudeCoordinate>
+            <LongitudeCoordinate>5.215510</LongitudeCoordinate>
+          </q2:GeographicPoint>
+        </q2:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q3="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q3:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0bc7-0000-000000000000</OID>
+        <NameText>Obstacle0003</NameText>
+        <Comment>
+          <CommentText>MINEAP
+Mine
+G*M*OMP---
+Anti-Personnel
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q3:SIDC>app6a:G*C*BOAMA-*****</q3:SIDC>
+        <q3:Location>
+          <q3:GeographicPoint>
+            <LatitudeCoordinate>52.096274</LatitudeCoordinate>
+            <LongitudeCoordinate>5.223004</LongitudeCoordinate>
+          </q3:GeographicPoint>
+        </q3:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q4="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q4:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0bc8-0000-000000000000</OID>
+        <NameText>Obstacle0004</NameText>
+        <Comment>
+          <CommentText>MINEPD
+Mine
+A*O*01----
+Antipersonnel Mine with Directional Effects
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q4:SIDC>app6a:G*C*BOAMA-*****</q4:SIDC>
+        <q4:Location>
+          <q4:GeographicPoint>
+            <LatitudeCoordinate>52.096274</LatitudeCoordinate>
+            <LongitudeCoordinate>5.230495</LongitudeCoordinate>
+          </q4:GeographicPoint>
+        </q4:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q5="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q5:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0bc9-0000-000000000000</OID>
+        <NameText>Obstacle0005</NameText>
+        <Comment>
+          <CommentText>MINEAT
+Mine
+G*M*OMT---
+Anti-Tank
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q5:SIDC>app6a:G*C*BOAMT-*****</q5:SIDC>
+        <q5:Location>
+          <q5:GeographicPoint>
+            <LatitudeCoordinate>52.096274</LatitudeCoordinate>
+            <LongitudeCoordinate>5.237989</LongitudeCoordinate>
+          </q5:GeographicPoint>
+        </q5:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q6="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q6:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0bca-0000-000000000000</OID>
+        <NameText>Obstacle0006</NameText>
+        <Comment>
+          <CommentText>MINETR
+Mine
+G*M*OMD---
+Anti-Tank with Anti-Handling Device
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q6:SIDC>app6a:G*C*BOAMD-*****</q6:SIDC>
+        <q6:Location>
+          <q6:GeographicPoint>
+            <LatitudeCoordinate>52.096274</LatitudeCoordinate>
+            <LongitudeCoordinate>5.245484</LongitudeCoordinate>
+          </q6:GeographicPoint>
+        </q6:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q7="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q7:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0bcb-0000-000000000000</OID>
+        <NameText>Obstacle0007</NameText>
+        <Comment>
+          <CommentText>MINWAR
+Mine
+G*M*OMW---
+Anti-Tank Wide Area Mine
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q7:SIDC>app6a:G*C*BOAMW-*****</q7:SIDC>
+        <q7:Location>
+          <q7:GeographicPoint>
+            <LatitudeCoordinate>52.096274</LatitudeCoordinate>
+            <LongitudeCoordinate>5.252975</LongitudeCoordinate>
+          </q7:GeographicPoint>
+        </q7:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q8="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q8:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0bcc-0000-000000000000</OID>
+        <NameText>Obstacle0008</NameText>
+        <Comment>
+          <CommentText>ENGREG
+Crossing Site
+G*M*BCP---
+Engineer Regulating Point
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q8:SIDC>app6a:G*C*BYCG--*****</q8:SIDC>
+        <q8:Location>
+          <q8:GeographicPoint>
+            <LatitudeCoordinate>52.096274</LatitudeCoordinate>
+            <LongitudeCoordinate>5.260469</LongitudeCoordinate>
+          </q8:GeographicPoint>
+        </q8:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q9="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q9:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0bcd-0000-000000000000</OID>
+        <NameText>Obstacle0009</NameText>
+        <Comment>
+          <CommentText>NSPP
+
+X*O*PNSP--
+Not Specified
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q9:SIDC>app6a:G*C*BO----*****</q9:SIDC>
+        <q9:Location>
+          <q9:GeographicPoint>
+            <LatitudeCoordinate>52.091669</LatitudeCoordinate>
+            <LongitudeCoordinate>5.208018</LongitudeCoordinate>
+          </q9:GeographicPoint>
+        </q9:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q10="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q10:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0bce-0000-000000000000</OID>
+        <NameText>Obstacle0010</NameText>
+        <Comment>
+          <CommentText>OGL
+General
+G*M*OGL---
+Obstacle Line
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q10:SIDC>app6a:G*C*BOGL--*****</q10:SIDC>
+        <q10:Location>
+          <q10:Anchorpoints>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.091669</LatitudeCoordinate>
+              <LongitudeCoordinate>5.212388</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.091669</LatitudeCoordinate>
+              <LongitudeCoordinate>5.218632</LongitudeCoordinate>
+            </GeographicPoint>
+          </q10:Anchorpoints>
+        </q10:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q11="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q11:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0bcf-0000-000000000000</OID>
+        <NameText>Obstacle0011</NameText>
+        <Comment>
+          <CommentText>ABATIS
+General
+G*M*OS----
+Abatis
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q11:SIDC>app6a:G*C*BOA---*****</q11:SIDC>
+        <q11:Location>
+          <q11:Anchorpoints>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.091669</LatitudeCoordinate>
+              <LongitudeCoordinate>5.219882</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.091669</LatitudeCoordinate>
+              <LongitudeCoordinate>5.226126</LongitudeCoordinate>
+            </GeographicPoint>
+          </q11:Anchorpoints>
+        </q11:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q12="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q12:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0bd0-0000-000000000000</OID>
+        <NameText>Obstacle0012</NameText>
+        <Comment>
+          <CommentText>TRPWIR
+General
+G*M*OT----
+Trip Wire
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q12:SIDC>app6a:G*C*BOAP--*****</q12:SIDC>
+        <q12:Location>
+          <q12:Anchorpoints>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.091669</LatitudeCoordinate>
+              <LongitudeCoordinate>5.227373</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.091669</LatitudeCoordinate>
+              <LongitudeCoordinate>5.230495</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.091669</LatitudeCoordinate>
+              <LongitudeCoordinate>5.233617</LongitudeCoordinate>
+            </GeographicPoint>
+          </q12:Anchorpoints>
+        </q12:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q13="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q13:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0bd1-0000-000000000000</OID>
+        <NameText>Obstacle0013</NameText>
+        <Comment>
+          <CommentText>ATDTCH
+General
+G*M*OADC--
+AntiTank Ditch Complete
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q13:SIDC>app6a:G*C*BOATO-*****</q13:SIDC>
+        <q13:Location>
+          <q13:Anchorpoints>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.091669</LatitudeCoordinate>
+              <LongitudeCoordinate>5.234867</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.091669</LatitudeCoordinate>
+              <LongitudeCoordinate>5.241112</LongitudeCoordinate>
+            </GeographicPoint>
+          </q13:Anchorpoints>
+        </q13:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q14="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q14:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0bd2-0000-000000000000</OID>
+        <NameText>Obstacle0014</NameText>
+        <Comment>
+          <CommentText>ATDTCU
+General
+G*M*OADU--
+AntiTank Ditch Under Construction
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q14:SIDC>app6a:G*C*BOATO-*****</q14:SIDC>
+        <q14:Location>
+          <q14:Anchorpoints>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.091669</LatitudeCoordinate>
+              <LongitudeCoordinate>5.242361</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.091669</LatitudeCoordinate>
+              <LongitudeCoordinate>5.248606</LongitudeCoordinate>
+            </GeographicPoint>
+          </q14:Anchorpoints>
+        </q14:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q15="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q15:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0bd3-0000-000000000000</OID>
+        <NameText>Obstacle0015</NameText>
+        <Comment>
+          <CommentText>MINECL
+Mine
+G*M*OMC---
+Cluster
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q15:SIDC>app6a:G*C*BOAMN-*****</q15:SIDC>
+        <q15:Location>
+          <q15:Anchorpoints>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.091669</LatitudeCoordinate>
+              <LongitudeCoordinate>5.256097</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.091669</LatitudeCoordinate>
+              <LongitudeCoordinate>5.249853</LongitudeCoordinate>
+            </GeographicPoint>
+          </q15:Anchorpoints>
+        </q15:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q16="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q16:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0bd4-0000-000000000000</OID>
+        <NameText>Obstacle0016</NameText>
+        <Comment>
+          <CommentText>WIRNOS
+Wire Obstacle
+G*M*OWU---
+Unspecified
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q16:SIDC>app6a:G*C*BOAW--*****</q16:SIDC>
+        <q16:Location>
+          <q16:Anchorpoints>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.091669</LatitudeCoordinate>
+              <LongitudeCoordinate>5.257347</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.091669</LatitudeCoordinate>
+              <LongitudeCoordinate>5.263591</LongitudeCoordinate>
+            </GeographicPoint>
+          </q16:Anchorpoints>
+        </q16:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q17="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q17:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0bd5-0000-000000000000</OID>
+        <NameText>Obstacle0017</NameText>
+        <Comment>
+          <CommentText>WIRAFN
+Wire Obstacle
+G*M*OWA---
+Double Apron Fence
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q17:SIDC>app6a:G*C*BOAWA-*****</q17:SIDC>
+        <q17:Location>
+          <q17:Anchorpoints>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.087065</LatitudeCoordinate>
+              <LongitudeCoordinate>5.204896</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.087065</LatitudeCoordinate>
+              <LongitudeCoordinate>5.211140</LongitudeCoordinate>
+            </GeographicPoint>
+          </q17:Anchorpoints>
+        </q17:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q18="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q18:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0bd6-0000-000000000000</OID>
+        <NameText>Obstacle0018</NameText>
+        <Comment>
+          <CommentText>WIRDFN
+Wire Obstacle
+G*M*OWD---
+Double Fence
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q18:SIDC>app6a:G*C*BOAWD-*****</q18:SIDC>
+        <q18:Location>
+          <q18:Anchorpoints>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.087065</LatitudeCoordinate>
+              <LongitudeCoordinate>5.212388</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.087065</LatitudeCoordinate>
+              <LongitudeCoordinate>5.218632</LongitudeCoordinate>
+            </GeographicPoint>
+          </q18:Anchorpoints>
+        </q18:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q19="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q19:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0bd7-0000-000000000000</OID>
+        <NameText>Obstacle0019</NameText>
+        <Comment>
+          <CommentText>WIRECN
+Wire Obstacle
+G*M*OWCD--
+Double Strand Concertina
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q19:SIDC>app6a:G*C*BOAWB-*****</q19:SIDC>
+        <q19:Location>
+          <q19:Anchorpoints>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.087065</LatitudeCoordinate>
+              <LongitudeCoordinate>5.219882</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.087065</LatitudeCoordinate>
+              <LongitudeCoordinate>5.226126</LongitudeCoordinate>
+            </GeographicPoint>
+          </q19:Anchorpoints>
+        </q19:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q20="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q20:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0bd8-0000-000000000000</OID>
+        <NameText>Obstacle0020</NameText>
+        <Comment>
+          <CommentText>WIRHFN
+Wire Obstacle
+G*M*OWH---
+High Wire Fence
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q20:SIDC>app6a:G*C*BOAWH-*****</q20:SIDC>
+        <q20:Location>
+          <q20:Anchorpoints>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.087065</LatitudeCoordinate>
+              <LongitudeCoordinate>5.227373</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.087065</LatitudeCoordinate>
+              <LongitudeCoordinate>5.233617</LongitudeCoordinate>
+            </GeographicPoint>
+          </q20:Anchorpoints>
+        </q20:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q21="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q21:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0bd9-0000-000000000000</OID>
+        <NameText>Obstacle0021</NameText>
+        <Comment>
+          <CommentText>WIRLFN
+Wire Obstacle
+G*M*OWL---
+Low Wire Fence
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q21:SIDC>app6a:G*C*BOAWL-*****</q21:SIDC>
+        <q21:Location>
+          <q21:Anchorpoints>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.087065</LatitudeCoordinate>
+              <LongitudeCoordinate>5.234867</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.087065</LatitudeCoordinate>
+              <LongitudeCoordinate>5.241112</LongitudeCoordinate>
+            </GeographicPoint>
+          </q21:Anchorpoints>
+        </q21:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q22="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q22:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0bda-0000-000000000000</OID>
+        <NameText>Obstacle0022</NameText>
+        <Comment>
+          <CommentText>WIRSCN
+Wire Obstacle
+G*M*OWCS--
+Single Concertina
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q22:SIDC>app6a:G*C*BOAWC-*****</q22:SIDC>
+        <q22:Location>
+          <q22:Anchorpoints>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.087065</LatitudeCoordinate>
+              <LongitudeCoordinate>5.242361</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.087065</LatitudeCoordinate>
+              <LongitudeCoordinate>5.248606</LongitudeCoordinate>
+            </GeographicPoint>
+          </q22:Anchorpoints>
+        </q22:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q23="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q23:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0bdb-0000-000000000000</OID>
+        <NameText>Obstacle0023</NameText>
+        <Comment>
+          <CommentText>WIRSFN
+Wire Obstacle
+G*M*OWS---
+Single Fence
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q23:SIDC>app6a:G*C*BOAWS-*****</q23:SIDC>
+        <q23:Location>
+          <q23:Anchorpoints>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.087065</LatitudeCoordinate>
+              <LongitudeCoordinate>5.249853</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.087065</LatitudeCoordinate>
+              <LongitudeCoordinate>5.256097</LongitudeCoordinate>
+            </GeographicPoint>
+          </q23:Anchorpoints>
+        </q23:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q24="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q24:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0bdc-0000-000000000000</OID>
+        <NameText>Obstacle0024</NameText>
+        <Comment>
+          <CommentText>WIRTCN
+Wire Obstacle
+G*M*OWCT--
+Triple Strand Concertina
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q24:SIDC>app6a:G*C*BOAWR-*****</q24:SIDC>
+        <q24:Location>
+          <q24:Anchorpoints>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.087065</LatitudeCoordinate>
+              <LongitudeCoordinate>5.257347</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.087065</LatitudeCoordinate>
+              <LongitudeCoordinate>5.263591</LongitudeCoordinate>
+            </GeographicPoint>
+          </q24:Anchorpoints>
+        </q24:Location>
+      </ExtendedObject>
+      <MilitaryObstacle>
+        <OID OIDType="UUID">a6f556a0-e33e-0bdd-0000-000000000000</OID>
+        <NameText>Obstacle0025</NameText>
+        <Comment>
+          <CommentText>DEMOPL
+Roadblock/Demolition
+G*M*ORP---
+Planned
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <CorridorArea2Pt>
+          <WidthDimension>249.726</WidthDimension>
+          <CenterLine>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.083420</LatitudeCoordinate>
+              <LongitudeCoordinate>5.203335</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.079583</LatitudeCoordinate>
+              <LongitudeCoordinate>5.209580</LongitudeCoordinate>
+            </GeographicPoint>
+          </CenterLine>
+        </CorridorArea2Pt>
+        <MilitaryObstacleType>
+          <OID OIDType="UUID">a6f556a0-e33e-0bdd-0000-000000000000</OID>
+          <NameText>Obstacle0025</NameText>
+          <CategoryCode>ROADBL</CategoryCode>
+        </MilitaryObstacleType>
+      </MilitaryObstacle>
+      <MilitaryObstacle>
+        <OID OIDType="UUID">a6f556a0-e33e-0bde-0000-000000000000</OID>
+        <NameText>Obstacle0026</NameText>
+        <Comment>
+          <CommentText>DEMOSF
+Roadblock/Demolition
+G*M*ORS---
+State 1 (Safe)
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <CorridorArea2Pt>
+          <WidthDimension>249.987</WidthDimension>
+          <CenterLine>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.083420</LatitudeCoordinate>
+              <LongitudeCoordinate>5.210827</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.079583</LatitudeCoordinate>
+              <LongitudeCoordinate>5.217071</LongitudeCoordinate>
+            </GeographicPoint>
+          </CenterLine>
+        </CorridorArea2Pt>
+        <MilitaryObstacleType>
+          <OID OIDType="UUID">a6f556a0-e33e-0bde-0000-000000000000</OID>
+          <NameText>Obstacle0026</NameText>
+          <CategoryCode>ROADBL</CategoryCode>
+        </MilitaryObstacleType>
+      </MilitaryObstacle>
+      <MilitaryObstacle>
+        <OID OIDType="UUID">a6f556a0-e33e-0bdf-0000-000000000000</OID>
+        <NameText>Obstacle0027</NameText>
+        <Comment>
+          <CommentText>DEMOAR
+Roadblock/Demolition
+G*M*ORA---
+State 2 (Armed-but-Passable)
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <CorridorArea2Pt>
+          <WidthDimension>249.726</WidthDimension>
+          <CenterLine>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.083420</LatitudeCoordinate>
+              <LongitudeCoordinate>5.218321</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.079583</LatitudeCoordinate>
+              <LongitudeCoordinate>5.224565</LongitudeCoordinate>
+            </GeographicPoint>
+          </CenterLine>
+        </CorridorArea2Pt>
+        <MilitaryObstacleType>
+          <OID OIDType="UUID">a6f556a0-e33e-0bdf-0000-000000000000</OID>
+          <NameText>Obstacle0027</NameText>
+          <CategoryCode>ROADBL</CategoryCode>
+        </MilitaryObstacleType>
+      </MilitaryObstacle>
+      <MilitaryObstacle>
+        <OID OIDType="UUID">a6f556a0-e33e-0be0-0000-000000000000</OID>
+        <NameText>Obstacle0028</NameText>
+        <Comment>
+          <CommentText>DEMOEX
+Roadblock/Demolition
+G*M*ORC---
+Complete (Executed)
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <CorridorArea2Pt>
+          <WidthDimension>249.987</WidthDimension>
+          <CenterLine>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.083420</LatitudeCoordinate>
+              <LongitudeCoordinate>5.225812</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.079583</LatitudeCoordinate>
+              <LongitudeCoordinate>5.232056</LongitudeCoordinate>
+            </GeographicPoint>
+          </CenterLine>
+        </CorridorArea2Pt>
+        <MilitaryObstacleType>
+          <OID OIDType="UUID">a6f556a0-e33e-0be0-0000-000000000000</OID>
+          <NameText>Obstacle0028</NameText>
+          <CategoryCode>ROADBL</CategoryCode>
+        </MilitaryObstacleType>
+      </MilitaryObstacle>
+      <ExtendedObject xmlns:q25="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q25:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0be1-0000-000000000000</OID>
+        <NameText>Obstacle0029</NameText>
+        <Comment>
+          <CommentText>LBDG
+Crossing Site
+G*M*BCB---
+Bridge
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q25:SIDC>app6a:G*C*BYCB--*****</q25:SIDC>
+        <q25:Location>
+          <q25:Anchorpoints>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.083420</LatitudeCoordinate>
+              <LongitudeCoordinate>5.233306</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.079583</LatitudeCoordinate>
+              <LongitudeCoordinate>5.239550</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.082296</LatitudeCoordinate>
+              <LongitudeCoordinate>5.237721</LongitudeCoordinate>
+            </GeographicPoint>
+          </q25:Anchorpoints>
+        </q25:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q26="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q26:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0be2-0000-000000000000</OID>
+        <NameText>Obstacle0030</NameText>
+        <Comment>
+          <CommentText>FERRY
+Crossing Site
+G*M*BCF---
+Ferry Crossing
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q26:SIDC>app6a:G*C*BYCF--*****</q26:SIDC>
+        <q26:Location>
+          <q26:Anchorpoints>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.082461</LatitudeCoordinate>
+              <LongitudeCoordinate>5.242361</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.082461</LatitudeCoordinate>
+              <LongitudeCoordinate>5.248606</LongitudeCoordinate>
+            </GeographicPoint>
+          </q26:Anchorpoints>
+        </q26:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q27="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q27:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0be3-0000-000000000000</OID>
+        <NameText>Obstacle0031</NameText>
+        <Comment>
+          <CommentText>FORDEA
+Crossing Site
+G*M*BCE---
+Ford Easy
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q27:SIDC>app6a:G*C*BYCE--*****</q27:SIDC>
+        <q27:Location>
+          <q27:Anchorpoints>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.083420</LatitudeCoordinate>
+              <LongitudeCoordinate>5.248292</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.079583</LatitudeCoordinate>
+              <LongitudeCoordinate>5.254536</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.082296</LatitudeCoordinate>
+              <LongitudeCoordinate>5.252707</LongitudeCoordinate>
+            </GeographicPoint>
+          </q27:Anchorpoints>
+        </q27:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q28="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q28:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0be4-0000-000000000000</OID>
+        <NameText>Obstacle0032</NameText>
+        <Comment>
+          <CommentText>FORDDI
+Crossing Site
+G*M*BCD---
+Ford Difficult
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q28:SIDC>app6a:G*C*BYCD--*****</q28:SIDC>
+        <q28:Location>
+          <q28:Anchorpoints>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.083420</LatitudeCoordinate>
+              <LongitudeCoordinate>5.255786</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.079583</LatitudeCoordinate>
+              <LongitudeCoordinate>5.262030</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.082296</LatitudeCoordinate>
+              <LongitudeCoordinate>5.260201</LongitudeCoordinate>
+            </GeographicPoint>
+          </q28:Anchorpoints>
+        </q28:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q29="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q29:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0be5-0000-000000000000</OID>
+        <NameText>Obstacle0033</NameText>
+        <Comment>
+          <CommentText>RFTSIT
+Crossing Site
+G*M*BCR---
+Raft Site
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q29:SIDC>app6a:G*C*BYCR--*****</q29:SIDC>
+        <q29:Location>
+          <q29:Anchorpoints>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.077856</LatitudeCoordinate>
+              <LongitudeCoordinate>5.204896</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.077856</LatitudeCoordinate>
+              <LongitudeCoordinate>5.211140</LongitudeCoordinate>
+            </GeographicPoint>
+          </q29:Anchorpoints>
+        </q29:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q30="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q30:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0be6-0000-000000000000</OID>
+        <NameText>Obstacle0034</NameText>
+        <Comment>
+          <CommentText>LANE
+Obstacle Bypass
+G*M*BCL---
+Lane
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q30:SIDC>app6a:G*C*BYCL--*****</q30:SIDC>
+        <q30:Location>
+          <q30:Anchorpoints>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.077856</LatitudeCoordinate>
+              <LongitudeCoordinate>5.212388</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.077856</LatitudeCoordinate>
+              <LongitudeCoordinate>5.218632</LongitudeCoordinate>
+            </GeographicPoint>
+          </q30:Anchorpoints>
+        </q30:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q31="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q31:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0be7-0000-000000000000</OID>
+        <NameText>Obstacle0035</NameText>
+        <Comment>
+          <CommentText>OEFIX
+Obstacle Effect
+G*M*OEF---
+Fix
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q31:SIDC>app6a:G*C*BOAEF-*****</q31:SIDC>
+        <q31:Location>
+          <q31:Anchorpoints>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.077856</LatitudeCoordinate>
+              <LongitudeCoordinate>5.219882</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.077856</LatitudeCoordinate>
+              <LongitudeCoordinate>5.226126</LongitudeCoordinate>
+            </GeographicPoint>
+          </q31:Anchorpoints>
+        </q31:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q32="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q32:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0be8-0000-000000000000</OID>
+        <NameText>Obstacle0036</NameText>
+        <Comment>
+          <CommentText>OETURN
+Obstacle Effect
+G*M*OET---
+Turn
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q32:SIDC>app6a:G*C*BOAET-*****</q32:SIDC>
+        <q32:Location>
+          <q32:Anchorpoints>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.074978</LatitudeCoordinate>
+              <LongitudeCoordinate>5.232056</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.078816</LatitudeCoordinate>
+              <LongitudeCoordinate>5.225812</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.077692</LatitudeCoordinate>
+              <LongitudeCoordinate>5.230230</LongitudeCoordinate>
+            </GeographicPoint>
+          </q32:Anchorpoints>
+        </q32:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q33="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q33:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0be9-0000-000000000000</OID>
+        <NameText>Obstacle0037</NameText>
+        <Comment>
+          <CommentText>OBFARE
+General
+G*M*OGF---
+Obstacle Free Area
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q33:SIDC>app6a:G*C*BOAF--*****</q33:SIDC>
+        <q33:Location>
+          <q33:Anchorpoints>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.079775</LatitudeCoordinate>
+              <LongitudeCoordinate>5.234867</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.075938</LatitudeCoordinate>
+              <LongitudeCoordinate>5.234867</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.075938</LatitudeCoordinate>
+              <LongitudeCoordinate>5.241112</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.079775</LatitudeCoordinate>
+              <LongitudeCoordinate>5.241112</LongitudeCoordinate>
+            </GeographicPoint>
+          </q33:Anchorpoints>
+        </q33:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q34="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q34:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0bea-0000-000000000000</OID>
+        <NameText>Obstacle0038</NameText>
+        <Comment>
+          <CommentText>OBRARE
+General
+G*M*OGR---
+Obstacle Restricted Area
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q34:SIDC>app6a:G*C*BOAFR-*****</q34:SIDC>
+        <q34:Location>
+          <q34:Anchorpoints>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.079775</LatitudeCoordinate>
+              <LongitudeCoordinate>5.242361</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.075938</LatitudeCoordinate>
+              <LongitudeCoordinate>5.242361</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.075938</LatitudeCoordinate>
+              <LongitudeCoordinate>5.248606</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.079775</LatitudeCoordinate>
+              <LongitudeCoordinate>5.248606</LongitudeCoordinate>
+            </GeographicPoint>
+          </q34:Anchorpoints>
+        </q34:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q35="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q35:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0beb-0000-000000000000</OID>
+        <NameText>Obstacle0039</NameText>
+        <Comment>
+          <CommentText>OBSZON
+General
+G*M*OGZ---
+Obstacle Zone
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q35:SIDC>app6a:G*C*BOGZ--*****</q35:SIDC>
+        <q35:Location>
+          <q35:Anchorpoints>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.079775</LatitudeCoordinate>
+              <LongitudeCoordinate>5.249853</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.075938</LatitudeCoordinate>
+              <LongitudeCoordinate>5.249853</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.075938</LatitudeCoordinate>
+              <LongitudeCoordinate>5.256097</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.079775</LatitudeCoordinate>
+              <LongitudeCoordinate>5.256097</LongitudeCoordinate>
+            </GeographicPoint>
+          </q35:Anchorpoints>
+        </q35:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q36="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q36:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0bec-0000-000000000000</OID>
+        <NameText>Obstacle0040</NameText>
+        <Comment>
+          <CommentText>MBLT
+General
+G*M*OGB---
+Obstacle Belt
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q36:SIDC>app6a:G*C*BOGB--*****</q36:SIDC>
+        <q36:Location>
+          <q36:Anchorpoints>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.079775</LatitudeCoordinate>
+              <LongitudeCoordinate>5.257347</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.075938</LatitudeCoordinate>
+              <LongitudeCoordinate>5.257347</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.075938</LatitudeCoordinate>
+              <LongitudeCoordinate>5.263591</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.079775</LatitudeCoordinate>
+              <LongitudeCoordinate>5.263591</LongitudeCoordinate>
+            </GeographicPoint>
+          </q36:Anchorpoints>
+        </q36:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q37="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q37:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0bed-0000-000000000000</OID>
+        <NameText>Obstacle0041</NameText>
+        <Comment>
+          <CommentText>MFLDAP
+Minefield
+A*O*02----
+AntiPersonnel
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q37:SIDC>app6a:G*C*BOAIL-*****</q37:SIDC>
+        <q37:Location>
+          <q37:Anchorpoints>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.075170</LatitudeCoordinate>
+              <LongitudeCoordinate>5.204896</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.071333</LatitudeCoordinate>
+              <LongitudeCoordinate>5.204896</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.071333</LatitudeCoordinate>
+              <LongitudeCoordinate>5.211140</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.075170</LatitudeCoordinate>
+              <LongitudeCoordinate>5.211140</LongitudeCoordinate>
+            </GeographicPoint>
+          </q37:Anchorpoints>
+        </q37:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q38="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q38:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0bee-0000-000000000000</OID>
+        <NameText>Obstacle0042</NameText>
+        <Comment>
+          <CommentText>MFLDAT
+Minefield
+A*O*03----
+AntiTank
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q38:SIDC>app6a:G*C*BOAIN-*****</q38:SIDC>
+        <q38:Location>
+          <q38:Anchorpoints>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.075170</LatitudeCoordinate>
+              <LongitudeCoordinate>5.212388</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.071333</LatitudeCoordinate>
+              <LongitudeCoordinate>5.212388</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.071333</LatitudeCoordinate>
+              <LongitudeCoordinate>5.218632</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.075170</LatitudeCoordinate>
+              <LongitudeCoordinate>5.218632</LongitudeCoordinate>
+            </GeographicPoint>
+          </q38:Anchorpoints>
+        </q38:Location>
+      </ExtendedObject>
+      <MineFieldLand>
+        <OID OIDType="UUID">a6f556a0-e33e-0bef-0000-000000000000</OID>
+        <NameText>Obstacle0043</NameText>
+        <Comment>
+          <CommentText>MFLDMX
+Minefield
+G*M*OFA---
+Mined Area
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <PolygonArea>
+          <BoundingLine>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.075170</LatitudeCoordinate>
+              <LongitudeCoordinate>5.219882</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.071333</LatitudeCoordinate>
+              <LongitudeCoordinate>5.219882</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.071333</LatitudeCoordinate>
+              <LongitudeCoordinate>5.226126</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.075170</LatitudeCoordinate>
+              <LongitudeCoordinate>5.226126</LongitudeCoordinate>
+            </GeographicPoint>
+          </BoundingLine>
+        </PolygonArea>
+        <MilitaryObstacleType>
+          <OID OIDType="UUID">a6f556a0-e33e-0bef-0000-000000000000</OID>
+          <NameText>Obstacle0043</NameText>
+          <CategoryCode>MINEFD</CategoryCode>
+        </MilitaryObstacleType>
+      </MineFieldLand>
+      <ExtendedObject xmlns:q39="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q39:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0bf0-0000-000000000000</OID>
+        <NameText>Obstacle0044</NameText>
+        <Comment>
+          <CommentText>EXVLMN
+Minefield
+A*O*04----
+Executed Volcano Minefield
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q39:SIDC>app6a:G*C*BOAV--*****</q39:SIDC>
+        <q39:Location>
+          <q39:Anchorpoints>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.075170</LatitudeCoordinate>
+              <LongitudeCoordinate>5.227373</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.071333</LatitudeCoordinate>
+              <LongitudeCoordinate>5.227373</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.071333</LatitudeCoordinate>
+              <LongitudeCoordinate>5.233617</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.075170</LatitudeCoordinate>
+              <LongitudeCoordinate>5.233617</LongitudeCoordinate>
+            </GeographicPoint>
+          </q39:Anchorpoints>
+        </q39:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q40="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q40:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0bf1-0000-000000000000</OID>
+        <NameText>Obstacle0045</NameText>
+        <Comment>
+          <CommentText>SCDTMN
+Minefield
+A*O*05----
+Scatterable Mines with Self-Destruct Timer
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q40:SIDC>app6a:G*C*BOAID-*****</q40:SIDC>
+        <q40:Location>
+          <q40:Anchorpoints>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.075170</LatitudeCoordinate>
+              <LongitudeCoordinate>5.234867</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.071333</LatitudeCoordinate>
+              <LongitudeCoordinate>5.234867</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.071333</LatitudeCoordinate>
+              <LongitudeCoordinate>5.241112</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.075170</LatitudeCoordinate>
+              <LongitudeCoordinate>5.241112</LongitudeCoordinate>
+            </GeographicPoint>
+          </q40:Anchorpoints>
+        </q40:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q41="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q41:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0bf2-0000-000000000000</OID>
+        <NameText>Obstacle0046</NameText>
+        <Comment>
+          <CommentText>SCATMN
+Minefield
+A*O*06----
+Scatterable Mines
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q41:SIDC>app6a:G*C*BOAIS-*****</q41:SIDC>
+        <q41:Location>
+          <q41:Anchorpoints>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.075170</LatitudeCoordinate>
+              <LongitudeCoordinate>5.242361</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.071333</LatitudeCoordinate>
+              <LongitudeCoordinate>5.242361</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.071333</LatitudeCoordinate>
+              <LongitudeCoordinate>5.248606</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.075170</LatitudeCoordinate>
+              <LongitudeCoordinate>5.248606</LongitudeCoordinate>
+            </GeographicPoint>
+          </q41:Anchorpoints>
+        </q41:Location>
+      </ExtendedObject>
+      <ControlFeature>
+        <OID OIDType="UUID">a6f556a0-e33e-0bf3-0000-000000000000</OID>
+        <NameText>Obstacle0047</NameText>
+        <Comment>
+          <CommentText>MFLDUX
+Minefield
+G*M*OU----
+Un-exploded Ordnance Area (UXO)
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <PolygonArea>
+          <BoundingLine>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.075170</LatitudeCoordinate>
+              <LongitudeCoordinate>5.249853</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.071333</LatitudeCoordinate>
+              <LongitudeCoordinate>5.249853</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.071333</LatitudeCoordinate>
+              <LongitudeCoordinate>5.256097</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.075170</LatitudeCoordinate>
+              <LongitudeCoordinate>5.256097</LongitudeCoordinate>
+            </GeographicPoint>
+          </BoundingLine>
+        </PolygonArea>
+        <ControlFeatureType>
+          <OID OIDType="UUID">a6f556a0-e33e-0bf3-0000-000000000000</OID>
+          <NameText>Obstacle0047</NameText>
+          <CategoryCode>UNEXOD</CategoryCode>
+        </ControlFeatureType>
+      </ControlFeature>
+      <ExtendedObject xmlns:q42="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q42:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0bf4-0000-000000000000</OID>
+        <NameText>Obstacle0048</NameText>
+        <Comment>
+          <CommentText>DCOYMN
+Minefield
+G*G*PM----
+Decoy Mined Area
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q42:SIDC>app6a:G*C*MDM---*****</q42:SIDC>
+        <q42:Location>
+          <q42:Anchorpoints>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.075170</LatitudeCoordinate>
+              <LongitudeCoordinate>5.257347</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.071333</LatitudeCoordinate>
+              <LongitudeCoordinate>5.257347</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.071333</LatitudeCoordinate>
+              <LongitudeCoordinate>5.263591</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.075170</LatitudeCoordinate>
+              <LongitudeCoordinate>5.263591</LongitudeCoordinate>
+            </GeographicPoint>
+          </q42:Anchorpoints>
+        </q42:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q43="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q43:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0bf5-0000-000000000000</OID>
+        <NameText>Obstacle0049</NameText>
+        <Comment>
+          <CommentText>OEBLCK
+Obstacle Effect
+G*M*OEB---
+Block
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q43:SIDC>app6a:G*C*BOAEB-*****</q43:SIDC>
+        <q43:Location>
+          <q43:Anchorpoints>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.070564</LatitudeCoordinate>
+              <LongitudeCoordinate>5.204896</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.066726</LatitudeCoordinate>
+              <LongitudeCoordinate>5.204896</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.068645</LatitudeCoordinate>
+              <LongitudeCoordinate>5.211140</LongitudeCoordinate>
+            </GeographicPoint>
+          </q43:Anchorpoints>
+        </q43:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q44="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q44:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0bf6-0000-000000000000</OID>
+        <NameText>Obstacle0050</NameText>
+        <Comment>
+          <CommentText>OEDISR
+Obstacle Effect
+G*M*OED---
+Disrupt
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q44:SIDC>app6a:G*C*BOAED-*****</q44:SIDC>
+        <q44:Location>
+          <q44:Anchorpoints>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.066726</LatitudeCoordinate>
+              <LongitudeCoordinate>5.218632</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.066726</LatitudeCoordinate>
+              <LongitudeCoordinate>5.212388</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.070564</LatitudeCoordinate>
+              <LongitudeCoordinate>5.218632</LongitudeCoordinate>
+            </GeographicPoint>
+          </q44:Anchorpoints>
+        </q44:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q45="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q45:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0bf7-0000-000000000000</OID>
+        <NameText>Obstacle0051</NameText>
+        <Comment>
+          <CommentText>OBEASY
+Obstacle Bypass
+G*M*BDE---
+Easy
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q45:SIDC>app6a:G*C*BYOE--*****</q45:SIDC>
+        <q45:Location>
+          <q45:Anchorpoints>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.070564</LatitudeCoordinate>
+              <LongitudeCoordinate>5.219882</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.066726</LatitudeCoordinate>
+              <LongitudeCoordinate>5.219882</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.068645</LatitudeCoordinate>
+              <LongitudeCoordinate>5.226126</LongitudeCoordinate>
+            </GeographicPoint>
+          </q45:Anchorpoints>
+        </q45:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q46="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q46:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0bf8-0000-000000000000</OID>
+        <NameText>Obstacle0052</NameText>
+        <Comment>
+          <CommentText>OBDIFF
+Obstacle Bypass
+G*M*BDD---
+Difficult
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q46:SIDC>app6a:G*C*BYOD--*****</q46:SIDC>
+        <q46:Location>
+          <q46:Anchorpoints>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.070564</LatitudeCoordinate>
+              <LongitudeCoordinate>5.227373</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.066726</LatitudeCoordinate>
+              <LongitudeCoordinate>5.227373</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.068645</LatitudeCoordinate>
+              <LongitudeCoordinate>5.233617</LongitudeCoordinate>
+            </GeographicPoint>
+          </q46:Anchorpoints>
+        </q46:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q47="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q47:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0bf9-0000-000000000000</OID>
+        <NameText>Obstacle0053</NameText>
+        <Comment>
+          <CommentText>OBIMPS
+Obstacle Bypass
+G*M*BDI---
+Impossible
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q47:SIDC>app6a:G*C*BYOI--*****</q47:SIDC>
+        <q47:Location>
+          <q47:Anchorpoints>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.070564</LatitudeCoordinate>
+              <LongitudeCoordinate>5.234867</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.066726</LatitudeCoordinate>
+              <LongitudeCoordinate>5.234867</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.068645</LatitudeCoordinate>
+              <LongitudeCoordinate>5.241112</LongitudeCoordinate>
+            </GeographicPoint>
+          </q47:Anchorpoints>
+        </q47:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q48="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q48:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0bfa-0000-000000000000</OID>
+        <NameText>Obstacle0054</NameText>
+        <Comment>
+          <CommentText>MFLDLN
+Obstacle Bypass
+G*M*OFG---
+Minefield Gap
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q48:SIDC>app6a:G*C*BYCB--*****</q48:SIDC>
+        <q48:Location>
+          <q48:Anchorpoints>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.070564</LatitudeCoordinate>
+              <LongitudeCoordinate>5.248606</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.070564</LatitudeCoordinate>
+              <LongitudeCoordinate>5.242361</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.066726</LatitudeCoordinate>
+              <LongitudeCoordinate>5.245483</LongitudeCoordinate>
+            </GeographicPoint>
+          </q48:Anchorpoints>
+        </q48:Location>
+      </ExtendedObject>
+      <ExtendedObject xmlns:q49="urn:int:nato:standard:mip:jdssdm:1.1.NLD" xsi:type="q49:APP6Symbol">
+        <OID OIDType="UUID">a6f556a0-e33e-0bfb-0000-000000000000</OID>
+        <NameText>Obstacle0055</NameText>
+        <Comment>
+          <CommentText>WATERX
+Crossing Site
+G*M*BCA---
+Assault Crossing
+</CommentText>
+        </Comment>
+        <HostilityStatusCode>FR</HostilityStatusCode>
+        <AffiliationGeopolitical-Code>NOS</AffiliationGeopolitical-Code>
+        <q49:SIDC>app6a:G*C*BYCA--*****</q49:SIDC>
+        <q49:Location>
+          <q49:Anchorpoints>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.070564</LatitudeCoordinate>
+              <LongitudeCoordinate>5.256097</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.070564</LatitudeCoordinate>
+              <LongitudeCoordinate>5.249853</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.066726</LatitudeCoordinate>
+              <LongitudeCoordinate>5.256097</LongitudeCoordinate>
+            </GeographicPoint>
+            <GeographicPoint>
+              <LatitudeCoordinate>52.066726</LatitudeCoordinate>
+              <LongitudeCoordinate>5.249853</LongitudeCoordinate>
+            </GeographicPoint>
+          </q49:Anchorpoints>
+        </q49:Location>
+      </ExtendedObject>
+    </Overlay>
+  </OverlayMsg>
+</JDSSDMMessage>

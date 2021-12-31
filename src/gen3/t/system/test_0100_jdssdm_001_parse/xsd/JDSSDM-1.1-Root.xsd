@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2005 rel. 3 U (http://www.altova.com) by Marco van der Meijden (DTO Maasland) -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:jdssdm="urn:int:nato:standard:mip:jdssdm:1.1" xmlns:jc3iedm="urn:int:nato:standard:mip:jc3iedm:3.0.2:oo:2.2" xmlns:ns1="urn:int:nato:standard:mip:jdssdm:1.1.NLD" targetNamespace="urn:int:nato:standard:mip:jdssdm:1.1" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<annotation>
+		<documentation xml:lang="en">XML schema defined by AC/255 Land Capability Group 1 (LCG/1), C4I and Systems Architecture WG  - Editors: Jean Demers, jdemers@rheinmetall.ca, Rheinmetall Canada , Marco van der Meijden, marco@integrationbydesign.nl, Integration By Design</documentation>
+	</annotation>
+			<annotation>
+		<documentation>ECP-4677-6: Changed type of ExtensionMessage to xsd:anyType 10-3-2016</documentation>
+	</annotation>
+	<include schemaLocation="JDSSDM-1.1-EntityTypes.xsd"/>
+	<import namespace="urn:int:nato:standard:mip:jc3iedm:3.0.2:oo:2.2" schemaLocation="JC3IEDM-3.0.2-MergeSchemas.xsd"/>
+	<element name="JDSSDMMessage" type="jdssdm:JDSSDMMessageType"/>
+	<complexType name="JDSSDMMessageType">
+		<sequence>
+			<element name="Id" type="jdssdm:JDSDDMMessageIDType">
+				<annotation>
+					<documentation xml:lang="en">Message Identification Number.</documentation>
+				</annotation>
+			</element>
+			<element name="Datetime" type="jc3iedm:DatetimeTypeFix18">
+				<annotation>
+					<documentation>Sending date-time.</documentation>
+				</annotation>
+			</element>
+			<element name="Originator" type="jdssdm:EntityReference">
+				<annotation>
+					<documentation>Originator Identification number.</documentation>
+				</annotation>
+			</element>
+			<element name="OriginatorCountryCode" type="jc3iedm:AffiliationGeopoliticalCode">
+				<annotation>
+					<documentation>Country code of the originator country.</documentation>
+				</annotation>
+			</element>
+			<element name="Recipient" type="jdssdm:EntityReference" minOccurs="0" maxOccurs="unbounded">
+				<annotation>
+					<documentation>Recipient Identification number. If no Recipient specified, Recipient is all.</documentation>
+				</annotation>
+			</element>
+			<element name="ReplyTo" type="jdssdm:JDSDDMMessageIDType" minOccurs="0">
+				<annotation>
+					<documentation>Reply to the message of the specified Identification number. Used for message that requires acknowledgement.</documentation>
+				</annotation>
+			</element>
+			<element name="RequestAck" minOccurs="0">
+				<annotation>
+					<documentation>Request Acknowledgement from Recipient.</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="token">
+						<enumeration value="RECEIPT_NOTIFICATION">
+							<annotation>
+								<documentation>
+									<Definition xml:lang="en">Request for Receipt Notification - message displayed and recipient accepted responsibility of having reveived the message, no authentication of recipient.</Definition>
+								</documentation>
+								<appinfo>
+									<DisplayValue xml:lang="en">Receipt Notification</DisplayValue>
+								</appinfo>
+							</annotation>
+						</enumeration>
+						<enumeration value="REPLY">
+							<annotation>
+								<documentation>
+									<Definition xml:lang="en">Ton.</Definition>
+								</documentation>
+								<appinfo>
+									<DisplayValue xml:lang="en">Reply</DisplayValue>
+								</appinfo>
+							</annotation>
+						</enumeration>
+					</restriction>
+				</simpleType>
+			</element>
+			<choice>
+				<element name="PresenceMsg" type="jdssdm:PresenceMsgType"/> 
+				<element name="IdentificationMsg" type="jdssdm:IdentificationMsgType"/>
+				<element name="ContactSightingMsg" type="jdssdm:ContactSightingMsgType"/>
+				<element name="SketchMsg" type="jdssdm:SketchMsgType"/>
+				<element name="GenInfoMsg" type="jdssdm:GenInfoMsgType"/>
+				<element name="CoordinationMsg" type="jdssdm:CoordinationMsgType"/>
+				<element name="OverlayMsg" type="jdssdm:OverlayMsgType"/>
+				<element name="CasevacreqMsg" type="jdssdm:CasevacMsgType"/>
+				<element name="NBCMsg" type="jdssdm:NBCMsgType"/>
+				<element name="ReceiptMsg" type="jdssdm:ReceiptMsgType"/>
+				<element name="ExtensionMsg" type="xsd:anyType"/>
+			</choice>
+		</sequence>
+	</complexType>
+</schema>

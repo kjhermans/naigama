@@ -1,7 +1,5 @@
 -- Naigama Grammar Grammar
 
-TOP                <- { GRAMMAR } => compile
-
 GRAMMAR            <- ( DEFINITION+ / SINGLE_EXPRESSION ) END
 
 S                  <- %s+
@@ -16,11 +14,8 @@ END                <- !.
 
 DEFINITION         <- GLOBALVARDECL /
                       FUNCDECL /
-                      IMPORDECL /
                       TYPEDECL /
                       RULE
-
-IMPORTDECL         <- KW_IMPORT STRING SEMICOLON
 
 SINGLE_EXPRESSION  <- EXPRESSION
 
@@ -68,7 +63,8 @@ MATCHER            <- ANY /
                       MACRO /
                       ENDFORCE /
                       VARREFERENCE /
-                      REFERENCE
+                      REFERENCE /
+                      LIMITEDCALL
 
 BITMASK            <- '|' [0-9a-fA-F]^2 '|' [0-9a-fA-F]^2 '|'
 
@@ -96,7 +92,11 @@ VARREFERENCE       <- '$' ( IDENT / NUMBER ) MASK?
 
 MASK               <- '|' { [0-9A-Fa-f]^2 }
 
-REFERENCE          <- !( KW_FUNCTION / KW_VAR / KW_IMPORT ) IDENT !LEFTARROW
+REFERENCE          <- !( KW_TYPE / KW_IMPORT / KW_FUNCTION / KW_VAR ) IDENT !LEFTARROW
+
+LIMITEDCALL        <- '<<' %s* LCMODES %s* ':' %s* LCPARAM %s* ':' %s* IDENT %s* '>>'
+LCMODES            <- 'ruint32'
+LCPARAM            <- [^: \n\r\t\v]*
 
 REPLACE            <- RIGHTARROW REPLACETERMS
 
@@ -122,6 +122,8 @@ SETNOT             <- '^'
 
 -- scripting engine
 
+IMPORTDECL     <- KW_IMPORT STRING SEMICOLON
+
 TYPEDECL       <- KW_TYPE S IDENT
                   ABOPEN
                   ( VARDECL / TYPEDECL )+
@@ -133,38 +135,44 @@ FUNCPARAMDECL  <- BOPEN ( PARAMDECL ( COMMA PARAMDECL )* )? BCLOSE
 
 PARAMDECL      <- SCR_TYPE S IDENT / IDENT
 
-FUNCBODY       <- CBOPEN LOWSTMT* CBCLOSE
+FUNCBODY       <- CBOPEN FUNCSTMT* CBCLOSE
 
 GLOBALVARDECL  <- VARDECL
 
-LOWSTMT        <- ST_IF /
+FUNCSTMT       <- ST_IF /
                   ST_WHILE /
                   ST_CATCH /
                   ST_RETURN /
-                  ST_OTHER /
                   VARDECL /
                   ASSIGNMENT /
                   SCR_EXPRESSION? SEMICOLON
 
-ST_IF          <- KW_IF BOPEN SCR_EXPRESSION BCLOSE
-                    IF_BODY
-                    IF_ELSIF*
-                    IF_ELSE?
+BLOCKSTMT      <- ST_IF /
+                  ST_WHILE /
+                  ST_CATCH /
+                  ST_RETURN /
+                  ST_LOOPCTL /
+                  VARDECL /
+                  ASSIGNMENT /
+                  SCR_EXPRESSION? SEMICOLON
 
-IF_BODY        <- CBOPEN LOWSTMT* CBCLOSE
+ST_IF          <- KW_IF CONDITION BLOCK IF_ELSIF* IF_ELSE?
 
-IF_ELSIF       <- KW_ELSIF BOPEN SCR_EXPRESSION BCLOSE IF_BODY
+CONDITION      <- BOPEN SCR_EXPRESSION BCLOSE
 
-IF_ELSE        <- KW_ELSE IF_BODY
+BLOCK          <- CBOPEN BLOCKSTMT* CBCLOSE
 
-ST_WHILE       <- KW_WHILE BOPEN SCR_EXPRESSION BCLOSE
-                    CBOPEN LOWSTMT* CBCLOSE
+IF_ELSIF       <- KW_ELSIF CONDITION BLOCK
 
-ST_CATCH       <- KW_CATCH CBOPEN LOWSTMT* CBCLOSE
+IF_ELSE        <- KW_ELSE BLOCK
+
+ST_WHILE       <- KW_WHILE CONDITION BLOCK
+
+ST_CATCH       <- KW_CATCH BLOCK
 
 ST_RETURN      <- KW_RETURN SCR_EXPRESSION? SEMICOLON
 
-ST_OTHER       <- ( KW_BREAK / KW_CONTINUE ) SEMICOLON
+ST_LOOPCTL     <- ( KW_BREAK / KW_CONTINUE ) SEMICOLON
 
 VARDECL        <- KW_VAR S ( SCR_TYPE S IDENT / IDENT )
                     ( ASSIGN SCR_EXPRESSION )? SEMICOLON
@@ -204,7 +212,9 @@ UNOP           <- LOGNOT / BITNOT
 SCR_TERM       <- FUNCTIONCALL /
                   BOPEN SCR_EXPRESSION BCLOSE /
                   LITERAL /
-                  UNOP* SCR_REFERENCE
+                  SCR_UREFERENCE
+
+SCR_UREFERENCE <- UNOP* SCR_REFERENCE
 
 FUNCTIONCALL   <- IDENT ARGSLIST
 
@@ -217,25 +227,20 @@ SCR_REFERENCE  <- IDENT ( INDEX* ( DOT SCR_REFERENCE )* )
 INDEX          <- ABOPEN SCR_EXPRESSION ABCLOSE
 
 LITERAL        <- STRINGLITERAL /
-                  HASHLITERAL /
                   LISTLITERAL /
                   FLOATLITERAL /
                   INTLITERAL /
                   BOOLEANLITERAL
 
 STRINGLITERAL  <- '\'' { ( '\\' ([nrtv\\'] / [0-9]^3) / [^'\\] )* } '\''
-HASHLITERAL    <- CBOPEN ( HASHELT ( COMMA HASHELT )* )? CBCLOSE
-HASHELT        <- HASHKEY COLON HASHVALUE
-HASHKEY        <- SCR_TERM
-HASHVALUE      <- SCR_TERM
 LISTLITERAL    <- ABOPEN ( LISTELT ( COMMA LISTELT )* )? ABCLOSE
 LISTELT        <- SCR_TERM
 FLOATLITERAL   <- [0-9]* '.' [0-9]+
 INTLITERAL     <- [0-9]+
 BOOLEANLITERAL <- 'true' / 'false'
 
-KW_TYPE        <- 'type'
 KW_IMPORT      <- 'import'
+KW_TYPE        <- 'type'
 KW_FUNCTION    <- 'function'
 KW_VAR         <- 'var'
 KW_WHILE       <- 'while'
@@ -279,32 +284,3 @@ COMMA          <- ','
 DOT            <- '.'
 LSHIFT         <- '<<'
 RSHIFT         <- '>>'
-
--- functions
-
-var namespace = [];
-
-function compile
-  (tree)
-{
-
-}
-
-function nsp_add_func
-  (funcname)
-{
-  if (namespace[ funcname.string ] == 1) {
-    error('Function name "' + funcname.string + '" already exists.');
-  }
-  namespace[ funcname.string ] = 1;
-}
-
-function nsp_add_rule
-  (rulename)
-{
-}
-
-function nsp_add_global
-  (globname)
-{
-}

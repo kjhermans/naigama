@@ -42,8 +42,6 @@ NAIG_ERR_T naia_process_instruction
     CHECK(naia_process_single(naia, OPCODE_FAILTWICE)); break;
   case ASMSLOT_JUMPINSTR_JUMP:
     CHECK(naia_process_jump(naia, object)); break;
-  case ASMSLOT_MODEINSTR_MODE:
-    CHECK(naia_process_mode(naia, object)); break;
   case ASMSLOT_NOOPINSTR_NOOP:
     CHECK(naia_process_single(naia, OPCODE_NOOP)); break;
   case ASMSLOT_TRAPINSTR_TRAP:

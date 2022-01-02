@@ -123,12 +123,6 @@ NAIG_ERR_T naia_process_maskedchar
   (naia_t* naia, naio_resobj_t* object)
   __attribute__ ((warn_unused_result));
 
-/* declared in ./lib/assembler/naia_process_mode.c */
-extern
-NAIG_ERR_T naia_process_mode
-  (naia_t* naia, naio_resobj_t* object)
-  __attribute__ ((warn_unused_result));
-
 /* declared in ./lib/assembler/naia_process_opencapture.c */
 extern
 NAIG_ERR_T naia_process_opencapture

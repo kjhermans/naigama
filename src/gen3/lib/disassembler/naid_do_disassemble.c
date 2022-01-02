@@ -134,13 +134,6 @@ NAIG_ERR_T naid_do_disassemble
       param2 = GET_32BIT_VALUE(naid->bytecode, bytecode_offset + 8);
       NAID_WRITE("maskedchar %.2x %.2x\n", param1, param2);
       break;
-    case OPCODE_MODE:
-      param1 = GET_32BIT_VALUE(naid->bytecode, bytecode_offset + 4);
-      if ((param1 >> 1) != 0) {
-        fprintf(stderr, "WARNING: Invalid mode specifier.\n");
-      }
-      NAID_WRITE("mode %u\n", param1);
-      break;
     case OPCODE_NOOP:
       NAID_WRITE("noop\n", param1);
       break;

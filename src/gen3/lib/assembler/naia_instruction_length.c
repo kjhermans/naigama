@@ -74,7 +74,6 @@ uint32_t naia_instruction_opcode
   case ASMSLOT_CONDJUMPINSTR_CONDJUMP: return OPCODE_CONDJUMP;
   case ASMSLOT_ISOLATEINSTR_ISOLATE: return OPCODE_ISOLATE;
   case ASMSLOT_ENDISOLATEINSTR_ENDISOLATE: return OPCODE_ENDISOLATE;
-  case ASMSLOT_MODEINSTR_MODE: return OPCODE_MODE;
 
   default:
     fprintf(stderr, "Unknown instruction.\n");

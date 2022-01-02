@@ -150,13 +150,6 @@ $VAR1 = {
                             'size' => 12,
                             'terse' => 1
                           },
-          'mode' => {
-                      'instr' => 262154,
-                      'mnem' => 'mode',
-                      'mode' => 'both',
-                      'opcode' => '0004000a',
-                      'size' => 8
-                    },
           'noop' => {
                       'instr' => 0,
                       'mnem' => 'noop',

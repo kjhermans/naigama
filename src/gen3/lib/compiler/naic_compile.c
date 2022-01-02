@@ -73,14 +73,14 @@ NAIG_ERR_T naic_compile
     }
   }
   e = naie_engine_run(&engine, &result);
-  if (e.code == 1) { //NAIG_FAILURE) {
+  if (e.code) {
     unsigned yx[ 2 ];
     if (strxypos(grammar, engine.input_pos, yx) == 0) {
-      fprintf(stderr, "Grammar parsing error line %u, off %u\n", yx[0], yx[1]);
+      fprintf(stderr, "Grammar parsing error (%d) line %u, off %u\n", e.code, yx[0], yx[1]);
     } else {
-      fprintf(stderr, "Grammar parsing error.\n");
+      fprintf(stderr, "Grammar parsing error (%d).\n", e.code);
     }
-    exit(-1);
+    return e;
   }
   memset(&naic, 0, sizeof(naic));
   naic.grammar     = grammar;
@@ -100,11 +100,11 @@ NAIG_ERR_T naic_compile
   naio_result_object_clean(object, SLOT_CBCLOSE);
 
   e = naic_compile_top(&naic, object);
-  if (!NAIG_ISOK(e)) {
+  if (e.code) {
     if (strlen(naic.error)) {
-      fprintf(stderr, "Compiler error: %s\n", naic.error);
+      fprintf(stderr, "Compiler error (%d): %s\n", e.code, naic.error);
     } else {
-      fprintf(stderr, "Compiler error.\n");
+      fprintf(stderr, "Compiler error (%d).\n", e.code);
     }
     return e;
   }

@@ -74,39 +74,6 @@ NAIG_ERR_T naic_compile_top
   case NAIC_FIRST_MAINRULE:
     NAIC_WRITE("  call %s\n  end 0\n", naic->first);
     break;
-  case NAIC_FIRST_FUNCTION:
-  case NAIC_FIRST_MAINFUNCTION:
-    NAIC_WRITE(
-      "  mode 1\n"
-      "  scr_push void -- Return value\n"
-    );
-    {
-      naic_nspnod_t* nspnodry;
-      CHECK(naic_nsp_get(naic->globalscope, naic->first, &nspnodry, 0));
-      if (nspnodry->type != NAIC_NSPTYPE_FUNCTION) {
-        snprintf(naic->error, sizeof(naic->error),
-          "%s is not a function", naic->first
-        );
-        return NAIG_ERR_CALL;
-      }
-      if (nspnodry->value.function.params.count != 0) {
-        fprintf(stderr,
-          "WARNING: Initial function has %u parameters defined. "
-          "Filling up with void.\n"
-          , nspnodry->value.function.params.count
-        );
-        for (i=0; i < nspnodry->value.function.params.count; i++) {
-          NAIC_WRITE("  scr_push void -- Filler arg\n");
-        }
-      }
-    }
-    NAIC_WRITE(
-      "  scr_call %s\n"
-      "  scr_pop\n"
-      "  end 0\n"
-      , naic->first
-    );
-    break;
   case NAIC_FIRST_IMPLICITRULE:
     break;
   default:

@@ -77,21 +77,6 @@ NAIG_ERR_T naic_compile_capture
         , slot
         , key
       );
-    } else if (nod->type == NAIC_NSPTYPE_FUNCTION) {
-      if (nod->value.function.params.count != 1) {
-        TODO("Error message here");
-        return NAIG_ERR_NOTFOUND;
-      }
-      NAIC_WRITE(
-        "  mode 1\n"
-        "  scr_push void -- Return value\n"
-        "  scr_push capture %u -- Capture region argument\n"
-        "  scr_call %s\n"
-        "  scr_pop\n"
-        "  mode 0\n"
-        , slot
-        , key
-      );
     } else {
       TODO("Error message here");
       return NAIG_ERR_NOTFOUND;

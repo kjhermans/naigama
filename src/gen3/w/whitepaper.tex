@@ -124,7 +124,8 @@ such a message might be encoded as follows:
 \end{changemargin}
 
 (You can have a discussion about the semantics here, as the intention of
-the BER encoding is to format a name/value pair).
+the BER encoding is to format a name/value pair, which would have a
+different representation in JSON, and not strictly a list).
 
 \subsubsection{BER Length Encoding}
 BER is encoded as a binary Type-Length-Value (TLV) (and, in nested 
@@ -347,9 +348,11 @@ OtherName ::= SEQUENCE {
 \end{myquote}
 \end{changemargin}
 
-The ‘DEFINED BY’ clause in ASN.1 does not have any formal meaning 
-[???] (as can be seen from the comment ‘--’ introduction in the 
-definition, which can leave it in or out without consequence).
+The ‘ANY DEFINED BY’ type clause in ASN.1 does not have a meaning that
+can be extracted by a parser, since its value content is or can be
+dependent on yet to be written sub-standards.
+(Besides, as can be seen from the comment ‘--’ introduction in one
+of the definitions, it can be left in or out without consequence).
 
 \thesubsubsection{.2  Type Ambiguity}
 
@@ -1426,11 +1429,11 @@ conditionals to present these as intrinsic or human readable to the user.
 \end{itemize}
 
 \newpage
-\textbf{References}
+%\textbf{References}
 
-\begin{changemargin}{-60mm}{0mm}
+%\begin{changemargin}{-30mm}{0mm}
 \input{bib.tex}
-\end{changemargin}
+%\end{changemargin}
 
 \newpage
 \begin{appendices}

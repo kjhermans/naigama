@@ -39,7 +39,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 int sqldb_row_insert
   (sqldb_t* db, sqldb_row_t* row, sqldb_result_t* result)
 {
+#ifdef _USE_SLEEPYCAT
   DBT key, val;
+#else
+  tdt_t key, val;
+#endif
   unsigned i;
   unsigned char keydata[ 9 ] = { 'N' };
 
@@ -50,7 +54,11 @@ int sqldb_row_insert
     memcpy(&(keydata[ 1 ]), &(row->nodes[ i ].fielduid), 4);
     val.data = row->nodes[ i ].value;
     val.size = row->nodes[ i ].valuelen;
+#ifdef _USE_SLEEPYCAT
     if (db->db->put(db->db, &key, &val, 0)) {
+#else
+    if (td_put(&(db->db), &key, &val, 0)) {
+#endif
       fprintf(stderr, "Database error.\n");
       return ~0;
     }

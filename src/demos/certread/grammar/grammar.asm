@@ -1,6 +1,6 @@
 --
--- Naigama compiler library; gen 3; release 0.3.1
--- At Sun, 26 Dec 2021 09:50:16 +0100
+-- Naigama compiler library; gen 3; release 0.3.3
+-- At Sat, 22 Jan 2022 23:51:12 +0100
 --
 
   call CERTIFICATE

@@ -188,6 +188,17 @@ extern
 void sqldb_row_new
   (sqldb_row_t* row, uint32_t rownumber);
 
+/* declared in ./sqldb_rowagr_fetch.c */
+extern
+int sqldb_rowagr_fetch
+  (sqldb_rowagr_t* agr, sqldb_row_t* row)
+  __attribute__ ((warn_unused_result));
+
+/* declared in ./sqldb_rowagr_init.c */
+extern
+void sqldb_rowagr_init
+  (sqldb_t* db, sqldb_rowagr_t* agr, sqldb_uidvec_t* fieldlist);
+
 /* declared in ./sqldb_select.c */
 extern
 int sqldb_select
@@ -197,7 +208,12 @@ int sqldb_select
 /* declared in ./sqldb_select_fieldlist.c */
 extern
 int sqldb_select_fieldlist
-  (sqldb_t* db, naio_resobj_t* what, sqldb_uidvec_t* tables, sqldb_uidvec_t* fields)
+  (
+    sqldb_t* db,
+    naio_resobj_t* what,
+    sqldb_uidvec_t* tables,
+    sqldb_uidvec_t* fields
+  )
   __attribute__ ((warn_unused_result));
 
 /* declared in ./sqldb_select_from.c */

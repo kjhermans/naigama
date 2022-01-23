@@ -36,7 +36,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 int sqldb_table_resolve
   (sqldb_t* db, char* name, uint32_t* uid, uint32_t* nrows)
 {
+#ifdef _USE_SLEEPYCAT
   DBT key, val;
+#else
+  tdt_t key, val;
+#endif
   unsigned char keydata[ 5 ] = { 'T' };
   uint32_t type;
 
@@ -51,9 +55,13 @@ int sqldb_table_resolve
   memcpy(&(keydata[ 1 ]), uid, 4);
   key.data = keydata;
   key.size = sizeof(keydata);
-  val.data = &nrows;
-  val.size = sizeof(nrows);
+  val.data = nrows;
+  val.size = sizeof(*nrows);
+#ifdef _USE_SLEEPYCAT
   if (db->db->get(db->db, &key, &val, 0) == 0) {
+#else
+  if (td_get(&(db->db), &key, &val, 0) == 0) {
+#endif
     (*nrows) = *((uint32_t*)(val.data));
     return 0;
   }

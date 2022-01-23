@@ -46,12 +46,20 @@ static unsigned char bytecode[] = {
 int sqldb_init
   (sqldb_t* db, char* path)
 {
+#ifdef _USE_SLEEPYCAT
   DBT key, val;
+#else
+  tdt_t key, val;
+#endif
   unsigned char keydata = 'D';
   char* valdata = "SQLDB";
 
   memset(db, 0, sizeof(*db));
+#ifdef _USE_SLEEPYCAT
   if ((db->db = dbopen(path, O_RDWR|O_CREAT, 0644, DB_BTREE, NULL)) == NULL) {
+#else
+  if ((td_open(&(db->db), path, 0, O_RDWR|O_CREAT, 0644)) != 0) {
+#endif
     fprintf(stderr, "Could not open database at '%s'\n", path);
     return ~0;
   }
@@ -59,7 +67,11 @@ int sqldb_init
   key.size = 1;
   val.data = valdata;
   val.size = strlen(valdata);
+#ifdef _USE_SLEEPYCAT
   if (db->db->put(db->db, &key, &val, 0)) {
+#else
+  if (td_put(&(db->db), &key, &val, 0) != 0) {
+#endif
     fprintf(stderr, "Database error\n");
     return ~0;
   }

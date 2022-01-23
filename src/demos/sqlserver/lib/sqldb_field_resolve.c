@@ -36,7 +36,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 int sqldb_field_resolve
   (sqldb_t* db, uint32_t tableuid, char* name, uint32_t* uid, uint32_t* type)
 {
+#ifdef _USE_SLEEPYCAT
   DBT key, val;
+#else
+  tdt_t key, val;
+#endif
   unsigned char keydata[ 5 ] = { 'F' };
   uint32_t dbtype;
 
@@ -51,9 +55,13 @@ int sqldb_field_resolve
   memcpy(&(keydata[ 1 ]), uid, 4);
   key.data = keydata;
   key.size = sizeof(keydata);
-  val.data = &type;
-  val.size = sizeof(type);
+  val.data = type;
+  val.size = sizeof(*type);
+#ifdef _USE_SLEEPYCAT
   if (db->db->get(db->db, &key, &val, 0) == 0) {
+#else
+  if (td_get(&(db->db), &key, &val, 0) == 0) {
+#endif
     (*type) = *((uint32_t*)(val.data));
     return 0;
   }

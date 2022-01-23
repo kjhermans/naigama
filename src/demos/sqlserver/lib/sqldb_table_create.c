@@ -36,7 +36,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 int sqldb_table_create
   (sqldb_t* db, char* name, uint32_t* uid)
 {
+#ifdef _USE_SLEEPYCAT
   DBT key, val;
+#else
+  tdt_t key, val;
+#endif
   unsigned char keydata[ 5 ] = { 'T' };
   uint32_t nrows = 0;
 
@@ -49,7 +53,11 @@ int sqldb_table_create
   key.size = sizeof(keydata);
   val.data = &nrows;
   val.size = sizeof(nrows);
+#ifdef _USE_SLEEPYCAT
   if (db->db->put(db->db, &key, &val, 0) == 0) {
+#else
+  if (td_put(&(db->db), &key, &val, 0) == 0) {
+#endif
     return 0;
   }
   fprintf(stderr, "Database error.\n");

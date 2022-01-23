@@ -39,7 +39,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 int sqldb_namespace_get_h
   (sqldb_t* db, uint32_t parent, char* name, uint32_t* uid, uint32_t* type)
 {
+#ifdef _USE_SLEEPYCAT
   DBT key, val;
+#else
+  tdt_t key, val;
+#endif
   unsigned char keydata[ strlen(name) + 5 ];
   uint32_t valdata[ 2 ];
 
@@ -50,7 +54,11 @@ int sqldb_namespace_get_h
   memcpy(&(keydata[ 5 ]), name, strlen(name));
   val.data = valdata;
   val.size = sizeof(valdata);
+#ifdef _USE_SLEEPYCAT
   if (db->db->get(db->db, &key, &val, 0) == 0) {
+#else
+  if (td_get(&(db->db), &key, &val, 0) == 0) {
+#endif
     uint32_t* d = val.data;
     (*uid) = d[ 0 ];
     (*type) = d[ 1 ];

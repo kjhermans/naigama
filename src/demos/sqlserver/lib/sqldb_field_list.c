@@ -39,10 +39,15 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 int sqldb_field_list
   (sqldb_t* db, uint32_t tableuid, sqldb_uidvec_t* list)
 {
+#ifdef _USE_SLEEPYCAT
   DBT key, val;
+  unsigned flags = R_CURSOR;
+#else
+  tdt_t key, val;
+  tdc_t cursor = TDC_INIT(&(db->db));
+#endif
   unsigned char keydata[ 5 ] = { 'A' }, *_kd, *_vd;
   uint32_t valdata[ 2 ];
-  unsigned flags = R_CURSOR;
 
   memcpy(&(keydata[ 1 ]), &tableuid, 4);
   key.data = keydata;
@@ -50,10 +55,16 @@ int sqldb_field_list
   val.data = valdata;
   val.size = sizeof(valdata);
   while (1) {
+#ifdef _USE_SLEEPYCAT
     if (db->db->seq(db->db, &key, &val, flags) == 0) {
+#else
+    if (tdc_nxt(&cursor, &key, &val, 0) == 0) {
+#endif
       _kd = key.data;
       _vd = val.data;
-      if (key.size >= 5 && _kd[ 0 ] == 'A' && *((uint32_t*)(&(_kd[1]))) == tableuid) {
+      if (key.size >= 5 && _kd[ 0 ] == 'A'
+          && *((uint32_t*)(&(_kd[1]))) == tableuid)
+      {
         if (sqldb_uidvec_push(list, *((uint32_t*)_vd))) {
           fprintf(stderr, "Error push field UID.\n");
           return ~0;
@@ -64,7 +75,9 @@ int sqldb_field_list
     } else {
       break;
     }
+#ifdef _USE_SLEEPYCAT
     flags = R_NEXT;
+#endif
   }
   return 0;
 }

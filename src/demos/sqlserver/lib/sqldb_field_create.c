@@ -36,7 +36,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 int sqldb_field_create
   (sqldb_t* db, uint32_t tableuid, char* name, uint32_t type, uint32_t* uid)
 {
+#ifdef _USE_SLEEPYCAT
   DBT key, val;
+#else
+  tdt_t key, val;
+#endif
   unsigned char keydata[ 5 ] = { 'F' };
 
   if (sqldb_namespace_put_h(db, tableuid, name, uid, SQLDB_TYPE_FIELD)) {
@@ -48,7 +52,11 @@ int sqldb_field_create
   key.size = sizeof(keydata);
   val.data = &type;
   val.size = sizeof(type);
+#ifdef _USE_SLEEPYCAT
   if (db->db->put(db->db, &key, &val, 0) == 0) {
+#else
+  if (td_put(&(db->db), &key, &val, 0) == 0) {
+#endif
     return 0;
   }
   fprintf(stderr, "Database error.\n");

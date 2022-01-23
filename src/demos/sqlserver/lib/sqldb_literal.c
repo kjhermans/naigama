@@ -40,8 +40,10 @@ int sqldb_literal
   (sqldb_t* db, naio_resobj_t* expr, sqldb_node_t* node)
 {
   naio_resobj_t* literal;
+  (void)db;
 
   ASSERT(expr->nchildren)
+
   literal = expr->children[ 0 ];
   switch (literal->type) {
   case SLOTMAP_STRINGLITERAL_:
@@ -49,6 +51,25 @@ int sqldb_literal
       fprintf(stderr, "String decoding error.\n");
       return ~0;
     }
+    break;
+  case SLOTMAP_BOOLEANLITERAL_:
+    node->value = malloc(sizeof(int));
+    node->valuelen = sizeof(int);
+    if (0 == strcasecmp(literal->string, "true")) {
+      *((int*)(node->value)) = 1;
+    } else {
+      *((int*)(node->value)) = 0;
+    }
+    break;
+  case SLOTMAP_INTLITERAL_:
+    node->value = malloc(sizeof(int));
+    node->valuelen = sizeof(int);
+    *((int*)(node->value)) = atoi(literal->string);
+    break;
+  case SLOTMAP_FLOATLITERAL_:
+    node->value = malloc(sizeof(float));
+    node->valuelen = sizeof(float);
+    *((float*)(node->value)) = atof(literal->string);
     break;
   default:
     TODO("Implement more literals");

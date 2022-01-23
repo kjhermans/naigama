@@ -36,7 +36,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 int sqldb_sequence_create
   (sqldb_t* db, char* name, unsigned value, uint32_t* uid)
 {
+#ifdef _USE_SLEEPYCAT
   DBT key, val;
+#else
+  tdt_t key, val;
+#endif
   unsigned char keydata[ 5 ] = { 'S' };
 
   if (sqldb_namespace_put(db, name, uid, SQLDB_TYPE_SEQUENCE)) {
@@ -48,7 +52,11 @@ int sqldb_sequence_create
   key.size = sizeof(keydata);
   val.data = &value;
   val.size = sizeof(value);
+#ifdef _USE_SLEEPYCAT
   if (db->db->put(db->db, &key, &val, 0) == 0) {
+#else
+  if (td_put(&(db->db), &key, &val, 0) == 0) {
+#endif
     return 0;
   }
   fprintf(stderr, "Database error.\n");

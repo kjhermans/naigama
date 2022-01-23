@@ -36,7 +36,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 int sqldb_table_update
   (sqldb_t* db, uint32_t uid, uint32_t nrows)
 {
+#ifdef _USE_SLEEPYCAT
   DBT key, val;
+#else
+  tdt_t key, val;
+#endif
   unsigned char keydata[ 5 ] = { 'T' };
 
   memcpy(&(keydata[ 1 ]), &uid, 4);
@@ -44,7 +48,11 @@ int sqldb_table_update
   key.size = sizeof(keydata);
   val.data = &nrows;
   val.size = sizeof(nrows);
+#ifdef _USE_SLEEPYCAT
   if (db->db->put(db->db, &key, &val, 0) == 0) {
+#else
+  if (td_put(&(db->db), &key, &val, 0) == 0) {
+#endif
     return 0;
   }
   fprintf(stderr, "Database error.\n");

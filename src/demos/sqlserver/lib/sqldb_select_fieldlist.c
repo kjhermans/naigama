@@ -37,7 +37,12 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
 int sqldb_select_fieldlist
-  (sqldb_t* db, naio_resobj_t* what, sqldb_uidvec_t* tables, sqldb_uidvec_t* fields)
+  (
+    sqldb_t* db,
+    naio_resobj_t* what,
+    sqldb_uidvec_t* tables,
+    sqldb_uidvec_t* fields
+  )
 {
   unsigned i, j;
 

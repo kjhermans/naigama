@@ -43,6 +43,7 @@ int sqldb_expression
   sqldb_node_t left, right;
 
   ASSERT(expr->nchildren)
+
   memset(&left, 0, sizeof(left));
   if (sqldb_expr2(db, expr->children[ 0 ], &left)) {
     fprintf(stderr, "Expression evaluation failed.\n");

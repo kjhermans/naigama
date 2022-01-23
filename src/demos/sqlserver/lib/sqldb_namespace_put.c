@@ -39,7 +39,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 int sqldb_namespace_put
   (sqldb_t* db, char* name, uint32_t* uid, uint32_t type)
 {
+#ifdef _USE_SLEEPYCAT
   DBT key, val;
+#else
+  tdt_t key, val;
+#endif
   unsigned char keydata[ strlen(name) + 1 ];
   uint32_t valdata[ 2 ];
 
@@ -59,7 +63,11 @@ int sqldb_namespace_put
   valdata[ 1 ] = type;
   val.data = valdata;
   val.size = sizeof(valdata);
+#ifdef _USE_SLEEPYCAT
   if (db->db->put(db->db, &key, &val, 0) == 0) {
+#else
+  if (td_put(&(db->db), &key, &val, 0) == 0) {
+#endif
     return 0;
   }
   fprintf(stderr, "Database error.\n");

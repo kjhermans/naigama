@@ -34,19 +34,30 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "sqldb.h"
 
 /**
- *
+ * Initializes a row aggregator, based on a fieldlist.
+ * The fieldlist is the result of a select().
  */
-void sqldb_row_add_field
-  (sqldb_row_t* row, char* fieldname, uint32_t uid, uint32_t type)
+void sqldb_rowagr_init
+  (sqldb_t* db, sqldb_rowagr_t* agr, sqldb_uidvec_t* fieldlist)
 {
-  row->nodes = realloc(row->nodes, sizeof(sqldb_node_t) * (row->nnodes + 1));
-  row->nodes[ row->nnodes ].fieldname = fieldname;
-  row->nodes[ row->nnodes ].fielduid = uid;
-  row->nodes[ row->nnodes ].fieldtype = type;
-  row->nodes[ row->nnodes ].valuelen = 0;
-  row->nodes[ row->nnodes ].value = 0;
-  ++(row->nnodes);
-  fprintf(stderr,
-    "Added field '%s' uid %u type %u to row\n", fieldname, uid, type
-  );
+  unsigned i;
+
+  memset(agr, 0, sizeof(*agr));
+  agr->fieldlist = fieldlist;
+#ifdef _USE_SLEEPYCAT
+  abort();
+#else
+  tdt_t key;
+  unsigned char keydata[ 5 ] = { 'N' };
+  key.data = keydata;
+  key.size = sizeof(keydata);
+  agr->cursors = malloc(sizeof(tdc_t) * agr->fieldlist->nuids);
+  for (i=0; i < agr->fieldlist->nuids; i++) {
+    tdc_init(&(db->db), &(agr->cursors[ i ]));
+    memcpy(&(keydata[ 1 ]), &(fieldlist->uids[ i ]), sizeof(uint32_t));
+    if (tdc_mov(&(agr->cursors[ i ]), &key, TDCFLG_PARTIAL|TDCFLG_EXACT)) {
+      //.. no field nodes at all present
+    }
+  }
+#endif
 }

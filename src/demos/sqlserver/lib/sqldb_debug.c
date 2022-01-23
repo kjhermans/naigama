@@ -43,19 +43,32 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 void sqldb_debug
   (sqldb_t* db)
 {
+#ifdef _USE_SLEEPYCAT
   DBT key, val;
+  unsigned flags = R_FIRST;
+#else
+  tdt_t key, val;
+#endif
   unsigned char keydata[ 1024 ];
   unsigned char valdata[ 1024 ];
-  unsigned flags = R_FIRST;
   unsigned char* d;
   unsigned i;
+
+#ifndef _USE_SLEEPYCAT
+  tdc_t cursor;
+  tdc_init(&(db->db), &cursor);
+#endif
 
   while (1) {
     key.data = keydata;
     val.data = valdata;
     key.size = sizeof(keydata);
     val.size = sizeof(valdata);
+#ifdef _USE_SLEEPYCAT
     if (db->db->seq(db->db, &key, &val, flags) == 0) {
+#else
+    if (tdc_nxt(&cursor, &key, &val, 0) == 0) {
+#endif
       fprintf(stderr, "\"");
       d = key.data;
       for (i=0; i < key.size; i++) {
@@ -78,6 +91,8 @@ void sqldb_debug
     } else {
       break;
     }
+#ifdef _USE_SLEEPYCAT
     flags = R_NEXT;
+#endif
   }
 }

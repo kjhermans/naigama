@@ -47,15 +47,26 @@ int main
   sqldb_t db;
   sqldb_result_t res;
 
+  fprintf(stderr, "SQL DB. ");
+#ifdef _USE_SLEEPYCAT
+  fprintf(stderr, "Using sleepycat\n");
+#else
+  fprintf(stderr, "Using sdbm_tree\n");
+#endif
+
   if (sqldb_init(&db, dbpath)) { return ~0; }
   if (argc == 2) {
     if (absorb_file(argv[ 1 ], &buf, &buflen) == 0) {
-      if (sqldb_query(&db, buf, &res)) {
+      if (sqldb_query(&db, (char*)buf, &res)) {
         fprintf(stderr, "Error.\n");
       }
     }
   }
   sqldb_debug(&db);
+#ifdef _USE_SLEEPYCAT
   db.db->close(db.db);
+#else
+  db.db.close(&(db.db));
+#endif
   return 0;
 }

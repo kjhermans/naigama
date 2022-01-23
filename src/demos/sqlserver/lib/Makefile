@@ -3,7 +3,12 @@ OBJECTS:=$(shell ls *.c | sort | sed -e 's/\.c$$/.o/')
 LIB=libsqldb.a
 CC=$(ARCH)gcc
 AR=$(ARCH)ar
-CFLAGS=-g -Wall -Wextra $(DEBUG) -I$(INCLUDE)
+SC:=$(shell if [ $(USE_SLEEPYCAT) = 1 ]; then \
+        echo "-D_USE_SLEEPYCAT"; \
+    else \
+        echo ""; \
+    fi)
+CFLAGS=-g -Wall -Wextra $(DEBUG) -I$(INCLUDE) $(SC)
 
 all: functionsh $(LIB)
 

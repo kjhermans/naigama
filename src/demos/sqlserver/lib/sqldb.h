@@ -38,19 +38,43 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdio.h>
 #include <string.h>
 
+#ifdef _USE_SLEEPYCAT
 #include <db_185.h>
+#else
+#include "../sdbm_tree/td.h"
+#endif
 
 #include <naigama/engine/naie.h>
 
 #include "slotmap.h"
 
+
+
+
+typedef struct
+{
+  unsigned              nuids;
+  uint32_t*             uids;
+}
+sqldb_uidvec_t;
+
+
+
+
 typedef struct
 {
   int                   init;
-  DB*                   db;
   naie_engine_t         parser;
+#ifdef _USE_SLEEPYCAT
+  DB*                   db;
+#else
+  td_t                  db;
+#endif
 }
 sqldb_t;
+
+
+
 
 typedef struct
 {
@@ -59,6 +83,9 @@ typedef struct
 }
 sqldb_outcome_t;
 
+
+
+
 typedef struct
 {
   unsigned              noutcomes;
@@ -66,15 +93,39 @@ typedef struct
 }
 sqldb_result_t;
 
+
+
+
 typedef struct
 {
-  char*                 fieldname; /* non freeable */
+  char*                 fieldname; /* non freeable, may be NULL */
+  uint32_t              rownumber;
   uint32_t              fielduid;
-  uint32_t              fieldtype;
+  uint32_t              fieldtype; /* may be zero */
   unsigned              valuelen;
   void*                 value;     /* malloced */
 }
 sqldb_node_t;
+
+
+
+
+typedef struct
+{
+#ifdef _USE_SLEEPYCAT
+#error "TODO"
+#else
+  tdc_t*                cursors; // malloced list, fieldlist->nuids
+#endif
+  sqldb_uidvec_t*       fieldlist;
+  unsigned              gridheight;
+  unsigned              nrows;
+  sqldb_node_t*         grid; // malloced 2d list, fieldlist->nuids * gridheight
+}
+sqldb_rowagr_t;
+
+
+
 
 typedef struct
 {
@@ -84,12 +135,8 @@ typedef struct
 }
 sqldb_row_t;
 
-typedef struct
-{
-  unsigned              nuids;
-  uint32_t*             uids;
-}
-sqldb_uidvec_t;
+
+
 
 #define SQL_CHECK_NAIG(fnc) if (!NAIG_ISOK(fnc)) { return ~0; }
 
@@ -109,12 +156,16 @@ sqldb_uidvec_t;
 #ifdef TODO
 #undef TODO
 #endif
-#define TODO(str) fprintf(stderr, "TODO: %s\n", str);
+#define TODO(str) fprintf(stderr, "TODO %s:%d: %s\n", __FILE__, __LINE__, str);
 
 #ifdef ASSERT
 #undef ASSERT
 #endif
-#define ASSERT(cnd) if (!(cnd)) { fprintf(stderr, "Assertion failed at %s line %d\n", __FILE__, __LINE__); abort(); }
+#define ASSERT(cnd) \
+  if (!(cnd)) { \
+    fprintf(stderr, "Assertion failed at %s line %d\n", __FILE__, __LINE__); \
+    abort(); \
+  }
 
 #include "functions.h"
 #endif

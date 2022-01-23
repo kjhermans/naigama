@@ -39,7 +39,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 int sqldb_uid_new
   (sqldb_t* db, uint32_t* uid)
 {
+#ifdef _USE_SLEEPYCAT
   DBT key, val;
+#else
+  tdt_t key, val;
+#endif
   unsigned char keydata = 'U';
   uint32_t localuid;
 
@@ -47,7 +51,11 @@ int sqldb_uid_new
   key.size = 1;
   val.data = &localuid;
   val.size = sizeof(uint32_t);
+#ifdef _USE_SLEEPYCAT
   if (db->db->get(db->db, &key, &val, 0) == 0) {
+#else
+  if (td_get(&(db->db), &key, &val, 0) == 0) {
+#endif
     localuid = *((uint32_t*)(val.data));
     ++localuid;
   } else {
@@ -56,7 +64,11 @@ int sqldb_uid_new
   (*uid) = localuid;
   val.data = &localuid;
   val.size = sizeof(uint32_t);
+#ifdef _USE_SLEEPYCAT
   if (db->db->put(db->db, &key, &val, 0) == 0) {
+#else
+  if (td_put(&(db->db), &key, &val, 0) == 0) {
+#endif
     return 0;
   }
   fprintf(stderr, "Database error.\n");

@@ -86,7 +86,7 @@ NAIG_ERR_T naie_result_handle
     case NAIG_ACTION_REPLACE_CHAR:
     case NAIG_ACTION_REPLACE_QUAD:
       slot = r.actions[ i ].slot;
-      for(; i < r.count; i++) {
+      for (; i < r.count; i++) {
         if ((r.actions[ i ].action == NAIG_ACTION_REPLACE_CHAR
              || r.actions[ i ].action == NAIG_ACTION_REPLACE_QUAD)
             && r.actions[ i ].slot == slot)

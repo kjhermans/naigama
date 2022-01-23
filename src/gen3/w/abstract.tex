@@ -2,8 +2,8 @@
 
 Because of its complexity - nested binary TLV encoding and various
 compression schemes -
-parsing BER and BER-like formatted messages (such as X.509 certificates or SNMPv3
-messages) is considered problematic. To my
+parsing BER and BER-like formatted messages (such as X.509 certificates or
+SNMP messages) is considered problematic. To my
 knowledge, formal parsing of BER is not
 addressed by available solutions. Instead, custom, hand
 coded solutions or generated code prevail. This is a security risk from a
@@ -15,7 +15,7 @@ simple grammar definition, and requiring only minimal changes to the
 resulting assembly and bytecode interpreter. This paper also shows that,
 having implemented those changes, and using a grammar that closely mimics
 its ASN.1 counterpart definition, it is possible to split up X.509 and SNMPv3
-messages in their underlying parts. Other findings presented here
+messages in their underlying parts. Other findings presented
 are that this extension allows BER well-formedness checks, as well as ASN.1
 definition checks, and that it allows content, such as digital
 signatures, to be isolated (captured) from the input (allowing for a subsequent

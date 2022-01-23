@@ -263,6 +263,16 @@ impl NaigEngine {
     }
   }
 
+  fn pins_to_tree
+    (input: & Vec< u8 >, pins: & Vec< NaigPinpoint >, start: usize, tree: & mut NaigCapTree)
+  {
+    let offset = pins[ start ].offset;
+
+    for i in start .. pins.len() {
+      
+    }
+  }
+
   fn decode_opcode
     (ar: & Vec< u8 >, off: usize)
     -> Result<NaigInstruction, NaigError>

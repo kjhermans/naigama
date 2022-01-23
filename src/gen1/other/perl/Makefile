@@ -1,6 +1,8 @@
 all:
 	./bin/gen_instr.pl ../../precomp/instructions.pl > ./lib/Naigama/Instructions.pm
 
+clean:
+
 superclean:
 	rm -f ./lib/Naigama/Instructions.pm
 

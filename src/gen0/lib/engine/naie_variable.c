@@ -75,6 +75,7 @@ NAIG_ERR_T naie_variable
     , slot
     , naie_stack_call_size(engine)
   );
+  naie_debug_actions(engine);
 #endif
   RETURNERR(NAIE_ERR_VARIABLE);
 }

@@ -79,7 +79,7 @@ NAIG_ERR_T naic_compile
     if (strxypos(grammar, engine.input_pos, yx) == 0) {
       fprintf(stderr, "Grammar parsing error (%d) line %u, off %u\n", e.code, yx[0], yx[1]);
     } else {
-      fprintf(stderr, "Grammar parsing error (%d).\n");
+      fprintf(stderr, "Grammar parsing error (%d).\n", e.code);
     }
     return e;
   }

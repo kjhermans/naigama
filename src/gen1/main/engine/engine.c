@@ -247,7 +247,7 @@ int main
       &result
     );
     if (e.code) {
-      fprintf(stderr, "Error %u\n", e.code);
+      fprintf(stderr, "Error %d\n", e.code);
       if (stringpos) {
         unsigned xy[ 2 ];
         if (strxypos((char*)data, engine.input_pos, xy) == 0) {

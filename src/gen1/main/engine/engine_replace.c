@@ -50,22 +50,31 @@ NAIG_ERR_T engine_repl_delete
   struct engine_repl* e = (struct engine_repl*)arg;
   (void)orig;
 
+fprintf(stderr, "REPLACE DELETE [[[%-.*s]]]\n", e->size, e->copy);
   memmove(
     e->copy + start,
     e->copy + start + length,
     e->size - (start + length)
   );
   e->size -= length;
+fprintf(stderr, "REPLACE DELETE /[[[%-.*s]]]\n", e->size, e->copy);
   return NAIG_OK;
 }
 
 static
 NAIG_ERR_T engine_repl_insert
-  (const unsigned char* orig, unsigned typ, unsigned start, uint32_t chr, void* arg)
+  (
+    const unsigned char* orig,
+    unsigned typ,
+    unsigned start,
+    uint32_t chr,
+    void* arg
+  )
 {
   struct engine_repl* e = (struct engine_repl*)arg;
   (void)orig;
 
+fprintf(stderr, "REPLACE INSERT [[[%-.*s]]]\n", e->size, e->copy);
   e->copy = (unsigned char*)realloc(e->copy, e->size + 4);
   switch (typ) {
   case NAIG_ACTION_REPLACE_CHAR:
@@ -87,6 +96,7 @@ NAIG_ERR_T engine_repl_insert
     e->size += 4;
     break;
   }
+fprintf(stderr, "REPLACE INSERT /[[[%-.*s]]]\n", e->size, e->copy);
   return NAIG_OK;
 }
 

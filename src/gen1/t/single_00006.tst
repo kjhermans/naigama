@@ -1,8 +1,8 @@
 -- Replace:
 
-CSV       <- { ( { CSVRECORD } '\n' )* } -> '<record>' $1 '</record>'
-CSVRECORD <- { ( { CSVFIELD } ',' )* } -> '<field>' $3 '</field>'
-CSVFIELD  <- ( '\\' [nrtv,] / [^,] )*
+CSV       <- { ( {:rec: CSVRECORD } '\n' )* } -> '<record>' $rec '</record>'
+CSVRECORD <- { ( {:fld: CSVFIELD } ',' )* } -> '<field>' $fld '</field>'
+CSVFIELD  <- ( '\\' [nrtv,] / [^\n,] )*
 
 -- Input:
 

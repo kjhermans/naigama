@@ -1,10 +1,8 @@
 -- Replace:
 
 CSV       <- CSVRECORD ( '\n' CSVRECORD)* / ...
-CSVRECORD <- { CSVFIELD ( COMMA CSVFIELD)* / ... }
-          -> '<record>' $0 '</record>'
-CSVFIELD  <- { ( '\\' [nrtv,] / [^,\n] )* }
-          -> '<field>' $1 '</field>'
+CSVRECORD <- { CSVFIELD ( COMMA CSVFIELD)* / ... } -> '<record>' $0 '</record>'
+CSVFIELD  <- { ( '\\' [nrtv,] / [^,\n] )* } -> '<field>' $1 '</field>'
 COMMA     <- { ',' } -> ' '
 
 -- Input:

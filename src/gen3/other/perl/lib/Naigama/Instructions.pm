@@ -10,9 +10,12 @@ our $INSTR_COMMIT = 0x00040336;
 our $INSTR_CONDJUMP = 0x00080321;
 our $INSTR_COUNTER = 0x00080356;
 our $INSTR_END = 0x000400d8;
+our $INSTR_ENDISOLATE = 0x00003005;
 our $INSTR_ENDREPLACE = 0x00000399;
 our $INSTR_FAIL = 0x0000034b;
 our $INSTR_FAILTWICE = 0x00000390;
+our $INSTR_INTRPCAPTURE = 0x0008000f;
+our $INSTR_ISOLATE = 0x00043003;
 our $INSTR_JUMP = 0x00040333;
 our $INSTR_MASKEDCHAR = 0x00080365;
 our $INSTR_NOOP = 0x00000000;
@@ -45,9 +48,12 @@ sub get_opcode_string
   if ($opcode == 0x00080321) { return "condjump"; }
   if ($opcode == 0x00080356) { return "counter"; }
   if ($opcode == 0x000400d8) { return "end"; }
+  if ($opcode == 0x00003005) { return "endisolate"; }
   if ($opcode == 0x00000399) { return "endreplace"; }
   if ($opcode == 0x0000034b) { return "fail"; }
   if ($opcode == 0x00000390) { return "failtwice"; }
+  if ($opcode == 0x0008000f) { return "intrpcapture"; }
+  if ($opcode == 0x00043003) { return "isolate"; }
   if ($opcode == 0x00040333) { return "jump"; }
   if ($opcode == 0x00080365) { return "maskedchar"; }
   if ($opcode == 0x00000000) { return "noop"; }

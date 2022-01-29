@@ -242,27 +242,28 @@ public class Compiler
     } else if (t.getContent().equals("?")) {
       return new int[]{ 0, 1 };
     } else {
-      if (t.getChild(0).getChildCount() == 2) {
+System.err.println(t);
+      if (t.firstChild().getChildCount() == 2) {
         return new int[]{
           Integer.parseInt(t.getChild(0).getChild(0).getContent()),
           Integer.parseInt(t.getChild(0).getChild(1).getContent())
         };
       } else {
-        switch (t.getChild(0).getChild(0).getSlot()) {
+        switch (t.firstChild().getSlot()) {
         case Slotmap.SLOT_Q_UNTIL_: // until
           return new int[]{
             0,
-            Integer.parseInt(t.getChild(0).getChild(0).getContent())
+            Integer.parseInt(t.firstChild().firstChild().getContent())
           };
         case Slotmap.SLOT_Q_FROM_: // from
           return new int[]{
-            Integer.parseInt(t.getChild(0).getChild(0).getContent()),
+            Integer.parseInt(t.firstChild().firstChild().getContent()),
             -1
           };
         case Slotmap.SLOT_Q_SPECIFIC_: // abs
           return new int[]{
-            Integer.parseInt(t.getChild(0).getChild(0).getContent()),
-            Integer.parseInt(t.getChild(0).getChild(0).getContent())
+            Integer.parseInt(t.firstChild().firstChild().getContent()),
+            Integer.parseInt(t.firstChild().firstChild().getContent())
           };
         }
       }

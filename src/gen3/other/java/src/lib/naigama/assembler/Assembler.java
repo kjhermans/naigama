@@ -39,6 +39,9 @@ public class Assembler
     sp(t, state);
   }
 
+  /**
+   * First pass; assign labels to offsets
+   */
   private void fp
     (TreeNode t, AssemblerState state)
     throws NaigamaException
@@ -139,16 +142,25 @@ public class Assembler
       case Slotmap.SLOT_VARINSTR_VAR:
         offset += Instructions.getSize(Instructions.INSTR_VAR);
         break;
-      case Slotmap.SLOT_INSTRUCTION_LABELDEF:
+      case Slotmap.SLOT_LABEL_AZAZ:
         if (state.options.debug) {
-          System.err.println("Label '" + t.getChild(i).getChild(0).getChild(0).getContent() + "' -> " + offset);
+          System.err.println("Label '" +
+            t.getChild(i).getChild(0).getContent() +
+            "' -> " + offset
+          );
         }
-        state.labelSet(t.getChild(i).getChild(0).getChild(0).getContent(), offset);
+        state.labelSet(
+          t.getChild(i).getChild(0).getContent(),
+          offset
+        );
         break;
       }
     }
   }
 
+  /**
+   * Seconds pass; translate assembly into bytecode while resolving offsets.
+   */
   private void sp
     (TreeNode t, AssemblerState state)
     throws NaigamaException
@@ -162,7 +174,11 @@ public class Assembler
         state.output_add_instr(Instructions.INSTR_BACKCOMMIT);
         {
           String label = t.getChild(i).getChild(1).getContent();
-          int offset = label.equals("__NEXT__") ? state.output.length + Instructions.getSize(Instructions.INSTR_BACKCOMMIT) - 4 : state.labelGet(label);
+          int offset = label.equals("__NEXT__")
+                         ? state.output.length
+                           + Instructions.getSize(Instructions.INSTR_BACKCOMMIT)
+                           - 4
+                         : state.labelGet(label);
           state.output_add_int(offset);
         }
         break;

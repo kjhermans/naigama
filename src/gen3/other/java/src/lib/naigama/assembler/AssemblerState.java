@@ -16,6 +16,9 @@ class AssemblerState
     if (labels.get(key) != null) {
       throw new NaigamaAssemblerError("Duplicate label defined '" + key + "'");
     }
+    if (options != null && options.debug) {
+      System.err.println("Setting label '" + key + "' -> " + offset);
+    }
     labels.put(key, new Integer(offset));
   }
 
@@ -25,7 +28,9 @@ class AssemblerState
   {
     Integer i = labels.get(key);
     if (i == null) {
-      throw new NaigamaAssemblerError("Label referenced but not found '" + key + "'");
+      throw new NaigamaAssemblerError(
+        "Label referenced but not found '" + key + "'"
+      );
     }
     return i.intValue();
   }

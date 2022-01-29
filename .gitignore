@@ -38,3 +38,4 @@ src/gen3/w/document.idx
 src/gen3/w/document.log
 src/gen3/w/document.toc
 
+src/demos/sqlserver/sdbm_tree/*

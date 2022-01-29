@@ -485,7 +485,18 @@ following:
 should remain small.
 \end{itemize}
 
-\textit{Capture relevant fields in relevant representation.} Binary and human 
+\textit{Capture fields accurately.}
+This is a natural assumption when parsing text, and humans are fairly keen
+on spotting mistakes when text parsing goes wrong, making debugging
+(of grammar, or the parsing engine) usually a relatively straightforward
+process. Not so when parsing binary. This is especially the case when the same
+input also provides directions (\textit{ie} lengths) for the parsing
+process itself. The expected result of this research is that well encoded
+inputs are always processed flawlessly and
+that any encoding errors are dealt with in
+a graceful manner by the parser.
+
+\textit{Capture fields in relevant representation.} Binary and human 
 readable representation are opposite concepts in many types such as 
 integers, where in strings, they are the same (save for discussions about 
 terminating zeroes). The expected result of this research is to see how 
@@ -497,7 +508,7 @@ domain name or email address parsing can be incorporated into the machine
 language.
 
 \textit{Allow (partial) ASN.1 compilation.} A complete treatment of the ASN.1 
-compilation (ie to PEG grammar), is beyond the scope of this document 
+compilation (\textit{ie} to PEG grammar), is beyond the scope of this document 
 (although it is probably a lot of, but not very difficult, work). However, 
 I will touch on the following: 1) ASN.1 compilation patterns, 2) the 
 conversion of OIDs (in human readable representation) and INTEGERs to 

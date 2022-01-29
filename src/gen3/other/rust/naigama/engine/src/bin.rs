@@ -3,7 +3,7 @@ use std::fs;
 use std::fs::File;
 use std::io::Read;
 
-use libnaie::NaigEngine;
+use libnaie::naig_engine::NaigEngine;
 
 mod naig;
 

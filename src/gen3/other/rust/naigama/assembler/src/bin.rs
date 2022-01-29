@@ -5,7 +5,7 @@ use std::io::Read;
 
 mod naig;
 
-use libnaie::NaigEngine;
+use libnaie::naig_engine::NaigEngine;
 
 fn get_file_as_byte_vec
   (filename: &String)

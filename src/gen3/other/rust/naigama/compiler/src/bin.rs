@@ -2,52 +2,19 @@ use std::env;
 use std::fs;
 use std::fs::File;
 use std::io::Read;
+use std::io::Stdout;
 
 mod naig;
 
-use libnaie::NaigEngine;
-
-fn get_file_as_byte_vec
-  (filename: &String)
-  -> Vec<u8>
-{
-  let mut f = File::open(&filename).expect("no file found");
-  let metadata = fs::metadata(&filename).expect("unable to read metadata");
-  let mut buffer = vec![0; metadata.len() as usize];
-  f.read(&mut buffer).expect("buffer overflow");
-
-  buffer
-}
-
-fn capture_string
-  (inp : & Vec< u8 >, offset : usize, length : usize)
-  -> String
-{
-  let mut result = "".to_owned();
-
-  for i in offset .. offset + length {
-    if inp[ i ] >= 32 && inp[ i ] < 127 {
-      if inp[ i ] == 34 || inp[ i ] == 92 {
-        result.push('\\');
-      }
-      result.push(inp[ i ] as char);
-    } else {
-      result.push_str(& format!("\\x{}", inp[ i ]));
-    }
-  }
-
-  result
-}
+use libnaic::naig_compiler::NaigCompiler;
 
 pub fn main
   ()
 {
-  let mut grammar : Vec<u8> = Vec::new();
-  let mut output : Vec<u8> = Vec::new();
+  let mut grammar = String::new();
   let args: Vec< String > = env::args().collect();
   let mut skip = false;
-
-  let bytes = include_bytes!("grammar.byc").to_vec();
+  let mut outputfile = "-";
 
   eprintln!(
     "This is naic, the Naigama compiler, Rust version {}",
@@ -61,20 +28,29 @@ pub fn main
       if arg.eq("-i") {
         let filename = & args[ i + 1 ];
         eprintln!("Input file = {}", filename);
-        grammar = get_file_as_byte_vec(filename);
+        grammar = fs::read_to_string(filename).expect("File error");
         skip = true;
       } else if arg.eq("-o") {
-        let filename = & args[ i + 1 ];
-        eprintln!("Output file = {}", filename);
-        output = get_file_as_byte_vec(filename);
+        outputfile = & args[ i + 1 ];
+        eprintln!("Output file = {}", outputfile);
         skip = true;
       }
     }
   }
-  let engine = NaigEngine::new(bytes);
-  let result = engine.run(& grammar);
-  match result {
-    Ok(r) => { },
-    Err(r) => { eprintln!("Error"); }
+  let compiler = NaigCompiler::new();
+  let assembly;
+  let compilation = compiler.compile(& grammar);
+  match compilation {
+    Ok(a) => {
+      assembly = a;
+    },
+    Err(error) => {
+      eprintln!("Error");
+      return;
+    },
+  }
+  if (outputfile.eq("-")) {
+  } else {
+    fs::write(outputfile, assembly);
   }
 }

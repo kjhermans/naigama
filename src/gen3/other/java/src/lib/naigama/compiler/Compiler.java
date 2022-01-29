@@ -16,21 +16,19 @@ public class Compiler
     Engine e = new Engine(Grammar.bytecode);
     Outcome o = e.run(grammar.getBytes());
     TreeNode t = o.getCaptureTree();
-    t.eviscerate(Slotmap.SLOT_S);
-    t.eviscerate(Slotmap.SLOT_COMMENT);
-    t.eviscerate(Slotmap.SLOT_END);
-    t.eviscerate(Slotmap.SLOT_LEFTARROW);
-    t.eviscerate(Slotmap.SLOT_OR);
-    t.eviscerate(Slotmap.SLOT_BOPEN);
-    t.eviscerate(Slotmap.SLOT_BCLOSE);
-    t.eviscerate(Slotmap.SLOT_GROUP_BCLOSE);
-    t.eviscerate(Slotmap.SLOT_CBOPEN);
-    t.eviscerate(Slotmap.SLOT_CBCLOSE);
-    t.eviscerate(Slotmap.SLOT_CAPTURE_CBCLOSE);
-    t.eviscerate(Slotmap.SLOT_ABOPEN);
-    t.eviscerate(Slotmap.SLOT_ABCLOSE);
-    t.eviscerate(Slotmap.SLOT_SET_ABCLOSE);
-    t.eviscerate(Slotmap.SLOT_COLON);
+    t.eviscerate(Slotmap.SLOT_S_);
+    t.eviscerate(Slotmap.SLOT___PREFIX_);
+    t.eviscerate(Slotmap.SLOT_COMMENT_);
+    t.eviscerate(Slotmap.SLOT_END_);
+    t.eviscerate(Slotmap.SLOT_LEFTARROW_);
+    t.eviscerate(Slotmap.SLOT_OR_);
+    t.eviscerate(Slotmap.SLOT_BOPEN_);
+    t.eviscerate(Slotmap.SLOT_BCLOSE_);
+    t.eviscerate(Slotmap.SLOT_CBOPEN_);
+    t.eviscerate(Slotmap.SLOT_CBCLOSE_);
+    t.eviscerate(Slotmap.SLOT_ABOPEN_);
+    t.eviscerate(Slotmap.SLOT_ABCLOSE_);
+    t.eviscerate(Slotmap.SLOT_COLON_);
     compile(t, assembly, options);
   }
 
@@ -40,7 +38,9 @@ public class Compiler
   {
     CompilerState state = new CompilerState();
     state.options = options;
-    if (t.getChildCount() == 1 && t.getChild(0).getSlot() == Slotmap.SLOT_GRAMMAR) {
+    if (t.getChildCount() == 1
+        && t.getChild(0).getSlot() == Slotmap.SLOT_GRAMMAR_)
+    {
       t = t.getChild(0);
     }
     top(t, state, out);
@@ -56,9 +56,9 @@ public class Compiler
   {
     for (int i=0; i < t.getChildCount(); i++) {
       TreeNode child = t.getChild(i);
-      if (child.getSlot() == Slotmap.SLOT_DEFINITION) {
+      if (child.getSlot() == Slotmap.SLOT_DEFINITION_) {
         definition(child, state, out);
-      } else if (child.getSlot() == Slotmap.SLOT_SINGLE_EXPRESSION) {
+      } else if (child.getSlot() == Slotmap.SLOT_SINGLE_EXPRESSION_) {
         state.currentrule = "DEFAULT";
         expression(child.firstChild(), state, out);
       }
@@ -69,7 +69,9 @@ public class Compiler
     (TreeNode t, CompilerState state, StringBuffer out)
     throws NaigamaException
   {
-    if (t.getChildCount() == 1 && t.getChild(0).getSlot() == Slotmap.SLOT_RULE) {
+    if (t.getChildCount() == 1
+        && t.getChild(0).getSlot() == Slotmap.SLOT_RULE_)
+    {
       rule(t.getChild(0), state, out);
     }
   }
@@ -111,19 +113,24 @@ public class Compiler
     if (state.options.debug) {
       System.err.println("EXPRESSION\n" + t);
     }
-    if (t.getChildCount() > 1 && t.firstChild().getSlot() == Slotmap.SLOT_EXPRESSION_TERMS_1) {
-      String label1 = "__" + state.currentrule + "_catch_" + (++(state.counter));
+    if (t.firstChild().getSlot() == Slotmap.SLOT_ALTERNATIVES_)
+    {
+      String label1 = "__" + state.currentrule + "_catch_" +(++(state.counter));
       String label2 = "__" + state.currentrule + "_out_" + (++(state.counter));
       out.append("  catch " + label1 + "\n");
-      terms(t.firstChild().getChild(0), state, out);
+      terms(t.firstChild().firstChild(), state, out);
       out.append("  commit " + label2 + "\n");
       out.append(label1 + ":\n");
-      expression(t.lastChild(), state, out);
+      expression(t.firstChild().lastChild(), state, out);
       out.append(label2 + ":\n");
-    } else if (t.getChildCount() == 1 && t.getChild(0).getSlot() == Slotmap.SLOT_EXPRESSION_TERMS_2) {
-      terms(t.getChild(0).getChild(0), state, out);
+    } else if (t.getChildCount() == 1
+               && t.getChild(0).getSlot() == Slotmap.SLOT_TERMS_)
+    {
+      terms(t.getChild(0), state, out);
     } else {
-      System.err.println("Unexpected token in expression (" + t.getChild(0).getSlot() + ")" + t);
+      System.err.println("Unexpected token in expression ("
+        + t.getChild(0).getSlot() + ")" + t
+      );
     }
   }
 
@@ -131,10 +138,97 @@ public class Compiler
     (TreeNode t, CompilerState state, StringBuffer out)
     throws NaigamaException
   {
+    if (state.options.debug) {
+      System.err.println("TERMS\n" + t);
+    }
     for (int i=0; i < t.getChildCount(); i++) {
-      if (t.getChild(i).getSlot() == Slotmap.SLOT_TERMS_TERM) {
+      if (t.getChild(i).getSlot() == Slotmap.SLOT_TERM_) {
         term(t.getChild(i), state, out);
       }
+    }
+  }
+
+  private void term
+    (TreeNode t, CompilerState state, StringBuffer out)
+    throws NaigamaException
+  {
+    if (state.options.debug) {
+      System.err.println("TERM\n" + t);
+    }
+    t = t.firstChild();
+    if (t.getSlot() == Slotmap.SLOT_SCANMATCHER_) {
+      int lab = (state.counter++);
+      out.append("  catch __scan_" + lab + "\n");
+      matcher(t.getChild(1), state, out);
+      if (t.getChild(0).getContent().equals("&")) {
+        out.append("  backcommit __scan_out_" + lab + "\n");
+        out.append("__scan_" + lab + ":\n");
+        out.append("  fail\n");
+        out.append("__scan_out_" + lab + ":\n");
+      } else {
+        out.append("  failtwice\n");
+        out.append("__scan_" + lab + ":\n");
+      }
+    } else if (t.lastChild().getSlot()
+               == Slotmap.SLOT_QUANTIFIER_)
+    {
+      int[] quant = resolve_quantifier(t.lastChild());
+      switch (quant[ 0 ]) {
+      case 0: break;
+      case 1: matcher(t.firstChild(), state, out); break;
+      default:
+        if (state.options.writeloops) {
+          for (int i=0; i < quant[ 0 ]; i++) {
+            matcher(t.getChild(0), state, out);
+          }
+        } else {
+          int reg = state.reg++;
+          int lab = state.counter++;
+          out.append("  counter " + reg + " " + quant[ 0 ] + "\n");
+          out.append("__loop_" + lab + ":\n");
+          matcher(t.getChild(0), state, out);
+          out.append("  condjump " + reg + " __loop_" + lab + "\n");
+        }
+      }
+      if (quant[ 1 ] == -1) {
+        int fgv = state.counter++;
+        int lab = state.counter++;
+        out.append("  catch __forgive_" + fgv + "\n");
+        out.append("__loop_" + lab + ":\n");
+        matcher(t.getChild(0), state, out);
+        out.append("  partialcommit __loop_" + lab + "\n");
+        out.append("__forgive_" + fgv + ":\n");
+      } else {
+        int diff = quant[ 1 ] - quant[ 0 ];
+        if (diff < 0) {
+          throw new NaigamaCompilerError("Quantifier range invalid");
+        }
+        if (diff > 0) {
+          int fgv = state.counter++;
+          out.append("  catch __forgive_" + fgv + "\n");
+          if (diff == 1) {
+            matcher(t.getChild(0), state, out);
+          } else {
+            if (state.options.writeloops) {
+              for (int i=0; i < diff; i++) {
+                matcher(t.getChild(0), state, out);
+              }
+            } else {
+              int reg = state.reg++;
+              int lab = state.counter++;
+              out.append("  counter " + reg + " " + diff + "\n");
+              out.append("__loop_" + lab + ":\n");
+              matcher(t.getChild(0), state, out);
+              out.append("  partialcommit __NEXT__\n");
+              out.append("  condjump " + reg + " __loop_" + lab + "\n");
+            }
+          }
+          out.append("  commit __forgive_" + fgv + "\n");
+          out.append("__forgive_" + fgv + ":\n");
+        }
+      }
+    } else {
+      matcher(t.getChild(0), state, out);
     }
   }
 
@@ -155,102 +249,24 @@ public class Compiler
         };
       } else {
         switch (t.getChild(0).getChild(0).getSlot()) {
-        case Slotmap.SLOT_QUANTIFIER_3: // until
-          return new int[]{ 0, Integer.parseInt(t.getChild(0).getChild(0).getContent()) };
-        case Slotmap.SLOT_QUANTIFIER_4: // from
-          return new int[]{ Integer.parseInt(t.getChild(0).getChild(0).getContent()), -1 };
-        case Slotmap.SLOT_QUANTIFIER_5: // abs
+        case Slotmap.SLOT_Q_UNTIL_: // until
+          return new int[]{
+            0,
+            Integer.parseInt(t.getChild(0).getChild(0).getContent())
+          };
+        case Slotmap.SLOT_Q_FROM_: // from
+          return new int[]{
+            Integer.parseInt(t.getChild(0).getChild(0).getContent()),
+            -1
+          };
+        case Slotmap.SLOT_Q_SPECIFIC_: // abs
           return new int[]{
             Integer.parseInt(t.getChild(0).getChild(0).getContent()),
             Integer.parseInt(t.getChild(0).getChild(0).getContent())
           };
         }
       }
-      return null; /* shouldn't happen */
-    }
-  }
-
-  private void term
-    (TreeNode t, CompilerState state, StringBuffer out)
-    throws NaigamaException
-  {
-    if (state.options.debug) {
-      System.err.println("TERM\n" + t);
-    }
-    t = t.getChild(0).getChild(0).getChild(0);
-    if (t.getChildCount() > 1) {
-      if (t.getChild(0).getSlot() == Slotmap.SLOT_ENDOWEDMATCHER_NOTAND) {
-        int lab = (state.counter++);
-        out.append("  catch __scan_" + lab + "\n");
-        matcher(t.getChild(1), state, out);
-        if (t.getChild(0).getContent().equals("&")) {
-          out.append("  backcommit __scan_out_" + lab + "\n");
-          out.append("__scan_" + lab + ":\n");
-          out.append("  fail\n");
-          out.append("__scan_out_" + lab + ":\n");
-        } else {
-          out.append("  failtwice\n");
-          out.append("__scan_" + lab + ":\n");
-        }
-      } else if (t.lastChild().getSlot() == Slotmap.SLOT_ENDOWEDMATCHER_QUANTIFIER) {
-        int[] quant = resolve_quantifier(t.lastChild());
-        switch (quant[ 0 ]) {
-        case 0: break;
-        case 1: matcher(t.getChild(0), state, out); break;
-        default:
-          if (state.options.writeloops) {
-            for (int i=0; i < quant[ 0 ]; i++) {
-              matcher(t.getChild(0), state, out);
-            }
-          } else {
-            int reg = state.reg++;
-            int lab = state.counter++;
-            out.append("  counter " + reg + " " + quant[ 0 ] + "\n");
-            out.append("__loop_" + lab + ":\n");
-            matcher(t.getChild(0), state, out);
-            out.append("  condjump " + reg + " __loop_" + lab + "\n");
-          }
-        }
-        if (quant[ 1 ] == -1) {
-          int fgv = state.counter++;
-          int lab = state.counter++;
-          out.append("  catch __forgive_" + fgv + "\n");
-          out.append("__loop_" + lab + ":\n");
-          matcher(t.getChild(0), state, out);
-          out.append("  partialcommit __loop_" + lab + "\n");
-          out.append("__forgive_" + fgv + ":\n");
-        } else {
-          int diff = quant[ 1 ] - quant[ 0 ];
-          if (diff < 0) {
-            throw new NaigamaCompilerError("Quantifier range invalid");
-          }
-          if (diff > 0) {
-            int fgv = state.counter++;
-            out.append("  catch __forgive_" + fgv + "\n");
-            if (diff == 1) {
-              matcher(t.getChild(0), state, out);
-            } else {
-              if (state.options.writeloops) {
-                for (int i=0; i < diff; i++) {
-                  matcher(t.getChild(0), state, out);
-                }
-              } else {
-                int reg = state.reg++;
-                int lab = state.counter++;
-                out.append("  counter " + reg + " " + diff + "\n");
-                out.append("__loop_" + lab + ":\n");
-                matcher(t.getChild(0), state, out);
-                out.append("  partialcommit __NEXT__\n");
-                out.append("  condjump " + reg + " __loop_" + lab + "\n");
-              }
-            }
-            out.append("  commit __forgive_" + fgv + "\n");
-            out.append("__forgive_" + fgv + ":\n");
-          }
-        }
-      }
-    } else {
-      matcher(t.getChild(0), state, out);
+      return null;
     }
   }
 
@@ -291,7 +307,9 @@ public class Compiler
 //.. TODO The numeric escapes
       }
     }
-    throw new NaigamaCompilerError("Unknown escape sequence in set atom '" + atom + "'");
+    throw new NaigamaCompilerError(
+      "Unknown escape sequence in set atom '" + atom + "'"
+    );
   }
 
   private void set
@@ -302,7 +320,10 @@ public class Compiler
     boolean invert = false;
     byte[] map = new byte[ 32 ];
 
-    if (t.getChild(0).getSlot() == Slotmap.SLOT_SET_SETNOT) {
+    if (state.options.debug) {
+      System.err.println("SET\n" + t);
+    }
+    if (t.getChild(0).getSlot() == Slotmap.SLOT_SETNOT_) {
       if (t.getChild(0).getContent().equals("^")) {
         invert = true;
         ++i;
@@ -333,7 +354,7 @@ public class Compiler
     throws NaigamaException
   {
     for (int i=1; i < len; i++) {
-      if ((char)(str[ i ]) == '\\') { /* escape */
+      if ((char)(str[ i ]) == '\\') {
         switch ((char)(str[ i+1 ])) {
         case 'n': out.append("  char 0a\n"); break;
         case 'r': out.append("  char 0d\n"); break;
@@ -342,7 +363,9 @@ public class Compiler
         case '\'': out.append("  char 27\n"); break;
         case '\\': out.append("  char 5c\n"); break;
         default:
-          throw new NaigamaCompilerError("Unknown escape \\" + (char)(str[ i+1 ]));
+          throw new NaigamaCompilerError(
+            "Unknown escape \\" + (char)(str[ i+1 ])
+          );
         }
         ++i;
       } else {
@@ -375,17 +398,20 @@ public class Compiler
     (TreeNode t, CompilerState state, StringBuffer out)
     throws NaigamaException
   {
-    t = t.getChild(0);
+    t = t.firstChild();
+    if (state.options.debug) {
+      System.err.println("MATCHER\n" + t);
+    }
     switch (t.getSlot()) {
-    case Slotmap.SLOT_MATCHER_ANY:
+    case Slotmap.SLOT_ANY_:
       out.append("  any\n");
       break;
-    case Slotmap.SLOT_MATCHER_SET:
+    case Slotmap.SLOT_SET_:
       out.append("  set ");
-      set(t.getChild(0), state, out);
+      set(t, state, out);
       out.append("\n");
       break;
-    case Slotmap.SLOT_MATCHER_STRING:
+    case Slotmap.SLOT_STRING_:
       byte[] b = t.getContent().getBytes();
       if (b[ b.length - 1 ] == (byte)'i') {
         string(b, b.length-2, out, true);
@@ -393,13 +419,16 @@ public class Compiler
         string(b, b.length-1, out, false);
       }
       break;
-    case Slotmap.SLOT_MATCHER_BITMASK:
-      out.append("  maskedchar " + t.getContent().substring(1, 3) + " " + t.getContent().substring(4, 6) + "\n");
+    case Slotmap.SLOT_BITMASK_:
+      out.append(
+        "  maskedchar " + t.getContent().substring(1, 3) +
+        " " + t.getContent().substring(4, 6) + "\n"
+      );
       break;
-    case Slotmap.SLOT_MATCHER_HEXLITERAL:
+    case Slotmap.SLOT_HEXLITERAL_:
       out.append("  char " + t.getContent().substring(2, 4) + "\n");
       break;
-    case Slotmap.SLOT_MATCHER_VARCAPTURE:
+    case Slotmap.SLOT_VARCAPTURE_:
       {
         String var = t.getChild(0).getChild(0).getContent();
         int slot = state.getCapture(t);
@@ -409,7 +438,7 @@ public class Compiler
         out.append("  closecapture " + slot + "\n");
       }
       break;
-    case Slotmap.SLOT_MATCHER_CAPTURE:
+    case Slotmap.SLOT_CAPTURE_:
       {
         int slot = state.getCapture(t);
         out.append("  opencapture " + slot + "\n");
@@ -417,10 +446,10 @@ public class Compiler
         out.append("  closecapture " + slot + "\n");
       }
       break;
-    case Slotmap.SLOT_MATCHER_GROUP:
+    case Slotmap.SLOT_GROUP_:
       expression(t.getChild(0).getChild(0), state, out);
       break;
-    case Slotmap.SLOT_MATCHER_MACRO:
+    case Slotmap.SLOT_MACRO_:
       {
         String macro = t.getChild(0).getContent();
         byte[] set = new byte[ 32 ];
@@ -446,14 +475,14 @@ public class Compiler
         out.append("\n");
       }
       break;
-    case Slotmap.SLOT_MATCHER_VARREFERENCE:
+    case Slotmap.SLOT_VARREFERENCE_:
       {
         String var = t.getChild(0).getChild(0).getContent();
         int slot = state.varGet(var);
         out.append("  var " + slot + "\n");
       }
       break;
-    case Slotmap.SLOT_MATCHER_REFERENCE:
+    case Slotmap.SLOT_REFERENCE_:
       out.append("  call __RULE_" + t.getContent() + "\n");
       break;
     }

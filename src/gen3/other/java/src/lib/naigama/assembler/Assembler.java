@@ -139,7 +139,7 @@ public class Assembler
       case Slotmap.SLOT_VARINSTR_VAR:
         offset += Instructions.getSize(Instructions.INSTR_VAR);
         break;
-      case Slotmap.SLOT_LABELDEF_LABEL:
+      case Slotmap.SLOT_INSTRUCTION_LABELDEF:
         if (state.options.debug) {
           System.err.println("Label '" + t.getChild(i).getChild(0).getChild(0).getContent() + "' -> " + offset);
         }

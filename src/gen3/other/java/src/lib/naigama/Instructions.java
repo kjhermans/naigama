@@ -12,9 +12,12 @@ public class Instructions
   public static final int INSTR_CONDJUMP = 0x00080321;
   public static final int INSTR_COUNTER = 0x00080356;
   public static final int INSTR_END = 0x000400d8;
+  public static final int INSTR_ENDISOLATE = 0x00003005;
   public static final int INSTR_ENDREPLACE = 0x00000399;
   public static final int INSTR_FAIL = 0x0000034b;
   public static final int INSTR_FAILTWICE = 0x00000390;
+  public static final int INSTR_INTRPCAPTURE = 0x0008000f;
+  public static final int INSTR_ISOLATE = 0x00043003;
   public static final int INSTR_JUMP = 0x00040333;
   public static final int INSTR_MASKEDCHAR = 0x00080365;
   public static final int INSTR_NOOP = 0x00000000;
@@ -55,9 +58,12 @@ public class Instructions
     case 0x00080321: return "condjump";
     case 0x00080356: return "counter";
     case 0x000400d8: return "end";
+    case 0x00003005: return "endisolate";
     case 0x00000399: return "endreplace";
     case 0x0000034b: return "fail";
     case 0x00000390: return "failtwice";
+    case 0x0008000f: return "intrpcapture";
+    case 0x00043003: return "isolate";
     case 0x00040333: return "jump";
     case 0x00080365: return "maskedchar";
     case 0x00000000: return "noop";

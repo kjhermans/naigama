@@ -127,6 +127,10 @@ public class Compiler
                && t.getChild(0).getSlot() == Slotmap.SLOT_TERMS_)
     {
       terms(t.getChild(0), state, out);
+    } else if (t.getChildCount() == 1
+               && t.getChild(0).getSlot() == Slotmap.SLOT_TERM_)
+    {
+      term(t.getChild(0), state, out);
     } else {
       System.err.println("Unexpected token in expression ("
         + t.getChild(0).getSlot() + ")" + t
@@ -242,7 +246,6 @@ public class Compiler
     } else if (t.getContent().equals("?")) {
       return new int[]{ 0, 1 };
     } else {
-System.err.println(t);
       if (t.firstChild().getChildCount() == 2) {
         return new int[]{
           Integer.parseInt(t.getChild(0).getChild(0).getContent()),
@@ -431,11 +434,11 @@ System.err.println(t);
       break;
     case Slotmap.SLOT_VARCAPTURE_:
       {
-        String var = t.getChild(0).getChild(0).getContent();
+        String var = t.getChild(0).getContent();
         int slot = state.getCapture(t);
         state.varPut(var, slot);
         out.append("  opencapture " + slot + "\n");
-        expression(t.getChild(0).getChild(1), state, out);
+        expression(t.getChild(1), state, out);
         out.append("  closecapture " + slot + "\n");
       }
       break;
@@ -443,12 +446,12 @@ System.err.println(t);
       {
         int slot = state.getCapture(t);
         out.append("  opencapture " + slot + "\n");
-        expression(t.getChild(0).getChild(0), state, out);
+        expression(t.getChild(0), state, out);
         out.append("  closecapture " + slot + "\n");
       }
       break;
     case Slotmap.SLOT_GROUP_:
-      expression(t.getChild(0).getChild(0), state, out);
+      expression(t.getChild(0), state, out);
       break;
     case Slotmap.SLOT_MACRO_:
       {
@@ -478,7 +481,7 @@ System.err.println(t);
       break;
     case Slotmap.SLOT_VARREFERENCE_:
       {
-        String var = t.getChild(0).getChild(0).getContent();
+        String var = t.getChild(0).getContent();
         int slot = state.varGet(var);
         out.append("  var " + slot + "\n");
       }

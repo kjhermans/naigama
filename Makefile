@@ -41,13 +41,13 @@ armbm:
 other: rust java perl
 
 rust: gen1
-	@cd src/gen1 && make rust NAIGRELEASE=$(NAIGRELEASE)
+	@cd src/gen3 && make rust NAIGRELEASE=$(NAIGRELEASE)
 
 java: gen1
-	@cd src/gen1 && make java
+	@cd src/gen3 && make java
 
 perl: gen1
-	@cd src/gen1 && make perl
+	@cd src/gen3 && make perl
 
 doc:
 	@MFS=`find src/ -name Makefile | xargs grep -l 'doc:'`; \

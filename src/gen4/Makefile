@@ -132,7 +132,6 @@ test:
 
 doc:
 	cd d/ && make
-	cd w/ && make
 
 clean:
 

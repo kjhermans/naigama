@@ -1,5 +1,5 @@
 
-use crate::errors::NaigError;
+use crate::naig_error::NaigError;
 
 #[allow(non_camel_case_types)]
 
@@ -84,10 +84,11 @@ impl NaigInstruction {
       0x00240363 => { return Ok(NaigInstruction::INSTR_TESTSET); },
       0xff00ffff => { return Ok(NaigInstruction::INSTR_TRAP); },
       0x000403ee => { return Ok(NaigInstruction::INSTR_VAR); },
-      _ => { return Err(crate::errors::NaigError::ErrBadOpcode); }
+      _ => { return Err(NaigError::simple(NaigError::ErrBadOpcode)); }
     };
   }
 
+/*
   pub fn get_size
     (n: usize)
     -> Result<u32, NaigError>
@@ -173,6 +174,7 @@ impl NaigInstruction {
 
     }
   }
+*/
 }
 
 pub const _INSTR_SIZE_ANY: usize = 4;

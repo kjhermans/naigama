@@ -5,7 +5,7 @@ my $instrtext = `cat $instrfile`;
 my $instrhash = eval $instrtext;
 
 print "
-use crate::errors::NaigError;
+use crate::naig_error::NaigError;
 
 #[allow(non_camel_case_types)]
 
@@ -35,10 +35,11 @@ foreach my $key (sort(keys(%{$instrhash}))) {
         " => { return Ok(NaigInstruction::INSTR_" . uc($key) . "); },\n";
 }
 
-print "      _ => { return Err(crate::errors::NaigError::ErrBadOpcode); }
+print "      _ => { return Err(NaigError::simple(NaigError::ErrBadOpcode)); }
     };
   }
 
+/*
   pub fn get_size
     (n: usize)
     -> Result<u32, NaigError>
@@ -70,6 +71,7 @@ foreach my $key (sort(keys(%{$instrhash}))) {
 print "
     }
   }
+*/
 }
 
 ";

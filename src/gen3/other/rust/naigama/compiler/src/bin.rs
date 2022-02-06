@@ -1,12 +1,10 @@
 use std::env;
 use std::fs;
-use std::fs::File;
-use std::io::Read;
-use std::io::Stdout;
 
 mod naig;
 
 use libnaic::naig_compiler::NaigCompiler;
+use libnaic::naig_compiler_options::NaigCompilerOptions;
 
 pub fn main
   ()
@@ -15,6 +13,10 @@ pub fn main
   let args: Vec< String > = env::args().collect();
   let mut skip = false;
   let mut outputfile = "-";
+  let mut options = NaigCompilerOptions {
+    generate_traps : false,
+    capture_per_rule : false,
+  };
 
   eprintln!(
     "This is naic, the Naigama compiler, Rust version {}",
@@ -34,23 +36,28 @@ pub fn main
         outputfile = & args[ i + 1 ];
         eprintln!("Output file = {}", outputfile);
         skip = true;
+      } else if arg.eq("-t") {
+        options.generate_traps = true;
+      } else if arg.eq("-C") {
+        options.capture_per_rule = true;
       }
     }
   }
   let compiler = NaigCompiler::new();
   let assembly;
-  let compilation = compiler.compile(& grammar);
+  let compilation = compiler.compile(& grammar, options);
   match compilation {
     Ok(a) => {
       assembly = a;
     },
     Err(error) => {
-      eprintln!("Error");
+      eprintln!("Error code {} message '{}'", error.code, error.message);
       return;
     },
   }
-  if (outputfile.eq("-")) {
+  if outputfile.eq("-") {
+    println!("{}", assembly);
   } else {
-    fs::write(outputfile, assembly);
+    fs::write(outputfile, assembly).expect("Could not write output.");
   }
 }

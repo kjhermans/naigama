@@ -1,5 +1,3 @@
-mod instructions;
-pub mod errors;
 pub mod naig_captree;
 pub mod naig_pinpoint;
 pub mod naig_capture;

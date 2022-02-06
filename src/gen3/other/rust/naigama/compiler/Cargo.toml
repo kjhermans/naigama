@@ -9,6 +9,7 @@ edition = "2018"
 [dependencies]
 
 "naigama_engine" = { path = "../engine" }
+"naigama_general" = { path = "../naigama" }
 
 [lib]
 name = "libnaic"

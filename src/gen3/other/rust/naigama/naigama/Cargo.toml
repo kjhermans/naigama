@@ -1,5 +1,5 @@
 [package]
-name = "naigama_engine"
+name = "naigama_general"
 version = "0.1.0"
 authors = ["kees"]
 edition = "2018"
@@ -8,12 +8,6 @@ edition = "2018"
 
 [dependencies]
 
-"naigama_general" = { path = "../naigama" }
-
 [lib]
-name = "libnaie"
+name = "libnaig"
 path = "src/lib.rs"
-
-[[bin]]
-name = "naie"
-path = "src/bin.rs"

@@ -1,2 +1,2 @@
 [workspace]
-members = [ "engine", "compiler", "assembler" ]
+members = [ "engine", "compiler", "assembler", "naigama" ]

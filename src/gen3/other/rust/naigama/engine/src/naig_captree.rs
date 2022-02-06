@@ -3,6 +3,7 @@ use crate::naig_capture::NaigCapture;
 pub struct NaigCapTree
 {
   pub slot               : u32,
+  pub id                 : usize,
   pub offset             : usize,
   pub content            : Vec< u8 >,
   pub children           : Vec< NaigCapTree >,
@@ -15,22 +16,24 @@ impl NaigCapTree
     -> NaigCapTree
   {
     let mut result = NaigCapTree {
+      id       : 0,
       slot     : u32::MAX,
       content  : input.to_vec(),
       offset   : 0,
       children : Vec::new(),
     };
-
-    NaigCapTree::_caps_to_tree(input, caps, 0, & mut result);
+    let mut idcounter : usize = 1;
+    NaigCapTree::_caps_to_tree(input, caps, 0, & mut result, & mut idcounter);
     return result;
   }
 
   fn _caps_to_tree
     (
-      input: & Vec< u8 >,
-      caps: & Vec< NaigCapture >,
-      start: usize,
-      tree: & mut NaigCapTree
+      input     : & Vec< u8 >,
+      caps      : & Vec< NaigCapture >,
+      start     : usize,
+      tree      : & mut NaigCapTree,
+      idcounter : & mut usize,
     )
   {
     let mut last = tree.offset;
@@ -47,6 +50,7 @@ impl NaigCapTree
 
         tree.children.push(
           NaigCapTree {
+            id       : *idcounter,
             slot     : caps[ i ].slot,
             offset   : caps[ i ].offset,
             content  : input[
@@ -56,11 +60,13 @@ impl NaigCapTree
             children : Vec::new(),
           }
         );
+        *idcounter += 1;
         NaigCapTree::_caps_to_tree(
           input,
           caps,
           i+1,
           & mut tree.children[ cl ],
+          idcounter,
         );
         last = caps[ i ].offset + caps[ i ].length;
       }
@@ -80,77 +86,55 @@ impl NaigCapTree
     {
       eprint!("  ");
     }
-    eprint!("{} ", self.slot);
-    for i in 0 .. self.content.len()
-    {
-      if self.content[ i ] >= 32 && self.content[ i ] < 127 {
-        eprint!("{}", self.content[ i ] as char);
-      } else {
-//..
-      }
-    }
-    eprint!("\n");
+    eprint!("{} {}\n", self.slot, self.to_string());
     for i in 0 .. self.children.len()
     {
       self.children[ i ]._debug(indentlevel + 1);
     }
   }
 
-/*
-  fn _pins_to_tree
-    (
-      input: & Vec< u8 >,
-      pins: & Vec< NaigPinpoint >,
-      start: usize,
-      stop: usize,
-      tree: & mut NaigCapTree
-    )
+  pub fn remove
+    (& mut self, slot: u32)
   {
-    let mut i = start;
+    let mut i=0;
 
-    while i < stop {
-      if pins[ i ].pintype
-          == crate::naig_capture::NAIG_CAPTURE_OPEN
+    while i < self.children.len()
+    {
+      if self.children[ i ].slot == slot
+         && self.children[ i ].children.len() == 0
       {
-        let mut j = i + 1;
-        let mut l = 1;
-        while j < pins.len() {
-          if pins[ j ].pintype
-              == crate::naig_capture::NAIG_CAPTURE_OPEN
-          {
-            l += 1;
-          } else if pins[ j ].pintype
-                     == crate::naig_capture::NAIG_CAPTURE_CLOSE
-          {
-            l -= 1;
-            if l == 0 {
-              let cl = tree.children.len();
-              tree.children.push(
-                NaigCapTree {
-                  slot : pins[ i ].slot,
-                  offset : pins[ i ].offset,
-                  content : input[
-                    pins[ i ].offset ..
-                    pins[ j ].offset - pins[ i ].offset
-                  ].to_vec(),
-                  children : Vec::new(),
-                }
-              );
-              NaigCapTree::_pins_to_tree(
-                input,
-                pins,
-                i+1,
-                j,
-                & mut tree.children[ cl ],
-              );
-              break;
-            }
-          }
-          j += 1;
-        }
+        self.children.remove(i);
+      } else {
+        self.children[ i ].remove(slot);
+        i += 1;
       }
-      i += 1;
     }
   }
-*/
+
+  pub fn first_child
+    (& self)
+    -> & NaigCapTree
+  {
+    return & self.children[ 0 ];
+  }
+
+  pub fn last_child
+    (& self)
+    -> & NaigCapTree
+  {
+    let l = self.children.len();
+    return & self.children[ l-1 ];
+  }
+
+  pub fn to_string
+    (& self)
+    -> String
+  {
+    let mut result = String::new();
+    for i in 0 .. self.content.len()
+    {
+      result.push( self.content[ i ] as char);
+    }
+    return result;
+  }
 }

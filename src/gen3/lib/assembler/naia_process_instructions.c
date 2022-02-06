@@ -113,5 +113,6 @@ NAIG_ERR_T naia_process_instructions
       break; // ignore
     }
   }
+  fprintf(stderr, "Assembler: %u instructions (incl labels)\n", object->nchildren);
   return NAIG_OK;
 }

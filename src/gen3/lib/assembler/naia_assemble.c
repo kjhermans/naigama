@@ -107,6 +107,7 @@ fprintf(stderr, "\n---- Done running engine\n\n");
   fprintf(stderr, "Assembly parsed Ok.\n");
   object = naio_result_object(engine.input, engine.input_length, &result);
   CHECK(naia_process_tokens(&naia, object));
+  fprintf(stderr, "Assembler: %u labels\n", naia.labels.count);
   fprintf(stderr, "Writing %u bytes bytecode.\n", naia.buffer.len);
   if (naia.buffer.len == 0) {
     fprintf(stderr, "Warning: writing zero bytes of bytecode.\n");

@@ -173,13 +173,26 @@ sub sanitized
     push @result, $str;
     $length += (length($str) + 1);
   }
-  if ($length > 54) {
-    my $allowed = 54 / scalar(@result);
-    for (my $i=0; $i < scalar(@result); $i++) {
-      my $str = $result[$i];
-      $str = substr($str, 0, $allowed);
-      splice(@result, $i, 1, $str);
-    }
+  if ($length > 48) {
+#    my $allowed = 54 / scalar(@result);
+#    for (my $i=0; $i < scalar(@result); $i++) {
+#      my $str = $result[$i];
+#      $str = substr($str, 0, $allowed);
+#      splice(@result, $i, 1, $str);
+#    }
+    my $cookie = join('',
+      ('a'..'z', 'A'..'Z')[
+        rand 52, rand 52,
+        rand 52, rand 52,
+        rand 52, rand 52,
+        rand 52, rand 52,
+        rand 52, rand 52,
+        rand 52, rand 52,
+        rand 52, rand 52,
+        rand 52, rand 52,
+      ]
+    );
+    @result = ( $cookie );
   }
   my $result = join('_', @result);
   while (defined($sanitized_reversed->{$result})) {

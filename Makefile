@@ -40,13 +40,13 @@ armbm:
 
 other: rust java perl
 
-rust: gen1
+rust: gen3
 	@cd src/gen3 && make rust NAIGRELEASE=$(NAIGRELEASE)
 
-java: gen1
+java: gen3
 	@cd src/gen3 && make java
 
-perl: gen1
+perl: gen3
 	@cd src/gen3 && make perl
 
 doc:

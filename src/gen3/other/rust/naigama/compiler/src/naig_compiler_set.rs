@@ -45,7 +45,7 @@ impl NaigCompilerSet
     let mut result = "".to_string();
     for i in 0 .. 32
     {
-      result = format!("{}{:2x}", result, self.bits[ i ]);
+      result = format!("{}{:02x}", result, self.bits[ i ]);
     }
     return result;
   }

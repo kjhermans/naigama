@@ -45,12 +45,20 @@ impl NaigCompiler
         tree.remove(crate::naig_slotmap::_CMPSLT_ABOPEN_);
         tree.remove(crate::naig_slotmap::_CMPSLT_ABCLOSE_);
         tree.remove(crate::naig_slotmap::_CMPSLT_COLON_);
-        NaigCompiler::compile_top(& tree, & mut state);
+        match NaigCompiler::compile_top(& tree, & mut state)
+        {
+          Ok(_) => (), Err(e) => { return Err(e); }
+        }
         if state.firstrule.len() != 0
         {
           state.output = format!(
             "  call __RULE_{}\n  end 0\n\n{}\n"
             , state.firstrule
+            , state.output
+          );
+        } else {
+          state.output = format!(
+            "{}\n  end 0\n"
             , state.output
           );
         }
@@ -62,6 +70,7 @@ impl NaigCompiler
 
   fn compile_top
     (tree : & NaigCapTree, state : & mut NaigCompilerState)
+    -> Result< (), NaigError >
   {
     let grammar = tree.first_child();
     for i in 0 .. grammar.children.len()
@@ -69,28 +78,42 @@ impl NaigCompiler
       if grammar.children[ i ].slot
           == crate::naig_slotmap::_CMPSLT_DEFINITION_
       {
-        NaigCompiler::definition(& grammar.children[ i ], state);
-      } else if grammar.children[ i ].slot
-                 == crate::naig_slotmap::_CMPSLT_EXPRESSION_
+        match NaigCompiler::definition(& grammar.children[ i ], state)
+        {
+          Ok(_) => (), Err(e) => { return Err(e); }
+        }
+      }
+      else if grammar.children[ i ].slot
+               == crate::naig_slotmap::_CMPSLT_SINGLE_EXPRESSION_
       {
         state.currentrule = "DEFAULT".to_string();
-        NaigCompiler::expression(& grammar.children[ i ], state);
+        match NaigCompiler::expression(& grammar.children[ i ].first_child(), state)
+        {
+          Ok(_) => (), Err(e) => { return Err(e); }
+        }
       }
     }
+    return Ok(());
   }
 
   fn definition
     (tree : & NaigCapTree, state : & mut NaigCompilerState)
+    -> Result< (), NaigError >
   {
     if tree.children.len() == 1
        && tree.first_child().slot == crate::naig_slotmap::_CMPSLT_RULE_
     {
-      NaigCompiler::rule(tree.first_child(), state);
+      NaigCompiler::rule(tree.first_child(), state)
+    }
+    else
+    {
+      panic!("Token error");
     }
   }
 
   fn rule
     (tree : & NaigCapTree, state : & mut NaigCompilerState)
+    -> Result< (), NaigError >
   {
     let rulename =
       String::from_utf8(tree.first_child().content.clone()).unwrap();
@@ -105,19 +128,27 @@ impl NaigCompiler
     if state.options.capture_per_rule {
       let slot = state.capture(tree);
       state.append_string(format!("  opencapture {}\n", slot));
-      NaigCompiler::expression(& tree.children[1], state);
+      match NaigCompiler::expression(& tree.children[1], state)
+      {
+        Ok(_) => (), Err(e) => { return Err(e); }
+      }
       state.append_string(format!("  closecapture {}\n", slot));
     } else {
-      NaigCompiler::expression(& tree.children[1], state);
+      match NaigCompiler::expression(& tree.children[1], state)
+      {
+        Ok(_) => (), Err(e) => { return Err(e); }
+      }
     }
     state.append_string(format!("  ret -- from rule '{}'\n", rulename));
     if state.options.generate_traps {
       state.append("  trap\n");
     }
+    return Ok(());
   }
 
   fn expression
     (tree : & NaigCapTree, state : & mut NaigCompilerState)
+    -> Result< (), NaigError >
   {
     let child = tree.first_child();
 
@@ -127,55 +158,81 @@ impl NaigCompiler
       let label2 = format!("__{}_out_{}", state.currentrule, state.counter + 1);
       state.counter += 2;
       state.append_string(format!("  catch {}\n", label1));
-      NaigCompiler::terms(child.first_child(), state);
+      match NaigCompiler::terms(child.first_child(), state)
+      {
+        Ok(_) => (), Err(e) => { return Err(e); }
+      }
       state.append_string(format!("  commit {}\n", label2));
       state.append_string(format!("{}:\n", label1));
-      NaigCompiler::expression(child.last_child(), state);
+      match NaigCompiler::expression(child.last_child(), state)
+      {
+        Ok(_) => (), Err(e) => { return Err(e); }
+      }
       state.append_string(format!("{}:\n", label2));
-    } else if child.slot == crate::naig_slotmap::_CMPSLT_TERMS_
+      return Ok(());
+    }
+    else if child.slot == crate::naig_slotmap::_CMPSLT_TERMS_
     {
-      NaigCompiler::terms(child, state);
-    } else if child.slot == crate::naig_slotmap::_CMPSLT_TERM_
+      NaigCompiler::terms(child, state)
+    }
+    else if child.slot == crate::naig_slotmap::_CMPSLT_TERM_
     {
-      NaigCompiler::term(child, state);
+      NaigCompiler::term(child, state)
+    }
+    else
+    {
+      panic!("Token error.");
     }
   }
 
   fn terms
     (tree : & NaigCapTree, state : & mut NaigCompilerState)
+    -> Result< (), NaigError >
   {
     for i in 0 .. tree.children.len()
     {
       if tree.children[ i ].slot == crate::naig_slotmap::_CMPSLT_TERM_
       {
-        NaigCompiler::term(& tree.children[ i ], state);
+        match NaigCompiler::term(& tree.children[ i ], state)
+        {
+          Ok(_) => (), Err(e) => { return Err(e); }
+        }
       }
     }
+    return Ok(());
   }
 
   fn term
     (tree : & NaigCapTree, state : & mut NaigCompilerState)
+    -> Result< (), NaigError >
   {
     let child = tree.first_child();
     if child.slot == crate::naig_slotmap::_CMPSLT_SCANMATCHER_
     {
-      NaigCompiler::term_scanmatcher(child, state);
-    } else if tree.last_child().slot == crate::naig_slotmap::_CMPSLT_QUANTIFIER_
+      NaigCompiler::term_scanmatcher(child, state)
+    }
+    else if child.last_child().slot == crate::naig_slotmap::_CMPSLT_QUANTIFIER_
     {
-      NaigCompiler::term_quantified(child, state);
-    } else {
-      NaigCompiler::matcher(child.first_child(), state);
+      NaigCompiler::term_quantified(child, state)
+    }
+    else
+    {
+      NaigCompiler::matcher(child.first_child(), state)
     }
   }
 
   fn term_scanmatcher
     (tree : & NaigCapTree, state : & mut NaigCompilerState)
+    -> Result< (), NaigError >
   {
     let lab = state.counter;
     let opr = tree.first_child().to_string();
     state.counter += 1;
     state.append_string(format!("  catch __scan_{}\n", lab));
-    NaigCompiler::matcher(& tree.children[ 1 ], state);
+    match NaigCompiler::matcher(& tree.children[ 1 ], state)
+    {
+      Ok(_) => (), Err(e) => { return Err(e); },
+    }
     if opr.eq("&")
     {
       state.append_string(format!("  backcommit __scan_out_{}\n", lab));
@@ -186,88 +243,353 @@ impl NaigCompiler
       state.append               ("  failtwice\n");
       state.append_string(format!("__scan_{}:\n", lab));
     }
+    return Ok(());
+  }
+
+  fn quantifier_range
+    (tree : & NaigCapTree)
+    -> [ i32; 2 ]
+  {
+    if tree.to_string().eq("+")
+    {
+      return [ 1, -1 ];
+    }
+    else if tree.to_string().eq("*")
+    {
+      return [ 0, -1 ];
+    }
+    else if tree.to_string().eq("*")
+    {
+      return [ 0, 1 ];
+    }
+    else
+    {
+      if tree.first_child().children.len() == 2
+      {
+        return [
+          tree.first_child().children[ 0 ].to_string().parse().unwrap(),
+          tree.first_child().children[ 1 ].to_string().parse().unwrap(),
+        ];
+      }
+      else
+      {
+        match tree.first_child().slot
+        {
+          crate::naig_slotmap::_CMPSLT_Q_UNTIL_ => [
+            0,
+            tree.first_child().children[ 0 ].to_string().parse().unwrap(),
+          ],
+          crate::naig_slotmap::_CMPSLT_Q_FROM_ => [
+            tree.first_child().children[ 0 ].to_string().parse().unwrap(),
+            -1,
+          ],
+          crate::naig_slotmap::_CMPSLT_Q_SPECIFIC_ => [
+            tree.first_child().children[ 0 ].to_string().parse().unwrap(),
+            tree.first_child().children[ 0 ].to_string().parse().unwrap(),
+          ],
+          _ => panic!("Token error"),
+        }
+      }
+    }
   }
 
   fn term_quantified
     (tree : & NaigCapTree, state : & mut NaigCompilerState)
+    -> Result< (), NaigError >
   {
+    let qrange = NaigCompiler::quantifier_range(tree.last_child());
+
+    match qrange[ 0 ]
+    {
+      0 => (),
+      1 => {
+        match NaigCompiler::matcher(tree.first_child(), state)
+        {
+          Ok(_) => (), Err(e) => { return Err(e); },
+        }
+      },
+      _ => {
+        let reg = state.reg;
+        let cnt = state.counter;
+        state.reg += 1;
+        state.counter += 1;
+        state.append_string(format!("  counter {} {}\n", reg, qrange[ 0 ]));
+        state.append_string(format!("__loop_{}:\n", cnt));
+        match NaigCompiler::matcher(tree.first_child(), state)
+        {
+          Ok(_) => (), Err(e) => { return Err(e); },
+        }
+        state.append_string(format!("  condjump {} __loop_{}\n", reg, cnt));
+      },
+    }
+
+    if qrange[ 1 ] == -1
+    {
+      let fgv = state.counter; state.counter += 1;
+      let cnt = state.counter; state.counter += 1;
+      state.append_string(format!("  catch __forgive_{}\n", fgv));
+      state.append_string(format!("__loop_{}:\n", cnt));
+      match NaigCompiler::matcher(tree.first_child(), state)
+      {
+        Ok(_) => (), Err(e) => { return Err(e); },
+      }
+      state.append_string(format!("  partialcommit __loop_{}\n", cnt));
+      state.append_string(format!("__forgive_{}:\n", fgv));
+    }
+    else
+    {
+      let diff = qrange[ 1 ] - qrange[ 0 ];
+      if diff < 0
+      {
+        return Err(NaigError::compiler(format!("Range is negative ({})", diff)));
+      }
+      if diff > 0
+      {
+        let fgv = state.counter;
+        state.counter += 1;
+        state.append_string(format!("  catch __forgive_{}\n", fgv));
+        if diff == 1
+        {
+          match NaigCompiler::matcher(tree.first_child(), state)
+          {
+            Ok(_) => (), Err(e) => { return Err(e); },
+          }
+        }
+        else
+        {
+          let reg = state.reg;
+          let cnt = state.counter;
+          state.reg += 1;
+          state.counter += 1;
+          state.append_string(format!("  counter {} {}\n", reg, diff));
+          state.append_string(format!("__loop_{}:\n", cnt));
+          match NaigCompiler::matcher(tree.first_child(), state)
+          {
+            Ok(_) => (), Err(e) => { return Err(e); },
+          }
+          state.append               ("  partialcommit __NEXT__\n");
+          state.append_string(format!("  condjump {} __loop_{}\n", reg, cnt));
+        }
+        state.append_string(format!("  commit __forgive_{}\n", fgv));
+        state.append_string(format!("__forgive_{}:\n", fgv));
+      }
+    }
+    return Ok(());
   }
 
   fn matcher
     (tree : & NaigCapTree, state : & mut NaigCompilerState)
+    -> Result< (), NaigError >
   {
     let child = tree.first_child();
     match child.slot
     {
-      crate::naig_slotmap::_CMPSLT_ANY_ => { NaigCompiler::match_any(state); },
-      crate::naig_slotmap::_CMPSLT_SET_ => { NaigCompiler::match_set(tree, state); },
-      crate::naig_slotmap::_CMPSLT_STRING_ => { NaigCompiler::match_string(tree, state); },
-      crate::naig_slotmap::_CMPSLT_BITMASK_ => { NaigCompiler::match_bitmask(tree, state); },
-      crate::naig_slotmap::_CMPSLT_HEXLITERAL_ => { NaigCompiler::match_hexliteral(tree, state); },
-      crate::naig_slotmap::_CMPSLT_VARCAPTURE_ => { NaigCompiler::match_varcapture(tree, state); },
-      crate::naig_slotmap::_CMPSLT_CAPTURE_ => { NaigCompiler::match_capture(tree, state); },
-      crate::naig_slotmap::_CMPSLT_GROUP_ => { NaigCompiler::match_group(tree, state); },
-      crate::naig_slotmap::_CMPSLT_MACRO_ => { NaigCompiler::match_macro(tree, state); },
-      crate::naig_slotmap::_CMPSLT_VARREFERENCE_ => { NaigCompiler::match_varreference(tree, state); },
-      crate::naig_slotmap::_CMPSLT_REFERENCE_ => { NaigCompiler::match_reference(tree, state); },
-      _ => { },
+      crate::naig_slotmap::_CMPSLT_ANY_ => NaigCompiler::match_any(state),
+      crate::naig_slotmap::_CMPSLT_SET_ => NaigCompiler::match_set(tree, state),
+      crate::naig_slotmap::_CMPSLT_STRING_ => NaigCompiler::match_string(tree, state),
+      crate::naig_slotmap::_CMPSLT_BITMASK_ => NaigCompiler::match_bitmask(tree, state),
+      crate::naig_slotmap::_CMPSLT_HEXLITERAL_ => NaigCompiler::match_hexliteral(tree, state),
+      crate::naig_slotmap::_CMPSLT_VARCAPTURE_ => NaigCompiler::match_varcapture(tree, state),
+      crate::naig_slotmap::_CMPSLT_CAPTURE_ => NaigCompiler::match_capture(tree, state),
+      crate::naig_slotmap::_CMPSLT_GROUP_ => NaigCompiler::match_group(tree, state),
+      crate::naig_slotmap::_CMPSLT_MACRO_ => NaigCompiler::match_macro(tree, state),
+      crate::naig_slotmap::_CMPSLT_VARREFERENCE_ => NaigCompiler::match_varreference(tree, state),
+      crate::naig_slotmap::_CMPSLT_REFERENCE_ => NaigCompiler::match_reference(tree, state),
+      _ => panic!("Parsing token in matcher"),
     }
   }
 
   fn match_any
     (state : & mut NaigCompilerState)
+    -> Result< (), NaigError >
   {
     state.append("  any\n");
+    return Ok(());
+  }
+
+  fn set_unescape
+    (atom : & Vec<u8>)
+    -> usize
+  {
+    if atom.len() == 1
+    {
+      return atom[ 0 ] as usize;
+    }
+    else if atom[ 0 ] == '\\' as u8
+    {
+      match atom[ 1 ]
+      {
+        0x5c => return 0x5c,
+        0x5d => return 0x5d,
+        0x6e => return 0x0a,
+        0x72 => return 0x0d,
+        _    => panic!("This should be a Result"),
+      }
+    }
+    panic!("This should be a Result");
   }
 
   fn match_set
     (tree : & NaigCapTree, state : & mut NaigCompilerState)
+    -> Result< (), NaigError >
   {
+    let mut start = 0;
+    let mut invert = false;
+    let mut set = NaigCompilerSet::new();
+    if tree.first_child().slot == crate::naig_slotmap::_CMPSLT_SETNOT_
+    {
+      invert = true;
+      start = 1;
+    }
+    for i in start .. tree.children.len()
+    {
+      let child = & tree.children[ i ];
+      if child.children[ i ].slot == crate::naig_slotmap::_CMPSLT_SET_NRTV
+      {
+        let from = NaigCompiler::set_unescape(& child.children[ i ].content);
+        let until = NaigCompiler::set_unescape(& child.children[ i+1 ].content);
+        set.set_range(from, until);
+      }
+      else if child.children[ i ].slot == crate::naig_slotmap::_CMPSLT_SET_NRTV_2
+      {
+        let chr = NaigCompiler::set_unescape(& child.children[ i ].content);
+        set.set(chr);
+      }
+    }
+    if invert
+    {
+      set.invert();
+    }
+    state.append_string(format!("  set {}\n", set.to_string()));
+    return Ok(());
+  }
+
+  fn match_string_ci
+    (tree : & NaigCapTree, state : & mut NaigCompilerState, ci : bool)
+    -> Result< (), NaigError >
+  {
+    let mut skip = false;
+    for i in 1 .. tree.content.len()-1
+    {
+      if skip
+      {
+        skip = false;
+        continue;
+      }
+      if tree.content[ i ] == '\\' as u8
+      {
+        match tree.content[ i+1 ]
+        {
+          0x6e => state.append("  char 0a\n"), // '\n'
+          0x72 => state.append("  char 0d\n"), // '\r'
+          0x74 => state.append("  char 09\n"), // '\t'
+          0x76 => state.append("  char 0b\n"), // '\v'
+          0x27 => state.append("  char 27\n"), // '\''
+          0x5c => state.append("  char 5c\n"), // '\\'
+          _    => { return Err(NaigError::compiler(format!("Unknown escape \\{}", tree.content[ i+1 ] as char))); }
+        }
+        skip = true;
+      }
+      else
+      {
+        if ci && tree.content[ i ] >= 65 && tree.content[ i ] <= 90
+        {
+          let mut set = NaigCompilerSet::new();
+          set.set(tree.content[ i ] as usize);
+          set.set(tree.content[ i ] as usize + 32);
+          state.append_string(format!("  set {}\n", set.to_string()));
+        }
+        else if ci && tree.content[ i ] >= 97 && tree.content[ i ] <= 122
+        {
+          let mut set = NaigCompilerSet::new();
+          set.set(tree.content[ i ] as usize);
+          set.set(tree.content[ i ] as usize - 32);
+          state.append_string(format!("  set {}\n", set.to_string()));
+        }
+        else
+        {
+          state.append_string(format!("  char {:02x}\n", tree.content[ i ]));
+        }
+      }
+    }
+    return Ok(());
   }
 
   fn match_string
     (tree : & NaigCapTree, state : & mut NaigCompilerState)
+    -> Result< (), NaigError >
   {
+    if tree.content[ tree.content.len()-1 ] == 'i' as u8
+    {
+      NaigCompiler::match_string_ci(tree, state, true)
+    }
+    else
+    {
+      NaigCompiler::match_string_ci(tree, state, false)
+    }
   }
 
   fn match_bitmask
     (tree : & NaigCapTree, state : & mut NaigCompilerState)
+    -> Result< (), NaigError >
   {
+    let ins = tree.to_string();
+    let hex = & ins[ 1..3 ];
+    let msk = & ins[ 4..6 ];
+    state.append_string(format!("  maskedchar {} {}\n", hex, msk));
+    return Ok(());
   }
 
   fn match_hexliteral
     (tree : & NaigCapTree, state : & mut NaigCompilerState)
+    -> Result< (), NaigError >
   {
+    let ins = tree.to_string();
+    let hex = & ins[ 2..4 ];
+    state.append_string(format!("  char {}\n", hex));
+    return Ok(());
   }
 
   fn match_varcapture
     (tree : & NaigCapTree, state : & mut NaigCompilerState)
+    -> Result< (), NaigError >
   {
     let varname = tree.first_child().to_string();
     let slot = state.capture(tree);
     state.var_put(varname, slot);
     state.append_string(format!("  opencapture {}\n", slot));
-    NaigCompiler::expression(tree.first_child(), state);
+    match NaigCompiler::expression(tree.first_child(), state)
+    {
+      Ok(_) => (), Err(e) => { return Err(e); },
+    }
     state.append_string(format!("  closecapture {}\n", slot));
+    return Ok(());
   }
 
   fn match_capture
     (tree : & NaigCapTree, state : & mut NaigCompilerState)
+    -> Result< (), NaigError >
   {
     let slot = state.capture(tree);
     state.append_string(format!("  opencapture {}\n", slot));
-    NaigCompiler::expression(tree.first_child(), state);
+    match NaigCompiler::expression(tree.first_child(), state)
+    {
+      Ok(_) => (), Err(e) => { return Err(e); },
+    }
     state.append_string(format!("  closecapture {}\n", slot));
+    return Ok(());
   }
 
   fn match_group
     (tree : & NaigCapTree, state : & mut NaigCompilerState)
+    -> Result< (), NaigError >
   {
-    NaigCompiler::expression(tree.first_child(), state);
+    NaigCompiler::expression(tree.first_child(), state)
   }
 
   fn match_macro
     (tree : & NaigCapTree, state : & mut NaigCompilerState)
+    -> Result< (), NaigError >
   {
     let mcroni = tree.first_child().to_string();
     let mut set = NaigCompilerSet::new();
@@ -295,7 +617,12 @@ impl NaigCompiler
     {
       set.set_range(32, 126);
     }
+    else
+    {
+      return Err(NaigError::compiler(format!("Unknown macro '{}'", mcroni)));
+    }
     state.append_string(format!("  set {}\n", set.to_string()));
+    return Ok(());
   }
 
   fn match_varreference
@@ -313,6 +640,9 @@ impl NaigCompiler
 
   fn match_reference
     (tree : & NaigCapTree, state : & mut NaigCompilerState)
+    -> Result< (), NaigError >
   {
+    state.append_string(format!("  call __RULE_{}\n", tree.to_string()));
+    return Ok(());
   }
 }

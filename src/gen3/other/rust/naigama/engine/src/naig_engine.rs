@@ -15,7 +15,7 @@ pub struct NaigEngine
 struct NaigStackElt
 {
   elttype                : u32,
-  offset                 : usize,
+  offset                 : u32,
   ioffset                : usize,
   plength                : usize,
 }
@@ -30,7 +30,7 @@ struct NaigEngineState
 <'a>
 {
   engine                 : &'a NaigEngine,
-  bytecode_offset        : usize,
+  bytecode_offset        : u32,
   input                  : &'a Vec< u8 >,
   input_offset           : usize,
   stack                  : Vec< NaigStackElt >,
@@ -47,6 +47,10 @@ impl NaigEngine
     (bytecode: Vec< u8 >)
     -> NaigEngine
   {
+    if bytecode.len() >= std::u32::MAX as usize
+    {
+      panic!("Bytecode too long.");
+    }
     return NaigEngine {
       bytecode
     };
@@ -264,14 +268,14 @@ eprintln!(
   }
 
   fn decode_opcode
-    (ar: & Vec< u8 >, off: usize)
+    (ar: & Vec< u8 >, off: u32)
     -> Result<NaigInstruction, NaigError>
   {
     let n = NaigEngine::decode_quad(ar, off);
     match n
     {
       Ok(opcode) => {
-        let o = NaigInstruction::from_usize(opcode);
+        let o = NaigInstruction::from_usize(opcode as usize);
         match o
         {
           Ok(foo) => { return Ok(foo); },
@@ -286,15 +290,16 @@ eprintln!(
    * 
    */
   fn decode_quad
-    (ar: & Vec< u8 >, off: usize)
-    -> Result<usize, NaigError>
+    (ar: & Vec< u8 >, off: u32)
+    -> Result<u32, NaigError>
   {
-    if off <= ar.len() - 4
+    let o = off as usize;
+    if o <= ar.len() - 4
     {
-      let r:usize =
-          ( usize::from(ar[ off+1 ]) << 16 )
-        | ( usize::from(ar[ off+2 ]) << 8 )
-        | ( usize::from(ar[ off+3 ]) << 0 );
+      let r:u32 =
+          ( u32::from(ar[ o+1 ]) << 16 )
+        | ( u32::from(ar[ o+2 ]) << 8 )
+        | ( u32::from(ar[ o+3 ]) << 0 );
       return Ok(r);
     } else {
       return Err(NaigError::simple(NaigError::ErrOutOfRange));
@@ -302,21 +307,21 @@ eprintln!(
   }
 
   fn decode_quads
-    (ar: & Vec< u8 >, off: usize, number: usize)
-    -> Result<Vec<usize>, NaigError>
+    (ar: & Vec< u8 >, off: u32, number: usize)
+    -> Result<Vec<u32>, NaigError>
   {
-    let mut result : Vec<usize> = Vec::new();
-    let mut o = off;
+    let mut result : Vec<u32> = Vec::new();
+    let mut o = off as usize;
     let mut n = number;
 
     while n > 0
     {
       if o <= ar.len() - 4
       {
-        let r:usize =
-            ( usize::from(ar[ o+1 ]) << 16 )
-          | ( usize::from(ar[ o+2 ]) << 8 )
-          | ( usize::from(ar[ o+3 ]) << 0 );
+        let r:u32 =
+            ( u32::from(ar[ o+1 ]) << 16 )
+          | ( u32::from(ar[ o+2 ]) << 8 )
+          | ( u32::from(ar[ o+3 ]) << 0 );
         result.push(r);
       } else {
         return Err(NaigError::simple(NaigError::ErrOutOfRange));
@@ -507,16 +512,16 @@ eprintln!(
   }
 
   fn counter_push
-    (state: & mut NaigEngineState, reg : usize, value : usize)
+    (state: & mut NaigEngineState, reg : u32, value : u32)
   {
     state.counters.insert(
       0,
-      NaigCounter{ reg: reg as u32, value: value as u32}
+      NaigCounter{ reg: reg, value: value }
     );
   }
 
   fn counter_resolve
-    (state: & mut NaigEngineState, reg: usize)
+    (state: & mut NaigEngineState, reg: u32)
     -> Result<usize, NaigError>
   {
     for i in 0 .. state.counters.len() {
@@ -780,7 +785,7 @@ eprintln!(
     -> Result<bool, NaigError>
   {
     if state.bytecode_offset + libnaig::instructions::_INSTR_SIZE_QUAD
-        > state.engine.bytecode.len()
+        > state.engine.bytecode.len() as u32
     {
       return Err(NaigError::simple(NaigError::ErrBytecode));
     }
@@ -790,7 +795,7 @@ eprintln!(
     } else {
       for i in 0..3 {
         if state.input[ state.input_offset + i ]
-           != state.engine.bytecode[ state.bytecode_offset + 4 + i ]
+           != state.engine.bytecode[ state.bytecode_offset as usize + 4 + i ]
         {
           state.fail = true;
           break;
@@ -869,11 +874,11 @@ eprintln!(
     let bitoff = state.input[ state.input_offset ] as usize;
 
     if state.bytecode_offset + libnaig::instructions::_INSTR_SIZE_SET
-        > state.engine.bytecode.len()
+        > state.engine.bytecode.len() as u32
     {
       return Err(NaigError::simple(NaigError::ErrBytecode));
     }
-    if ((state.engine.bytecode[ setoff + (bitoff / 8) ]
+    if ((state.engine.bytecode[ setoff as usize + (bitoff / 8) ]
         >> (bitoff % 8)) & 0x01) == 0x01
     {
       state.input_offset += 1;
@@ -895,9 +900,9 @@ eprintln!(
     match n
     {
       Ok(offset) => {
-        if state.input_offset <= state.input.len() - offset
+        if state.input_offset <= state.input.len() - offset as usize
         {
-          state.input_offset += offset;
+          state.input_offset += offset as usize;
           state.bytecode_offset += libnaig::instructions::_INSTR_SIZE_SKIP;
         } else {
           state.fail = true;
@@ -916,12 +921,12 @@ eprintln!(
     let bitoff = state.input[ state.input_offset ] as usize;
 
     if state.bytecode_offset + libnaig::instructions::_INSTR_SIZE_SPAN
-        > state.engine.bytecode.len()
+        > state.engine.bytecode.len() as u32
     {
       return Err(NaigError::simple(NaigError::ErrBytecode));
     }
     while state.input_offset < state.input.len()
-          && (((state.engine.bytecode[ setoff + (bitoff / 8) ]
+          && (((state.engine.bytecode[ setoff as usize + (bitoff / 8) ]
              >> (bitoff % 8)) & 0x01) == 0x01)
     {
       state.input_offset += 1;
@@ -959,7 +964,7 @@ eprintln!(
     -> Result<bool, NaigError>
   {
     if state.bytecode_offset + libnaig::instructions::_INSTR_SIZE_TESTSET
-        > state.engine.bytecode.len()
+        > state.engine.bytecode.len() as u32
     {
       return Err(NaigError::simple(NaigError::ErrBytecode));
     }

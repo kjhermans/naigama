@@ -18,6 +18,19 @@ precomp:
 	@perl ./bin/genrustslotmap.pl \
 		/tmp/grammar.slotmap \
 		CMPSLT > ./naigama/compiler/src/naig_slotmap.rs
+	@../../main/compiler/naic -C \
+		-i ../../grammar/assembly.naig \
+		-o /tmp/assembly.asm \
+		-m /tmp/assembly.slotmap
+	@../../main/assembler/naia \
+		-i /tmp/assembly.asm \
+		-o ./naigama/assembler/src/assembly.byc
+	@perl ./bin/genrustslotmap.pl \
+		/tmp/assembly.slotmap \
+		ASMSLT > ./naigama/assembler/src/naig_slotmap.rs
+
+test:
+	@cd t && make
 
 clean:
 	@cd naigama && cargo clean

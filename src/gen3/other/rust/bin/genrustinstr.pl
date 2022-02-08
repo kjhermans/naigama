@@ -39,7 +39,6 @@ print "      _ => { return Err(NaigError::simple(NaigError::ErrBadOpcode)); }
     };
   }
 
-/*
   pub fn get_size
     (n: usize)
     -> Result<u32, NaigError>
@@ -52,7 +51,7 @@ foreach my $key (sort(keys(%{$instrhash}))) {
         " => { return Ok(" . $instrhash->{$key}{size} . "); },\n";
 }
 
-print "      _ => { return Err(crate::errors::NaigError::ErrBadOpcode); }
+print "      _ => { return Err(NaigError::simple(NaigError::ErrBadOpcode)); }
     };
   }
 
@@ -71,13 +70,12 @@ foreach my $key (sort(keys(%{$instrhash}))) {
 print "
     }
   }
-*/
 }
 
 ";
 
 foreach my $key (sort(keys(%{$instrhash}))) {
-  print "pub const _INSTR_SIZE_" . uc($key) . ": usize = " .
+  print "pub const _INSTR_SIZE_" . uc($key) . ": u32 = " .
         $instrhash->{$key}{size} . ";\n";
 }
 

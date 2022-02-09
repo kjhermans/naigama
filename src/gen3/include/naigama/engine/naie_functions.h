@@ -31,11 +31,6 @@ extern
 void naie_debug_instruction
   (naie_engine_t* engine);
 
-/* declared in ./lib/engine/naie_debug_script.c */
-extern
-void naie_debug_script
-  (naie_engine_t* engine);
-
 /* declared in ./lib/engine/naie_debug_state.c */
 extern
 void naie_debug_state

@@ -24,6 +24,7 @@ impl NaigAssemblerState
   pub fn label_set
     (& mut self, label : String, offset : u32)
   {
+eprintln!("Label set {} -> {}", label, offset);
     self.labelmap.insert(label, offset);
   }
 
@@ -34,7 +35,10 @@ impl NaigAssemblerState
     let opt = self.labelmap.get(& label);
     match opt
     {
-      Some(offset) => { return Ok( *offset ); },
+      Some(offset) => {
+eprintln!("Label get {} -> {}", label, *offset);
+        return Ok( *offset );
+      },
       None => { return Err(NaigError::assembler(format!("Label '{}' not found", label))); },
     }
   }

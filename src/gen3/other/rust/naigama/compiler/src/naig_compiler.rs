@@ -469,7 +469,12 @@ impl NaigCompiler
     -> Result< (), NaigError >
   {
     let mut skip = false;
-    for i in 1 .. tree.content.len()-1
+    let mut len = tree.content.len()-1;
+    if ci
+    {
+      len -= 1;
+    }
+    for i in 1 .. len
     {
       if skip
       {

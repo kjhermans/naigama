@@ -32,9 +32,9 @@ impl NaigAssembler
         let mut state = NaigAssemblerState::new();
         let mut tree = NaigCapTree::new(& bytes, & outcome.captures);
         tree.remove(crate::naig_slotmap::_ASMSLT_S_);
-        tree.remove(crate::naig_slotmap::_ASMSLT___PREFIX_);
         tree.remove(crate::naig_slotmap::_ASMSLT_COMMENT_);
         tree.remove(crate::naig_slotmap::_ASMSLT_MULTILINECOMMENT_);
+        tree.remove(crate::naig_slotmap::_ASMSLT___PREFIX_);
         match NaigAssembler::assemble_top(& tree, & mut state)
         {
           Ok(_) => (), Err(e) => { return Err(e); }
@@ -168,12 +168,110 @@ impl NaigAssembler
         crate::naig_slotmap::_ASMSLT_VARINSTR_ => {
           offset += libnaig::instructions::_INSTR_SIZE_VAR;
         },
-        crate::naig_slotmap::_ASMSLT_LABEL_AZAZ => {
-          let label = tree.children[ i ].first_child().to_string();
+        crate::naig_slotmap::_ASMSLT_LABEL_ => {
+          let label = node.first_child().to_string();
           state.label_set(label, offset);
         },
-        _ => panic!("Token error"),
+        _ => panic!("Token error; {}", node.slot),
       }
+    }
+    return Ok(());
+  }
+
+  fn sp_translate_label
+    (
+      node : & NaigCapTree,
+      state : & mut NaigAssemblerState,
+      indx : usize,
+      nxt : usize,
+    )
+    -> Result< (), NaigError >
+  {
+    let label = node.children[ indx ].to_string();
+    if nxt != 0 && label.eq("__NEXT__")
+    {
+      let offset = state.output.len() + nxt;
+      state.append_unsigned(offset as u32);
+    }
+    else
+    {
+      match state.label_get(label)
+      {
+        Ok(offset) => { state.append_unsigned(offset); },
+        Err(e) => { return Err(e); },
+      }
+    }
+    return Ok(());
+  }
+
+  fn sp_instr_offsetlabel
+    (
+      node : & NaigCapTree,
+      state : & mut NaigAssemblerState,
+      instr : NaigInstruction,
+    )
+    -> Result< (), NaigError >
+  {
+    state.append_instr(instr);
+    NaigAssembler::sp_translate_label(node, state, 1, 4)
+  }
+
+  fn sp_translate_decimal
+    (
+      node : & NaigCapTree,
+      state : & mut NaigAssemblerState,
+      indx : usize,
+    )
+    -> Result< (), NaigError >
+  {
+    let dec = node.children[ indx ].to_string();
+    match u32::from_str_radix(& dec, 10)
+    {
+      Ok(num) => { state.append_unsigned(num); },
+      Err(e) => return Err(NaigError::assembler(e.to_string())),
+    }
+    return Ok(());
+  }
+
+  fn sp_instr_decimal
+    (
+      node : & NaigCapTree,
+      state : & mut NaigAssemblerState,
+      instr : NaigInstruction
+    )
+    -> Result< (), NaigError >
+  {
+    state.append_instr(instr);
+    NaigAssembler::sp_translate_decimal(node, state, 1)
+  }
+
+  fn sp_translate_set
+    (
+      node : & NaigCapTree,
+      state : & mut NaigAssemblerState,
+      indx : usize,
+    )
+    -> Result< (), NaigError >
+  {
+    let mut chr : u8;
+    for i in 0 .. 32
+    {
+      match node.children[ indx ].content[ i*2 ]
+      {
+        b'a' ..= b'f' => chr = node.children[ indx ].content[ i*2 ] + 10 - b'a',
+        b'A' ..= b'F' => chr = node.children[ indx ].content[ i*2 ] + 10 - b'A',
+        b'0' ..= b'9' => chr = node.children[ indx ].content[ i*2 ] - b'0',
+        _ => return Err(NaigError::assembler(format!("Unknown set character '{}'", node.children[ indx ].content[ i*2 ]))),
+      }
+      chr <<= 4;
+      match node.children[ indx ].content[ i*2+1 ]
+      {
+        b'a' ..= b'f' => chr |= node.children[ indx ].content[ i*2+1 ] + 10 - b'a',
+        b'A' ..= b'F' => chr |= node.children[ indx ].content[ i*2+1 ] + 10 - b'A',
+        b'0' ..= b'9' => chr |= node.children[ indx ].content[ i*2+1 ] - b'0',
+        _ => return Err(NaigError::assembler(format!("Unknown set character '{}'", node.children[ indx ].content[ i*2+1 ]))),
+      }
+      state.output.push(chr);
     }
     return Ok(());
   }
@@ -192,68 +290,133 @@ impl NaigAssembler
           state.append_instr(NaigInstruction::INSTR_ANY);
         },
         crate::naig_slotmap::_ASMSLT_BACKCOMMITINSTR_ => {
+          match NaigAssembler::sp_instr_offsetlabel(node, state, NaigInstruction::INSTR_BACKCOMMIT, )
+          {
+            Ok(_) => (),
+            Err(e) => { return Err(e); },
+          }
         },
         crate::naig_slotmap::_ASMSLT_CALLINSTR_ => {
-          let label = child.children[ 1 ].to_string();
-          match state.label_get(label)
+          match NaigAssembler::sp_instr_offsetlabel(node, state, NaigInstruction::INSTR_CALL)
           {
-            Ok(offset) => { state.append_unsigned(offset); },
+            Ok(_) => (),
             Err(e) => { return Err(e); },
           }
         },
         crate::naig_slotmap::_ASMSLT_CATCHINSTR_ => {
-          
+          match NaigAssembler::sp_instr_offsetlabel(node, state, NaigInstruction::INSTR_CATCH)
+          {
+            Ok(_) => (),
+            Err(e) => { return Err(e); },
+          }
         },
         crate::naig_slotmap::_ASMSLT_CHARINSTR_ => {
-          
+          let hex = node.children[ 1 ].to_string();
+          match u32::from_str_radix(& hex, 16)
+          {
+            Ok(chr) => {
+              state.append_instr(NaigInstruction::INSTR_CHAR);
+              state.append_unsigned(chr);
+            },
+            Err(e) => return Err(NaigError::assembler(e.to_string())),
+          }
         },
         crate::naig_slotmap::_ASMSLT_CLOSECAPTUREINSTR_ => {
-          
+          match NaigAssembler::sp_instr_decimal(node, state, NaigInstruction::INSTR_CLOSECAPTURE)
+          {
+            Ok(_) => (),
+            Err(e) => { return Err(e); },
+          }
         },
         crate::naig_slotmap::_ASMSLT_COMMITINSTR_ => {
-          
+          match NaigAssembler::sp_instr_offsetlabel(node, state, NaigInstruction::INSTR_COMMIT)
+          {
+            Ok(_) => (),
+            Err(e) => { return Err(e); },
+          }
         },
         crate::naig_slotmap::_ASMSLT_CONDJUMPINSTR_ => {
-          
+          state.append_instr(NaigInstruction::INSTR_CONDJUMP);
+          match NaigAssembler::sp_translate_decimal(node, state, 1)
+          {
+            Ok(_) => (),
+            Err(e) => { return Err(e); },
+          }
+          match NaigAssembler::sp_translate_label(node, state, 2, 4)
+          {
+            Ok(_) => (),
+            Err(e) => { return Err(e); },
+          }
         },
         crate::naig_slotmap::_ASMSLT_COUNTERINSTR_ => {
-          
+          state.append_instr(NaigInstruction::INSTR_COUNTER);
+          match NaigAssembler::sp_translate_decimal(node, state, 1)
+          {
+            Ok(_) => (),
+            Err(e) => { return Err(e); },
+          }
+          match NaigAssembler::sp_translate_decimal(node, state, 2)
+          {
+            Ok(_) => (),
+            Err(e) => { return Err(e); },
+          }
         },
         crate::naig_slotmap::_ASMSLT_ENDINSTR_ => {
-          
+          match NaigAssembler::sp_instr_decimal(node, state, NaigInstruction::INSTR_END)
+          {
+            Ok(_) => (),
+            Err(e) => { return Err(e); },
+          }
         },
         crate::naig_slotmap::_ASMSLT_ENDISOLATEINSTR_ => {
-          
+          state.append_instr(NaigInstruction::INSTR_ENDISOLATE);
         },
         crate::naig_slotmap::_ASMSLT_ENDREPLACEINSTR_ => {
-          
+          state.append_instr(NaigInstruction::INSTR_ENDREPLACE);
         },
         crate::naig_slotmap::_ASMSLT_FAILINSTR_ => {
-          
+          state.append_instr(NaigInstruction::INSTR_FAIL);
         },
         crate::naig_slotmap::_ASMSLT_FAILTWICEINSTR_ => {
-          
+          state.append_instr(NaigInstruction::INSTR_FAILTWICE);
         },
         crate::naig_slotmap::_ASMSLT_INTRPCAPTUREINSTR_ => {
           
         },
         crate::naig_slotmap::_ASMSLT_ISOLATEINSTR_ => {
-          
+          match NaigAssembler::sp_instr_decimal(node, state, NaigInstruction::INSTR_ISOLATE)
+          {
+            Ok(_) => (),
+            Err(e) => { return Err(e); },
+          }
         },
         crate::naig_slotmap::_ASMSLT_JUMPINSTR_ => {
-          
+          match NaigAssembler::sp_instr_offsetlabel(node, state, NaigInstruction::INSTR_JUMP)
+          {
+            Ok(_) => (),
+            Err(e) => { return Err(e); },
+          }
         },
         crate::naig_slotmap::_ASMSLT_MASKEDCHARINSTR_ => {
           
         },
         crate::naig_slotmap::_ASMSLT_NOOPINSTR_ => {
+          state.append_instr(NaigInstruction::INSTR_NOOP);
           
         },
         crate::naig_slotmap::_ASMSLT_OPENCAPTUREINSTR_ => {
-          
+          match NaigAssembler::sp_instr_decimal(node, state, NaigInstruction::INSTR_OPENCAPTURE)
+          {
+            Ok(_) => (),
+            Err(e) => { return Err(e); },
+          }
         },
         crate::naig_slotmap::_ASMSLT_PARTIALCOMMITINSTR_ => {
-          
+          match NaigAssembler::sp_instr_offsetlabel(node, state, NaigInstruction::INSTR_PARTIALCOMMIT)
+          {
+            Ok(_) => (),
+            Err(e) => { return Err(e); },
+          }
         },
         crate::naig_slotmap::_ASMSLT_QUADINSTR_ => {
           
@@ -265,10 +428,15 @@ impl NaigAssembler
           
         },
         crate::naig_slotmap::_ASMSLT_RETINSTR_ => {
-          
+          state.append_instr(NaigInstruction::INSTR_RET);
         },
         crate::naig_slotmap::_ASMSLT_SETINSTR_ => {
-          
+          state.append_instr(NaigInstruction::INSTR_SET);
+          match NaigAssembler::sp_translate_set(node, state, 1)
+          {
+            Ok(_) => (),
+            Err(e) => { return Err(e); },
+          }
         },
         crate::naig_slotmap::_ASMSLT_SKIPINSTR_ => {
           
@@ -289,13 +457,17 @@ impl NaigAssembler
           
         },
         crate::naig_slotmap::_ASMSLT_TRAPINSTR_ => {
-          
+          state.append_instr(NaigInstruction::INSTR_TRAP);
         },
         crate::naig_slotmap::_ASMSLT_VARINSTR_ => {
-          
+          match NaigAssembler::sp_instr_decimal(node, state, NaigInstruction::INSTR_VAR)
+          {
+            Ok(_) => (),
+            Err(e) => { return Err(e); },
+          }
         },
-        crate::naig_slotmap::_ASMSLT_LABEL_AZAZ => { },
-        _ => panic!("Token error"),
+        crate::naig_slotmap::_ASMSLT_LABEL_ => { },
+        _ => panic!("Token error; {}", node.slot),
       }
     }
     return Ok(());

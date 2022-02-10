@@ -56,6 +56,7 @@ impl NaigError
   pub const ErrState         : i32 = -4;
   pub const ErrTrapped       : i32 = -5;
   pub const ErrBytecode      : i32 = -6;
+  pub const ErrVar           : i32 = -7;
 
   pub const ErrCompiler      : i32 = -33;
 

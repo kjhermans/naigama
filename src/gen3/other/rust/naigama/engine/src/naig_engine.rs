@@ -129,7 +129,7 @@ eprintln!(
 
   fn handle_opcode
     (state : & mut NaigEngineState, opcode : NaigInstruction)
-    -> Result<bool, NaigError>
+    -> Result< (), NaigError>
   {
     match opcode {
       NaigInstruction::INSTR_ANY
@@ -334,7 +334,7 @@ eprintln!(
 
   fn handle_any
     (state: & mut NaigEngineState)
-    -> Result<bool, NaigError>
+    -> Result< (), NaigError>
   {
     if state.input_offset < state.input.len()
     {
@@ -343,12 +343,12 @@ eprintln!(
     } else {
       state.fail = true;
     }
-    return Ok(true);
+    return Ok(());
   }
 
   fn handle_backcommit
     (state: & mut NaigEngineState)
-    -> Result<bool, NaigError>
+    -> Result< (), NaigError>
   {
     let n = NaigEngine::decode_quad(
               & state.engine.bytecode,
@@ -376,12 +376,12 @@ eprintln!(
       },
       Err(error) => { return Err(error); }
     };
-    return Ok(true);
+    return Ok(());
   }
 
   fn handle_call
     (state: & mut NaigEngineState)
-    -> Result<bool, NaigError>
+    -> Result< (), NaigError>
   {
     let n = NaigEngine::decode_quad(
               & state.engine.bytecode,
@@ -403,12 +403,12 @@ eprintln!(
       },
       Err(error) => { return Err(error); }
     };
-    return Ok(true);
+    return Ok(());
   }
 
   fn handle_catch
     (state: & mut NaigEngineState)
-    -> Result<bool, NaigError>
+    -> Result< (), NaigError>
   {
     let n = NaigEngine::decode_quad(
               & state.engine.bytecode,
@@ -429,12 +429,12 @@ eprintln!(
       },
       Err(error) => { return Err(error); }
     };
-    return Ok(true);
+    return Ok(());
   }
 
   fn handle_char
     (state: & mut NaigEngineState)
-    -> Result<bool, NaigError>
+    -> Result< (), NaigError>
   {
     if state.input_offset >= state.input.len()
     {
@@ -458,12 +458,12 @@ eprintln!(
         Err(error) => { return Err(error); }
       };
     }
-    return Ok(true);
+    return Ok(());
   }
 
   fn handle_closecapture
     (state: & mut NaigEngineState)
-    -> Result<bool, NaigError>
+    -> Result< (), NaigError>
   {
     let n = NaigEngine::decode_quad(
               & state.engine.bytecode,
@@ -483,12 +483,12 @@ eprintln!(
       Err(error) => { return Err(error); }
     };
     state.bytecode_offset += libnaig::instructions::_INSTR_SIZE_CLOSECAPTURE;
-    return Ok(true);
+    return Ok(());
   }
 
   fn handle_commit
     (state: & mut NaigEngineState)
-    -> Result<bool, NaigError>
+    -> Result< (), NaigError>
   {
     let n = NaigEngine::decode_quad(
               & state.engine.bytecode,
@@ -508,7 +508,7 @@ eprintln!(
       },
       Err(error) => { return Err(error); }
     };
-    return Ok(true);
+    return Ok(());
   }
 
   fn counter_push
@@ -541,7 +541,7 @@ eprintln!(
 
   fn handle_condjump
     (state: & mut NaigEngineState)
-    -> Result<bool, NaigError>
+    -> Result< (), NaigError>
   {
     let n = NaigEngine::decode_quads(
               & state.engine.bytecode,
@@ -568,12 +568,12 @@ eprintln!(
       },
       Err(error) => { return Err(error); }
     }
-    return Ok(true);
+    return Ok(());
   }
 
   fn handle_counter
     (state: & mut NaigEngineState)
-    -> Result<bool, NaigError>
+    -> Result< (), NaigError>
   {
     let n = NaigEngine::decode_quads(
               & state.engine.bytecode,
@@ -588,12 +588,12 @@ eprintln!(
       },
       Err(error) => { return Err(error); }
     };
-    return Ok(true);
+    return Ok(());
   }
 
   fn handle_end
     (state: & mut NaigEngineState)
-    -> Result<bool, NaigError>
+    -> Result< (), NaigError>
   {
     let n = NaigEngine::decode_quad(
               & state.engine.bytecode,
@@ -607,36 +607,36 @@ eprintln!(
       },
       Err(error) => { return Err(error); }
     };
-    return Ok(true);
+    return Ok(());
   }
 
   fn handle_endisolate
     (state: & mut NaigEngineState)
-    -> Result<bool, NaigError>
+    -> Result< (), NaigError>
   {
     state.bytecode_offset += libnaig::instructions::_INSTR_SIZE_ENDISOLATE;
-    return Ok(true);
+    return Ok(());
   }
 
   fn handle_endreplace
     (state: & mut NaigEngineState)
-    -> Result<bool, NaigError>
+    -> Result< (), NaigError>
   {
     state.bytecode_offset += libnaig::instructions::_INSTR_SIZE_ENDREPLACE;
-    return Ok(true);
+    return Ok(());
   }
 
   fn handle_fail
     (state: & mut NaigEngineState)
-    -> Result<bool, NaigError>
+    -> Result< (), NaigError>
   {
     state.fail = true;
-    return Ok(true);
+    return Ok(());
   }
 
   fn handle_failtwice
     (state: & mut NaigEngineState)
-    -> Result<bool, NaigError>
+    -> Result< (), NaigError>
   {
     if let Some(e) = state.stack.pop() {
       if e.elttype == STACKELT_TYPE_ALT {
@@ -647,20 +647,20 @@ eprintln!(
     } else {
       return Err(NaigError::simple(NaigError::ErrStack));
     }
-    return Ok(true);
+    return Ok(());
   }
 
   fn handle_intrpcapture
     (state: & mut NaigEngineState)
-    -> Result<bool, NaigError>
+    -> Result< (), NaigError>
   {
     state.bytecode_offset += libnaig::instructions::_INSTR_SIZE_INTRPCAPTURE;
-    return Ok(true);
+    return Ok(());
   }
 
   fn handle_isolate
     (state: & mut NaigEngineState)
-    -> Result<bool, NaigError>
+    -> Result< (), NaigError>
   {
     let n = NaigEngine::decode_quad(
               & state.engine.bytecode,
@@ -693,12 +693,12 @@ eprintln!(
       },
       Err(error) => { return Err(error); }
     };
-    return Ok(true);
+    return Ok(());
   }
 
   fn handle_jump
     (state: & mut NaigEngineState)
-    -> Result<bool, NaigError>
+    -> Result< (), NaigError>
   {
     let n = NaigEngine::decode_quad(
               & state.engine.bytecode,
@@ -711,28 +711,28 @@ eprintln!(
       },
       Err(error) => { return Err(error); }
     };
-    return Ok(true);
+    return Ok(());
   }
 
   fn handle_maskedchar
     (state: & mut NaigEngineState)
-    -> Result<bool, NaigError>
+    -> Result< (), NaigError>
   {
     state.bytecode_offset += libnaig::instructions::_INSTR_SIZE_MASKEDCHAR;
-    return Ok(true);
+    return Ok(());
   }
 
   fn handle_noop
     (state: & mut NaigEngineState)
-    -> Result<bool, NaigError>
+    -> Result< (), NaigError>
   {
     state.bytecode_offset += libnaig::instructions::_INSTR_SIZE_NOOP;
-    return Ok(true);
+    return Ok(());
   }
 
   fn handle_opencapture
     (state: & mut NaigEngineState)
-    -> Result<bool, NaigError>
+    -> Result< (), NaigError>
   {
     let n = NaigEngine::decode_quad(
               & state.engine.bytecode,
@@ -752,12 +752,12 @@ eprintln!(
       Err(error) => { return Err(error); }
     };
     state.bytecode_offset += libnaig::instructions::_INSTR_SIZE_OPENCAPTURE;
-    return Ok(true);
+    return Ok(());
   }
 
   fn handle_partialcommit
     (state: & mut NaigEngineState)
-    -> Result<bool, NaigError>
+    -> Result< (), NaigError>
   {
     let n = NaigEngine::decode_quad(
               & state.engine.bytecode,
@@ -777,12 +777,12 @@ eprintln!(
       },
       Err(error) => { return Err(error); }
     };
-    return Ok(true);
+    return Ok(());
   }
 
   fn handle_quad
     (state: & mut NaigEngineState)
-    -> Result<bool, NaigError>
+    -> Result< (), NaigError>
   {
     if state.bytecode_offset + libnaig::instructions::_INSTR_SIZE_QUAD
         > state.engine.bytecode.len() as u32
@@ -806,12 +806,12 @@ eprintln!(
         state.bytecode_offset += libnaig::instructions::_INSTR_SIZE_QUAD;
       }
     }
-    return Ok(true);
+    return Ok(());
   }
 
   fn handle_range
     (state: & mut NaigEngineState)
-    -> Result<bool, NaigError>
+    -> Result< (), NaigError>
   {
     let n = NaigEngine::decode_quads(
               & state.engine.bytecode,
@@ -833,20 +833,20 @@ eprintln!(
       },
       Err(error) => { return Err(error); }
     };
-    return Ok(true);
+    return Ok(());
   }
 
   fn handle_replace
     (state: & mut NaigEngineState)
-    -> Result<bool, NaigError>
+    -> Result< (), NaigError>
   {
     state.bytecode_offset += libnaig::instructions::_INSTR_SIZE_REPLACE;
-    return Ok(true);
+    return Ok(());
   }
 
   fn handle_ret
     (state: & mut NaigEngineState)
-    -> Result<bool, NaigError>
+    -> Result< (), NaigError>
   {
     if let Some(e) = state.stack.pop()
     {
@@ -857,17 +857,17 @@ eprintln!(
         return Err(NaigError::simple(NaigError::ErrState));
       }
     }
-    return Ok(true);
+    return Ok(());
   }
 
   fn handle_set
     (state: & mut NaigEngineState)
-    -> Result<bool, NaigError>
+    -> Result< (), NaigError>
   {
     if state.input_offset >= state.input.len()
     {
       state.fail = true;
-      return Ok(true);
+      return Ok(());
     }
 
     let setoff = state.bytecode_offset + 4;
@@ -886,12 +886,12 @@ eprintln!(
     } else {
       state.fail = true;
     }
-    return Ok(true);
+    return Ok(());
   }
 
   fn handle_skip
     (state: & mut NaigEngineState)
-    -> Result<bool, NaigError>
+    -> Result< (), NaigError>
   {
     let n = NaigEngine::decode_quad(
               & state.engine.bytecode,
@@ -910,12 +910,12 @@ eprintln!(
       },
       Err(error) => { return Err(error); }
     };
-    return Ok(true);
+    return Ok(());
   }
 
   fn handle_span
     (state: & mut NaigEngineState)
-    -> Result<bool, NaigError>
+    -> Result< (), NaigError>
   {
     let setoff = state.bytecode_offset + 4;
     let bitoff = state.input[ state.input_offset ] as usize;
@@ -932,36 +932,36 @@ eprintln!(
       state.input_offset += 1;
     }
     state.bytecode_offset += libnaig::instructions::_INSTR_SIZE_SPAN;
-    return Ok(true);
+    return Ok(());
   }
 
   fn handle_testany
     (state: & mut NaigEngineState)
-    -> Result<bool, NaigError>
+    -> Result< (), NaigError>
   {
     state.bytecode_offset += libnaig::instructions::_INSTR_SIZE_TESTANY;
-    return Ok(true);
+    return Ok(());
   }
 
   fn handle_testchar
     (state: & mut NaigEngineState)
-    -> Result<bool, NaigError>
+    -> Result< (), NaigError>
   {
     state.bytecode_offset += libnaig::instructions::_INSTR_SIZE_TESTCHAR;
-    return Ok(true);
+    return Ok(());
   }
 
   fn handle_testquad
     (state: & mut NaigEngineState)
-    -> Result<bool, NaigError>
+    -> Result< (), NaigError>
   {
     state.bytecode_offset += libnaig::instructions::_INSTR_SIZE_TESTQUAD;
-    return Ok(true);
+    return Ok(());
   }
 
   fn handle_testset
     (state: & mut NaigEngineState)
-    -> Result<bool, NaigError>
+    -> Result< (), NaigError>
   {
     if state.bytecode_offset + libnaig::instructions::_INSTR_SIZE_TESTSET
         > state.engine.bytecode.len() as u32
@@ -969,21 +969,90 @@ eprintln!(
       return Err(NaigError::simple(NaigError::ErrBytecode));
     }
     state.bytecode_offset += libnaig::instructions::_INSTR_SIZE_TESTSET;
-    return Ok(true);
+    return Ok(());
   }
 
   fn handle_trap
     (_state: & NaigEngineState)
-    -> Result<bool, NaigError>
+    -> Result< (), NaigError>
   {
     return Err(NaigError::simple(NaigError::ErrTrapped));
   }
 
+  fn variable_get
+    (state: & mut NaigEngineState, slot : u32)
+    -> Result< Vec< u8 >, NaigError >
+  {
+    let mut i = state.pinpoints.len();
+    while i > 0
+    {
+      let p1 = & state.pinpoints[ i-1 ];
+      if p1.pintype == crate::naig_capture::NAIG_CAPTURE_CLOSE
+         && p1.slot == slot
+      {
+        let end = p1.offset;
+        while i > 0
+        {
+          let p0 = & state.pinpoints[ i-1 ];
+          if p0.pintype == crate::naig_capture::NAIG_CAPTURE_OPEN
+             && p0.slot == slot
+          {
+            let begin = p0.offset;
+            let slice = & state.input[ begin .. end ];
+            return Ok(slice.to_vec());
+          }
+          i -= 1;
+        }
+      }
+      i -= 1;
+    }
+    return Err(NaigError::simple(NaigError::ErrVar));
+  }
+
   fn handle_var
     (state: & mut NaigEngineState)
-    -> Result<bool, NaigError>
+    -> Result< (), NaigError>
   {
-    state.bytecode_offset += libnaig::instructions::_INSTR_SIZE_VAR;
-    return Ok(true);
+        let n = NaigEngine::decode_quad(
+              & state.engine.bytecode,
+              state.bytecode_offset + 4
+            );
+    match n
+    {
+      Ok(slot) => {
+        let res = NaigEngine::variable_get(state, slot);
+        match res
+        {
+          Ok(var) => {
+            if var.len() == 0
+            {
+              state.fail = true;
+              return Ok(());
+            }
+            else if state.input_offset + var.len() <= state.input.len()
+            {
+              for i in 0 .. var.len()
+              {
+                if state.input[ state.input_offset + i ] != var[ i ]
+                {
+                  state.fail = true;
+                  return Ok(());
+                }
+              }
+              state.bytecode_offset += libnaig::instructions::_INSTR_SIZE_VAR;
+              state.input_offset += var.len();
+              return Ok(());
+            }
+            else
+            {
+              state.fail = true;
+              return Ok(());
+            }
+          },
+          Err(e) => { return Err(e); },
+        }
+      },
+      Err(e) => { return Err(e); },
+    };
   }
 }

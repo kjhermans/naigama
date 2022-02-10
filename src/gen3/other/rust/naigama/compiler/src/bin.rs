@@ -52,7 +52,7 @@ pub fn main
     },
     Err(error) => {
       eprintln!("Error code {} message '{}'", error.code, error.message);
-      return;
+      std::process::exit(-1);
     },
   }
   if outputfile.eq("-") {

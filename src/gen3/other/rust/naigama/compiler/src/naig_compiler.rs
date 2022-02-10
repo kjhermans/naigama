@@ -45,10 +45,7 @@ impl NaigCompiler
         tree.remove(crate::naig_slotmap::_CMPSLT_ABOPEN_);
         tree.remove(crate::naig_slotmap::_CMPSLT_ABCLOSE_);
         tree.remove(crate::naig_slotmap::_CMPSLT_COLON_);
-        match NaigCompiler::compile_top(& tree, & mut state)
-        {
-          Ok(_) => (), Err(e) => { return Err(e); }
-        }
+        NaigCompiler::compile_top(& tree, & mut state)?;
         if state.firstrule.len() != 0
         {
           state.output = format!(
@@ -78,19 +75,13 @@ impl NaigCompiler
       if grammar.children[ i ].slot
           == crate::naig_slotmap::_CMPSLT_DEFINITION_
       {
-        match NaigCompiler::definition(& grammar.children[ i ], state)
-        {
-          Ok(_) => (), Err(e) => { return Err(e); }
-        }
+        NaigCompiler::definition(& grammar.children[ i ], state)?;
       }
       else if grammar.children[ i ].slot
                == crate::naig_slotmap::_CMPSLT_SINGLE_EXPRESSION_
       {
         state.currentrule = "DEFAULT".to_string();
-        match NaigCompiler::expression(& grammar.children[ i ].first_child(), state)
-        {
-          Ok(_) => (), Err(e) => { return Err(e); }
-        }
+        NaigCompiler::expression(& grammar.children[ i ].first_child(), state)?;
       }
     }
     return Ok(());
@@ -128,16 +119,10 @@ impl NaigCompiler
     if state.options.capture_per_rule {
       let slot = state.capture(tree);
       state.append_string(format!("  opencapture {}\n", slot));
-      match NaigCompiler::expression(& tree.children[1], state)
-      {
-        Ok(_) => (), Err(e) => { return Err(e); }
-      }
+      NaigCompiler::expression(& tree.children[1], state)?;
       state.append_string(format!("  closecapture {}\n", slot));
     } else {
-      match NaigCompiler::expression(& tree.children[1], state)
-      {
-        Ok(_) => (), Err(e) => { return Err(e); }
-      }
+      NaigCompiler::expression(& tree.children[1], state)?;
     }
     state.append_string(format!("  ret -- from rule '{}'\n", rulename));
     if state.options.generate_traps {
@@ -158,16 +143,10 @@ impl NaigCompiler
       let label2 = format!("__{}_out_{}", state.currentrule, state.counter + 1);
       state.counter += 2;
       state.append_string(format!("  catch {}\n", label1));
-      match NaigCompiler::terms(child.first_child(), state)
-      {
-        Ok(_) => (), Err(e) => { return Err(e); }
-      }
+      NaigCompiler::terms(child.first_child(), state)?;
       state.append_string(format!("  commit {}\n", label2));
       state.append_string(format!("{}:\n", label1));
-      match NaigCompiler::expression(child.last_child(), state)
-      {
-        Ok(_) => (), Err(e) => { return Err(e); }
-      }
+      NaigCompiler::expression(child.last_child(), state)?;
       state.append_string(format!("{}:\n", label2));
       return Ok(());
     }
@@ -181,7 +160,8 @@ impl NaigCompiler
     }
     else
     {
-      panic!("Token error.");
+      tree.debug();
+      panic!("Token error {}.", child.slot);
     }
   }
 
@@ -193,10 +173,7 @@ impl NaigCompiler
     {
       if tree.children[ i ].slot == crate::naig_slotmap::_CMPSLT_TERM_
       {
-        match NaigCompiler::term(& tree.children[ i ], state)
-        {
-          Ok(_) => (), Err(e) => { return Err(e); }
-        }
+        NaigCompiler::term(& tree.children[ i ], state)?;
       }
     }
     return Ok(());
@@ -229,10 +206,7 @@ impl NaigCompiler
     let opr = tree.first_child().to_string();
     state.counter += 1;
     state.append_string(format!("  catch __scan_{}\n", lab));
-    match NaigCompiler::matcher(& tree.children[ 1 ], state)
-    {
-      Ok(_) => (), Err(e) => { return Err(e); },
-    }
+    NaigCompiler::matcher(& tree.children[ 1 ], state)?;
     if opr.eq("&")
     {
       state.append_string(format!("  backcommit __scan_out_{}\n", lab));
@@ -258,7 +232,7 @@ impl NaigCompiler
     {
       return [ 0, -1 ];
     }
-    else if tree.to_string().eq("*")
+    else if tree.to_string().eq("?")
     {
       return [ 0, 1 ];
     }
@@ -302,12 +276,7 @@ impl NaigCompiler
     match qrange[ 0 ]
     {
       0 => (),
-      1 => {
-        match NaigCompiler::matcher(tree.first_child(), state)
-        {
-          Ok(_) => (), Err(e) => { return Err(e); },
-        }
-      },
+      1 => NaigCompiler::matcher(tree.first_child(), state)?,
       _ => {
         let reg = state.reg;
         let cnt = state.counter;
@@ -315,10 +284,7 @@ impl NaigCompiler
         state.counter += 1;
         state.append_string(format!("  counter {} {}\n", reg, qrange[ 0 ]));
         state.append_string(format!("__loop_{}:\n", cnt));
-        match NaigCompiler::matcher(tree.first_child(), state)
-        {
-          Ok(_) => (), Err(e) => { return Err(e); },
-        }
+        NaigCompiler::matcher(tree.first_child(), state)?;
         state.append_string(format!("  condjump {} __loop_{}\n", reg, cnt));
       },
     }
@@ -329,10 +295,7 @@ impl NaigCompiler
       let cnt = state.counter; state.counter += 1;
       state.append_string(format!("  catch __forgive_{}\n", fgv));
       state.append_string(format!("__loop_{}:\n", cnt));
-      match NaigCompiler::matcher(tree.first_child(), state)
-      {
-        Ok(_) => (), Err(e) => { return Err(e); },
-      }
+      NaigCompiler::matcher(tree.first_child(), state)?;
       state.append_string(format!("  partialcommit __loop_{}\n", cnt));
       state.append_string(format!("__forgive_{}:\n", fgv));
     }
@@ -350,10 +313,7 @@ impl NaigCompiler
         state.append_string(format!("  catch __forgive_{}\n", fgv));
         if diff == 1
         {
-          match NaigCompiler::matcher(tree.first_child(), state)
-          {
-            Ok(_) => (), Err(e) => { return Err(e); },
-          }
+          NaigCompiler::matcher(tree.first_child(), state)?;
         }
         else
         {
@@ -363,10 +323,7 @@ impl NaigCompiler
           state.counter += 1;
           state.append_string(format!("  counter {} {}\n", reg, diff));
           state.append_string(format!("__loop_{}:\n", cnt));
-          match NaigCompiler::matcher(tree.first_child(), state)
-          {
-            Ok(_) => (), Err(e) => { return Err(e); },
-          }
+          NaigCompiler::matcher(tree.first_child(), state)?;
           state.append               ("  partialcommit __NEXT__\n");
           state.append_string(format!("  condjump {} __loop_{}\n", reg, cnt));
         }
@@ -385,16 +342,16 @@ impl NaigCompiler
     match child.slot
     {
       crate::naig_slotmap::_CMPSLT_ANY_ => NaigCompiler::match_any(state),
-      crate::naig_slotmap::_CMPSLT_SET_ => NaigCompiler::match_set(tree, state),
-      crate::naig_slotmap::_CMPSLT_STRING_ => NaigCompiler::match_string(tree, state),
-      crate::naig_slotmap::_CMPSLT_BITMASK_ => NaigCompiler::match_bitmask(tree, state),
-      crate::naig_slotmap::_CMPSLT_HEXLITERAL_ => NaigCompiler::match_hexliteral(tree, state),
-      crate::naig_slotmap::_CMPSLT_VARCAPTURE_ => NaigCompiler::match_varcapture(tree, state),
-      crate::naig_slotmap::_CMPSLT_CAPTURE_ => NaigCompiler::match_capture(tree, state),
-      crate::naig_slotmap::_CMPSLT_GROUP_ => NaigCompiler::match_group(tree, state),
-      crate::naig_slotmap::_CMPSLT_MACRO_ => NaigCompiler::match_macro(tree, state),
-      crate::naig_slotmap::_CMPSLT_VARREFERENCE_ => NaigCompiler::match_varreference(tree, state),
-      crate::naig_slotmap::_CMPSLT_REFERENCE_ => NaigCompiler::match_reference(tree, state),
+      crate::naig_slotmap::_CMPSLT_SET_ => NaigCompiler::match_set(child, state),
+      crate::naig_slotmap::_CMPSLT_STRING_ => NaigCompiler::match_string(child, state),
+      crate::naig_slotmap::_CMPSLT_BITMASK_ => NaigCompiler::match_bitmask(child, state),
+      crate::naig_slotmap::_CMPSLT_HEXLITERAL_ => NaigCompiler::match_hexliteral(child, state),
+      crate::naig_slotmap::_CMPSLT_VARCAPTURE_ => NaigCompiler::match_varcapture(child, state),
+      crate::naig_slotmap::_CMPSLT_CAPTURE_ => NaigCompiler::match_capture(child, state),
+      crate::naig_slotmap::_CMPSLT_GROUP_ => NaigCompiler::match_group(child, state),
+      crate::naig_slotmap::_CMPSLT_MACRO_ => NaigCompiler::match_macro(child, state),
+      crate::naig_slotmap::_CMPSLT_VARREFERENCE_ => NaigCompiler::match_varreference(child, state),
+      crate::naig_slotmap::_CMPSLT_REFERENCE_ => NaigCompiler::match_reference(child, state),
       _ => panic!("Parsing token in matcher"),
     }
   }
@@ -444,15 +401,15 @@ impl NaigCompiler
     for i in start .. tree.children.len()
     {
       let child = & tree.children[ i ];
-      if child.children[ i ].slot == crate::naig_slotmap::_CMPSLT_SET_NRTV
+      if child.slot == crate::naig_slotmap::_CMPSLT_SET_NRTV
       {
-        let from = NaigCompiler::set_unescape(& child.children[ i ].content);
-        let until = NaigCompiler::set_unescape(& child.children[ i+1 ].content);
+        let from = NaigCompiler::set_unescape(& child.content);
+        let until = NaigCompiler::set_unescape(& tree.children[ i+1 ].content);
         set.set_range(from, until);
       }
-      else if child.children[ i ].slot == crate::naig_slotmap::_CMPSLT_SET_NRTV_2
+      else if child.slot == crate::naig_slotmap::_CMPSLT_SET_NRTV_2
       {
-        let chr = NaigCompiler::set_unescape(& child.children[ i ].content);
+        let chr = NaigCompiler::set_unescape(& child.content);
         set.set(chr);
       }
     }
@@ -563,10 +520,7 @@ impl NaigCompiler
     let slot = state.capture(tree);
     state.var_put(varname, slot);
     state.append_string(format!("  opencapture {}\n", slot));
-    match NaigCompiler::expression(tree.first_child(), state)
-    {
-      Ok(_) => (), Err(e) => { return Err(e); },
-    }
+    NaigCompiler::expression(& tree.children[ 1 ], state)?;
     state.append_string(format!("  closecapture {}\n", slot));
     return Ok(());
   }
@@ -577,10 +531,7 @@ impl NaigCompiler
   {
     let slot = state.capture(tree);
     state.append_string(format!("  opencapture {}\n", slot));
-    match NaigCompiler::expression(tree.first_child(), state)
-    {
-      Ok(_) => (), Err(e) => { return Err(e); },
-    }
+    NaigCompiler::expression(tree.first_child(), state)?;
     state.append_string(format!("  closecapture {}\n", slot));
     return Ok(());
   }

@@ -66,6 +66,7 @@ pub fn main
     },
     Err(e) => {
       eprintln!("Error {} '{}'", e.code, e.message);
+      std::process::exit(-1);
     },
   }
 }

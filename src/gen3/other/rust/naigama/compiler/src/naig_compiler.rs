@@ -366,24 +366,39 @@ impl NaigCompiler
 
   fn set_unescape
     (atom : & Vec<u8>)
-    -> usize
+    -> Result< usize, NaigError >
   {
     if atom.len() == 1
     {
-      return atom[ 0 ] as usize;
+      return Ok(atom[ 0 ] as usize);
     }
     else if atom[ 0 ] == '\\' as u8
     {
       match atom[ 1 ]
       {
-        0x5c => return 0x5c,
-        0x5d => return 0x5d,
-        0x6e => return 0x0a,
-        0x72 => return 0x0d,
-        _    => panic!("This should be a Result"),
+        0x5c => return Ok(0x5c), // \\
+        0x5d => return Ok(0x5d), // \]
+        0x2d => return Ok(0x2d), // \-
+        0x6e => return Ok(0x0a), // \n
+        0x72 => return Ok(0x0d), // \r
+        0x74 => return Ok(0x09), // \t
+        0x76 => return Ok(0x0b), // \v
+        _    => return Err(
+                  NaigError::compiler(
+                    format!(
+                      "Unrecognized set escape '\\{}' ({:#04x})"
+                     , atom[ 1 ] as char
+                     , atom[ 1 ]
+                ))),
       }
     }
-    panic!("This should be a Result");
+    return Err(
+             NaigError::compiler(
+               format!(
+                 "Unrecognized set sequence starting with '{}' ({:#04x})"
+                 , atom[ 0 ] as char
+                 , atom[ 0 ]
+           )));
   }
 
   fn match_set
@@ -403,13 +418,13 @@ impl NaigCompiler
       let child = & tree.children[ i ];
       if child.slot == crate::naig_slotmap::_CMPSLT_SET_NRTV
       {
-        let from = NaigCompiler::set_unescape(& child.content);
-        let until = NaigCompiler::set_unescape(& tree.children[ i+1 ].content);
+        let from = NaigCompiler::set_unescape(& child.content)?;
+        let until = NaigCompiler::set_unescape(& tree.children[ i+1 ].content)?;
         set.set_range(from, until);
       }
       else if child.slot == crate::naig_slotmap::_CMPSLT_SET_NRTV_2
       {
-        let chr = NaigCompiler::set_unescape(& child.content);
+        let chr = NaigCompiler::set_unescape(& child.content)?;
         set.set(chr);
       }
     }

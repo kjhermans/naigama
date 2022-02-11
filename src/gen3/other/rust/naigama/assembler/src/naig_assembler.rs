@@ -317,8 +317,8 @@ impl NaigAssembler
         },
         crate::naig_slotmap::_ASMSLT_CONDJUMPINSTR_ => {
           state.append_instr(NaigInstruction::INSTR_CONDJUMP);
+          NaigAssembler::sp_translate_label(node, state, 2, 8)?;
           NaigAssembler::sp_translate_decimal(node, state, 1)?;
-          NaigAssembler::sp_translate_label(node, state, 2, 4)?;
         },
         crate::naig_slotmap::_ASMSLT_COUNTERINSTR_ => {
           state.append_instr(NaigInstruction::INSTR_COUNTER);
@@ -365,7 +365,6 @@ impl NaigAssembler
         },
         crate::naig_slotmap::_ASMSLT_NOOPINSTR_ => {
           state.append_instr(NaigInstruction::INSTR_NOOP);
-          
         },
         crate::naig_slotmap::_ASMSLT_OPENCAPTUREINSTR_ => {
           NaigAssembler::sp_instr_decimal(node, state, NaigInstruction::INSTR_OPENCAPTURE)?;
@@ -374,13 +373,47 @@ impl NaigAssembler
           NaigAssembler::sp_instr_offsetlabel(node, state, NaigInstruction::INSTR_PARTIALCOMMIT)?;
         },
         crate::naig_slotmap::_ASMSLT_QUADINSTR_ => {
-          
+          state.append_instr(NaigInstruction::INSTR_QUAD);
+          let hex = & node.children[ 1 ].content;
+          let mut num : u8 = 0;
+          let mut chr;
+          if hex.len() != 8
+          {
+            return Err(
+              NaigError::assembler(
+                format!(
+                  "Quad length is not 8 but {}; '{}'",
+                  hex.len(),
+                  node.children[ 1 ].to_string()
+              )));
+          }
+          for i in 0 .. 8
+          {
+            match hex[ i ]
+            {
+              b'a' ..= b'f' => chr = hex[ i ] + 10 - b'a',
+              b'A' ..= b'F' => chr = hex[ i ] + 10 - b'A',
+              b'0' ..= b'9' => chr = hex[ i ] - b'0',
+              _ => return Err(NaigError::assembler(format!("Unknown quad character '{}'", hex[ i ]))),
+            }
+            if (i % 2) != 0
+            {
+              num |= chr << 4;
+              state.output.push(num);
+            }
+            else
+            {
+              num = chr;
+            }
+          }
         },
         crate::naig_slotmap::_ASMSLT_RANGEINSTR_ => {
           
         },
         crate::naig_slotmap::_ASMSLT_REPLACEINSTR_ => {
-          
+          state.append_instr(NaigInstruction::INSTR_REPLACE);
+          NaigAssembler::sp_translate_label(node, state, 2, 8)?;
+          NaigAssembler::sp_translate_decimal(node, state, 1)?;
         },
         crate::naig_slotmap::_ASMSLT_RETINSTR_ => {
           state.append_instr(NaigInstruction::INSTR_RET);
@@ -390,13 +423,15 @@ impl NaigAssembler
           NaigAssembler::sp_translate_set(node, state, 1)?;
         },
         crate::naig_slotmap::_ASMSLT_SKIPINSTR_ => {
-          
+          NaigAssembler::sp_instr_decimal(node, state, NaigInstruction::INSTR_SKIP)?;
         },
         crate::naig_slotmap::_ASMSLT_SPANINSTR_ => {
-          
+          state.append_instr(NaigInstruction::INSTR_SPAN);
+          NaigAssembler::sp_translate_set(node, state, 1)?;
         },
         crate::naig_slotmap::_ASMSLT_TESTANYINSTR_ => {
-          
+          state.append_instr(NaigInstruction::INSTR_TESTANY);
+          NaigAssembler::sp_translate_label(node, state, 1, 4)?;
         },
         crate::naig_slotmap::_ASMSLT_TESTCHARINSTR_ => {
           

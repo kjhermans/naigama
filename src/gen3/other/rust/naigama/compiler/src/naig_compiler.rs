@@ -445,10 +445,38 @@ impl NaigCompiler
     return Ok(());
   }
 
+  fn match_string_buf_push
+    (state : & mut NaigCompilerState, buf : & mut [ u8; 5 ], chr : u8)
+  {
+    buf[ 0 ] += 1;
+    buf[ buf[ 0 ] as usize ] = chr;
+    if buf[ 0 ] == 4
+    {
+      state.append("  quad ");
+      for i in 1 ..= 4
+      {
+        state.append_string(format!("{:02x}", buf[ i ]));
+      }
+      state.append("\n");
+      buf[ 0 ] = 0;
+    }
+  }
+
+  fn match_string_buf_flush
+    (state : & mut NaigCompilerState, buf : & mut [ u8; 5 ])
+  {
+    for i in 1 ..= buf[ 0 ] as usize
+    {
+      state.append_string(format!("  char {:02x}\n", buf[ i ]));
+    }
+    buf[ 0 ] = 0;
+  }
+
   fn match_string_ci
     (tree : & NaigCapTree, state : & mut NaigCompilerState, ci : bool)
     -> Result< (), NaigError >
   {
+    let mut buf : [ u8; 5 ] = [ 0; 5 ];
     let mut skip = false;
     let mut len = tree.content.len()-1;
     if ci
@@ -466,12 +494,12 @@ impl NaigCompiler
       {
         match tree.content[ i+1 ]
         {
-          0x6e => state.append("  char 0a\n"), // '\n'
-          0x72 => state.append("  char 0d\n"), // '\r'
-          0x74 => state.append("  char 09\n"), // '\t'
-          0x76 => state.append("  char 0b\n"), // '\v'
-          0x27 => state.append("  char 27\n"), // '\''
-          0x5c => state.append("  char 5c\n"), // '\\'
+          0x6e => NaigCompiler::match_string_buf_push(state, & mut buf, 0x0a), // state.append("  char 0a\n"), // '\n'
+          0x72 => NaigCompiler::match_string_buf_push(state, & mut buf, 0x0d), // state.append("  char 0d\n"), // '\r'
+          0x74 => NaigCompiler::match_string_buf_push(state, & mut buf, 0x09), // state.append("  char 09\n"), // '\t'
+          0x76 => NaigCompiler::match_string_buf_push(state, & mut buf, 0x0b), // state.append("  char 0b\n"), // '\v'
+          0x27 => NaigCompiler::match_string_buf_push(state, & mut buf, 0x27), // state.append("  char 27\n"), // '\''
+          0x5c => NaigCompiler::match_string_buf_push(state, & mut buf, 0x5c), // state.append("  char 5c\n"), // '\\'
           _    => { return Err(NaigError::compiler(format!("Unknown escape \\{}", tree.content[ i+1 ] as char))); }
         }
         skip = true;
@@ -483,6 +511,7 @@ impl NaigCompiler
           let mut set = NaigCompilerSet::new();
           set.set(tree.content[ i ] as usize);
           set.set(tree.content[ i ] as usize + 32);
+          NaigCompiler::match_string_buf_flush(state, & mut buf);
           state.append_string(format!("  set {}\n", set.to_string()));
         }
         else if ci && tree.content[ i ] >= 97 && tree.content[ i ] <= 122 // a-z
@@ -490,14 +519,17 @@ impl NaigCompiler
           let mut set = NaigCompilerSet::new();
           set.set(tree.content[ i ] as usize);
           set.set(tree.content[ i ] as usize - 32);
+          NaigCompiler::match_string_buf_flush(state, & mut buf);
           state.append_string(format!("  set {}\n", set.to_string()));
         }
         else
         {
-          state.append_string(format!("  char {:02x}\n", tree.content[ i ]));
+          NaigCompiler::match_string_buf_push(state, & mut buf, tree.content[ i ]);
+          //state.append_string(format!("  char {:02x}\n", tree.content[ i ]));
         }
       }
     }
+    NaigCompiler::match_string_buf_flush(state, & mut buf);
     return Ok(());
   }
 

@@ -90,6 +90,12 @@ public class Compiler
       out.append("  trap\n");
     }
     out.append("__RULE_" + rulename + ":\n");
+    if (state.prefix) {
+      out.append("  call __prefix\n");
+    }
+    if (rulename.equals("__prefix")) {
+      state.prefix = true;
+    }
     if (state.options.generate_captureperrule) {
       rulecapture = state.getCapture(t);
       out.append("  opencapture " + rulecapture + "\n");

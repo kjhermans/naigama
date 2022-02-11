@@ -12,6 +12,7 @@ class CompilerState
   int                                 reg = 0;
   String                              currentrule = null;
   String                              firstrule = null;
+  boolean                             prefix = false;
 
   private int                         currentcapture = 0;
   private Hashtable<TreeNode,Integer> capturemap = new Hashtable<TreeNode,Integer>();

@@ -14,8 +14,9 @@ This instruction is available in mode 0 (parser).
 
 \begin{myquote}
 \begin{verbatim}
-REPLACEINSTR <- { 'replace' } S LABEL S LABEL
+REPLACEINSTR <- { 'replace' } S SLOT S LABEL
 S <- %s+
+SLOT <- UNSIGNED
 LABEL <- { [a-zA-Z0-9_]^1-64 }
 \end{verbatim}
 \end{myquote}

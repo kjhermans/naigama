@@ -468,7 +468,7 @@ REPLACEINSTR:
   char 65
   closecapture 21 0
   call S
-  call LABEL
+  call SLOT
   call S
   call LABEL
   ret

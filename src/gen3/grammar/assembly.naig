@@ -50,7 +50,7 @@ TRAPINSTR          <- { 'trap' }
 OPENCAPTUREINSTR   <- { 'opencapture' } S SLOT
 PARTIALCOMMITINSTR <- { 'partialcommit' } S LABEL
 QUADINSTR          <- { 'quad' } S QUAD
-REPLACEINSTR       <- { 'replace' } S LABEL S LABEL
+REPLACEINSTR       <- { 'replace' } S SLOT S LABEL
 ENDREPLACEINSTR    <- { 'endreplace' }
 RETINSTR           <- { 'ret' }
 SETINSTR           <- { 'set' } S SET

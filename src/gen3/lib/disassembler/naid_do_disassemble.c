@@ -150,7 +150,7 @@ NAIG_ERR_T naid_do_disassemble
       break;
     case OPCODE_QUAD:
       param1 = GET_32BIT_VALUE(naid->bytecode, bytecode_offset + 4);
-      NAID_WRITE("char %.8x\n", param1);
+      NAID_WRITE("quad %.8x\n", param1);
       break;
     case OPCODE_RANGE:
       param1 = GET_32BIT_VALUE(naid->bytecode, bytecode_offset + 4);

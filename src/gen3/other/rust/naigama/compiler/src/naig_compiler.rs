@@ -547,7 +547,7 @@ impl NaigCompiler
     (tree : & NaigCapTree, state : & mut NaigCompilerState)
     -> Result< (), NaigError >
   {
-    let mcroni = tree.first_child().to_string();
+    let mcroni = tree.to_string();
     let mut set = NaigCompilerSet::new();
     if mcroni.eq("%s")
     {

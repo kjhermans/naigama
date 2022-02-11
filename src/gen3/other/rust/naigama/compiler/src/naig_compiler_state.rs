@@ -14,6 +14,7 @@ pub struct NaigCompilerState
   pub options     : NaigCompilerOptions,
   pub slotmap     : HashMap< usize, u32 >,
   pub varmap      : HashMap< String, u32 >,
+  pub prefix      : bool,
 }
 
 impl NaigCompilerState
@@ -32,6 +33,7 @@ impl NaigCompilerState
       options     : options,
       slotmap     : HashMap::new(),
       varmap      : HashMap::new(),
+      prefix      : false,
     }
   }
 

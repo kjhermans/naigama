@@ -33,8 +33,9 @@ impl NaigCompiler
         let mut tree = NaigCapTree::new(& bytes, & outcome.captures);
         let mut state = NaigCompilerState::new(options);
         tree.remove(crate::naig_slotmap::_CMPSLT_S_);
-        tree.remove(crate::naig_slotmap::_CMPSLT___PREFIX_);
         tree.remove(crate::naig_slotmap::_CMPSLT_COMMENT_);
+        tree.remove(crate::naig_slotmap::_CMPSLT_MULTILINECOMMENT_);
+        tree.remove(crate::naig_slotmap::_CMPSLT___PREFIX_);
         tree.remove(crate::naig_slotmap::_CMPSLT_END_);
         tree.remove(crate::naig_slotmap::_CMPSLT_LEFTARROW_);
         tree.remove(crate::naig_slotmap::_CMPSLT_OR_);
@@ -116,6 +117,14 @@ impl NaigCompiler
       state.append("  trap\n");
     }
     state.append_string(format!("__RULE_{}:\n", rulename));
+    if state.prefix
+    {
+      state.append("  call __RULE___prefix\n");
+    }
+    if rulename.eq("__prefix")
+    {
+      state.prefix = true;
+    }
     if state.options.capture_per_rule {
       let slot = state.capture(tree);
       state.append_string(format!("  opencapture {}\n", slot));
@@ -469,14 +478,14 @@ impl NaigCompiler
       }
       else
       {
-        if ci && tree.content[ i ] >= 65 && tree.content[ i ] <= 90
+        if ci && tree.content[ i ] >= 65 && tree.content[ i ] <= 90 // A-Z
         {
           let mut set = NaigCompilerSet::new();
           set.set(tree.content[ i ] as usize);
           set.set(tree.content[ i ] as usize + 32);
           state.append_string(format!("  set {}\n", set.to_string()));
         }
-        else if ci && tree.content[ i ] >= 97 && tree.content[ i ] <= 122
+        else if ci && tree.content[ i ] >= 97 && tree.content[ i ] <= 122 // a-z
         {
           let mut set = NaigCompilerSet::new();
           set.set(tree.content[ i ] as usize);

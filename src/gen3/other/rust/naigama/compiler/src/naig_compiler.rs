@@ -109,7 +109,7 @@ impl NaigCompiler
   {
     let rulename =
       String::from_utf8(tree.first_child().content.clone()).unwrap();
-    if state.firstrule.len() == 0
+    if state.firstrule.len() == 0 || rulename.eq("__main")
     {
       state.firstrule = rulename.clone();
     }

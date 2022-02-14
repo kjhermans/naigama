@@ -21,20 +21,20 @@ foreach my $key (sort keys(%{$structure})) {
     open INSTR, '>', $instrfile;
     print INSTR
       "\\subsection{Instruction: " . $tit . "}\n\n";
-    if ($mode eq '0') {
-      print INSTR
-        "\\subsubsection{Mode}\n" .
-        "This instruction is available in mode 0 (parser).\n";
-    } elsif ($mode eq '1') {
-      print INSTR
-        "\\subsubsection{Mode}\n" .
-        "This instruction is available in mode 1 (script interpreter).\n";
-    } elsif ($mode eq 'both') {
-      print INSTR
-        "\\subsubsection{Mode}\n" .
-        "This instruction is available in both mode 0 (parser)" .
-        " and mode 1 (script interpreter).\n";
-    }
+#    if ($mode eq '0') {
+#      print INSTR
+#        "\\subsubsection{Mode}\n" .
+#        "This instruction is available in mode 0 (parser).\n";
+#    } elsif ($mode eq '1') {
+#      print INSTR
+#        "\\subsubsection{Mode}\n" .
+#        "This instruction is available in mode 1 (script interpreter).\n";
+#    } elsif ($mode eq 'both') {
+#      print INSTR
+#        "\\subsubsection{Mode}\n" .
+#        "This instruction is available in both mode 0 (parser)" .
+#        " and mode 1 (script interpreter).\n";
+#    }
     my $rulekey = uc($key);
     my $rule;
     if ($key !~ /^scr_/) {

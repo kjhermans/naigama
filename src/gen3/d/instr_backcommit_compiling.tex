@@ -1,8 +1,20 @@
 The backcommit instruction is emitted to implement the
-'\&' matcher operator.
+'\&' matcher operator. For example:
 
 \begin{myquote}
 \begin{verbatim}
 RULE <- & 'foo'
 \end{verbatim}
+\end{myquote}
+
+The following assembly pattern is used to produce this behavior
+in the engine (assuming [[matcher]] matches 'foo' as above):
+
+\begin{myquote}
+\textit{catch failure} \newline
+\textit{[[matcher]]} \newline
+\textit{backcommit safety} \newline
+\textit{failure:} \newline
+\textit{fail} \newline
+\textit{safety:} \newline
 \end{myquote}

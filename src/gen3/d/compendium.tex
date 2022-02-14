@@ -16,7 +16,7 @@
 \usetikzlibrary{positioning}
 
 \usepackage[most]{tcolorbox}
-\definecolor{block-gray}{gray}{0.85}
+\definecolor{block-gray}{gray}{0.95}
 \newtcolorbox{myquote}{colback=block-gray,grow to right by=+0mm,grow to left by=-10mm, boxrule=0pt,boxsep=0pt,breakable}
 
 \DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
@@ -83,6 +83,9 @@ Generated on & \today \\
 
 \newpage
 \input{naig_assembly.tex}
+
+\newpage
+\input{naig_optimizations.tex}
 
 \newpage
 \input{naig_bytecode.tex}

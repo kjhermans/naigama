@@ -61,6 +61,27 @@ When disassembling (bytecode to assembly), each instruction is always
 prefixed by a label in the form of the instruction's offset in decimal,
 so that jumps are always correct (but non descriptive).
 
+\subsubsection{Special Labels}
+
+Certain instructions allow a special label called '\_\_NEXT\_\_' to be
+used as parameter. Its function is to make instruction simply jump to
+the next instruction on success.
+This special label is there to avoid generating a special purpose label
+only to put it right after the instruction using it.
+
+The instructions allowing the use of the '\_\_NEXT\_\_' label are:
+
+\begin{itemize}
+\item backcommit
+\item commit
+\item condjump
+\item partialcommit
+\item testany
+\item testchar
+\item testquad
+\item testset
+\end{itemize}
+
 \subsection{Instructions}
 
 \input{table_instr.tex}
@@ -89,3 +110,105 @@ a bitmask of 256 possible booleans.
 \subsubsection{Registers, Slots, Codes and Numbers}
 
 These parameters are all denoted as decimal numbers.
+
+\subsubsection{Caveats}
+
+Note that the order of parameters sometimes reverses between the assembly
+and bytecode specification. This is done because in assembly, it is
+considered more aesthetically pleasing to have labels at the end of an
+instruction, while in bytecode they are usually given as the first argument.
+
+Consider, for example, the 'testchar' instruction, which in assembly is
+given as:
+
+\begin{myquote}
+\begin{verbatim}
+TESTCHARINSTR <- { 'testchar' } S HEXBYTE S LABEL
+S <- %s+
+HEXBYTE <- { [0-9a-fA-F]^2 }
+LABEL <- { [a-zA-Z0-9_]^1-256 }
+AMPERSAND <- '&'
+\end{verbatim}
+\end{myquote}
+
+Whereas in bytecode, this instruction is encoded as:
+
+%DEADBEEF
+$_{00}$\ 
+\fbox{%
+  \parbox{20pt}{%
+00
+  }%
+}
+\fbox{%
+  \parbox{20pt}{%
+08
+  }%
+}
+\fbox{%
+  \parbox{20pt}{%
+03
+  }%
+}
+\fbox{%
+  \parbox{20pt}{%
+9a
+  }%
+}
+
+
+
+$_{04}$\ 
+\fbox{%
+  \parbox{20pt}{%
+00
+  }%
+}
+\fbox{%
+  \parbox{20pt}{%
+00
+  }%
+}
+\fbox{%
+  \parbox{20pt}{%
+00
+  }%
+}
+\fbox{%
+  \parbox{20pt}{%
+00
+  }%
+}
+
+
+
+$_{08}$\ 
+\fbox{%
+  \parbox{20pt}{%
+00
+  }%
+}
+\fbox{%
+  \parbox{20pt}{%
+00
+  }%
+}
+\fbox{%
+  \parbox{20pt}{%
+00
+  }%
+}
+\fbox{%
+  \parbox{20pt}{%
+00
+  }%
+}
+
+Where:
+  
+Bytes 0-3 denote the instruction opcode.
+
+Bytes 4-7 denote the bytecode offset to jump to, after
+this instruction (big endian 32 bit unsigned).
+
+Bytes 8-11 denote the character to match.

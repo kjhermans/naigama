@@ -1,0 +1,33 @@
+\section{Compilation}
+
+\subsection{Named or Anonymous Grammars}
+
+Naigama allows two types of grammars:
+
+\begin{itemize}
+\item Named grammars, which consist of lists of named rules.
+\item Anonymous grammars, which consist of a single expression.
+\end{itemize}
+
+\subsection{The '\_\_prefix' Rule}
+
+The \_\_prefix rule will define a pattern that is called before
+the evaluation of every rule that follows it. This is typically
+done to remove things like whitespace and comments while parsing
+things like source code or text based data formats (XML, JSON, etc).
+
+\subsection{The '\_\_main' Rule}
+
+The '\_\_main' rule will be called first.
+
+\subsection{Determining the First Rule}
+
+A named grammar will call as the first rule:
+
+\begin{itemize}
+\item The rule called '\_\_main', or in absence of such a rule:
+\item The first defined rule.
+\end{itemize}
+
+The compiler will emit a 'call' instruction to the first rule as the
+first instruction, followed by an 'end' instruction ('end 0').

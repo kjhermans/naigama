@@ -67,6 +67,7 @@ $rule
 \\end{myquote}
 
 " .
+      "\\InputIfFileExists{instr_$key" . "_assembly.tex}{}{}\n\n" .
       "\\subsubsection{Bytecode Encoding}\n\n" .
       "This instruction has a size of " . $structure->{$key}{size} .
       " bytes and is structured in bytecode as follows:\n\n" .

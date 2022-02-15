@@ -82,7 +82,7 @@ public class Compiler
   {
     int rulecapture = -1;
     String rulename = t.getChild(0).getContent();
-    if (state.firstrule == null) {
+    if (state.firstrule == null || rulename.equals("__main")) {
       state.firstrule = rulename;
     }
     TreeNode expression = t.getChild(1);

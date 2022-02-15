@@ -313,7 +313,9 @@ impl NaigCompiler
       let diff = qrange[ 1 ] - qrange[ 0 ];
       if diff < 0
       {
-        return Err(NaigError::compiler(format!("Range is negative ({})", diff)));
+        return Err(
+                 NaigError::compiler(format!("Range is negative ({})", diff))
+               );
       }
       if diff > 0
       {
@@ -350,18 +352,34 @@ impl NaigCompiler
     let child = tree.first_child();
     match child.slot
     {
-      crate::naig_slotmap::_CMPSLT_ANY_ => NaigCompiler::match_any(state),
-      crate::naig_slotmap::_CMPSLT_SET_ => NaigCompiler::match_set(child, state),
-      crate::naig_slotmap::_CMPSLT_STRING_ => NaigCompiler::match_string(child, state),
-      crate::naig_slotmap::_CMPSLT_BITMASK_ => NaigCompiler::match_bitmask(child, state),
-      crate::naig_slotmap::_CMPSLT_HEXLITERAL_ => NaigCompiler::match_hexliteral(child, state),
-      crate::naig_slotmap::_CMPSLT_VARCAPTURE_ => NaigCompiler::match_varcapture(child, state),
-      crate::naig_slotmap::_CMPSLT_CAPTURE_ => NaigCompiler::match_capture(child, state),
-      crate::naig_slotmap::_CMPSLT_GROUP_ => NaigCompiler::match_group(child, state),
-      crate::naig_slotmap::_CMPSLT_MACRO_ => NaigCompiler::match_macro(child, state),
-      crate::naig_slotmap::_CMPSLT_VARREFERENCE_ => NaigCompiler::match_varreference(child, state),
-      crate::naig_slotmap::_CMPSLT_REFERENCE_ => NaigCompiler::match_reference(child, state),
-      _ => panic!("Parsing token in matcher"),
+      crate::naig_slotmap::_CMPSLT_ANY_
+        => NaigCompiler::match_any(state),
+      crate::naig_slotmap::_CMPSLT_SET_
+        => NaigCompiler::match_set(child, state),
+      crate::naig_slotmap::_CMPSLT_STRING_
+        => NaigCompiler::match_string(child, state),
+      crate::naig_slotmap::_CMPSLT_BITMASK_
+        => NaigCompiler::match_bitmask(child, state),
+      crate::naig_slotmap::_CMPSLT_HEXLITERAL_
+        => NaigCompiler::match_hexliteral(child, state),
+      crate::naig_slotmap::_CMPSLT_VARCAPTURE_
+        => NaigCompiler::match_varcapture(child, state),
+      crate::naig_slotmap::_CMPSLT_CAPTURE_
+        => NaigCompiler::match_capture(child, state),
+      crate::naig_slotmap::_CMPSLT_GROUP_
+        => NaigCompiler::match_group(child, state),
+      crate::naig_slotmap::_CMPSLT_MACRO_
+        => NaigCompiler::match_macro(child, state),
+      crate::naig_slotmap::_CMPSLT_ENDFORCE_
+        => NaigCompiler::match_endforce(child, state),
+      crate::naig_slotmap::_CMPSLT_VARREFERENCE_
+        => NaigCompiler::match_varreference(child, state),
+      crate::naig_slotmap::_CMPSLT_REFERENCE_
+        => NaigCompiler::match_reference(child, state),
+      crate::naig_slotmap::_CMPSLT_LIMITEDCALL_
+        => NaigCompiler::match_limitedcall(child, state),
+      _
+        => panic!("Parsing token in matcher"),
     }
   }
 
@@ -494,13 +512,20 @@ impl NaigCompiler
       {
         match tree.content[ i+1 ]
         {
-          0x6e => NaigCompiler::match_string_buf_push(state, & mut buf, 0x0a), // state.append("  char 0a\n"), // '\n'
-          0x72 => NaigCompiler::match_string_buf_push(state, & mut buf, 0x0d), // state.append("  char 0d\n"), // '\r'
-          0x74 => NaigCompiler::match_string_buf_push(state, & mut buf, 0x09), // state.append("  char 09\n"), // '\t'
-          0x76 => NaigCompiler::match_string_buf_push(state, & mut buf, 0x0b), // state.append("  char 0b\n"), // '\v'
-          0x27 => NaigCompiler::match_string_buf_push(state, & mut buf, 0x27), // state.append("  char 27\n"), // '\''
-          0x5c => NaigCompiler::match_string_buf_push(state, & mut buf, 0x5c), // state.append("  char 5c\n"), // '\\'
-          _    => { return Err(NaigError::compiler(format!("Unknown escape \\{}", tree.content[ i+1 ] as char))); }
+          0x6e => NaigCompiler::match_string_buf_push(state, & mut buf, 0x0a), 
+          0x72 => NaigCompiler::match_string_buf_push(state, & mut buf, 0x0d), 
+          0x74 => NaigCompiler::match_string_buf_push(state, & mut buf, 0x09), 
+          0x76 => NaigCompiler::match_string_buf_push(state, & mut buf, 0x0b), 
+          0x27 => NaigCompiler::match_string_buf_push(state, & mut buf, 0x27), 
+          0x5c => NaigCompiler::match_string_buf_push(state, & mut buf, 0x5c), 
+          _    => {
+                    return Err(
+                             NaigError::compiler(
+                               format!(
+                                 "Unknown escape \\{}"
+                                 , tree.content[ i+1 ] as char
+                           )));
+                  },
         }
         skip = true;
       }
@@ -525,7 +550,6 @@ impl NaigCompiler
         else
         {
           NaigCompiler::match_string_buf_push(state, & mut buf, tree.content[ i ]);
-          //state.append_string(format!("  char {:02x}\n", tree.content[ i ]));
         }
       }
     }
@@ -637,6 +661,14 @@ impl NaigCompiler
     return Ok(());
   }
 
+  fn match_endforce
+    (tree : & NaigCapTree, state : & mut NaigCompilerState)
+    -> Result< (), NaigError >
+  {
+    state.append_string(format!("  end {}\n", tree.first_child().to_string()));
+    return Ok(());
+  }
+
   fn match_varreference
     (tree : & NaigCapTree, state : & mut NaigCompilerState)
     -> Result< (), NaigError >
@@ -645,8 +677,15 @@ impl NaigCompiler
     let opt = state.var_get(varname.clone());
     match opt
     {
-      Some(slot) => { state.append_string(format!("  var {}\n", slot)); return Ok(()); },
-      None => return Err(NaigError::compiler(format!("Could not resolve variable '{}'", varname))),
+      Some(slot) => {
+        state.append_string(format!("  var {}\n", slot)); return Ok(());
+      },
+      None => return Err(
+                       NaigError::compiler(
+                         format!(
+                           "Could not resolve variable '{}'"
+                           , varname
+                     ))),
     }
   }
 
@@ -655,6 +694,38 @@ impl NaigCompiler
     -> Result< (), NaigError >
   {
     state.append_string(format!("  call __RULE_{}\n", tree.to_string()));
+    return Ok(());
+  }
+
+  fn match_limitedcall
+    (tree : & NaigCapTree, state : & mut NaigCompilerState)
+    -> Result< (), NaigError >
+  {
+    let method = tree.children[ 0 ].to_string();
+    let capture = tree.children[ 1 ].to_string();
+    let rule = tree.children[ 2 ].to_string();
+    if method.eq("ruint32")
+    {
+      if capture.eq("$_")
+      {
+        state.append(               "  intrpcapture ruint32 default\n");
+        state.append_string(format!("  call {}\n", rule));
+      }
+      else
+      {
+        return Err(
+                 NaigError::compiler(
+                   format!("Unknown capture '{}'", capture)
+               ));
+      }
+    }
+    else
+    {
+      return Err(
+               NaigError::compiler(
+                 format!("Unknown method '{}'", capture)
+             ));
+    }
     return Ok(());
   }
 }

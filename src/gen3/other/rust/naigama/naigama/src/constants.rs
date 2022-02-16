@@ -1,0 +1,3 @@
+pub const NAIG_INTRPCAPTURE_SLOT_DEFAULT : u32 = 0x7fffff;
+pub const NAIG_INTRPCAPTURE_TYPE_RUINT32 : u32 = 1;
+

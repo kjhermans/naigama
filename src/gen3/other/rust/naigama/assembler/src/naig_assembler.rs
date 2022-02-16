@@ -261,7 +261,12 @@ impl NaigAssembler
         b'a' ..= b'f' => chr = node.children[ indx ].content[ i*2 ] + 10 - b'a',
         b'A' ..= b'F' => chr = node.children[ indx ].content[ i*2 ] + 10 - b'A',
         b'0' ..= b'9' => chr = node.children[ indx ].content[ i*2 ] - b'0',
-        _ => return Err(NaigError::assembler(format!("Unknown set character '{}'", node.children[ indx ].content[ i*2 ]))),
+        _ => return Err(
+                      NaigError::assembler(
+                        format!(
+                          "Unknown set character '{}'"
+                          , node.children[ indx ].content[ i*2 ]
+                    ))),
       }
       chr <<= 4;
       match node.children[ indx ].content[ i*2+1 ]
@@ -269,7 +274,12 @@ impl NaigAssembler
         b'a' ..= b'f' => chr |= node.children[ indx ].content[ i*2+1 ] + 10 - b'a',
         b'A' ..= b'F' => chr |= node.children[ indx ].content[ i*2+1 ] + 10 - b'A',
         b'0' ..= b'9' => chr |= node.children[ indx ].content[ i*2+1 ] - b'0',
-        _ => return Err(NaigError::assembler(format!("Unknown set character '{}'", node.children[ indx ].content[ i*2+1 ]))),
+        _ => return Err(
+                      NaigError::assembler(
+                        format!(
+                          "Unknown set character '{}'"
+                          , node.children[ indx ].content[ i*2+1 ]
+                    ))),
       }
       state.output.push(chr);
     }
@@ -304,7 +314,11 @@ impl NaigAssembler
         b'a' ..= b'f' => chr = hex[ i ] + 10 - b'a',
         b'A' ..= b'F' => chr = hex[ i ] + 10 - b'A',
         b'0' ..= b'9' => chr = hex[ i ] - b'0',
-        _ => return Err(NaigError::assembler(format!("Unknown quad character '{}'", hex[ i ]))),
+        _ => return Err(
+                      NaigError::assembler(
+                        format!(
+                          "Unknown quad character '{}'", hex[ i ]
+                    ))),
       }
       if (i % 2) != 0
       {
@@ -350,23 +364,33 @@ impl NaigAssembler
           state.append_instr(NaigInstruction::INSTR_ANY);
         },
         crate::naig_slotmap::_ASMSLT_BACKCOMMITINSTR_ => {
-          NaigAssembler::sp_instr_offsetlabel(node, state, NaigInstruction::INSTR_BACKCOMMIT)?;
+          NaigAssembler::sp_instr_offsetlabel(
+            node, state, NaigInstruction::INSTR_BACKCOMMIT
+          )?;
         },
         crate::naig_slotmap::_ASMSLT_CALLINSTR_ => {
-          NaigAssembler::sp_instr_offsetlabel(node, state, NaigInstruction::INSTR_CALL)?;
+          NaigAssembler::sp_instr_offsetlabel(
+            node, state, NaigInstruction::INSTR_CALL
+          )?;
         },
         crate::naig_slotmap::_ASMSLT_CATCHINSTR_ => {
-          NaigAssembler::sp_instr_offsetlabel(node, state, NaigInstruction::INSTR_CATCH)?;
+          NaigAssembler::sp_instr_offsetlabel(
+            node, state, NaigInstruction::INSTR_CATCH
+          )?;
         },
         crate::naig_slotmap::_ASMSLT_CHARINSTR_ => {
           state.append_instr(NaigInstruction::INSTR_CHAR);
           NaigAssembler::sp_translate_char(node, state, 1)?;
         },
         crate::naig_slotmap::_ASMSLT_CLOSECAPTUREINSTR_ => {
-          NaigAssembler::sp_instr_decimal(node, state, NaigInstruction::INSTR_CLOSECAPTURE)?;
+          NaigAssembler::sp_instr_decimal(
+            node, state, NaigInstruction::INSTR_CLOSECAPTURE
+          )?;
         },
         crate::naig_slotmap::_ASMSLT_COMMITINSTR_ => {
-          NaigAssembler::sp_instr_offsetlabel(node, state, NaigInstruction::INSTR_COMMIT)?;
+          NaigAssembler::sp_instr_offsetlabel(
+            node, state, NaigInstruction::INSTR_COMMIT
+          )?;
         },
         crate::naig_slotmap::_ASMSLT_CONDJUMPINSTR_ => {
           state.append_instr(NaigInstruction::INSTR_CONDJUMP);
@@ -379,7 +403,9 @@ impl NaigAssembler
           NaigAssembler::sp_translate_decimal(node, state, 2)?;
         },
         crate::naig_slotmap::_ASMSLT_ENDINSTR_ => {
-          NaigAssembler::sp_instr_decimal(node, state, NaigInstruction::INSTR_END)?
+          NaigAssembler::sp_instr_decimal(
+            node, state, NaigInstruction::INSTR_END
+          )?;
         },
         crate::naig_slotmap::_ASMSLT_ENDISOLATEINSTR_ => {
           state.append_instr(NaigInstruction::INSTR_ENDISOLATE);
@@ -394,13 +420,23 @@ impl NaigAssembler
           state.append_instr(NaigInstruction::INSTR_FAILTWICE);
         },
         crate::naig_slotmap::_ASMSLT_INTRPCAPTUREINSTR_ => {
-          
+          state.append_instr(NaigInstruction::INSTR_FAILTWICE);
+          state.append_unsigned(
+            libnaig::constants::NAIG_INTRPCAPTURE_SLOT_DEFAULT
+          );
+          state.append_unsigned(
+            libnaig::constants::NAIG_INTRPCAPTURE_TYPE_RUINT32
+          );
         },
         crate::naig_slotmap::_ASMSLT_ISOLATEINSTR_ => {
-          NaigAssembler::sp_instr_decimal(node, state, NaigInstruction::INSTR_ISOLATE)?;
+          NaigAssembler::sp_instr_decimal(
+            node, state, NaigInstruction::INSTR_ISOLATE
+          )?;
         },
         crate::naig_slotmap::_ASMSLT_JUMPINSTR_ => {
-          NaigAssembler::sp_instr_offsetlabel(node, state, NaigInstruction::INSTR_JUMP)?;
+          NaigAssembler::sp_instr_offsetlabel(
+            node, state, NaigInstruction::INSTR_JUMP
+          )?;
         },
         crate::naig_slotmap::_ASMSLT_MASKEDCHARINSTR_ => {
           state.append_instr(NaigInstruction::INSTR_MASKEDCHAR);
@@ -411,10 +447,14 @@ impl NaigAssembler
           state.append_instr(NaigInstruction::INSTR_NOOP);
         },
         crate::naig_slotmap::_ASMSLT_OPENCAPTUREINSTR_ => {
-          NaigAssembler::sp_instr_decimal(node, state, NaigInstruction::INSTR_OPENCAPTURE)?;
+          NaigAssembler::sp_instr_decimal(
+            node, state, NaigInstruction::INSTR_OPENCAPTURE
+          )?;
         },
         crate::naig_slotmap::_ASMSLT_PARTIALCOMMITINSTR_ => {
-          NaigAssembler::sp_instr_offsetlabel(node, state, NaigInstruction::INSTR_PARTIALCOMMIT)?;
+          NaigAssembler::sp_instr_offsetlabel(
+            node, state, NaigInstruction::INSTR_PARTIALCOMMIT
+          )?;
         },
         crate::naig_slotmap::_ASMSLT_QUADINSTR_ => {
           state.append_instr(NaigInstruction::INSTR_QUAD);
@@ -438,7 +478,9 @@ impl NaigAssembler
           NaigAssembler::sp_translate_set(node, state, 1)?;
         },
         crate::naig_slotmap::_ASMSLT_SKIPINSTR_ => {
-          NaigAssembler::sp_instr_decimal(node, state, NaigInstruction::INSTR_SKIP)?;
+          NaigAssembler::sp_instr_decimal(
+            node, state, NaigInstruction::INSTR_SKIP
+          )?;
         },
         crate::naig_slotmap::_ASMSLT_SPANINSTR_ => {
           state.append_instr(NaigInstruction::INSTR_SPAN);
@@ -467,7 +509,9 @@ impl NaigAssembler
           state.append_instr(NaigInstruction::INSTR_TRAP);
         },
         crate::naig_slotmap::_ASMSLT_VARINSTR_ => {
-          NaigAssembler::sp_instr_decimal(node, state, NaigInstruction::INSTR_VAR)?;
+          NaigAssembler::sp_instr_decimal(
+            node, state, NaigInstruction::INSTR_VAR
+          )?;
         },
         crate::naig_slotmap::_ASMSLT_LABEL_ => { },
         _ => panic!("Token error; {}", node.slot),

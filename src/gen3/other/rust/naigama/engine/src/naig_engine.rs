@@ -121,6 +121,10 @@ eprintln!(
         }
       };
       if state.fail {
+
+#[cfg(debug_assertions)]
+eprintln!("FAIL");
+
         if NaigEngine::do_catch(& mut state) {
           state.fail = false;
         } else {
@@ -377,7 +381,6 @@ eprintln!(
                    state.bytecode_offset + 4
                  )?;
     
-eprintln!("CALL: input length = {}", state.input_length);
     state.stack.push(
       NaigStackElt{
         elttype : STACKELT_TYPE_CLL,
@@ -391,7 +394,6 @@ eprintln!("CALL: input length = {}", state.input_length);
     if state.reg_ilen_set
     {
       state.input_length = state.input_offset + state.reg_ilen as usize;
-eprintln!("CALL: limiting input length to {}", state.input_length);
       state.reg_ilen_set = false;
       state.reg_ilen = 0;
     }
@@ -610,7 +612,6 @@ eprintln!("CALL: limiting input length to {}", state.input_length);
                    2
                  )?;
     let var = NaigEngine::variable_get(state, params[ 0 ])?;
-eprintln!("VAR LENGTH = {}; {}", var.len(), var[ 0 ] as u32);
     let ilen : u32;
     if params[ 1 ] == libnaig::constants::NAIG_INTRPCAPTURE_TYPE_RUINT32
     {
@@ -633,7 +634,6 @@ eprintln!("VAR LENGTH = {}; {}", var.len(), var[ 0 ] as u32);
       return Err(NaigError::simple(NaigError::ErrIsolate));
     }
     state.reg_ilen = ilen;
-eprintln!("intrpcapture setting ilen to {}", state.reg_ilen);
     state.reg_ilen_set = true;
     state.bytecode_offset += libnaig::instructions::_INSTR_SIZE_INTRPCAPTURE;
     return Ok(());
@@ -687,7 +687,6 @@ eprintln!("intrpcapture setting ilen to {}", state.reg_ilen);
     (state: & mut NaigEngineState)
     -> Result< (), NaigError>
   {
-
     if state.input_offset >= state.input_length
     {
       state.fail = true;
@@ -701,12 +700,11 @@ eprintln!("intrpcapture setting ilen to {}", state.reg_ilen);
          == params[ 0 ] as u8
       {
         state.input_offset += 1; 
-        state.bytecode_offset += libnaig::instructions::_INSTR_SIZE_CHAR;
+        state.bytecode_offset += libnaig::instructions::_INSTR_SIZE_MASKEDCHAR;
       } else {
         state.fail = true;
       }
     }
-    state.bytecode_offset += libnaig::instructions::_INSTR_SIZE_MASKEDCHAR;
     return Ok(());
   }
 
@@ -823,9 +821,7 @@ eprintln!("intrpcapture setting ilen to {}", state.reg_ilen);
       if e.elttype == STACKELT_TYPE_CLL
       {
         state.bytecode_offset = e.offset;
-eprintln!("RET: input_length is {}", state.input_length);
         state.input_length = e.param1;
-eprintln!("RET: Returning input_length to {}", state.input_length);
       } else {
         return Err(NaigError::simple(NaigError::ErrState));
       }

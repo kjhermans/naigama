@@ -600,7 +600,15 @@ impl NaigCompiler
     let slot = state.capture(tree);
     state.var_put(varname, slot);
     state.append_string(format!("  opencapture {}\n", slot));
-    NaigCompiler::expression(& tree.children[ 1 ], state)?;
+    if tree.children.len() == 2
+    {
+      NaigCompiler::expression(& tree.children[ 1 ], state)?;
+    }
+    else
+    {
+      //.. something something variable type
+      NaigCompiler::expression(& tree.children[ 2 ], state)?;
+    }
     state.append_string(format!("  closecapture {}\n", slot));
     return Ok(());
   }
@@ -709,7 +717,7 @@ impl NaigCompiler
       if capture.eq("$_")
       {
         state.append(               "  intrpcapture ruint32 default\n");
-        state.append_string(format!("  call {}\n", rule));
+        state.append_string(format!("  call __RULE_{}\n", rule));
       }
       else
       {

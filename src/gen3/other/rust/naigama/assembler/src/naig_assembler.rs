@@ -420,7 +420,7 @@ impl NaigAssembler
           state.append_instr(NaigInstruction::INSTR_FAILTWICE);
         },
         crate::naig_slotmap::_ASMSLT_INTRPCAPTUREINSTR_ => {
-          state.append_instr(NaigInstruction::INSTR_FAILTWICE);
+          state.append_instr(NaigInstruction::INSTR_INTRPCAPTURE);
           state.append_unsigned(
             libnaig::constants::NAIG_INTRPCAPTURE_SLOT_DEFAULT
           );

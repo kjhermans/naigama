@@ -56,16 +56,29 @@ pub fn main
       skip = false;
     } else {
       let arg = & args[ i ];
-      if arg.eq("-c") {
-        let filename = & args[ i + 1 ];
-        eprintln!("Input file = {}", filename);
-        bytecode = get_file_as_byte_vec(filename);
-        skip = true;
-      } else if arg.eq("-i") {
+      if arg.eq("-c")
+      {
         let filename = & args[ i + 1 ];
         eprintln!("Bytecode file = {}", filename);
+        bytecode = get_file_as_byte_vec(filename);
+        skip = true;
+      }
+      else if arg.eq("-i")
+      {
+        let filename = & args[ i + 1 ];
+        eprintln!("Input file = {}", filename);
         input = get_file_as_byte_vec(filename);
         skip = true;
+      }
+      else if arg.eq("-?") || arg.eq("-h")
+      {
+        eprintln!("
+Usage: [Options]
+Options:
+-c <path>     Take as bytecode file.
+-i <path>     Take as input file.
+-? or -h      Output this text and exit.
+");
       }
     }
   }

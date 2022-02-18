@@ -76,7 +76,9 @@ NAIG_ERR_T naic_compile
   if (e.code) {
     unsigned yx[ 2 ];
     if (strxypos(grammar, engine.input_pos, yx) == 0) {
-      fprintf(stderr, "Grammar parsing error (%d) line %u, off %u\n", e.code, yx[0], yx[1]);
+      fprintf(stderr,
+        "Grammar parsing error (%d) line %u, off %u\n", e.code, yx[0], yx[1]
+      );
     } else {
       fprintf(stderr, "Grammar parsing error (%d).\n", e.code);
     }
@@ -94,10 +96,20 @@ NAIG_ERR_T naic_compile
   naic.current_buffer = &(naic.write_buffer);
   object = naio_result_object(engine.input, engine.input_length, &result);
   naio_result_object_clean(object, SLOT_S);
+  naio_result_object_clean(object, SLOT_COMMENT);
+  naio_result_object_clean(object, SLOT_MULTILINECOMMENT);
   naio_result_object_clean(object, SLOT_BOPEN);
   naio_result_object_clean(object, SLOT_BCLOSE);
   naio_result_object_clean(object, SLOT_CBOPEN);
   naio_result_object_clean(object, SLOT_CBCLOSE);
+  naio_result_object_clean(object, SLOT_COLON);
+/*
+  naio_result_object_clean(object, SLOT_END);
+  naio_result_object_clean(object, SLOT_LEFTARROW);
+  naio_result_object_clean(object, SLOT_OR);
+  naio_result_object_clean(object, SLOT_ABOPEN);
+  naio_result_object_clean(object, SLOT_ABCLOSE);
+*/
 
   e = naic_compile_top(&naic, object);
   if (e.code) {

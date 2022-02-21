@@ -31,6 +31,7 @@ precomp:
 
 test:
 	@cd t && make
+	@cd naigama && cargo test
 
 clean:
 	@cd naigama && cargo clean
@@ -39,3 +40,4 @@ superclean: clean
 	@rm -f naigama/compiler/src/grammar.byc
 	@rm -f naigama/compiler/src/naig_slotmap.rs
 	@rm -f naigama/Cargo.lock
+	@rm -rf naigama/target/

@@ -6,7 +6,7 @@ debug: precomp
 
 precomp:
 	@perl ./bin/genrustinstr.pl ../../precomp/instructions.pl > \
-		naigama/naigama/src/instructions.rs
+		naigama/global/src/instructions.rs
 	@perl ./bin/gennaig.pl "$(NAIGRELEASE)" > naigama/engine/src/naig.rs
 	@../../main/compiler/naic -C \
 		-i ../../grammar/grammar.naig \

@@ -808,7 +808,13 @@ eprintln!("FAIL");
     (state: & mut NaigEngineState)
     -> Result< (), NaigError>
   {
-    state.bytecode_offset += libnaig::instructions::_INSTR_SIZE_REPLACE;
+    let params = NaigEngine::decode_quads(
+                   & state.engine.bytecode,
+                   state.bytecode_offset + 4,
+                   2
+                 )?;
+    //.. this is not supported, so we jump over
+    state.bytecode_offset = params[ 1 ];
     return Ok(());
   }
 
@@ -902,7 +908,19 @@ eprintln!("FAIL");
     (state: & mut NaigEngineState)
     -> Result< (), NaigError>
   {
-    state.bytecode_offset += libnaig::instructions::_INSTR_SIZE_TESTANY;
+    let offset = NaigEngine::decode_quad(
+                   & state.engine.bytecode,
+                   state.bytecode_offset + 4
+                 )?;
+    if state.input_offset < state.input_length
+    {
+      state.input_offset += 1;
+      state.bytecode_offset += libnaig::instructions::_INSTR_SIZE_TESTANY;
+    }
+    else
+    {
+      state.bytecode_offset = offset;
+    }
     return Ok(());
   }
 
@@ -910,7 +928,21 @@ eprintln!("FAIL");
     (state: & mut NaigEngineState)
     -> Result< (), NaigError>
   {
-    state.bytecode_offset += libnaig::instructions::_INSTR_SIZE_TESTCHAR;
+    let params = NaigEngine::decode_quads(
+                   & state.engine.bytecode,
+                   state.bytecode_offset + 4,
+                   2
+                 )?;
+    if state.input_offset < state.input_length
+       && state.input[ state.input_offset ] == (params[ 1 ] as u8)
+    {
+      state.input_offset += 1;
+      state.bytecode_offset += libnaig::instructions::_INSTR_SIZE_TESTCHAR;
+    }
+    else
+    {
+      state.bytecode_offset = params[ 0 ];
+    }
     return Ok(());
   }
 
@@ -918,7 +950,32 @@ eprintln!("FAIL");
     (state: & mut NaigEngineState)
     -> Result< (), NaigError>
   {
-    state.bytecode_offset += libnaig::instructions::_INSTR_SIZE_TESTQUAD;
+    let offset = NaigEngine::decode_quad(
+                   & state.engine.bytecode,
+                   state.bytecode_offset + 4
+                 )?;
+    if state.bytecode_offset + libnaig::instructions::_INSTR_SIZE_TESTQUAD
+        > state.engine.bytecode.len() as u32
+    {
+      return Err(NaigError::simple(NaigError::ErrBytecode));
+    }
+    if state.input_offset >= state.input_length - 3
+    {
+      state.bytecode_offset = offset;
+    } else {
+      for i in 0..3 {
+        if state.input[ state.input_offset + i ]
+           != state.engine.bytecode[ state.bytecode_offset as usize + 8 + i ]
+        {
+          state.bytecode_offset = offset;
+          break;
+        }
+      }
+      if !state.fail {
+        state.input_offset += 4;
+        state.bytecode_offset += libnaig::instructions::_INSTR_SIZE_TESTQUAD;
+      }
+    }
     return Ok(());
   }
 

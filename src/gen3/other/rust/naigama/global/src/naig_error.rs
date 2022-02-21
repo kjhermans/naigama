@@ -24,8 +24,18 @@ impl NaigError
   {
     return Self {
       code : code,
-      message : message
+      message : message,
     };
+  }
+
+  pub fn engine
+    (code: i32, message: String, bytecode_offset: u32, input_offset: usize)
+    -> Self
+  {
+    Self {
+      code : code,
+      message :format!("b={}, i={}, {}", bytecode_offset, input_offset, message),
+    }
   }
  
   pub fn compiler
@@ -34,7 +44,7 @@ impl NaigError
   {
     return Self {
       code : NaigError::ErrCompiler,
-      message : message
+      message : message,
     };
   }
  

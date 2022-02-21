@@ -103,7 +103,11 @@ Options:
       }
     },
     Err(r) => {
-      eprintln!("Error code {} message '{}'", r.code, r.message);
+      eprintln!(
+        "Error code {} message '{}'"
+        , r.code
+        , r.message
+      );
       std::process::exit(-1);
     }
   }

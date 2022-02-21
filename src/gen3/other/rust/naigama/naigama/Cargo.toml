@@ -1,5 +1,5 @@
 [package]
-name = "naigama_general"
+name = "naigama_naigama"
 version = "0.1.0"
 authors = ["kees"]
 edition = "2018"
@@ -8,6 +8,11 @@ edition = "2018"
 
 [dependencies]
 
+"naigama_compiler" = { path = "../compiler" }
+"naigama_assembler" = { path = "../assembler" }
+"naigama_engine" = { path = "../engine" }
+"naigama_global" = { path = "../global" }
+
 [lib]
-name = "libnaig"
+name = "libnaigama"
 path = "src/lib.rs"

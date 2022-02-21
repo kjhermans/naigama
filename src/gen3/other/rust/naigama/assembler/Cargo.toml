@@ -9,7 +9,7 @@ edition = "2018"
 [dependencies]
 
 "naigama_engine" = { path = "../engine" }
-"naigama_general" = { path = "../naigama" }
+"naigama_global" = { path = "../global" }
 
 [lib]
 name = "libnaia"

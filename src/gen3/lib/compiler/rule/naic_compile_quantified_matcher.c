@@ -50,7 +50,9 @@ NAIG_ERR_T naic_compile_quantified_matcher
     "__FORGIVE_%u", ++(naic->labelcount));
   snprintf(foreverlabel, sizeof(foreverlabel),
     "__FOREVER_%u", ++(naic->labelcount));
-  if (range[ 0 ] > 0) {
+  if (range[ 0 ] == 1) {
+    CHECK(naic_compile_matcher(naic, matcher));
+  } else if (range[ 0 ] > 1) {
     counter = (naic->counter)++;
     snprintf(counterlabel, sizeof(counterlabel),
       "__COUNTER_%u", ++(naic->labelcount));

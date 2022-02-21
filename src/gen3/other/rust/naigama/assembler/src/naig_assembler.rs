@@ -322,12 +322,12 @@ impl NaigAssembler
       }
       if (i % 2) != 0
       {
-        num |= chr << 4;
+        num |= chr;
         state.output.push(num);
       }
       else
       {
-        num = chr;
+        num = chr << 4;
       }
     }
     return Ok(());

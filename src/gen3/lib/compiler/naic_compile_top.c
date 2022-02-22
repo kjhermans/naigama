@@ -45,7 +45,6 @@ NAIG_ERR_T naic_compile_top
   char timestring[ 64 ];
   time_t t;
   struct tm* tm;
-  naio_resobj_t* def;
 
   t = time(0);
   tm = localtime(&t);
@@ -60,11 +59,6 @@ NAIG_ERR_T naic_compile_top
   /** first pass **/
   CHECK(naic_fp(naic, top, &(naic->globalscope)));
 
-  {
-    naio_resobj_t* object;
-    for (i=0; i < naic->globalscope->children.count; i++) {
-    }
-  }
   if (naic->global_buffer.len) {
     NAIC_WRITE("\n%s\n", naic->global_buffer.ptr);
   }
@@ -81,27 +75,7 @@ NAIG_ERR_T naic_compile_top
   }
 
   /** second pass **/
-  i = 0;
-  if ((def = naio_result_object_query(top, 2, SLOT_GRAMMAR, 0, SLOT_SINGLE_EXPRESSION, 0)) != NULL) {
-    CHECK(naic_compile_alts(naic, def));
-  } else {
-    while ((def = naio_result_object_query(top, 2, SLOT_GRAMMAR, 0, SLOT_DEFINITION, i++)) != NULL) {
-      switch (def->children[ 0 ]->type) {
-      case SLOT_RULE:
-        CHECK(naic_compile_rule(naic, def->children[ 0 ]));
-        break;
-/*
-      case SLOT_EXPRESSION:
-        CHECK(naic_compile_alts(naic, def->children[ 0 ]));
-        break;
-*/
-      default:
-        fprintf(stderr, "Non compliant top element\n");
-        naic_resobj_debug(def->children[ 0 ]);
-        abort();
-      }
-    }
-  }
+  CHECK(naic_sp(naic, top));
   if (naic->postfix.fill) {
     NAIC_WRITE("\n  end 0 -- postfix\n");
     NAIC_WRITE("%s", naic->postfix.string);

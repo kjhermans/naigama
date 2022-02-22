@@ -91,6 +91,7 @@ NAIG_ERR_T naig_compile
       grammar,
       &(naig->slotmap),
       flags,
+      0, 0,
       naig_write_assembly,
       &assembly
     )

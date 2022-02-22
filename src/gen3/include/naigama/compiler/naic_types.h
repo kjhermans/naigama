@@ -32,30 +32,32 @@ typedef struct
   unsigned          counter;
   unsigned          slot;
   unsigned          flags;
-/*
-  struct {
-    uint32_t          tmpvalue;
-    unsigned          nbytes;
-  }                 quad;
-*/
   naic_nspnod_t*    globalscope;
   naic_nspnod_t*    currentscope;
-  naic_nspnod_t*    currentfunction;
+//  naic_nspnod_t*    currentfunction;
   NAIG_ERR_T      (*write)(void* ptr, char* fmt, ...);
   void*             write_arg;
   naio_buf_t        write_buffer;
   naio_buf_t*       current_buffer;
   naio_buf_t        global_buffer;
   char              error[ 256 ];
+#define NAIG_IMPORTRECURSION_MAX 256
+  unsigned          importrecursion;
   struct {
     char*             string;
     unsigned          fill;
     unsigned          size;
   }                 postfix;
   struct {
+    char**            string;
+    unsigned          length;
+  }                 paths;
+/*
+  struct {
     unsigned          variablecount;
     unsigned          functioncount;
   }                 global;
+*/
   int               prefix;
   char*             first;
 #define             NAIC_FIRST_RULE             1

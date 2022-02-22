@@ -34,5 +34,13 @@
   doublemain => {
     code => 267,
     explicit => 'More than one main symbol defined'
-  }
+  },
+  import => {
+    code => 268,
+    explicit => 'Import not found'
+  },
+  importrecursion => {
+    code => 269,
+    explicit => 'Too many levels of import recursion',
+  },
 };

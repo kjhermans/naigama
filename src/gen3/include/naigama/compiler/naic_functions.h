@@ -16,6 +16,8 @@ NAIG_ERR_T naic_compile
     char* grammar,
     naio_slotmap_t* slots,
     unsigned flags,
+    char** paths,
+    unsigned npaths,
     NAIG_ERR_T(*fnc)(void*,char*,...),
     void* arg
   )
@@ -33,6 +35,16 @@ char* naic_grammar_slotmap_string
   (unsigned slot)
   __attribute__ ((warn_unused_result));
 
+/* declared in ./lib/compiler/naic_parsetree.c */
+extern
+NAIG_ERR_T naic_parsetree
+  (
+    char* grammar,
+    naio_resobj_t** object,
+    int debug
+  )
+  __attribute__ ((warn_unused_result));
+
 /* declared in ./lib/compiler/naic_reserve.c */
 extern
 NAIG_ERR_T naic_reserve
@@ -43,6 +55,12 @@ NAIG_ERR_T naic_reserve
 extern
 void naic_resobj_debug
   (naio_resobj_t* obj);
+
+/* declared in ./lib/compiler/naic_sp.c */
+extern
+NAIG_ERR_T naic_sp
+  (naic_t* naic, naio_resobj_t* top)
+  __attribute__ ((warn_unused_result));
 
 /* declared in ./lib/compiler/namespace/naic_nsp_add.c */
 extern
@@ -287,6 +305,12 @@ NAIG_ERR_T naic_string_unescape
 extern
 NAIG_ERR_T naic_fp
   (naic_t* naic, naio_resobj_t* top, naic_nspnod_t** nsp)
+  __attribute__ ((warn_unused_result));
+
+/* declared in ./lib/compiler/firstpass/naic_fp_import.c */
+extern
+NAIG_ERR_T naic_fp_import
+  (naic_t* naic, naio_resobj_t* rule)
   __attribute__ ((warn_unused_result));
 
 /* declared in ./lib/compiler/firstpass/naic_fp_rule.c */

@@ -13,6 +13,8 @@
 #define NAIG_ERRCODE_DOUBLEMAIN 267
 #define NAIG_ERRCODE_ENDLESSLOOP -30
 #define NAIG_ERRCODE_ENGINE -1027
+#define NAIG_ERRCODE_IMPORT 268
+#define NAIG_ERRCODE_IMPORTRECURSION 269
 #define NAIG_ERRCODE_INTOVERFLOW -1025
 #define NAIG_ERRCODE_INTRPCAPTURE -1028
 #define NAIG_ERRCODE_LABEL 513
@@ -56,6 +58,8 @@
 #define NAIG_ERR_DOUBLEMAIN (NAIG_ERR_T){ .code = NAIG_ERRCODE_DOUBLEMAIN } 
 #define NAIG_ERR_ENDLESSLOOP (NAIG_ERR_T){ .code = NAIG_ERRCODE_ENDLESSLOOP } 
 #define NAIG_ERR_ENGINE (NAIG_ERR_T){ .code = NAIG_ERRCODE_ENGINE } 
+#define NAIG_ERR_IMPORT (NAIG_ERR_T){ .code = NAIG_ERRCODE_IMPORT } 
+#define NAIG_ERR_IMPORTRECURSION (NAIG_ERR_T){ .code = NAIG_ERRCODE_IMPORTRECURSION } 
 #define NAIG_ERR_INTOVERFLOW (NAIG_ERR_T){ .code = NAIG_ERRCODE_INTOVERFLOW } 
 #define NAIG_ERR_INTRPCAPTURE (NAIG_ERR_T){ .code = NAIG_ERRCODE_INTRPCAPTURE } 
 #define NAIG_ERR_LABEL (NAIG_ERR_T){ .code = NAIG_ERRCODE_LABEL } 
@@ -100,6 +104,8 @@
   case 267: return "DOUBLEMAIN";\
   case -30: return "ENDLESSLOOP";\
   case -1027: return "ENGINE";\
+  case 268: return "IMPORT";\
+  case 269: return "IMPORTRECURSION";\
   case -1025: return "INTOVERFLOW";\
   case -1028: return "INTRPCAPTURE";\
   case 513: return "LABEL";\
@@ -145,6 +151,8 @@
   case 267: return "More than one main symbol defined";\
   case -30: return "Endless loop detected";\
   case -1027: return "General engine error";\
+  case 268: return "Import not found";\
+  case 269: return "Too many levels of import recursion";\
   case -1025: return "(No explicit message given)";\
   case -1028: return "Interpret capture error";\
   case 513: return "Label error";\

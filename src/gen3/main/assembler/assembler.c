@@ -106,7 +106,7 @@ int main
       switch (*arg) {
       case 'i':
         if (i < argc - 1) {
-          char* path = argv[ i+1 ];
+          char* path = argv[ ++i ];
           if (absorb_file(path, (unsigned char**)(&assembly), &assembly_len)) {
             fprintf(stderr, "Could not absorb %s\n", path);
             exit(-1);
@@ -121,7 +121,7 @@ int main
         break;
       case 'o':
         if (i < argc - 1) {
-          char* path = argv[ i+1 ];
+          char* path = argv[ ++i ];
           if (0 == strcmp(path, "-")) {
             output = stdout;
           } else {
@@ -141,7 +141,7 @@ int main
         break;
       case 'l':
         if (i < argc - 1) {
-          char* path = argv[ i+1 ];
+          char* path = argv[ ++i ];
           labelmap = fopen(path, "w");
           if (NULL == labelmap) {
             fprintf(stderr, "Could not open %s for labelmap\n", path);

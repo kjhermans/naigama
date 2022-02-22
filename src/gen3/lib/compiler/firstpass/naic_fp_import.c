@@ -31,36 +31,63 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \brief
  */
 
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
+
 #include <naigama/engine/naie.h>
 #include <naigama/naig_private.h>
 #include "../naic_private.h"
 
+static
+NAIG_ERR_T naic_fp_import_path
+  (naic_t* naic, naio_resobj_t* rule, char* path)
+{
+  char* buf = 0;
+  unsigned len = 0;
+  naio_resobj_t* parsetree;
+
+  fprintf(stderr, "Importing '%s'\n", path);
+  if (naic->importrecursion >= NAIG_IMPORTRECURSION_MAX) {
+    return NAIG_ERR_IMPORTRECURSION;
+  }
+  if (absorb_file(path, (unsigned char**)(&buf), &len)) {
+    return NAIG_ERR_IMPORT;
+  }
+  CHECK(naic_parsetree(buf, &parsetree, naic->flags & NAIC_FLG_DEBUG));
+  for (unsigned i=0; i < rule->nchildren; i++) {
+    naio_result_object_free(rule->children[ i ]);
+  }
+  rule->nchildren = 1;
+  rule->children[ 0 ] = parsetree;
+  ++(naic->importrecursion);
+  CHECK(naic_fp(naic, parsetree, &(naic->globalscope)));
+  --(naic->importrecursion);
+  return NAIG_OK;
+}
+
 /**
  *
  */
-NAIG_ERR_T naic_fp
-  (naic_t* naic, naio_resobj_t* top, naic_nspnod_t** nsp)
+NAIG_ERR_T naic_fp_import
+  (naic_t* naic, naio_resobj_t* rule)
 {
-  unsigned i = 0;
-  naio_resobj_t* def;
+  char* string = rule->children[ 1 ]->children[ 0 ]->children[ 0 ]->string;
+  char path[ 256 ];
+  unsigned i;
+  struct stat s;
 
-  ASSERT(naic != NULL);
-  ASSERT(top != NULL);
-
-  *nsp = naic->globalscope;
-  while ((def = naio_result_object_query(top, 2, SLOT_GRAMMAR, 0, SLOT_DEFINITION, i++)) != NULL) {
-    switch (def->children[ 0 ]->type) {
-    case SLOT_RULE:
-      CHECK(naic_fp_rule(naic, def->children[ 0 ], *nsp));
-      break;
-    case SLOT_IMPORTDECL:
-      CHECK(naic_fp_import(naic, def->children[ 0 ]));
-      break;
-    case SLOT_EXPRESSION:
-      naic->firsttype = NAIC_FIRST_IMPLICITRULE;
-      return NAIG_OK;
+  if (stat(string, &s) == 0 && (s.st_mode & S_IFMT) == S_IFREG) {
+    CHECK(naic_fp_import_path(naic, rule, string));
+    return NAIG_OK;
+  } else {
+    for (i=0; i < naic->paths.length; i++) {
+      snprintf(path, sizeof(path), "%s/%s", naic->paths.string[ i ], string);
+      if (stat(path, &s) == 0 && (s.st_mode & S_IFMT) == S_IFREG) {
+        CHECK(naic_fp_import_path(naic, rule, path));
+        return NAIG_OK;
+      }
     }
   }
-  fprintf(stderr, "Compiler: %u definitions\n", i);
-  return NAIG_OK;
+  return NAIG_ERR_IMPORT;
 }

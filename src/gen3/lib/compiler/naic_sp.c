@@ -31,36 +31,34 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \brief
  */
 
-#include <naigama/engine/naie.h>
-#include <naigama/naig_private.h>
-#include "../naic_private.h"
+#include "naic_private.h"
 
 /**
  *
  */
-NAIG_ERR_T naic_fp
-  (naic_t* naic, naio_resobj_t* top, naic_nspnod_t** nsp)
+NAIG_ERR_T naic_sp
+  (naic_t* naic, naio_resobj_t* top)
 {
-  unsigned i = 0;
   naio_resobj_t* def;
+  unsigned i = 0;
 
-  ASSERT(naic != NULL);
-  ASSERT(top != NULL);
-
-  *nsp = naic->globalscope;
-  while ((def = naio_result_object_query(top, 2, SLOT_GRAMMAR, 0, SLOT_DEFINITION, i++)) != NULL) {
-    switch (def->children[ 0 ]->type) {
-    case SLOT_RULE:
-      CHECK(naic_fp_rule(naic, def->children[ 0 ], *nsp));
-      break;
-    case SLOT_IMPORTDECL:
-      CHECK(naic_fp_import(naic, def->children[ 0 ]));
-      break;
-    case SLOT_EXPRESSION:
-      naic->firsttype = NAIC_FIRST_IMPLICITRULE;
-      return NAIG_OK;
+  if ((def = naio_result_object_query(top, 2, SLOT_GRAMMAR, 0, SLOT_SINGLE_EXPRESSION, 0)) != NULL) {
+    CHECK(naic_compile_alts(naic, def));
+  } else {
+    while ((def = naio_result_object_query(top, 2, SLOT_GRAMMAR, 0, SLOT_DEFINITION, i++)) != NULL) {
+      switch (def->children[ 0 ]->type) {
+      case SLOT_RULE:
+        CHECK(naic_compile_rule(naic, def->children[ 0 ]));
+        break;
+      case SLOT_IMPORTDECL:
+        CHECK(naic_sp(naic, def->children[ 0 ]->children[ 0 ]));
+        break; 
+      default:
+        fprintf(stderr, "Non compliant top element\n");
+        naic_resobj_debug(def->children[ 0 ]);
+        abort();
+      }
     }
   }
-  fprintf(stderr, "Compiler: %u definitions\n", i);
   return NAIG_OK;
 }

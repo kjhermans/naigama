@@ -105,7 +105,9 @@ NAIG_ERR_T do_compile
     FILE* slotmaph,
     int assemble,
     char* asmfile,
-    FILE* labelmap
+    FILE* labelmap,
+    char** paths, 
+    unsigned npaths
   )
 {
   naio_slotmap_t map;
@@ -114,7 +116,17 @@ NAIG_ERR_T do_compile
   memset(&map, 0, sizeof(map));
   if (assemble) {
     fprintf(stderr, "Compiling...\n");
-    CHECK(naic_compile(grammar, &map, flags, naic_write_string, &assembly));
+    CHECK(
+      naic_compile(
+        grammar,
+        &map,
+        flags,
+        paths,
+        npaths,
+        naic_write_string,
+        &assembly
+      )
+    );
     if (asmfile) {
       FILE* f = fopen(asmfile, "w");
       if (f) {
@@ -135,7 +147,7 @@ NAIG_ERR_T do_compile
       )
     );
   } else {
-    CHECK(naic_compile(grammar, &map, flags, naic_write_file, output));
+    CHECK(naic_compile(grammar, &map, flags, paths, npaths, naic_write_file, output));
   }
   if (slotmap) {
     CHECK(naio_slotmap_write(&map, slotmap));
@@ -164,6 +176,8 @@ int main
   unsigned flags = 0;
   int i, assemble = 0;
   char* gen = NAIG_GENERATION;
+  char** paths = 0;
+  unsigned npaths = 0;
 
 #ifdef _DEBUG
   fprintf(stderr,
@@ -179,7 +193,7 @@ int main
       switch (*arg) {
       case 'i':
         if (i < argc - 1) {
-          char* path = argv[ i+1 ];
+          char* path = argv[ ++i ];
           if (absorb_file(path, (unsigned char**)(&grammar), &grammar_length)) {
             fprintf(stderr, "Could not absorb %s\n", path);
             exit(-3);
@@ -191,7 +205,7 @@ int main
         break;
       case 'o':
         if (i < argc - 1) {
-          char* path = argv[ i+1 ];
+          char* path = argv[ ++i ];
           if (0 == strcmp(path, "-")) {
             output = stdout;
           } else {
@@ -205,7 +219,7 @@ int main
         break;
       case 'm':
         if (i < argc - 1) {
-          char* path = argv[ i+1 ];
+          char* path = argv[ ++i ];
           slotmap = fopen(path, "w");
           if (NULL == slotmap) {
             fprintf(stderr, "Could not open %s\n", path);
@@ -215,7 +229,7 @@ int main
         break;
       case 'M':
         if (i < argc - 1) {
-          char* path = argv[ i+1 ];
+          char* path = argv[ ++i ];
           slotmaph = fopen(path, "w");
           if (NULL == slotmaph) {
             fprintf(stderr, "Could not open %s\n", path);
@@ -244,7 +258,7 @@ int main
       case 'a':
         assemble = 1;
         if (i < argc - 1) {
-          assembly = argv[ i+1 ];
+          assembly = argv[ ++i ];
         } else {
           fprintf(stderr, "-a requires a path\n");
           exit(-6);
@@ -252,12 +266,21 @@ int main
         break;
       case 'l':
         if (i < argc - 1) {
-          char* path = argv[ i+1 ];
+          char* path = argv[ ++i ];
           labelmap = fopen(path, "w");
           if (!labelmap) {
             fprintf(stderr, "Could not open labelmap file.\n");
             exit(-7);
           }
+        } else {
+          fprintf(stderr, "-l requires a path\n");
+          exit(-6);
+        }
+        break;
+      case 'I':
+        if (i < argc - 1) {
+          paths = realloc(paths, sizeof(char*) * (npaths+1));
+          paths[ npaths++ ] = strdup(argv[ ++i ]);
         } else {
           fprintf(stderr, "-l requires a path\n");
           exit(-6);
@@ -284,6 +307,7 @@ int main
           "-s         Generate reduced instruction set\n"
           "-w         Write out loops instead of using counters\n"
           "-C         Produce a default capture for every rule\n"
+          "-I <path>  Add path for import purposes\n"
           , gen
           , argv[ 0 ]
         );
@@ -296,7 +320,16 @@ int main
     exit(-1);
   }
   NAIG_ERR_T e = do_compile(
-    grammar, flags, output, slotmap, slotmaph, assemble, assembly, labelmap
+    grammar,
+    flags,
+    output,
+    slotmap,
+    slotmaph,
+    assemble,
+    assembly,
+    labelmap,
+    paths,
+    npaths
   );
   if (e.code) {
     fprintf(stderr,

@@ -106,7 +106,7 @@ int main
       switch (*arg) {
       case 'c':
         if (i < argc - 1) {
-          char* path = argv[ i+1 ];
+          char* path = argv[ ++i ];
           if (absorb_file(path, &bytecode, &bytecode_length)) {
             fprintf(stderr, "Could not absorb %s\n", path);
             exit(-3);
@@ -115,7 +115,7 @@ int main
         break;
       case 'i':
         if (i < argc - 1) {
-          char* path = argv[ i+1 ];
+          char* path = argv[ ++i ];
           if (absorb_file(path, &data, &data_length)) {
             fprintf(stderr, "Could not absorb %s\n", path);
             exit(-4);
@@ -124,7 +124,7 @@ int main
         break;
       case 'l':
         if (i < argc - 1) {
-          labelmap = argv[ i+1 ];
+          labelmap = argv[ ++i ];
         } else {
           fprintf(stderr, "Labelmap file isn't given.\n");
           exit(-5);
@@ -132,7 +132,7 @@ int main
         break;
       case 'm':
         if (i < argc - 1) {
-          slotmap = argv[ i+1 ];
+          slotmap = argv[ ++i ];
         } else {
           fprintf(stderr, "Slotmap file isn't given.\n");
           exit(-5);
@@ -140,7 +140,7 @@ int main
         break;
       case 'o':
         if (i < argc - 1) {
-          char* path = argv[ i+1 ];
+          char* path = argv[ ++i ];
           if (0 == strcmp(path, "-")) {
             output = stdout;
           } else if (NULL == (output = fopen(path, "w"))) {

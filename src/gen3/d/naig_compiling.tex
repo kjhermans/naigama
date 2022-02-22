@@ -12,6 +12,14 @@ Naigama allows two types of grammars:
 \item Anonymous grammars, which consist of a single expression.
 \end{itemize}
 
+\subsection{Imports}
+
+Imports are treated more or less in the way that C treats '\#include's:
+file contents are substituted in place, and re-evaluated. The caveat
+is that this must happen at rule definition level: you cannot have
+substitutions of file contents, for example, in a sequence of matchers,
+or as part of a matcher (for example, inside a string).
+
 \subsection{The '\_\_prefix' Rule}
 
 The \_\_prefix rule will define a pattern that is called before
@@ -23,6 +31,11 @@ things like source code or text based data formats (XML, JSON, etc).
 
 The '\_\_main' rule, which does not have to be defined, but if it is,
 it will be called first.
+
+\subsection{The '\_\_end' Matcher}
+
+The '\_\_end' matcher, which is not a matcher but is part of a sequence
+of matchers, successfully ends execution of the bytecode at that point.
 
 \subsection{Determining the First Rule}
 

@@ -3,7 +3,7 @@ NAIGRELEASE=$(shell cat release | tr -d '\n')
 
 all: makerelease gen0 gen1 gen2 gen3
 
-world: superclean archive all other test demos doc
+world: superclean archive all other test other_test demos doc
 
 debug:
 	make all DEBUG="-D_DEBUG=1"
@@ -39,6 +39,8 @@ armbm:
 	@make all ARCH=arm-linux-gnueabi-
 
 other: rust java perl
+
+other_test: gen3_other_java_test gen3_other_rust_test
 
 rust: gen3
 	@cd src/gen3 && make rust NAIGRELEASE=$(NAIGRELEASE)
@@ -106,8 +108,16 @@ gen2_test:
 gen3_test:
 	cd src/gen3 && make test
 
-gen1_other_java:
-	cd src/gen1/other/java && make
+gen3_other_java:
+	cd src/gen3/other/java && make
 
-gen1_other_java_test: gen1_other_java
-	cd src/gen1/other/java/t/ && make
+gen3_other_java_test: gen3_other_java
+	cd src/gen3/other/java/ && make test
+
+gen3_other_rust: gen3
+	cd src/gen3/other/rust && make
+
+gen3_other_rust_test: gen3_other_rust
+	cd src/gen3/other/rust/ && make test
+
+

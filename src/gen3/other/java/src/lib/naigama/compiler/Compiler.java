@@ -305,6 +305,8 @@ public class Compiler
         return 92;
       } else if (atom.equals("\\]")) {
         return 93;
+      } else if (atom.equals("\\-")) {
+        return 45;
       } else if (atom.equals("\\n")) {
         return 10;
       } else if (atom.equals("\\r")) {
@@ -461,7 +463,7 @@ public class Compiler
       break;
     case Slotmap.SLOT_MACRO_:
       {
-        String macro = t.getChild(0).getContent();
+        String macro = t.getContent();
         byte[] set = new byte[ 32 ];
         if (macro.equals("%s")) {
           bitmap_set(set, 9, 13);

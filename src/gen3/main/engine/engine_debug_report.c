@@ -100,7 +100,7 @@ NAIG_ERR_T engine_debug_report
   case OPCODE_JUMP:
     param = GET_32BIT_VALUE(engine->bytecode, engine->bytecode_pos + 4);
     fprintf(stdout, "Param1: %u ", param);
-    fprintf(stdout, "%s\n", naie_labelmap_reverse(engine, param));
+    fprintf(stdout, "%s\n", naio_labelmap_reverse(&(engine->labelmap), param));
     break;
   }
   fprintf(stdout, "Bytecode pos: %u\n", engine->bytecode_pos);
@@ -119,9 +119,12 @@ NAIG_ERR_T engine_debug_report
   fprintf(stdout, "Register_ilen: %u\n", engine->reg_ilen);
   fprintf(stdout, "Register_ilen_set: %d\n", engine->reg_ilen_set);
   fprintf(stdout, "Max stack depth: %u\n", engine->forensics.maxstackdepth);
-  for (i=0; i < engine->labels.count; i++) {
-    if (engine->labels.entries[ i ].offset == engine->bytecode_pos) {
-      fprintf(stderr, "Label: %s\n", engine->labels.entries[ i ].label);
+  for (i=0; i < engine->labelmap.count; i++) {
+    if (engine->labelmap.entries[ i ].offset == engine->bytecode_pos) {
+      fprintf(stderr, "Label: %-.*s\n"
+                      , engine->labelmap.entries[ i ].len
+                      , engine->labelmap.entries[ i ].str
+      );
     }
   }
   fprintf(stdout, "Stack:\n");
@@ -132,7 +135,7 @@ NAIG_ERR_T engine_debug_report
           ? "CLL" : "ALT")
       , engine->stack.entries[ i ].address
     );
-    fprintf(stdout, "%s ", naie_labelmap_reverse(engine, GET_32BIT_VALUE(engine->bytecode, engine->stack.entries[ i ].address - 4)));
+    fprintf(stdout, "%s ", naio_labelmap_reverse(&(engine->labelmap), GET_32BIT_VALUE(engine->bytecode, engine->stack.entries[ i ].address - 4)));
     if (engine->stack.entries[ i ].type == NAIG_STACK_CALL) {
       fprintf(stdout, "len=%u\n", engine->stack.entries[ i ].input_length);
     } else {

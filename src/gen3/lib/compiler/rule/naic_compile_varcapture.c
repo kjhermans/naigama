@@ -52,19 +52,12 @@ NAIG_ERR_T naic_compile_varcapture
   ASSERT(body != NULL)
 
   NAIC_WRITE("  opencapture %u\n", slot);
-  if (capture->nchildren >= 2
-      && capture->children[0]->type == SLOT_IDENT)
-  {
-    //.. do something with reserving a slot for this ident
-    ++expression;
+  if (capture->nchildren == 2) {
+    CHECK(naic_compile_alts(naic, capture->children[ 1 ]));
   }
-  if (capture->nchildren >= 3
-      && capture->children[0]->type == SLOT_CAPTURETYPE)
-  {
-    //.. do someting with this slot type
-    ++expression;
+  if (capture->nchildren == 3) {
+    CHECK(naic_compile_alts(naic, capture->children[ 2 ]));
   }
-  CHECK(naic_compile_alts(naic, capture));
   NAIC_WRITE("  closecapture %u\n", slot);
   return NAIG_OK;
 }

@@ -139,11 +139,7 @@ struct naie_engine
     unsigned                              length;
     int                                   realloc;
   }                                     actions;
-  struct {
-    naie_labelentry_t*                    entries;
-    unsigned                              count;
-    unsigned                              length;
-  }                                     labels;
+  naio_labelmap_t                       labelmap;
   naio_slotmap_t                        slotmap;
   struct {
     naie_register_t*                      entries;

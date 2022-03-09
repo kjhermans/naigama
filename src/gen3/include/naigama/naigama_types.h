@@ -48,12 +48,4 @@ typedef struct
 }
 naig_t;
 
-/*
-typedef struct
-{
-  naie_result_t                 result;
-}
-naig_result_t;
-*/
-
 #endif

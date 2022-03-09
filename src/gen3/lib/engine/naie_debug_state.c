@@ -68,10 +68,11 @@ NAIG_ERR_T _naie_debug_state
       }
     }
   }
-  for (i=0; i < engine->labels.count; i++) {
-    if (engine->labels.entries[ i ].offset == engine->bytecode_pos) {
-      fprintf(stderr, "            %s:\n",
-        engine->labels.entries[ i ].label
+  for (i=0; i < engine->labelmap.count; i++) {
+    if (engine->labelmap.entries[ i ].offset == engine->bytecode_pos) {
+      fprintf(stderr, "            %-.*s:\n"
+        , engine->labelmap.entries[ i ].len
+        , engine->labelmap.entries[ i ].str
       );
     }
   }
@@ -112,8 +113,8 @@ NAIG_ERR_T _naie_debug_state
     if (full) {
       if (engine->stack.entries[ i ].type == NAIG_STACK_CALL) {
         fprintf(stderr, "%s\n",
-          naie_labelmap_reverse(
-            engine,
+          naio_labelmap_reverse(
+            &(engine->labelmap),
             GET_32BIT_VALUE(
               engine->bytecode,
               engine->stack.entries[ i ].address - 4
@@ -122,7 +123,9 @@ NAIG_ERR_T _naie_debug_state
         );
       } else {
         fprintf(stderr, "%s\n",
-          naie_labelmap_reverse(engine, engine->stack.entries[ i ].address)
+          naio_labelmap_reverse(
+            &(engine->labelmap), engine->stack.entries[ i ].address
+          )
         );
       }
     }

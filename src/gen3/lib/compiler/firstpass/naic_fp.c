@@ -61,6 +61,8 @@ NAIG_ERR_T naic_fp
       return NAIG_OK;
     }
   }
+#ifdef _DEBUG
   fprintf(stderr, "Compiler: %u definitions\n", i);
+#endif
   return NAIG_OK;
 }

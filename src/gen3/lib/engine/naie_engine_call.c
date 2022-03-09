@@ -48,7 +48,7 @@ NAIG_ERR_T naie_engine_call
 {
   uint32_t offset;
 
-  CHECK(naie_labelmap_get(engine, label, &offset));
+  CHECK(naio_labelmap_get(&(engine->labelmap), label, strlen(label), &offset));
   CHECK(naie_engine_call_offset(engine, offset, result));
   return NAIG_OK;
 }

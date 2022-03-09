@@ -77,12 +77,10 @@ NAIG_ERR_T naia_assemble
     engine.flags |= NAIE_FLAG_DEBUG;
     engine.debugger = naia_engine_debug_cont;
   }
-fprintf(stderr, "\n---- Running engine\n\n");
   e = naie_engine_run(
     &engine,
     &result
   );
-fprintf(stderr, "\n---- Done running engine\n\n");
   if (e.code) {
     unsigned yx[ 2 ];
     if (strxypos(assembly, engine.input_pos, yx) == 0) {
@@ -104,11 +102,15 @@ fprintf(stderr, "\n---- Done running engine\n\n");
     .write_arg      = &(naia.buffer)
   };
 
+#ifdef _DEBUG
   fprintf(stderr, "Assembly parsed Ok.\n");
+#endif
   object = naio_result_object(engine.input, engine.input_length, &result);
   CHECK(naia_process_tokens(&naia, object));
+#ifdef _DEBUG
   fprintf(stderr, "Assembler: %u labels\n", naia.labels.count);
   fprintf(stderr, "Writing %u bytes bytecode.\n", naia.buffer.len);
+#endif
   if (naia.buffer.len == 0) {
     fprintf(stderr, "Warning: writing zero bytes of bytecode.\n");
   }

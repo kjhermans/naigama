@@ -44,7 +44,7 @@ NAIG_ERR_T _naie_debug_instruction
   switch (opcode) {
   case OPCODE_CALL:
     param1 = GET_32BIT_VALUE(engine->bytecode, engine->bytecode_pos + 4);
-    label = naie_labelmap_reverse(engine, param1);
+    label = naio_labelmap_reverse(&(engine->labelmap), param1);
     fprintf(stderr, "CALL %u %s\n", param1, (label ? label : ""));
     break;
   }

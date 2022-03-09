@@ -36,12 +36,6 @@ extern
 void naie_debug_state
   (naie_engine_t* engine, int full, int hex);
 
-/* declared in ./lib/engine/naie_engine_add_label.c */
-extern
-NAIG_ERR_T naie_engine_add_label
-  (naie_engine_t* engine, char* string, uint32_t offset)
-  __attribute__ ((warn_unused_result));
-
 /* declared in ./lib/engine/naie_engine_call.c */
 extern
 NAIG_ERR_T naie_engine_call
@@ -129,25 +123,6 @@ NAIG_ERR_T naie_engine_run
 extern
 char* naie_instr_string
   (uint32_t opcode)
-  __attribute__ ((warn_unused_result));
-
-/* declared in ./lib/engine/naie_labelmap_get.c */
-extern
-NAIG_ERR_T naie_labelmap_get
-  (
-    naie_engine_t* engine,
-    char* label,
-    uint32_t* offset
-  )
-  __attribute__ ((warn_unused_result));
-
-/* declared in ./lib/engine/naie_labelmap_reverse.c */
-extern
-char* naie_labelmap_reverse
-  (
-    naie_engine_t* engine,
-    uint32_t offset
-  )
   __attribute__ ((warn_unused_result));
 
 /* declared in ./lib/engine/naie_output.c */
@@ -254,15 +229,6 @@ NAIG_ERR_T naie_result_query_scope
     unsigned path_length,
     unsigned path_index,
     naio_resact_t* action
-  )
-  __attribute__ ((warn_unused_result));
-
-/* declared in ./lib/engine/naie_set_labelmap.c */
-extern
-NAIG_ERR_T naie_set_labelmap
-  (
-    naie_engine_t* engine,
-    const char* filename
   )
   __attribute__ ((warn_unused_result));
 

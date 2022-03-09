@@ -44,22 +44,4 @@ NAIG_ERR_T;
 #include <naigama/engine/naie_types.h>
 #include <naigama/memio/naio.h>
 
-/*
-typedef struct
-{
-  char*                         grammar;
-  unsigned char*                bytecode;
-  unsigned                      bytecode_length;
-  int                           debug;
-  naio_slotmap_t                slotmap;
-}
-naig_t;
-
-typedef struct
-{
-  naio_result_t                 result;
-}
-naig_result_t;
-*/
-
 #endif // !_NAIG_TYPES_H_

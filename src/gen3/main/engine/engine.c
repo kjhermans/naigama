@@ -257,7 +257,7 @@ int main
     if (diligent) { engine.flags |= NAIE_FLAG_DILIGENT; }
     if (replace) { engine.flags |= NAIE_FLAG_DOREPLACE; }
     if (labelmap) {
-      e = naie_set_labelmap(&engine, labelmap);
+      e = naio_labelmap_load(&(engine.labelmap), labelmap);
       if (e.code) {
         fprintf(stderr, "Labelmap set error %d\n", e.code);
         return -1;

@@ -31,25 +31,60 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \brief
  */
 
-#include "naie_private.h"
+#include <unistd.h>
+#include <fcntl.h>
+
+#include "naio_private.h"
 
 /**
- * Gets an offset from the labelmap, given a label string.
+ * Loads the labelmap into the engine.
  */
-NAIG_ERR_T naie_labelmap_get
+NAIG_ERR_T naio_labelmap_load
   (
-    naie_engine_t* engine,
-    char* label,
-    uint32_t* offset
+    naio_labelmap_t* map,
+    const char* filename
   )
 {
-  unsigned i;
+  unsigned char block[ 1024 ];
+  unsigned blocksize = 0;
+  int fd = open(filename, O_RDONLY, 0);
 
-  for (i=0; i < engine->labels.count; i++) {
-    if (0 == strcmp(label, engine->labels.entries[ i ].label)) {
-      *offset = engine->labels.entries[ i ].offset;
-      return NAIG_OK;
-    }
+  if (fd == -1) {
+    RETURNERR(NAIG_ERR_LABELMAP);
   }
-  return NAIG_ERR_NOTFOUND;
+  while (1) {
+    int r = 0;
+    unsigned l = sizeof(block) - blocksize;
+    if (l && (r = read(fd, &(block[ blocksize ]), l)) < 0) {
+      RETURNERR(NAIG_ERR_LABELMAP);
+    }
+    if (r == 0 && blocksize == 0) {
+      break;
+    }
+    blocksize += r;
+    while (blocksize) {
+      unsigned i;
+OneMoreLabel:
+      if (blocksize > 5) {
+        uint32_t offset;
+        char* string = (char*)(&(block[ 4 ]));
+        memcpy(&offset, block, 4);
+        offset = SET_32BIT_VALUE(offset);
+        offset &= ~(0xff << 24);
+        for (i=4; i < blocksize; i++) {
+          if (block[ i ] == 0) {
+            CHECK(naio_labelmap_put(map, string, strlen(string), offset));
+            memmove(&(block[ 0 ]), &(block[ i + 1 ]), blocksize - (i + 1));
+            blocksize -= (i+1);
+            goto OneMoreLabel;
+          }
+        }
+        goto OneMoreRead;
+      } else {
+        goto OneMoreRead;
+      }
+    }
+OneMoreRead: ;
+  }
+  return NAIG_OK;
 }

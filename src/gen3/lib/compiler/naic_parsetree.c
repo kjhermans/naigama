@@ -70,7 +70,7 @@ NAIG_ERR_T naic_parsetree
     engine.debugger = naic_engine_debug_cont;
     if (stat("grammar.byc.labelmap", &s) == 0) {
       fprintf(stderr, "Loading labelmap for grammar bytecode.\n");
-      CHECK(naie_set_labelmap(&engine, "grammar.byc.labelmap"));
+      CHECK(naio_labelmap_load(&(engine.labelmap), "grammar.byc.labelmap"));
     }
   } else {
     engine.flags &= ~NAIE_FLAG_DEBUG;

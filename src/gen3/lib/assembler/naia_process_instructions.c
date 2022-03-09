@@ -85,7 +85,6 @@ NAIG_ERR_T naia_process_instruction
   case ASMSLOT_ENDISOLATEINSTR_ENDISOLATE:
     CHECK(naia_process_single(naia, OPCODE_ENDISOLATE)); break;
 
-//  case ASMSLOT_INSTRUCTION_ANYINSTRBACKCOMMITIN:
   case ASMSLOT_LABEL_AZAZ:
     /* ignore */
     break;
@@ -113,6 +112,9 @@ NAIG_ERR_T naia_process_instructions
       break; // ignore
     }
   }
-  fprintf(stderr, "Assembler: %u instructions (incl labels)\n", object->nchildren);
+#ifdef _DEBUG
+  fprintf(stderr, "Assembler: %u instructions (incl labels)\n"
+    , object->nchildren);
+#endif
   return NAIG_OK;
 }

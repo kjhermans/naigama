@@ -71,7 +71,10 @@ NAIG_ERR_T naic_compile_top
   case NAIC_FIRST_IMPLICITRULE:
     break;
   default:
+#ifdef _DEBUG
     fprintf(stderr, "WARNING: No initial calling target defined.\n");
+#endif
+    break;
   }
 
   /** second pass **/

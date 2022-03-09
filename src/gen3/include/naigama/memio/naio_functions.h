@@ -34,6 +34,15 @@ NAIG_ERR_T naio_labelmap_get
   (naio_labelmap_t* map, char* str, unsigned len, unsigned* offset)
   __attribute__ ((warn_unused_result));
 
+/* declared in ./lib/memio/naio_labelmap_load.c */
+extern
+NAIG_ERR_T naio_labelmap_load
+  (
+    naio_labelmap_t* map,
+    const char* filename
+  )
+  __attribute__ ((warn_unused_result));
+
 /* declared in ./lib/memio/naio_labelmap_put.c */
 extern
 NAIG_ERR_T naio_labelmap_put

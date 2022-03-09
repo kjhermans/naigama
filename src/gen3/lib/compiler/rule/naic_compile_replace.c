@@ -43,7 +43,6 @@ NAIG_ERR_T naic_compile_replace
   naio_resobj_t* replaceterm;
 
   while ((replaceterm = naio_resobj_query(tokens, 1, SLOT_REPLACETERM, i++)) != NULL) {
-naic_resobj_debug(replaceterm);
     switch (replaceterm->children[ 0 ]->type) {
     case SLOT_STRINGLITERAL:
       CHECK(naic_compile_string(naic, replaceterm->children[ 0 ]));

@@ -44,4 +44,14 @@ naio_buf_t;
 
 #define NAIO_BUF_INIT { 0, 0, 0 }
 
+#define NAIO_BUF_ADD(_buf, _mem, _siz) { \
+  if ((_buf)->len + _siz >= (_buf)->alc) { \
+    (_buf)->alc = (_buf)->len + _siz + 1024; \
+    (_buf)->ptr = realloc((_buf)->ptr, (_buf)->alc); \
+  } \
+  memcpy((_buf)->ptr + (_buf)->len, (_mem), (_siz)); \
+  (_buf)->len += _siz; \
+  (_buf)->ptr[ (_buf)->len ] = 0; \
+}
+
 #endif

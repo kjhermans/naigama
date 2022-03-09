@@ -4,3 +4,4 @@ all:
 	@cd disassembler && make
 	@cd engine && make
 	@cd service && make
+	@cd naigama && make

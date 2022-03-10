@@ -41,7 +41,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 NAIG_ERR_T naic_compile_top
   (naic_t* naic, naio_resobj_t* top)
 {
-  unsigned i;
+  //unsigned i;
   char timestring[ 64 ];
   time_t t;
   struct tm* tm;

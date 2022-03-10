@@ -39,15 +39,14 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 NAIG_ERR_T naic_compile_varcapture
   (naic_t* naic, naio_resobj_t* capture)
 {
-  unsigned expression = 0;
+//  unsigned expression = 0;
   unsigned slot = capture->slotnumber;
+
+#ifdef _DEBUG
   naio_resobj_t* ident, * body;
-
-  ident = naio_result_object_query(
-    capture, 1, SLOT_IDENT, 0
-  );
+  ident = naio_result_object_query(capture, 1, SLOT_IDENT, 0);
   body = naio_result_object_query(capture, 1, SLOT_EXPRESSION);
-
+#endif
   ASSERT(ident != NULL)
   ASSERT(body != NULL)
 

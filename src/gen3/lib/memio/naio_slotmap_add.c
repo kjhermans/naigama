@@ -44,11 +44,11 @@ NAIG_ERR_T naio_slotmap_add
   )
 {
   unsigned i;
-  char try[ 64 ];
-  char scratch[ 512 ];
-  char* str = scratch;
-  int potentialdouble = 1;
-  unsigned counter = 1;
+//  char try[ 64 ];
+//  char scratch[ 512 ];
+//  char* str = scratch;
+//  int potentialdouble = 1;
+//  unsigned counter = 1;
 
   for (i=0; i < slotmap->count; i++) {
     if (slotmap->table[ i ].slot == slot) {

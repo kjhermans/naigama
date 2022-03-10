@@ -49,7 +49,7 @@ NAIG_ERR_T naic_compile_capture
 
   slot = group->slotnumber;
   NAIC_WRITE("  opencapture %u\n", slot);
-  CHECK(naic_compile_alts(naic, group));
+  CHECK(naic_compile_alts(naic, group->children[ 0 ]));
   NAIC_WRITE("  closecapture %u\n", slot);
 
   recycle = naio_resobj_query(

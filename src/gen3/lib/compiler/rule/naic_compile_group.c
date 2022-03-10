@@ -39,6 +39,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 NAIG_ERR_T naic_compile_group
   (naic_t* naic, naio_resobj_t* group)
 {
-  CHECK(naic_compile_alts(naic, group));
+  CHECK(naic_compile_alts(naic, group->children[ 0 ]));
   return NAIG_OK;
 }

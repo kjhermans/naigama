@@ -40,25 +40,23 @@ NAIG_ERR_T naic_compile_alts
   (naic_t* naic, naio_resobj_t* alts)
 {
   char success[ 64 ], alt[ 64 ];
-  naio_resobj_t* expr;
 
   snprintf(success, sizeof(success), "__SUCCESS_%u", ++(naic->labelcount));
-  expr = alts;
-  while ((expr = naio_result_object_query(expr, 1, SLOT_EXPRESSION, 0)) != NULL)
-  {
-    if (expr->children[ 0 ]->type == SLOT_ALTERNATIVES) {
-      expr = expr->children[ 0 ];
+  while (alts && alts->type == SLOT_EXPRESSION) {
+    if (alts->children[ 0 ]->type == SLOT_ALTERNATIVES) {
+      alts = alts->children[ 0 ];
       snprintf(alt, sizeof(alt), "__ALT_%u", ++(naic->labelcount));
       NAIC_WRITE("  catch %s\n", alt);
-      CHECK(naic_compile_terms(naic, expr->children[ 0 ]));
+      CHECK(naic_compile_terms(naic, alts->children[ 0 ]));
       NAIC_WRITE("  commit %s\n", success);
       NAIC_WRITE("%s:\n", alt);
-    } else if (expr->children[ 0 ]->type == SLOT_TERMS) {
-      CHECK(naic_compile_terms(naic, expr->children[ 0 ]));
+    } else if (alts->children[ 0 ]->type == SLOT_TERMS) {
+      CHECK(naic_compile_terms(naic, alts->children[ 0 ]));
       NAIC_WRITE("%s:\n", success);
     } else {
       abort();
     }
+    alts = naio_result_object_query(alts, 1, SLOT_EXPRESSION, 0);
   }
 
   return NAIG_OK;

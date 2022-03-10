@@ -52,7 +52,7 @@ NAIG_ERR_T naic_compile_rule
   if (naic->flags & NAIC_FLG_DEFAULTCAPTURE) {
     NAIC_WRITE("  opencapture %u\n", slot);
   }
-  CHECK(naic_compile_alts(naic, rule));
+  CHECK(naic_compile_alts(naic, rule->children[ 1 ]));
   if (naic->flags & NAIC_FLG_DEFAULTCAPTURE) {
     NAIC_WRITE("  closecapture %u\n", slot);
   }

@@ -43,7 +43,7 @@ NAIG_ERR_T naic_sp
   unsigned i = 0;
 
   if ((def = naio_result_object_query(top, 2, SLOT_GRAMMAR, 0, SLOT_SINGLE_EXPRESSION, 0)) != NULL) {
-    CHECK(naic_compile_alts(naic, def));
+    CHECK(naic_compile_alts(naic, def->children[ 0 ]));
   } else {
     while ((def = naio_result_object_query(top, 2, SLOT_GRAMMAR, 0, SLOT_DEFINITION, i++)) != NULL) {
       switch (def->children[ 0 ]->type) {

@@ -97,10 +97,10 @@ NAIG_ERR_T naic_parsetree
   naio_result_object_clean(*object, SLOT_CBOPEN);
   naio_result_object_clean(*object, SLOT_CBCLOSE);
   naio_result_object_clean(*object, SLOT_COLON);
-/*
-  naio_result_object_clean(*object, SLOT_END);
   naio_result_object_clean(*object, SLOT_LEFTARROW);
   naio_result_object_clean(*object, SLOT_OR);
+/*
+  naio_result_object_clean(*object, SLOT_END);
   naio_result_object_clean(*object, SLOT_ABOPEN);
   naio_result_object_clean(*object, SLOT_ABCLOSE);
 */

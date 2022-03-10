@@ -88,6 +88,7 @@ int main
   unsigned assembly_len = 0;
   FILE* output = stdout;
   FILE* labelmap = NULL;
+  naio_labelmap_t lmap;
   int i, debug = 0;
   char* gen = NAIG_GENERATION;
   int genc = 0;
@@ -178,13 +179,16 @@ int main
   }
   NAIG_ERR_T e = naia_assemble(
     assembly,
-    labelmap,
+    &lmap,
     debug,
     (genc ? naia_write_cfile : naia_write_file),
     output
   );
   if (e.code) {
     fprintf(stderr, "Assembler error code %d\n", e.code);
+  }
+  if (labelmap) {
+    e = naio_labelmap_write(&lmap, labelmap);
   }
   return e.code;
 }

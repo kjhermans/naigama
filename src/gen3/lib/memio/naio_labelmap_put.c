@@ -55,7 +55,7 @@ NAIG_ERR_T naio_labelmap_put
       map->entries, sizeof(naio_labent_t) * map->length
     );
   }
-  map->entries[ map->count ].str = str;
+  map->entries[ map->count ].str = strndup(str, len);
   map->entries[ map->count ].len = len;
   map->entries[ map->count ].offset = offset;
   ++(map->count);

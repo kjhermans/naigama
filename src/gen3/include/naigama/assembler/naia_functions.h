@@ -14,7 +14,7 @@ extern
 NAIG_ERR_T naia_assemble
   (
     char* assembly,
-    FILE* labelmap,
+    naio_labelmap_t* labelmap,
     int debug,
     NAIG_ERR_T(*naia_write)(void* ptr, unsigned size, void* arg),
     void* arg

@@ -110,6 +110,7 @@ NAIG_ERR_T do_compile
     unsigned npaths
   )
 {
+  naio_labelmap_t lmap;
   naio_slotmap_t map;
   char* assembly = 0;
 
@@ -140,14 +141,22 @@ NAIG_ERR_T do_compile
     CHECK(
       naia_assemble(
         assembly,
-        labelmap,
+        &lmap,
         flags & NAIC_FLG_DEBUG,
         naic_write_bin,
         output
       )
     );
   } else {
-    CHECK(naic_compile(grammar, &map, flags, paths, npaths, naic_write_file, output));
+    CHECK(
+      naic_compile(
+        grammar, &map, flags, paths, npaths, naic_write_file, output
+      )
+    );
+  }
+  if (labelmap) {
+    CHECK(naio_labelmap_write(&lmap, labelmap));
+    fclose(labelmap);
   }
   if (slotmap) {
     CHECK(naio_slotmap_write(&map, slotmap));

@@ -158,6 +158,7 @@ int main
   char** paths = malloc(sizeof(char*) * argc);
   unsigned npaths = 0;
   naio_slotmap_t slots;
+  naio_labelmap_t labelmap;
   naie_engine_t engine;
   naio_result_t result;
   int compileonly = 0;
@@ -266,7 +267,7 @@ int main
   if (!NAIG_ISOK(
         naia_assemble(
           assembly,
-          0,
+          &labelmap,
           0,
           naig_write_bytecode,
           &bytecode
@@ -301,6 +302,7 @@ int main
   if (!capture) {
     engine.flags = NAIE_FLAG_DOREPLACE;
   }
+  engine.labelmap = labelmap;
 #ifdef _DEBUG
   fprintf(stderr, "Running engine.\n");
 #endif

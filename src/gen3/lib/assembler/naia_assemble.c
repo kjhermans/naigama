@@ -53,7 +53,7 @@ NAIG_ERR_T naia_engine_debug_cont
 NAIG_ERR_T naia_assemble
   (
     char* assembly,
-    FILE* labelmap,
+    naio_labelmap_t* labelmap,
     int debug,
     NAIG_ERR_T(*naia_write)(void* ptr, unsigned size, void* arg),
     void* arg
@@ -118,8 +118,9 @@ NAIG_ERR_T naia_assemble
   free(naia.buffer.ptr);
 
   if (labelmap) {
-    CHECK(naio_labelmap_write(&(naia.labels), labelmap));
-    fclose(labelmap);
+    *labelmap = naia.labels;
+  } else {
+    //.. free naia.labels;
   }
   naio_result_object_free(object);
   return NAIG_OK;

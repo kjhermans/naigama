@@ -39,6 +39,15 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 NAIG_ERR_T naic_compile_reference
   (naic_t* naic, naio_resobj_t* ref)
 {
-  NAIC_WRITE("  call %s\n", ref->string);
+  naic_nspnod_t* entry;
+  char* rule = ref->string;
+
+  CHECK_AND(
+    naic_nsp_get(naic->currentscope, rule, &entry, 0),
+    snprintf(naic->error, sizeof(naic->error),
+      "Could not resolve rule '%s'.", rule
+    )
+  );
+  NAIC_WRITE("  call %s\n", rule);
   return NAIG_OK;
 }

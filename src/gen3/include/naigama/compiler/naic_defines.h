@@ -15,7 +15,6 @@
 #define NAIC_FLG_TRADITIONAL    (1<<6)
 #define NAIC_FLG_DEFAULTCAPTURE (1<<7)
 
-//#define NAIC_WRITE(...) CHECK(naic->write(naic->write_arg, __VA_ARGS__))
 #define NAIC_WRITE(...) CHECK(naio_buf_write_string(naic->current_buffer, __VA_ARGS__))
 #define NAIC_RESERVE(...) CHECK(naic_reserve(naic, __VA_ARGS__))
 

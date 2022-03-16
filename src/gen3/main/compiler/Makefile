@@ -5,9 +5,9 @@ LIBS=\
 	$(CURGEN)/lib/compiler/libnaic.a \
 	$(CURGEN)/lib/engine/libnaie.a \
 	$(CURGEN)/lib/assembler/libnaia.a \
-	$(CURGEN)/lib/util/libutil.a \
 	$(CURGEN)/lib/memio/libnaio.a \
 	$(CURGEN)/lib/naigama/libnaig.a \
+	$(CURGEN)/lib/util/libutil.a \
 	-lm
 
 all: $(TARGET)

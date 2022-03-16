@@ -48,13 +48,20 @@ NAIG_ERR_T naio_buf_write_string
 {
   va_list ap;
   unsigned char* realc;
+  unsigned increase;
 
-  buf->alc = buf->len + 1024;
-  if ((realc = realloc(buf->ptr, buf->len + 1024)) == NULL) {
+  va_start(ap, fmt);
+  increase = vsnprintf(0, 0, fmt, ap);
+  va_end(ap); 
+  if (increase < 1024) {
+    increase = 1024;
+  }
+  buf->alc = buf->len + increase;
+  if ((realc = realloc(buf->ptr, buf->alc)) == NULL) {
     return NAIG_ERR_MEMORY;
   }
   va_start(ap, fmt);
-  vsnprintf((char*)(realc + buf->len), 1024, fmt, ap);
+  vsnprintf((char*)(realc + buf->len), increase, fmt, ap);
   va_end(ap); 
   buf->ptr = realc;
   buf->len = strlen((char*)(buf->ptr));

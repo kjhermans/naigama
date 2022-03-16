@@ -113,21 +113,21 @@ static
 NAIG_ERR_T naig_write_assembly
   (void* ptr, char* fmt, ...)
 {
-  char** assembly = (char**)ptr;
+  naio_buf_t* buf = (naio_buf_t*)ptr;
   va_list ap;
-  char* realc;
-  unsigned len;
+  unsigned increase;
 
-  if (*assembly) {
-    len = strlen(*assembly);
-  } else {
-    len = 0;
-  }
-  realc = (char*)realloc(*assembly, len + 1024);
   va_start(ap, fmt);
-  vsnprintf(realc + len, 1024, fmt, ap);
+  increase = vsnprintf(0, 0, fmt, ap);
   va_end(ap);
-  *assembly = realc;
+  if (increase < 1024) {
+    increase = 1024;
+  }
+  NAIO_BUF_ROOM(buf, increase);
+  va_start(ap, fmt);
+  vsnprintf((char*)(&(buf->ptr[ buf->len ])), increase, fmt, ap);
+  va_end(ap);
+  buf->len = strlen((char*)(buf->ptr));
   return NAIG_OK;
 }
 
@@ -150,7 +150,7 @@ int main
   char* inputfile = "-";
   char* grammar = 0;
   unsigned grammarlen = 0;
-  char* assembly = 0;
+  naio_buf_t assembly = NAIO_BUF_INIT;
   naio_buf_t bytecode = NAIO_BUF_INIT;
   unsigned char* input = 0;
   unsigned inputlen = 0;
@@ -258,15 +258,15 @@ int main
     exit(-1);
   }
   if (compileonly) {
-    fprintf(stdout, "%s\n", assembly);
+    fprintf(stdout, "%s\n", assembly.ptr);
     exit(0);
   }
 #ifdef _DEBUG
-  fprintf(stderr, "%s\nStart assembler.\n", assembly);
+  fprintf(stderr, "%s\nStart assembler.\n", assembly.ptr);
 #endif
   if (!NAIG_ISOK(
         naia_assemble(
-          assembly,
+          (char*)(assembly.ptr),
           &labelmap,
           0,
           naig_write_bytecode,

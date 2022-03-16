@@ -1,0 +1,14 @@
+S                  <- %s+
+MULTILINECOMMENT   <- '--[[' ( !']]' .)* ']]'
+COMMENT            <- '--' [^\n]* '\n'
+__prefix           <- ( MULTILINECOMMENT / COMMENT / S )*
+
+OPT1               <- {
+                        CHAR { HEX }
+                        CHAR { HEX }
+                        CHAR { HEX }
+                        CHAR { HEX } }-> 'quad ' $2 $3 $4 $5
+
+OPT2               <- { SET ALLONES }-> 'any'
+
+OPT3               <- { SET ALLZEROES }-> 'fail'

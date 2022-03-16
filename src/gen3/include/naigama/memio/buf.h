@@ -54,4 +54,11 @@ naio_buf_t;
   (_buf)->ptr[ (_buf)->len ] = 0; \
 }
 
+#define NAIO_BUF_ROOM(_buf, _siz) { \
+  if (_buf->alc < _buf->len + _siz) { \
+    _buf->alc = _buf->len + _siz + 1; \
+    _buf->ptr = realloc(_buf->ptr, _buf->alc); \
+  } \
+}
+
 #endif

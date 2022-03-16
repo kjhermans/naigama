@@ -40,6 +40,11 @@ unsigned hexcodon
   (unsigned high, unsigned low)
   __attribute__ ((warn_unused_result));
 
+/* declared in ./lib/util/logmem.c */
+extern
+void logmem
+  (void* _mem, unsigned int size);
+
 /* declared in ./lib/util/octal.c */
 extern
 unsigned octal

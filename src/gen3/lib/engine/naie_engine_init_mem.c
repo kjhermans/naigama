@@ -60,7 +60,6 @@ NAIG_ERR_T naie_engine_init_mem
   engine->bytecode_length = bytecode_length;
   engine->input = input;
   engine->input_length = input_length;
-  //engine->flags = NAIE_FLAG_ENDLESS;
   {
     engine->stack.realloc = 0;
     engine->stack.entries = mem_stack;

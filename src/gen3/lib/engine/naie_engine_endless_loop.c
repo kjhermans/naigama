@@ -34,41 +34,29 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "naie_private.h"
 
 /**
- * Endless loop detection (not finished - currently unused).
+ * Endless loop detection is based on the premise that if
+ * we hit the same input position on the same bytecode offset
+ * we're inside an endless loop.
+ *
+ * DON'T USE; IS NOT A VALID ALGORITHM
  */
 NAIG_ERR_T naie_engine_endless_loop
   (naie_engine_t* engine)
 {
-  unsigned i;
-
+/*
   if (engine->flags & NAIE_FLAG_ENDLESS) {
-    for (i=0; i < engine->loopdetect.count; i++) {
-fprintf(stderr, "Comparing %u %u %u %u\n", engine->loopdetect.entries[ i ].bytecode_pos, engine->bytecode_pos, engine->loopdetect.entries[ i ].bytecode_pos, engine->input_pos);
-
-      if (engine->loopdetect.entries[ i ].bytecode_pos == engine->bytecode_pos
-          && engine->loopdetect.entries[ i ].bytecode_pos == engine->input_pos)
-      {
-        RETURNERR(NAIG_ERR_ENDLESSLOOP);
-      }
+    if (engine->loopdetect.length != engine->input_length) {
+      engine->loopdetect.length = engine->input_length;
+      engine->loopdetect.count = engine->loopdetect.length;
+      engine->loopdetect.entries = realloc(engine->loopdetect.entries, sizeof(naie_loopdetectentry_t) * engine->loopdetect.length);
+      memset(engine->loopdetect.entries, 0xff, sizeof(naie_loopdetectentry_t) * engine->loopdetect.length);
     }
-    if (engine->loopdetect.count == engine->loopdetect.length) {
-      memmove(
-        &(engine->loopdetect.entries[ 1 ]),
-        &(engine->loopdetect.entries[ 0 ]),
-        (sizeof(engine->loopdetect.entries[ 0 ]) * (-engine->loopdetect.length))
-      );
-    } else {
-      if (engine->loopdetect.count) {
-        memmove(
-          &(engine->loopdetect.entries[ 1 ]),
-          &(engine->loopdetect.entries[ 0 ]),
-          (sizeof(engine->loopdetect.entries[ 0 ]) * engine->loopdetect.count)
-        );
-      }
-      ++(engine->loopdetect.count);
+fprintf(stderr, "Checking endless loop %u,%u -> %u,%u\n", engine->input_pos, engine->bytecode_pos, engine->input_pos, engine->loopdetect.entries[ engine->input_pos ].bytecode_pos);
+    if (engine->loopdetect.entries[ engine->input_pos ].bytecode_pos == engine->bytecode_pos) {
+      RETURNERR(NAIG_ERR_ENDLESSLOOP);
     }
-    engine->loopdetect.entries[ 0 ].bytecode_pos = engine->bytecode_pos;
-    engine->loopdetect.entries[ 0 ].input_pos = engine->input_pos;
+    engine->loopdetect.entries[ engine->input_pos ].bytecode_pos = engine->bytecode_pos;
   }
+*/
   return NAIG_OK;
 }

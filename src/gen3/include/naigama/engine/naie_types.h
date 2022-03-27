@@ -66,7 +66,6 @@ naie_labelentry_t;
 
 typedef struct
 {
-  unsigned                              input_pos;
   unsigned                              bytecode_pos;
 }
 naie_loopdetectentry_t;
@@ -179,6 +178,9 @@ struct naie_engine
   naie_scalar_stack_t                   fstack;
   unsigned                              lastfunc;
 };
+
+#define NAIE_FLAGS_DEFAULT \
+  NAIE_FLAG_ENDLESS
 
 /**
  * Cursor to search the results list as a tree

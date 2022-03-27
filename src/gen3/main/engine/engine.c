@@ -89,7 +89,7 @@ int main
   char* slotmap = 0;
   naio_result_t result;
   char* gen = NAIG_GENERATION;
-  int debugmode = 0, fuzzer = 0;
+  int debugmode = 0, fuzzer = 0, endless = 0;
   int superverbose = 0;
 
 #ifdef _DEBUG
@@ -172,6 +172,9 @@ int main
         replace = !replace;
         suppress = 1;
         break;
+      case 'e':
+        endless = 1;
+        break;
       case 'S':
         suppress = !suppress;
         break;
@@ -219,8 +222,10 @@ int main
           "-f <path>   Fuzzer; produce fuzzed inputs in directory <path>\n"
           "-I          Input is a string. Text position is displayed on error\n"
           "-s <size>   Stack size\n"
+          "-e          Toggle endless loop checking (default %s)\n"
           , gen
           , argv[ 0 ]
+          , ((NAIE_FLAGS_DEFAULT & NAIE_FLAG_ENDLESS) ? "on" : "off")
         );
         exit(-1);
       }
@@ -235,6 +240,7 @@ int main
       data,
       data_length
     );
+    engine.flags = NAIE_FLAGS_DEFAULT;
     if (e.code) {
       return -1;
     }
@@ -256,6 +262,13 @@ int main
     if (debug) { engine.flags |= NAIE_FLAG_DEBUG; }
     if (diligent) { engine.flags |= NAIE_FLAG_DILIGENT; }
     if (replace) { engine.flags |= NAIE_FLAG_DOREPLACE; }
+    if (endless) {
+      if (engine.flags & NAIE_FLAG_ENDLESS) {
+        engine.flags &= ~(NAIE_FLAG_ENDLESS);
+      } else {
+        engine.flags |= NAIE_FLAG_ENDLESS;
+      }
+    }
     if (labelmap) {
       e = naio_labelmap_load(&(engine.labelmap), labelmap);
       if (e.code) {

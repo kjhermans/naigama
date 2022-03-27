@@ -52,7 +52,6 @@ NAIG_ERR_T naie_engine_init
   engine->bytecode_length = bytecode_length;
   engine->input = input;
   engine->input_length = input_length;
-  //engine->flags = NAIE_FLAG_ENDLESS;
   {
     void* mem = malloc(TABLE_INIT_SIZE * sizeof(naie_stackentry_t));
     engine->stack.entries = mem;

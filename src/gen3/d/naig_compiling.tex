@@ -20,22 +20,32 @@ is that this must happen at rule definition level: you cannot have
 substitutions of file contents, for example, in a sequence of matchers,
 or as part of a matcher (for example, inside a string).
 
-\subsection{The '\_\_prefix' Rule}
+Other caveats to the import function are: a limit to the amount of
+recursion allowed, and all importing happens in the same namespace
+(therefore, any recursion should result in a namespace clash error
+anyway).
+
+\subsection{Special Keywords}
+
+\subsubsection{The '\_\_prefix' Rule}
 
 The \_\_prefix rule will define a pattern that is called before
 the evaluation of every rule that follows it. This is typically
 done to remove things like whitespace and comments while parsing
 things like source code or text based data formats (XML, JSON, etc).
 
-\subsection{The '\_\_main' Rule}
+\subsubsection{The '\_\_main' Rule}
 
 The '\_\_main' rule, which does not have to be defined, but if it is,
-it will be called first.
+it will be called first. This may be convenient when the \_\_prefix and
+first rule to be called cause a grammar rule topological conflict.
 
-\subsection{The '\_\_end' Matcher}
+\subsubsection{The '\_\_end' Matcher}
 
-The '\_\_end' matcher, which is not a matcher but is part of a sequence
-of matchers, successfully ends execution of the bytecode at that point.
+The '\_\_end' matcher, which is not a matcher but actually more like
+inline assembly, is nevertheless defined part of a sequence
+of matchers. It successfully ends execution of the bytecode.
+The compiler simply inserts an 'end' assembly instruction at that point.
 
 \subsection{Determining the First Rule}
 

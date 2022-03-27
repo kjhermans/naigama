@@ -20,19 +20,24 @@ The following generations exist, with the following functions:
       Generation two is 'pure' in that it has compiled itself,
       and it only provides parsing.
 
-\item Generation three: This generation extends the concept of the
+\item Generation three: this generation adds some concepts to the
+      otherwise self-sufficient generation two (imports and
+      isolation). It is this generation that does not yet enable
+      scripting, but does diverge from Lua PEG completely.
+
+\item Generation four: This generation extends the concept of the
       language further in that it also allows scripting.
       The parser of the scripting language is not 'active' however,
       because it's performed by generation two.
       It's equivalent to generation zero, in that it is the bootstrap
       compiler for scripting.
 
-\item Generation four: This generation has the compiler and assembler
+\item Generation five: This generation has the compiler and assembler
       defined as active scripts, including grammar. There is no
       support required for their execution, save for the engine's
       implementation in C.
 
-\item Generation five: This generation is 'pure' again, in that it
+\item Generation six: This generation is 'pure' again, in that it
       is equivalent to generation four, but then compiled by itself.
 
 \end{itemize}

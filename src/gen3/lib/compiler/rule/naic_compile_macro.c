@@ -45,8 +45,13 @@ NAIG_ERR_T naic_compile_macro
       for (i = '0'; i <= '9'; i++) { NAIC_SET_BIT_SET(set, i); }
       break;
     case 'n':
-      for (i = '0'; i <= '9'; i++) { NAIC_SET_BIT_SET(set, i); }
-      break;
+      NAIC_WRITE("  range %u %u\n", '0', '9');
+      return NAIG_OK;
+      //for (i = '0'; i <= '9'; i++) { NAIC_SET_BIT_SET(set, i); }
+      //break;
+    case 'r':
+      NAIC_WRITE("  range 32 126\n");
+      return NAIG_OK;
     default:
       snprintf(naic->error, sizeof(naic->error), "Unknown macro '%c'", *chr);
       RETURNERR(NAIG_ERR_MACRO);

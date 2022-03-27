@@ -81,6 +81,13 @@ NAIG_ERR_T naic_compile_set
     if (set->children[ i ]->type == SLOT_SET_NRTV) {
       unsigned from = naic_set_char(set->children[ i ]->string);
       unsigned until = naic_set_char(set->children[ ++i ]->string);
+
+      /** optimizing single ranges in sets **/
+      if (!invert && set->nchildren == 4) {
+        NAIC_WRITE("  range %u %u\n", from, until);
+        return NAIG_OK;
+      }
+
       for (; from <= until; from++) {
         NAIC_SET_BIT_SET(bitmask, from);
       }

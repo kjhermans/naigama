@@ -42,7 +42,7 @@ typedef struct
 }
 naio_buf_t;
 
-#define NAIO_BUF_INIT { 0, 0, 0 }
+#define NAIO_BUF_INIT (naio_buf_t){ 0, 0, 0 }
 
 #define NAIO_BUF_ADD(_buf, _mem, _siz) { \
   if ((_buf)->len + _siz >= (_buf)->alc) { \
@@ -55,9 +55,9 @@ naio_buf_t;
 }
 
 #define NAIO_BUF_ROOM(_buf, _siz) { \
-  if (_buf->alc < _buf->len + _siz) { \
-    _buf->alc = _buf->len + _siz + 1; \
-    _buf->ptr = realloc(_buf->ptr, _buf->alc); \
+  if ((_buf)->alc < (_buf)->len + _siz) { \
+    (_buf)->alc = (_buf)->len + _siz + 1; \
+    (_buf)->ptr = realloc((_buf)->ptr, (_buf)->alc); \
   } \
 }
 

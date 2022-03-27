@@ -164,7 +164,7 @@ int main
   int compileonly = 0;
   int assembleonly = 0;
 
-  for (i=0; i < argc; i++) {
+  for (i=1; i < argc; i++) {
     char* arg = argv[ i ];
     if (*arg == '-') {
       switch (arg[ 1 ]) {
@@ -315,6 +315,7 @@ int main
     naio_buf_t ibuf = NAIO_BUF_INIT;
     if (!capture) {
       NAIO_BUF_ADD(&ibuf, input, inputlen);
+      NAIO_BUF_ROOM(&ibuf, 1024);
     }
 #ifdef _DEBUG
     fprintf(stderr, "Start result handler.\n");
@@ -334,17 +335,42 @@ int main
       fprintf(stderr, "Result handling error.\n");
       exit(-1);
     }
-    fprintf(stdout, "%s", ibuf.ptr);
+    fprintf(stdout, "%-.*s", ibuf.len, ibuf.ptr);
   } else {
     unsigned i;
+    naio_buf_t ibuf = NAIO_BUF_INIT;
+    if (!capture) {
+      NAIO_BUF_ADD(&ibuf, input, inputlen);
+      NAIO_BUF_ROOM(&ibuf, 1024);
+    }
     for (i=0; i < nrules; i++) {
       if (!NAIG_ISOK(naie_engine_call(&engine, rules[ i ], &result)))
       {
         fprintf(stderr, "Engine running error.\n");
         exit(-1);
       }
-      //.. handle result and pour modified buffer over into input
+      if (!NAIG_ISOK(
+            naie_result_handle(
+              &engine,
+              &result,
+              naig_handle_capture,
+              naig_handle_delete,
+              naig_handle_insert,
+              &ibuf
+            )
+          )
+        )
+      {
+        fprintf(stderr, "Result handling error.\n");
+        exit(-1);
+      }
+      engine.input = ibuf.ptr;
+      engine.input_length = ibuf.len;
+      ibuf = NAIO_BUF_INIT;
+      NAIO_BUF_ADD(&ibuf, engine.input, engine.input_length);
+      NAIO_BUF_ROOM(&ibuf, 1024);
     }
+    fprintf(stdout, "%-.*s", ibuf.len, ibuf.ptr);
   }
   return 0;
 }

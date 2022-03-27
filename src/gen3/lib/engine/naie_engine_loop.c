@@ -184,6 +184,22 @@ NAIG_ERR_T naie_engine_loop
       }
       goto NEXT;
 
+    case OPCODE_RANGE:
+      if (engine->input_pos >= engine->input_length) {
+        goto FAIL;
+      }
+      param1 = GET_32BIT_VALUE(engine->bytecode, engine->bytecode_pos + 4);
+      param2 = GET_32BIT_VALUE(engine->bytecode, engine->bytecode_pos + 8);
+      if (engine->input[ engine->input_pos ] >= param1
+          && engine->input[ engine->input_pos ] <= param2)
+      {
+        ++(engine->input_pos);
+        engine->bytecode_pos += instruction_size;
+      } else {
+        goto FAIL;
+      }
+      goto NEXT;
+
     case OPCODE_MASKEDCHAR:
       if (engine->input_pos >= engine->input_length) {
         goto FAIL;

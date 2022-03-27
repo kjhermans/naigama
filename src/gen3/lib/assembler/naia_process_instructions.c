@@ -54,6 +54,8 @@ NAIG_ERR_T naia_process_instruction
     CHECK(naia_process_partialcommit(naia, object)); break;
   case ASMSLOT_QUADINSTR_QUAD:
     CHECK(naia_process_quad(naia, object)); break;
+  case ASMSLOT_RANGEINSTR_RANGE:
+    CHECK(naia_process_range(naia, object)); break;
   case ASMSLOT_REPLACEINSTR_REPLACE:
     CHECK(naia_process_replace(naia, object)); break;
   case ASMSLOT_ENDREPLACEINSTR_ENDREPLACE:
@@ -89,7 +91,7 @@ NAIG_ERR_T naia_process_instruction
     /* ignore */
     break;
   default:
-    fprintf(stderr, "Unknown slot %u\n", object->type);
+    fprintf(stderr, "Unknown slot %u\n", object->children[0]->type);
     naio_resobj_debug(object, 0);
   }
   return NAIG_OK;

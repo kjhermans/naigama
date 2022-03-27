@@ -141,6 +141,12 @@ NAIG_ERR_T naia_process_quad
   (naia_t* naia, naio_resobj_t* object)
   __attribute__ ((warn_unused_result));
 
+/* declared in ./lib/assembler/naia_process_range.c */
+extern
+NAIG_ERR_T naia_process_range
+  (naia_t* naia, naio_resobj_t* object)
+  __attribute__ ((warn_unused_result));
+
 /* declared in ./lib/assembler/naia_process_replace.c */
 extern
 NAIG_ERR_T naia_process_replace

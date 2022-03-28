@@ -3,6 +3,9 @@
 use Data::Dumper;
 use GD;
 
+my ($grammar, $asm, $input) = @ARGV;
+
+my $ctroff = 0;
 my $width = 800;
 my $height = 600;
 my $dir = "/tmp/movie_$$"; 
@@ -12,6 +15,16 @@ my $movie = '/tmp/movie.mp4';
 `rm -rf $dir && mkdir -p $dir`;
 
 my @queue;
+
+if (defined($grammar)) {
+  make_title('Grammar', `cat $grammar`);
+}
+if (defined($asm)) {
+  make_title('Assembly', `cat $asm`);
+}
+if (defined($input)) {
+  make_title('Input', `cat $input`);
+}
 
 while (1) {
   if (my $rec = gather_record()) {
@@ -139,9 +152,15 @@ sub make_image
   if ($rec->{index} % 128 eq '0') {
     print STDERR "Frame $rec->{index}\n";
   }
-  $im->line(8, $height - 32, $width - 8, $height - 32, $blue);
+  $im->line(8, $height - 48, $width - 8, $height - 48, $blue);
   for (my $i=0; $i < scalar(@{$rec->{input_string}}); $i++) {
-    $im->string(gdSmallFont, 16 + $i * 16, $height - 30, $rec->{input_string}[ $i ], $blue);
+    $im->string(gdSmallFont, 16 + $i * 16, $height - 46, $rec->{input_string}[ $i ], $blue);
+    my $chr = hex($rec->{input_string}[ $i ]);
+    if ($chr > 31 && $chr < 127) {
+      $im->string(gdSmallFont, 16 + $i * 8, $height - 30, chr($chr), $blue);
+    } else {
+      $im->string(gdSmallFont, 16 + $i * 8, $height - 30, '.', $blue);
+    }
   }
   if ($rec->{state} eq 'FAIL') {
     $im->string(gdSmallFont, 16, 16, "FAIL", $red);
@@ -160,7 +179,7 @@ sub make_image
   $im->string(gdSmallFont, 16, 112, "Stack size: " . scalar(@{$rec->{stack}}), $black);
   $im->string(gdSmallFont, 16, 128, "Captures size: " . scalar(@{$rec->{captures}}), $black);
   my $off = 0;
-  my $hil = int($height / 16) - 3;
+  my $hil = int($height / 16) - 5;
   if (scalar(@{$rec->{stack}}) > $hil) {
     $off = scalar(@{$rec->{stack}}) - $hil;
   }
@@ -168,7 +187,7 @@ sub make_image
     $im->string(
       gdSmallFont,
       int($width / 5),
-      $height - ((3 + ($i - $off)) * 16),
+      $height - 16 - ((3 + ($i - $off)) * 16),
       sprintf(
         "%3d: %s %4d %3d %s",
         $i,
@@ -188,7 +207,7 @@ sub make_image
     $im->string(
       gdSmallFont,
       3 * int($width / 5),
-      $height - ((3 + ($i - $off)) * 16),
+      $height - 16 - ((3 + ($i - $off)) * 16),
       sprintf(
         "%3d: %s %3d %4d %s",
         $i,
@@ -201,9 +220,46 @@ sub make_image
     );
   }
 
-  open FILE, '>', sprintf("%s/frame_%.6d.png", $dir, $rec->{index});
+  open FILE, '>', sprintf("%s/frame_%.6d.png", $dir, $rec->{index} + $ctroff);
   print FILE $im->png;
   close FILE;
+}
+
+sub make_title
+{
+  my $title = shift;
+  my @lines = @_;
+  my $done = 0;
+  my $wait = 32;
+  while (!$done) {
+    my $im = new GD::Image($width, $height);
+    my $white = $im->colorAllocate(255,255,255);
+    my $black = $im->colorAllocate(0,0,0);       
+    $im->line(8, $height - 32, $width - 8, $height - 32, $black);
+    $im->string(gdSmallFont, 16, $height - 30, $title, $black);
+    $done = 1;
+    for (my $i=0; $i < scalar(@lines); $i++) {
+      my $line = $lines[ $i ];
+      $line =~ s/\r?\n$//;
+      $im->string(gdSmallFont, 16, 16 + $i * 16, $line, $black);
+      if (80 + $i * 16 > $height) {
+        $done = 0;
+        shift @lines;
+        last;
+      }
+    }
+    if ($done) {
+      $wait = 32;
+    }
+    for (my $i=0; $i < $wait; $i++) {
+      open FILE, '>', sprintf("%s/frame_%.6d.png", $dir, $ctroff++);
+      print FILE $im->png;
+      close FILE;
+    }
+    if (!$done) {
+      $wait = 1;
+    }
+  }
 }
 
 sub make_movie

@@ -4,10 +4,20 @@ CC=$(ARCH)gcc
 AR=$(ARCH)ar
 CFLAGS=-g -Wall -Wextra $(DEBUG) -I$(CURGEN)/include
 
-all: $(LIB)
+all: $(LIB) biglib
 
 $(LIB): $(OBJECTS)
 	$(AR) -rcs $(LIB) $(OBJECTS)
+
+biglib:
+	../../bin/arjoin libnaigama.a \
+          ../util/libutil.a \
+	  ../memio/libnaio.a \
+          ../compiler/libnaic.a \
+          ../assembler/libnaia.a \
+          ../disassembler/libnaid.a \
+          ../engine/libnaie.a \
+          ../naigama/libnaig.a
 
 clean:
 	@rm -f $(OBJECTS) $(LIB)

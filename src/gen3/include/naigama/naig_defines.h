@@ -118,4 +118,101 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #define NAIG_SLOT_DEFAULT               0x7fffff
 
+#define NAIG_CHECK(fnc) { \
+  NAIG_ERR_T __e = (fnc); \
+  if (__e.code) { \
+    DEBUG(__e); \
+    return __e; \
+  } \
+}
+#ifdef CHECK
+#undef CHECK
+#endif
+#define CHECK NAIG_CHECK
+
+#define NAIG_CHECK_LOG(fnc, ...) { \
+  NAIG_ERR_T __e = (fnc); \
+  if (__e.code) { \
+    fprintf(stderr, __VA_ARGS__); \
+    DEBUG(__e); \
+    return __e; \
+  } \
+}
+#ifdef CHECK_LOG
+#undef CHECK_LOG
+#endif
+#define CHECK_LOG NAIG_CHECK_LOG
+
+#define NAIG_CHECK_AND(fnc, alt) { \
+  NAIG_ERR_T __e = (fnc); \
+  if (__e.code) { \
+    (alt); \
+    DEBUG(__e); \
+    return __e; \
+  } \
+}
+#ifdef CHECK_AND
+#undef CHECK_AND
+#endif
+#define CHECK_AND NAIG_CHECK_AND
+
+#define NAIG_CHECK_ALT(fnc, alt) { \
+  NAIG_ERR_T __e = (fnc); \
+  if (__e.code) { \
+    return(alt); \
+  } \
+}
+#ifdef CHECK_ALT
+#undef CHECK_ALT
+#endif
+#define CHECK_ALT NAIG_CHECK_ALT
+
+#define NAIG_CHECK_NODEBUG(fnc) { \
+  NAIG_ERR_T __e = (fnc); \
+  if (__e.code) { \
+    return __e; \
+  } \
+}
+#ifdef CHECK_NODEBUG
+#undef CHECK_NODEBUG
+#endif
+#define CHECK_NODEBUG NAIG_CHECK_NODEBUG
+
+#define NAIG_CATCH(fnc,err) { \
+  NAIG_ERR_T __e = (fnc); \
+  if (__e.code && __e.code != err.code) { \
+    DEBUG(__e); \
+    return __e; \
+  } \
+}
+#ifdef CATCH
+#undef CATCH
+#endif
+#define CATCH NAIG_CATCH
+
+#define NAIG_CATCHOUT(fnc,err) { \
+  NAIG_ERR_T __e = (fnc); \
+  if (__e.code) { \
+    if (__e.code == err.code) { \
+      return NAIG_OK; \
+    } else { \
+      DEBUG(__e); \
+      return __e; \
+    } \
+  } \
+}
+#ifdef CATCHOUT
+#undef CATCHOUT
+#endif
+#define CATCHOUT NAIG_CATCHOUT
+
+#define NAIG_CATCHALL(fnc) { \
+  NAIG_ERR_T __e = (fnc); \
+  (void)__e; \
+}
+#ifdef CATCHALL
+#undef CATCHALL
+#endif
+#define CATCHALL NAIG_CATCHALL
+
 #endif // ~_NAIG_DEFINES_H_

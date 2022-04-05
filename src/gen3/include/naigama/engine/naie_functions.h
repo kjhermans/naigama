@@ -194,6 +194,11 @@ NAIG_ERR_T naie_result_fill
   )
   __attribute__ ((warn_unused_result));
 
+/* declared in ./lib/engine/naie_result_free.c */
+extern
+void naie_result_free
+  (naio_result_t* result);
+
 /* declared in ./lib/engine/naie_result_handle.c */
 extern
 NAIG_ERR_T naie_result_handle

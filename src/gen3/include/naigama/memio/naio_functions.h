@@ -100,6 +100,12 @@ NAIG_ERR_T naio_result_object_iterate
   (naio_resobj_t* resobj, unsigned nelts, naio_resobj_itelt_t* elts)
   __attribute__ ((warn_unused_result));
 
+/* declared in ./lib/memio/naio_result_object_path.c */
+extern
+naio_resobj_t* naio_result_object_path
+  (naio_resobj_t* parent, unsigned nargs, ...)
+  __attribute__ ((warn_unused_result));
+
 /* declared in ./lib/memio/naio_result_object_query.c */
 extern
 naio_resobj_t* naio_result_object_query

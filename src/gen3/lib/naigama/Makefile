@@ -11,15 +11,15 @@ $(LIB): $(OBJECTS)
 
 biglib:
 	../../bin/arjoin libnaigama.a \
-          ../util/libutil.a \
+	  ../util/libutil.a \
 	  ../memio/libnaio.a \
-          ../compiler/libnaic.a \
-          ../assembler/libnaia.a \
-          ../disassembler/libnaid.a \
-          ../engine/libnaie.a \
-          ../naigama/libnaig.a
+	  ../compiler/libnaic.a \
+	  ../assembler/libnaia.a \
+	  ../disassembler/libnaid.a \
+	  ../engine/libnaie.a \
+	  ../naigama/libnaig.a
 
 clean:
-	@rm -f $(OBJECTS) $(LIB)
+	@rm -f $(OBJECTS) $(LIB) libnaigama.a
 
 superclean: clean

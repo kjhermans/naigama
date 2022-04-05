@@ -5,6 +5,12 @@ all: makerelease gen0 gen1 gen2 gen3
 
 world: superclean archive all other test other_test demos doc
 
+install: all
+	./bin/install.sh
+
+uninstall:
+	./bin/uninstall.sh
+
 debug:
 	make all DEBUG="-D_DEBUG=1"
 

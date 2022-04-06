@@ -988,7 +988,28 @@ eprintln!("FAIL");
     {
       return Err(NaigError::simple(NaigError::ErrBytecode));
     }
-    state.bytecode_offset += libnaig::instructions::_INSTR_SIZE_TESTSET;
+
+    let offset = NaigEngine::decode_quad(
+                   & state.engine.bytecode,
+                   state.bytecode_offset + 4
+                 )?;
+    if state.input_offset >= state.input_length
+    {
+      state.bytecode_offset = offset;
+      return Ok(());
+    }
+
+    let setoff = state.bytecode_offset + 8;
+    let bitoff = state.input[ state.input_offset ] as usize;
+
+    if ((state.engine.bytecode[ setoff as usize + (bitoff / 8) ]
+        >> (bitoff % 8)) & 0x01) == 0x01
+    {
+      state.input_offset += 1;
+      state.bytecode_offset += libnaig::instructions::_INSTR_SIZE_TESTSET;
+    } else {
+      state.bytecode_offset = offset;
+    }
     return Ok(());
   }
 

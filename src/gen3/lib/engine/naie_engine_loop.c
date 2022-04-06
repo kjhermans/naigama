@@ -384,6 +384,19 @@ NAIG_ERR_T naie_engine_loop
       }
       goto NEXT;
 
+    case OPCODE_TESTQUAD:
+      param1 = GET_32BIT_VALUE(engine->bytecode, engine->bytecode_pos + 4);
+      set = engine->bytecode + engine->bytecode_pos + 8;
+      if (engine->input_pos <= engine->input_length - 4
+          && 0 == memcmp(engine->input + engine->input_pos, set, 4))
+      {
+        engine->input_pos += 4;
+        engine->bytecode_pos += instruction_size;
+      } else {
+        engine->bytecode_pos = param1;
+      }
+      goto NEXT;
+
     case OPCODE_TESTSET:
       param1 = GET_32BIT_VALUE(engine->bytecode, engine->bytecode_pos + 4);
       set = engine->bytecode + engine->bytecode_pos + 8;
@@ -468,6 +481,10 @@ NAIG_ERR_T naie_engine_loop
       RETURNERR(NAIG_ERR_ACTIONLIST);
 
     case OPCODE_ENDISOLATE:
+      engine->bytecode_pos += instruction_size;
+      return NAIG_OK;
+
+    case OPCODE_ENDREPLACE:
       engine->bytecode_pos += instruction_size;
       return NAIG_OK;
 

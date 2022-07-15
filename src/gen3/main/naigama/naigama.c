@@ -289,9 +289,7 @@ int main
         naie_engine_init(
           &engine,
           bytecode.ptr,
-          bytecode.len,
-          input,
-          inputlen
+          bytecode.len
         )
       )
     )
@@ -307,7 +305,7 @@ int main
   fprintf(stderr, "Running engine.\n");
 #endif
   if (0 == nrules) {
-    if (!NAIG_ISOK(naie_engine_run(&engine, &result)))
+    if (!NAIG_ISOK(naie_engine_run(&engine, input, inputlen, &result)))
     {
       fprintf(stderr, "Engine running error.\n");
       exit(-1);

@@ -15,6 +15,23 @@
 
 /**
  *
+ * No Unicode support, but all the other escapes.
+ *
+ * \a         → BEL @ U+0007 (“alert”—beeps, dings, flashes)
+ * \b         → BS  @ U+0008 (moves cursor ← 1)
+ * \t         → HT  @ U+0009 (advance to next horiz tab stop, not nec. every 8)
+ * \n         → LF  @ U+000A (newline, or bump cursor ↓ 1)
+ * \v         → VT  @ U+000B (bump ↓ to next vert tab stop)
+ * \f         → FF  @ U+000C (adv to next page; wipe screen)
+ * \r         → CR  @ U+000D (move to start of line)
+ * \e         → ESC @ U+001B (GNU dialect only)
+ * \"         → "   @ U+0022 (avoids ending string lit)
+ * \'         → '   @ U+0027 (avoid ending char lit)
+ * \?         → ?   @ U+003F (to avoid trigraphization)
+ * \\         → \   @ U+005C (avoid escape)
+ * \CCC…      → octal char code (eats digits C=[0–7]; C23 will cap @ 3)
+ * \xXX…      → hex char code (eats digits X=[0–9A–Fa–f]; no cap)
+ *
  */
 NAIG_ERR_T naic_string_unescape
   (

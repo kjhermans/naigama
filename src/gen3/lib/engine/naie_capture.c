@@ -1,7 +1,7 @@
 /**
- * This file is part of Naigama, a parser engine.
+ * This file is part of Oroszlan, a parsing and scripting environment
 
-Copyright (c) 2020, Kees-Jan Hermans <kees.jan.hermans@gmail.com>
+Copyright (c) 2022, Kees-Jan Hermans <kees.jan.hermans@gmail.com>
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -11,7 +11,7 @@ modification, are permitted provided that the following conditions are met:
     * Redistributions in binary form must reproduce the above copyright
       notice, this list of conditions and the following disclaimer in the
       documentation and/or other materials provided with the distribution.
-    * Neither the name of the <organization> nor the
+    * Neither the name of the organization nor the
       names of its contributors may be used to endorse or promote products
       derived from this software without specific prior written permission.
 
@@ -31,35 +31,43 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \brief
  */
 
-#include "naig_private.h"
+#include "naie_private.h"
 
 /**
- *
+ * \param capture Callback for each capture. Args:
+ *        - capture index (nth capture)
+ *        - pointer to the start of the capture in the input
+ *        - length of capture
+ *        - capture slot type
+ *        - pointer argument provided by the caller
  */
-NAIG_ERR_T naig_run
+NAIG_ERR_T naie_capture
   (
-    naig_t* naig,
+    naie_engine_t* engine,
     unsigned char* input,
     unsigned input_length,
-    naio_result_t* result
+    int(*capture)(unsigned, unsigned char*, unsigned, unsigned, void*),
+    void* ptr
   )
 {
-  CHECK(
-    naie_engine_init(
-      &(naig->engine),
-      naig->bytecode,
-      naig->bytecode_length
-    )
-  );
-  if (naig->debug) {
-    naig->engine.flags |= NAIE_FLAG_DEBUG;
+  unsigned i;
+  naio_result_t result;
+
+  NAIG_CHECK(naie_engine_run(engine, input, input_length, &result));
+  for (i=0; i < result.count; i++) {
+    if (result.actions[ i ].action == NAIG_ACTION_OPENCAPTURE) {
+      if (capture(
+            i,
+            input + result.actions[ i ].start,
+            result.actions[ i ].length, 
+            result.actions[ i ].slot, 
+            ptr))
+      {
+//.. should be error
+        break;
+      }
+    }
   }
-  naig->engine.flags |= NAIE_FLAG_DOREPLACE;
-  CHECK(naie_engine_run(
-          &(naig->engine),
-          input,
-          input_length,
-          (naio_result_t*)result)
-  );
+  naie_result_free(&result);
   return NAIG_OK;
 }

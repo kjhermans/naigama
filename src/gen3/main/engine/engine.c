@@ -236,9 +236,7 @@ int main
     e = naie_engine_init(
       &engine,
       bytecode,
-      bytecode_length,
-      data,
-      data_length
+      bytecode_length
     );
     engine.flags = NAIE_FLAGS_DEFAULT;
     if (e.code) {
@@ -304,6 +302,8 @@ int main
     }
     e = naie_engine_run(
       &engine,
+      data,
+      data_length,
       &result
     );
     if (e.code) {

@@ -87,9 +87,7 @@ NAIG_ERR_T engine_debug_handler
       naie_engine_init(
         &debug_commands,
         debug_command_bytecode,
-        sizeof(debug_command_bytecode),
-        0,
-        0
+        sizeof(debug_command_bytecode)
       )
     );
     debug_commands_init = 1;
@@ -108,10 +106,14 @@ BEGIN:
     return NAIG_OK;
   case NAIE_DEBUG_HALT:
     cmdstr = readline("naid > ");
-    debug_commands.input = (unsigned char*)cmdstr;
-    debug_commands.input_length = strlen(cmdstr);
-    CHECK(naie_engine_run(&debug_commands, &result));
-
+    CHECK(
+      naie_engine_run(
+        &debug_commands,
+        (unsigned char*)cmdstr,
+        strlen(cmdstr),
+        &result
+      )
+    );
     if (result.count) {
       if (result.actions[ 0 ].slot == SLOT_CMD_NEXTN) {
         fprintf(stderr, "Next.\n");

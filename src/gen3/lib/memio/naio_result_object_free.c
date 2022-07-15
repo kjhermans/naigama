@@ -46,4 +46,5 @@ void naio_result_object_free
     naio_result_object_free(object->children[ i ]);
   }
   free(object->children);
+  free(object);
 }

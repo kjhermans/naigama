@@ -42,16 +42,12 @@ NAIG_ERR_T naie_engine_init
   (
     naie_engine_t* engine,
     const unsigned char* bytecode,
-    unsigned bytecode_length,
-    const unsigned char* input,
-    unsigned input_length
+    unsigned bytecode_length
   )
 {
   memset(engine, 0, sizeof(naie_engine_t));
   engine->bytecode = bytecode;
   engine->bytecode_length = bytecode_length;
-  engine->input = input;
-  engine->input_length = input_length;
   {
     void* mem = malloc(TABLE_INIT_SIZE * sizeof(naie_stackentry_t));
     engine->stack.entries = mem;

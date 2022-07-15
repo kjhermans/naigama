@@ -68,9 +68,7 @@ NAIG_ERR_T naia_assemble
     naie_engine_init(
       &engine,
       bytecode,
-      sizeof(bytecode),
-      (const unsigned char*)assembly,
-      strlen(assembly)
+      sizeof(bytecode)
     )
   );
   if (debug) {
@@ -79,6 +77,8 @@ NAIG_ERR_T naia_assemble
   }
   e = naie_engine_run(
     &engine,
+    (const unsigned char*)assembly,
+    strlen(assembly),
     &result
   );
   if (e.code) {

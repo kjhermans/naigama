@@ -316,6 +316,7 @@ int main
           "-s         Generate reduced instruction set\n"
           "-w         Write out loops instead of using counters\n"
           "-C         Produce a default capture for every rule\n"
+          "-G <path>  Generate C code for every capture\n"
           "-I <path>  Add path for import purposes\n"
           , gen
           , argv[ 0 ]

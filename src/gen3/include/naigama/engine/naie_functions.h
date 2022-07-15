@@ -21,6 +21,18 @@ NAIG_ERR_T naie_action_push
   (naie_engine_t* engine, naie_action_t action)
   __attribute__ ((warn_unused_result));
 
+/* declared in ./lib/engine/naie_capture.c */
+extern
+NAIG_ERR_T naie_capture
+  (
+    naie_engine_t* engine,
+    unsigned char* input,
+    unsigned input_length,
+    int(*capture)(unsigned, unsigned char*, unsigned, unsigned, void*),
+    void* ptr
+  )
+  __attribute__ ((warn_unused_result));
+
 /* declared in ./lib/engine/naie_debug_actions.c */
 extern
 void naie_debug_actions
@@ -62,15 +74,18 @@ NAIG_ERR_T naie_engine_endless_loop
   (naie_engine_t* engine)
   __attribute__ ((warn_unused_result));
 
+/* declared in ./lib/engine/naie_engine_free.c */
+extern
+void naie_engine_free
+  (naie_engine_t* engine);
+
 /* declared in ./lib/engine/naie_engine_init.c */
 extern
 NAIG_ERR_T naie_engine_init
   (
     naie_engine_t* engine,
     const unsigned char* bytecode,
-    unsigned bytecode_length,
-    const unsigned char* input,
-    unsigned input_length
+    unsigned bytecode_length
   )
   __attribute__ ((warn_unused_result));
 
@@ -115,6 +130,8 @@ extern
 NAIG_ERR_T naie_engine_run
   (
     naie_engine_t* engine,
+    unsigned char* input,
+    unsigned input_length,
     naio_result_t* result
   )
   __attribute__ ((warn_unused_result));

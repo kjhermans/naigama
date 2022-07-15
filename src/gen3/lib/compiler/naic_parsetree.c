@@ -56,9 +56,7 @@ NAIG_ERR_T naic_parsetree
       naie_engine_init(
         &engine,
         bytecode,
-        sizeof(bytecode),
-        (const unsigned char*)grammar,
-        strlen(grammar)
+        sizeof(bytecode)
       )
     );
     engine_init = 0;
@@ -76,7 +74,12 @@ NAIG_ERR_T naic_parsetree
     engine.flags &= ~NAIE_FLAG_DEBUG;
     engine.debugger = 0;
   }
-  e = naie_engine_run(&engine, &result);
+  e = naie_engine_run(
+        &engine,
+        (const unsigned char*)grammar,
+        strlen(grammar),
+        &result
+  );
   if (e.code) {
     unsigned yx[ 2 ];
     if (strxypos(grammar, engine.input_pos, yx) == 0) {

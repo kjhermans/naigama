@@ -49,11 +49,25 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 NAIG_ERR_T naie_engine_run
   (
     naie_engine_t* engine,
+    unsigned char* input,
+    unsigned input_length,
     naio_result_t* result
   )
 {
+  engine->input = input;
+  engine->input_length = input_length;
   engine->bytecode_pos = 0;
   engine->input_pos = 0;
+  engine->reg_ilen_set = 0;
+  engine->stack.count = 0;
+  engine->actions.count = 0;
+  engine->reg.length = 0;
+  engine->loopdetect.count = 0;
+  engine->forensics.stacksizebeforefail = 0;
+  engine->forensics.noinstructions = 0;
+  engine->forensics.maxstackdepth = 0;
+  engine->labelmap.count = 0;
+  engine->slotmap.count = 0;
   memset(result, 0, sizeof(naio_result_t));
   CHECK(naie_engine_loop(engine, result));
   return NAIG_OK;

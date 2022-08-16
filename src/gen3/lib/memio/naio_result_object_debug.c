@@ -44,7 +44,7 @@ void naio_result_object_debug_
     if (fnc) {
       fprintf(stderr, "                                     TOP ");
     } else {
-      fprintf(stderr, "TOP  - ");
+      fprintf(stderr, "TOP  ");
     }
   } else if (fnc) {
     fprintf(stderr, "%*.*s ", 40, 40, fnc(object->type));

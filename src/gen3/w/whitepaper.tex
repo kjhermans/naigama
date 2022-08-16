@@ -5,7 +5,7 @@
 Underlying the process of parsing certain application message formats,
 most notably SNMP \cite{bib:snmp}
 (which is typically used for managing network devices) and PKI 
-related messages (X.509 certificates, CRL’s, etc \cite{bib:x509})
+artefacts and related messages (X.509 certificates, CRL’s, etc \cite{bib:x509})
 is a grammar 
 specification (Abstract Syntax Notation (ASN.1) \cite{bib:asn1})
 and its binary 
@@ -14,7 +14,7 @@ Distinguished Encoding Rules (DER) \cite{bib:ber},
 etc, from now on collectively 
 referred to as ‘BER’).
 
-Because these messages are Internet-exchanged, BER encoded messages must 
+Because they are Internet-exchanged, BER messages must 
 be parseable by a recipient that cannot establish their origin, 
 potentially exposing itself to mistakes and malice. To have a BER parser 
 that does not fail, is crucial for the security of logic that depends on 
@@ -30,7 +30,8 @@ compression schemes, most notably of numbers. Also often, at least in the
 case of SNMP and X.509, the messages may contain a cryptographic signature 
 (which would allow you to verify the integrity of the message and the 
 authenticity of the sender), but these are positioned in the format in a 
-place that already requires parsing, defying the purpose of the security 
+place that already requires parsing, defying - to a point - the purpose of
+the security 
 measure. Lastly, the ASN.1 grammar and standards texts describing these 
 formats are sometimes less than formal (ie they require human 
 interpretation). This paper proposes several methods to address these 
@@ -46,6 +47,12 @@ regular expressions \cite{bib:regex}, Lex and Yacc \cite{bib:yacc}) and the
 more specific – in this case: Parsing Expression Grammar, or PEG
 \cite{bib:peg}, or, 
 even more specific: its Lua implementation: LPEG \cite{bib:lpeg}.
+Lastly, this paper assumes that the reader is familiar with the development
+concepts of source code and binaries, and
+how source code is compiled, via an intermediate assembly state, by a compiler
+and assembler, to a binary file
+which can subsequently be used for execution
+inside a hardware or software machine.
 
 \subsubsection{High Level Goals}
 
@@ -112,8 +119,8 @@ Type
 \end{myquote}
 \end{changemargin}
 
-Whereas, for example, in JSON \cite{bib:json},
-such a message might be encoded as follows:
+Transliterated in JSON \cite{bib:json},
+such a message might look like this:
 
 \begin{changemargin}{-60mm}{0mm}
 \begin{myquote}
@@ -205,7 +212,7 @@ possible (and therefore deterministic). X.690 \cite{bib:x690} stipulates (in
 
 \textit{“The subidentifier shall be encoded in the fewest 
 possible octets, that is, the leading octet of the subidentifier shall not 
-have the value }80_{16}\textit{.”}
+have the value 0x80.”}
 
 Below is an example of the OID above, BER encoded and represented as
 a hexadecimal string:
@@ -404,6 +411,7 @@ found here: https://github.com/kjhermans/naigama.
 
 Naigama extends LPEG (in a non-compatible manner), and implements among 
 others the following relevant, extra functionality:
+\begin{itemize}
     \item It provides an assembly language as an extra programming artifact 
 in between the grammar and bytecode stages. It allows you to program this 
 assembly directly and feed it to the assembler without the need to use the 
@@ -412,6 +420,7 @@ grammar compiler.
 Note: This paper will use Naigama when grammar and assembly examples are 
 given, and provide the reader with explanation when this is different from 
 LPEG.
+\end{itemize}
 
 \thesubsubsection{.1  Bitwise Matching}
 
@@ -821,7 +830,7 @@ dressed up a little, and is bound together with the capture and the type
 conversion of the capture required, using opening and closing double angle 
 bracket tokens.
 
-\hline
+%\hline
 \textit{
 Note: the choice of tokens used in the limited call syntax
 is somewhat arbitrary and different
@@ -830,7 +839,7 @@ aesthetically pleasing syntax or of what is established or comparable
 syntax in neighboring fields.
 As it stands,this syntax is what is given for the scope of this paper.
 }
-\hline
+%\hline
 
 Grammatically, the grammar syntax involved, is then defined as follows:
 

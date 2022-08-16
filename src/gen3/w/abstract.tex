@@ -1,15 +1,13 @@
 \textbf{Abstract}
 
-Because of its complexity - nested binary TLV encoding and various
-compression schemes -
-parsing BER and BER-like formatted messages (such as X.509 certificates or
-SNMP messages) is considered problematic. To my
-knowledge, formal parsing of BER is not
-addressed by available solutions. Instead, custom, hand
-coded solutions or generated code prevail. This is a security risk from a
+Securely parsing BER and BER-like formatted messages
+(such as X.509 certificates or
+SNMP messages) is considered problematic because of the format's complexity.
+Non-formal, 'handcoded' parsing solutions form a security risk from a
 point of view of bugs or code proliferation. The changes proposed in the
 paper extend Parsing Expression Grammar
-(PEG), which is an unambiguous, top-down, recursive descent parsing algorithm.
+(PEG), which is a formal, unambiguous, top-down, recursive descent
+parsing algorithm.
 This PEG extension enables it to parse BER formats, while retaining a
 simple grammar definition, and requiring only minimal changes to the
 resulting assembly and bytecode interpreter. This paper also shows that,

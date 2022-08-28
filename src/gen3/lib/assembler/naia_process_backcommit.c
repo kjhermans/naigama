@@ -42,14 +42,18 @@ NAIG_ERR_T naia_process_backcommit
   uint32_t opcode[ 2 ] = { SET_32BIT_VALUE(OPCODE_BACKCOMMIT) };
   uint32_t offset;
 
-  CHECK(
-    naio_labelmap_get(
-      &(naia->labels),
-      object->children[ 1 ]->string,
-      object->children[ 1 ]->stringlen,
-      &offset
-    )
-  );
+  if (0 == strcmp(object->children[ 1 ]->string, "__NEXT__")) {
+    offset = naia->buffer.len + 8;
+  } else {
+    CHECK(
+      naio_labelmap_get(
+        &(naia->labels),
+        object->children[ 1 ]->string,
+        object->children[ 1 ]->stringlen,
+        &offset
+      )
+    );
+  }
   opcode[ 1 ] = SET_32BIT_VALUE(offset);
   CHECK(naia->write(opcode, sizeof(opcode), naia->write_arg));
   return NAIG_OK;

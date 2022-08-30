@@ -9,11 +9,11 @@
 
 #include <naigama/memio/result.h>
 
-int naig_init_malloc
+void naig_init
   (naig_t* naig);
 
-int naig_init_mem
-  (naig_t* naig, void* mem, unsigned size);
+void naig_free
+  (naig_t* naig);
 
 NAIG_ERR_T naig_compile
   (naig_t* naig, char* grammar, int traps);

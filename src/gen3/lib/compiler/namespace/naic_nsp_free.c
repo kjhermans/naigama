@@ -31,26 +31,18 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \brief
  */
 
-#include "naie_private.h"
+#include <naigama/naig_private.h>
+#include "../naic_private.h"
 
 /**
  *
  */
-void naie_engine_free
-  (naie_engine_t* engine)
+void naic_nsp_free
+  (naic_nspnod_t* nsp)
 {
-  if (engine->stack.realloc && engine->stack.length) {
-    free(engine->stack.entries);
-    engine->stack.count = 0;
-    engine->stack.length = 0;
+  for (unsigned i=0; i < nsp->children.count; i++) {
+    naic_nsp_free(nsp->children.list[ i ]);
   }
-  if (engine->actions.realloc && engine->actions.length) {
-    free(engine->actions.entries);
-    engine->actions.count = 0;
-    engine->actions.length = 0;
-  }
-  if (engine->reg.realloc && engine->reg.entries) {
-    free(engine->reg.entries);
-    engine->reg.length = 0;
-  }
+  free(nsp->children.list);
+  free(nsp);
 }

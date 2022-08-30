@@ -107,5 +107,7 @@ NAIG_ERR_T naic_parsetree
   naio_result_object_clean(*object, SLOT_ABOPEN);
   naio_result_object_clean(*object, SLOT_ABCLOSE);
 */
+  naie_engine_free(&engine);
+  naie_result_free(&result);
   return NAIG_OK;
 }

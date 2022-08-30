@@ -106,6 +106,8 @@ NAIG_ERR_T naia_assemble
   fprintf(stderr, "Assembly parsed Ok.\n");
 #endif
   object = naio_result_object(engine.input, engine.input_length, &result);
+  naie_engine_free(&engine);
+  naie_result_free(&result);
   CHECK(naia_process_tokens(&naia, object));
 #ifdef _DEBUG
   fprintf(stderr, "Assembler: %u labels\n", naia.labels.count);
@@ -120,7 +122,10 @@ NAIG_ERR_T naia_assemble
   if (labelmap) {
     *labelmap = naia.labels;
   } else {
-    //.. free naia.labels;
+    for (unsigned i=0; i < naia.labels.count; i++) {
+      free(naia.labels.entries[ i ].str);
+    }
+    free(naia.labels.entries);
   }
   naio_result_object_free(object);
   return NAIG_OK;

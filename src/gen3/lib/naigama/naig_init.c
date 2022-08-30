@@ -31,26 +31,20 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \brief
  */
 
-#include "naie_private.h"
+#include "naig_private.h"
 
 /**
  *
  */
-void naie_engine_free
-  (naie_engine_t* engine)
+void naig_init
+  (naig_t* naig)
 {
-  if (engine->stack.realloc && engine->stack.length) {
-    free(engine->stack.entries);
-    engine->stack.count = 0;
-    engine->stack.length = 0;
-  }
-  if (engine->actions.realloc && engine->actions.length) {
-    free(engine->actions.entries);
-    engine->actions.count = 0;
-    engine->actions.length = 0;
-  }
-  if (engine->reg.realloc && engine->reg.entries) {
-    free(engine->reg.entries);
-    engine->reg.length = 0;
-  }
+  memset(naig, 0, sizeof(*naig));
+}
+
+void naig_free
+  (naig_t* naig)
+{
+  free(naig->bytecode);
+  naie_engine_free(&(naig->engine));
 }

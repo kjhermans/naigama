@@ -55,5 +55,7 @@ NAIG_ERR_T naic_compile
   }
   CHECK(naic.write(naic.write_arg, "%s", naic.write_buffer.ptr));
   free(naic.write_buffer.ptr);
+  naic_nsp_free(naic.globalscope);
+  naio_result_object_free(object);
   return NAIG_OK;
 }

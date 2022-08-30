@@ -43,15 +43,20 @@ NAIG_ERR_T naig_write_assembly
   va_list ap;
   char* realc;
   unsigned len;
+  unsigned delta;
 
   if (*assembly) {
     len = strlen(*assembly);
   } else {
     len = 0;
   }
-  realc = (char*)realloc(*assembly, len + 1024);
   va_start(ap, fmt);
-  vsnprintf(realc + len, 1024, fmt, ap);
+  delta = vsnprintf(0, 0, fmt, ap);
+  va_end(ap);
+  va_start(ap, fmt);
+  realc = (char*)realloc(*assembly, len + delta + 1);
+  va_start(ap, fmt);
+  vsnprintf(realc + len, delta + 1, fmt, ap);
   va_end(ap);
   *assembly = realc;
   return NAIG_OK;
@@ -96,6 +101,7 @@ NAIG_ERR_T naig_compile
       &assembly
     )
   );
+  TODO("The condition below is useless, because the struct has been zeroised");
   if (naig->debug) {
     fprintf(stderr, "%s\n", assembly);
   }

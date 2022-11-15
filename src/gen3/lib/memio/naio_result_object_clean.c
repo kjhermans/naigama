@@ -48,7 +48,7 @@ void naio_result_object_clean
       memmove(
         &(object->children[ i ]),
         &(object->children[ i+1 ]),
-        sizeof(naio_resobj_t) * (object->nchildren - (i+1))
+        sizeof(naio_resobj_t*) * (object->nchildren - (i+1))
       );
       --(object->nchildren);
       --i;

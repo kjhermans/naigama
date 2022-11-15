@@ -38,48 +38,58 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /**
  * Prints to stderr the engine result (action list).
  */
-void naie_result_debug
-  (naie_engine_t* engine)
+void naio_result_debug
+  (naio_result_t* result, unsigned char* data)
 {
-  unsigned i;
+  unsigned i, j;
 
-  for (i=0; i < engine->actions.count; i++) {
-    switch (engine->actions.entries[ i ].action) {
+  fprintf(stderr, "End code: %d\n", result->code);
+  fprintf(stderr, "%u actions total\n", result->count);
+  for (i=0; i < result->count; i++) {
+    switch (result->actions[ i ].action) {
     case NAIG_ACTION_OPENCAPTURE:
-      fprintf(stderr, "Action #%u: opencapture slot %u, %u\n"
+      fprintf(stderr, "Action #%u: capture slot %u, %u->%u \""
         , i
-        , engine->actions.entries[ i ].slot
-        , engine->actions.entries[ i ].inputpos
+        , result->actions[ i ].slot
+        , result->actions[ i ].start
+        , result->actions[ i ].length
       );
+      for (j = 0; j < result->actions[ i ].length; j++) {
+        unsigned char c = data[ result->actions[ i ].start + j ];
+        if (c == '\\' || c == '\"') {
+          fprintf(stderr, "\\%c", c);
+        } else if (c == ' ' || isprint(c)) {
+          fprintf(stderr, "%c", c);
+        } else {
+          fprintf(stderr, "\\x%.2x", c);
+        }
+      }
+      fprintf(stderr, "\"\n");
       break;
     case NAIG_ACTION_CLOSECAPTURE:
-      fprintf(stderr, "Action #%u: closecapture slot %u, %u\n"
-        , i
-        , engine->actions.entries[ i ].slot
-        , engine->actions.entries[ i ].inputpos
-      );
       break;
     case NAIG_ACTION_DELETE:
-      fprintf(stderr, "Action #%u: delete slot %u, %u\n"
+      fprintf(stderr, "Action #%u: delete slot %u, %u->%u\n"
         , i
-        , engine->actions.entries[ i ].slot
-        , engine->actions.entries[ i ].inputpos
+        , result->actions[ i ].slot
+        , result->actions[ i ].start
+        , result->actions[ i ].length
       );
       break;
     case NAIG_ACTION_REPLACE_CHAR:
       fprintf(stderr, "Action #%u: insert slot %u, at %u char %.2x\n"
         , i
-        , engine->actions.entries[ i ].slot
-        , engine->actions.entries[ i ].inputpos
-        , (unsigned)(engine->actions.entries[ i ].intvalue)
+        , result->actions[ i ].slot
+        , result->actions[ i ].start
+        , result->actions[ i ].length
       );
       break;
     case NAIG_ACTION_REPLACE_QUAD:
       fprintf(stderr, "Action #%u: insert slot %u, at %u quad %.8x\n"
         , i
-        , engine->actions.entries[ i ].slot
-        , engine->actions.entries[ i ].inputpos
-        , (unsigned)(engine->actions.entries[ i ].intvalue)
+        , result->actions[ i ].slot
+        , result->actions[ i ].start
+        , result->actions[ i ].length
       );
       break;
     }

@@ -55,7 +55,7 @@ void naio_result_object_debug_
   fprintf(stderr, "| ");
   for (i=0; i < object->stringlen; i++) {
     if (!isprint(object->string[ i ])) {
-      fprintf(stderr, ".");
+      fprintf(stderr, "%.2x", (unsigned char)(object->string[ i ]));
     } else {
       fprintf(stderr, "%c", object->string[ i ]);
     }

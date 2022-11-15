@@ -324,7 +324,7 @@ int main
       return -1;
     }
     if (debug) {
-      naie_result_debug(&result, data);
+      naio_result_debug(&result, data);
     }
     if (tree) {
       naio_resobj_t* obj =

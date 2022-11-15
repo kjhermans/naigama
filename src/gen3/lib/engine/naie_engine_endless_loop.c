@@ -43,6 +43,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 NAIG_ERR_T naie_engine_endless_loop
   (naie_engine_t* engine)
 {
+  (void)engine;
 /*
   if (engine->flags & NAIE_FLAG_ENDLESS) {
     if (engine->loopdetect.length != engine->input_length) {

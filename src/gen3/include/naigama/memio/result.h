@@ -62,8 +62,10 @@ struct naio_resobj
   naio_resobj_t*                        parent;
   naio_resobj_t**                       children;
   unsigned                              nchildren;
-  unsigned                              slotnumber;
-  void*                                 auxptr; /* this one is for you */
+  union {
+    void*                                 ptr;
+    unsigned                              num;
+  }                                     aux; /* this one is for you */
 };
 
 #define naio_resobj_debug naio_result_object_debug

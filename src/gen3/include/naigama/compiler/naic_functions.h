@@ -128,6 +128,11 @@ NAIG_ERR_T naic_nsp_entry_new
   )
   __attribute__ ((warn_unused_result));
 
+/* declared in ./lib/compiler/namespace/naic_nsp_free.c */
+extern
+void naic_nsp_free
+  (naic_nspnod_t* nsp);
+
 /* declared in ./lib/compiler/namespace/naic_nsp_function_update.c */
 extern
 NAIG_ERR_T naic_nsp_function_update

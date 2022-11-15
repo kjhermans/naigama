@@ -47,7 +47,7 @@ NAIG_ERR_T naic_compile_capture
   ASSERT(naic != NULL)
   ASSERT(group != NULL)
 
-  slot = group->slotnumber;
+  slot = group->aux.num;
   NAIC_WRITE("  opencapture %u\n", slot);
   CHECK(naic_compile_alts(naic, group->children[ 0 ]));
   NAIC_WRITE("  closecapture %u\n", slot);

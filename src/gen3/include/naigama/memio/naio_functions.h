@@ -64,6 +64,11 @@ NAIG_ERR_T naio_labelmap_write
   (naio_labelmap_t* map, FILE* file)
   __attribute__ ((warn_unused_result));
 
+/* declared in ./lib/memio/naio_result_debug.c */
+extern
+void naio_result_debug
+  (naio_result_t* result, unsigned char* data);
+
 /* declared in ./lib/memio/naio_result_object.c */
 extern
 naio_resobj_t* naio_result_object

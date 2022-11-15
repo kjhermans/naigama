@@ -46,7 +46,7 @@ NAIG_ERR_T naic_fp_rule
 
   if (naic->flags & NAIC_FLG_DEFAULTCAPTURE) {
     CHECK(naio_slotmap_add_capture(naic->slotmap, rule, NULL, naic->slot));
-    rule->slotnumber = (naic->slot)++;
+    rule->aux.num = (naic->slot)++;
   }
   if (0 == naic->firsttype) {
     naic->firsttype = NAIC_FIRST_RULE;

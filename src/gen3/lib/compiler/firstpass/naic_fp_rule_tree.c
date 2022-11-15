@@ -50,7 +50,7 @@ NAIG_ERR_T naic_fp_rule_tree
   for (i=0; i < top->nchildren; i++) {
     if (top->children[ i ]->type == SLOT_CAPTURE) {
       CHECK(naio_slotmap_add_capture(naic->slotmap, rule, top->children[ i ], naic->slot));
-      top->children[ i ]->slotnumber = (naic->slot)++;
+      top->children[ i ]->aux.num = (naic->slot)++;
       CHECK(naic_fp_rule_tree(naic, rule, top->children[ i ]));
     } else if (top->children[ i ]->type == SLOT_VARCAPTURE) {
       ident = naio_result_object_query(
@@ -60,7 +60,7 @@ NAIG_ERR_T naic_fp_rule_tree
       name = ident->string;
       CHECK(naic_nsp_add_rulevar(naic->globalscope, name, naic->slot));
       CHECK(naio_slotmap_add_capture(naic->slotmap, rule, top->children[ i ], naic->slot));
-      top->children[ i ]->slotnumber = (naic->slot)++;
+      top->children[ i ]->aux.num = (naic->slot)++;
       CHECK(naic_fp_rule_tree(naic, rule, top->children[ i ]));
     } else {
       CHECK(naic_fp_rule_tree(naic, rule, top->children[ i ]));

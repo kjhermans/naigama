@@ -40,7 +40,7 @@ NAIG_ERR_T naic_compile_varcapture
   (naic_t* naic, naio_resobj_t* capture)
 {
 //  unsigned expression = 0;
-  unsigned slot = capture->slotnumber;
+  unsigned slot = capture->aux.num;
 
 #ifdef _DEBUG
   naio_resobj_t* ident, * body;

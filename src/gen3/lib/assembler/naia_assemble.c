@@ -77,7 +77,7 @@ NAIG_ERR_T naia_assemble
   }
   e = naie_engine_run(
     &engine,
-    (const unsigned char*)assembly,
+    (unsigned char*)assembly,
     strlen(assembly),
     &result
   );

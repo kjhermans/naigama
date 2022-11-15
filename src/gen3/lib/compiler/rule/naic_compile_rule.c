@@ -40,7 +40,7 @@ NAIG_ERR_T naic_compile_rule
   (naic_t* naic, naio_resobj_t* rule)
 {
   char* rulename = rule->children[0]->string;
-  unsigned slot = rule->slotnumber;
+  unsigned slot = rule->aux.num;
 
   NAIC_WRITE("\n__RULE_%s:\n", rulename);
   if (naic->prefix) {

@@ -76,7 +76,7 @@ NAIG_ERR_T naic_parsetree
   }
   e = naie_engine_run(
         &engine,
-        (const unsigned char*)grammar,
+        (unsigned char*)grammar,
         strlen(grammar),
         &result
   );

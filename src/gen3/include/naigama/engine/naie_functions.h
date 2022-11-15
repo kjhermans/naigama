@@ -160,6 +160,12 @@ NAIG_ERR_T naie_register_store
   (naie_engine_t* engine, uint32_t reg, uint32_t value)
   __attribute__ ((warn_unused_result));
 
+/* declared in ./lib/engine/naie_resobj_new.c */
+extern
+naio_resobj_t* naie_resobj_new
+  (naie_engine_t* engine)
+  __attribute__ ((warn_unused_result));
+
 /* declared in ./lib/engine/naie_result_cursor.c */
 extern
 NAIG_ERR_T naie_result_cursor
@@ -200,7 +206,7 @@ NAIG_ERR_T naie_result_cursor_string
 /* declared in ./lib/engine/naie_result_debug.c */
 extern
 void naie_result_debug
-  (naio_result_t* result, unsigned char* data);
+  (naie_engine_t* engine);
 
 /* declared in ./lib/engine/naie_result_fill.c */
 extern

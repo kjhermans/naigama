@@ -41,16 +41,19 @@ void naie_engine_free
 {
   if (engine->stack.realloc && engine->stack.length) {
     free(engine->stack.entries);
+    engine->stack.entries = 0;
     engine->stack.count = 0;
     engine->stack.length = 0;
   }
   if (engine->actions.realloc && engine->actions.length) {
     free(engine->actions.entries);
+    engine->actions.entries = 0;
     engine->actions.count = 0;
     engine->actions.length = 0;
   }
   if (engine->reg.realloc && engine->reg.entries) {
     free(engine->reg.entries);
+    engine->reg.entries = 0;
     engine->reg.length = 0;
   }
 }

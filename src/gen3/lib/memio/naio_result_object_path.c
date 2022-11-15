@@ -41,7 +41,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 naio_resobj_t* naio_result_object_path
   (naio_resobj_t* parent, unsigned nargs, ...)
 {
-  unsigned i, j, foundindex;
+  unsigned i, j;
   va_list ap;
   char* child;
   unsigned childlen;

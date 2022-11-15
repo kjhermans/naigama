@@ -72,34 +72,34 @@ naio_resobj_t* naio_result_object_children
     const unsigned char* input,
     unsigned inputlength,
     naio_result_t* result,
-    naio_resobj_t* object,
+    naio_resobj_t* parent,
     unsigned i
   )
 {
   for (; i < result->count; i++) {
-    if (result->actions[ i ].start >= object->origoffset + object->stringlen) {
+    if (result->actions[ i ].start >= parent->origoffset + parent->stringlen) {
       break;
     }
     if (result->actions[ i ].action != NAIG_ACTION_OPENCAPTURE) {
       continue;
     }
-    if (object->nchildren
+    if (parent->nchildren
         && result->actions[ i ].start
-           < object->children[ object->nchildren-1 ]->origoffset
-             + object->children[ object->nchildren-1 ]->stringlen)
+           < parent->children[ parent->nchildren-1 ]->origoffset
+             + parent->children[ parent->nchildren-1 ]->stringlen)
     {
       continue;
     }
-    object->children = realloc(
-      object->children,
-      sizeof(naio_resobj_t) * (object->nchildren + 1)
+    parent->children = realloc(
+      parent->children,
+      sizeof(naio_resobj_t) * (parent->nchildren + 1)
     );
-    object->children[ object->nchildren ]
+    parent->children[ parent->nchildren ]
       = naio_result_object_(input, inputlength, result, i);
-    object->children[ object->nchildren ]->parent = object;
-    ++(object->nchildren);
+    parent->children[ parent->nchildren ]->parent = parent;
+    ++(parent->nchildren);
   }
-  return object;
+  return parent;
 }
 
 /**

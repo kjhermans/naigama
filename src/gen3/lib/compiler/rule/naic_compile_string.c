@@ -115,8 +115,7 @@ NAIG_ERR_T naic_compile_string
     CHECK(
       naic_string_unescape(
         naic,
-        string->origoffset,
-        string->origoffset + string->stringlen,
+        string->string,
         naic_compile_char_i
       )
     );
@@ -125,8 +124,7 @@ NAIG_ERR_T naic_compile_string
     CHECK(
       naic_string_unescape(
         naic,
-        string->origoffset,
-        string->origoffset + string->stringlen,
+        string->string,
         naic_compile_char
       )
     );

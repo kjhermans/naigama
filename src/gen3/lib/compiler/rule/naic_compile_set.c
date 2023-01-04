@@ -64,6 +64,46 @@ unsigned naic_set_char
 }
 
 /**
+ * Emits a set of ranges and char matchers,
+ * rather than a single bitmap 'set' instruction.
+ */
+static
+NAIG_ERR_T naic_compile_set_ranges
+  (naic_t* naic, naio_resobj_t* set, int invert)
+{
+  unsigned i = (invert ? 2 : 1);
+  char label[ 64 ], out[ 64 ];
+
+  snprintf(out, sizeof(out), "__SET_OUT_%u", ++(naic->labelcount));
+  for (; i < set->nchildren-1; i++) {
+    snprintf(label, sizeof(label), "__SET_ALT_%u", ++(naic->labelcount));
+    NAIC_WRITE("  catch %s\n", label);
+    if (set->children[ i ]->type == SLOT_SET_NRTV) {
+      unsigned from = naic_set_char(set->children[ i ]->string);
+      unsigned until = naic_set_char(set->children[ ++i ]->string);
+      NAIC_WRITE("  range %u %u\n", from, until);
+    } else if (set->children[ i ]->type == SLOT_SET_NRTV_2) {
+      unsigned chr = naic_set_char(set->children[ i ]->string);
+      NAIC_WRITE("  char %.2x\n", chr);
+    }
+    NAIC_WRITE("  commit %s\n", out);
+    NAIC_WRITE("%s:\n", label);
+  }
+  if (invert) {
+    char success[ 64 ];
+    snprintf(success, sizeof(success), "__SET_INVERT_%u", ++(naic->labelcount));
+    NAIC_WRITE("  jump %s\n", success);
+    NAIC_WRITE("%s:\n", out);
+    NAIC_WRITE("  fail\n");
+    NAIC_WRITE("%s:\n", success);
+  } else {
+    NAIC_WRITE("  fail\n");
+    NAIC_WRITE("%s:\n", out);
+  }
+  return NAIG_OK;
+}
+
+/**
  *
  */
 NAIG_ERR_T naic_compile_set
@@ -76,6 +116,9 @@ NAIG_ERR_T naic_compile_set
   if (naio_result_object_query(set, 1, SLOT_SETNOT, 0))
   {
     invert = 1;
+  }
+  if (naic->flags & NAIC_FLG_SETSASRANGES) {
+    return naic_compile_set_ranges(naic, set, invert);
   }
   for (i=1; i < set->nchildren; i++) {
     if (set->children[ i ]->type == SLOT_SET_NRTV) {

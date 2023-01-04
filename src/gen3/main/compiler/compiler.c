@@ -258,6 +258,9 @@ int main
       case 'w':
         flags |= NAIC_FLG_LOOPS;
         break;
+      case 'r':
+        flags |= NAIC_FLG_SETSASRANGES;
+        break;
       case 'C':
         flags |= NAIC_FLG_DEFAULTCAPTURE;
         break;
@@ -315,6 +318,7 @@ int main
           "-T         'Traditional' output (LPEG compatible)\n"
           "-s         Generate reduced instruction set\n"
           "-w         Write out loops instead of using counters\n"
+          "-r         Write out sets as alternatives of ranges and chars\n"
           "-C         Produce a default capture for every rule\n"
           "-G <path>  Generate C code for every capture\n"
           "-I <path>  Add path for import purposes\n"

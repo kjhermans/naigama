@@ -43,4 +43,8 @@
     code => 269,
     explicit => 'Too many levels of import recursion',
   },
+  escape => {
+    code => 270,
+    explicit => 'String escaping',
+  },
 };

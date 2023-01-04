@@ -52,9 +52,12 @@ naio_resobj_t* naie_resobj_new
     case NAIG_ACTION_OPENCAPTURE:
       child = calloc(1, sizeof(naio_resobj_t));
       child->type = a->slot;
+      child->origoffset = a->inputpos;
+/*
       if ((child->origoffset = a->inputpos) >= engine->input_length) {
-        return NULL; /* error; offset doesn't match input */
+        return NULL; // error; offset doesn't match input
       }
+*/
       child->parent = parent;
       parent->children = (naio_resobj_t**)realloc(
         parent->children,
@@ -73,13 +76,18 @@ naio_resobj_t* naie_resobj_new
       if (a->inputpos < child->origoffset) {
         return NULL; /* error; end is before beginning of capture region */
       }
+      if (child->origoffset + child->stringlen > engine->input_length) {
+        return NULL; /* error; cannot copy beyond end of input */
+      }
       child->stringlen = a->inputpos - child->origoffset;
       child->string = malloc(child->stringlen + 1);
-      memcpy(
-        child->string,
-        engine->input + child->origoffset,
-        child->stringlen
-      );
+      if (child->stringlen) {
+        memcpy(
+          child->string,
+          engine->input + child->origoffset,
+          child->stringlen
+        );
+      }
       child->string[ child->stringlen ] = 0;
       break;
      

@@ -52,6 +52,15 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define DEBUG(__e) (void)__e;
 #endif
 
+#ifdef DEBUGMSG
+#undef DEBUGMSG
+#endif
+#ifdef _DEBUG
+#define DEBUGMSG(fmt, ...) { fprintf(stderr, fmt, __VA_ARGS__); }
+#else
+#define DEBUGMSG(fmt, ...)
+#endif
+
 #ifdef RETURNERR
 #undef RETURNERR
 #endif

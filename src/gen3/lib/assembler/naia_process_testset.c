@@ -45,8 +45,8 @@ NAIG_ERR_T naia_process_testset
   uint32_t offset;
 
   CHECK(
-    naio_labelmap_get(
-      &(naia->labels),
+    naia_namespace_resolve(
+      naia,
       object->children[ 2 ]->string,
       object->children[ 2 ]->stringlen,
       &offset

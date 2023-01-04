@@ -1,7 +1,7 @@
 /**
- * This file is part of Naigama, a parser engine.
+ * This file is part of Oroszlan, a parsing and scripting environment
 
-Copyright (c) 2020, Kees-Jan Hermans <kees.jan.hermans@gmail.com>
+Copyright (c) 2023, Kees-Jan Hermans <kees.jan.hermans@gmail.com>
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -11,7 +11,7 @@ modification, are permitted provided that the following conditions are met:
     * Redistributions in binary form must reproduce the above copyright
       notice, this list of conditions and the following disclaimer in the
       documentation and/or other materials provided with the distribution.
-    * Neither the name of the <organization> nor the
+    * Neither the name of the organization nor the
       names of its contributors may be used to endorse or promote products
       derived from this software without specific prior written permission.
 
@@ -36,25 +36,14 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /**
  *
  */
-NAIG_ERR_T naia_process_partialcommit
-  (naia_t* naia, naio_resobj_t* object)
+NAIG_ERR_T naia_namespace_put
+  (naia_t* naia, char* name, unsigned len, unsigned offset)
 {
-  uint32_t opcode[ 2 ] = { SET_32BIT_VALUE(OPCODE_PARTIALCOMMIT) };
-  uint32_t offset;
+  naia_namespace_t* namespace = naia->namespace.current;
 
-  if (0 == strcmp(object->children[ 1 ]->string, "__NEXT__")) {
-    offset = naia->buffer.len + 8;
-  } else {
-    CHECK(
-      naia_namespace_resolve(
-        naia,
-        object->children[ 1 ]->string,
-        object->children[ 1 ]->stringlen,
-        &offset
-      )
-    );
-  }
-  opcode[ 1 ] = SET_32BIT_VALUE(offset);
-  CHECK(naia->write(opcode, sizeof(opcode), naia->write_arg));
+  NAIG_CHECK(naio_labelmap_put(&(namespace->labels), name, len, offset));
+
+  //.. potentially store as extended (move up)
+
   return NAIG_OK;
 }

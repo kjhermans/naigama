@@ -46,8 +46,8 @@ NAIG_ERR_T naia_process_condjump
   reg = atoi(object->children[ 1 ]->string);
   opcode[ 1 ] = SET_32BIT_VALUE(reg);
   CHECK(
-    naio_labelmap_get(
-      &(naia->labels),
+    naia_namespace_resolve(
+      naia,
       object->children[ 2 ]->string,
       object->children[ 2 ]->stringlen,
       &offset

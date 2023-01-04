@@ -10,7 +10,8 @@ __prefix           <- ( MULTILINECOMMENT / COMMENT / S )*
 
 INSTRUCTIONS       <- INSTRUCTION+ END
 INSTRUCTION        <- { RULEINSTR } /
-                      { LABELDEF }
+                      { LABELDEF } /
+                      { NAMESPACEDEF }
 
 RULEINSTR          <- ANYINSTR / BACKCOMMITINSTR / CALLINSTR /
                       CATCHINSTR / CHARINSTR / MASKEDCHARINSTR /
@@ -69,6 +70,10 @@ ENDISOLATEINSTR    <- { 'endisolate' }
 MODEINSTR          <- { 'mode' } S NUMBER
 
 LABELDEF           <- LABEL COLON
+
+NAMESPACEDEF       <- NAMESPACESTART / NAMESPACESTOP
+NAMESPACESTART     <- { 'namespace_start' } S LABEL
+NAMESPACESTOP      <- { 'namespace_stop' } S LABEL
 
 -- terminals
 

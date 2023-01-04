@@ -46,11 +46,17 @@ NAIG_ERR_T naia_process_call
   snprintf(
     label,
     sizeof(label),
-    "__RULE_%s",
+    "%s",
     object->children[ 1 ]->string
   );
-  if (NAIG_ISOK(naio_labelmap_get(
-                  &(naia->labels), label, strlen(label), &offset)))
+  if (NAIG_ISOK(
+        naia_namespace_resolve(
+          naia,
+          label,
+          strlen(label),
+          &offset
+        )
+     ))
   {
     opcode[ 1 ] = SET_32BIT_VALUE(offset);
     CHECK(naia->write(opcode, sizeof(opcode), naia->write_arg));

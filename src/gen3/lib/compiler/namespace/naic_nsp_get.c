@@ -55,6 +55,28 @@ NAIG_ERR_T naic_nsp_get
         *entry = nsp->children.list[ i ];
         return NAIG_OK;
       }
+      if (nsp->parent) {
+        char path[ 2048 ];
+        char copy[ 2048 ];
+        naic_nspnod_t* parent = nsp->children.list[ i ];
+        snprintf(path, sizeof(path), "%s", nsp->children.list[ i ]->name);
+        snprintf(copy, sizeof(copy), "%s", path);
+        while ((parent = parent->parent) != NULL && parent->name != NULL) {
+          snprintf(path, sizeof(path), "%s__%s", parent->name, copy);
+          snprintf(copy, sizeof(copy), "%s", path);
+          DBGLOG("cmp '%s' with '%s'\n", key, path);
+          if (0 == strcmp(path, key)) {
+            *entry = nsp->children.list[ i ];
+            return NAIG_OK;
+          }
+        }
+      }
+      if (nsp->children.list[ i ]->children.count) {
+        NAIG_ERR_T e = naic_nsp_get(nsp->children.list[ i ], key, entry, search);
+        if (e.code == 0) {
+          return NAIG_OK;
+        }
+      }
     }
     if (!search) { break; }
     nsp = nsp->parent;

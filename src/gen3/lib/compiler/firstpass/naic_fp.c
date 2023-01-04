@@ -47,7 +47,7 @@ NAIG_ERR_T naic_fp
   ASSERT(naic != NULL);
   ASSERT(top != NULL);
 
-  *nsp = naic->globalscope;
+  *nsp = naic->currentscope;
   while ((def = naio_result_object_query(top, 2, SLOT_GRAMMAR, 0, SLOT_DEFINITION, i++)) != NULL) {
     switch (def->children[ 0 ]->type) {
     case SLOT_RULE:

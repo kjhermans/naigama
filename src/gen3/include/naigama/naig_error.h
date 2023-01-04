@@ -4,6 +4,8 @@
 #define _NAIG_ERROR_H_
 #define NAIG_ERRCODE_ACTIONFULL -22
 #define NAIG_ERRCODE_ACTIONLIST -23
+#define NAIG_ERRCODE_ASSEMBLYPARSER 515
+#define NAIG_ERRCODE_ASSEMBLYTOKENS 516
 #define NAIG_ERRCODE_BADOPCODE -20
 #define NAIG_ERRCODE_BITFAULT -28
 #define NAIG_ERRCODE_CALL 266
@@ -13,6 +15,7 @@
 #define NAIG_ERRCODE_DOUBLEMAIN 267
 #define NAIG_ERRCODE_ENDLESSLOOP -30
 #define NAIG_ERRCODE_ENGINE -1027
+#define NAIG_ERRCODE_ESCAPE 270
 #define NAIG_ERRCODE_IMPORT 268
 #define NAIG_ERRCODE_IMPORTRECURSION 269
 #define NAIG_ERRCODE_INTOVERFLOW -1025
@@ -49,6 +52,8 @@
 
 #define NAIG_ERR_ACTIONFULL (NAIG_ERR_T){ .code = NAIG_ERRCODE_ACTIONFULL } 
 #define NAIG_ERR_ACTIONLIST (NAIG_ERR_T){ .code = NAIG_ERRCODE_ACTIONLIST } 
+#define NAIG_ERR_ASSEMBLYPARSER (NAIG_ERR_T){ .code = NAIG_ERRCODE_ASSEMBLYPARSER } 
+#define NAIG_ERR_ASSEMBLYTOKENS (NAIG_ERR_T){ .code = NAIG_ERRCODE_ASSEMBLYTOKENS } 
 #define NAIG_ERR_BADOPCODE (NAIG_ERR_T){ .code = NAIG_ERRCODE_BADOPCODE } 
 #define NAIG_ERR_BITFAULT (NAIG_ERR_T){ .code = NAIG_ERRCODE_BITFAULT } 
 #define NAIG_ERR_CALL (NAIG_ERR_T){ .code = NAIG_ERRCODE_CALL } 
@@ -58,6 +63,7 @@
 #define NAIG_ERR_DOUBLEMAIN (NAIG_ERR_T){ .code = NAIG_ERRCODE_DOUBLEMAIN } 
 #define NAIG_ERR_ENDLESSLOOP (NAIG_ERR_T){ .code = NAIG_ERRCODE_ENDLESSLOOP } 
 #define NAIG_ERR_ENGINE (NAIG_ERR_T){ .code = NAIG_ERRCODE_ENGINE } 
+#define NAIG_ERR_ESCAPE (NAIG_ERR_T){ .code = NAIG_ERRCODE_ESCAPE } 
 #define NAIG_ERR_IMPORT (NAIG_ERR_T){ .code = NAIG_ERRCODE_IMPORT } 
 #define NAIG_ERR_IMPORTRECURSION (NAIG_ERR_T){ .code = NAIG_ERRCODE_IMPORTRECURSION } 
 #define NAIG_ERR_INTOVERFLOW (NAIG_ERR_T){ .code = NAIG_ERRCODE_INTOVERFLOW } 
@@ -95,6 +101,8 @@
 #define NAIG_ERR_SWITCH \
   case -22: return "ACTIONFULL";\
   case -23: return "ACTIONLIST";\
+  case 515: return "ASSEMBLYPARSER";\
+  case 516: return "ASSEMBLYTOKENS";\
   case -20: return "BADOPCODE";\
   case -28: return "BITFAULT";\
   case 266: return "CALL";\
@@ -104,6 +112,7 @@
   case 267: return "DOUBLEMAIN";\
   case -30: return "ENDLESSLOOP";\
   case -1027: return "ENGINE";\
+  case 270: return "ESCAPE";\
   case 268: return "IMPORT";\
   case 269: return "IMPORTRECURSION";\
   case -1025: return "INTOVERFLOW";\
@@ -142,6 +151,8 @@
 #define NAIG_ERR_EXPLICIT_SWITCH \
   case -22: return "Action list about to exceed its maximum size";\
   case -23: return "(No explicit message given)";\
+  case 515: return "Assembly parser";\
+  case 516: return "Assembly tokens";\
   case -20: return "Unknown opcode";\
   case -28: return "Bit fault detected";\
   case 266: return "(No explicit message given)";\
@@ -151,6 +162,7 @@
   case 267: return "More than one main symbol defined";\
   case -30: return "Endless loop detected";\
   case -1027: return "General engine error";\
+  case 270: return "String escaping";\
   case 268: return "Import not found";\
   case 269: return "Too many levels of import recursion";\
   case -1025: return "(No explicit message given)";\

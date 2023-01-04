@@ -48,6 +48,7 @@ NAIG_ERR_T naic_compile_reference
       "Could not resolve rule '%s'.", rule
     )
   );
+
   NAIC_WRITE("  call %s\n", rule);
   return NAIG_OK;
 }

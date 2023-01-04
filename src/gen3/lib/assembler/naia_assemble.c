@@ -88,19 +88,18 @@ NAIG_ERR_T naia_assemble
     } else {
       fprintf(stderr, "Assembly parsing error.\n");
     }
-    exit(-1);
+    return NAIG_ERR_ASSEMBLYPARSER;
   }
 
   naia_t naia = {
-    .assembly       = assembly,
-    .captures       = &result,
-    .labels.entries = malloc(sizeof(naio_labent_t) * 1024),
-    .labels.count   = 0,
-    .labels.length  = 1024,
-    .buffer         = NAIO_BUF_INIT,
-    .write          = naia_write_buf,
-    .write_arg      = &(naia.buffer)
+    .assembly           = assembly,
+    .captures           = &result,
+    .namespace.top      = naia_namespace_new(0),
+    .buffer             = NAIO_BUF_INIT,
+    .write              = naia_write_buf,
+    .write_arg          = &(naia.buffer)
   };
+  naia.namespace.current = naia.namespace.top;
 
 #ifdef _DEBUG
   fprintf(stderr, "Assembly parsed Ok.\n");
@@ -108,9 +107,18 @@ NAIG_ERR_T naia_assemble
   object = naio_result_object(engine.input, engine.input_length, &result);
   naie_engine_free(&engine);
   naie_result_free(&result);
-  CHECK(naia_process_tokens(&naia, object));
+
+  e = naia_process_tokens(&naia, object);
+  if (e.code) {
+    fprintf(stderr, "Assembler error code %d\n", e.code);
+    if (naia.error[ 0 ]) {
+      fprintf(stderr, "Error message: %s\n", naia.error);
+    }
+    return NAIG_ERR_ASSEMBLYTOKENS;
+  }
+
 #ifdef _DEBUG
-  fprintf(stderr, "Assembler: %u labels\n", naia.labels.count);
+  //fprintf(stderr, "Assembler: %u labels\n", naia.labels.count);
   fprintf(stderr, "Writing %u bytes bytecode.\n", naia.buffer.len);
 #endif
   if (naia.buffer.len == 0) {
@@ -120,12 +128,9 @@ NAIG_ERR_T naia_assemble
   free(naia.buffer.ptr);
 
   if (labelmap) {
-    *labelmap = naia.labels;
+    *labelmap = naia.namespace.top->labels;
   } else {
-    for (unsigned i=0; i < naia.labels.count; i++) {
-      free(naia.labels.entries[ i ].str);
-    }
-    free(naia.labels.entries);
+    naia_namespace_free(naia.namespace.top);
   }
   naio_result_object_free(object);
   return NAIG_OK;

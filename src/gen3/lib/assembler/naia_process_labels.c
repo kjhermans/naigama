@@ -28,13 +28,31 @@ NAIG_ERR_T naia_process_labels
       break;
     case ASMSLOT_INSTRUCTION_LABELDEF:
       CHECK(
-        naio_labelmap_put(
-          &(naia->labels),
+        naia_namespace_put(
+          naia,
           object->children[ i ]->children[ 0 ]->string,
           object->children[ i ]->children[ 0 ]->stringlen,
           offset
         )
       );
+      break;
+    case ASMSLOT_INSTRUCTION_NAMESPACEDEF:
+      switch (object->children[ i ]->children[ 0 ]->type) {
+      case ASMSLOT_NAMESPACESTART_NAMESPACESTART:
+        {
+          char* name = object->children[ i ]->children[ 1 ]->string;
+          naia_namespace_t* namespace = naia_namespace_new(name);
+
+          naia_namespace_add(naia->namespace.current, namespace);
+          naia->namespace.current = namespace;
+        }
+        break;
+      case ASMSLOT_NAMESPACESTOP_NAMESPACESTOP:
+        {
+          naia->namespace.current = naia->namespace.current->parent;
+        }
+        break;
+      }
       break;
     }
   }

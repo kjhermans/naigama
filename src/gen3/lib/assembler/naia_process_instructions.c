@@ -90,6 +90,7 @@ NAIG_ERR_T naia_process_instruction
   case ASMSLOT_LABEL_AZAZ:
     /* ignore */
     break;
+
   default:
     fprintf(stderr, "Unknown slot %u\n", object->children[0]->type);
     naio_resobj_debug(object, 0);
@@ -112,6 +113,32 @@ NAIG_ERR_T naia_process_instructions
       break;
     case ASMSLOT_INSTRUCTION_LABELDEF:
       break; // ignore
+    case ASMSLOT_INSTRUCTION_NAMESPACEDEF:
+      switch (object->children[ i ]->children[ 0 ]->type) {
+      case ASMSLOT_NAMESPACESTART_NAMESPACESTART:
+        {
+          naia_namespace_t* namespace = 0;
+          char* name = object->children[ i ]->children[ 1 ]->string;
+          for (unsigned i=0; i < naia->namespace.current->nchildren; i++) {
+            if (0 == strcmp(naia->namespace.current->children[ i ]->name, name)) {
+              namespace = naia->namespace.current->children[ i ];
+              break;
+            }
+          }
+          if (namespace == 0) {
+//.. error
+          } else {
+            naia->namespace.current = namespace;
+          }
+        }
+        break;
+      case ASMSLOT_NAMESPACESTOP_NAMESPACESTOP:
+        {
+          naia->namespace.current = naia->namespace.current->parent;
+        }
+        break;
+      }
+      break;
     }
   }
 #ifdef _DEBUG

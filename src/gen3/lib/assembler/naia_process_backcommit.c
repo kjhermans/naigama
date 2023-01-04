@@ -46,8 +46,8 @@ NAIG_ERR_T naia_process_backcommit
     offset = naia->buffer.len + 8;
   } else {
     CHECK(
-      naio_labelmap_get(
-        &(naia->labels),
+      naia_namespace_resolve(
+        naia,
         object->children[ 1 ]->string,
         object->children[ 1 ]->stringlen,
         &offset

@@ -1,7 +1,7 @@
 /**
  * This file is part of Oroszlan, a parsing and scripting environment
 
-Copyright (c) 2021, Kees-Jan Hermans <kees.jan.hermans@gmail.com>
+Copyright (c) 2023, Kees-Jan Hermans <kees.jan.hermans@gmail.com>
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -31,45 +31,57 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \brief
  */
 
-#include "naic_private.h"
+#include "naia_private.h"
+
+static
+NAIG_ERR_T naia_namespace_resolve_
+  (naia_namespace_t* namespace, char* name, unsigned len, unsigned* offset)
+{
+  char path[ 4096 ];
+  char copy[ 4096 ];
+  naia_namespace_t* nsp = namespace;
+
+  snprintf(path, sizeof(path), "%-.*s", len, name);
+  while (nsp) {
+    NAIG_ERR_T e = naio_labelmap_get(&(nsp->labels), path, strlen(path), offset);
+    switch (e.code) {
+    case 0:
+      return NAIG_OK;
+    case NAIG_ERRCODE_LABEL:
+      break;
+    default:
+      return e;
+    }
+    snprintf(copy, sizeof(copy), "%s", path);
+    snprintf(path, sizeof(path), "%s__%s", nsp->name, copy);
+    nsp = nsp->parent;
+  }
+  for (unsigned i=0; i < namespace->nchildren; i++) {
+    NAIG_ERR_T e = naia_namespace_resolve_(namespace->children[ i ], name, len, offset);
+    if (e.code == 0) {
+      return NAIG_OK;
+    }
+  }
+  return NAIG_ERR_NOTFOUND;
+}
 
 /**
  *
  */
-NAIG_ERR_T naic_sp
-  (naic_t* naic, naio_resobj_t* top)
+NAIG_ERR_T naia_namespace_resolve
+  (naia_t* naia, char* name, unsigned len, unsigned* offset)
 {
-  naio_resobj_t* def;
-  unsigned i = 0;
-  naic_nspnod_t* namespace = 0;
+  naia_namespace_t* namespace = naia->namespace.current;
+  NAIG_ERR_T e = naia_namespace_resolve_(namespace, name, len, offset);
 
-  if ((def = naio_result_object_query(top, 2, SLOT_GRAMMAR, 0, SLOT_SINGLE_EXPRESSION, 0)) != NULL) {
-    CHECK(naic_compile_alts(naic, def->children[ 0 ]));
-  } else {
-    while ((def = naio_result_object_query(top, 2, SLOT_GRAMMAR, 0, SLOT_DEFINITION, i++)) != NULL) {
-      switch (def->children[ 0 ]->type) {
-      case SLOT_RULE:
-        CHECK(naic_compile_rule(naic, def->children[ 0 ]));
-        break;
-      case SLOT_IMPORTDECL:
-        if (def->children[ 0 ]->aux.ptr) {
-          namespace = def->children[ 0 ]->aux.ptr;
-          /* if (namespace->type == NAIC_NSPTYPE_FILE) { } */
-          naic->currentscope = namespace;
-          NAIC_WRITE("  namespace_start %s\n", namespace->name);
-        }
-        CHECK(naic_sp(naic, def->children[ 0 ]->children[ 0 ]));
-        if (namespace) {
-          naic->currentscope = naic->currentscope->parent;
-          NAIC_WRITE("  namespace_stop %s\n", namespace->name);
-        }
-        break; 
-      default:
-        fprintf(stderr, "Non compliant top element\n");
-        naic_resobj_debug(def->children[ 0 ]);
-        abort();
-      }
-    }
+  switch (e.code) {
+  case 0:
+    return NAIG_OK;
+  case NAIG_ERRCODE_NOTFOUND:
+  case NAIG_ERRCODE_LABEL:
+    snprintf(naia->error, sizeof(naia->error), "Label '%-.*s' not found.", len, name);
+    __attribute__((fallthrough));
+  default:
+    return e;
   }
-  return NAIG_OK;
 }

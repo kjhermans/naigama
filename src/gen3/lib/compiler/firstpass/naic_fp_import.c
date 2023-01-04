@@ -41,14 +41,21 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 static
 NAIG_ERR_T naic_fp_import_path
-  (naic_t* naic, naio_resobj_t* rule, char* path)
+  (naic_t* naic, naio_resobj_t* rule, char* path, char* namespace)
 {
   char* buf = 0;
   unsigned len = 0;
   naio_resobj_t* parsetree;
 
-  fprintf(stderr, "Importing '%s'\n", path);
+  if (namespace) {
+    namespace = strdup(namespace);
+  }
+  DEBUGMSG("Importing '%s' as namespace '%s'\n", path, namespace);
   if (naic->importrecursion >= NAIG_IMPORTRECURSION_MAX) {
+    snprintf(naic->error, sizeof(naic->error),
+      "Too many levels of recursion while importing '%s'",
+      path
+    );
     return NAIG_ERR_IMPORTRECURSION;
   }
   if (absorb_file(path, (unsigned char**)(&buf), &len)) {
@@ -60,9 +67,28 @@ NAIG_ERR_T naic_fp_import_path
   }
   rule->nchildren = 1;
   rule->children[ 0 ] = parsetree;
+
   ++(naic->importrecursion);
-  CHECK(naic_fp(naic, parsetree, &(naic->globalscope)));
+  if (namespace) {
+    naic_nspnod_t* child = 0;
+    CHECK(
+      naic_nsp_entry_new(
+        naic->currentscope,
+        namespace,
+        NAIC_NSPTYPE_FILE,
+        rule,
+        &child
+      )
+    );
+    naic->currentscope = child;
+    rule->aux.ptr = child;
+  }
+  CHECK(naic_fp(naic, parsetree, &(naic->currentscope)));
+  if (namespace) {
+    naic->currentscope = naic->currentscope->parent;
+  }
   --(naic->importrecursion);
+
   return NAIG_OK;
 }
 
@@ -72,19 +98,24 @@ NAIG_ERR_T naic_fp_import_path
 NAIG_ERR_T naic_fp_import
   (naic_t* naic, naio_resobj_t* rule)
 {
-  char* string = rule->children[ 1 ]->children[ 0 ]->children[ 0 ]->string;
-  char path[ 256 ];
+  char* path = rule->children[ 1 ]->children[ 0 ]->string;
+  char* namespace = NULL;
+  char resolvepath[ 256 ];
   unsigned i;
   struct stat s;
 
-  if (stat(string, &s) == 0 && (s.st_mode & S_IFMT) == S_IFREG) {
-    CHECK(naic_fp_import_path(naic, rule, string));
+  if (rule->children[ 2 ]->nchildren) {
+    namespace = rule->children[ 2 ]->children[ 1 ]->string;
+  }
+
+  if (stat(path, &s) == 0 && (s.st_mode & S_IFMT) == S_IFREG) {
+    CHECK(naic_fp_import_path(naic, rule, path, namespace));
     return NAIG_OK;
   } else {
     for (i=0; i < naic->paths.length; i++) {
-      snprintf(path, sizeof(path), "%s/%s", naic->paths.string[ i ], string);
-      if (stat(path, &s) == 0 && (s.st_mode & S_IFMT) == S_IFREG) {
-        CHECK(naic_fp_import_path(naic, rule, path));
+      snprintf(resolvepath, sizeof(resolvepath), "%s/%s", naic->paths.string[ i ], path);
+      if (stat(resolvepath, &s) == 0 && (s.st_mode & S_IFMT) == S_IFREG) {
+        CHECK(naic_fp_import_path(naic, rule, resolvepath, namespace));
         return NAIG_OK;
       }
     }

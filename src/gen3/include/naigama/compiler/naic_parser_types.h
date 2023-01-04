@@ -56,6 +56,7 @@ struct naic_nspnod
 #define NAIC_NSPTYPE_BLOCK              4
 #define NAIC_NSPTYPE_CODEGLOBAL         5
 #define NAIC_NSPTYPE_CODEVAR            6
+#define NAIC_NSPTYPE_FILE               7
   naio_resobj_t*                        parserobject;
   naic_nspnod_t*                        parent;
   unsigned                              scopelabel;

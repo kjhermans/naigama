@@ -117,18 +117,19 @@ OR                 <- '/'
 ANY                <- '.'
 SETNOT             <- '^'
 
-IMPORTDECL     <- KW_IMPORT STRING SEMICOLON
+IMPORTDECL         <- KW_IMPORT STRINGLITERAL OPTNAMESPACE SEMICOLON
+KW_IMPORT          <- 'import'
+OPTNAMESPACE       <- (KW_AS IDENT)?
+KW_AS              <- 'as'
 
-STRINGLITERAL  <- '\'' { ( '\\' ([nrtv\\'] / [0-9]^3) / [^'\\] )* } '\''
+STRINGLITERAL      <- '\'' { ( '\\' ([nrtv\\'] / [0-9]^3) / [^'\\] )* } '\''
 
-KW_IMPORT      <- 'import'
-
-IDENT          <- [a-zA-Z_][a-zA-Z0-9_]^0-63
-BOPEN          <- '('
-BCLOSE         <- ')'
-CBOPEN         <- '{'
-CBCLOSE        <- '}'
-ABOPEN         <- '['
-ABCLOSE        <- ']'
-COLON          <- ':'
-SEMICOLON      <- ';'
+IDENT              <- [a-zA-Z_][a-zA-Z0-9_]^0-63
+BOPEN              <- '('
+BCLOSE             <- ')'
+CBOPEN             <- '{'
+CBCLOSE            <- '}'
+ABOPEN             <- '['
+ABCLOSE            <- ']'
+COLON              <- ':'
+SEMICOLON          <- ';'

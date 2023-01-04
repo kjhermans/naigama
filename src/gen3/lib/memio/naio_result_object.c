@@ -92,7 +92,7 @@ naio_resobj_t* naio_result_object_children
     }
     parent->children = realloc(
       parent->children,
-      sizeof(naio_resobj_t) * (parent->nchildren + 1)
+      sizeof(naio_resobj_t*) * (parent->nchildren + 1)
     );
     parent->children[ parent->nchildren ]
       = naio_result_object_(input, inputlength, result, i);

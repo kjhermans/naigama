@@ -95,24 +95,35 @@ instrstring_c: ./lib/engine/naie_instr_string.c
 
 functions:
 	./bin/genfnchdr \
+		-i NAIGAMA_COMPILER \
+		-t naic_t \
+		-t naic_nspnod_t \
 		./lib/compiler \
 		./lib/compiler/script \
 		./lib/compiler/namespace \
 		./lib/compiler/rule \
 		./lib/compiler/firstpass > \
 		./include/naigama/compiler/naic_functions.h
-	./bin/genfnchdr ./lib/assembler > \
-		./include/naigama/assembler/naia_functions.h
-	./bin/genfnchdr ./lib/disassembler > \
-		./include/naigama/disassembler/naid_functions.h
-	./bin/genfnchdr ./lib/engine > \
-		./include/naigama/engine/naie_functions.h
-	./bin/genfnchdr ./lib/util > \
-		./include/naigama/util/util_functions.h
-	./bin/genfnchdr ./lib/memio > \
-		./include/naigama/memio/naio_functions.h
-	./bin/genfnchdr ./lib/service > \
-		./include/naigama/service/nais_functions.h
+	./bin/genfnchdr ./lib/assembler \
+		-i NAIGAMA_ASSEMBLER \
+		-t naia_namespace_t \
+		> ./include/naigama/assembler/naia_functions.h
+	./bin/genfnchdr ./lib/disassembler \
+		-i NAIGAMA_DISASSEMBLER \
+		> ./include/naigama/disassembler/naid_functions.h
+	./bin/genfnchdr ./lib/engine \
+		-i NAIGAMA_ENGINE \
+		> ./include/naigama/engine/naie_functions.h
+	./bin/genfnchdr ./lib/util \
+		-i NAIGAMA_UTIL \
+		> ./include/naigama/util/util_functions.h
+	./bin/genfnchdr ./lib/memio \
+		-i NAIGAMA_MEMIO \
+		-a fprefix.h \
+		> ./include/naigama/memio/naio_functions.h
+	./bin/genfnchdr ./lib/service \
+		-i NAIGAMA_SERVICE \
+		> ./include/naigama/service/nais_functions.h
 
 #	@MFS=`find src/ -name Makefile | xargs grep -l 'functions:'`; \
 #		for MF in $$MFS; do \

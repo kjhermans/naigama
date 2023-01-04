@@ -1,7 +1,7 @@
 /**
  * This file is part of Oroszlan, a parsing and scripting environment
 
-Copyright (c) 2022, Kees-Jan Hermans <kees.jan.hermans@gmail.com>
+Copyright (c) 2023, Kees-Jan Hermans <kees.jan.hermans@gmail.com>
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without

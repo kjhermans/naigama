@@ -4,11 +4,48 @@
 ## Copyright 2015 K.J. Hermans
 ##
 
+my @types = (
+  'void', 'int', 'unsigned[ \t\r\n]+int', 'unsigned',
+  'unsigned[ \t\r\n]+char', 'uchar', 'char', 'double',
+  'float', 'u_int64_t', 'uint64_t', 'int64_t', 'u_int32_t',
+  'uint32_t', 'int32_t', 'u_int16_t', 'uint16_t',
+  'int16_t', 'naio_resobj_t', 'NAIG_ERR_T', 'NAIG_BOOL_T',
+);
+
+my $pattern;
+my $hdef;
+my @prefix;
+for (my $i=0; $i < scalar(@ARGV); $i++) {
+  if ($ARGV[ $i ] eq '-p') {
+    splice(@ARGV, $i, 1);
+    $pattern = splice(@ARGV, $i, 1);
+  }
+  if ($ARGV[ $i ] eq '-i') {
+    splice(@ARGV, $i, 1);
+    $hdef = splice(@ARGV, $i, 1);
+  }
+  if ($ARGV[ $i ] eq '-t') {
+    splice(@ARGV, $i, 1);
+    my $t = splice(@ARGV, $i, 1);
+    print STDERR "Adding type $t\n";
+    push @types, $t;
+  }
+  if ($ARGV[ $i ] eq '-a') {
+    splice(@ARGV, $i, 1);
+    my $prefix = splice(@ARGV, $i, 1);
+    push @prefix, $prefix;
+    print STDERR "Adding file $prefix\n";
+    --$i;
+  }
+}
+
 my $dir = shift @ARGV;
-my $hdef = $dir;
-$hdef =~ s/\r?\n$//;
-$hdef =~ s/[\/.]/_/g;
-$hdef = uc($hdef);
+if (!defined($hdef)) {
+  my $hdef = $dir;
+  $hdef =~ s/\r?\n$//;
+  $hdef =~ s/[\/.]/_/g;
+  $hdef = uc($hdef);
+}
 
 print "/**
 * \\file
@@ -23,22 +60,26 @@ print "/**
 
 ";
 
-if (-f "$dir/fprefix.h") { system("cat $dir/fprefix.h"); }
+while (my $prefix = shift @prefix) { system("cat $dir/$prefix"); }
 
-find($dir, 'enter_code', 1);
+find($dir, 'enter_code', 1, $pattern);
 foreach my $arg (@ARGV) {
-  find($arg, 'enter_code', 1);
+  find($arg, 'enter_code', 1, $pattern);
 }
 
 sub find {
   my $dir = shift || '.';
   my $func = shift;
   my $norecurse = shift;
+  my $pattern = shift;
   if (opendir(DIR, $dir)) {
     my @subdirs;
     my @files;
     while (my $entry = readdir(DIR)) {
       next if ($entry eq '.' || $entry eq '..');
+      if ($pattern) {
+        next if ($entry !~ /$pattern/);
+      }
       my $path = "$dir/$entry";
       if (-d $path) {
         push @subdirs, $path;
@@ -54,7 +95,7 @@ sub find {
     }
     if (!$norecurse) {
       foreach my $subdir (sort @subdirs) {
-        find($subdir, $func);
+        find($subdir, $func, $norecurse, $pattern);
       }
     }
   }
@@ -64,33 +105,10 @@ sub enter_code {
   my ($path, $func) = @_;
   my $code = `cat $path`;
   $func = '[a-zA-Z_][a-zA-Z0-9_]*';
-  my @types = (
-    'void\*?',
-    'int\*?',
-    'unsigned[ \t\r\n]+int\*?',
-    'unsigned\*?',
-    'unsigned[ \t\r\n]+char\*?',
-    'uchar\*?',
-    'char\*?',
-    'double',
-    'float',
-    'u_int64_t\*?',
-    'uint64_t\*?',
-    'int64_t\*?',
-    'u_int32_t\*?',
-    'uint32_t\*?',
-    'int32_t\*?',
-    'u_int16_t\*?',
-    'uint16_t\*?',
-    'int16_t\*?',
-    'naio_resobj_t\*',
-    'NAIG_ERR_T',
-    'NAIG_BOOL_T',
-  );
   my $types = join('|', @types);
   while (1) {
     my $match = 0;
-    if ($code =~ s/(static[ \t\r\n]+)?(inline[ \t\r\n]+)?(($types)[ \t\r\n]+$func)[ \t\r\n]*(\([^\{;]*\))[ \t\r\n]*\{//s) {
+    if ($code =~ s/(static[ \t\r\n]+)?(inline[ \t\r\n]+)?(($types)\**[ \t\r\n]+$func)[ \t\r\n]*(\([^\{;]*\))[ \t\r\n]*\{//s) {
       my ($static, $inline, $decl, $params) = ($1, $2, $3, $5);
       if ($static !~ /^static/) {
         print "/* declared in $path */\n";

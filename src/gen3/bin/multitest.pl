@@ -15,30 +15,37 @@ my @tests = split(/\n/, $table);
 
 my $tmpfile="/tmp/test$$";
 
+system("rm -f $tmpfile.$n.log");
+
 print "Multitest $file\n";
+system("rm -f /tmp/success.$file.log /tmp/failure.$file.log");
+
 my $n = 0;
 foreach my $test (@tests) {
   $test =~ s/--.*^//;
   next if ($test =~ /^$/);
   my @fields = split(/\t+/, $test);
-  if (scalar(@fields) eq '3') {
+  if (scalar(@fields) >= 3) {
     ++$n;
     print sprintf "TEST #%.3d - ", $n;
     open FILE, "> $tmpfile.naig"; print FILE $fields[0]; close FILE;
     open FILE, "> $tmpfile.txt"; print FILE $fields[1]; close FILE;
     my $c = "$compiler";
+    if ($fields[3]) {
+      $c .= " $fields[ 3 ]";
+    }
     $c =~ s/GRAMMAR/$tmpfile.naig/g;
     $c =~ s/ASM/$tmpfile.asm/g;
-    $c .= " 2>$tmpfile.$n.log";
+    $c .= " 2>>$tmpfile.$n.log";
     my $x = system($c);
     if ($x) {
       print "Compile NOK - ";
       if ($fields[2] eq 'ERR_COMP') {
         print "Test Ok\n";
-        system("mv $tmpfile.$n.log /tmp/success.$n.log");
+        system("cat $tmpfile.$n.log >> /tmp/success.$file.log");
       } else {
         print "Test NOK\n";
-        system("mv $tmpfile.$n.log /tmp/failure.$n.log");
+        system("cat $tmpfile.$n.log >> /tmp/failure.$file.log");
       }
       next;
     } else {
@@ -66,10 +73,10 @@ foreach my $test (@tests) {
       print "Assembly NOK - ";
       if ($fields[2] eq 'ERR_ASM') {
         print "Test Ok\n";
-        system("mv $tmpfile.$n.log /tmp/success.$n.log");
+        system("cat $tmpfile.$n.log >> /tmp/success.$file.log");
       } else {
         print "Test NOK\n";
-        system("mv $tmpfile.$n.log /tmp/failure.$n.log");
+        system("cat $tmpfile.$n.log >> /tmp/failure.$file.log");
       }
       next;
     } else {
@@ -84,20 +91,20 @@ foreach my $test (@tests) {
       print "Engine NOK - ";
       if ($fields[2] eq 'NOK') {
         print "Test Ok\n";
-        system("mv $tmpfile.$n.log /tmp/success.$n.log");
+        system("cat $tmpfile.$n.log >> /tmp/success.$file.log");
       } else {
         print "Test NOK\n";
-        system("mv $tmpfile.$n.log /tmp/failure.$n.log");
+        system("cat $tmpfile.$n.log >> /tmp/failure.$file.log");
       }
       next;
     } else {
       print "Engine Ok  - ";
       if ($fields[2] eq 'OK') {
         print "Test Ok\n";
-        system("mv $tmpfile.$n.log /tmp/success.$n.log");
+        system("cat $tmpfile.$n.log >> /tmp/success.$file.log");
       } else {
         print "Test NOK\n";
-        system("mv $tmpfile.$n.log /tmp/failure.$n.log");
+        system("cat $tmpfile.$n.log >> /tmp/failure.$file.log");
       }
     }
   }

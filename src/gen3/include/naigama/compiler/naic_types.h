@@ -24,6 +24,12 @@ typedef struct
 }
 naic_ref_t;
 
+#include <naigama/array.h>
+MAKE_ARRAY_HEADER(unsigned, ulist_)
+
+#include <naigama/map.h>
+MAKE_MAP_HEADER(unsigned, ulist_t, ulist_map_)
+
 typedef struct
 {
   char*             grammar;
@@ -40,6 +46,8 @@ typedef struct
   naio_buf_t        write_buffer;
   naio_buf_t*       current_buffer;
   naio_buf_t        global_buffer;
+  ulist_t           capturestack;
+  ulist_map_t       capturetree;
   char              error[ 256 ];
 #define NAIG_IMPORTRECURSION_MAX 256
   unsigned          importrecursion;

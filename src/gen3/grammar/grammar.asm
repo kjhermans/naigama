@@ -892,119 +892,139 @@ IMPORTDECL:
   call __prefix
   opencapture 64
   call KW_IMPORT
-  call STRING
+  call STRINGLITERAL
+  call OPTNAMESPACE
   call SEMICOLON
   closecapture 64
   ret
 -- Rule
-STRINGLITERAL:
-  call __prefix
-  opencapture 65
-  char 27
-  opencapture 66
-  catch __TERM_1360
-__TERM_1359:
-  catch __RIGHTHAND_1362
-  char 5c
-  catch __RIGHTHAND_1376
-  set 0000000080000000000000100040540000000000000000000000000000000000
-  commit __LEFTHAND_1377
-__RIGHTHAND_1376:
-  counter 0 3
-__TERM_1386:
-  set 000000000000ff03000000000000000000000000000000000000000000000000
-  condjump 0 __TERM_1386
-__LEFTHAND_1377:
-  commit __LEFTHAND_1363
-__RIGHTHAND_1362:
-  set ffffffff7fffffffffffffefffffffffffffffffffffffffffffffffffffffff
-__LEFTHAND_1363:
-  partialcommit __TERM_1359
-__TERM_1360:
-  closecapture 66 0
-  char 27
-  closecapture 65
-  ret
--- Rule
 KW_IMPORT:
   call __prefix
-  opencapture 67
+  opencapture 65
   quad 696d706f
   char 72
   char 74
+  closecapture 65
+  ret
+-- Rule
+OPTNAMESPACE:
+  call __prefix
+  opencapture 66
+  catch __TERM_1359
+  call KW_AS
+  call IDENT
+  commit __TERM_1359
+__TERM_1359:
+  closecapture 66
+  ret
+-- Rule
+KW_AS:
+  call __prefix
+  opencapture 67
+  char 61
+  char 73
   closecapture 67
+  ret
+-- Rule
+STRINGLITERAL:
+  call __prefix
+  opencapture 68
+  char 27
+  opencapture 69
+  catch __TERM_1396
+__TERM_1395:
+  catch __RIGHTHAND_1398
+  char 5c
+  catch __RIGHTHAND_1412
+  set 0000000080000000000000100040540000000000000000000000000000000000
+  commit __LEFTHAND_1413
+__RIGHTHAND_1412:
+  counter 0 3
+__TERM_1422:
+  set 000000000000ff03000000000000000000000000000000000000000000000000
+  condjump 0 __TERM_1422
+__LEFTHAND_1413:
+  commit __LEFTHAND_1399
+__RIGHTHAND_1398:
+  set ffffffff7fffffffffffffefffffffffffffffffffffffffffffffffffffffff
+__LEFTHAND_1399:
+  partialcommit __TERM_1395
+__TERM_1396:
+  closecapture 69 0
+  char 27
+  closecapture 68
   ret
 -- Rule
 IDENT:
   call __prefix
-  opencapture 68
+  opencapture 70
   set 0000000000000000feffff87feffff0700000000000000000000000000000000
-  catch __TERM_1417
+  catch __TERM_1447
   counter 0 63
-__TERM_1418:
+__TERM_1448:
   set 000000000000ff03feffff87feffff0700000000000000000000000000000000
-  partialcommit __TERM_1419
-__TERM_1419:
-  condjump 0 __TERM_1418
-  commit __TERM_1417
-__TERM_1417:
-  closecapture 68
+  partialcommit __TERM_1449
+__TERM_1449:
+  condjump 0 __TERM_1448
+  commit __TERM_1447
+__TERM_1447:
+  closecapture 70
   ret
 -- Rule
 BOPEN:
   call __prefix
-  opencapture 69
+  opencapture 71
   char 28
-  closecapture 69
+  closecapture 71
   ret
 -- Rule
 BCLOSE:
   call __prefix
-  opencapture 70
+  opencapture 72
   char 29
-  closecapture 70
+  closecapture 72
   ret
 -- Rule
 CBOPEN:
   call __prefix
-  opencapture 71
+  opencapture 73
   char 7b
-  closecapture 71
+  closecapture 73
   ret
 -- Rule
 CBCLOSE:
   call __prefix
-  opencapture 72
+  opencapture 74
   char 7d
-  closecapture 72
+  closecapture 74
   ret
 -- Rule
 ABOPEN:
   call __prefix
-  opencapture 73
+  opencapture 75
   char 5b
-  closecapture 73
+  closecapture 75
   ret
 -- Rule
 ABCLOSE:
   call __prefix
-  opencapture 74
+  opencapture 76
   char 5d
-  closecapture 74
+  closecapture 76
   ret
 -- Rule
 COLON:
   call __prefix
-  opencapture 75
+  opencapture 77
   char 3a
-  closecapture 75
+  closecapture 77
   ret
 -- Rule
 SEMICOLON:
   call __prefix
-  opencapture 76
+  opencapture 78
   char 3b
-  closecapture 76
+  closecapture 78
   ret
 
   end 0

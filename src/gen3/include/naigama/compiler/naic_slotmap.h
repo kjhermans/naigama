@@ -68,18 +68,20 @@
 #define SLOT_ANY 62
 #define SLOT_SETNOT 63
 #define SLOT_IMPORTDECL 64
-#define SLOT_STRINGLITERAL 65
-#define SLOT_STRINGLITERAL_NRTV 66
-#define SLOT_KW_IMPORT 67
-#define SLOT_IDENT 68
-#define SLOT_BOPEN 69
-#define SLOT_BCLOSE 70
-#define SLOT_CBOPEN 71
-#define SLOT_CBCLOSE 72
-#define SLOT_ABOPEN 73
-#define SLOT_ABCLOSE 74
-#define SLOT_COLON 75
-#define SLOT_SEMICOLON 76
+#define SLOT_KW_IMPORT 65
+#define SLOT_OPTNAMESPACE 66
+#define SLOT_KW_AS 67
+#define SLOT_STRINGLITERAL 68
+#define SLOT_STRINGLITERAL_NRTV 69
+#define SLOT_IDENT 70
+#define SLOT_BOPEN 71
+#define SLOT_BCLOSE 72
+#define SLOT_CBOPEN 73
+#define SLOT_CBCLOSE 74
+#define SLOT_ABOPEN 75
+#define SLOT_ABCLOSE 76
+#define SLOT_COLON 77
+#define SLOT_SEMICOLON 78
 
 #define _SLOTMAP_GRAMMAR_SWITCH \
   case 0: return "SLOT_GRAMMAR"; break; \
@@ -147,18 +149,20 @@
   case 62: return "SLOT_ANY"; break; \
   case 63: return "SLOT_SETNOT"; break; \
   case 64: return "SLOT_IMPORTDECL"; break; \
-  case 65: return "SLOT_STRINGLITERAL"; break; \
-  case 66: return "SLOT_STRINGLITERAL_NRTV"; break; \
-  case 67: return "SLOT_KW_IMPORT"; break; \
-  case 68: return "SLOT_IDENT"; break; \
-  case 69: return "SLOT_BOPEN"; break; \
-  case 70: return "SLOT_BCLOSE"; break; \
-  case 71: return "SLOT_CBOPEN"; break; \
-  case 72: return "SLOT_CBCLOSE"; break; \
-  case 73: return "SLOT_ABOPEN"; break; \
-  case 74: return "SLOT_ABCLOSE"; break; \
-  case 75: return "SLOT_COLON"; break; \
-  case 76: return "SLOT_SEMICOLON"; break; \
+  case 65: return "SLOT_KW_IMPORT"; break; \
+  case 66: return "SLOT_OPTNAMESPACE"; break; \
+  case 67: return "SLOT_KW_AS"; break; \
+  case 68: return "SLOT_STRINGLITERAL"; break; \
+  case 69: return "SLOT_STRINGLITERAL_NRTV"; break; \
+  case 70: return "SLOT_IDENT"; break; \
+  case 71: return "SLOT_BOPEN"; break; \
+  case 72: return "SLOT_BCLOSE"; break; \
+  case 73: return "SLOT_CBOPEN"; break; \
+  case 74: return "SLOT_CBCLOSE"; break; \
+  case 75: return "SLOT_ABOPEN"; break; \
+  case 76: return "SLOT_ABCLOSE"; break; \
+  case 77: return "SLOT_COLON"; break; \
+  case 78: return "SLOT_SEMICOLON"; break; \
 
 
 #endif

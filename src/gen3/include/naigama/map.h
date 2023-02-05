@@ -22,9 +22,11 @@
   } COMBINE(prefix, t);                                                     \
   void COMBINE(prefix, init)(COMBINE(prefix, t)* map);                      \
   void COMBINE(prefix, free)(COMBINE(prefix, t)* map);                      \
+  unsigned COMBINE(prefix, size)(COMBINE(prefix, t)* map);                  \
   void COMBINE(prefix, put)(COMBINE(prefix, t)* map, Tk key, Tv val);       \
   int COMBINE(prefix, get)(COMBINE(prefix, t)* map, Tk key, Tv* val);       \
   int COMBINE(prefix, del)(COMBINE(prefix, t)* map, Tk key, Tv* val);       \
+  int COMBINE(prefix, getat)(COMBINE(prefix, t)* map, unsigned i, Tk* key, Tv* val);\
 
 #define MAKE_MAP_CODE(Tk, Tv, prefix)                                       \
   void COMBINE(prefix, init)(COMBINE(prefix, t)* map) {                     \
@@ -35,6 +37,10 @@
     if (map->keys) { free(map->keys); }                                     \
     if (map->values) { free(map->values); }                                 \
     memset(map, 0, sizeof(*map));                                           \
+  }                                                                         \
+                                                                            \
+  unsigned COMBINE(prefix, size)(COMBINE(prefix, t)* map) {                 \
+    return map->count;                                                      \
   }                                                                         \
                                                                             \
   void COMBINE(prefix, put)(COMBINE(prefix, t)* map, Tk key, Tv val) {      \
@@ -53,7 +59,7 @@
       if (map->keys == NULL) { abort(); }                                   \
       map->values = realloc(                                                \
         map->values,                                                        \
-        sizeof(Tk) * map->allocated                                         \
+        sizeof(Tv) * map->allocated                                         \
       );                                                                    \
       if (map->values == NULL) { abort(); }                                 \
     }                                                                       \
@@ -70,6 +76,16 @@
       }                                                                     \
     }                                                                       \
     return ~0;                                                              \
+  }                                                                         \
+                                                                            \
+  int COMBINE(prefix, getat)(COMBINE(prefix, t)* map, unsigned i, Tk* key, Tv* val) {\
+    if (i < map->count) {                                                   \
+      if (key) { *key = map->keys[ i ]; }                                   \
+      if (val) { *val = map->values[ i ]; }                                 \
+      return 0;                                                             \
+    } else {                                                                \
+      return ~0;                                                            \
+    }                                                                       \
   }                                                                         \
                                                                             \
   int COMBINE(prefix, del)(COMBINE(prefix, t)* map, Tk key, Tv* val) {      \

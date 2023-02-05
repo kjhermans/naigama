@@ -11,16 +11,21 @@
  * void     int_array_free(int_array_t* list);
  * void     int_array_push(int_array_t* list, int elt);
  * int      int_array_get (int_array_t* list, unsigned index, int* elt);
+ * int      int_array_has (int_array_t* list, int elt);
+ * int      int_array_indexof(int_array_t* list, int elt);
  * int      int_array_set (int_array_t* list, unsigned index, int elt);
  * int      int_array_rem (int_array_t* list, unsigned index, int* elt);
  * void     int_array_ins (int_array_t* list, unsigned index, int elt);
  * int      int_array_pop (int_array_t* list, int* elt);
  * int      int_array_peek(int_array_t* list, int* elt);
  * unsigned int_array_size(int_array_t* list);
+ * int int_array_iterate
+ *   (int_array_t* list, int(*fnc)(int_array_t*,unsigned,int*,void*), void*); 
  *
  */
 
 #include <stdlib.h>
+#include <string.h>
 
 #define COMBINE(a, b) a##b
 
@@ -51,6 +56,10 @@
   extern                                                            \
   int COMBINE(prefix, get)(COMBINE(prefix, t)* list, unsigned index, T* elt);\
   extern                                                            \
+  int COMBINE(prefix, has)(COMBINE(prefix, t)* list, T elt);        \
+  extern                                                            \
+  int COMBINE(prefix, indexof)(COMBINE(prefix, t)* list, T elt);        \
+  extern                                                            \
   int COMBINE(prefix, set)(COMBINE(prefix, t)* list, unsigned index, T elt);\
   extern                                                            \
   int COMBINE(prefix, rem)(COMBINE(prefix, t)* list, unsigned index, T* elt);\
@@ -58,6 +67,9 @@
   void COMBINE(prefix, ins)(COMBINE(prefix, t)* list, unsigned index, T elt);\
   extern                                                            \
   void COMBINE(prefix, free)(COMBINE(prefix, t)* list);             \
+  extern                                                            \
+  int COMBINE(prefix, iterate)(COMBINE(prefix, t)* list,            \
+    int(*fnc)(COMBINE(prefix, t)*,unsigned,T*,void*), void*);       \
 
 #define MAKE_ARRAY_CODE(T, prefix)                                  \
   void COMBINE(prefix, init)(COMBINE(prefix, t)* list) {            \
@@ -133,6 +145,15 @@
     return 0;                                                       \
   }                                                                 \
                                                                     \
+  int COMBINE(prefix, indexof)(COMBINE(prefix, t)* list, T elt) {   \
+    for (unsigned i=0; i < list->count; i++) {                      \
+      if (ARRAY_EQUALS(list->list[ i ], elt)) {                     \
+        return (int)i;                                              \
+      }                                                             \
+    }                                                               \
+    return -1;                                                      \
+  }                                                                 \
+                                                                    \
   int COMBINE(prefix, rem)(COMBINE(prefix, t)* list, unsigned index, T* elt) {\
     if (index < list->count) {                                      \
       if (elt) { *elt = list->list[ index ]; }                      \
@@ -189,6 +210,19 @@
     } else {                                                        \
       COMBINE(prefix, push)(list, elt);                             \
     }                                                               \
+  }                                                                 \
+                                                                    \
+  int COMBINE(prefix, iterate)(COMBINE(prefix, t)* list,            \
+    int(*fnc)(COMBINE(prefix, t)*,unsigned,T*,void*), void* arg)    \
+  {                                                                 \
+    unsigned i;                                                     \
+    int r;                                                          \
+    for (i=0; i<list->count; i++) {                                 \
+      if ((r = fnc(list, i, &(list->list[ i ]), arg)) != 0) {       \
+        return r;                                                   \
+      }                                                             \
+    }                                                               \
+    return 0;                                                       \
   }                                                                 \
 
 #endif

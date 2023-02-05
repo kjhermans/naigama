@@ -42,28 +42,51 @@ NAIG_ERR_T naic_fp_rule_tree
   unsigned i;
   char* name;
   naio_resobj_t* ident;
+  naio_resobj_t* child;
 
   ASSERT(naic != NULL)
   ASSERT(rule != NULL)
   ASSERT(top != NULL)
   
   for (i=0; i < top->nchildren; i++) {
-    if (top->children[ i ]->type == SLOT_CAPTURE) {
-      CHECK(naio_slotmap_add_capture(naic->slotmap, rule, top->children[ i ], naic->slot));
-      top->children[ i ]->aux.num = (naic->slot)++;
-      CHECK(naic_fp_rule_tree(naic, rule, top->children[ i ]));
-    } else if (top->children[ i ]->type == SLOT_VARCAPTURE) {
+    child = top->children[ i ];
+    if (child->type == SLOT_CAPTURE) {
+      CHECK(naio_slotmap_add_capture(naic->slotmap, rule, child, naic->slot));
+      child->aux.num = (naic->slot)++;
+
+//      CHECK(naic_fp_capture_push(naic, naic->slot));
+      CHECK(naic_fp_rule_tree(naic, rule, child));
+//      CHECK(naic_fp_capture_pop(naic));
+
+    } else if (child->type == SLOT_VARCAPTURE) {
       ident = naio_result_object_query(
-        top->children[ i ], 1, SLOT_IDENT, 0
+        child, 1, SLOT_IDENT, 0
       );
       ASSERT(ident != NULL)
       name = ident->string;
       CHECK(naic_nsp_add_rulevar(naic->currentscope, name, naic->slot));
-      CHECK(naio_slotmap_add_capture(naic->slotmap, rule, top->children[ i ], naic->slot));
-      top->children[ i ]->aux.num = (naic->slot)++;
-      CHECK(naic_fp_rule_tree(naic, rule, top->children[ i ]));
+      CHECK(naio_slotmap_add_capture(naic->slotmap, rule, child, naic->slot));
+      child->aux.num = (naic->slot)++;
+
+//      CHECK(naic_fp_capture_push(naic, naic->slot));
+      CHECK(naic_fp_rule_tree(naic, rule, child));
+//      CHECK(naic_fp_capture_pop(naic));
+
+    } else if (child->type == SLOT_REFERENCE) {
+/*
+      ident = naio_result_object_query(
+        child, 1, SLOT_IDENT, 0
+      );
+      ASSERT(ident != NULL)
+      name = ident->string;
+fprintf(stderr, "Rule %u has child reference '%s'\n", naic->rule.index, name);
+*/
+/*
+      child->aux.num = naic->rule.index;
+*/
+
     } else {
-      CHECK(naic_fp_rule_tree(naic, rule, top->children[ i ]));
+      CHECK(naic_fp_rule_tree(naic, rule, child));
     }
   }
   return NAIG_OK;

@@ -43,7 +43,7 @@ NAIG_ERR_T naia_process_labels
           char* name = object->children[ i ]->children[ 1 ]->string;
           naia_namespace_t* namespace = naia_namespace_new(name);
 
-          naia_namespace_add(naia->namespace.current, namespace);
+          CHECK(naia_namespace_add(naia->namespace.current, namespace));
           naia->namespace.current = namespace;
         }
         break;

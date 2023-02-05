@@ -45,7 +45,11 @@ NAIG_ERR_T naic_fp_rule
   naic_nspnod_t* entry;
 
   if (naic->flags & NAIC_FLG_DEFAULTCAPTURE) {
+
+//    CHECK(naic_fp_capture_push(naic, naic->slot));
     CHECK(naio_slotmap_add_capture(naic->slotmap, rule, NULL, naic->slot));
+//    CHECK(naic_fp_capture_pop(naic));
+
     rule->aux.num = (naic->slot)++;
   }
   if (0 == naic->firsttype) {
@@ -60,6 +64,7 @@ NAIG_ERR_T naic_fp_rule
       naic->firsttype = NAIC_FIRST_MAINRULE;
     }
   }
+  //rule_map_put(&(naic->rule.map), rulename, ++(naic->rule.index));
   CHECK(naic_nsp_add_rule(nsp, rulename, rule, &entry));
   CHECK(naic_fp_rule_tree(naic, rule, rule));
   return NAIG_OK;

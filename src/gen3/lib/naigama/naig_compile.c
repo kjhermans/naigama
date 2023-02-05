@@ -82,6 +82,7 @@ NAIG_ERR_T naig_write_bytecode
 NAIG_ERR_T naig_compile
   (naig_t* naig, char* grammar, int traps)
 {
+  naic_t naic;
   char* assembly = NULL;
   unsigned flags = 0;
 
@@ -93,6 +94,7 @@ NAIG_ERR_T naig_compile
 
   CHECK(
     naic_compile(
+      &naic,
       grammar,
       &(naig->slotmap),
       flags,

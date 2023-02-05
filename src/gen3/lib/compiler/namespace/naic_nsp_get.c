@@ -56,14 +56,15 @@ NAIG_ERR_T naic_nsp_get
         return NAIG_OK;
       }
       if (nsp->parent) {
+        int s;
         char path[ 2048 ];
         char copy[ 2048 ];
         naic_nspnod_t* parent = nsp->children.list[ i ];
         snprintf(path, sizeof(path), "%s", nsp->children.list[ i ]->name);
         snprintf(copy, sizeof(copy), "%s", path);
         while ((parent = parent->parent) != NULL && parent->name != NULL) {
-          snprintf(path, sizeof(path), "%s__%s", parent->name, copy);
-          snprintf(copy, sizeof(copy), "%s", path);
+          s = snprintf(path, sizeof(path), "%s__%s", parent->name, copy); (void)s;
+          s = snprintf(copy, sizeof(copy), "%s", path); (void)s;
           DBGLOG("cmp '%s' with '%s'\n", key, path);
           if (0 == strcmp(path, key)) {
             *entry = nsp->children.list[ i ];

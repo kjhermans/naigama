@@ -148,6 +148,7 @@ int main
   unsigned nrules = 0;
   char* grammarfile = "-";
   char* inputfile = "-";
+  naic_t naic;
   char* grammar = 0;
   unsigned grammarlen = 0;
   naio_buf_t assembly = NAIO_BUF_INIT;
@@ -243,6 +244,7 @@ int main
 #endif
   if (!NAIG_ISOK(
         naic_compile(
+          &naic,
           grammar,
           &slots,
           compileflags,

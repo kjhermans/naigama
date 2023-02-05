@@ -43,6 +43,7 @@ NAIG_ERR_T naia_namespace_resolve_
 
   snprintf(path, sizeof(path), "%-.*s", len, name);
   while (nsp) {
+    int s;
     NAIG_ERR_T e = naio_labelmap_get(&(nsp->labels), path, strlen(path), offset);
     switch (e.code) {
     case 0:
@@ -52,8 +53,8 @@ NAIG_ERR_T naia_namespace_resolve_
     default:
       return e;
     }
-    snprintf(copy, sizeof(copy), "%s", path);
-    snprintf(path, sizeof(path), "%s__%s", nsp->name, copy);
+    s = snprintf(copy, sizeof(copy), "%s", path); (void)s;
+    s = snprintf(path, sizeof(path), "%s__%s", nsp->name, copy); (void)s;
     nsp = nsp->parent;
   }
   for (unsigned i=0; i < namespace->nchildren; i++) {

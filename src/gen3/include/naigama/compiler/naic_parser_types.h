@@ -49,6 +49,7 @@ naic_param_t;
 struct naic_nspnod
 {
   char*                                 name;
+  unsigned                              id;
   unsigned                              type;
 #define NAIC_NSPTYPE_RULE               1
 #define NAIC_NSPTYPE_RULEVAR            2

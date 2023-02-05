@@ -29,6 +29,8 @@ MAKE_ARRAY_HEADER(unsigned, ulist_)
 
 #include <naigama/map.h>
 MAKE_MAP_HEADER(unsigned, ulist_t, ulist_map_)
+MAKE_MAP_HEADER(char*, unsigned, rule_map_)
+MAKE_MAP_HEADER(unsigned, ulist_t, rule_tree_)
 
 typedef struct
 {
@@ -40,14 +42,22 @@ typedef struct
   unsigned          flags;
   naic_nspnod_t*    globalscope;
   naic_nspnod_t*    currentscope;
-//  naic_nspnod_t*    currentfunction;
   NAIG_ERR_T      (*write)(void* ptr, char* fmt, ...);
   void*             write_arg;
   naio_buf_t        write_buffer;
   naio_buf_t*       current_buffer;
   naio_buf_t        global_buffer;
-  ulist_t           capturestack;
-  ulist_map_t       capturetree;
+/*
+  struct {
+    unsigned          index;
+    rule_map_t        map;
+    rule_tree_t       tree;
+  }                 rule;
+  struct {
+    ulist_t           stack;
+    ulist_map_t       tree;
+  }                 capture;
+*/
   char              error[ 256 ];
 #define NAIG_IMPORTRECURSION_MAX 256
   unsigned          importrecursion;
@@ -60,12 +70,6 @@ typedef struct
     char**            string;
     unsigned          length;
   }                 paths;
-/*
-  struct {
-    unsigned          variablecount;
-    unsigned          functioncount;
-  }                 global;
-*/
   int               prefix;
   char*             first;
 #define             NAIC_FIRST_RULE             1

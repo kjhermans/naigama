@@ -40,15 +40,34 @@ NAIG_ERR_T naic_compile_reference
   (naic_t* naic, naio_resobj_t* ref)
 {
   naic_nspnod_t* entry;
-  char* rule = ref->string;
+  char* rulename = ref->string;
+
+
+  unsigned parentruleid = ref->aux.num;
+  ulist_t parentrules;
+  unsigned childruleid;
+
+/*
+  if (rule_map_get(&(naic->rule.map), rulename, &childruleid)) {
+fprintf(stderr, "Can't resolve rule '%s'\n", rulename);
+  }
+  if (rule_tree_get(&(naic->rule.tree), parentruleid, &parentrules)) {
+    ulist_init(&parentrules);
+  }
+  if (!ulist_has(&parentrules, childruleid)) {
+    ulist_push(&parentrules, childruleid);
+  }
+fprintf(stderr, "Putting %u -> %u\n", childruleid, parentruleid);
+  rule_tree_put(&(naic->rule.tree), parentruleid, parentrules);
+*/
 
   CHECK_AND(
-    naic_nsp_get(naic->currentscope, rule, &entry, 0),
+    naic_nsp_get(naic->currentscope, rulename, &entry, 0),
     snprintf(naic->error, sizeof(naic->error),
-      "Could not resolve rule '%s'.", rule
+      "Could not resolve rule '%s'.", rulename
     )
   );
 
-  NAIC_WRITE("  call %s\n", rule);
+  NAIC_WRITE("  call %s\n", rulename);
   return NAIG_OK;
 }

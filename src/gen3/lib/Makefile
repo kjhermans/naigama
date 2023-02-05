@@ -6,5 +6,5 @@ all:
 	@cd disassembler && make
 	@cd engine && make
 	@cd naigama && make
-	@cd service && make
+#	@cd service && make
 

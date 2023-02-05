@@ -28,6 +28,11 @@ NAIG_ERR_T naie_labelmap_debug
   (naio_labelmap_t* map)
   __attribute__ ((warn_unused_result));
 
+/* declared in ./lib/memio/naio_labelmap_free.c */
+extern
+void naio_labelmap_free
+  (naio_labelmap_t* map);
+
 /* declared in ./lib/memio/naio_labelmap_get.c */
 extern
 NAIG_ERR_T naio_labelmap_get

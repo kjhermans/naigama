@@ -103,6 +103,7 @@ NAIG_ERR_T do_compile
     FILE* output,
     FILE* slotmap,
     FILE* slotmaph,
+    FILE* cfile,
     int assemble,
     char* asmfile,
     FILE* labelmap,
@@ -110,6 +111,7 @@ NAIG_ERR_T do_compile
     unsigned npaths
   )
 {
+  naic_t naic;
   naio_labelmap_t lmap;
   naio_slotmap_t map;
   char* assembly = 0;
@@ -119,6 +121,7 @@ NAIG_ERR_T do_compile
     fprintf(stderr, "Compiling...\n");
     CHECK(
       naic_compile(
+        &naic,
         grammar,
         &map,
         flags,
@@ -150,7 +153,7 @@ NAIG_ERR_T do_compile
   } else {
     CHECK(
       naic_compile(
-        grammar, &map, flags, paths, npaths, naic_write_file, output
+        &naic, grammar, &map, flags, paths, npaths, naic_write_file, output
       )
     );
   }
@@ -166,6 +169,9 @@ NAIG_ERR_T do_compile
     CHECK(naio_slotmap_write_h(&map, slotmaph));
     fclose(slotmaph);
   }
+  if (cfile) {
+    CHECK(naic_compile_c(&naic));
+  }
   return NAIG_OK;
 }
 
@@ -180,6 +186,7 @@ int main
   FILE* output = stdout;
   FILE* slotmap = NULL;
   FILE* slotmaph = NULL;
+  FILE* cfile = NULL;
   char* assembly = 0;
   FILE* labelmap = NULL;
   unsigned flags = 0;
@@ -264,6 +271,21 @@ int main
       case 'C':
         flags |= NAIC_FLG_DEFAULTCAPTURE;
         break;
+      case 'G':
+        if (i < argc - 1) {
+          char* path = argv[ ++i ];
+          FILE* file = fopen(path, "w");
+          if (NULL == file) {
+            fprintf(stderr, "Could not open %s\n", path);
+            exit(-6);
+          }
+          flags |= NAIC_FLG_GENERATEC;
+          cfile = file;
+        } else {
+          fprintf(stderr, "-G no path given.\n");
+          exit(-6);
+        }
+        break;
       case 'b':
         assemble = 1;
         break;
@@ -339,6 +361,7 @@ int main
     output,
     slotmap,
     slotmaph,
+    cfile,
     assemble,
     assembly,
     labelmap,

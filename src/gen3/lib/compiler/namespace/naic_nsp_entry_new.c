@@ -34,6 +34,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <naigama/naig_private.h>
 #include "../naic_private.h"
 
+static
+unsigned nspid = 0;
+
 /**
  *
  */
@@ -50,6 +53,7 @@ NAIG_ERR_T naic_nsp_entry_new
 
   (*result) = NEW(naic_nspnod_t);
   (*result)->name = name;
+  (*result)->id = ++(nspid);
   (*result)->type = type;
   (*result)->parent = parent;
   (*result)->parserobject = object;

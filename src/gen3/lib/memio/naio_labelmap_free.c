@@ -31,21 +31,19 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \brief
  */
 
-#include "naia_private.h"
+#include "naio_private.h"
 
 /**
  *
  */
-void naia_namespace_free
-  (naia_namespace_t* namespace)
+void naio_labelmap_free
+  (naio_labelmap_t* map)
 {
-  naio_labelmap_free(&(namespace->labels));
-  for (unsigned i=0; i < namespace->nchildren; i++) {
-    naia_namespace_free(namespace->children[ i ]);
+  for (unsigned i=0; i < map->count; i++) {
+    free(map->entries[ i ].str);
+    map->entries[ i ].str = 0;
+    map->entries[ i ].len = 0;
   }
-  if (namespace->nchildren) {
-    free(namespace->children);
-    namespace->nchildren = 0;
-    namespace->children = 0;
-  }
+  free(map->entries);
+  map->entries = 0;
 }

@@ -62,12 +62,10 @@ NAIG_ERR_T nais_configure
     naie_engine_init(
       &e,
       nais_json_bytecode,
-      sizeof(nais_json_bytecode),
-      buf,
-      buflen
+      sizeof(nais_json_bytecode)
     )
   );
-  CHECK(naie_engine_run(&e, &r));
+  CHECK(naie_engine_run(&e, buf, buflen, &r));
   o = naio_result_object(buf, buflen, &r);
   CHECK(nais_configure_side(nais, o, 0));
   CHECK(nais_configure_side(nais, o, 1));

@@ -13,6 +13,7 @@
 extern
 NAIG_ERR_T naic_compile
   (
+    naic_t* naic,
     char* grammar,
     naio_slotmap_t* slots,
     unsigned flags,
@@ -21,6 +22,12 @@ NAIG_ERR_T naic_compile
     NAIG_ERR_T(*fnc)(void*,char*,...),
     void* arg
   )
+  __attribute__ ((warn_unused_result));
+
+/* declared in ./lib/compiler/naic_compile_c.c */
+extern
+NAIG_ERR_T naic_compile_c
+  (naic_t* naic)
   __attribute__ ((warn_unused_result));
 
 /* declared in ./lib/compiler/naic_compile_top.c */
@@ -309,6 +316,18 @@ NAIG_ERR_T naic_string_unescape
 extern
 NAIG_ERR_T naic_fp
   (naic_t* naic, naio_resobj_t* top, naic_nspnod_t** nsp)
+  __attribute__ ((warn_unused_result));
+
+/* declared in ./lib/compiler/firstpass/naic_fp_capture_pop.c */
+extern
+NAIG_ERR_T naic_fp_capture_pop
+  (naic_t* naic)
+  __attribute__ ((warn_unused_result));
+
+/* declared in ./lib/compiler/firstpass/naic_fp_capture_push.c */
+extern
+NAIG_ERR_T naic_fp_capture_push
+  (naic_t* naic, unsigned slot)
   __attribute__ ((warn_unused_result));
 
 /* declared in ./lib/compiler/firstpass/naic_fp_import.c */

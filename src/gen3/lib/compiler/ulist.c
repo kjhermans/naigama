@@ -33,5 +33,4 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "naic_private.h"
 
-//#include <naigama/array.h>
 MAKE_ARRAY_CODE(unsigned, ulist_)

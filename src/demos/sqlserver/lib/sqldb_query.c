@@ -47,9 +47,7 @@ int sqldb_query
     }
   }
   memset(result, 0, sizeof(*result));
-  db->parser.input = (unsigned char*)query;
-  db->parser.input_length = strlen(query);
-  SQL_CHECK_NAIG(naie_engine_run(&(db->parser), &captures));
+  SQL_CHECK_NAIG(naie_engine_run(&(db->parser), query, strlen(query), &captures));
   tree = naio_result_object((unsigned char*)query, strlen(query), &captures);
   naio_result_object_clean(tree, SLOTMAP___prefix_);
   if (tree->nchildren &&

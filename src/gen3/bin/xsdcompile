@@ -8,6 +8,8 @@ $Data::Dumper::Sortkeys = 1;
 
 my $xsdpath = shift @ARGV;
 
+my $debug = 1;
+
 my @nsp = ( 'jdssdm' ); # must be a command line option to fill this list
 
 my @includes;
@@ -37,7 +39,7 @@ sub load_xml
     die "Could not load $path, not even at $dir";
   }
   $xml =~ s/<!--.*?-->//sg;
-  $xml =~ s/<?.*?>//s;
+  $xml =~ s/<\?.*\?>//s;
   return {
     xml => $xml,
     stack => [],
@@ -53,6 +55,9 @@ sub parse_xml
     $prs->{xml} =~ s/^\s+//;
     if ($prs->{xml} =~ s/^<([a-zA-Z0-9_:]+)\s*//) {
       my $tagname = $1;
+      if ($debug) {
+        print STDERR "OPENTAG '$tagname'\n";
+      }
       my $tag = {
         name => $tagname
       };
@@ -96,10 +101,13 @@ sub parse_xml
       }
     } elsif ($prs->{xml} =~ s/^<\/([a-zA-Z0-9_:]+)\s*>\s*//) {
       my $tagname = $1;
+      if ($debug) {
+        print STDERR "CLOSETAG: '$tagname'\n";
+      }
       if (scalar(@{$prs->{stack}}) && $prs->{stack}[-1]{name} eq $tagname) {
         pop @{$prs->{stack}};
       } else {
-        die "Close tag; expected $prs->{stack}[-1]{name} at $prs->{xml}";
+        die "Close tag; expected '$prs->{stack}[-1]{name}' at '$prs->{xml}'";
       }
     } else {
       die "Parse error at $prs->{xml}; expected tag";
@@ -168,7 +176,8 @@ sub parse_xsd_top
   my $prs = shift;
   foreach my $include (@includes) {
     foreach my $child (@{$include->{top}{children}}) {
-      if ($child->{name} eq 'element') {
+
+      if ($child->{name} =~ /^(xsd:)?element$/) {
         my $objname = $child->{attrs}{name};
         my $objtype = $child->{attrs}{type};
         if ($objtype) {
@@ -179,20 +188,25 @@ sub parse_xsd_top
           my $anontype = { __name => $anontypename };
           $prs->{objects}{$objname} = $anontypename;
           $prs->{types}{$anontypename} = $anontype;
-          discover_xsd_type($prs, $child->{children}[0], $anontype);
+          xsd_discover_type($prs, $child->{children}[0], $anontype);
         }
-      } elsif ($child->{name} eq 'complexType') {
+
+      } elsif ($child->{name} =~ /^(xsd:)?attribute$/) {
+
+      } elsif ($child->{name} =~ /^(xsd:)?complexType$/) {
         my $typename = $child->{attrs}{name};
         $typename =~ s/^.*://;
         my $type = { __name => $typename };
         $prs->{types}{$typename} = $type;
         xsd_discover_type($prs, $child, $type);
-      } elsif ($child->{name} eq 'simpleType') {
+
+      } elsif ($child->{name} =~ /^(xsd:)?simpleType$/) {
         my $typename = $child->{attrs}{name};
         $typename =~ s/^.*://;
         my $type = { simple => 1, __name => $typename };
         $prs->{types}{$typename} = $type;
         xsd_discover_type($prs, $child, $type);
+
       } elsif ($child->{name} !~ /^(include|import)$/) {
         die "Unknown element $child->{name}\n";
       }
@@ -204,17 +218,17 @@ sub xsd_discover_type
 {
   my ($prs, $node, $type) = @_;
   foreach my $child (@{$node->{children}}) {
-    if ($child->{name} eq 'complexContent') {
+    if ($child->{name} =~ /^(xsd:)complexContent$/) {
       xsd_complexcontent($prs, $child, $type);
-    } elsif ($child->{name} eq 'simpleContent') {
+    } elsif ($child->{name} =~ /^(xsd:)simpleContent$/) {
       xsd_simplecontent($prs, $child, $type);
-    } elsif ($child->{name} eq 'sequence') {
+    } elsif ($child->{name} =~ /^(xsd:)sequence$/) {
       xsd_sequence($prs, $child, $type);
-    } elsif ($child->{name} eq 'attribute') {
+    } elsif ($child->{name} =~ /^(xsd:)attribute$/) {
       xsd_attribute($prs, $child, $type);
-    } elsif ($child->{name} eq 'choice') {
+    } elsif ($child->{name} =~ /^(xsd:)choice$/) {
       xsd_choice($prs, $child, $type);
-    } elsif ($child->{name} eq 'restriction') {
+    } elsif ($child->{name} =~ /^(xsd:)restriction$/) {
       xsd_restriction($prs, $child, $type);
     } else {
       die "Unknown child $child->{name}";
@@ -226,7 +240,7 @@ sub xsd_complexcontent
 {
   my ($prs, $node, $type) = @_;
   foreach my $child (@{$node->{children}}) {
-    if ($child->{name} eq 'extension') {
+    if ($child->{name} =~ /^(xsd:)extension$/) {
       xsd_extension($prs, $child, $type);
     } else {
       die "Unknown child $child->{name}";
@@ -238,7 +252,7 @@ sub xsd_simplecontent
 {
   my ($prs, $node, $type) = @_;
   foreach my $child (@{$node->{children}}) {
-    if ($child->{name} eq 'extension') {
+    if ($child->{name} =~ /^(xsd:)extension$/) {
       xsd_extension($prs, $child, $type);
     } else {
       die "Unknown child $child->{name}";
@@ -256,11 +270,11 @@ sub xsd_extension
     $type->{extends} = $base;
   }
   foreach my $child (@{$node->{children}}) {
-    if ($child->{name} eq 'sequence') {
+    if ($child->{name} =~ /^(xsd:)sequence$/) {
       xsd_sequence($prs, $child, $type);
-    } elsif ($child->{name} eq 'choice') {
+    } elsif ($child->{name} =~ /^(xsd:)choice$/) {
       xsd_choice($prs, $child, $type);
-    } elsif ($child->{name} eq 'attribute') {
+    } elsif ($child->{name} =~ /^(xsd:)attribute$/) {
       xsd_attribute($prs, $child, $type);
     } else {
       die "Unknown child $child->{name}";
@@ -273,11 +287,11 @@ sub xsd_sequence
 {
   my ($prs, $node, $type) = @_;
   foreach my $child (@{$node->{children}}) {
-    if ($child->{name} eq 'element') {
+    if ($child->{name} =~ /^(xsd:)element$/) {
       xsd_element($prs, $child, $type);
-    } elsif ($child->{name} eq 'choice') {
+    } elsif ($child->{name} =~ /^(xsd:)choice$/) {
       xsd_choice($prs, $child, $type);
-    } elsif ($child->{name} eq 'sequence') {
+    } elsif ($child->{name} =~ /^(xsd:)sequence$/) {
       xsd_sequence($prs, $child, $type);
     } else {
       die "Unknown child $child->{name}";
@@ -295,13 +309,13 @@ sub xsd_element
     $type->{members}{$membername} = $membertype;
   } else {
     foreach my $child (@{$node->{children}}) {
-      if ($child->{name} eq 'simpleType') {
+      if ($child->{name} =~ /^(xsd:)simpleType$/) {
         my $subtypename = 'ANON_' . ++$counter;
         my $subtype = { __name => $subtypename, simple => 1 };
         $prs->{types}{$subtypename} = $subtype;
         xsd_discover_type($prs, $child, $subtype);
         $type->{members}{$membername} = $subtypename;
-      } elsif ($child->{name} eq 'complexType') {
+      } elsif ($child->{name} =~ /^(xsd:)complexType$/) {
         my $subtypename = 'ANON_' . ++$counter;
         my $subtype = { __name => $subtypename };
         $prs->{types}{$subtypename} = $subtype;
@@ -324,7 +338,7 @@ sub xsd_attribute
     $type->{attrs}{$attrname} = $attrtype;
   } else {
     foreach my $child (@{$node->{children}}) {
-      if ($child->{name} eq 'simpleType') {
+      if ($child->{name} =~ /^(xsd:)simpleType$/) {
         print STDERR "Unhandled attr simpleType: " . reconstitute_xml($node);
         $type->{attrs}{$attrname} = "String";
       } else {
@@ -338,7 +352,7 @@ sub xsd_choice
 {
   my ($prs, $node, $type) = @_;
   foreach my $child (@{$node->{children}}) {
-    if ($child->{name} eq 'element') {
+    if ($child->{name} =~ /^(xsd:)element$/) {
       xsd_element($prs, $child, $type);
     } else {
       die "Unknown child $child->{name}";
@@ -350,15 +364,15 @@ sub xsd_restriction
 {
   my ($prs, $node, $type) = @_;
   foreach my $child (@{$node->{children}}) {
-    if ($child->{name} eq 'minLength') {
-    } elsif ($child->{name} eq 'enumeration') {
+    if ($child->{name} =~ /^(xsd:)minLength$/) {
+    } elsif ($child->{name} =~ /^(xsd:)enumeration$/) {
       xsd_enumeration($prs, $child, $type);
-    } elsif ($child->{name} eq 'totalDigits') {
-    } elsif ($child->{name} eq 'fractionDigits') {
-    } elsif ($child->{name} eq 'minInclusive') {
-    } elsif ($child->{name} eq 'maxInclusive') {
-    } elsif ($child->{name} eq 'maxLength') {
-    } elsif ($child->{name} eq 'pattern') {
+    } elsif ($child->{name} =~ /^(xsd:)totalDigits$/) {
+    } elsif ($child->{name} =~ /^(xsd:)fractionDigits$/) {
+    } elsif ($child->{name} =~ /^(xsd:)minInclusive$/) {
+    } elsif ($child->{name} =~ /^(xsd:)maxInclusive$/) {
+    } elsif ($child->{name} =~ /^(xsd:)maxLength$/) {
+    } elsif ($child->{name} =~ /^(xsd:)pattern$/) {
     } else {
       die "Unknown child $child->{name}";
     }

@@ -38,6 +38,15 @@ $hash->{types}{boolean} = {
   enum => 1,
   enumvalues => [ 'true', 'false' ]
 };
+$hash->{types}{float} = {
+  textcontent => 1,
+};
+$hash->{types}{string} = {
+  textcontent => 1,
+};
+$hash->{types}{int} = {
+  textcontent => 1,
+};
 $hash->{types}{anyType} = {
   
 };

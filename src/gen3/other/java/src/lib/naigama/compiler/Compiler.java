@@ -61,6 +61,8 @@ public class Compiler
       } else if (child.getSlot() == Slotmap.SLOT_SINGLE_EXPRESSION_) {
         state.currentrule = "DEFAULT";
         expression(child.firstChild(), state, out);
+      } else if (child.getSlot() == Slotmap.SLOT_IMPORTDECL_) {
+        //..
       }
     }
   }

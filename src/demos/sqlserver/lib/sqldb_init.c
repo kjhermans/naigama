@@ -75,7 +75,7 @@ int sqldb_init
     fprintf(stderr, "Database error\n");
     return ~0;
   }
-  SQL_CHECK_NAIG(naie_engine_init(&(db->parser), bytecode, sizeof(bytecode), NULL, 0));
+  SQL_CHECK_NAIG(naie_engine_init(&(db->parser), bytecode, sizeof(bytecode)));
   db->init = 1;
   return 0;
 }

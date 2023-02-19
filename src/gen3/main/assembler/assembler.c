@@ -75,6 +75,7 @@ NAIG_ERR_T naia_write_cfile
       fprintf(file, "\\\n");
     }
   }
+  fprintf(file, "\n");
   return NAIG_OK;
 }
 

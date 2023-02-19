@@ -1,7 +1,7 @@
 NAIGROOT=$(shell pwd)
 NAIGRELEASE=$(shell cat release | tr -d '\n')
 
-all: makerelease gen0 gen1 gen2 gen3
+all: makerelease gen0 gen1 gen2 gen3 gen4
 
 world: superclean archive all other test other_test demos doc
 
@@ -40,6 +40,13 @@ gen3: gen2
 	@cd src/gen3 && make \
 		CURGEN=$(NAIGROOT)/src/gen3 \
 		PREVGEN=$(NAIGROOT)/src/gen2
+
+gen4: gen3
+	@cd src/gen4 && make \
+	  NAIGROOT=$(NAIGROOT) \
+	  CURGEN=$(NAIGROOT)/src/gen4 \
+	  PREVGEN=$(NAIGROOT)/src/gen3
+
 
 armbm:
 	@make all ARCH=arm-linux-gnueabi-

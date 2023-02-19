@@ -43,33 +43,49 @@
     unsigned  count;                                                \
     unsigned  allocated;                                            \
   } COMBINE(prefix, t);                                             \
+                                                                    \
   extern                                                            \
   void COMBINE(prefix, init)(COMBINE(prefix, t)* list);             \
+                                                                    \
   extern                                                            \
   void COMBINE(prefix, push)(COMBINE(prefix, t)* list, T elt);      \
+                                                                    \
   extern                                                            \
   unsigned COMBINE(prefix, size)(COMBINE(prefix, t)* list);         \
+                                                                    \
   extern                                                            \
   int COMBINE(prefix, peek)(COMBINE(prefix, t)* list, T* elt);      \
+                                                                    \
   extern                                                            \
   int COMBINE(prefix, pop)(COMBINE(prefix, t)* list, T* elt);       \
+                                                                    \
   extern                                                            \
   int COMBINE(prefix, get)(COMBINE(prefix, t)* list, unsigned index, T* elt);\
+                                                                    \
   extern                                                            \
   int COMBINE(prefix, has)(COMBINE(prefix, t)* list, T elt);        \
+                                                                    \
   extern                                                            \
-  int COMBINE(prefix, indexof)(COMBINE(prefix, t)* list, T elt);        \
+  int COMBINE(prefix, indexof)(COMBINE(prefix, t)* list, T elt);    \
+                                                                    \
   extern                                                            \
   int COMBINE(prefix, set)(COMBINE(prefix, t)* list, unsigned index, T elt);\
+                                                                    \
   extern                                                            \
   int COMBINE(prefix, rem)(COMBINE(prefix, t)* list, unsigned index, T* elt);\
+                                                                    \
   extern                                                            \
   void COMBINE(prefix, ins)(COMBINE(prefix, t)* list, unsigned index, T elt);\
+                                                                    \
   extern                                                            \
   void COMBINE(prefix, free)(COMBINE(prefix, t)* list);             \
+                                                                    \
   extern                                                            \
   int COMBINE(prefix, iterate)(COMBINE(prefix, t)* list,            \
     int(*fnc)(COMBINE(prefix, t)*,unsigned,T*,void*), void*);       \
+
+
+
 
 #define MAKE_ARRAY_CODE(T, prefix)                                  \
   void COMBINE(prefix, init)(COMBINE(prefix, t)* list) {            \

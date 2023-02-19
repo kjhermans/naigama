@@ -20,13 +20,35 @@
     unsigned count;                                                         \
     unsigned allocated;                                                     \
   } COMBINE(prefix, t);                                                     \
+                                                                            \
+  extern                                                                    \
   void COMBINE(prefix, init)(COMBINE(prefix, t)* map);                      \
+                                                                            \
+  extern                                                                    \
   void COMBINE(prefix, free)(COMBINE(prefix, t)* map);                      \
+                                                                            \
+  extern                                                                    \
   unsigned COMBINE(prefix, size)(COMBINE(prefix, t)* map);                  \
+                                                                            \
+  extern                                                                    \
   void COMBINE(prefix, put)(COMBINE(prefix, t)* map, Tk key, Tv val);       \
+                                                                            \
+  extern                                                                    \
   int COMBINE(prefix, get)(COMBINE(prefix, t)* map, Tk key, Tv* val);       \
+                                                                            \
+  extern                                                                    \
   int COMBINE(prefix, del)(COMBINE(prefix, t)* map, Tk key, Tv* val);       \
-  int COMBINE(prefix, getat)(COMBINE(prefix, t)* map, unsigned i, Tk* key, Tv* val);\
+                                                                            \
+  extern                                                                    \
+  int COMBINE(prefix, getat)(COMBINE(prefix, t)* map,                       \
+                        unsigned i, Tk* key, Tv* val);                      \
+                                                                            \
+  extern                                                                    \
+  int COMBINE(prefix, iterate)(COMBINE(prefix, t)* map,                     \
+    int(*fnc)(COMBINE(prefix, t)*,unsigned,Tk*,Tv*,void*), void*);          \
+
+
+
 
 #define MAKE_MAP_CODE(Tk, Tv, prefix)                                       \
   void COMBINE(prefix, init)(COMBINE(prefix, t)* map) {                     \
@@ -78,7 +100,9 @@
     return ~0;                                                              \
   }                                                                         \
                                                                             \
-  int COMBINE(prefix, getat)(COMBINE(prefix, t)* map, unsigned i, Tk* key, Tv* val) {\
+  int COMBINE(prefix, getat)                                                \
+    (COMBINE(prefix, t)* map, unsigned i, Tk* key, Tv* val)                 \
+  {                                                                         \
     if (i < map->count) {                                                   \
       if (key) { *key = map->keys[ i ]; }                                   \
       if (val) { *val = map->values[ i ]; }                                 \
@@ -129,5 +153,19 @@
     }                                                                       \
     return ~0;                                                              \
   }                                                                         \
+                                                                            \
+  int COMBINE(prefix, iterate)(COMBINE(prefix, t)* map,                     \
+    int(*fnc)(COMBINE(prefix, t)*,unsigned,Tk*,Tv*,void*), void* arg)       \
+  {                                                                         \
+    unsigned i;                                                             \
+    int r;                                                                  \
+    for (i=0; i < map->count; i++) {                                        \
+      if ((r = fnc(map, i, &(map->keys[i]), &(map->values[i]), arg)) != 0) { \
+        return r;                                                           \
+      }                                                                     \
+    }                                                                       \
+    return 0;                                                               \
+  }                                                                         \
+
 
 #endif

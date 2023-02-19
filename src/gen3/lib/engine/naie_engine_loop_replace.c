@@ -104,10 +104,6 @@ NAIG_ERR_T naie_engine_loop_replace
         engine->forensics.maxstackdepth = engine->stack.count;
       }
     }
-    if (engine->flags & NAIE_FLAG_DEBUG) {
-      naie_debug_state(engine, 0, 0);
-//      naie_debug_actions(engine);
-    }
     switch (opcode) {
 
     case OPCODE_NOOP:

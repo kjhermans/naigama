@@ -31,32 +31,23 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \brief
  */
 
-#ifndef _NAIC_GEN4_TYPES_H_
-#define _NAIC_GEN4_TYPES_H_
+#ifndef _NAIC_GEN4_TYPE_RULE_H_
+#define _NAIC_GEN4_TYPE_RULE_H_
 
-#include <stdio.h>
+#include <naigama/naigama/naig_type_resobj.h>
 
-#include <naigama/util/stringlist.h>
-#include <naigama/util/td.h>
+#include "naic_type_instrlist.h" 
 
-#include "naic_type_nsp.h"
+typedef struct naic_rule naic_rule_t;
 
-typedef struct
+#include <naigama/util/array.h>
+MAKE_ARRAY_HEADER(naic_rule_t, naic_rulelist_)
+
+struct naic_rule
 {
-  tdt_t                 errorstr;
-  unsigned              flags;
-  unsigned              slot;
-  unsigned              labelcount;
-  struct {
-    naic_nsp_t            top;
-    naic_nsp_t*           current;
-  }                     namespace;
-  stringlist_t          paths;
-  struct {
-    FILE*                 file;
-    tdt_t                 string;
-  }                     output;
-}
-naic_t;
+  char*                 name;
+  naig_resobj_t*        parseobject;
+  naic_instrlist_t      instructions;
+};
 
-#endif // defined _NAIC_GEN4_TYPES_H_ ?
+#endif // defined _NAIC_GEN4_TYPE_RULE_H_ ?

@@ -34,7 +34,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdio.h>
 
 #include <naigama/util/queryargs.h>
-#include <naigama/util/absorbfile.h>
 #include <naigama/compiler/naic.h>
 
 static
@@ -62,9 +61,13 @@ char* helpstring =
 int main
   (int argc, char* argv[])
 {
-  char* grammar = NULL;
   FILE* output = stdout;
+  char* defaultinputfile = "-";
+  char* inputfile = defaultinputfile;
+  naic_t naic;
+  NAIG_ERR_T e;
 
+  memset(&naic, 0, sizeof(naic));
   if (queryargs(argc, argv, '?', 0, 0, 0, 0) == 0
       || queryargs(argc, argv, 'h', 0, 0, 0, 0) == 0
       || queryargs(argc, argv, 0, "help", 0, 0, 0) == 0)
@@ -72,34 +75,40 @@ int main
     fprintf(stderr, helpstring, "", argv[ 0 ]);
     return 0;
   }
-  {
-    char* inputfile;
-    unsigned len;
-
-    if (queryargs(argc, argv, 'i', "input", 0, 1, &inputfile) == 0) {
-      if (absorbfile(inputfile, (unsigned char**)(&grammar), &len)) {
-        fprintf(stderr, "Could not open '%s' for input.\n", inputfile);
-        return ~0;
-      }
-    } else {
-      if (absorbfile("-", (unsigned char**)(&grammar), &len)) {
-        fprintf(stderr, "Could not open '-' for input.\n");
-        return ~0;
-      }
-    }
-  }
+  queryargs(argc, argv, 'i', "input", 0, 1, &inputfile);
   {
     char* outputfile;
     if (queryargs(argc, argv, 'o', "output", 0, 1, &outputfile) == 0) {
-      output = fopen(outputfile, "w");
+      if (0 == strcmp(outputfile, "-")) {
+        output = stdout;
+      } else if ((output = fopen(outputfile, "w")) == NULL) {
+        fprintf(stderr, "Could not open '%s' for output\n", outputfile);
+        return ~0;
+      }
     }
   }
+  if (queryargs(argc, argv, 'C', 0, 0, 0, 0) == 0) {
+    naic.flags |= NAIC_FLG_DEFAULTCAPTURE;
+  }
 
-  naic_t naic;
+  naic.output.file = output;
+  e = naic_compile(&naic, inputfile);
+  if (!(NAIG_IS_OK(e))) {
+    fprintf(stderr, "Error code %d: %s\n", e.code, naic.errorstr.data);
+    return ~0;
+  }
 
-  memset(&naic, 0, sizeof(naic));
-  naic.grammar = grammar;
-  naic_compile(&naic);
+  e = naic_nsp_string(
+    &(naic.namespace.top),
+    &(naic.output.string)
+  );
+  e = naic_compile(&naic, inputfile);
+  if (!(NAIG_IS_OK(e))) {
+    fprintf(stderr, "Error code %d: %s\n", e.code, naic.errorstr.data);
+    return ~0;
+  }
+
+  fprintf(output, "%s\n", naic.output.string.data);
 
   return 0;
 }

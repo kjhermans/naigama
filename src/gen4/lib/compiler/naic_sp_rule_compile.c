@@ -31,32 +31,71 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \brief
  */
 
-#ifndef _NAIC_GEN4_TYPES_H_
-#define _NAIC_GEN4_TYPES_H_
+#include <naigama/naigama/naig_instructions.h>
 
-#include <stdio.h>
+#include "naic_private.h"
 
-#include <naigama/util/stringlist.h>
-#include <naigama/util/td.h>
-
-#include "naic_type_nsp.h"
-
-typedef struct
+/**
+ *
+ */
+NAIG_ERR_T naic_sp_rule_compile
+  (naic_t* naic, naic_nsp_t* nsp, naic_rule_t* rule)
 {
-  tdt_t                 errorstr;
-  unsigned              flags;
-  unsigned              slot;
-  unsigned              labelcount;
-  struct {
-    naic_nsp_t            top;
-    naic_nsp_t*           current;
-  }                     namespace;
-  stringlist_t          paths;
-  struct {
-    FILE*                 file;
-    tdt_t                 string;
-  }                     output;
-}
-naic_t;
+  ASSERT(naic);
+  ASSERT(nsp);
+  ASSERT(rule);
 
-#endif // defined _NAIC_GEN4_TYPES_H_ ?
+  unsigned slot = 0;
+
+  naic_instrlist_push(
+    &(rule->instructions),
+    (naic_instr_t){
+      .instr = OPCODE_LABEL,
+      .params.label.string = strdup(rule->name)
+    }
+  );
+
+  if (naic->flags & NAIC_FLG_PREFIX) {
+    naic_instrlist_push(
+      &(rule->instructions),
+      (naic_instr_t){
+        .instr = OPCODE_CALL,
+        .params.label.string = strdup("__prefix")
+      }
+    );
+  }
+  if (0 == strcmp(rule->name, "__prefix")) {
+    naic->flags |= NAIC_FLG_PREFIX;
+  }
+  if (naic->flags & NAIC_FLG_DEFAULTCAPTURE) {
+    slot = ++(naic->slot);
+    naic_instrlist_push(
+      &(rule->instructions),
+      (naic_instr_t){
+        .instr = OPCODE_OPENCAPTURE,
+        .params.ints[ 0 ] = slot
+      }
+    );
+  }
+  NAIG_CHECK(
+    naic_sp_rule_alts(naic, nsp, rule, rule->parseobject->children[ 1 ]),
+    PROPAGATE
+  );
+  if (naic->flags & NAIC_FLG_DEFAULTCAPTURE) {
+    naic_instrlist_push(
+      &(rule->instructions),
+      (naic_instr_t){
+        .instr = OPCODE_CLOSECAPTURE,
+        .params.ints[ 0 ] = slot
+      }
+    );
+  }
+  naic_instrlist_push(
+    &(rule->instructions),
+    (naic_instr_t){
+      .instr = OPCODE_RET
+    }
+  );
+
+  return NAIG_OK;
+}

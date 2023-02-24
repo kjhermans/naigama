@@ -31,32 +31,51 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \brief
  */
 
-#ifndef _NAIC_GEN4_TYPES_H_
-#define _NAIC_GEN4_TYPES_H_
+#include "naic_private.h"
 
-#include <stdio.h>
-
-#include <naigama/util/stringlist.h>
-#include <naigama/util/td.h>
-
-#include "naic_type_nsp.h"
-
-typedef struct
+static
+int naic_nsp_string_rule
+  (naic_rulelist_t* list, unsigned index, naic_rule_t* rule, void* arg)
 {
-  tdt_t                 errorstr;
-  unsigned              flags;
-  unsigned              slot;
-  unsigned              labelcount;
-  struct {
-    naic_nsp_t            top;
-    naic_nsp_t*           current;
-  }                     namespace;
-  stringlist_t          paths;
-  struct {
-    FILE*                 file;
-    tdt_t                 string;
-  }                     output;
-}
-naic_t;
+  ASSERT(list);
+  ASSERT(rule);
+  ASSERT(arg);
 
-#endif // defined _NAIC_GEN4_TYPES_H_ ?
+  (void)list;
+  (void)index;
+
+  NAIG_ERR_T e = naic_rule_string(rule, arg);
+
+  return e.code;
+}
+
+static
+int naic_nsp_string_children
+  (naic_nsplist_t* list, unsigned index, naic_nsp_t** nsp, void* arg)
+{
+  ASSERT(list);
+  ASSERT(nsp);
+  ASSERT(arg);
+
+  (void)list;
+  (void)index;
+
+  NAIG_ERR_T e = naic_nsp_string(*nsp, arg);
+
+  return e.code;
+}
+
+/**
+ *
+ */
+NAIG_ERR_T naic_nsp_string
+  (naic_nsp_t* nsp, tdt_t* string)
+{
+  ASSERT(nsp);
+  ASSERT(string);
+
+  naic_rulelist_iterate(&(nsp->rules), naic_nsp_string_rule, string);
+  naic_nsplist_iterate(&(nsp->children), naic_nsp_string_children, string);
+
+  return NAIG_OK;
+}

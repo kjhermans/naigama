@@ -1,7 +1,7 @@
 /**
  * This file is part of Oroszlan, a parsing and scripting environment
 
-Copyright (c) 2023, Kees-Jan Hermans <kees.jan.hermans@gmail.com>
+Copyright (c) 2021, Kees-Jan Hermans <kees.jan.hermans@gmail.com>
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -31,32 +31,45 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \brief
  */
 
-#ifndef _NAIC_GEN4_TYPES_H_
-#define _NAIC_GEN4_TYPES_H_
+#include "naic_private.h"
 
-#include <stdio.h>
-
-#include <naigama/util/stringlist.h>
-#include <naigama/util/td.h>
-
-#include "naic_type_nsp.h"
-
-typedef struct
+struct naic_sp_rule_helper
 {
-  tdt_t                 errorstr;
-  unsigned              flags;
-  unsigned              slot;
-  unsigned              labelcount;
-  struct {
-    naic_nsp_t            top;
-    naic_nsp_t*           current;
-  }                     namespace;
-  stringlist_t          paths;
-  struct {
-    FILE*                 file;
-    tdt_t                 string;
-  }                     output;
-}
-naic_t;
+  naic_t* naic;
+  naic_nsp_t* nsp;
+};
 
-#endif // defined _NAIC_GEN4_TYPES_H_ ?
+static
+int naic_sp_rule
+  (naic_rulelist_t* list, unsigned index, naic_rule_t* rule, void* arg)
+{
+  ASSERT(list);
+  ASSERT(rule);
+  ASSERT(arg);
+
+  struct naic_sp_rule_helper* h = arg;
+  NAIG_ERR_T e = naic_sp_rule_compile(h->naic, h->nsp, rule);
+  (void)list;
+  (void)index;
+
+  if (e.code) {
+    td_printf(&(h->naic->errorstr), "Compile error in rule '%s'\n", rule->name);
+    return e.code;
+  }
+  return 0;
+}
+
+/**
+ *
+ */
+NAIG_ERR_T naic_sp
+  (naic_t* naic, naic_nsp_t* nsp)
+{
+  ASSERT(naic);
+  ASSERT(nsp);
+
+  struct naic_sp_rule_helper h = { naic, nsp };
+
+  naic_rulelist_iterate(&(nsp->rules), naic_sp_rule, &h);
+  return NAIG_OK;
+}

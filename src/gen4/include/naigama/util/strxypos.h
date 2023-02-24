@@ -31,32 +31,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \brief
  */
 
-#ifndef _NAIC_GEN4_TYPES_H_
-#define _NAIC_GEN4_TYPES_H_
+#ifndef _NAIG_GEN4_STRXYPOS_H_
+#define _NAIG_GEN4_STRXYPOS_H_
 
-#include <stdio.h>
+extern
+int strxypos
+  (char* string, unsigned pos, unsigned vector[ 2 ]);
 
-#include <naigama/util/stringlist.h>
-#include <naigama/util/td.h>
-
-#include "naic_type_nsp.h"
-
-typedef struct
-{
-  tdt_t                 errorstr;
-  unsigned              flags;
-  unsigned              slot;
-  unsigned              labelcount;
-  struct {
-    naic_nsp_t            top;
-    naic_nsp_t*           current;
-  }                     namespace;
-  stringlist_t          paths;
-  struct {
-    FILE*                 file;
-    tdt_t                 string;
-  }                     output;
-}
-naic_t;
-
-#endif // defined _NAIC_GEN4_TYPES_H_ ?
+#endif // defined _NAIG_GEN4_STRXYPOS_H_ ?

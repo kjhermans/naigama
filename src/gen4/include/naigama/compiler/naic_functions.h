@@ -12,19 +12,31 @@
 /* declared in ./naic_compile.c */
 extern
 NAIG_ERR_T naic_compile
-  (naic_t* naic)
+  (naic_t* naic, char* path)
+  __attribute__ ((warn_unused_result));
+
+/* declared in ./naic_fp.c */
+extern
+NAIG_ERR_T naic_fp
+  (naic_t* naic, naig_resobj_t* top, naic_nsp_t* nsp)
+  __attribute__ ((warn_unused_result));
+
+/* declared in ./naic_fp_import.c */
+extern
+NAIG_ERR_T naic_fp_import
+  (naic_t* naic, naig_resobj_t* obj, naic_nsp_t* nsp)
+  __attribute__ ((warn_unused_result));
+
+/* declared in ./naic_fp_rule.c */
+extern
+NAIG_ERR_T naic_fp_rule
+  (naic_t* naic, naig_resobj_t* obj, naic_nsp_t* nsp)
   __attribute__ ((warn_unused_result));
 
 /* declared in ./naic_init.c */
 extern
 NAIG_ERR_T naic_init
-  (naic_t* naic, char* grammar)
-  __attribute__ ((warn_unused_result));
-
-/* declared in ./naic_init.c */
-extern
-NAIG_ERR_T naic_set_grammar
-  (naic_t* naic, char* grammar)
+  (naic_t* naic)
   __attribute__ ((warn_unused_result));
 
 /* declared in ./naic_init.c */
@@ -52,8 +64,79 @@ NAIG_ERR_T naic_nsp_new
 
 /* declared in ./naic_nsp_init.c */
 extern
+NAIG_ERR_T naic_nsp_add_child
+  (naic_nsp_t* parent, naic_nsp_t** nsp, char* name)
+  __attribute__ ((warn_unused_result));
+
+/* declared in ./naic_nsp_init.c */
+extern
 void naic_nsp_free
   (naic_nsp_t* nsp);
+
+/* declared in ./naic_nsp_parse.c */
+extern
+NAIG_ERR_T naic_nsp_parse
+  (naic_t* naic, naic_nsp_t* nsp, char* path, int resolve)
+  __attribute__ ((warn_unused_result));
+
+/* declared in ./naic_nsp_string.c */
+extern
+NAIG_ERR_T naic_nsp_string
+  (naic_nsp_t* nsp, tdt_t* string)
+  __attribute__ ((warn_unused_result));
+
+/* declared in ./naic_resolve_path.c */
+extern
+NAIG_ERR_T naic_resolve_path
+  (naic_t* naic, char* path, char** resolvedpath)
+  __attribute__ ((warn_unused_result));
+
+/* declared in ./naic_rule.c */
+extern
+NAIG_ERR_T naic_rule_init
+  (naic_rule_t* rule, char* name)
+  __attribute__ ((warn_unused_result));
+
+/* declared in ./naic_rule.c */
+extern
+void naic_rule_free
+  (naic_rule_t* rule);
+
+/* declared in ./naic_rule_string.c */
+extern
+NAIG_ERR_T naic_rule_string
+  (naic_rule_t* rule, tdt_t* string)
+  __attribute__ ((warn_unused_result));
+
+/* declared in ./naic_sp.c */
+extern
+NAIG_ERR_T naic_sp
+  (naic_t* naic, naic_nsp_t* nsp)
+  __attribute__ ((warn_unused_result));
+
+/* declared in ./naic_sp_rule_alts.c */
+extern
+NAIG_ERR_T naic_sp_rule_alts
+  (naic_t* naic, naic_nsp_t* nsp, naic_rule_t* rule, naig_resobj_t* obj)
+  __attribute__ ((warn_unused_result));
+
+/* declared in ./naic_sp_rule_compile.c */
+extern
+NAIG_ERR_T naic_sp_rule_compile
+  (naic_t* naic, naic_nsp_t* nsp, naic_rule_t* rule)
+  __attribute__ ((warn_unused_result));
+
+/* declared in ./naic_sp_rule_term.c */
+extern
+NAIG_ERR_T naic_sp_rule_term
+  (naic_t* naic, naic_nsp_t* nsp, naic_rule_t* rule, naig_resobj_t* obj)
+  __attribute__ ((warn_unused_result));
+
+/* declared in ./naic_sp_rule_terms.c */
+extern
+NAIG_ERR_T naic_sp_rule_terms
+  (naic_t* naic, naic_nsp_t* nsp, naic_rule_t* rule, naig_resobj_t* obj)
+  __attribute__ ((warn_unused_result));
 
 
 

@@ -31,32 +31,31 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \brief
  */
 
-#ifndef _NAIC_GEN4_TYPES_H_
-#define _NAIC_GEN4_TYPES_H_
+#include "naic_private.h"
 
-#include <stdio.h>
-
-#include <naigama/util/stringlist.h>
-#include <naigama/util/td.h>
-
-#include "naic_type_nsp.h"
-
-typedef struct
+/**
+ *
+ */
+NAIG_ERR_T naic_fp_import
+  (naic_t* naic, naig_resobj_t* obj, naic_nsp_t* nsp)
 {
-  tdt_t                 errorstr;
-  unsigned              flags;
-  unsigned              slot;
-  unsigned              labelcount;
-  struct {
-    naic_nsp_t            top;
-    naic_nsp_t*           current;
-  }                     namespace;
-  stringlist_t          paths;
-  struct {
-    FILE*                 file;
-    tdt_t                 string;
-  }                     output;
-}
-naic_t;
+  ASSERT(naic != NULL);
+  ASSERT(obj != NULL);
+  ASSERT(nsp != NULL);
 
-#endif // defined _NAIC_GEN4_TYPES_H_ ?
+  char* path = obj->children[ 1 ]->children[ 0 ]->string;
+  char* name = NULL;
+  naic_nsp_t* child;
+
+  if (obj->children[ 2 ]->nchildren) {
+    name = obj->children[ 2 ]->children[ 1 ]->string;
+  } else {
+    name = path;
+  }
+  NAIG_CHECK(naic_nsp_add_child(nsp, &child, name), PROPAGATE);
+  NAIG_CHECK(naic_nsp_parse(naic, child, path, 1), PROPAGATE);
+  child->path = strdup(path);
+  DEBUGMSG("Successfully imported '%s' as '%s'\n", path, name);
+
+  return NAIG_OK;
+}

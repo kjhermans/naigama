@@ -31,32 +31,66 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \brief
  */
 
-#ifndef _NAIC_GEN4_TYPES_H_
-#define _NAIC_GEN4_TYPES_H_
+#include <naigama/naigama/naig_instructions.h>
 
-#include <stdio.h>
+#include "naic_private.h"
 
-#include <naigama/util/stringlist.h>
-#include <naigama/util/td.h>
-
-#include "naic_type_nsp.h"
-
-typedef struct
+static
+int naic_rule_string_instr
+  (naic_instrlist_t* list, unsigned index, naic_instr_t* instr, void* arg)
 {
-  tdt_t                 errorstr;
-  unsigned              flags;
-  unsigned              slot;
-  unsigned              labelcount;
-  struct {
-    naic_nsp_t            top;
-    naic_nsp_t*           current;
-  }                     namespace;
-  stringlist_t          paths;
-  struct {
-    FILE*                 file;
-    tdt_t                 string;
-  }                     output;
-}
-naic_t;
+  ASSERT(list);
+  ASSERT(instr);
+  ASSERT(arg);
 
-#endif // defined _NAIC_GEN4_TYPES_H_ ?
+  tdt_t* string = arg;
+  (void)list;
+  (void)index;
+
+  switch (instr->instr) {
+  case OPCODE_LABEL:
+    td_printf(string, "%s:\n", instr->params.label.string);
+    break;
+  case OPCODE_CALL:
+    td_printf(string, "  call %s\n", instr->params.label.string);
+    break;
+  case OPCODE_CATCH:
+    td_printf(string, "  catch %s\n", instr->params.label.string);
+    break;
+  case OPCODE_COMMIT:
+    td_printf(string, "  commit %s\n", instr->params.label.string);
+    break;
+  case OPCODE_OPENCAPTURE:
+    td_printf(string, "  opencapture %u\n", instr->params.ints[ 0 ]);
+    break;
+  case OPCODE_CLOSECAPTURE:
+    td_printf(string, "  closecapture %u\n", instr->params.ints[ 0 ]);
+    break;
+  case OPCODE_RET:
+    td_printf(string, "  ret\n");
+    break;
+  default:
+    td_printf(string, "-- unknown opcode %u\n", instr->instr);
+    break;
+  }
+  return 0;
+}
+
+/**
+ * 
+ */
+NAIG_ERR_T naic_rule_string
+  (naic_rule_t* rule, tdt_t* string)
+{
+  ASSERT(rule);
+  ASSERT(string);
+
+  naic_instrlist_iterate(
+    &(rule->instructions),
+    naic_rule_string_instr,
+    string
+  );
+  td_printf(string, "\n");
+
+  return NAIG_OK;
+}

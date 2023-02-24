@@ -31,32 +31,53 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \brief
  */
 
-#ifndef _NAIC_GEN4_TYPES_H_
-#define _NAIC_GEN4_TYPES_H_
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
 
-#include <stdio.h>
+#include "naic_private.h"
 
-#include <naigama/util/stringlist.h>
-#include <naigama/util/td.h>
+static
+char ipath[ 1024 ];
 
-#include "naic_type_nsp.h"
+static
+char* rpath = 0;
 
-typedef struct
+static
+int naic_resolve_path_
+  (stringlist_t* list, unsigned index, char** dir, void* arg)
 {
-  tdt_t                 errorstr;
-  unsigned              flags;
-  unsigned              slot;
-  unsigned              labelcount;
-  struct {
-    naic_nsp_t            top;
-    naic_nsp_t*           current;
-  }                     namespace;
-  stringlist_t          paths;
-  struct {
-    FILE*                 file;
-    tdt_t                 string;
-  }                     output;
-}
-naic_t;
+  struct stat s;
+  char* file = arg;
+  (void)list;
+  (void)index;
 
-#endif // defined _NAIC_GEN4_TYPES_H_ ?
+  snprintf(ipath, sizeof(ipath), "%s/%s", *dir, file);
+  if (stat(ipath, &s) == 0 && (s.st_mode & S_IFMT) == S_IFREG) {
+    rpath = ipath;
+  }
+  return 0;
+}
+
+/**
+ *
+ */
+NAIG_ERR_T naic_resolve_path
+  (naic_t* naic, char* path, char** resolvedpath)
+{
+  struct stat s;
+
+  if (stat(path, &s) == 0 && (s.st_mode & S_IFMT) == S_IFREG) {
+    *resolvedpath = path;
+    return NAIG_OK;
+  }
+  
+  rpath = 0;
+  stringlist_reverse(&(naic->paths), naic_resolve_path_, 0);
+  if (rpath) {
+    *resolvedpath = rpath;
+    return NAIG_OK;
+  }
+  
+  return NAIG_ERR_NOTFOUND;
+}

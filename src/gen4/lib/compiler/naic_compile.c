@@ -32,60 +32,18 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 #include "naic_private.h"
-#include <naigama/engine/naie_type_actions.h>
-#include <naigama/naigama/naig_type_resobj.h>
-#include <naigama/prevgen/naip.h>
-#include <naigama/naigama/naig_functions.h>
-
-#include <naigama/prevgen/naip.h>
-
-static unsigned char grammar_bytecode[] = {
-#include "../../grammar/grammar.h"
-};
 
 /**
- *
+ * Topmost library function.
  */
 NAIG_ERR_T naic_compile
-  (naic_t* naic)
+  (naic_t* naic, char* path)
 {
-  naip_t naip;
-  naip_actionlist_t actions;
-  int r;
 
-  r = naip_parse(
-    &naip,
-    grammar_bytecode,
-    sizeof(grammar_bytecode),
-    naic->grammar,
-    &actions
-  );
-
-  if (r) {
-//.. something something naip.data
-    RETURNERR(NAIG_ERR_PARSER);
-  }
-
-  naig_resobj_t* resobj = naig_result_object((unsigned char*)(naic->grammar), strlen(naic->grammar), &actions);
-
-  naig_result_object_clean(resobj, SLOTMAP_S_);
-  naig_result_object_clean(resobj, SLOTMAP_COMMENT_);
-  naig_result_object_clean(resobj, SLOTMAP_MULTILINECOMMENT_);
-  naig_result_object_clean(resobj, SLOTMAP___prefix_);
-  naig_result_object_clean(resobj, SLOTMAP_BOPEN_);
-  naig_result_object_clean(resobj, SLOTMAP_BCLOSE_);
-  naig_result_object_clean(resobj, SLOTMAP_CBOPEN_);
-  naig_result_object_clean(resobj, SLOTMAP_CBCLOSE_);
-  naig_result_object_clean(resobj, SLOTMAP_COLON_);
-  naig_result_object_clean(resobj, SLOTMAP_LEFTARROW_);
-  naig_result_object_clean(resobj, SLOTMAP_OR_);
-/*
-  naig_result_object_clean(resobj, SLOTMAP_END_);
-  naig_result_object_clean(resobj, SLOTMAP_ABOPEN_);
-  naig_result_object_clean(resobj, SLOTMAP_ABCLOSE_);
-*/
-
-  naig_result_object_debug(resobj, 0);
+  NAIG_CHECK(naic_nsp_init(&(naic->namespace.top), "__top"), PROPAGATE);
+  naic->namespace.current = &(naic->namespace.top);
+  NAIG_CHECK(naic_nsp_parse(naic, &(naic->namespace.top), path, 0), PROPAGATE);
+  NAIG_CHECK(naic_sp(naic, &(naic->namespace.top)), PROPAGATE);
 
   return NAIG_OK;
 }

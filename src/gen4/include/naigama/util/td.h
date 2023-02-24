@@ -41,4 +41,31 @@ typedef struct
 }
 tdt_t;
 
+void td_printf
+  (tdt_t* out, char* fmt, ...);
+
+void td_append
+  (tdt_t* out, void* mem, unsigned size);
+
+void td_appendchr
+  (tdt_t* out, unsigned char c);
+
+void td_appendstr
+  (tdt_t* out, char* str);
+
+void td_prepend
+  (tdt_t* out, void* mem, unsigned size);
+
+void td_insert
+  (tdt_t* out, int offset, void* mem, unsigned size);
+
+void td_reserve
+  (tdt_t* out, int offset, unsigned size);
+
+void td_copy
+  (tdt_t* out, tdt_t* in);
+
+void td_shift
+  (tdt_t* out, unsigned offset, unsigned whereto, int size);
+
 #endif // defined _NAIG_GEN4_TD_H_ ?

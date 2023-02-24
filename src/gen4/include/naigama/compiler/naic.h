@@ -36,6 +36,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <naigama/naigama/naig_error.h>
 
+#include "naic_defines.h"
 #include "naic_types.h"
 #include "naic_functions.h"
 

@@ -34,7 +34,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef _NAIC_GEN4_TYPE_NSP_H_
 #define _NAIC_GEN4_TYPE_NSP_H_
 
-#include "naic_type_instrlist.h" 
+#include <naigama/naigama/naig_type_resobj.h>
+
+#include "naic_type_rule.h"
 
 typedef struct naic_nsp naic_nsp_t;
 
@@ -44,8 +46,12 @@ MAKE_ARRAY_HEADER(naic_nsp_t*, naic_nsplist_)
 struct naic_nsp
 {
   naic_nsp_t*           parent;
+  char*                 path;
   char*                 name;
-  naic_instrlist_t      instructions;
+  char*                 grammar;
+  naig_resobj_t*        firsttype;
+  naig_resobj_t*        parseobject;
+  naic_rulelist_t       rules;
   naic_nsplist_t        children;
 };
 

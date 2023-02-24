@@ -56,8 +56,25 @@ NAIG_ERR_T naic_nsp_init
 NAIG_ERR_T naic_nsp_new
   (naic_nsp_t** nsp, char* name)
 {
+  ASSERT(nsp != NULL);
+
   (*nsp) = malloc(sizeof(naic_nsp_t));
   NAIG_CHECK(naic_nsp_init(*nsp, name), PROPAGATE);
+  return NAIG_OK;
+}
+
+NAIG_ERR_T naic_nsp_add_child
+  (naic_nsp_t* parent, naic_nsp_t** nsp, char* name)
+{
+  ASSERT(parent != NULL);
+
+  naic_nsp_t* child;
+
+  NAIG_CHECK(naic_nsp_new(&child, name), PROPAGATE);
+  naic_nsplist_push(&(parent->children), child);
+  if (nsp) {
+    *nsp = child;
+  }
   return NAIG_OK;
 }
 
@@ -86,7 +103,14 @@ void naic_nsp_free
     free(nsp->name);
     nsp->name = 0;
   }
-  naic_instrlist_free(&(nsp->instructions));
+  if (nsp->grammar) {
+    free(nsp->grammar);
+    nsp->grammar = 0;
+  }
+  if (nsp->path) {
+    free(nsp->path);
+    nsp->path = 0;
+  }
   naic_nsplist_iterate(&(nsp->children), naic_nsp_free_callback, 0);
   naic_nsplist_free(&(nsp->children));
 }

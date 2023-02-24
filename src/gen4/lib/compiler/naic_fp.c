@@ -1,7 +1,7 @@
 /**
  * This file is part of Oroszlan, a parsing and scripting environment
 
-Copyright (c) 2023, Kees-Jan Hermans <kees.jan.hermans@gmail.com>
+Copyright (c) 2021, Kees-Jan Hermans <kees.jan.hermans@gmail.com>
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -31,32 +31,34 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \brief
  */
 
-#ifndef _NAIC_GEN4_TYPES_H_
-#define _NAIC_GEN4_TYPES_H_
+#include "naic_private.h"
+#include <naigama/prevgen/naip.h>
+#include <naigama/naigama/naig_functions.h>
 
-#include <stdio.h>
-
-#include <naigama/util/stringlist.h>
-#include <naigama/util/td.h>
-
-#include "naic_type_nsp.h"
-
-typedef struct
+/**
+ *
+ */
+NAIG_ERR_T naic_fp
+  (naic_t* naic, naig_resobj_t* top, naic_nsp_t* nsp)
 {
-  tdt_t                 errorstr;
-  unsigned              flags;
-  unsigned              slot;
-  unsigned              labelcount;
-  struct {
-    naic_nsp_t            top;
-    naic_nsp_t*           current;
-  }                     namespace;
-  stringlist_t          paths;
-  struct {
-    FILE*                 file;
-    tdt_t                 string;
-  }                     output;
-}
-naic_t;
+  unsigned i = 0;
+  naig_resobj_t* def;
 
-#endif // defined _NAIC_GEN4_TYPES_H_ ?
+  ASSERT(naic != NULL);
+  ASSERT(top != NULL);
+
+  while ((def = naig_result_object_query(top, 2, SLOTMAP_GRAMMAR_, 0, SLOTMAP_DEFINITION_, i++)) != NULL) {
+    switch (def->children[ 0 ]->type) {
+    case SLOTMAP_RULE_:
+      NAIG_CHECK(naic_fp_rule(naic, def->children[ 0 ], nsp), PROPAGATE);
+      break;
+    case SLOTMAP_IMPORTDECL_:
+      NAIG_CHECK(naic_fp_import(naic, def->children[ 0 ], nsp), PROPAGATE);
+      break;
+    case SLOTMAP_EXPRESSION_:
+      nsp->firsttype = def->children[ 0 ];
+      return NAIG_OK;
+    }
+  }
+  return NAIG_OK;
+}

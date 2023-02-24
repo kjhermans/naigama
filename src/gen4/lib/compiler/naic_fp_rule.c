@@ -31,32 +31,30 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \brief
  */
 
-#ifndef _NAIC_GEN4_TYPES_H_
-#define _NAIC_GEN4_TYPES_H_
+#include "naic_private.h"
 
-#include <stdio.h>
-
-#include <naigama/util/stringlist.h>
-#include <naigama/util/td.h>
-
-#include "naic_type_nsp.h"
-
-typedef struct
+/**
+ *
+ */
+NAIG_ERR_T naic_fp_rule
+  (naic_t* naic, naig_resobj_t* obj, naic_nsp_t* nsp)
 {
-  tdt_t                 errorstr;
-  unsigned              flags;
-  unsigned              slot;
-  unsigned              labelcount;
-  struct {
-    naic_nsp_t            top;
-    naic_nsp_t*           current;
-  }                     namespace;
-  stringlist_t          paths;
-  struct {
-    FILE*                 file;
-    tdt_t                 string;
-  }                     output;
-}
-naic_t;
+  ASSERT(naic != NULL);
+  ASSERT(obj != NULL);
+  ASSERT(nsp != NULL);
 
-#endif // defined _NAIC_GEN4_TYPES_H_ ?
+  char* rulename = obj->children[ 0 ]->string;
+  naic_rule_t rule;
+  (void)naic;
+
+  ASSERT(rulename != NULL);
+
+  NAIG_CHECK(naic_rule_init(&rule, rulename), PROPAGATE);
+  rule.parseobject = obj;
+  if (naic_rulelist_has(&(nsp->rules), rule)) {
+    RETURNERR(NAIG_ERR_NAMESPACE);
+  }
+  naic_rulelist_push(&(nsp->rules), rule);
+
+  return NAIG_OK;
+}

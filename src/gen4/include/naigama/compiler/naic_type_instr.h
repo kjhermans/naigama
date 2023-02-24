@@ -44,7 +44,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 typedef struct
 {
-  char* string;
+#define OPCODE_LABEL                    0x8fffffff
   unsigned instr;
   union {
     uint8_t               map[ 32 ];

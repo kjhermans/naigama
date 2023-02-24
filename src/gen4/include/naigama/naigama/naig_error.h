@@ -51,6 +51,7 @@ typedef struct { int code; char* message; } NAIG_ERR_T;
 #define NAIG_ERR_OVERFLOW       (NAIG_ERR_T){ .code = 3, .message = 0 }
 #define NAIG_ERR_PARSER         (NAIG_ERR_T){ .code = 4, .message = 0 }
 #define NAIG_ERR_BYTECODE       (NAIG_ERR_T){ .code = 5, .message = 0 }
+#define NAIG_ERR_NAMESPACE      (NAIG_ERR_T){ .code = 6, .message = 0 }
 
 // Macroes to deal with errors
 

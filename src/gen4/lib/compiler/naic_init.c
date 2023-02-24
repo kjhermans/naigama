@@ -37,37 +37,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
 NAIG_ERR_T naic_init
-  (naic_t* naic, char* grammar)
+  (naic_t* naic)
 {
   ASSERT(naic != NULL);
 
   memset(naic, 0, sizeof(*naic));
-  if (grammar) {
-    if ((naic->grammar = strdup(grammar)) == 0) {
-      RETURNERR(NAIG_ERR_MEM);
-    }
-  }
-  return NAIG_OK;
-}
-
-/**
- *
- */
-NAIG_ERR_T naic_set_grammar
-  (naic_t* naic, char* grammar)
-{
-  ASSERT(naic != NULL);
-
-  if (naic->grammar) {
-    free(naic->grammar);
-    naic->grammar = 0;
-  }
-  if (0 == grammar) {
-    RETURNERR(NAIG_ERR_NOTFOUND);
-  }
-  if ((naic->grammar = strdup(grammar)) == 0) {
-    RETURNERR(NAIG_ERR_MEM);
-  }
   return NAIG_OK;
 }
 
@@ -78,10 +52,8 @@ NAIG_ERR_T naic_set_output
   (naic_t* naic, FILE* file)
 {
   ASSERT(naic != NULL);
+  ASSERT(file != NULL);
 
-  if (0 == file) {
-    RETURNERR(NAIG_ERR_NOTFOUND);
-  }
   naic->output.file = file;
   return NAIG_OK;
 }
@@ -94,10 +66,6 @@ void naic_free
 {
   ASSERT(naic != NULL);
 
-  if (naic->grammar) {
-    free(naic->grammar);
-    naic->grammar = 0;
-  }
   naic_nsp_free(&(naic->namespace.top));
   stringlist_free(&(naic->paths));
 }

@@ -31,32 +31,30 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \brief
  */
 
-#ifndef _NAIC_GEN4_TYPES_H_
-#define _NAIC_GEN4_TYPES_H_
+#include "naic_private.h"
 
-#include <stdio.h>
+#include <naigama/prevgen/naip.h>
+#include <naigama/naigama/naig_type_resobj.h>
+#include <naigama/naigama/naig_functions.h>
+#include <naigama/naigama/naig_instructions.h>
 
-#include <naigama/util/stringlist.h>
-#include <naigama/util/td.h>
-
-#include "naic_type_nsp.h"
-
-typedef struct
+/**
+ *
+ */
+NAIG_ERR_T naic_sp_rule_terms
+  (naic_t* naic, naic_nsp_t* nsp, naic_rule_t* rule, naig_resobj_t* obj)
 {
-  tdt_t                 errorstr;
-  unsigned              flags;
-  unsigned              slot;
-  unsigned              labelcount;
-  struct {
-    naic_nsp_t            top;
-    naic_nsp_t*           current;
-  }                     namespace;
-  stringlist_t          paths;
-  struct {
-    FILE*                 file;
-    tdt_t                 string;
-  }                     output;
-}
-naic_t;
+  ASSERT(naic);
+  ASSERT(nsp);
+  ASSERT(rule);
+  ASSERT(obj);
 
-#endif // defined _NAIC_GEN4_TYPES_H_ ?
+  unsigned i = 0;
+  naig_resobj_t* term;
+
+  while ((term = naig_result_object_query(obj, 1, SLOTMAP_TERM_, i++)) != NULL) {
+    NAIG_CHECK(naic_sp_rule_term(naic, nsp, rule, term), PROPAGATE);
+  }
+
+  return NAIG_OK;
+}

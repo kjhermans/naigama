@@ -31,32 +31,32 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \brief
  */
 
-#ifndef _NAIC_GEN4_TYPES_H_
-#define _NAIC_GEN4_TYPES_H_
+#include "naic_private.h"
 
-#include <stdio.h>
+#undef ARRAY_EQUALS
+#define ARRAY_EQUALS(a,b) (0==strcmp(a.name,b.name))
 
-#include <naigama/util/stringlist.h>
-#include <naigama/util/td.h>
+#include <naigama/compiler/naic_type_rule.h>
 
-#include "naic_type_nsp.h"
+MAKE_ARRAY_CODE(naic_rule_t, naic_rulelist_)
 
-typedef struct
+NAIG_ERR_T naic_rule_init
+  (naic_rule_t* rule, char* name)
 {
-  tdt_t                 errorstr;
-  unsigned              flags;
-  unsigned              slot;
-  unsigned              labelcount;
-  struct {
-    naic_nsp_t            top;
-    naic_nsp_t*           current;
-  }                     namespace;
-  stringlist_t          paths;
-  struct {
-    FILE*                 file;
-    tdt_t                 string;
-  }                     output;
-}
-naic_t;
+  ASSERT(rule);
+  ASSERT(name);
 
-#endif // defined _NAIC_GEN4_TYPES_H_ ?
+  memset(rule, 0, sizeof(*rule));
+  rule->name = strdup(name);
+  return NAIG_OK;
+}
+
+void naic_rule_free
+  (naic_rule_t* rule)
+{
+  if (rule->name) {
+    free(rule->name);
+    rule->name = 0;
+  }
+  naic_instrlist_free(&(rule->instructions));
+}

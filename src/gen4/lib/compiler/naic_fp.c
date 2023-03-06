@@ -32,22 +32,26 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 #include "naic_private.h"
-#include <naigama/prevgen/naip.h>
+#include <naigama/parser/naip.h>
 #include <naigama/naigama/naig_functions.h>
 
 /**
  *
  */
 NAIG_ERR_T naic_fp
-  (naic_t* naic, naig_resobj_t* top, naic_nsp_t* nsp)
+  (naic_t* naic, naig_resobj_t* top, naic_nsp_t* nsp, int allowsingle)
 {
   unsigned i = 0;
   naig_resobj_t* def;
 
+  DEBUGFUNCTION;
   ASSERT(naic != NULL);
   ASSERT(top != NULL);
 
-  while ((def = naig_result_object_query(top, 2, SLOTMAP_GRAMMAR_, 0, SLOTMAP_DEFINITION_, i++)) != NULL) {
+  while ((def = naig_result_object_query(
+                  top, 2, SLOTMAP_GRAMMAR_, 0, SLOTMAP_DEFINITION_, i++))
+                  != NULL)
+  {
     switch (def->children[ 0 ]->type) {
     case SLOTMAP_RULE_:
       NAIG_CHECK(naic_fp_rule(naic, def->children[ 0 ], nsp), PROPAGATE);
@@ -56,8 +60,13 @@ NAIG_ERR_T naic_fp
       NAIG_CHECK(naic_fp_import(naic, def->children[ 0 ], nsp), PROPAGATE);
       break;
     case SLOTMAP_EXPRESSION_:
-      nsp->firsttype = def->children[ 0 ];
-      return NAIG_OK;
+      if (allowsingle) {
+        naic->flags |= NAIC_FLG_SINGLE_EXPRESSION;
+        NAIG_CHECK(naic_fp_rule_single(naic, def->children[ 0 ], nsp), PROPAGATE);
+        return NAIG_OK;
+      } else {
+        RETURNERR(NAIG_ERR_SINGLE);
+      }
     }
   }
   return NAIG_OK;

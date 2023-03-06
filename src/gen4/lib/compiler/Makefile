@@ -14,7 +14,7 @@ functionsheader: ../../include/naigama/compiler/naic_functions.h
 	  ../../include/naigama/compiler/naic_functions.h
 
 $(LIB): $(OBJECTS)
-	$(AR) -rcs $(LIB) $(OBJECTS) ../prevgen/naip.o
+	$(AR) -rcs $(LIB) $(OBJECTS) ../parser/naip.o
 
 clean:
 	rm -f $(OBJECTS) $(LIB)

@@ -33,7 +33,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "naic_private.h"
 
-#include <naigama/prevgen/naip.h>
+#include <naigama/parser/naip.h>
 #include <naigama/naigama/naig_type_resobj.h>
 #include <naigama/naigama/naig_functions.h>
 #include <naigama/naigama/naig_instructions.h>
@@ -44,6 +44,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 NAIG_ERR_T naic_sp_rule_alts
   (naic_t* naic, naic_nsp_t* nsp, naic_rule_t* rule, naig_resobj_t* obj)
 {
+  DEBUGFUNCTION;
   ASSERT(naic);
   ASSERT(nsp);
   ASSERT(rule);
@@ -52,48 +53,56 @@ NAIG_ERR_T naic_sp_rule_alts
 
   char alt[ 64 ], out[ 64 ];
 
-  snprintf(out, sizeof(out), "__OUT_%u", ++(naic->labelcount));
+  snprintf(out, sizeof(out), "__L%u", ++(naic->labelcount));
   while (obj) {
     switch (obj->children[ 0 ]->type) {
     case SLOTMAP_ALTERNATIVES_:
       obj = obj->children[ 0 ];
-      snprintf(alt, sizeof(alt), "__ALT_%u", naic->labelcount);
+      snprintf(alt, sizeof(alt), "__L%u", ++(naic->labelcount));
       naic_instrlist_push(
         &(rule->instructions),
         (naic_instr_t){
           .instr = OPCODE_CATCH,
-          .params.label.string = strdup(alt)
+          .label = strdup(alt)
         }
       );
-      NAIG_CHECK(naic_sp_rule_terms(naic, nsp, rule, obj->children[ 0 ]), PROPAGATE);
+      NAIG_CHECK(
+        naic_sp_rule_terms(naic, nsp, rule, obj->children[ 0 ]),
+        PROPAGATE
+      );
       naic_instrlist_push(
         &(rule->instructions),
         (naic_instr_t){
           .instr = OPCODE_COMMIT,
-          .params.label.string = strdup(out)
+          .label = strdup(out)
         }
       );
       naic_instrlist_push(
         &(rule->instructions),
         (naic_instr_t){
           .instr = OPCODE_LABEL,
-          .params.label.string = strdup(alt)
+          .label = strdup(alt)
         }
       );
       break;
     case SLOTMAP_TERMS_:
-      NAIG_CHECK(naic_sp_rule_terms(naic, nsp, rule, obj->children[ 0 ]), PROPAGATE);
+      NAIG_CHECK(
+        naic_sp_rule_terms(naic, nsp, rule, obj->children[ 0 ]),
+        PROPAGATE
+      );
       naic_instrlist_push(
         &(rule->instructions),
         (naic_instr_t){
           .instr = OPCODE_LABEL,
-          .params.label.string = strdup(out)
+          .label = strdup(out)
         }
       );
       break;
     default: ;
 #ifdef _DEBUG
-      fprintf(stderr, "Unknown type %u at %s:\n", obj->children[ 0 ]->type, __FILE__);
+      fprintf(stderr,
+        "Unknown type %u at %s:\n", obj->children[ 0 ]->type, __FILE__
+      );
       abort();
 #endif
     }

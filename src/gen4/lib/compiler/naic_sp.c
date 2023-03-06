@@ -43,6 +43,7 @@ static
 int naic_sp_rule
   (naic_rulelist_t* list, unsigned index, naic_rule_t* rule, void* arg)
 {
+  DEBUGFUNCTION;
   ASSERT(list);
   ASSERT(rule);
   ASSERT(arg);
@@ -65,6 +66,7 @@ int naic_sp_rule
 NAIG_ERR_T naic_sp
   (naic_t* naic, naic_nsp_t* nsp)
 {
+  DEBUGFUNCTION;
   ASSERT(naic);
   ASSERT(nsp);
 

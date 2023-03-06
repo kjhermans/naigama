@@ -51,6 +51,7 @@ struct naic_nsp
   char*                 grammar;
   naig_resobj_t*        firsttype;
   naig_resobj_t*        parseobject;
+  naic_instrlist_t      instructions;
   naic_rulelist_t       rules;
   naic_nsplist_t        children;
 };

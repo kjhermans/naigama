@@ -54,6 +54,8 @@ typedef struct
   naie_stack_t          stack;
   naie_actionlist_t     actions;
   naie_register_t       reg;
+  unsigned              reg_ilen;
+  int                   reg_ilen_set;
 }
 naie_ec_t;
 

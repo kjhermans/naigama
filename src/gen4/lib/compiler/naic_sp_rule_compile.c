@@ -41,6 +41,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 NAIG_ERR_T naic_sp_rule_compile
   (naic_t* naic, naic_nsp_t* nsp, naic_rule_t* rule)
 {
+  DEBUGFUNCTION;
   ASSERT(naic);
   ASSERT(nsp);
   ASSERT(rule);
@@ -51,7 +52,7 @@ NAIG_ERR_T naic_sp_rule_compile
     &(rule->instructions),
     (naic_instr_t){
       .instr = OPCODE_LABEL,
-      .params.label.string = strdup(rule->name)
+      .label = strdup(rule->name)
     }
   );
 
@@ -60,7 +61,7 @@ NAIG_ERR_T naic_sp_rule_compile
       &(rule->instructions),
       (naic_instr_t){
         .instr = OPCODE_CALL,
-        .params.label.string = strdup("__prefix")
+        .label = strdup("__prefix")
       }
     );
   }
@@ -68,12 +69,13 @@ NAIG_ERR_T naic_sp_rule_compile
     naic->flags |= NAIC_FLG_PREFIX;
   }
   if (naic->flags & NAIC_FLG_DEFAULTCAPTURE) {
-    slot = ++(naic->slot);
+    slot = (naic->slot)++;
     naic_instrlist_push(
       &(rule->instructions),
       (naic_instr_t){
         .instr = OPCODE_OPENCAPTURE,
-        .params.ints[ 0 ] = slot
+        .params.ints[ 0 ] = slot,
+        .label = 0
       }
     );
   }

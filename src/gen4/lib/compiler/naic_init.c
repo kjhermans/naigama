@@ -51,6 +51,7 @@ NAIG_ERR_T naic_init
 NAIG_ERR_T naic_set_output
   (naic_t* naic, FILE* file)
 {
+  DEBUGFUNCTION;
   ASSERT(naic != NULL);
   ASSERT(file != NULL);
 

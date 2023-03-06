@@ -37,4 +37,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <naigama/compiler/naic.h>
 #include <naigama/compiler/naig_slotmap_grammar.h>
 
+#define NAIC_SET_BIT_SET(set,bit) {set[bit/8]|=(1<<(bit%8));}
+#define NAIC_SET_BIT_UNSET(set,bit) {set[bit/8]&=(~(1<<(bit%8)));}
+#define NAIC_SET_BIT_GET(set,bit) (set[bit/8]&(1<<(bit%8)))
+
 #endif // defined _NAIC_GEN4_PRIVATE_H_ ?

@@ -47,6 +47,7 @@ typedef struct
   unsigned              flags;
   unsigned              slot;
   unsigned              labelcount;
+  unsigned              counter;
   struct {
     naic_nsp_t            top;
     naic_nsp_t*           current;

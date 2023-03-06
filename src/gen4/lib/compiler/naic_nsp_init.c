@@ -39,6 +39,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 NAIG_ERR_T naic_nsp_init
   (naic_nsp_t* nsp, char* name)
 {
+  DEBUGFUNCTION;
   ASSERT(nsp != NULL);
 
   memset(nsp, 0, sizeof(*nsp));

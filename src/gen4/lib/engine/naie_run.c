@@ -148,6 +148,54 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   } \
 }
 
+#define HANDLE_TESTANY { \
+  uint32_t param = GET_32BIT_VALUE( \
+    naie->bytecode.data, \
+    ec->bytecode_offset + 4 \
+  ); \
+  if (ec->input_offset < ec->input.size) { \
+    ++(ec->input_offset); \
+    ec->bytecode_offset += instruction_size; \
+  } else { \
+    ec->bytecode_offset = param; \
+  } \
+}
+
+#define HANDLE_TESTCHAR { \
+  uint32_t param1 = GET_32BIT_VALUE( \
+    naie->bytecode.data, \
+    ec->bytecode_offset + 4 \
+  ); \
+  uint32_t param2 = GET_32BIT_VALUE( \
+    naie->bytecode.data, \
+    ec->bytecode_offset + 4 \
+  ); \
+  if (ec->input_offset < ec->input.size && \
+      ec->input.data[ ec->input_offset ] == param2) \
+  { \
+    ++(ec->input_offset); \
+    ec->bytecode_offset += instruction_size; \
+  } else { \
+    ec->bytecode_offset = param1; \
+  } \
+}
+
+#define HANDLE_TESTSET { \
+  uint32_t param = GET_32BIT_VALUE( \
+    naie->bytecode.data, \
+    ec->bytecode_offset + 4 \
+  ); \
+  unsigned char* set = naie->bytecode.data + ec->bytecode_offset + 8; \
+  if (ec->input_offset < ec->input.size && \
+      NAIE_DATA_IN_SET(set, ec->input.data[ ec->input_offset ])) \
+  { \
+    ++(ec->input_offset); \
+    ec->bytecode_offset += instruction_size; \
+  } else { \
+    ec->bytecode_offset = param; \
+  } \
+}
+
 #define HANDLE_VAR { \
   unsigned char* value; \
   unsigned valuesize; \
@@ -184,6 +232,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     } \
   ); \
   ec->bytecode_offset = param; \
+  if (ec->reg_ilen_set) { \
+    ec->input.size = ec->reg_ilen; \
+    ec->reg_ilen_set = 0; \
+    ec->reg_ilen = 0; \
+  } \
 }
 
 #define HANDLE_RET { \
@@ -192,6 +245,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     naie_stack_pop(&(ec->stack), &elt); \
     if (elt.type == NAIE_STACK_CALL) { \
       ec->bytecode_offset = elt.address; \
+      ec->input.size = elt.input_length; \
       break; \
     } \
   } \
@@ -371,6 +425,44 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   } \
 }
 
+#define HANDLE_INTRPCAPTURE { \
+  uint32_t param1 = GET_32BIT_VALUE( \
+    naie->bytecode.data, \
+    ec->bytecode_offset + 4 \
+  ); \
+  uint32_t param2 = GET_32BIT_VALUE( \
+    naie->bytecode.data, \
+    ec->bytecode_offset + 8 \
+  ); \
+  unsigned char* value; \
+  unsigned valuesize; \
+  NAIG_CHECK(naie_variable(naie, ec, param1, &value, &valuesize), PROPAGATE); \
+  if (valuesize == 0) { \
+    RETURNERR(NAIG_ERR_INTRPCAPTURE); \
+  } \
+  switch (param2) { \
+  case NAIG_INTRPCAPTURE_RUINT32: \
+    if (valuesize <= 4) { \
+      ec->reg_ilen = \
+        (value[ 0 ] << ((valuesize-1) * 8)) | \
+        ((valuesize > 1) ? (value[ 1 ] << ((valuesize-2) * 8)) : 0) | \
+        ((valuesize > 2) ? (value[ 2 ] << ((valuesize-3) * 8)) : 0) | \
+        ((valuesize > 3) ? (value[ 3 ]) : 0); \
+      ec->reg_ilen += ec->input_offset; \
+      if (ec->reg_ilen > ec->input.size) { \
+        RETURNERR(NAIG_ERR_INTRPCAPTURE); \
+      } \
+      ec->reg_ilen_set = 1; \
+    } else { \
+      RETURNERR(NAIG_ERR_INTRPCAPTURE); \
+    } \
+  } \
+  ec->bytecode_offset += instruction_size; \
+}
+
+#define HANDLE_TRAP { \
+}
+
 
 /**
  *
@@ -397,34 +489,43 @@ NAIG_ERR_T naie_run
       NAIG_CHECK(naie->debugger(naie, ec, opcode, naie->debugarg), PROPAGATE);
     }
     switch (opcode) {
-    case OPCODE_NOOP:          HANDLE_NOOP          break;
-    case OPCODE_END:           HANDLE_END           break;
-    case OPCODE_ANY:           HANDLE_ANY           break;
-    case OPCODE_SKIP:          HANDLE_SKIP          break;
-    case OPCODE_CHAR:          HANDLE_CHAR          break;
-    case OPCODE_RANGE:         HANDLE_RANGE         break;
-    case OPCODE_MASKEDCHAR:    HANDLE_MASKEDCHAR    break;
-    case OPCODE_QUAD:          HANDLE_QUAD          break;
-    case OPCODE_SET:           HANDLE_SET           break;
-    case OPCODE_VAR:           HANDLE_VAR           break;
-    case OPCODE_CALL:          HANDLE_CALL          break;
-    case OPCODE_RET:           HANDLE_RET           break;
-    case OPCODE_CATCH:         HANDLE_CATCH         break;
-    case OPCODE_COMMIT:        HANDLE_COMMIT        break;
-    case OPCODE_BACKCOMMIT:    HANDLE_BACKCOMMIT    break;
-    case OPCODE_PARTIALCOMMIT: HANDLE_PARTIALCOMMIT break;
-    case OPCODE_FAIL:          HANDLE_FAIL          break;
-    case OPCODE_FAILTWICE:     HANDLE_FAILTWICE     break;
-    case OPCODE_OPENCAPTURE:   HANDLE_OPENCAPTURE   break;
-    case OPCODE_CLOSECAPTURE:  HANDLE_CLOSECAPTURE  break;
-    case OPCODE_COUNTER:       HANDLE_COUNTER       break;
-    case OPCODE_CONDJUMP:      HANDLE_CONDJUMP      break;
+    case OPCODE_NOOP:            { HANDLE_NOOP }            break;
+    case OPCODE_END:             { HANDLE_END }             break;
+    case OPCODE_ANY:             { HANDLE_ANY }             break;
+    case OPCODE_SKIP:            { HANDLE_SKIP }            break;
+    case OPCODE_CHAR:            { HANDLE_CHAR }            break;
+    case OPCODE_RANGE:           { HANDLE_RANGE }           break;
+    case OPCODE_MASKEDCHAR:      { HANDLE_MASKEDCHAR }      break;
+    case OPCODE_QUAD:            { HANDLE_QUAD }            break;
+    case OPCODE_SET:             { HANDLE_SET }             break;
+    case OPCODE_TESTANY:         { HANDLE_TESTANY }         break;
+    case OPCODE_TESTCHAR:        { HANDLE_TESTCHAR }        break;
+    case OPCODE_TESTSET:         { HANDLE_TESTSET }         break;
+    case OPCODE_VAR:             { HANDLE_VAR }             break;
+    case OPCODE_CALL:            { HANDLE_CALL }            break;
+    case OPCODE_RET:             { HANDLE_RET }             break;
+    case OPCODE_CATCH:           { HANDLE_CATCH }           break;
+    case OPCODE_COMMIT:          { HANDLE_COMMIT }          break;
+    case OPCODE_BACKCOMMIT:      { HANDLE_BACKCOMMIT }      break;
+    case OPCODE_PARTIALCOMMIT:   { HANDLE_PARTIALCOMMIT }   break;
+    case OPCODE_FAIL:            { HANDLE_FAIL }            break;
+    case OPCODE_FAILTWICE:       { HANDLE_FAILTWICE }       break;
+    case OPCODE_OPENCAPTURE:     { HANDLE_OPENCAPTURE }     break;
+    case OPCODE_CLOSECAPTURE:    { HANDLE_CLOSECAPTURE }    break;
+    case OPCODE_COUNTER:         { HANDLE_COUNTER }         break;
+    case OPCODE_CONDJUMP:        { HANDLE_CONDJUMP }        break;
+    case OPCODE_INTRPCAPTURE:    { HANDLE_INTRPCAPTURE }    break;
+    case OPCODE_TRAP:            { HANDLE_TRAP }            break;
+    default: RETURNERR(NAIG_ERR_BYTECODE);
     }
     if (ec->failed) {
       ec->failed = 0;
       HANDLE_FAILURE
       if (naie->debugger) {
-        NAIG_CHECK(naie->debugger(naie, ec, OPCODE_FAILURE, naie->debugarg), PROPAGATE);
+        NAIG_CHECK(
+          naie->debugger(naie, ec, OPCODE_FAILURE, naie->debugarg),
+          PROPAGATE
+        );
       }
     }
   }

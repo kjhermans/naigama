@@ -5,7 +5,7 @@ CFLAGS=-g -Wall -Wextra $(DEBUG) -I$(CURGEN)/include
 LIBS=\
   ../../lib/compiler/libnaic.a \
   ../../lib/util/libutil.a \
-  ../../lib/prevgen/libnaip.a \
+  ../../lib/parser/libnaip.a \
   ../../lib/naigama/libnaig.a \
 
 all: naic

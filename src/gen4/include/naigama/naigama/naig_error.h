@@ -46,12 +46,19 @@ typedef struct { int code; char* message; } NAIG_ERR_T;
 
 // Non fatal errors
 
-#define NAIG_ERR_NOMATCH        (NAIG_ERR_T){ .code = 1, .message = 0 }
-#define NAIG_ERR_NOTFOUND       (NAIG_ERR_T){ .code = 2, .message = 0 }
-#define NAIG_ERR_OVERFLOW       (NAIG_ERR_T){ .code = 3, .message = 0 }
-#define NAIG_ERR_PARSER         (NAIG_ERR_T){ .code = 4, .message = 0 }
-#define NAIG_ERR_BYTECODE       (NAIG_ERR_T){ .code = 5, .message = 0 }
-#define NAIG_ERR_NAMESPACE      (NAIG_ERR_T){ .code = 6, .message = 0 }
+#define NAIG_ERR_NOMATCH        (NAIG_ERR_T){ .code =  1, .message = 0 }
+#define NAIG_ERR_NOTFOUND       (NAIG_ERR_T){ .code =  2, .message = 0 }
+#define NAIG_ERR_OVERFLOW       (NAIG_ERR_T){ .code =  3, .message = 0 }
+#define NAIG_ERR_PARSER         (NAIG_ERR_T){ .code =  4, .message = 0 }
+#define NAIG_ERR_BYTECODE       (NAIG_ERR_T){ .code =  5, .message = 0 }
+#define NAIG_ERR_NAMESPACE      (NAIG_ERR_T){ .code =  6, .message = 0 }
+#define NAIG_ERR_QUANTIFIER     (NAIG_ERR_T){ .code =  7, .message = 0 }
+#define NAIG_ERR_ESCAPE         (NAIG_ERR_T){ .code =  8, .message = 0 }
+#define NAIG_ERR_SINGLE         (NAIG_ERR_T){ .code =  9, .message = 0 }
+#define NAIG_ERR_REFERENCE      (NAIG_ERR_T){ .code = 10, .message = 0 }
+#define NAIG_ERR_INTRPCAPTURE   (NAIG_ERR_T){ .code = 11, .message = 0 }
+#define NAIG_ERR_REPLACE        (NAIG_ERR_T){ .code = 12, .message = 0 }
+#define NAIG_ERR_LIMITEDCALL    (NAIG_ERR_T){ .code = 13, .message = 0 }
 
 // Macroes to deal with errors
 
@@ -74,6 +81,7 @@ typedef struct { int code; char* message; } NAIG_ERR_T;
 }
 
 #define PROPAGATE { return __e; }
+#define PROPAGATE_WITH_ERROR(__s, ...) { td_printf(&(naic->errorstr), __s "\n", __VA_ARGS__); return __e; }
 
 #define RETURNERR(__e) { \
   DEBUGMSG("Error code %d at %s:%d\n", __e.code, __FILE__, __LINE__); \
@@ -90,6 +98,12 @@ typedef struct { int code; char* message; } NAIG_ERR_T;
 #define TODO(str) fprintf(stderr, "TODO: %s at %s:%d\n", str, __FILE__, __LINE__);
 #else
 #define TODO(str)
+#endif
+
+#ifdef _DEBUG
+#define DEBUGFUNCTION fprintf(stderr, "Function '%s'\n", __PRETTY_FUNCTION__);
+#else
+#define DEBUGFUNCTION
 #endif
 
 #endif // defined _NAIG_GEN4_ERROR_H_ ?

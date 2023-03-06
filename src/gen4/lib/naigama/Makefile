@@ -5,7 +5,12 @@ AR=$(ARCH)ar
 CURGEN?=../..
 CFLAGS=-g -Wall -Wextra $(DEBUG) -I$(CURGEN)/include
 
-all: functionsheader $(LIB)
+all: releaseheader functionsheader $(LIB)
+
+releaseheader:
+	RELEASE=$$(cat ../../../../release); \
+	echo "#define NAIG_RELEASE \"$$RELEASE\"" > ../../include/naigama/naigama/naig_release.h
+	
 
 functionsheader: ../../include/naigama/naigama/naig_functions.h
 

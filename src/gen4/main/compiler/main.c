@@ -41,21 +41,21 @@ char* helpstring =
   "This is naic %s, the Naigama grammar compiler program.\n"
   "Usage: %s [options]\n"
   "Options:\n"
-  "-? / -h    Display this message\n"
-  "-i <path>  Input grammar file (- for stdin)\n"
-  "-o <path>  Output assembly file (- for, or otherwise stdout)\n"
-  "-b         Incorporate the assembler and output bytecode at -o\n"
-  "-a <path>  Emit bytecode at -o, and assembly at -a\n"
-  "-m <path>  Output slotmap file (optional)\n"
-  "-M <path>  Output slotmap.h file (optional)\n"
-  "-l <path>  Labelmap path (only works when -a or -b is given).\n"
-  "-D         Debug (prepare for a lot of data on stderr)\n"
-  "-t         Generate traps\n"
-  "-s         Generate reduced instruction set\n"
-  "-w         Write out loops instead of using counters\n"
-  "-r         Write out sets as alternatives of ranges and chars\n"
-  "-C         Produce a default capture for every rule\n"
-  "-I <path>  Add path for import purposes\n"
+  "-? / -h      Display this message\n"
+  "-i <path>    Input grammar file (- for stdin)\n"
+  "-o <path>    Output assembly file (- for, or otherwise stdout)\n"
+  "-b           Incorporate the assembler and output bytecode at -o\n"
+  "-a <path>    Emit bytecode at -o, and assembly at -a\n"
+  "-m <path>    Output slotmap file (optional)\n"
+  "-M <path>    Output slotmap.h file (optional)\n"
+  "-l <path>    Labelmap path (only works when -a or -b is given).\n"
+  "-D           Debug (prepare for a lot of data on stderr)\n"
+  "-t --Ftr     Generate traps\n"
+  "-w --Fwl     Write out loops instead of using counters\n"
+  "-C --Fdc     Produce a default capture for every rule\n"
+  "-O --Fop     Optimize the assembly\n"
+  "-r --Fsr     Sets-as-ranges; never produce the 'set' instruction\n"
+  "-I <path>    Add path for import purposes\n"
 ;
 
 int main
@@ -87,8 +87,14 @@ int main
       }
     }
   }
-  if (queryargs(argc, argv, 'C', 0, 0, 0, 0) == 0) {
+  if (queryargs(argc, argv, 'C', "Fdc", 0, 0, 0) == 0) {
     naic.flags |= NAIC_FLG_DEFAULTCAPTURE;
+  }
+  if (queryargs(argc, argv, 'O', "Fop", 0, 0, 0) == 0) {
+    naic.flags |= NAIC_FLG_OPTIMIZE;
+  }
+  if (queryargs(argc, argv, 'r', "Fsr", 0, 0, 0) == 0) {
+    naic.flags |= NAIC_FLG_SETSASRANGES;
   }
 
   naic.output.file = output;
@@ -106,6 +112,9 @@ int main
   if (!(NAIG_IS_OK(e))) {
     fprintf(stderr, "Error code %d: %s\n", e.code, naic.errorstr.data);
     return ~0;
+  }
+  if (naic.errorstr.size) {
+    fprintf(stderr, "There were warnings:\n %s\n", naic.errorstr.data);
   }
 
   fprintf(output, "%s\n", naic.output.string.data);

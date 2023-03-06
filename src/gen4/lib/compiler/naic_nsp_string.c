@@ -37,6 +37,7 @@ static
 int naic_nsp_string_rule
   (naic_rulelist_t* list, unsigned index, naic_rule_t* rule, void* arg)
 {
+  DEBUGFUNCTION;
   ASSERT(list);
   ASSERT(rule);
   ASSERT(arg);
@@ -53,14 +54,18 @@ static
 int naic_nsp_string_children
   (naic_nsplist_t* list, unsigned index, naic_nsp_t** nsp, void* arg)
 {
+  DEBUGFUNCTION;
   ASSERT(list);
   ASSERT(nsp);
   ASSERT(arg);
 
+  tdt_t* string = arg;
   (void)list;
   (void)index;
 
+  td_printf(string, "  namespace_start %s\n", (*nsp)->name);
   NAIG_ERR_T e = naic_nsp_string(*nsp, arg);
+  td_printf(string, "  namespace_stop %s\n", (*nsp)->name);
 
   return e.code;
 }
@@ -71,9 +76,15 @@ int naic_nsp_string_children
 NAIG_ERR_T naic_nsp_string
   (naic_nsp_t* nsp, tdt_t* string)
 {
+  DEBUGFUNCTION;
   ASSERT(nsp);
   ASSERT(string);
 
+  naic_instrlist_iterate(
+    &(nsp->instructions),
+    naic_rule_string_instr,
+    string
+  );
   naic_rulelist_iterate(&(nsp->rules), naic_nsp_string_rule, string);
   naic_nsplist_iterate(&(nsp->children), naic_nsp_string_children, string);
 

@@ -15,10 +15,16 @@ NAIG_ERR_T naic_compile
   (naic_t* naic, char* path)
   __attribute__ ((warn_unused_result));
 
+/* declared in ./naic_compile_get_quantifiers.c */
+extern
+NAIG_ERR_T naic_compile_get_quantifiers
+  (naic_t* naic, naig_resobj_t* quant, int range[ 2 ])
+  __attribute__ ((warn_unused_result));
+
 /* declared in ./naic_fp.c */
 extern
 NAIG_ERR_T naic_fp
-  (naic_t* naic, naig_resobj_t* top, naic_nsp_t* nsp)
+  (naic_t* naic, naig_resobj_t* top, naic_nsp_t* nsp, int allowsingle)
   __attribute__ ((warn_unused_result));
 
 /* declared in ./naic_fp_import.c */
@@ -30,6 +36,12 @@ NAIG_ERR_T naic_fp_import
 /* declared in ./naic_fp_rule.c */
 extern
 NAIG_ERR_T naic_fp_rule
+  (naic_t* naic, naig_resobj_t* obj, naic_nsp_t* nsp)
+  __attribute__ ((warn_unused_result));
+
+/* declared in ./naic_fp_rule_single.c */
+extern
+NAIG_ERR_T naic_fp_rule_single
   (naic_t* naic, naig_resobj_t* obj, naic_nsp_t* nsp)
   __attribute__ ((warn_unused_result));
 
@@ -49,6 +61,11 @@ NAIG_ERR_T naic_set_output
 extern
 void naic_free
   (naic_t* naic);
+
+/* declared in ./naic_instr.c */
+extern
+void naic_instr_free
+  (naic_instr_t* instr);
 
 /* declared in ./naic_nsp_init.c */
 extern
@@ -77,6 +94,12 @@ void naic_nsp_free
 extern
 NAIG_ERR_T naic_nsp_parse
   (naic_t* naic, naic_nsp_t* nsp, char* path, int resolve)
+  __attribute__ ((warn_unused_result));
+
+/* declared in ./naic_nsp_rule_var_get.c */
+extern
+NAIG_ERR_T naic_nsp_rule_var_get
+  (naic_nsp_t* nsp, naic_rule_t* rule, char* name, unsigned* slot)
   __attribute__ ((warn_unused_result));
 
 /* declared in ./naic_nsp_string.c */
@@ -108,6 +131,12 @@ NAIG_ERR_T naic_rule_string
   (naic_rule_t* rule, tdt_t* string)
   __attribute__ ((warn_unused_result));
 
+/* declared in ./naic_rule_string_instr.c */
+extern
+int naic_rule_string_instr
+  (naic_instrlist_t* list, unsigned index, naic_instr_t* instr, void* arg)
+  __attribute__ ((warn_unused_result));
+
 /* declared in ./naic_sp.c */
 extern
 NAIG_ERR_T naic_sp
@@ -126,9 +155,160 @@ NAIG_ERR_T naic_sp_rule_compile
   (naic_t* naic, naic_nsp_t* nsp, naic_rule_t* rule)
   __attribute__ ((warn_unused_result));
 
+/* declared in ./naic_sp_rule_matcher.c */
+extern
+NAIG_ERR_T naic_sp_rule_matcher
+  (naic_t* naic, naic_nsp_t* nsp, naic_rule_t* rule, naig_resobj_t* obj)
+  __attribute__ ((warn_unused_result));
+
+/* declared in ./naic_sp_rule_matcher_any.c */
+extern
+NAIG_ERR_T naic_sp_rule_matcher_any
+  (naic_t* naic, naic_nsp_t* nsp, naic_rule_t* rule)
+  __attribute__ ((warn_unused_result));
+
+/* declared in ./naic_sp_rule_matcher_bitmask.c */
+extern
+NAIG_ERR_T naic_sp_rule_matcher_bitmask
+  (naic_t* naic, naic_nsp_t* nsp, naic_rule_t* rule, naig_resobj_t* obj)
+  __attribute__ ((warn_unused_result));
+
+/* declared in ./naic_sp_rule_matcher_capture.c */
+extern
+NAIG_ERR_T naic_sp_rule_matcher_capture
+  (naic_t* naic, naic_nsp_t* nsp, naic_rule_t* rule, naig_resobj_t* obj)
+  __attribute__ ((warn_unused_result));
+
+/* declared in ./naic_sp_rule_matcher_capture_end.c */
+extern
+NAIG_ERR_T naic_sp_rule_matcher_capture_end
+  (
+    naic_t* naic,
+    naic_nsp_t* nsp,
+    naic_rule_t* rule,
+    naig_resobj_t* obj,
+    unsigned slot
+  )
+  __attribute__ ((warn_unused_result));
+
+/* declared in ./naic_sp_rule_matcher_endforce.c */
+extern
+NAIG_ERR_T naic_sp_rule_matcher_endforce
+  (naic_t* naic, naic_nsp_t* nsp, naic_rule_t* rule, naig_resobj_t* obj)
+  __attribute__ ((warn_unused_result));
+
+/* declared in ./naic_sp_rule_matcher_group.c */
+extern
+NAIG_ERR_T naic_sp_rule_matcher_group
+  (naic_t* naic, naic_nsp_t* nsp, naic_rule_t* rule, naig_resobj_t* obj)
+  __attribute__ ((warn_unused_result));
+
+/* declared in ./naic_sp_rule_matcher_hexliteral.c */
+extern
+NAIG_ERR_T naic_sp_rule_matcher_hexliteral
+  (naic_t* naic, naic_nsp_t* nsp, naic_rule_t* rule, naig_resobj_t* obj)
+  __attribute__ ((warn_unused_result));
+
+/* declared in ./naic_sp_rule_matcher_limitedcall.c */
+extern
+NAIG_ERR_T naic_sp_rule_matcher_limitedcall
+  (naic_t* naic, naic_nsp_t* nsp, naic_rule_t* rule, naig_resobj_t* obj)
+  __attribute__ ((warn_unused_result));
+
+/* declared in ./naic_sp_rule_matcher_macro.c */
+extern
+NAIG_ERR_T naic_sp_rule_matcher_macro
+  (naic_t* naic, naic_nsp_t* nsp, naic_rule_t* rule, naig_resobj_t* obj)
+  __attribute__ ((warn_unused_result));
+
+/* declared in ./naic_sp_rule_matcher_reference.c */
+extern
+NAIG_ERR_T naic_sp_rule_matcher_reference
+  (naic_t* naic, naic_nsp_t* nsp, naic_rule_t* rule, naig_resobj_t* obj)
+  __attribute__ ((warn_unused_result));
+
+/* declared in ./naic_sp_rule_matcher_set.c */
+extern
+NAIG_ERR_T naic_sp_rule_matcher_set_range
+  (naic_rule_t* rule, uint8_t from, uint8_t until, int invert)
+  __attribute__ ((warn_unused_result));
+
+/* declared in ./naic_sp_rule_matcher_set.c */
+extern
+NAIG_ERR_T naic_sp_rule_matcher_set_bits
+  (uint8_t* set, uint8_t from, uint8_t until, int invert)
+  __attribute__ ((warn_unused_result));
+
+/* declared in ./naic_sp_rule_matcher_set.c */
+extern
+NAIG_ERR_T naic_sp_rule_matcher_set_fromuntil
+  (
+    naic_t* naic,
+    naic_rule_t* rule,
+    uint8_t* set,
+    uint8_t from,
+    uint8_t until,
+    int invert
+  )
+  __attribute__ ((warn_unused_result));
+
+/* declared in ./naic_sp_rule_matcher_set.c */
+extern
+NAIG_ERR_T naic_sp_rule_matcher_set
+  (naic_t* naic, naic_nsp_t* nsp, naic_rule_t* rule, naig_resobj_t* obj)
+  __attribute__ ((warn_unused_result));
+
+/* declared in ./naic_sp_rule_matcher_string.c */
+extern
+NAIG_ERR_T naic_sp_rule_matcher_string
+  (naic_t* naic, naic_nsp_t* nsp, naic_rule_t* rule, naig_resobj_t* obj)
+  __attribute__ ((warn_unused_result));
+
+/* declared in ./naic_sp_rule_matcher_varcapture.c */
+extern
+NAIG_ERR_T naic_sp_rule_matcher_varcapture
+  (naic_t* naic, naic_nsp_t* nsp, naic_rule_t* rule, naig_resobj_t* obj)
+  __attribute__ ((warn_unused_result));
+
+/* declared in ./naic_sp_rule_matcher_varreference.c */
+extern
+NAIG_ERR_T naic_sp_rule_matcher_varreference
+  (naic_t* naic, naic_nsp_t* nsp, naic_rule_t* rule, naig_resobj_t* obj)
+  __attribute__ ((warn_unused_result));
+
+/* declared in ./naic_sp_rule_quantified_matcher.c */
+extern
+NAIG_ERR_T naic_sp_rule_quantified_matcher
+  (
+    naic_t* naic,
+    naic_nsp_t* nsp,
+    naic_rule_t* rule,
+    naig_resobj_t* obj,
+    int range[2]
+  )
+  __attribute__ ((warn_unused_result));
+
+/* declared in ./naic_sp_rule_replace.c */
+extern
+NAIG_ERR_T naic_sp_rule_replace
+  (naic_t* naic, naic_nsp_t* nsp, naic_rule_t* rule, naig_resobj_t* obj)
+  __attribute__ ((warn_unused_result));
+
 /* declared in ./naic_sp_rule_term.c */
 extern
 NAIG_ERR_T naic_sp_rule_term
+  (naic_t* naic, naic_nsp_t* nsp, naic_rule_t* rule, naig_resobj_t* obj)
+  __attribute__ ((warn_unused_result));
+
+/* declared in ./naic_sp_rule_term_notand.c */
+extern
+NAIG_ERR_T naic_sp_rule_term_notand
+  (naic_t* naic, naic_nsp_t* nsp, naic_rule_t* rule, naig_resobj_t* obj)
+  __attribute__ ((warn_unused_result));
+
+/* declared in ./naic_sp_rule_term_quantified.c */
+extern
+NAIG_ERR_T naic_sp_rule_term_quantified
   (naic_t* naic, naic_nsp_t* nsp, naic_rule_t* rule, naig_resobj_t* obj)
   __attribute__ ((warn_unused_result));
 
@@ -136,6 +316,66 @@ NAIG_ERR_T naic_sp_rule_term
 extern
 NAIG_ERR_T naic_sp_rule_terms
   (naic_t* naic, naic_nsp_t* nsp, naic_rule_t* rule, naig_resobj_t* obj)
+  __attribute__ ((warn_unused_result));
+
+/* declared in ./naic_string_unescape.c */
+extern
+NAIG_ERR_T naic_string_unescape
+  (
+    naic_t* naic,
+    naic_nsp_t* nsp,
+    naic_rule_t* rule,
+    char* string,
+    NAIG_ERR_T(*fnc)(naic_t*,naic_nsp_t*,naic_rule_t*,unsigned,int)
+  )
+  __attribute__ ((warn_unused_result));
+
+/* declared in ./naic_tp.c */
+extern
+NAIG_ERR_T naic_tp
+  (naic_t* naic)
+  __attribute__ ((warn_unused_result));
+
+/* declared in ./naic_tp_cleanup.c */
+extern
+NAIG_ERR_T naic_tp_cleanup
+  (naic_t* naic)
+  __attribute__ ((warn_unused_result));
+
+/* declared in ./naic_tp_cleanup_unused_labels.c */
+extern
+NAIG_ERR_T naic_tp_cleanup_unused_labels
+  (naic_t* naic)
+  __attribute__ ((warn_unused_result));
+
+/* declared in ./naic_tp_optimize.c */
+extern
+NAIG_ERR_T naic_tp_optimize
+  (naic_t* naic)
+  __attribute__ ((warn_unused_result));
+
+/* declared in ./naic_tp_optimize_strings.c */
+extern
+NAIG_ERR_T naic_tp_optimize_strings
+  (naic_t* naic)
+  __attribute__ ((warn_unused_result));
+
+/* declared in ./naic_tp_optimize_tests.c */
+extern
+NAIG_ERR_T naic_tp_optimize_tests
+  (naic_t* naic)
+  __attribute__ ((warn_unused_result));
+
+/* declared in ./naic_tp_review.c */
+extern
+NAIG_ERR_T naic_tp_review
+  (naic_t* naic)
+  __attribute__ ((warn_unused_result));
+
+/* declared in ./naic_tp_review_label_use.c */
+extern
+NAIG_ERR_T naic_tp_review_label_use
+  (naic_t* naic)
   __attribute__ ((warn_unused_result));
 
 

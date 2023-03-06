@@ -44,15 +44,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 typedef struct
 {
-#define OPCODE_LABEL                    0x8fffffff
-  unsigned instr;
+#define OPCODE_LABEL                    0x81ffffff
+#define OPCODE_NONE                     0x42ffffff
+  unsigned                instr;
+  char*                   label;
   union {
-    uint8_t               map[ 32 ];
+    uint8_t               set[ 32 ];
     uint32_t              ints[ 8 ];
-    struct {
-      char*                 string;
-      uint32_t              ints[ 4 ];
-    }                     label;
   }                     params;
 }
 naic_instr_t;

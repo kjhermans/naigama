@@ -31,7 +31,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \brief
  */
 
-#include <naigama/prevgen/naip.h>
+#include <naigama/parser/naip.h>
 
 #include "naig_private.h"
 
@@ -122,7 +122,6 @@ naig_resobj_t* naig_result_object
   )
 {
   naig_resobj_t* object = malloc(sizeof(naig_resobj_t));
-fprintf(stderr, "RESULT IS %p\n", object);
 
   memset(object, 0, sizeof(*object));
   object->type = -1; // top

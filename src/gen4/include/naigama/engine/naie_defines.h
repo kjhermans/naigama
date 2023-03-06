@@ -34,15 +34,16 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef _NAIE_GEN4_DEFINES_H_
 #define _NAIE_GEN4_DEFINES_H_
 
-#define OPCODE_FAILURE          0xffffffff
+#define OPCODE_FAILURE                  0xffffffff
 
-#define NAIE_STACK_CALL         1
-#define NAIE_STACK_CATCH        2
+#define NAIE_STACK_CALL                 1
+#define NAIE_STACK_CATCH                2
 
 #ifdef NAIE_DATA_IN_SET
 #undef NAIE_DATA_IN_SET
 #endif
 #define NAIE_DATA_IN_SET(set,chr) (set[chr/8]&(1<<(chr%8)))
 
+#define NAIG_INTRPCAPTURE_RUINT32       1
 
 #endif // defined _NAIE_GEN4_DEFINES_H_ ?

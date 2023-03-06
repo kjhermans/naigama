@@ -65,6 +65,11 @@ int naic_resolve_path_
 NAIG_ERR_T naic_resolve_path
   (naic_t* naic, char* path, char** resolvedpath)
 {
+  DEBUGFUNCTION;
+  ASSERT(naic);
+  ASSERT(path);
+  ASSERT(resolvedpath);
+
   struct stat s;
 
   if (stat(path, &s) == 0 && (s.st_mode & S_IFMT) == S_IFREG) {

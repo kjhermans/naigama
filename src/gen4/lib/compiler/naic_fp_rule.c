@@ -39,6 +39,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 NAIG_ERR_T naic_fp_rule
   (naic_t* naic, naig_resobj_t* obj, naic_nsp_t* nsp)
 {
+  DEBUGFUNCTION;
   ASSERT(naic != NULL);
   ASSERT(obj != NULL);
   ASSERT(nsp != NULL);

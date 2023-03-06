@@ -36,6 +36,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #define NAIC_FLG_DEFAULTCAPTURE         (1<<0)
 #define NAIC_FLG_PREFIX                 (1<<1)
+#define NAIC_FLG_SINGLE_EXPRESSION      (1<<2)
+#define NAIC_FLG_OPTIMIZE               (1<<3)
+#define NAIC_FLG_SETSASRANGES           (1<<4)
+
+#define NAIC_VARIABLE_DEFAULT           0xffffff
 
 #endif // defined _NAIC_GEN4_DEFINES_H_ ?
 

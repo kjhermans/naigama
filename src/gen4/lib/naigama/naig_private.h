@@ -40,7 +40,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <naigama/naigama/naig_error.h>
 #include <naigama/naigama/naig_types.h>
-#include <naigama/prevgen/naip.h>
+#include <naigama/parser/naip.h>
 #include <naigama/naigama/naig_functions.h>
 
 #endif // defined _NAIG_GEN4_PRIVATE_H_ ?

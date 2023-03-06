@@ -35,12 +35,12 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <naigama/engine/naie_type_actions.h>
 #include <naigama/naigama/naig_type_resobj.h>
-#include <naigama/prevgen/naip.h>
+#include <naigama/parser/naip.h>
 #include <naigama/naigama/naig_functions.h>
 #include <naigama/util/absorb_file.h>
 #include <naigama/util/strxypos.h>
 
-#include <naigama/prevgen/naip.h>
+#include <naigama/parser/naip.h>
 
 static unsigned char grammar_bytecode[] = {
 #include "../../grammar/grammar.h"
@@ -52,6 +52,11 @@ static unsigned char grammar_bytecode[] = {
 NAIG_ERR_T naic_nsp_parse
   (naic_t* naic, naic_nsp_t* nsp, char* path, int resolve)
 {
+  DEBUGFUNCTION;
+  ASSERT(naic);
+  ASSERT(nsp);
+  ASSERT(path);
+
   naip_t naip;
   naip_actionlist_t actions;
   int r;
@@ -126,7 +131,7 @@ NAIG_ERR_T naic_nsp_parse
 
 //  naig_result_object_debug(resobj, 0);
 
-  NAIG_CHECK(naic_fp(naic, resobj, nsp), PROPAGATE);
+  NAIG_CHECK(naic_fp(naic, resobj, nsp, !resolve), PROPAGATE);
 
   return NAIG_OK;
 }

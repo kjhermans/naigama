@@ -33,7 +33,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "naic_private.h"
 
-#include <naigama/prevgen/naip.h>
+#include <naigama/parser/naip.h>
 #include <naigama/naigama/naig_type_resobj.h>
 #include <naigama/naigama/naig_functions.h>
 #include <naigama/naigama/naig_instructions.h>
@@ -44,6 +44,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 NAIG_ERR_T naic_sp_rule_terms
   (naic_t* naic, naic_nsp_t* nsp, naic_rule_t* rule, naig_resobj_t* obj)
 {
+  DEBUGFUNCTION;
   ASSERT(naic);
   ASSERT(nsp);
   ASSERT(rule);
@@ -52,7 +53,8 @@ NAIG_ERR_T naic_sp_rule_terms
   unsigned i = 0;
   naig_resobj_t* term;
 
-  while ((term = naig_result_object_query(obj, 1, SLOTMAP_TERM_, i++)) != NULL) {
+  while ((term = naig_result_object_query(obj, 1, SLOTMAP_TERM_, i++)) != NULL)
+  {
     NAIG_CHECK(naic_sp_rule_term(naic, nsp, rule, term), PROPAGATE);
   }
 

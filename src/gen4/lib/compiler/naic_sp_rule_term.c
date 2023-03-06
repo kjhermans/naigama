@@ -33,7 +33,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "naic_private.h"
 
-#include <naigama/prevgen/naip.h>
+#include <naigama/parser/naip.h>
 #include <naigama/naigama/naig_type_resobj.h>
 #include <naigama/naigama/naig_functions.h>
 #include <naigama/naigama/naig_instructions.h>
@@ -44,6 +44,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 NAIG_ERR_T naic_sp_rule_term
   (naic_t* naic, naic_nsp_t* nsp, naic_rule_t* rule, naig_resobj_t* obj)
 {
+  DEBUGFUNCTION;
   ASSERT(naic != NULL);
   ASSERT(nsp != NULL);
   ASSERT(rule != NULL);
@@ -60,7 +61,9 @@ NAIG_ERR_T naic_sp_rule_term
     break;
   default: ;
 #ifdef _DEBUG
-    fprintf(stderr, "Unknown type %u at %s:\n", obj->children[ 0 ]->type, __FILE__);
+    fprintf(stderr,
+      "Unknown type %u at %s:\n", obj->children[ 0 ]->type, __FILE__
+    );
     abort();
 #endif
   }

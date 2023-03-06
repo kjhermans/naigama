@@ -33,17 +33,68 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "naic_private.h"
 
+#include <naigama/parser/naip.h>
+#include <naigama/naigama/naig_type_resobj.h>
+#include <naigama/naigama/naig_functions.h>
+#include <naigama/naigama/naig_instructions.h>
+
 /**
  * Topmost library function.
  */
 NAIG_ERR_T naic_compile
   (naic_t* naic, char* path)
 {
+  DEBUGFUNCTION;
+  ASSERT(naic);
+  ASSERT(path);
 
   NAIG_CHECK(naic_nsp_init(&(naic->namespace.top), "__top"), PROPAGATE);
   naic->namespace.current = &(naic->namespace.top);
   NAIG_CHECK(naic_nsp_parse(naic, &(naic->namespace.top), path, 0), PROPAGATE);
   NAIG_CHECK(naic_sp(naic, &(naic->namespace.top)), PROPAGATE);
+
+  if (naic_rulelist_has(&(naic->namespace.top.rules),
+                        (naic_rule_t){ .name = "__main" }))
+  {
+    naic_instrlist_ins(
+      &(naic->namespace.top.instructions),
+      0,
+      (naic_instr_t){
+        .instr = OPCODE_END,
+        .params.ints[ 0 ] = 0
+      }
+    );
+    naic_instrlist_ins(
+      &(naic->namespace.top.instructions),
+      0,
+      (naic_instr_t){
+        .instr = OPCODE_CALL,
+        .label = strdup("__main")
+      }
+    );
+  } else if (!naic_rulelist_size(&(naic->namespace.top.rules))) {
+    td_printf(&(naic->errorstr), "Warning: no instructions were emitted\n");
+  } else {
+    naic_rule_t* rule = naic_rulelist_getptr(&(naic->namespace.top.rules), 0);
+    naic_instrlist_ins(
+      &(naic->namespace.top.instructions),
+      0,
+      (naic_instr_t){
+        .instr = OPCODE_END,
+        .params.ints[ 0 ] = 0
+      }
+    );
+    naic_instrlist_ins(
+      &(naic->namespace.top.instructions),
+      0,
+      (naic_instr_t){
+        .instr = OPCODE_CALL,
+        .label = strdup(rule->name)
+      }
+    );
+  }
+
+  NAIG_CHECK(naic_tp(naic), PROPAGATE);
 
   return NAIG_OK;
 }

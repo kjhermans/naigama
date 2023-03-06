@@ -54,6 +54,9 @@ NAIG_ERR_T naic_rule_init
 void naic_rule_free
   (naic_rule_t* rule)
 {
+  DEBUGFUNCTION;
+  ASSERT(rule);
+
   if (rule->name) {
     free(rule->name);
     rule->name = 0;

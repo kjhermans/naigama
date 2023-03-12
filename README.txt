@@ -12,8 +12,10 @@ and / or capture regions from it, and / or modify it.
 
 ==== How do I build it?
 
-This project requires shell script and perl. It is best compiled
-on Linux. I have no MacOS or Windows targets in mind. Feel free.
+This project requires shell script and (if you're building from superclean)
+perl (don't worry, pythonheads - everything that requires perl is provided
+as-is in this repo). It is best compiled on Linux.
+I have no MacOS or Windows targets in mind. Feel free.
 
 This is primarily a C language project.
 To compile libraries and executables, on the command line, issue 'make'.
@@ -41,6 +43,9 @@ The idea behind the generational setup is that every subsequent generation
 gets its own parsing needs served by the previous one. The grammar, for
 example, has its own syntax specified by a grammar file.  The same goes
 for the assembly. 'Naigama can parse itself'.
+
+The current, 'best' generation is generation 3, (and indeed, if you issue
+'make install' you'll get gen3) but gen4 is fast catching up.
 
 ==== Is there documentation?
 

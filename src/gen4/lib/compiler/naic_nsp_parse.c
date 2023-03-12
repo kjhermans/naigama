@@ -40,8 +40,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <naigama/util/absorb_file.h>
 #include <naigama/util/strxypos.h>
 
-#include <naigama/parser/naip.h>
-
 static unsigned char grammar_bytecode[] = {
 #include "../../grammar/grammar.h"
 };

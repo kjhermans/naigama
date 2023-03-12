@@ -1,4 +1,4 @@
-/*
+/**
  * This file is part of Oroszlan, a parsing and scripting environment
 
 Copyright (c) 2023, Kees-Jan Hermans <kees.jan.hermans@gmail.com>
@@ -31,59 +31,40 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \brief
  */
 
-#include "naic_private.h"
+//#include <naigama/util/str2int_map.h>
 
-#include <naigama/naigama/naig_instructions.h>
-#include <naigama/parser/naip.h>
-#include <naigama/naigama/naig_functions.h>
+#include "naic_private.h"
 
 /**
  *
  */
-NAIG_ERR_T naic_sp_rule_matcher_varcapture
-  (naic_t* naic, naic_nsp_t* nsp, naic_rule_t* rule, naig_resobj_t* obj)
+NAIG_ERR_T naic_slotmap_push
+  (naic_t* naic, char* rule, char* ident, unsigned slot)
 {
   DEBUGFUNCTION;
-  ASSERT(naic != NULL);
-  ASSERT(nsp != NULL);
-  ASSERT(rule != NULL);
-  ASSERT(obj != NULL);
-  ASSERT(obj->nchildren);
+  ASSERT(naic);
+  ASSERT(rule);
+  ASSERT(ident);
 
-  unsigned slot = (naic->slot)++;
-  naig_resobj_t* ident = naig_result_object_query(obj, 1, SLOTMAP_IDENT_, 0);
+  tdt_t string = { 0 };
 
-  NAIG_CHECK(
-    naic_slotmap_push(naic, rule->name, ident->string, slot),
-    PROPAGATE
-  );
-
-  naic_instrlist_push(
-    &(rule->instructions),
-    (naic_instr_t){
-      .instr = OPCODE_OPENCAPTURE,
-      .params.ints[ 0 ] = slot,
-      .label = strdup(ident->string)
+  td_printf(&string, "%s", rule);
+  if (strlen(ident)) {
+    td_appendchr(&string, '_');
+    for (unsigned i=0; i < strlen(ident); i++) {
+      char c = ident[ i ];
+      if ((c >= 'a' && c <= 'z') ||
+          (c >= 'A' && c <= 'Z') ||
+          (c >= '0' && c <= '9'))
+      {
+        td_appendchr(&string, c);
+      }
     }
-  );
-  if (obj->nchildren == 2) {
-    NAIG_CHECK(naic_sp_rule_alts(naic, nsp, rule, obj->children[1]), PROPAGATE);
   }
-  if (obj->nchildren == 3) {
-    NAIG_CHECK(naic_sp_rule_alts(naic, nsp, rule, obj->children[2]), PROPAGATE);
+  while (str2int_map_has(&(naic->slotmap), (char*)(string.data))) {
+    td_appendchr(&string, '_');
   }
-  naic_instrlist_push(
-    &(rule->instructions),
-    (naic_instr_t){
-      .instr = OPCODE_CLOSECAPTURE,
-      .params.ints[ 0 ] = slot
-    }
-  );
-
-  NAIG_CHECK(
-    naic_sp_rule_matcher_capture_end(naic, nsp, rule, obj, slot),
-    PROPAGATE
-  );
+  str2int_map_put(&(naic->slotmap), (char*)(string.data), slot);
 
   return NAIG_OK;
 }

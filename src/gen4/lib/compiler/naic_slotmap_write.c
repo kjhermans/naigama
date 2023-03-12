@@ -1,4 +1,4 @@
-/*
+/**
  * This file is part of Oroszlan, a parsing and scripting environment
 
 Copyright (c) 2023, Kees-Jan Hermans <kees.jan.hermans@gmail.com>
@@ -33,57 +33,50 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "naic_private.h"
 
-#include <naigama/naigama/naig_instructions.h>
-#include <naigama/parser/naip.h>
-#include <naigama/naigama/naig_functions.h>
+static
+int naic_slotmap_write_name
+  (str2int_map_t* map, unsigned i, char** name, unsigned* value, void* ptr)
+{
+  FILE* file = ptr;
+
+  fprintf(file, "    \"%s\": %u", *name, *value);
+  if (i+1 < map->count) {
+    fprintf(file, ",");
+  }
+  fprintf(file, "\n");
+  return 0;
+}
+
+/*
+static
+int naic_slotmap_write_slot
+  (str2int_map_t* map, unsigned i, char** name, unsigned* value, void* ptr)
+{
+  FILE* file = ptr;
+
+  fprintf(file, "    %u: \"%s\"", *value, *name);
+  if (i+1 < map->count) {
+    fprintf(file, ",");
+  }
+  fprintf(file, "\n");
+  return 0;
+}
+*/
 
 /**
  *
  */
-NAIG_ERR_T naic_sp_rule_matcher_varcapture
-  (naic_t* naic, naic_nsp_t* nsp, naic_rule_t* rule, naig_resobj_t* obj)
+void naic_slotmap_write
+  (naic_t* naic, char* path)
 {
-  DEBUGFUNCTION;
-  ASSERT(naic != NULL);
-  ASSERT(nsp != NULL);
-  ASSERT(rule != NULL);
-  ASSERT(obj != NULL);
-  ASSERT(obj->nchildren);
+  FILE* file = fopen(path, "w+");
 
-  unsigned slot = (naic->slot)++;
-  naig_resobj_t* ident = naig_result_object_query(obj, 1, SLOTMAP_IDENT_, 0);
-
-  NAIG_CHECK(
-    naic_slotmap_push(naic, rule->name, ident->string, slot),
-    PROPAGATE
-  );
-
-  naic_instrlist_push(
-    &(rule->instructions),
-    (naic_instr_t){
-      .instr = OPCODE_OPENCAPTURE,
-      .params.ints[ 0 ] = slot,
-      .label = strdup(ident->string)
-    }
-  );
-  if (obj->nchildren == 2) {
-    NAIG_CHECK(naic_sp_rule_alts(naic, nsp, rule, obj->children[1]), PROPAGATE);
+  if (file) {
+    fprintf(file, "{\n  \"type\": \"slotmap\",\n  \"names\": {\n");
+    str2int_map_iterate(&(naic->slotmap), naic_slotmap_write_name, file);
+//    fprintf(file, "  },\n  \"slots\": {\n");
+//    str2int_map_iterate(&(naic->slotmap), naic_slotmap_write_slot, file);
+    fprintf(file, "  }\n}\n");
+    fclose(file);
   }
-  if (obj->nchildren == 3) {
-    NAIG_CHECK(naic_sp_rule_alts(naic, nsp, rule, obj->children[2]), PROPAGATE);
-  }
-  naic_instrlist_push(
-    &(rule->instructions),
-    (naic_instr_t){
-      .instr = OPCODE_CLOSECAPTURE,
-      .params.ints[ 0 ] = slot
-    }
-  );
-
-  NAIG_CHECK(
-    naic_sp_rule_matcher_capture_end(naic, nsp, rule, obj, slot),
-    PROPAGATE
-  );
-
-  return NAIG_OK;
 }

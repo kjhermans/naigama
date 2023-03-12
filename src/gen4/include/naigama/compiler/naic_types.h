@@ -38,6 +38,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <naigama/util/stringlist.h>
 #include <naigama/util/td.h>
+#include <naigama/util/str2int_map.h>
 
 #include "naic_type_nsp.h"
 
@@ -53,6 +54,7 @@ typedef struct
     naic_nsp_t*           current;
   }                     namespace;
   stringlist_t          paths;
+  str2int_map_t         slotmap;
   struct {
     FILE*                 file;
     tdt_t                 string;

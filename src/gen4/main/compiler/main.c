@@ -64,6 +64,7 @@ int main
   FILE* output = stdout;
   char* defaultinputfile = "-";
   char* inputfile = defaultinputfile;
+  char* slotmap = 0;
   naic_t naic;
   NAIG_ERR_T e;
 
@@ -96,6 +97,7 @@ int main
   if (queryargs(argc, argv, 'r', "Fsr", 0, 0, 0) == 0) {
     naic.flags |= NAIC_FLG_SETSASRANGES;
   }
+  queryargs(argc, argv, 'm', "slotmap", 0, 1, &slotmap);
 
   naic.output.file = output;
   e = naic_compile(&naic, inputfile);
@@ -118,6 +120,11 @@ int main
   }
 
   fprintf(output, "%s\n", naic.output.string.data);
+  fclose(output);
+
+  if (slotmap) {
+    naic_slotmap_write(&naic, slotmap);
+  }
 
   return 0;
 }

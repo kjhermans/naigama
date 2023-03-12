@@ -43,6 +43,7 @@ typedef struct { int code; char* message; } NAIG_ERR_T;
 
 #define NAIG_ERR_IS_FATAL(e)    (e.code < 0)
 #define NAIG_ERR_MEM            (NAIG_ERR_T){ .code = -1, .message = 0 }
+#define NAIG_ERR_INTEGRITY      (NAIG_ERR_T){ .code = -2, .message = 0 }
 
 // Non fatal errors
 
@@ -59,6 +60,7 @@ typedef struct { int code; char* message; } NAIG_ERR_T;
 #define NAIG_ERR_INTRPCAPTURE   (NAIG_ERR_T){ .code = 11, .message = 0 }
 #define NAIG_ERR_REPLACE        (NAIG_ERR_T){ .code = 12, .message = 0 }
 #define NAIG_ERR_LIMITEDCALL    (NAIG_ERR_T){ .code = 13, .message = 0 }
+#define NAIG_ERR_LABEL          (NAIG_ERR_T){ .code = 14, .message = 0 }
 
 // Macroes to deal with errors
 

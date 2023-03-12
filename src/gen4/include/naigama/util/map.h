@@ -2,6 +2,7 @@
 #define _TYPED_MAP_H_
 
 #include <stdlib.h>
+#include <string.h>
 
 /**
  * Define MAP_EQUALS if you have, for example, strings.
@@ -35,6 +36,9 @@
                                                                             \
   extern                                                                    \
   int COMBINE(prefix, get)(COMBINE(prefix, t)* map, Tk key, Tv* val);       \
+                                                                            \
+  extern                                                                    \
+  int COMBINE(prefix, has)(COMBINE(prefix, t)* map, Tk key);                \
                                                                             \
   extern                                                                    \
   int COMBINE(prefix, del)(COMBINE(prefix, t)* map, Tk key, Tv* val);       \
@@ -98,6 +102,15 @@
       }                                                                     \
     }                                                                       \
     return ~0;                                                              \
+  }                                                                         \
+                                                                            \
+  int COMBINE(prefix, has)(COMBINE(prefix, t)* map, Tk key) {               \
+    for (unsigned i=0; i < map->count; i++) {                               \
+      if (MAP_EQUALS(map->keys[ i ], key)) {                                \
+        return 1;                                                           \
+      }                                                                     \
+    }                                                                       \
+    return 0;                                                               \
   }                                                                         \
                                                                             \
   int COMBINE(prefix, getat)                                                \

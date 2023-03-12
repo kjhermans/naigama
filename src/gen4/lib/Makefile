@@ -4,6 +4,7 @@ all:
 	cd naigama && make
 	cd engine && make
 	cd compiler && make
+	cd assembler && make
 
 clean:
 	cd util && make clean
@@ -11,3 +12,4 @@ clean:
 	cd naigama && make clean
 	cd engine && make clean
 	cd compiler && make clean
+	cd assembler && make clean

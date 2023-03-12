@@ -137,6 +137,17 @@ int naic_rule_string_instr
   (naic_instrlist_t* list, unsigned index, naic_instr_t* instr, void* arg)
   __attribute__ ((warn_unused_result));
 
+/* declared in ./naic_slotmap_push.c */
+extern
+NAIG_ERR_T naic_slotmap_push
+  (naic_t* naic, char* rule, char* ident, unsigned slot)
+  __attribute__ ((warn_unused_result));
+
+/* declared in ./naic_slotmap_write.c */
+extern
+void naic_slotmap_write
+  (naic_t* naic, char* path);
+
 /* declared in ./naic_sp.c */
 extern
 NAIG_ERR_T naic_sp

@@ -50,6 +50,8 @@ NAIG_ERR_T naic_sp_rule_matcher_capture
 
   unsigned slot = (naic->slot)++;
 
+  NAIG_CHECK(naic_slotmap_push(naic, rule->name, obj->string, slot), PROPAGATE);
+
   naic_instrlist_push(
     &(rule->instructions),
     (naic_instr_t){

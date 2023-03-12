@@ -70,6 +70,10 @@ NAIG_ERR_T naic_sp_rule_compile
   }
   if (naic->flags & NAIC_FLG_DEFAULTCAPTURE) {
     slot = (naic->slot)++;
+    NAIG_CHECK(
+      naic_slotmap_push(naic, rule->name, "", slot),
+      PROPAGATE
+    );
     naic_instrlist_push(
       &(rule->instructions),
       (naic_instr_t){

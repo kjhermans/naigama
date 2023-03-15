@@ -43,7 +43,13 @@ static unsigned char assembly_bytecode[] = {
 };
 
 /**
+ * Topmost, API access function.
+ * Assembles the instruction source code in a file
+ * to a binary format, stored in naia->output.string.
  *
+ * \param naia  Initialized assembler structure.
+ * \param path  Path of the file containing the instruction source code.
+ * \returns     NAIG_OK on success, and a NAIG_ERR_T code on failure.
  */
 NAIG_ERR_T naia_assemble
   (naia_t* naia, char* path)

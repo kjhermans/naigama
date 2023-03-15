@@ -38,7 +38,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <naigama/assembler/naig_slotmap_assembly.h>
 
 /**
+ * Assembler second pass.
+ * During the second pass, the assembler writes out all the instructions
+ * as binary bytecode to an internal buffer.
  *
+ * \param naia  Initialized assembler structure.
+ * \param obj   Parse node.
+ * \returns     NAIG_OK on success, and a NAIG_ERR_T code on failure.
  */
 NAIG_ERR_T naia_sp
   (naia_t* naia, naig_resobj_t* obj)

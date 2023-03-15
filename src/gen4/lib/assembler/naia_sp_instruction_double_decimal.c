@@ -36,7 +36,12 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <naigama/naigama/naig_instructions.h>
 
 /**
+ * Writes a generic instruction with an opcode and a decimal argument.
  *
+ * \param naia          Initialized assembler structure.
+ * \param opcode        The opcode of the instruction.
+ * \param numberstring  The string containing the decimal notation number.
+ * \returns             NAIG_OK on success, and a NAIG_ERR_T code on failure.
  */
 NAIG_ERR_T naia_sp_instruction_double_decimal
   (naia_t* naia, uint32_t opcode, char* numberstring)

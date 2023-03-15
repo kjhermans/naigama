@@ -36,7 +36,14 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <naigama/naigama/naig_instructions.h>
 
 /**
+ * Writes a generic instruction with an opcode and a label.
+ * The label will be resolved to an offset in the label map
+ * and written as an argument to the instruction opcode.
  *
+ * \param naia          Initialized assembler structure.
+ * \param opcode        The opcode of the instruction.
+ * \param label         The string containing the label.
+ * \returns             NAIG_OK on success, and a NAIG_ERR_T code on failure.
  */
 NAIG_ERR_T naia_sp_instruction_double_labeled
   (naia_t* naia, uint32_t opcode, char* label)

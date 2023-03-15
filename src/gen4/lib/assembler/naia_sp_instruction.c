@@ -37,11 +37,21 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <naigama/naigama/naig_instructions.h>
 
 /**
+ * Instruction handler of the assembler second pass.
+ * Switches to the instruction type and calls sub-handlers to
+ * create the binary bytecode.
  *
+ * \param naia  Initialized assembler structure.
+ * \param obj   Parse node.
+ * \returns     NAIG_OK on success, and a NAIG_ERR_T code on failure.
  */
 NAIG_ERR_T naia_sp_instruction
   (naia_t* naia, naig_resobj_t* obj)
 {
+  DEBUGFUNCTION;
+  ASSERT(naia);
+  ASSERT(obj);
+
   uint32_t opcode;
 
   NAIG_CHECK(naia_slot2opcode(obj->children[ 0 ]->type, &opcode), PROPAGATE);

@@ -36,7 +36,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <naigama/naigama/naig_instructions.h>
 
 /**
+ * Writes a generic decimal argument to an instruction.
+ * This function is a utlity function of and is called by encompassing
+ * complete instruction writing functions.
  *
+ * \param naia          Initialized assembler structure.
+ * \param numberstring  The string containing the decimal notation number.
+ * \returns             NAIG_OK on success, and a NAIG_ERR_T code on failure.
  */
 NAIG_ERR_T naia_sp_instruction_decimal
   (naia_t* naia, char* numberstring)

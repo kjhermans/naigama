@@ -36,7 +36,17 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <naigama/naigama/naig_instructions.h>
 
 /**
+ * Writes a label as argument to the bytecode buffer.
+ * The label will be resolved to an offset.
+ * There is a special label __NEXT__ will automatically be resolved
+ * to the offset directly beyond the current instruction
+ * (which is why the opcode is needed as an argument to this function,
+ * as opcodes denote their own instruction length).
  *
+ * \param naia          Initialized assembler structure.
+ * \param opcode        The opcode of the instruction.
+ * \param label         The string containing the label.
+ * \returns             NAIG_OK on success, and a NAIG_ERR_T code on failure.
  */
 NAIG_ERR_T naia_sp_instruction_labeled
   (naia_t* naia, uint32_t opcode, char* label)

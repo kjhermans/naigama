@@ -34,7 +34,12 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "naia_private.h"
 
 /**
+ * Label handler of the assembler first pass.
+ * Stores the accumulated offset in the assembler's label map.
  *
+ * \param naia  Initialized assembler structure.
+ * \param obj   Parse node of the label.
+ * \returns     NAIG_OK on success, and a NAIG_ERR_T code on failure.
  */
 NAIG_ERR_T naia_fp_labeldef
   (naia_t* naia, naig_resobj_t* obj)

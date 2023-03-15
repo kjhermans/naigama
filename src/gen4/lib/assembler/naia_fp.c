@@ -36,7 +36,12 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <naigama/assembler/naig_slotmap_assembly.h>
 
 /**
+ * Assembler first pass. Gathers the offsets of all labels, so that
+ * all label refering instructions can be provided during second pass.
  *
+ * \param naia  Initialized assembler structure.
+ * \param obj   Node of the top of the parse tree.
+ * \returns     NAIG_OK on success, and a NAIG_ERR_T code on failure.
  */
 NAIG_ERR_T naia_fp
   (naia_t* naia, naig_resobj_t* obj)

@@ -36,10 +36,18 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "naia_private.h"
 
 /**
+ * Namespace handler of the assembler first pass.
+ * Does nothing.
  *
+ * \param naia  Initialized assembler structure.
+ * \param obj   Parse node.
+ * \returns     NAIG_OK on success, and a NAIG_ERR_T code on failure.
  */
 NAIG_ERR_T naia_fp_namespace
   (naia_t* naia, naig_resobj_t* obj)
 {
+  (void)naia;
+  (void)obj;
+
   return NAIG_OK;
 }

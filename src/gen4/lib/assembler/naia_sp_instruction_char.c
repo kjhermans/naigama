@@ -36,12 +36,23 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <naigama/naigama/naig_instructions.h>
 
 /**
+ * Writes the binary bytecode for the 'char' instruction
+ * to the internal buffer of the assembler structure.
  *
+ * \param naia    Initialized assembler structure.
+ * \param string  String representation of the char instruction's parameter
+ *                (must be a two byte hexadecimal code).
+ * \returns       NAIG_OK on success, and a NAIG_ERR_T code on failure.
  */
 NAIG_ERR_T naia_sp_instruction_char
   (naia_t* naia, char* string)
 {
+  DEBUGFUNCTION;
+  ASSERT(naia);
+  ASSERT(string);
+
   NAIG_CHECK(naia_sp_instruction_single(naia, OPCODE_CHAR), PROPAGATE);
   NAIG_CHECK(naia_sp_instruction_hexadecimal(naia, string), PROPAGATE);
+
   return NAIG_OK;
 }

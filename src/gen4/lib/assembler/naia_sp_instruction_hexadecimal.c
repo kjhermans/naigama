@@ -38,7 +38,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <naigama/util/hexcodon.h>
 
 /**
+ * Writes a two character hexadecimal (ie one byte) as an argument
+ * to an instruction to the bytecode buffer.
+ * Note that, in Naigama, it still takes four bytes to write this bytecode.
  *
+ * \param naia          Initialized assembler structure.
+ * \param string        The string containing the hexadecimal value.
+ * \returns             NAIG_OK on success, and a NAIG_ERR_T code on failure.
  */
 NAIG_ERR_T naia_sp_instruction_hexadecimal
   (naia_t* naia, char* string)

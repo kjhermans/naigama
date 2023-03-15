@@ -39,7 +39,12 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define NAIG_INSTR_SIZE(__o) (((__o >> 16) & 0xff) + 4)
 
 /**
+ * Instruction handler of the assembler first pass.
+ * Adds the instruction's reserved space to the offset accumulator.
  *
+ * \param naia  Initialized assembler structure.
+ * \param obj   Parse node of the instruction.
+ * \returns     NAIG_OK on success, and a NAIG_ERR_T code on failure.
  */
 NAIG_ERR_T naia_fp_instruction
   (naia_t* naia, naig_resobj_t* obj)

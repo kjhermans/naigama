@@ -37,7 +37,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <naigama/naigama/naig_instructions.h>
 
 /**
+ * Converts parsing node types of instructions to opcodes.
+ * Node types, or slot numbers, are a result of the compilation process,
+ * and a simple counter of all capture regions in the grammar.
  *
+ * \param slot    Node type. The result of resobj_t->type.
+ * \param opcode  On success, will contain the relevant opcode.
+ * \returns       NAIG_OK on success, and a NAIG_ERR_T code on failure.
  */
 NAIG_ERR_T naia_slot2opcode
   (unsigned slot, uint32_t* opcode)

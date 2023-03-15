@@ -48,9 +48,25 @@ int naia_labelmap_write_name
 }
 
 /**
+ * Writes the labelmap as a JSON hash literal to a file.
+ * The labelmap is the result of the assembler's first pass.
+ * It contains a mapping from label names to bytecode offsets.
+ * The JSON structure is as follows:
+
+{
+  "type": "labelmap",
+  "names": {
+    "LABEL1": offset1,
+    "LABEL2": offset2
+  }
+}
+
  *
+ * \param naia  Initialized assembler structure.
+ * \param path  Path of the file to contain the JSON labelmap hash literal.
+ * \returns     NAIG_OK on success, and a NAIG_ERR_T code on failure.
  */
-void naia_labelmap_write
+NAIG_ERR_T naia_labelmap_write
   (naia_t* naia, char* path)
 {
   FILE* file = fopen(path, "w+");
@@ -60,5 +76,7 @@ void naia_labelmap_write
     str2int_map_iterate(&(naia->labelmap), naia_labelmap_write_name, file);
     fprintf(file, "  }\n}\n");
     fclose(file);
+    return NAIG_OK;
   }
+  RETURNERR(NAIG_ERR_IO);
 }

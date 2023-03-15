@@ -37,6 +37,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 /**
  *
+ * \param naia          Initialized assembler structure.
+ * \param hex1          The first hexadecimally encoded byte argument.
+ * \param hex2          The second hexadecimally encoded byte argument.
+ * \returns             NAIG_OK on success, and a NAIG_ERR_T code on failure.
  */
 NAIG_ERR_T naia_sp_instruction_maskedchar
   (naia_t* naia, char* hex1, char* hex2)

@@ -5,10 +5,10 @@ implementing a Packrat parser modeled, by now loosely, on
 Parsing Expression Grammars (more precisely Lua PEG or LPEG, see:
 http://www.inf.puc-rio.br/~roberto/lpeg/).
 
-It allows you to specify a set of parsing rules, which can be
-compiled into a bytecode, which can be fed to an execution engine
-together with a data input, in order to qualify said input,
-and / or capture regions from it, and / or modify it.
+It allows you to specify a set of parsing rules, which - via an
+assembly stage - can be compiled into a bytecode, which can be fed
+to an execution engine together with a data input, in order to
+qualify the input, and / or capture regions from it, and / or modify it.
 
 ==== How do I build it?
 

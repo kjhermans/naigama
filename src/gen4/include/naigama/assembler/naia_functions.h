@@ -41,8 +41,9 @@ NAIG_ERR_T naia_fp_namespace
 
 /* declared in ./naia_labelmap_write.c */
 extern
-void naia_labelmap_write
-  (naia_t* naia, char* path);
+NAIG_ERR_T naia_labelmap_write
+  (naia_t* naia, char* path)
+  __attribute__ ((warn_unused_result));
 
 /* declared in ./naia_slot2opcode.c */
 extern

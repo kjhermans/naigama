@@ -97,7 +97,10 @@ int main
   fclose(output);
 
   if (labelmap) {
-    naia_labelmap_write(&naia, labelmap);
+    e = naia_labelmap_write(&naia, labelmap);
+    if (e.code) {
+      fprintf(stderr, "Error writing labelmap (code %d).\n", e.code);
+    }
   }
 
   return 0;

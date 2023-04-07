@@ -71,7 +71,7 @@ doc:
 			make -C $$DIR doc; \
 		done
 
-test: test0 test1 test2 test3
+test: test0 test1 test2 test3 test4
 
 test0:
 	cd src/gen0 && make test
@@ -84,6 +84,9 @@ test2:
 
 test3:
 	cd src/gen3 && make test
+
+test4:
+	cd src/gen4 && make test
 
 demos:
 	cd src/demos && make NAIGROOT=$(NAIGROOT)

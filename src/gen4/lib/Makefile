@@ -6,6 +6,9 @@ all:
 	cd compiler && make
 	cd assembler && make
 
+curgen:
+	cd disassembler && make
+
 clean:
 	cd util && make clean
 	cd parser && make clean
@@ -13,3 +16,4 @@ clean:
 	cd engine && make clean
 	cd compiler && make clean
 	cd assembler && make clean
+	cd disassembler && make clean

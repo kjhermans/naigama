@@ -62,6 +62,7 @@ typedef struct { int code; char* message; } NAIG_ERR_T;
 #define NAIG_ERR_LIMITEDCALL    (NAIG_ERR_T){ .code = 13, .message = 0 }
 #define NAIG_ERR_LABEL          (NAIG_ERR_T){ .code = 14, .message = 0 }
 #define NAIG_ERR_IO             (NAIG_ERR_T){ .code = 15, .message = 0 }
+#define NAIG_ERR_TRAP           (NAIG_ERR_T){ .code = 16, .message = 0 }
 
 // Macroes to deal with errors
 

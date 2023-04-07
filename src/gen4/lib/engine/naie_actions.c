@@ -36,3 +36,19 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "naie_private.h"
 
 MAKE_ARRAY_CODE(naie_action_t, naie_actionlist_)
+
+#include <stdio.h>
+
+void naie_actionlist_debug
+  (naie_actionlist_t* list)
+{
+  for (unsigned i=0; i < list->count; i++) {
+    fprintf(stderr,
+      "Action %u: typ=%d, slt=%u, off=%u\n"
+      , i
+      , list->list[ i ].type
+      , list->list[ i ].slot
+      , list->list[ i ].input_offset
+    );
+  }
+}

@@ -38,6 +38,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdlib.h>
 #include <string.h>
 
+#include <naigama/engine/naie_type_actions.h>
 #include <naigama/naigama/naig_error.h>
 #include <naigama/naigama/naig_types.h>
 #include <naigama/parser/naip.h>

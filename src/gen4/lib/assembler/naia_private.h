@@ -38,7 +38,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <stdint.h>
 
+#include <naigama/engine/naie_type_actions.h>
 #include <naigama/naigama/naig_type_resobj.h>
+#include <naigama/naigama/naig_error.h>
+#include <naigama/parser/naip.h>
+#include <naigama/naigama/naig_functions.h>
 
 #include <naigama/assembler/naia.h>
 

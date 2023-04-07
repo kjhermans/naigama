@@ -1,0 +1,25 @@
+#!/usr/bin/perl
+
+my $instrfile = shift;
+my $instr = `cat $instrfile`;
+my $hash = eval $instr;
+
+my $str = '';
+my @list;
+
+foreach my $name (sort keys(%{$hash})) {
+  my $instr = $hash->{$name};
+  my $opcode = $instr->{opcode};
+  $opcode =~ s/^..//;
+  $str .= 'INSTR_' . uc($name) .
+          ' <- { . 0x' . join(' 0x', ( $opcode =~ m/../g ));
+  $str .= ' ';
+  $str .= '.' x ($instr->{size} - 4);
+  $str .= " }\n";
+  push @list, 'INSTR_' . uc($name);
+}
+
+print 'INSTRUCTIONS <- INSTR* !.' . "\n" . 
+      'INSTR <- ' . join(" /\n  ", @list) . "\n" . $str;
+
+1;

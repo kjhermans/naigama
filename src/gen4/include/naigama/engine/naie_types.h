@@ -47,6 +47,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 typedef struct
 {
   tdt_t                 input;
+  tdt_t                 errorstr;
   unsigned              input_offset;
   unsigned              bytecode_offset;
   int                   failed;

@@ -353,6 +353,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     .slot = param, \
     .input_offset = ec->input_offset \
   }); \
+  ec->bytecode_offset += instruction_size; \
 }
 
 #define HANDLE_CLOSECAPTURE { \
@@ -365,6 +366,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     .slot = param, \
     .input_offset = ec->input_offset \
   }); \
+  ec->bytecode_offset += instruction_size; \
 }
 
 #define HANDLE_COUNTER { \
@@ -381,6 +383,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     .stacklen = ec->stack.count, \
     .value = param2 \
   }); \
+  ec->bytecode_offset += instruction_size; \
 }
 
 #define HANDLE_CONDJUMP { \
@@ -418,6 +421,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       ec->bytecode_offset = elt.address; \
       ec->input_offset = elt.input_offset; \
       ec->actions.count = elt.action_count; \
+      break; \
     } \
   } \
   if (0 == naie_stack_size(&(ec->stack))) { \
@@ -461,6 +465,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 }
 
 #define HANDLE_TRAP { \
+  if (!(naie->debugger)) { \
+    RETURNERR(NAIG_ERR_TRAP); \
+  } \
+  ec->bytecode_offset += instruction_size; \
 }
 
 
@@ -470,11 +478,12 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 NAIG_ERR_T naie_run
   (naie_t* naie, naie_ec_t* ec)
 {
-  uint32_t opcode;
-  unsigned instruction_size;
-
+  DEBUGFUNCTION;
   ASSERT(naie);
   ASSERT(ec);
+
+  uint32_t opcode;
+  unsigned instruction_size;
 
   while (1) {
     if (ec->bytecode_offset > naie->bytecode.size) {
@@ -520,13 +529,13 @@ NAIG_ERR_T naie_run
     }
     if (ec->failed) {
       ec->failed = 0;
-      HANDLE_FAILURE
       if (naie->debugger) {
         NAIG_CHECK(
           naie->debugger(naie, ec, OPCODE_FAILURE, naie->debugarg),
           PROPAGATE
         );
       }
+      HANDLE_FAILURE
     }
   }
 }

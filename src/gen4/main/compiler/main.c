@@ -65,6 +65,7 @@ int main
   char* defaultinputfile = "-";
   char* inputfile = defaultinputfile;
   char* slotmap = 0;
+  char* slotmaph = 0;
   naic_t naic;
   NAIG_ERR_T e;
 
@@ -98,6 +99,7 @@ int main
     naic.flags |= NAIC_FLG_SETSASRANGES;
   }
   queryargs(argc, argv, 'm', "slotmap", 0, 1, &slotmap);
+  queryargs(argc, argv, 'M', "slotmap.h", 0, 1, &slotmaph);
 
   naic.output.file = output;
   e = naic_compile(&naic, inputfile);
@@ -105,25 +107,26 @@ int main
     fprintf(stderr, "Error code %d: %s\n", e.code, naic.errorstr.data);
     return ~0;
   }
-
   e = naic_nsp_string(
     &(naic.namespace.top),
     &(naic.output.string)
   );
-  e = naic_compile(&naic, inputfile);
   if (!(NAIG_IS_OK(e))) {
     fprintf(stderr, "Error code %d: %s\n", e.code, naic.errorstr.data);
     return ~0;
   }
+  fprintf(output, "%s\n", naic.output.string.data);
+  fclose(output);
+
   if (naic.errorstr.size) {
     fprintf(stderr, "There were warnings:\n %s\n", naic.errorstr.data);
   }
 
-  fprintf(output, "%s\n", naic.output.string.data);
-  fclose(output);
-
   if (slotmap) {
     naic_slotmap_write(&naic, slotmap);
+  }
+  if (slotmaph) {
+    naic_slotmap_write_header(&naic, slotmaph);
   }
 
   return 0;

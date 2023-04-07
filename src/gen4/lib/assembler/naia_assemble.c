@@ -89,7 +89,7 @@ NAIG_ERR_T naia_assemble
     }
   }
 
-  naig_resobj_t* obj = naig_result_object(
+  naig_resobj_t* obj = naip_result_object(
     (unsigned char*)assembly,
     strlen(assembly),
     &actions

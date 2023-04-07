@@ -1,0 +1,69 @@
+INSTRUCTIONS <- INSTR* !.
+INSTR <- INSTR_ANY /
+  INSTR_BACKCOMMIT /
+  INSTR_CALL /
+  INSTR_CATCH /
+  INSTR_CHAR /
+  INSTR_CLOSECAPTURE /
+  INSTR_COMMIT /
+  INSTR_CONDJUMP /
+  INSTR_COUNTER /
+  INSTR_END /
+  INSTR_ENDISOLATE /
+  INSTR_ENDREPLACE /
+  INSTR_FAIL /
+  INSTR_FAILTWICE /
+  INSTR_INTRPCAPTURE /
+  INSTR_ISOLATE /
+  INSTR_JUMP /
+  INSTR_MASKEDCHAR /
+  INSTR_NOOP /
+  INSTR_OPENCAPTURE /
+  INSTR_PARTIALCOMMIT /
+  INSTR_QUAD /
+  INSTR_RANGE /
+  INSTR_REPLACE /
+  INSTR_RET /
+  INSTR_SET /
+  INSTR_SKIP /
+  INSTR_SPAN /
+  INSTR_TESTANY /
+  INSTR_TESTCHAR /
+  INSTR_TESTQUAD /
+  INSTR_TESTSET /
+  INSTR_TRAP /
+  INSTR_VAR
+INSTR_ANY <- { . 0x00 0x03 0xe4  }
+INSTR_BACKCOMMIT <- { . 0x04 0x03 0xc0 .... }
+INSTR_CALL <- { . 0x04 0x03 0x82 .... }
+INSTR_CATCH <- { . 0x04 0x03 0x93 .... }
+INSTR_CHAR <- { . 0x04 0x03 0xd7 .... }
+INSTR_CLOSECAPTURE <- { . 0x04 0x03 0x00 .... }
+INSTR_COMMIT <- { . 0x04 0x03 0x36 .... }
+INSTR_CONDJUMP <- { . 0x08 0x03 0x21 ........ }
+INSTR_COUNTER <- { . 0x08 0x03 0x56 ........ }
+INSTR_END <- { . 0x04 0x00 0xd8 .... }
+INSTR_ENDISOLATE <- { . 0x00 0x30 0x05  }
+INSTR_ENDREPLACE <- { . 0x00 0x03 0x99  }
+INSTR_FAIL <- { . 0x00 0x03 0x4b  }
+INSTR_FAILTWICE <- { . 0x00 0x03 0x90  }
+INSTR_INTRPCAPTURE <- { . 0x08 0x00 0x0f ........ }
+INSTR_ISOLATE <- { . 0x04 0x30 0x03 .... }
+INSTR_JUMP <- { . 0x04 0x03 0x33 .... }
+INSTR_MASKEDCHAR <- { . 0x08 0x03 0x65 ........ }
+INSTR_NOOP <- { . 0x00 0x00 0x00  }
+INSTR_OPENCAPTURE <- { . 0x04 0x03 0x9c .... }
+INSTR_PARTIALCOMMIT <- { . 0x04 0x03 0xb4 .... }
+INSTR_QUAD <- { . 0x04 0x03 0x7e .... }
+INSTR_RANGE <- { . 0x08 0x03 0xbd ........ }
+INSTR_REPLACE <- { . 0x08 0x03 0x48 ........ }
+INSTR_RET <- { . 0x00 0x03 0xa0  }
+INSTR_SET <- { . 0x20 0x03 0xca ................................ }
+INSTR_SKIP <- { . 0x04 0x03 0x30 .... }
+INSTR_SPAN <- { . 0x20 0x03 0xe1 ................................ }
+INSTR_TESTANY <- { . 0x04 0x03 0x06 .... }
+INSTR_TESTCHAR <- { . 0x08 0x03 0x9a ........ }
+INSTR_TESTQUAD <- { . 0x08 0x03 0xdb ........ }
+INSTR_TESTSET <- { . 0x24 0x03 0x63 .................................... }
+INSTR_TRAP <- { . 0x00 0xff 0xff  }
+INSTR_VAR <- { . 0x04 0x03 0xee .... }

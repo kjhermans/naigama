@@ -31,8 +31,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \brief
  */
 
-#include <naigama/parser/naip.h>
-
+#include <naigama/naigama/naig_types.h>
+#include <naigama/engine/naie_type_actions.h>
 #include "naig_private.h"
 
 static
@@ -40,28 +40,57 @@ naig_resobj_t* naig_result_object_children
   (
     const unsigned char* input,
     unsigned inputlength,
-    naip_actionlist_t* result,
+    naie_actionlist_t* result,
     naig_resobj_t* object,
     unsigned i
   );
+
+static
+unsigned naig_result_object_action_length
+  (naie_actionlist_t* result, unsigned i)
+{
+  unsigned slot = result->list[ i ].slot;
+  unsigned start = result->list[ i ].input_offset;
+  unsigned level = 1;
+
+  for (++i; i < result->count; i++) {
+    switch (result->list[ i ].type) {
+    case NAIE_ACTION_OPENCAPTURE:
+      ++level;
+      break;
+    case NAIE_ACTION_CLOSECAPTURE:
+      if (--level == 0) {
+        if (result->list[ i ].slot == slot) {
+          return (result->list[ i ].input_offset - start);
+        } else {
+          return 0;
+        }
+      }
+    }
+  }
+  return 0;
+}
 
 static
 naig_resobj_t* naig_result_object_
   (
     const unsigned char* input,
     unsigned inputlength,
-    naip_actionlist_t* result,
+    naie_actionlist_t* result,
     unsigned i
   )
 {
   naig_resobj_t* object = malloc(sizeof(naig_resobj_t));
-  naip_action_t action;
+  naie_action_t action;
 
-  naip_actionlist_get(result, i, &action);
+  naie_actionlist_get(result, i, &action);
   memset(object, 0, sizeof(*object));
   object->type = action.slot;
   object->origoffset = action.input_offset;
-  object->stringlen = action.length;
+  object->stringlen = naig_result_object_action_length(result, i);
+  if (object->stringlen == 0) {
+    return NULL;
+  }
   object->string = malloc(object->stringlen + 1);
   memcpy(object->string, input + object->origoffset, object->stringlen);
   object->string[ object->stringlen ] = 0;
@@ -75,23 +104,21 @@ naig_resobj_t* naig_result_object_children
   (
     const unsigned char* input,
     unsigned inputlength,
-    naip_actionlist_t* result,
+    naie_actionlist_t* result,
     naig_resobj_t* parent,
     unsigned i
   )
 {
-  naip_action_t action;
+  naie_action_t action;
 
   for (; i < result->count; i++) {
-    naip_actionlist_get(result, i, &action);
+    naie_actionlist_get(result, i, &action);
     if (action.input_offset >= parent->origoffset + parent->stringlen) {
       break;
     }
-/*
-    if (action.type != NAIG_ACTION_OPENCAPTURE) {
+    if (action.type != NAIE_ACTION_OPENCAPTURE) {
       continue;
     }
-*/
     if (parent->nchildren
         && action.input_offset
            < parent->children[ parent->nchildren-1 ]->origoffset
@@ -118,7 +145,7 @@ naig_resobj_t* naig_result_object
   (
     const unsigned char* input,
     unsigned inputlength,
-    naip_actionlist_t* result
+    naie_actionlist_t* result
   )
 {
   naig_resobj_t* object = malloc(sizeof(naig_resobj_t));

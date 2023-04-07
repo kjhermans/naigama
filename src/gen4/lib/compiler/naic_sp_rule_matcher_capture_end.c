@@ -118,7 +118,14 @@ NAIG_ERR_T naic_sp_rule_matcher_capture_replace
 }
 
 /**
+ * Compiler second pass function
  *
+ * \param naic  Initialized compiler structure.
+ * \param nsp   The current rule.
+ * \param rule  The current rule.
+ * \param obj   Parse node to be used by this function.
+ * \param slot
+ * \returns     NAIG_OK on success, or a NAIG_ERR_* value on error.
  */
 NAIG_ERR_T naic_sp_rule_matcher_capture_end
   (

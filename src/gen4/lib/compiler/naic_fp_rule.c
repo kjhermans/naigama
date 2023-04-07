@@ -34,7 +34,12 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "naic_private.h"
 
 /**
+ * Rule definition handler of the compiler first pass.
  *
+ * \param naic  Initialized compiler structure.
+ * \param obj   Parse node of the rule definition.
+ * \param nsp   Namespace currently in.
+ * \returns     NAIG_OK on success, or a NAIG_ERR_* value on error.
  */
 NAIG_ERR_T naic_fp_rule
   (naic_t* naic, naig_resobj_t* obj, naic_nsp_t* nsp)

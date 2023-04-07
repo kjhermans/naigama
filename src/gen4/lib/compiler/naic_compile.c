@@ -35,11 +35,15 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <naigama/parser/naip.h>
 #include <naigama/naigama/naig_type_resobj.h>
-#include <naigama/naigama/naig_functions.h>
+//#include <naigama/naigama/naig_functions.h>
 #include <naigama/naigama/naig_instructions.h>
 
 /**
  * Topmost library function.
+ *
+ * \param naic  Initialized compiler structure.
+ * \param path  String of path (may be '-') containing grammar source code.
+ * \returns     NAIG_OK on success, or a NAIG_ERR_* value on error.
  */
 NAIG_ERR_T naic_compile
   (naic_t* naic, char* path)

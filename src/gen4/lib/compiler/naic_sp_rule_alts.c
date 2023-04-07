@@ -35,11 +35,17 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <naigama/parser/naip.h>
 #include <naigama/naigama/naig_type_resobj.h>
-#include <naigama/naigama/naig_functions.h>
+//#include <naigama/naigama/naig_functions.h>
 #include <naigama/naigama/naig_instructions.h>
 
 /**
+ * Compiler second pass function
  *
+ * \param naic  Initialized compiler structure.
+ * \param nsp   The current rule.
+ * \param rule  The current rule.
+ * \param obj   Parse node to be used by this function.
+ * \returns     NAIG_OK on success, or a NAIG_ERR_* value on error.
  */
 NAIG_ERR_T naic_sp_rule_alts
   (naic_t* naic, naic_nsp_t* nsp, naic_rule_t* rule, naig_resobj_t* obj)

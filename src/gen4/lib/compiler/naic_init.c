@@ -34,7 +34,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "naic_private.h"
 
 /**
+ * Initializes the compiler structure.
  *
+ * \param naic  Initialized compiler structure.
+ * \returns     NAIG_OK on success, or a NAIG_ERR_* value on error.
  */
 NAIG_ERR_T naic_init
   (naic_t* naic)
@@ -46,7 +49,11 @@ NAIG_ERR_T naic_init
 }
 
 /**
+ * Sets an (assembly) output file to the compiler structure.
  *
+ * \param naic  Initialized compiler structure.
+ * \param file  The output file to be set.
+ * \returns     NAIG_OK on success, or a NAIG_ERR_* value on error.
  */
 NAIG_ERR_T naic_set_output
   (naic_t* naic, FILE* file)
@@ -60,7 +67,9 @@ NAIG_ERR_T naic_set_output
 }
 
 /**
+ * Frees the compiler structure after use.
  *
+ * \param naic  Initialized compiler structure.
  */
 void naic_free
   (naic_t* naic)

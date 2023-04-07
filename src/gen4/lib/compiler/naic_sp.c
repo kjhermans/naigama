@@ -53,6 +53,7 @@ int naic_sp_rule
   (void)list;
   (void)index;
 
+  DEBUGMSG("Second pass compiling rule '%s'\n", rule->name);
   if (e.code) {
     td_printf(&(h->naic->errorstr), "Compile error in rule '%s'\n", rule->name);
     return e.code;

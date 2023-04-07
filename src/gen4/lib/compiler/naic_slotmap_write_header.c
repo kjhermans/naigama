@@ -33,35 +33,47 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "naic_private.h"
 
-/**
- * Import directive handler of the compiler first pass.
- *
- * \param naic  Initialized compiler structure.
- * \param obj   Parse node of the import directive.
- * \param nsp   Namespace currently in.
- * \returns     NAIG_OK on success, or a NAIG_ERR_* value on error.
- */
-NAIG_ERR_T naic_fp_import
-  (naic_t* naic, naig_resobj_t* obj, naic_nsp_t* nsp)
+static
+int naic_slotmap_write_name
+  (str2int_map_t* map, unsigned i, char** name, unsigned* value, void* ptr)
 {
-  DEBUGFUNCTION;
-  ASSERT(naic != NULL);
-  ASSERT(obj != NULL);
-  ASSERT(nsp != NULL);
+  FILE* file = ptr;
+  (void)map;
+  (void)i;
 
-  char* path = obj->children[ 1 ]->children[ 0 ]->string;
-  char* name = NULL;
-  naic_nsp_t* child;
+  fprintf(file, "#define SLOTMAP_%s %u\n", *name, *value);
+  return 0;
+}
 
-  if (obj->children[ 2 ]->nchildren) {
-    name = obj->children[ 2 ]->children[ 1 ]->string;
-  } else {
-    name = path;
+static
+int naic_slotmap_write_slot
+  (str2int_map_t* map, unsigned i, char** name, unsigned* value, void* ptr)
+{
+  FILE* file = ptr;
+  (void)value;
+
+  fprintf(file, "  \"%s\"", *name);
+  if (i+1 < map->count) {
+    fprintf(file, ", \\");
   }
-  NAIG_CHECK(naic_nsp_add_child(nsp, &child, name), PROPAGATE);
-  NAIG_CHECK(naic_nsp_parse(naic, child, path, 1), PROPAGATE);
-  child->path = strdup(path);
-  DEBUGMSG("Successfully imported '%s' as '%s'\n", path, name);
+  fprintf(file, "\n");
+  return 0;
+}
 
-  return NAIG_OK;
+/**
+ *
+ */
+void naic_slotmap_write_header
+  (naic_t* naic, char* path)
+{
+  FILE* file = fopen(path, "w+");
+
+  if (file) {
+    fprintf(file, "#ifndef _SLOTMAP_H_\n#define _SLOTMAP_H_\n\n// names\n");
+    str2int_map_iterate(&(naic->slotmap), naic_slotmap_write_name, file);
+    fprintf(file, "\n\n// slots\n\n#define SLOTMAPLIST \\\n");
+    str2int_map_iterate(&(naic->slotmap), naic_slotmap_write_slot, file);
+    fprintf(file, "\n\n#endif\n");
+    fclose(file);
+  }
 }

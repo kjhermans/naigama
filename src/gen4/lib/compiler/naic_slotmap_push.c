@@ -49,7 +49,7 @@ NAIG_ERR_T naic_slotmap_push
   tdt_t string = { 0 };
 
   td_printf(&string, "%s", rule);
-  if (strlen(ident)) {
+  if (strlen(ident) && str2int_map_has(&(naic->slotmap), (char*)(string.data))) {
     td_appendchr(&string, '_');
     for (unsigned i=0; i < strlen(ident); i++) {
       char c = ident[ i ];

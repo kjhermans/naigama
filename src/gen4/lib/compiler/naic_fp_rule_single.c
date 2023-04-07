@@ -34,7 +34,15 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "naic_private.h"
 
 /**
+ * Single rule definition handler of the compiler first pass.
+ * A single, or anonymous, rule is one that has no name
+ * (ie is defined without the 'RULE <-' prefix).
+ * Naigama allows for one such rule in the topmost grammar definition.
  *
+ * \param naic  Initialized compiler structure.
+ * \param obj   Parse node of the rule definition.
+ * \param nsp   Namespace currently in.
+ * \returns     NAIG_OK on success, or a NAIG_ERR_* value on error.
  */
 NAIG_ERR_T naic_fp_rule_single
   (naic_t* naic, naig_resobj_t* obj, naic_nsp_t* nsp)

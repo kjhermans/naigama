@@ -34,7 +34,18 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "naic_private.h"
 
 /**
+ * Establishes the top and bottom of a range quantifier
+ * (of the style: [a-z]^2-5 ie two until five occurences of lowercase letters)
+ * and returns these values as an integer array of size two to the caller.
+ * (In the example above the result would be [ 2, 5 ].)
  *
+ * - In case it's a single quantifier: top and bottom will be equal.
+ * - In case the top is infinite: it will be given as -1.
+ *
+ * \param naic   Initialized compiler structure.
+ * \param quant  Parse node of matcher quantifier.
+ * \param range  Contains the range on success.
+ * \returns      NAIG_OK on success, or a NAIG_ERR_* value on error.
  */
 NAIG_ERR_T naic_compile_get_quantifiers
   (naic_t* naic, naig_resobj_t* quant, int range[ 2 ])
@@ -82,26 +93,28 @@ NAIG_ERR_T naic_compile_get_quantifiers
     range[ 0 ] = atoi(quant->children[ 0 ]->string);
     range[ 1 ] = range[ 0 ];
     break;
-/*
   case SLOTMAP_Q_VAR_:
     {
       char* name;
       unsigned slot;
 
       name = quant->children[ 0 ]->string;
-      NAIG_CHECK(naic_nsp_rule_var_get(naic->currentscope, name, &slot));
+      if (*name >= '0' && *name <= '9') {
+        slot = atoi(name);
+        range[ 0 ] = -slot;
+        range[ 1 ] = 0;
+        break;
+      } else {
+        RETURNERR(NAIG_ERR_NOTFOUND);
+      }
+/*
+      NAIG_CHECK(naic_nsp_rule_var_get(nsp, rule, name, &slot), PROPAGATE);
       range[ 0 ] = -slot;
       range[ 1 ] = 0;
+*/
     }
+    RETURNERR(NAIG_ERR_NOTFOUND);
     break;
-*/
-/*
-  case SLOTMAP_VARREFERENCE_NUMBER_:
-    slot = atoi(quant->children[ 0 ]->string);
-    range[ 0 ] = -slot;
-    range[ 1 ] = 0;
-    break;
-*/
   default:
     DEBUGMSG("Parsing tree structure error; %u", quant->type);
     abort();

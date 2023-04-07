@@ -34,6 +34,12 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef _NAIC_GEN4_PRIVATE_H_
 #define _NAIC_GEN4_PRIVATE_H_
 
+#include <naigama/engine/naie_type_actions.h>
+#include <naigama/naigama/naig_type_resobj.h>
+#include <naigama/naigama/naig_error.h>
+#include <naigama/parser/naip.h>
+#include <naigama/naigama/naig_functions.h>
+
 #include <naigama/compiler/naic.h>
 #include <naigama/compiler/naig_slotmap_grammar.h>
 

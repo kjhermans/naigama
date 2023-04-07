@@ -36,7 +36,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <naigama/engine/naie_type_actions.h>
 #include <naigama/naigama/naig_type_resobj.h>
 #include <naigama/parser/naip.h>
-#include <naigama/naigama/naig_functions.h>
+//#include <naigama/naigama/naig_functions.h>
 #include <naigama/util/absorb_file.h>
 #include <naigama/util/strxypos.h>
 
@@ -99,7 +99,7 @@ NAIG_ERR_T naic_nsp_parse
     RETURNERR(NAIG_ERR_PARSER);
   }
 
-  naig_resobj_t* resobj = naig_result_object(
+  naig_resobj_t* resobj = naip_result_object(
     (unsigned char*)(nsp->grammar),
     strlen(nsp->grammar),
     &actions

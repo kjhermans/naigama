@@ -1,1 +1,1 @@
-#define NAIG_RELEASE "0.4.8"
+#define NAIG_RELEASE "0.4.9"

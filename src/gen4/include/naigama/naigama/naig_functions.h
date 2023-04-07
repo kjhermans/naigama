@@ -15,7 +15,7 @@ naig_resobj_t* naig_result_object
   (
     const unsigned char* input,
     unsigned inputlength,
-    naip_actionlist_t* result
+    naie_actionlist_t* result
   )
   __attribute__ ((warn_unused_result));
 
@@ -55,6 +55,16 @@ naig_resobj_t* naig_result_object_path
 extern
 naig_resobj_t* naig_result_object_query
   (naig_resobj_t* parent, unsigned nargs, ...)
+  __attribute__ ((warn_unused_result));
+
+/* declared in ./naip_result_object.c */
+extern
+naig_resobj_t* naip_result_object
+  (
+    const unsigned char* input,
+    unsigned inputlength,
+    naip_actionlist_t* result
+  )
   __attribute__ ((warn_unused_result));
 
 

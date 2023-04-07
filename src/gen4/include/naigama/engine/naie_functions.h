@@ -9,6 +9,23 @@
 #ifndef _NAIC_FUNCTIONS_FUNCTIONS_H_
 #define _NAIC_FUNCTIONS_FUNCTIONS_H_
 
+/* declared in ./naie_actions.c */
+extern
+void naie_actionlist_debug
+  (naie_actionlist_t* list);
+
+/* declared in ./naie_ec_init.c */
+extern
+NAIG_ERR_T naie_ec_init
+  (naie_ec_t* ec, unsigned char* input, unsigned input_length)
+  __attribute__ ((warn_unused_result));
+
+/* declared in ./naie_init.c */
+extern
+NAIG_ERR_T naie_init
+  (naie_t* naie, unsigned char* bytecode, unsigned bytecode_length)
+  __attribute__ ((warn_unused_result));
+
 /* declared in ./naie_run.c */
 extern
 NAIG_ERR_T naie_run

@@ -148,6 +148,11 @@ extern
 void naic_slotmap_write
   (naic_t* naic, char* path);
 
+/* declared in ./naic_slotmap_write_header.c */
+extern
+void naic_slotmap_write_header
+  (naic_t* naic, char* path);
+
 /* declared in ./naic_sp.c */
 extern
 NAIG_ERR_T naic_sp

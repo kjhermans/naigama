@@ -97,7 +97,7 @@
   int COMBINE(prefix, get)(COMBINE(prefix, t)* map, Tk key, Tv* val) {      \
     for (unsigned i=0; i < map->count; i++) {                               \
       if (MAP_EQUALS(map->keys[ i ], key)) {                                \
-        *val = map->values[ i ];                                            \
+        if (val) { *val = map->values[ i ]; }                               \
         return 0;                                                           \
       }                                                                     \
     }                                                                       \

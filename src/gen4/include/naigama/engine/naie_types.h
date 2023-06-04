@@ -53,6 +53,7 @@ typedef struct
   int                   failed;
   int                   endcode;
   naie_stack_t          stack;
+  unsigned              stack_max;
   naie_actionlist_t     actions;
   naie_register_t       reg;
   unsigned              reg_ilen;

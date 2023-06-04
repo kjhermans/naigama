@@ -35,9 +35,17 @@
 /**
  * Define ARRAY_EQUALS if you have, for example, strings.
  */
-
 #ifndef ARRAY_EQUALS
 #define ARRAY_EQUALS(a,b) (a == b)
+#endif
+
+
+/**
+ * Define ARRAY_REDUCE to zero if you want to skip potentially expensive
+ * reallocs on reduction of the array.
+ */
+#ifndef ARRAY_REDUCE
+#define ARRAY_REDUCE 1
 #endif
 
 #define MAKE_ARRAY_HEADER(T, prefix)                                \
@@ -135,17 +143,19 @@
   int COMBINE(prefix, pop)(COMBINE(prefix, t)* list, T* elt) {      \
     if (list->count) {                                              \
       if (elt) { *elt = list->list[ --(list->count) ]; }            \
-      if (list->count == 0) {                                       \
-        free(list->list);                                           \
-        list->list = 0;                                             \
-        list->allocated = 0;                                        \
-      } else if (list->count < list->allocated - 32) {              \
-        list->allocated = list->count + 16;                         \
-        list->list = realloc(                                       \
-          list->list,                                               \
-          sizeof(T) * list->allocated                               \
-        );                                                          \
-        if (list->list == NULL) { abort(); }                        \
+      if (ARRAY_REDUCE) {                                           \
+        if (list->count == 0) {                                     \
+          free(list->list);                                         \
+          list->list = 0;                                           \
+          list->allocated = 0;                                      \
+        } else if (list->count < list->allocated - 32) {            \
+          list->allocated = list->count + 16;                       \
+          list->list = realloc(                                     \
+            list->list,                                             \
+            sizeof(T) * list->allocated                             \
+          );                                                        \
+          if (list->list == NULL) { abort(); }                      \
+        }                                                           \
       }                                                             \
       return 0;                                                     \
     } else {                                                        \
@@ -197,17 +207,19 @@
         sizeof(T) * (list->count - (index+1))                       \
       );                                                            \
       --(list->count);                                              \
-      if (list->count == 0) {                                       \
-        free(list->list);                                           \
-        list->list = 0;                                             \
-        list->allocated = 0;                                        \
-      } else if (list->count < list->allocated - 32) {              \
-        list->allocated = list->count + 16;                         \
-        list->list = realloc(                                       \
-          list->list,                                               \
-          sizeof(T) * list->allocated                               \
-        );                                                          \
-        if (list->list == NULL) { abort(); }                        \
+      if (ARRAY_REDUCE) {                                           \
+        if (list->count == 0) {                                     \
+          free(list->list);                                         \
+          list->list = 0;                                           \
+          list->allocated = 0;                                      \
+        } else if (list->count < list->allocated - 32) {            \
+          list->allocated = list->count + 16;                       \
+          list->list = realloc(                                     \
+            list->list,                                             \
+            sizeof(T) * list->allocated                             \
+          );                                                        \
+          if (list->list == NULL) { abort(); }                      \
+        }                                                           \
       }                                                             \
       return 0;                                                     \
     } else {                                                        \

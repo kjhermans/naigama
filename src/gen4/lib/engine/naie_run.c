@@ -231,6 +231,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       .action_count = ec->actions.count \
     } \
   ); \
+  if (ec->stack.count > ec->stack_max) { ec->stack_max = ec->stack.count; } \
   ec->bytecode_offset = param; \
   if (ec->reg_ilen_set) { \
     ec->input.size = ec->reg_ilen; \
@@ -267,6 +268,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       .action_count = ec->actions.count \
     } \
   ); \
+  if (ec->stack.count > ec->stack_max) { ec->stack_max = ec->stack.count; } \
   ec->bytecode_offset = ec->bytecode_offset + instruction_size; \
 }
 

@@ -32,6 +32,11 @@ NAIG_ERR_T naie_run
   (naie_t* naie, naie_ec_t* ec)
   __attribute__ ((warn_unused_result));
 
+/* declared in ./naie_stack.c */
+extern
+void naie_stack_get_furthest
+  (naie_stack_t* stack, unsigned* index, naie_stackelt_t* elt);
+
 /* declared in ./naie_variable.c */
 extern
 NAIG_ERR_T naie_variable

@@ -37,6 +37,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <naigama/util/queryargs.h>
 #include <naigama/util/absorb_file.h>
+#include <naigama/util/strxypos.h>
 #include <naigama/engine/naie.h>
 
 static
@@ -144,6 +145,22 @@ int main
 
   e = naie_run(&naie, &ec);
   if (!(NAIG_IS_OK(e))) {
+
+    if (e.code == NAIG_ERR_NOMATCH.code) {
+      naie_stackelt_t e;
+      unsigned i;
+      unsigned yx[ 2 ];
+
+      ec.stack.count = ec.stack_max;
+      naie_stack_get_furthest(&(ec.stack), &i, &e);
+      if (e.input_offset < input_length) {
+        strxypos((char*)input, e.input_offset, yx);
+        fprintf(stderr, "No match: furthest byte %u (line %u, offset %u)\n"
+          , e.input_offset, yx[0], yx[1]
+        );
+      }
+    }
+
     fprintf(stderr, "Error code %d: %s\n", e.code, ec.errorstr.data);
     return ~0;
   }

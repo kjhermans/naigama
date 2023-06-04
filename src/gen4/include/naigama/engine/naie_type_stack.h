@@ -49,4 +49,8 @@ naie_stackelt_t;
 #include <naigama/util/array.h>
 MAKE_ARRAY_HEADER(naie_stackelt_t, naie_stack_)
 
+extern
+void naie_stack_get_furthest
+  (naie_stack_t* stack, unsigned* index, naie_stackelt_t* elt);
+
 #endif // defined _NAIE_GEN4_TYPE_STACK_H_ ?

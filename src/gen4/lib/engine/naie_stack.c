@@ -31,8 +31,29 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \brief
  */
 
+#define ARRAY_REDUCE 0
 #define ARRAY_EQUALS(a,b) (0 == memcmp(&a,&b,sizeof(a)))
 
 #include "naie_private.h"
 
 MAKE_ARRAY_CODE(naie_stackelt_t, naie_stack_)
+
+#include <stdio.h>
+void naie_stack_get_furthest
+  (naie_stack_t* stack, unsigned* index, naie_stackelt_t* elt)
+{
+  unsigned i;
+  unsigned off = 0;
+  unsigned ind = 0;
+
+  if (stack->allocated) {
+    for (i=0; i < stack->count; i++) {
+      if (stack->list[ i ].input_offset > off) {
+        off = stack->list[ i ].input_offset;
+        ind = i;
+      }
+    }
+    if (index) { *index = ind; }
+    if (elt) { *elt = stack->list[ ind ]; }
+  }
+}

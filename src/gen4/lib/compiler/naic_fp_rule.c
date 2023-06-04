@@ -58,6 +58,7 @@ NAIG_ERR_T naic_fp_rule
   NAIG_CHECK(naic_rule_init(&rule, rulename), PROPAGATE);
   rule.parseobject = obj;
   if (naic_rulelist_has(&(nsp->rules), rule)) {
+    td_printf(&(naic->errorstr), "Double namespace entry '%s'", rulename);
     RETURNERR(NAIG_ERR_NAMESPACE);
   }
   naic_rulelist_push(&(nsp->rules), rule);

@@ -26,6 +26,12 @@ NAIG_ERR_T naie_init
   (naie_t* naie, unsigned char* bytecode, unsigned bytecode_length)
   __attribute__ ((warn_unused_result));
 
+/* declared in ./naie_labelmap_absorb.c */
+extern
+NAIG_ERR_T naic_labelmap_absorb
+  (naie_t* naie, char* path)
+  __attribute__ ((warn_unused_result));
+
 /* declared in ./naie_run.c */
 extern
 NAIG_ERR_T naie_run

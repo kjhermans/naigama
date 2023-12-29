@@ -35,24 +35,24 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 static
 int naic_slotmap_write_name
-  (str2int_map_t* map, unsigned i, char** name, unsigned* value, void* ptr)
+  (str2int_map_t* map, unsigned i, char* name, unsigned value, void* ptr)
 {
   FILE* file = ptr;
   (void)map;
   (void)i;
 
-  fprintf(file, "#define SLOTMAP_%s %u\n", *name, *value);
+  fprintf(file, "#define SLOTMAP_%s %u\n", name, value);
   return 0;
 }
 
 static
 int naic_slotmap_write_slot
-  (str2int_map_t* map, unsigned i, char** name, unsigned* value, void* ptr)
+  (str2int_map_t* map, unsigned i, char* name, unsigned value, void* ptr)
 {
   FILE* file = ptr;
   (void)value;
 
-  fprintf(file, "  \"%s\"", *name);
+  fprintf(file, "  \"%s\"", name);
   if (i+1 < map->count) {
     fprintf(file, ", \\");
   }

@@ -119,7 +119,7 @@ NAIG_ERR_T do_compile
   memset(&map, 0, sizeof(map));
   if (assemble) {
     fprintf(stderr, "Compiling...\n");
-    CHECK(
+    NAIG_CHECK(
       naic_compile(
         &naic,
         grammar,
@@ -141,7 +141,7 @@ NAIG_ERR_T do_compile
       }
     }
     fprintf(stderr, "Assembly...\n");
-    CHECK(
+    NAIG_CHECK(
       naia_assemble(
         assembly,
         &lmap,
@@ -151,26 +151,26 @@ NAIG_ERR_T do_compile
       )
     );
   } else {
-    CHECK(
+    NAIG_CHECK(
       naic_compile(
         &naic, grammar, &map, flags, paths, npaths, naic_write_file, output
       )
     );
   }
   if (labelmap) {
-    CHECK(naio_labelmap_write(&lmap, labelmap));
+    NAIG_CHECK(naio_labelmap_write(&lmap, labelmap));
     fclose(labelmap);
   }
   if (slotmap) {
-    CHECK(naio_slotmap_write(&map, slotmap));
+    NAIG_CHECK(naio_slotmap_write(&map, slotmap));
     fclose(slotmap);
   }
   if (slotmaph) {
-    CHECK(naio_slotmap_write_h(&map, slotmaph));
+    NAIG_CHECK(naio_slotmap_write_h(&map, slotmaph));
     fclose(slotmaph);
   }
   if (cfile) {
-    CHECK(naic_compile_c(&naic));
+    NAIG_CHECK(naic_compile_c(&naic));
   }
   return NAIG_OK;
 }

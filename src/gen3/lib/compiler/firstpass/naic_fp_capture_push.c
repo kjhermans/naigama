@@ -31,38 +31,30 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \brief
  */
 
-#ifndef _NAIP_GEN4_H_
-#define _NAIP_GEN4_H_
+#include "../naic_private.h"
 
-#include <stdint.h>
-
-typedef struct
+/** 
+ *
+ */
+/*
+NAIG_ERR_T naic_fp_capture_push
+  (naic_t* naic, unsigned slot)
 {
-  int                   type;
-  uint32_t              slot;
-  unsigned              input_offset;
-  unsigned              length;
+  unsigned parent = (unsigned)-1;
+  ulist_t cstack;
+
+  ulist_peek(&(naic->capture.stack), &parent);
+  if (ulist_map_get(&(naic->capture.tree), parent, &cstack) == 0) {
+    if (!ulist_has(&cstack, slot)) {
+      ulist_push(&cstack, slot);
+    }
+  } else {
+    ulist_init(&cstack);
+    ulist_push(&cstack, slot);
+  }
+  ulist_map_put(&(naic->capture.tree), parent, cstack);
+  ulist_push(&(naic->capture.stack), slot);
+
+  return NAIG_OK;
 }
-naip_action_t;
-
-#include "../util/array.h"
-MAKE_ARRAY_HEADER(naip_action_t, naip_actionlist_)
-
-typedef struct
-{
-  int                   error_code;
-  unsigned              error_offset;
-}
-naip_t;
-
-extern
-int naip_parse
-  (
-    naip_t* naip,
-    unsigned char* bytecode,
-    unsigned bytecode_size,
-    char* grammar,
-    naip_actionlist_t* actions
-  );
-
-#endif // defined _NAIP_GEN4_H_ ?
+*/

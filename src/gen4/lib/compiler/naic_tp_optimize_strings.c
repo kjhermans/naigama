@@ -113,6 +113,7 @@ NAIG_ERR_T naic_tp_optimize_strings
   int e;
 
   if ((e = naic_tp_nsp_optimize_strings(naic, nsp)) != 0) {
+    td_printf(&(naic->errorstr), "At optimizing strings.");
     RETURNERR(NAIG_ERR_REFERENCE);
   }
 

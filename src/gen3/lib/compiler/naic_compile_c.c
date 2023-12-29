@@ -1,7 +1,7 @@
 /**
- * This file is part of Naigama, a parser engine.
+ * This file is part of Oroszlan, a parsing and scripting environment
 
-Copyright (c) 2020, Kees-Jan Hermans <kees.jan.hermans@gmail.com>
+Copyright (c) 2023, Kees-Jan Hermans <kees.jan.hermans@gmail.com>
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -11,7 +11,7 @@ modification, are permitted provided that the following conditions are met:
     * Redistributions in binary form must reproduce the above copyright
       notice, this list of conditions and the following disclaimer in the
       documentation and/or other materials provided with the distribution.
-    * Neither the name of the <organization> nor the
+    * Neither the name of the organization nor the
       names of its contributors may be used to endorse or promote products
       derived from this software without specific prior written permission.
 
@@ -31,23 +31,29 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \brief
  */
 
-#ifndef _NAIG_PRIVATE_H_
-#define _NAIG_PRIVATE_H_
+#include "naic_private.h"
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdarg.h>
+/**
+ *
+ */
+NAIG_ERR_T naic_compile_c
+  (naic_t* naic)
+{
+/*
+  for (unsigned i=0; i < ulist_map_size(&(naic->capture.tree)); i++) {
+    unsigned key;
+    ulist_t val;
 
-#include <naigama/naigama.h>
-#include <naigama/naigama_types.h>
-#include <naigama/naig_private.h>
-#include <naigama/compiler/naic_functions.h>
-#include <naigama/assembler/naia_types.h>
-#include <naigama/assembler/naia_functions.h>
-#include <naigama/engine/naie_functions.h>
+    ulist_map_getat(&(naic->capture.tree), i, &key, &val);
+    fprintf(stderr, "%u -> ", key);
+    for (unsigned j=0; j < ulist_size(&val); j++) {
+      unsigned slot;
 
-#define CHECK NAIG_CHECK
-#define CHECK_AND NAIG_CHECK_AND
-
-#endif
+      ulist_get(&val, j, &slot);
+      fprintf(stderr, "%u, ", slot);
+    }
+    fprintf(stderr, "\n");
+  }
+*/
+  return NAIG_OK;
+}

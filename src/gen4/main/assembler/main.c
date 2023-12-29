@@ -103,5 +103,7 @@ int main
     }
   }
 
+  naia_free(&naia);
+
   return 0;
 }

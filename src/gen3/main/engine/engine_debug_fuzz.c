@@ -76,16 +76,16 @@ NAIG_ERR_T engine_debug_fuzz
 
   switch (opcode) {
   case OPCODE_ANY:
-    CHECK(engine_debug_fuzz_alt_char(0, rand() % 256));
-    CHECK(engine_debug_fuzz_alt_end());
+    NAIG_CHECK(engine_debug_fuzz_alt_char(0, rand() % 256));
+    NAIG_CHECK(engine_debug_fuzz_alt_end());
     break;
   case OPCODE_COUNTER:
     break;
   case OPCODE_CHAR:
     param1 = GET_32BIT_VALUE(engine->bytecode, engine->bytecode_pos + 4);
-    CHECK(engine_debug_fuzz_alt_char(0, param1));
-    CHECK(engine_debug_fuzz_alt_char(1, (param1 ^ param1) & 0xff));
-    CHECK(engine_debug_fuzz_alt_end());
+    NAIG_CHECK(engine_debug_fuzz_alt_char(0, param1));
+    NAIG_CHECK(engine_debug_fuzz_alt_char(1, (param1 ^ param1) & 0xff));
+    NAIG_CHECK(engine_debug_fuzz_alt_end());
     break;
   case OPCODE_MASKEDCHAR:
     break;

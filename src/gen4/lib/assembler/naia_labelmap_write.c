@@ -35,11 +35,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 static
 int naia_labelmap_write_name
-  (str2int_map_t* map, unsigned i, char** name, unsigned* value, void* ptr)
+  (str2int_map_t* map, unsigned i, char* name, unsigned value, void* ptr)
 {
   FILE* file = ptr;
 
-  fprintf(file, "    \"%s\": %u", *name, *value);
+  fprintf(file, "    \"%s\": %u", name, value);
   if (i+1 < map->count) {
     fprintf(file, ",");
   }

@@ -1,3 +1,18 @@
+#[package]
+#name="naigama"
+#version="0.4.10"
+#authors=["Kees-Jan Hermans <kees.jan.hermans@gmail.com"]
+#description="A PEG parsing library and tools"
+#documentation="https://github.com/kjhermans/naigama/tree/master/src/gen3/d/compendium.pdf"
+#readme="README.md"
+#homepage="https://github.com/kjhermans/naigama"
+#repository="https://github.com/kjhermans/naigama/tree/master/src/gen3/other/rust/naigama"
+#license="BSD"
+#keywords=["parsing","grammar"]
+#categories=["parsing"]
+
+
+
 [package]
 name = "naigama_engine"
 version = "0.1.0"

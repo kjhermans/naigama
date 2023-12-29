@@ -12,4 +12,7 @@
 #include <naigama/util/util_functions.h>
 #include <naigama/memio/naio.h>
 
+#define CHECK NAIG_CHECK
+#define CHECK_AND NAIG_CHECK_AND
+
 #endif

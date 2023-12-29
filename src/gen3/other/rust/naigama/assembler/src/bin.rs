@@ -18,7 +18,7 @@ pub fn main
     "This is naia, the Naigama assembler, Rust version {}",
     naig::RELEASE
   );
-  for i in 0..args.len() {
+  for i in 1..args.len() {
     if skip {
       skip = false;
     } else {

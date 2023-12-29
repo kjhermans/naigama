@@ -49,6 +49,10 @@
                                                                             \
   extern                                                                    \
   int COMBINE(prefix, iterate)(COMBINE(prefix, t)* map,                     \
+    int(*fnc)(COMBINE(prefix, t)*,unsigned,Tk,Tv,void*), void*);            \
+                                                                            \
+  extern                                                                    \
+  int COMBINE(prefix, iterate_rw)(COMBINE(prefix, t)* map,                  \
     int(*fnc)(COMBINE(prefix, t)*,unsigned,Tk*,Tv*,void*), void*);          \
 
 
@@ -168,6 +172,19 @@
   }                                                                         \
                                                                             \
   int COMBINE(prefix, iterate)(COMBINE(prefix, t)* map,                     \
+    int(*fnc)(COMBINE(prefix, t)*,unsigned,Tk,Tv,void*), void* arg)         \
+  {                                                                         \
+    unsigned i;                                                             \
+    int r;                                                                  \
+    for (i=0; i < map->count; i++) {                                        \
+      if ((r = fnc(map, i, map->keys[i], map->values[i], arg)) != 0) {      \
+        return r;                                                           \
+      }                                                                     \
+    }                                                                       \
+    return 0;                                                               \
+  }                                                                         \
+                                                                            \
+  int COMBINE(prefix, iterate_rw)(COMBINE(prefix, t)* map,                  \
     int(*fnc)(COMBINE(prefix, t)*,unsigned,Tk*,Tv*,void*), void* arg)       \
   {                                                                         \
     unsigned i;                                                             \

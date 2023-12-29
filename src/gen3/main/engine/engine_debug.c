@@ -83,7 +83,7 @@ NAIG_ERR_T engine_debug_handler
   naio_result_t result;
 
   if (!debug_commands_init) {
-    CHECK(
+    NAIG_CHECK(
       naie_engine_init(
         &debug_commands,
         debug_command_bytecode,
@@ -106,7 +106,7 @@ BEGIN:
     return NAIG_OK;
   case NAIE_DEBUG_HALT:
     cmdstr = readline("naid > ");
-    CHECK(
+    NAIG_CHECK(
       naie_engine_run(
         &debug_commands,
         (unsigned char*)cmdstr,

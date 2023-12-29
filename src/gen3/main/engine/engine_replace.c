@@ -102,7 +102,7 @@ NAIG_ERR_T engine_replace
   };
 
   memcpy(e.copy, engine->input, engine->input_length);
-  CHECK(
+  NAIG_CHECK(
     naie_result_handle(
       engine,
       result,

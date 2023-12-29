@@ -2,6 +2,7 @@
 #define _TYPED_MAP_H_
 
 #include <stdlib.h>
+#include <string.h>
 
 /**
  * Define MAP_EQUALS if you have, for example, strings.
@@ -10,6 +11,8 @@
 #ifndef MAP_EQUALS
 #define MAP_EQUALS(a,b) (a == b)
 #endif
+
+// if you define MAP_COPY_KEY(a,b) or MAP_COPY_VALUE(a,b)
 
 #define COMBINE(a, b) a##b
 
@@ -31,10 +34,13 @@
   unsigned COMBINE(prefix, size)(COMBINE(prefix, t)* map);                  \
                                                                             \
   extern                                                                    \
-  void COMBINE(prefix, put)(COMBINE(prefix, t)* map, Tk key, Tv val);       \
+  Tv* COMBINE(prefix, put)(COMBINE(prefix, t)* map, Tk key, Tv val);        \
                                                                             \
   extern                                                                    \
   int COMBINE(prefix, get)(COMBINE(prefix, t)* map, Tk key, Tv* val);       \
+                                                                            \
+  extern                                                                    \
+  int COMBINE(prefix, has)(COMBINE(prefix, t)* map, Tk key);                \
                                                                             \
   extern                                                                    \
   int COMBINE(prefix, del)(COMBINE(prefix, t)* map, Tk key, Tv* val);       \
@@ -45,6 +51,10 @@
                                                                             \
   extern                                                                    \
   int COMBINE(prefix, iterate)(COMBINE(prefix, t)* map,                     \
+    int(*fnc)(COMBINE(prefix, t)*,unsigned,Tk,Tv,void*), void*);            \
+                                                                            \
+  extern                                                                    \
+  int COMBINE(prefix, iterate_rw)(COMBINE(prefix, t)* map,                  \
     int(*fnc)(COMBINE(prefix, t)*,unsigned,Tk*,Tv*,void*), void*);          \
 
 
@@ -65,11 +75,12 @@
     return map->count;                                                      \
   }                                                                         \
                                                                             \
-  void COMBINE(prefix, put)(COMBINE(prefix, t)* map, Tk key, Tv val) {      \
+  Tv* COMBINE(prefix, put)(COMBINE(prefix, t)* map, Tk key, Tv val) {       \
     for (unsigned i=0; i < map->count; i++) {                               \
       if (MAP_EQUALS(map->keys[ i ], key)) {                                \
+        Tv* result = &(map->values[ i ]);                                   \
         map->values[ i ] = val;                                             \
-        return;                                                             \
+        return result;                                                      \
       }                                                                     \
     }                                                                       \
     if (map->count >= map->allocated) {                                     \
@@ -88,16 +99,26 @@
     map->keys[ map->count ] = key;                                          \
     map->values[ map->count ] = val;                                        \
     ++(map->count);                                                         \
+    return NULL;                                                            \
   }                                                                         \
                                                                             \
   int COMBINE(prefix, get)(COMBINE(prefix, t)* map, Tk key, Tv* val) {      \
     for (unsigned i=0; i < map->count; i++) {                               \
       if (MAP_EQUALS(map->keys[ i ], key)) {                                \
-        *val = map->values[ i ];                                            \
+        if (val) { *val = map->values[ i ]; }                               \
         return 0;                                                           \
       }                                                                     \
     }                                                                       \
     return ~0;                                                              \
+  }                                                                         \
+                                                                            \
+  int COMBINE(prefix, has)(COMBINE(prefix, t)* map, Tk key) {               \
+    for (unsigned i=0; i < map->count; i++) {                               \
+      if (MAP_EQUALS(map->keys[ i ], key)) {                                \
+        return 1;                                                           \
+      }                                                                     \
+    }                                                                       \
+    return 0;                                                               \
   }                                                                         \
                                                                             \
   int COMBINE(prefix, getat)                                                \
@@ -155,6 +176,19 @@
   }                                                                         \
                                                                             \
   int COMBINE(prefix, iterate)(COMBINE(prefix, t)* map,                     \
+    int(*fnc)(COMBINE(prefix, t)*,unsigned,Tk,Tv,void*), void* arg)         \
+  {                                                                         \
+    unsigned i;                                                             \
+    int r;                                                                  \
+    for (i=0; i < map->count; i++) {                                        \
+      if ((r = fnc(map, i, map->keys[i], map->values[i], arg)) != 0) {      \
+        return r;                                                           \
+      }                                                                     \
+    }                                                                       \
+    return 0;                                                               \
+  }                                                                         \
+                                                                            \
+  int COMBINE(prefix, iterate_rw)(COMBINE(prefix, t)* map,                  \
     int(*fnc)(COMBINE(prefix, t)*,unsigned,Tk*,Tv*,void*), void* arg)       \
   {                                                                         \
     unsigned i;                                                             \

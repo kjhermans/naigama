@@ -125,10 +125,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     return __e; \
   } \
 }
-#ifdef CHECK
-#undef CHECK
-#endif
-#define CHECK NAIG_CHECK
 
 #define NAIG_CHECK_LOG(fnc, ...) { \
   NAIG_ERR_T __e = (fnc); \
@@ -151,10 +147,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     return __e; \
   } \
 }
-#ifdef CHECK_AND
-#undef CHECK_AND
-#endif
-#define CHECK_AND NAIG_CHECK_AND
 
 #define NAIG_CHECK_ALT(fnc, alt) { \
   NAIG_ERR_T __e = (fnc); \
@@ -162,10 +154,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     return(alt); \
   } \
 }
-#ifdef CHECK_ALT
-#undef CHECK_ALT
-#endif
-#define CHECK_ALT NAIG_CHECK_ALT
 
 #define NAIG_CHECK_NODEBUG(fnc) { \
   NAIG_ERR_T __e = (fnc); \
@@ -173,10 +161,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     return __e; \
   } \
 }
-#ifdef CHECK_NODEBUG
-#undef CHECK_NODEBUG
-#endif
-#define CHECK_NODEBUG NAIG_CHECK_NODEBUG
 
 #define NAIG_CATCH(fnc,err) { \
   NAIG_ERR_T __e = (fnc); \
@@ -185,10 +169,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     return __e; \
   } \
 }
-#ifdef CATCH
-#undef CATCH
-#endif
-#define CATCH NAIG_CATCH
 
 #define NAIG_CATCHOUT(fnc,err) { \
   NAIG_ERR_T __e = (fnc); \
@@ -201,18 +181,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     } \
   } \
 }
-#ifdef CATCHOUT
-#undef CATCHOUT
-#endif
-#define CATCHOUT NAIG_CATCHOUT
 
 #define NAIG_CATCHALL(fnc) { \
   NAIG_ERR_T __e = (fnc); \
   (void)__e; \
 }
-#ifdef CATCHALL
-#undef CATCHALL
-#endif
-#define CATCHALL NAIG_CATCHALL
 
 #endif // ~_NAIG_DEFINES_H_

@@ -31,11 +31,12 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \brief
  */
 
-#ifndef _NAIG_GEN4_UTIL_ABSORBFILE_H_
-#define _NAIG_GEN4_UTIL_ABSORBFILE_H_
+#include "naie_private.h"
 
-extern
-int absorbfile
-  (char* path, unsigned char** buf, unsigned* buflen);
-
-#endif // defined _NAIG_GEN4_UTIL_ABSORB_FILE_H_ ?
+/**
+ *
+ */
+NAIG_ERR_T naic_labelmap_absorb
+  (naie_t* naie, char* path)
+{
+}

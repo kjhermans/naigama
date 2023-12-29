@@ -144,6 +144,7 @@ NAIG_ERR_T naic_tp_optimize_tests
   int e;
 
   if ((e = naic_tp_nsp_optimize_tests(naic, nsp)) != 0) {
+    td_printf(&(naic->errorstr), "At optimizing tests.");
     RETURNERR(NAIG_ERR_REFERENCE);
   }
 

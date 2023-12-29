@@ -7,4 +7,7 @@
 #include <naigama/naig_private.h>
 #include <naigama/util/util_functions.h>
 
+#define CHECK NAIG_CHECK
+#define CHECK_AND NAIG_CHECK_AND
+
 #endif

@@ -49,7 +49,7 @@ NAIG_ERR_T naia_fp_labeldef
   ASSERT(obj);
   ASSERT(obj->nchildren);
 
-  char* label = obj->children[ 0 ]->string;
+  char* label = strdup(obj->children[ 0 ]->string);
 
   str2int_map_put(&(naia->labelmap), label, naia->offset);
 

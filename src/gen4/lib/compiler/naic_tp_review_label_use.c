@@ -122,7 +122,7 @@ int naic_tp_instr_examine_label
       naic_nsp_t* nsp = &(naic->namespace.top);
       naic_tp_nsp_review_references(nsp, instr->label, &remove);
       if (remove) {
-        DEBUGMSG("Label '%s' isn't defined.\n" , instr->label);
+        td_printf(&(naic->errorstr), "Label '%s' isn't defined.\n" , instr->label);
         return ~0;
       }
     }
@@ -178,6 +178,7 @@ NAIG_ERR_T naic_tp_review_label_use
   int e;
 
   if ((e = naic_tp_nsp_review_labels(naic, nsp)) != 0) {
+    td_printf(&(naic->errorstr), "At reviewing label use.");
     RETURNERR(NAIG_ERR_REFERENCE);
   }
 

@@ -39,6 +39,11 @@ NAIG_ERR_T naia_fp_namespace
   (naia_t* naia, naig_resobj_t* obj)
   __attribute__ ((warn_unused_result));
 
+/* declared in ./naia_free.c */
+extern
+void naia_free
+  (naia_t* naia);
+
 /* declared in ./naia_labelmap_write.c */
 extern
 NAIG_ERR_T naia_labelmap_write

@@ -34,6 +34,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdio.h>
 #include <string.h>
 #include <stdint.h>
+#include <ctype.h>
 
 #include <naigama/util/queryargs.h>
 #include <naigama/util/absorb_file.h>
@@ -158,6 +159,16 @@ int main
         fprintf(stderr, "No match: furthest byte %u (line %u, offset %u)\n"
           , e.input_offset, yx[0], yx[1]
         );
+        fprintf(stderr, "Input: ");
+        for (unsigned i=0; i < 32 && i+e.input_offset < input_length; i++) {
+          char c = input[ i+e.input_offset ];
+          if (isprint(c)) {
+            fprintf(stderr, "%c", c);
+          } else {
+            fprintf(stderr, "\\x%.2x", c);
+          }
+        }
+        fprintf(stderr, "\n");
       }
     }
 

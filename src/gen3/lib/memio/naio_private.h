@@ -41,4 +41,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <naigama/naigama.h>
 #include <naigama/naig_private.h>
 
+#define CHECK NAIG_CHECK
+#define CHECK_AND NAIG_CHECK_AND
+
 #endif

@@ -177,6 +177,7 @@ NAIG_ERR_T naic_tp_cleanup_unused_labels
   int e;
 
   if ((e = naic_tp_nsp_cleanup_labels(naic, nsp)) != 0) {
+    td_printf(&(naic->errorstr), "At cleaning up unused labels.");
     RETURNERR(NAIG_ERR_REFERENCE);
   }
 
